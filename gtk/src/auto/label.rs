@@ -2,8 +2,9 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use crate::{Align, Buildable, Container, Justification, Menu, Misc, MovementStep, Widget};
+use crate::{ffi, Align, Buildable, Container, Justification, Menu, Misc, MovementStep, Widget};
 use glib::{
+    object::ObjectType as _,
     prelude::*,
     signal::{connect_raw, SignalHandlerId},
     translate::*,
@@ -385,16 +386,12 @@ impl LabelBuilder {
     /// Build the [`Label`].
     #[must_use = "Building the object from the builder is usually expensive and is not expected to have side effects"]
     pub fn build(self) -> Label {
+        assert_initialized_main_thread!();
         self.builder.build()
     }
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::IsA<super::Label>> Sealed for T {}
-}
-
-pub trait LabelExt: IsA<Label> + sealed::Sealed + 'static {
+pub trait LabelExt: IsA<Label> + 'static {
     #[doc(alias = "gtk_label_get_angle")]
     #[doc(alias = "get_angle")]
     fn angle(&self) -> f64 {
@@ -484,18 +481,21 @@ pub trait LabelExt: IsA<Label> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_label_get_max_width_chars")]
     #[doc(alias = "get_max_width_chars")]
+    #[doc(alias = "max-width-chars")]
     fn max_width_chars(&self) -> i32 {
         unsafe { ffi::gtk_label_get_max_width_chars(self.as_ref().to_glib_none().0) }
     }
 
     #[doc(alias = "gtk_label_get_mnemonic_keyval")]
     #[doc(alias = "get_mnemonic_keyval")]
+    #[doc(alias = "mnemonic-keyval")]
     fn mnemonic_keyval(&self) -> u32 {
         unsafe { ffi::gtk_label_get_mnemonic_keyval(self.as_ref().to_glib_none().0) }
     }
 
     #[doc(alias = "gtk_label_get_mnemonic_widget")]
     #[doc(alias = "get_mnemonic_widget")]
+    #[doc(alias = "mnemonic-widget")]
     fn mnemonic_widget(&self) -> Option<Widget> {
         unsafe {
             from_glib_none(ffi::gtk_label_get_mnemonic_widget(
@@ -506,6 +506,7 @@ pub trait LabelExt: IsA<Label> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_label_get_selectable")]
     #[doc(alias = "get_selectable")]
+    #[doc(alias = "selectable")]
     fn is_selectable(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_label_get_selectable(
@@ -535,6 +536,7 @@ pub trait LabelExt: IsA<Label> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_label_get_single_line_mode")]
     #[doc(alias = "get_single_line_mode")]
+    #[doc(alias = "single-line-mode")]
     fn is_single_line_mode(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_label_get_single_line_mode(
@@ -551,6 +553,7 @@ pub trait LabelExt: IsA<Label> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_label_get_track_visited_links")]
     #[doc(alias = "get_track_visited_links")]
+    #[doc(alias = "track-visited-links")]
     fn tracks_visited_links(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_label_get_track_visited_links(
@@ -561,6 +564,7 @@ pub trait LabelExt: IsA<Label> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_label_get_use_markup")]
     #[doc(alias = "get_use_markup")]
+    #[doc(alias = "use-markup")]
     fn uses_markup(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_label_get_use_markup(
@@ -571,6 +575,7 @@ pub trait LabelExt: IsA<Label> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_label_get_use_underline")]
     #[doc(alias = "get_use_underline")]
+    #[doc(alias = "use-underline")]
     fn uses_underline(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_label_get_use_underline(
@@ -581,6 +586,7 @@ pub trait LabelExt: IsA<Label> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_label_get_width_chars")]
     #[doc(alias = "get_width_chars")]
+    #[doc(alias = "width-chars")]
     fn width_chars(&self) -> i32 {
         unsafe { ffi::gtk_label_get_width_chars(self.as_ref().to_glib_none().0) }
     }
@@ -605,6 +611,7 @@ pub trait LabelExt: IsA<Label> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_label_set_angle")]
+    #[doc(alias = "angle")]
     fn set_angle(&self, angle: f64) {
         unsafe {
             ffi::gtk_label_set_angle(self.as_ref().to_glib_none().0, angle);
@@ -612,6 +619,7 @@ pub trait LabelExt: IsA<Label> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_label_set_attributes")]
+    #[doc(alias = "attributes")]
     fn set_attributes(&self, attrs: Option<&pango::AttrList>) {
         unsafe {
             ffi::gtk_label_set_attributes(self.as_ref().to_glib_none().0, attrs.to_glib_none().0);
@@ -619,6 +627,7 @@ pub trait LabelExt: IsA<Label> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_label_set_ellipsize")]
+    #[doc(alias = "ellipsize")]
     fn set_ellipsize(&self, mode: pango::EllipsizeMode) {
         unsafe {
             ffi::gtk_label_set_ellipsize(self.as_ref().to_glib_none().0, mode.into_glib());
@@ -626,6 +635,7 @@ pub trait LabelExt: IsA<Label> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_label_set_justify")]
+    #[doc(alias = "justify")]
     fn set_justify(&self, jtype: Justification) {
         unsafe {
             ffi::gtk_label_set_justify(self.as_ref().to_glib_none().0, jtype.into_glib());
@@ -633,6 +643,7 @@ pub trait LabelExt: IsA<Label> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_label_set_label")]
+    #[doc(alias = "label")]
     fn set_label(&self, str: &str) {
         unsafe {
             ffi::gtk_label_set_label(self.as_ref().to_glib_none().0, str.to_glib_none().0);
@@ -657,6 +668,7 @@ pub trait LabelExt: IsA<Label> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_label_set_lines")]
+    #[doc(alias = "lines")]
     fn set_lines(&self, lines: i32) {
         unsafe {
             ffi::gtk_label_set_lines(self.as_ref().to_glib_none().0, lines);
@@ -681,6 +693,7 @@ pub trait LabelExt: IsA<Label> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_label_set_max_width_chars")]
+    #[doc(alias = "max-width-chars")]
     fn set_max_width_chars(&self, n_chars: i32) {
         unsafe {
             ffi::gtk_label_set_max_width_chars(self.as_ref().to_glib_none().0, n_chars);
@@ -688,6 +701,7 @@ pub trait LabelExt: IsA<Label> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_label_set_mnemonic_widget")]
+    #[doc(alias = "mnemonic-widget")]
     fn set_mnemonic_widget(&self, widget: Option<&impl IsA<Widget>>) {
         unsafe {
             ffi::gtk_label_set_mnemonic_widget(
@@ -698,6 +712,7 @@ pub trait LabelExt: IsA<Label> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_label_set_pattern")]
+    #[doc(alias = "pattern")]
     fn set_pattern(&self, pattern: &str) {
         unsafe {
             ffi::gtk_label_set_pattern(self.as_ref().to_glib_none().0, pattern.to_glib_none().0);
@@ -705,6 +720,7 @@ pub trait LabelExt: IsA<Label> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_label_set_selectable")]
+    #[doc(alias = "selectable")]
     fn set_selectable(&self, setting: bool) {
         unsafe {
             ffi::gtk_label_set_selectable(self.as_ref().to_glib_none().0, setting.into_glib());
@@ -712,6 +728,7 @@ pub trait LabelExt: IsA<Label> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_label_set_single_line_mode")]
+    #[doc(alias = "single-line-mode")]
     fn set_single_line_mode(&self, single_line_mode: bool) {
         unsafe {
             ffi::gtk_label_set_single_line_mode(
@@ -739,6 +756,7 @@ pub trait LabelExt: IsA<Label> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_label_set_track_visited_links")]
+    #[doc(alias = "track-visited-links")]
     fn set_track_visited_links(&self, track_links: bool) {
         unsafe {
             ffi::gtk_label_set_track_visited_links(
@@ -749,6 +767,7 @@ pub trait LabelExt: IsA<Label> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_label_set_use_markup")]
+    #[doc(alias = "use-markup")]
     fn set_use_markup(&self, setting: bool) {
         unsafe {
             ffi::gtk_label_set_use_markup(self.as_ref().to_glib_none().0, setting.into_glib());
@@ -756,6 +775,7 @@ pub trait LabelExt: IsA<Label> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_label_set_use_underline")]
+    #[doc(alias = "use-underline")]
     fn set_use_underline(&self, setting: bool) {
         unsafe {
             ffi::gtk_label_set_use_underline(self.as_ref().to_glib_none().0, setting.into_glib());
@@ -763,6 +783,7 @@ pub trait LabelExt: IsA<Label> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_label_set_width_chars")]
+    #[doc(alias = "width-chars")]
     fn set_width_chars(&self, n_chars: i32) {
         unsafe {
             ffi::gtk_label_set_width_chars(self.as_ref().to_glib_none().0, n_chars);
@@ -770,6 +791,7 @@ pub trait LabelExt: IsA<Label> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_label_set_xalign")]
+    #[doc(alias = "xalign")]
     fn set_xalign(&self, xalign: f32) {
         unsafe {
             ffi::gtk_label_set_xalign(self.as_ref().to_glib_none().0, xalign);
@@ -777,6 +799,7 @@ pub trait LabelExt: IsA<Label> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_label_set_yalign")]
+    #[doc(alias = "yalign")]
     fn set_yalign(&self, yalign: f32) {
         unsafe {
             ffi::gtk_label_set_yalign(self.as_ref().to_glib_none().0, yalign);
@@ -820,15 +843,17 @@ pub trait LabelExt: IsA<Label> + sealed::Sealed + 'static {
             this: *mut ffi::GtkLabel,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Label::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Label::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"activate-current-link\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"activate-current-link".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     activate_current_link_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -850,22 +875,24 @@ pub trait LabelExt: IsA<Label> + sealed::Sealed + 'static {
             F: Fn(&P, &str) -> glib::Propagation + 'static,
         >(
             this: *mut ffi::GtkLabel,
-            uri: *mut libc::c_char,
+            uri: *mut std::ffi::c_char,
             f: glib::ffi::gpointer,
         ) -> glib::ffi::gboolean {
-            let f: &F = &*(f as *const F);
-            f(
-                Label::from_glib_borrow(this).unsafe_cast_ref(),
-                &glib::GString::from_glib_borrow(uri),
-            )
-            .into_glib()
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(
+                    Label::from_glib_borrow(this).unsafe_cast_ref(),
+                    &glib::GString::from_glib_borrow(uri),
+                )
+                .into_glib()
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"activate-link\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"activate-link".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     activate_link_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -879,15 +906,17 @@ pub trait LabelExt: IsA<Label> + sealed::Sealed + 'static {
             this: *mut ffi::GtkLabel,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Label::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Label::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"copy-clipboard\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"copy-clipboard".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     copy_clipboard_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -910,24 +939,26 @@ pub trait LabelExt: IsA<Label> + sealed::Sealed + 'static {
         >(
             this: *mut ffi::GtkLabel,
             step: ffi::GtkMovementStep,
-            count: libc::c_int,
+            count: std::ffi::c_int,
             extend_selection: glib::ffi::gboolean,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(
-                Label::from_glib_borrow(this).unsafe_cast_ref(),
-                from_glib(step),
-                count,
-                from_glib(extend_selection),
-            )
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(
+                    Label::from_glib_borrow(this).unsafe_cast_ref(),
+                    from_glib(step),
+                    count,
+                    from_glib(extend_selection),
+                )
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"move-cursor\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"move-cursor".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     move_cursor_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -949,18 +980,20 @@ pub trait LabelExt: IsA<Label> + sealed::Sealed + 'static {
             menu: *mut ffi::GtkMenu,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(
-                Label::from_glib_borrow(this).unsafe_cast_ref(),
-                &from_glib_borrow(menu),
-            )
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(
+                    Label::from_glib_borrow(this).unsafe_cast_ref(),
+                    &from_glib_borrow(menu),
+                )
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"populate-popup\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"populate-popup".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     populate_popup_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -975,15 +1008,17 @@ pub trait LabelExt: IsA<Label> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Label::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Label::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::angle\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::angle".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_angle_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -998,15 +1033,17 @@ pub trait LabelExt: IsA<Label> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Label::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Label::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::attributes\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::attributes".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_attributes_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1024,15 +1061,17 @@ pub trait LabelExt: IsA<Label> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Label::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Label::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::cursor-position\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::cursor-position".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_cursor_position_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1047,15 +1086,17 @@ pub trait LabelExt: IsA<Label> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Label::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Label::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::ellipsize\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::ellipsize".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_ellipsize_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1070,15 +1111,17 @@ pub trait LabelExt: IsA<Label> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Label::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Label::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::justify\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::justify".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_justify_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1093,15 +1136,17 @@ pub trait LabelExt: IsA<Label> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Label::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Label::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::label\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::label".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_label_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1116,15 +1161,17 @@ pub trait LabelExt: IsA<Label> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Label::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Label::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::lines\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::lines".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_lines_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1142,15 +1189,17 @@ pub trait LabelExt: IsA<Label> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Label::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Label::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::max-width-chars\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::max-width-chars".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_max_width_chars_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1168,15 +1217,17 @@ pub trait LabelExt: IsA<Label> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Label::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Label::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::mnemonic-keyval\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::mnemonic-keyval".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_mnemonic_keyval_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1194,15 +1245,17 @@ pub trait LabelExt: IsA<Label> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Label::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Label::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::mnemonic-widget\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::mnemonic-widget".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_mnemonic_widget_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1217,15 +1270,17 @@ pub trait LabelExt: IsA<Label> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Label::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Label::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::pattern\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::pattern".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_pattern_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1240,15 +1295,17 @@ pub trait LabelExt: IsA<Label> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Label::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Label::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::selectable\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::selectable".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_selectable_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1266,15 +1323,17 @@ pub trait LabelExt: IsA<Label> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Label::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Label::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::selection-bound\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::selection-bound".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_selection_bound_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1292,15 +1351,17 @@ pub trait LabelExt: IsA<Label> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Label::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Label::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::single-line-mode\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::single-line-mode".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_single_line_mode_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1318,15 +1379,17 @@ pub trait LabelExt: IsA<Label> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Label::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Label::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::track-visited-links\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::track-visited-links".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_track_visited_links_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1341,15 +1404,17 @@ pub trait LabelExt: IsA<Label> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Label::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Label::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::use-markup\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::use-markup".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_use_markup_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1364,15 +1429,17 @@ pub trait LabelExt: IsA<Label> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Label::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Label::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::use-underline\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::use-underline".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_use_underline_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1387,15 +1454,17 @@ pub trait LabelExt: IsA<Label> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Label::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Label::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::width-chars\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::width-chars".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_width_chars_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1410,15 +1479,17 @@ pub trait LabelExt: IsA<Label> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Label::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Label::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::wrap\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::wrap".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_wrap_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1433,15 +1504,17 @@ pub trait LabelExt: IsA<Label> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Label::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Label::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::wrap-mode\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::wrap-mode".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_wrap_mode_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),

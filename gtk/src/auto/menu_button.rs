@@ -3,8 +3,8 @@
 // DO NOT EDIT
 
 use crate::{
-    Actionable, Align, ArrowType, Bin, Buildable, Button, Container, Menu, Popover, PositionType,
-    ReliefStyle, ResizeMode, ToggleButton, Widget,
+    ffi, Actionable, Align, ArrowType, Bin, Buildable, Button, Container, Menu, Popover,
+    PositionType, ReliefStyle, ResizeMode, ToggleButton, Widget,
 };
 use glib::{
     prelude::*,
@@ -388,18 +388,15 @@ impl MenuButtonBuilder {
     /// Build the [`MenuButton`].
     #[must_use = "Building the object from the builder is usually expensive and is not expected to have side effects"]
     pub fn build(self) -> MenuButton {
+        assert_initialized_main_thread!();
         self.builder.build()
     }
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::IsA<super::MenuButton>> Sealed for T {}
-}
-
-pub trait MenuButtonExt: IsA<MenuButton> + sealed::Sealed + 'static {
+pub trait MenuButtonExt: IsA<MenuButton> + 'static {
     #[doc(alias = "gtk_menu_button_get_align_widget")]
     #[doc(alias = "get_align_widget")]
+    #[doc(alias = "align-widget")]
     fn align_widget(&self) -> Option<Widget> {
         unsafe {
             from_glib_none(ffi::gtk_menu_button_get_align_widget(
@@ -420,6 +417,7 @@ pub trait MenuButtonExt: IsA<MenuButton> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_menu_button_get_menu_model")]
     #[doc(alias = "get_menu_model")]
+    #[doc(alias = "menu-model")]
     fn menu_model(&self) -> Option<gio::MenuModel> {
         unsafe {
             from_glib_none(ffi::gtk_menu_button_get_menu_model(
@@ -450,6 +448,7 @@ pub trait MenuButtonExt: IsA<MenuButton> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_menu_button_get_use_popover")]
     #[doc(alias = "get_use_popover")]
+    #[doc(alias = "use-popover")]
     fn uses_popover(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_menu_button_get_use_popover(
@@ -459,6 +458,7 @@ pub trait MenuButtonExt: IsA<MenuButton> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_menu_button_set_align_widget")]
+    #[doc(alias = "align-widget")]
     fn set_align_widget(&self, align_widget: Option<&impl IsA<Widget>>) {
         unsafe {
             ffi::gtk_menu_button_set_align_widget(
@@ -469,6 +469,7 @@ pub trait MenuButtonExt: IsA<MenuButton> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_menu_button_set_direction")]
+    #[doc(alias = "direction")]
     fn set_direction(&self, direction: ArrowType) {
         unsafe {
             ffi::gtk_menu_button_set_direction(
@@ -479,6 +480,7 @@ pub trait MenuButtonExt: IsA<MenuButton> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_menu_button_set_menu_model")]
+    #[doc(alias = "menu-model")]
     fn set_menu_model(&self, menu_model: Option<&impl IsA<gio::MenuModel>>) {
         unsafe {
             ffi::gtk_menu_button_set_menu_model(
@@ -489,6 +491,7 @@ pub trait MenuButtonExt: IsA<MenuButton> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_menu_button_set_popover")]
+    #[doc(alias = "popover")]
     fn set_popover(&self, popover: Option<&impl IsA<Widget>>) {
         unsafe {
             ffi::gtk_menu_button_set_popover(
@@ -499,6 +502,7 @@ pub trait MenuButtonExt: IsA<MenuButton> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_menu_button_set_popup")]
+    #[doc(alias = "popup")]
     fn set_popup(&self, menu: Option<&impl IsA<Widget>>) {
         unsafe {
             ffi::gtk_menu_button_set_popup(
@@ -509,6 +513,7 @@ pub trait MenuButtonExt: IsA<MenuButton> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_menu_button_set_use_popover")]
+    #[doc(alias = "use-popover")]
     fn set_use_popover(&self, use_popover: bool) {
         unsafe {
             ffi::gtk_menu_button_set_use_popover(
@@ -528,15 +533,17 @@ pub trait MenuButtonExt: IsA<MenuButton> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(MenuButton::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(MenuButton::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::align-widget\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::align-widget".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_align_widget_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -554,15 +561,17 @@ pub trait MenuButtonExt: IsA<MenuButton> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(MenuButton::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(MenuButton::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::direction\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::direction".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_direction_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -580,15 +589,17 @@ pub trait MenuButtonExt: IsA<MenuButton> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(MenuButton::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(MenuButton::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::menu-model\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::menu-model".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_menu_model_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -603,15 +614,17 @@ pub trait MenuButtonExt: IsA<MenuButton> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(MenuButton::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(MenuButton::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::popover\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::popover".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_popover_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -626,15 +639,17 @@ pub trait MenuButtonExt: IsA<MenuButton> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(MenuButton::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(MenuButton::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::popup\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::popup".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_popup_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -652,15 +667,17 @@ pub trait MenuButtonExt: IsA<MenuButton> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(MenuButton::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(MenuButton::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::use-popover\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::use-popover".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_use_popover_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),

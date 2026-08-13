@@ -2,8 +2,9 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use crate::{CellRenderer, CellRendererMode, TreePath};
+use crate::{ffi, CellRenderer, CellRendererMode, TreePath};
 use glib::{
+    object::ObjectType as _,
     prelude::*,
     signal::{connect_raw, SignalHandlerId},
     translate::*,
@@ -183,18 +184,15 @@ impl CellRendererToggleBuilder {
     /// Build the [`CellRendererToggle`].
     #[must_use = "Building the object from the builder is usually expensive and is not expected to have side effects"]
     pub fn build(self) -> CellRendererToggle {
+        assert_initialized_main_thread!();
         self.builder.build()
     }
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::IsA<super::CellRendererToggle>> Sealed for T {}
-}
-
-pub trait CellRendererToggleExt: IsA<CellRendererToggle> + sealed::Sealed + 'static {
+pub trait CellRendererToggleExt: IsA<CellRendererToggle> + 'static {
     #[doc(alias = "gtk_cell_renderer_toggle_get_activatable")]
     #[doc(alias = "get_activatable")]
+    #[doc(alias = "activatable")]
     fn is_activatable(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_cell_renderer_toggle_get_activatable(
@@ -205,6 +203,7 @@ pub trait CellRendererToggleExt: IsA<CellRendererToggle> + sealed::Sealed + 'sta
 
     #[doc(alias = "gtk_cell_renderer_toggle_get_active")]
     #[doc(alias = "get_active")]
+    #[doc(alias = "active")]
     fn is_active(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_cell_renderer_toggle_get_active(
@@ -215,6 +214,7 @@ pub trait CellRendererToggleExt: IsA<CellRendererToggle> + sealed::Sealed + 'sta
 
     #[doc(alias = "gtk_cell_renderer_toggle_get_radio")]
     #[doc(alias = "get_radio")]
+    #[doc(alias = "radio")]
     fn is_radio(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_cell_renderer_toggle_get_radio(
@@ -224,6 +224,7 @@ pub trait CellRendererToggleExt: IsA<CellRendererToggle> + sealed::Sealed + 'sta
     }
 
     #[doc(alias = "gtk_cell_renderer_toggle_set_activatable")]
+    #[doc(alias = "activatable")]
     fn set_activatable(&self, setting: bool) {
         unsafe {
             ffi::gtk_cell_renderer_toggle_set_activatable(
@@ -234,6 +235,7 @@ pub trait CellRendererToggleExt: IsA<CellRendererToggle> + sealed::Sealed + 'sta
     }
 
     #[doc(alias = "gtk_cell_renderer_toggle_set_active")]
+    #[doc(alias = "active")]
     fn set_active(&self, setting: bool) {
         unsafe {
             ffi::gtk_cell_renderer_toggle_set_active(
@@ -244,6 +246,7 @@ pub trait CellRendererToggleExt: IsA<CellRendererToggle> + sealed::Sealed + 'sta
     }
 
     #[doc(alias = "gtk_cell_renderer_toggle_set_radio")]
+    #[doc(alias = "radio")]
     fn set_radio(&self, radio: bool) {
         unsafe {
             ffi::gtk_cell_renderer_toggle_set_radio(
@@ -278,22 +281,24 @@ pub trait CellRendererToggleExt: IsA<CellRendererToggle> + sealed::Sealed + 'sta
             F: Fn(&P, TreePath) + 'static,
         >(
             this: *mut ffi::GtkCellRendererToggle,
-            path: *mut libc::c_char,
+            path: *mut std::ffi::c_char,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            let path = from_glib_full(crate::ffi::gtk_tree_path_new_from_string(path));
-            f(
-                CellRendererToggle::from_glib_borrow(this).unsafe_cast_ref(),
-                path,
-            )
+            unsafe {
+                let f: &F = &*(f as *const F);
+                let path = from_glib_full(crate::ffi::gtk_tree_path_new_from_string(path));
+                f(
+                    CellRendererToggle::from_glib_borrow(this).unsafe_cast_ref(),
+                    path,
+                )
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"toggled\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"toggled".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     toggled_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -311,15 +316,17 @@ pub trait CellRendererToggleExt: IsA<CellRendererToggle> + sealed::Sealed + 'sta
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(CellRendererToggle::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(CellRendererToggle::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::activatable\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::activatable".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_activatable_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -337,15 +344,17 @@ pub trait CellRendererToggleExt: IsA<CellRendererToggle> + sealed::Sealed + 'sta
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(CellRendererToggle::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(CellRendererToggle::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::active\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::active".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_active_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -363,15 +372,17 @@ pub trait CellRendererToggleExt: IsA<CellRendererToggle> + sealed::Sealed + 'sta
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(CellRendererToggle::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(CellRendererToggle::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::inconsistent\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::inconsistent".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_inconsistent_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -389,15 +400,17 @@ pub trait CellRendererToggleExt: IsA<CellRendererToggle> + sealed::Sealed + 'sta
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(CellRendererToggle::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(CellRendererToggle::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::indicator-size\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::indicator-size".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_indicator_size_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -415,15 +428,17 @@ pub trait CellRendererToggleExt: IsA<CellRendererToggle> + sealed::Sealed + 'sta
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(CellRendererToggle::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(CellRendererToggle::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::radio\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::radio".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_radio_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),

@@ -2,7 +2,7 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use crate::{Align, Bin, Buildable, Container, ResizeMode, ShadowType, Widget};
+use crate::{ffi, Align, Bin, Buildable, Container, ResizeMode, ShadowType, Widget};
 use glib::{
     prelude::*,
     signal::{connect_raw, SignalHandlerId},
@@ -307,16 +307,12 @@ impl FrameBuilder {
     /// Build the [`Frame`].
     #[must_use = "Building the object from the builder is usually expensive and is not expected to have side effects"]
     pub fn build(self) -> Frame {
+        assert_initialized_main_thread!();
         self.builder.build()
     }
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::IsA<super::Frame>> Sealed for T {}
-}
-
-pub trait FrameExt: IsA<Frame> + sealed::Sealed + 'static {
+pub trait FrameExt: IsA<Frame> + 'static {
     #[doc(alias = "gtk_frame_get_label")]
     #[doc(alias = "get_label")]
     fn label(&self) -> Option<glib::GString> {
@@ -340,6 +336,7 @@ pub trait FrameExt: IsA<Frame> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_frame_get_label_widget")]
     #[doc(alias = "get_label_widget")]
+    #[doc(alias = "label-widget")]
     fn label_widget(&self) -> Option<Widget> {
         unsafe {
             from_glib_none(ffi::gtk_frame_get_label_widget(
@@ -350,6 +347,7 @@ pub trait FrameExt: IsA<Frame> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_frame_get_shadow_type")]
     #[doc(alias = "get_shadow_type")]
+    #[doc(alias = "shadow-type")]
     fn shadow_type(&self) -> ShadowType {
         unsafe {
             from_glib(ffi::gtk_frame_get_shadow_type(
@@ -359,6 +357,7 @@ pub trait FrameExt: IsA<Frame> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_frame_set_label")]
+    #[doc(alias = "label")]
     fn set_label(&self, label: Option<&str>) {
         unsafe {
             ffi::gtk_frame_set_label(self.as_ref().to_glib_none().0, label.to_glib_none().0);
@@ -373,6 +372,7 @@ pub trait FrameExt: IsA<Frame> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_frame_set_label_widget")]
+    #[doc(alias = "label-widget")]
     fn set_label_widget(&self, label_widget: Option<&impl IsA<Widget>>) {
         unsafe {
             ffi::gtk_frame_set_label_widget(
@@ -383,6 +383,7 @@ pub trait FrameExt: IsA<Frame> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_frame_set_shadow_type")]
+    #[doc(alias = "shadow-type")]
     fn set_shadow_type(&self, type_: ShadowType) {
         unsafe {
             ffi::gtk_frame_set_shadow_type(self.as_ref().to_glib_none().0, type_.into_glib());
@@ -416,15 +417,17 @@ pub trait FrameExt: IsA<Frame> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Frame::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Frame::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::label\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::label".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_label_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -439,15 +442,17 @@ pub trait FrameExt: IsA<Frame> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Frame::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Frame::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::label-widget\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::label-widget".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_label_widget_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -462,15 +467,17 @@ pub trait FrameExt: IsA<Frame> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Frame::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Frame::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::label-xalign\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::label-xalign".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_label_xalign_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -485,15 +492,17 @@ pub trait FrameExt: IsA<Frame> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Frame::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Frame::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::label-yalign\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::label-yalign".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_label_yalign_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -508,15 +517,17 @@ pub trait FrameExt: IsA<Frame> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Frame::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Frame::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::shadow-type\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::shadow-type".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_shadow_type_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),

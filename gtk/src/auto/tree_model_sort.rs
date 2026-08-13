@@ -2,7 +2,7 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use crate::{TreeDragSource, TreeIter, TreeModel, TreePath, TreeSortable};
+use crate::{ffi, TreeDragSource, TreeIter, TreeModel, TreePath, TreeSortable};
 use glib::{prelude::*, translate::*};
 
 glib::wrapper! {
@@ -29,12 +29,7 @@ impl TreeModelSort {
     }
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::IsA<super::TreeModelSort>> Sealed for T {}
-}
-
-pub trait TreeModelSortExt: IsA<TreeModelSort> + sealed::Sealed + 'static {
+pub trait TreeModelSortExt: IsA<TreeModelSort> + 'static {
     #[doc(alias = "gtk_tree_model_sort_clear_cache")]
     fn clear_cache(&self) {
         unsafe {

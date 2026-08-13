@@ -2,8 +2,9 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use crate::{SelectionMode, TreeIter, TreeModel, TreePath, TreeView};
+use crate::{ffi, SelectionMode, TreeIter, TreeModel, TreePath, TreeView};
 use glib::{
+    object::ObjectType as _,
     prelude::*,
     signal::{connect_raw, SignalHandlerId},
     translate::*,
@@ -23,12 +24,7 @@ impl TreeSelection {
     pub const NONE: Option<&'static TreeSelection> = None;
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::IsA<super::TreeSelection>> Sealed for T {}
-}
-
-pub trait TreeSelectionExt: IsA<TreeSelection> + sealed::Sealed + 'static {
+pub trait TreeSelectionExt: IsA<TreeSelection> + 'static {
     #[doc(alias = "gtk_tree_selection_count_selected_rows")]
     fn count_selected_rows(&self) -> i32 {
         unsafe { ffi::gtk_tree_selection_count_selected_rows(self.as_ref().to_glib_none().0) }
@@ -159,31 +155,34 @@ pub trait TreeSelectionExt: IsA<TreeSelection> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_tree_selection_selected_foreach")]
     fn selected_foreach<P: FnMut(&TreeModel, &TreePath, &TreeIter)>(&self, func: P) {
-        let func_data: P = func;
+        let mut func_data: P = func;
         unsafe extern "C" fn func_func<P: FnMut(&TreeModel, &TreePath, &TreeIter)>(
             model: *mut ffi::GtkTreeModel,
             path: *mut ffi::GtkTreePath,
             iter: *mut ffi::GtkTreeIter,
             data: glib::ffi::gpointer,
         ) {
-            let model = from_glib_borrow(model);
-            let path = from_glib_borrow(path);
-            let iter = from_glib_borrow(iter);
-            let callback: *mut P = data as *const _ as usize as *mut P;
-            (*callback)(&model, &path, &iter)
+            unsafe {
+                let model = from_glib_borrow(model);
+                let path = from_glib_borrow(path);
+                let iter = from_glib_borrow(iter);
+                let callback = data as *mut P;
+                (*callback)(&model, &path, &iter)
+            }
         }
         let func = Some(func_func::<P> as _);
-        let super_callback0: &P = &func_data;
+        let super_callback0: &mut P = &mut func_data;
         unsafe {
             ffi::gtk_tree_selection_selected_foreach(
                 self.as_ref().to_glib_none().0,
                 func,
-                super_callback0 as *const _ as usize as *mut _,
+                super_callback0 as *mut _ as *mut _,
             );
         }
     }
 
     #[doc(alias = "gtk_tree_selection_set_mode")]
+    #[doc(alias = "mode")]
     fn set_mode(&self, type_: SelectionMode) {
         unsafe {
             ffi::gtk_tree_selection_set_mode(self.as_ref().to_glib_none().0, type_.into_glib());
@@ -205,19 +204,21 @@ pub trait TreeSelectionExt: IsA<TreeSelection> + sealed::Sealed + 'static {
             path_currently_selected: glib::ffi::gboolean,
             data: glib::ffi::gpointer,
         ) -> glib::ffi::gboolean {
-            let selection = from_glib_borrow(selection);
-            let model = from_glib_borrow(model);
-            let path = from_glib_borrow(path);
-            let path_currently_selected = from_glib(path_currently_selected);
-            let callback: &Option<
-                Box_<dyn Fn(&TreeSelection, &TreeModel, &TreePath, bool) -> bool + 'static>,
-            > = &*(data as *mut _);
-            if let Some(ref callback) = *callback {
-                callback(&selection, &model, &path, path_currently_selected)
-            } else {
-                panic!("cannot get closure...")
+            unsafe {
+                let selection = from_glib_borrow(selection);
+                let model = from_glib_borrow(model);
+                let path = from_glib_borrow(path);
+                let path_currently_selected = from_glib(path_currently_selected);
+                let callback = &*(data as *mut Option<
+                    Box_<dyn Fn(&TreeSelection, &TreeModel, &TreePath, bool) -> bool + 'static>,
+                >);
+                if let Some(ref callback) = *callback {
+                    callback(&selection, &model, &path, path_currently_selected)
+                } else {
+                    panic!("cannot get closure...")
+                }
+                .into_glib()
             }
-            .into_glib()
         }
         let func = if func_data.is_some() {
             Some(func_func as _)
@@ -225,9 +226,13 @@ pub trait TreeSelectionExt: IsA<TreeSelection> + sealed::Sealed + 'static {
             None
         };
         unsafe extern "C" fn destroy_func(data: glib::ffi::gpointer) {
-            let _callback: Box_<
-                Option<Box_<dyn Fn(&TreeSelection, &TreeModel, &TreePath, bool) -> bool + 'static>>,
-            > = Box_::from_raw(data as *mut _);
+            unsafe {
+                let _callback = Box_::from_raw(
+                    data as *mut Option<
+                        Box_<dyn Fn(&TreeSelection, &TreeModel, &TreePath, bool) -> bool + 'static>,
+                    >,
+                );
+            }
         }
         let destroy_call3 = Some(destroy_func as _);
         let super_callback0: Box_<
@@ -287,15 +292,17 @@ pub trait TreeSelectionExt: IsA<TreeSelection> + sealed::Sealed + 'static {
             this: *mut ffi::GtkTreeSelection,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(TreeSelection::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(TreeSelection::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"changed\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"changed".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     changed_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -310,15 +317,17 @@ pub trait TreeSelectionExt: IsA<TreeSelection> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(TreeSelection::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(TreeSelection::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::mode\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::mode".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_mode_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),

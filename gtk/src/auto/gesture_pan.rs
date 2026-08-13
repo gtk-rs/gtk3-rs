@@ -3,10 +3,11 @@
 // DO NOT EDIT
 
 use crate::{
-    EventController, Gesture, GestureDrag, GestureSingle, Orientation, PanDirection,
+    ffi, EventController, Gesture, GestureDrag, GestureSingle, Orientation, PanDirection,
     PropagationPhase, Widget,
 };
 use glib::{
+    object::ObjectType as _,
     prelude::*,
     signal::{connect_raw, SignalHandlerId},
     translate::*,
@@ -50,6 +51,7 @@ impl GesturePan {
     }
 
     #[doc(alias = "gtk_gesture_pan_set_orientation")]
+    #[doc(alias = "orientation")]
     pub fn set_orientation(&self, orientation: Orientation) {
         unsafe {
             ffi::gtk_gesture_pan_set_orientation(self.to_glib_none().0, orientation.into_glib());
@@ -61,18 +63,20 @@ impl GesturePan {
         unsafe extern "C" fn pan_trampoline<F: Fn(&GesturePan, PanDirection, f64) + 'static>(
             this: *mut ffi::GtkGesturePan,
             direction: ffi::GtkPanDirection,
-            offset: libc::c_double,
+            offset: std::ffi::c_double,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(&from_glib_borrow(this), from_glib(direction), offset)
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(&from_glib_borrow(this), from_glib(direction), offset)
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"pan\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"pan".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     pan_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -87,15 +91,17 @@ impl GesturePan {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(&from_glib_borrow(this))
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(&from_glib_borrow(this))
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::orientation\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::orientation".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_orientation_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -180,6 +186,7 @@ impl GesturePanBuilder {
     /// Build the [`GesturePan`].
     #[must_use = "Building the object from the builder is usually expensive and is not expected to have side effects"]
     pub fn build(self) -> GesturePan {
+        assert_initialized_main_thread!();
         self.builder.build()
     }
 }

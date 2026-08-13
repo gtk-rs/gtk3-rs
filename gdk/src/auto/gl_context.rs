@@ -2,7 +2,7 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use crate::{Display, Window};
+use crate::{ffi, Display, Window};
 use glib::translate::*;
 
 glib::wrapper! {
@@ -54,6 +54,7 @@ impl GLContext {
 
     #[doc(alias = "gdk_gl_context_get_shared_context")]
     #[doc(alias = "get_shared_context")]
+    #[doc(alias = "shared-context")]
     #[must_use]
     pub fn shared_context(&self) -> Option<GLContext> {
         unsafe {

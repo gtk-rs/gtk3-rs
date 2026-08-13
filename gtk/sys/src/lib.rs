@@ -11,20 +11,33 @@
 )]
 #![cfg_attr(docsrs, feature(doc_cfg))]
 
+use atk_sys as atk;
+use cairo_sys as cairo;
+use gdk_pixbuf_sys as gdk_pixbuf;
+use gdk_sys as gdk;
+use gio_sys as gio;
+use glib_sys as glib;
+use gobject_sys as gobject;
+use pango_sys as pango;
+
 mod manual;
 
 pub use manual::*;
 
+#[cfg(unix)]
 #[allow(unused_imports)]
-use libc::{
+use libc::{dev_t, gid_t, pid_t, socklen_t, uid_t};
+#[allow(unused_imports)]
+use libc::{intptr_t, off_t, size_t, ssize_t, time_t, uintptr_t, FILE};
+#[allow(unused_imports)]
+use std::ffi::{
     c_char, c_double, c_float, c_int, c_long, c_short, c_uchar, c_uint, c_ulong, c_ushort, c_void,
-    intptr_t, size_t, ssize_t, uintptr_t, FILE,
 };
 
 #[allow(unused_imports)]
 use glib::{gboolean, gconstpointer, gpointer, GType};
 
-pub const GTK_ENTRY_BUFFER_MAX_SIZE: u16 = ::std::u16::MAX;
+pub const GTK_ENTRY_BUFFER_MAX_SIZE: u16 = u16::MAX;
 
 // Aliases
 pub type GtkAllocation = gdk::GdkRectangle;
@@ -1497,12 +1510,13 @@ impl ::std::fmt::Debug for GtkAboutDialogClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkAboutDialogPrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkAboutDialogPrivate = *mut _GtkAboutDialogPrivate;
+pub type GtkAboutDialogPrivate = _GtkAboutDialogPrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -1554,12 +1568,13 @@ impl ::std::fmt::Debug for GtkAccelGroupEntry {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkAccelGroupPrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkAccelGroupPrivate = *mut _GtkAccelGroupPrivate;
+pub type GtkAccelGroupPrivate = _GtkAccelGroupPrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -1614,20 +1629,22 @@ impl ::std::fmt::Debug for GtkAccelLabelClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkAccelLabelPrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkAccelLabelPrivate = *mut _GtkAccelLabelPrivate;
+pub type GtkAccelLabelPrivate = _GtkAccelLabelPrivate;
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkAccelMapClass {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkAccelMapClass = *mut _GtkAccelMapClass;
+pub type GtkAccelMapClass = _GtkAccelMapClass;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -1654,12 +1671,13 @@ impl ::std::fmt::Debug for GtkAccessibleClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkAccessiblePrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkAccessiblePrivate = *mut _GtkAccessiblePrivate;
+pub type GtkAccessiblePrivate = _GtkAccessiblePrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -1683,12 +1701,13 @@ impl ::std::fmt::Debug for GtkActionBarClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkActionBarPrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkActionBarPrivate = *mut _GtkActionBarPrivate;
+pub type GtkActionBarPrivate = _GtkActionBarPrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -1776,20 +1795,22 @@ impl ::std::fmt::Debug for GtkActionGroupClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkActionGroupPrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkActionGroupPrivate = *mut _GtkActionGroupPrivate;
+pub type GtkActionGroupPrivate = _GtkActionGroupPrivate;
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkActionPrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkActionPrivate = *mut _GtkActionPrivate;
+pub type GtkActionPrivate = _GtkActionPrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -1858,12 +1879,13 @@ impl ::std::fmt::Debug for GtkAdjustmentClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkAdjustmentPrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkAdjustmentPrivate = *mut _GtkAdjustmentPrivate;
+pub type GtkAdjustmentPrivate = _GtkAdjustmentPrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -1888,12 +1910,13 @@ impl ::std::fmt::Debug for GtkAlignmentClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkAlignmentPrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkAlignmentPrivate = *mut _GtkAlignmentPrivate;
+pub type GtkAlignmentPrivate = _GtkAlignmentPrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -1914,12 +1937,13 @@ impl ::std::fmt::Debug for GtkAppChooserButtonClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkAppChooserButtonPrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkAppChooserButtonPrivate = *mut _GtkAppChooserButtonPrivate;
+pub type GtkAppChooserButtonPrivate = _GtkAppChooserButtonPrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -1937,12 +1961,13 @@ impl ::std::fmt::Debug for GtkAppChooserDialogClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkAppChooserDialogPrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkAppChooserDialogPrivate = *mut _GtkAppChooserDialogPrivate;
+pub type GtkAppChooserDialogPrivate = _GtkAppChooserDialogPrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -1969,12 +1994,13 @@ impl ::std::fmt::Debug for GtkAppChooserWidgetClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkAppChooserWidgetPrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkAppChooserWidgetPrivate = *mut _GtkAppChooserWidgetPrivate;
+pub type GtkAppChooserWidgetPrivate = _GtkAppChooserWidgetPrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -1996,12 +2022,13 @@ impl ::std::fmt::Debug for GtkApplicationClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkApplicationPrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkApplicationPrivate = *mut _GtkApplicationPrivate;
+pub type GtkApplicationPrivate = _GtkApplicationPrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -2019,12 +2046,13 @@ impl ::std::fmt::Debug for GtkApplicationWindowClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkApplicationWindowPrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkApplicationWindowPrivate = *mut _GtkApplicationWindowPrivate;
+pub type GtkApplicationWindowPrivate = _GtkApplicationWindowPrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -2041,12 +2069,13 @@ impl ::std::fmt::Debug for GtkArrowAccessibleClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkArrowAccessiblePrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkArrowAccessiblePrivate = *mut _GtkArrowAccessiblePrivate;
+pub type GtkArrowAccessiblePrivate = _GtkArrowAccessiblePrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -2071,12 +2100,13 @@ impl ::std::fmt::Debug for GtkArrowClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkArrowPrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkArrowPrivate = *mut _GtkArrowPrivate;
+pub type GtkArrowPrivate = _GtkArrowPrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -2101,12 +2131,13 @@ impl ::std::fmt::Debug for GtkAspectFrameClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkAspectFramePrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkAspectFramePrivate = *mut _GtkAspectFramePrivate;
+pub type GtkAspectFramePrivate = _GtkAspectFramePrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -2141,12 +2172,13 @@ impl ::std::fmt::Debug for GtkAssistantClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkAssistantPrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkAssistantPrivate = *mut _GtkAssistantPrivate;
+pub type GtkAssistantPrivate = _GtkAssistantPrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -2171,12 +2203,13 @@ impl ::std::fmt::Debug for GtkBinClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkBinPrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkBinPrivate = *mut _GtkBinPrivate;
+pub type GtkBinPrivate = _GtkBinPrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -2195,6 +2228,7 @@ impl ::std::fmt::Debug for GtkBindingArg {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct GtkBindingEntry {
     pub keyval: c_uint,
     pub modifiers: gdk::GdkModifierType,
@@ -2278,12 +2312,13 @@ impl ::std::fmt::Debug for GtkBooleanCellAccessibleClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkBooleanCellAccessiblePrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkBooleanCellAccessiblePrivate = *mut _GtkBooleanCellAccessiblePrivate;
+pub type GtkBooleanCellAccessiblePrivate = _GtkBooleanCellAccessiblePrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -2328,12 +2363,13 @@ impl ::std::fmt::Debug for GtkBoxClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkBoxPrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkBoxPrivate = *mut _GtkBoxPrivate;
+pub type GtkBoxPrivate = _GtkBoxPrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -2453,12 +2489,13 @@ impl ::std::fmt::Debug for GtkBuilderClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkBuilderPrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkBuilderPrivate = *mut _GtkBuilderPrivate;
+pub type GtkBuilderPrivate = _GtkBuilderPrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -2475,12 +2512,13 @@ impl ::std::fmt::Debug for GtkButtonAccessibleClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkButtonAccessiblePrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkButtonAccessiblePrivate = *mut _GtkButtonAccessiblePrivate;
+pub type GtkButtonAccessiblePrivate = _GtkButtonAccessiblePrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -2505,12 +2543,13 @@ impl ::std::fmt::Debug for GtkButtonBoxClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkButtonBoxPrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkButtonBoxPrivate = *mut _GtkButtonBoxPrivate;
+pub type GtkButtonBoxPrivate = _GtkButtonBoxPrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -2547,12 +2586,13 @@ impl ::std::fmt::Debug for GtkButtonClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkButtonPrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkButtonPrivate = *mut _GtkButtonPrivate;
+pub type GtkButtonPrivate = _GtkButtonPrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -2591,12 +2631,13 @@ impl ::std::fmt::Debug for GtkCalendarClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkCalendarPrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkCalendarPrivate = *mut _GtkCalendarPrivate;
+pub type GtkCalendarPrivate = _GtkCalendarPrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -2702,12 +2743,13 @@ impl ::std::fmt::Debug for GtkCellAccessibleParentIface {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkCellAccessiblePrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkCellAccessiblePrivate = *mut _GtkCellAccessiblePrivate;
+pub type GtkCellAccessiblePrivate = _GtkCellAccessiblePrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -2731,12 +2773,13 @@ impl ::std::fmt::Debug for GtkCellAreaBoxClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkCellAreaBoxPrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkCellAreaBoxPrivate = *mut _GtkCellAreaBoxPrivate;
+pub type GtkCellAreaBoxPrivate = _GtkCellAreaBoxPrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -2952,20 +2995,22 @@ impl ::std::fmt::Debug for GtkCellAreaContextClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkCellAreaContextPrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkCellAreaContextPrivate = *mut _GtkCellAreaContextPrivate;
+pub type GtkCellAreaContextPrivate = _GtkCellAreaContextPrivate;
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkCellAreaPrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkCellAreaPrivate = *mut _GtkCellAreaPrivate;
+pub type GtkCellAreaPrivate = _GtkCellAreaPrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -3065,12 +3110,13 @@ impl ::std::fmt::Debug for GtkCellRendererAccelClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkCellRendererAccelPrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkCellRendererAccelPrivate = *mut _GtkCellRendererAccelPrivate;
+pub type GtkCellRendererAccelPrivate = _GtkCellRendererAccelPrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -3177,12 +3223,13 @@ impl ::std::fmt::Debug for GtkCellRendererClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkCellRendererClassPrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkCellRendererClassPrivate = *mut _GtkCellRendererClassPrivate;
+pub type GtkCellRendererClassPrivate = _GtkCellRendererClassPrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -3207,12 +3254,13 @@ impl ::std::fmt::Debug for GtkCellRendererComboClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkCellRendererComboPrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkCellRendererComboPrivate = *mut _GtkCellRendererComboPrivate;
+pub type GtkCellRendererComboPrivate = _GtkCellRendererComboPrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -3237,20 +3285,22 @@ impl ::std::fmt::Debug for GtkCellRendererPixbufClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkCellRendererPixbufPrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkCellRendererPixbufPrivate = *mut _GtkCellRendererPixbufPrivate;
+pub type GtkCellRendererPixbufPrivate = _GtkCellRendererPixbufPrivate;
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkCellRendererPrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkCellRendererPrivate = *mut _GtkCellRendererPrivate;
+pub type GtkCellRendererPrivate = _GtkCellRendererPrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -3275,12 +3325,13 @@ impl ::std::fmt::Debug for GtkCellRendererProgressClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkCellRendererProgressPrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkCellRendererProgressPrivate = *mut _GtkCellRendererProgressPrivate;
+pub type GtkCellRendererProgressPrivate = _GtkCellRendererProgressPrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -3305,12 +3356,13 @@ impl ::std::fmt::Debug for GtkCellRendererSpinClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkCellRendererSpinPrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkCellRendererSpinPrivate = *mut _GtkCellRendererSpinPrivate;
+pub type GtkCellRendererSpinPrivate = _GtkCellRendererSpinPrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -3335,12 +3387,13 @@ impl ::std::fmt::Debug for GtkCellRendererSpinnerClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkCellRendererSpinnerPrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkCellRendererSpinnerPrivate = *mut _GtkCellRendererSpinnerPrivate;
+pub type GtkCellRendererSpinnerPrivate = _GtkCellRendererSpinnerPrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -3368,12 +3421,13 @@ impl ::std::fmt::Debug for GtkCellRendererTextClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkCellRendererTextPrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkCellRendererTextPrivate = *mut _GtkCellRendererTextPrivate;
+pub type GtkCellRendererTextPrivate = _GtkCellRendererTextPrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -3400,12 +3454,13 @@ impl ::std::fmt::Debug for GtkCellRendererToggleClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkCellRendererTogglePrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkCellRendererTogglePrivate = *mut _GtkCellRendererTogglePrivate;
+pub type GtkCellRendererTogglePrivate = _GtkCellRendererTogglePrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -3430,12 +3485,13 @@ impl ::std::fmt::Debug for GtkCellViewClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkCellViewPrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkCellViewPrivate = *mut _GtkCellViewPrivate;
+pub type GtkCellViewPrivate = _GtkCellViewPrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -3476,12 +3532,13 @@ impl ::std::fmt::Debug for GtkCheckMenuItemAccessibleClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkCheckMenuItemAccessiblePrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkCheckMenuItemAccessiblePrivate = *mut _GtkCheckMenuItemAccessiblePrivate;
+pub type GtkCheckMenuItemAccessiblePrivate = _GtkCheckMenuItemAccessiblePrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -3510,12 +3567,13 @@ impl ::std::fmt::Debug for GtkCheckMenuItemClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkCheckMenuItemPrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkCheckMenuItemPrivate = *mut _GtkCheckMenuItemPrivate;
+pub type GtkCheckMenuItemPrivate = _GtkCheckMenuItemPrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -3542,12 +3600,13 @@ impl ::std::fmt::Debug for GtkColorButtonClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkColorButtonPrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkColorButtonPrivate = *mut _GtkColorButtonPrivate;
+pub type GtkColorButtonPrivate = _GtkColorButtonPrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -3572,12 +3631,13 @@ impl ::std::fmt::Debug for GtkColorChooserDialogClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkColorChooserDialogPrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkColorChooserDialogPrivate = *mut _GtkColorChooserDialogPrivate;
+pub type GtkColorChooserDialogPrivate = _GtkColorChooserDialogPrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -3636,12 +3696,13 @@ impl ::std::fmt::Debug for GtkColorChooserWidgetClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkColorChooserWidgetPrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkColorChooserWidgetPrivate = *mut _GtkColorChooserWidgetPrivate;
+pub type GtkColorChooserWidgetPrivate = _GtkColorChooserWidgetPrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -3690,20 +3751,22 @@ impl ::std::fmt::Debug for GtkColorSelectionDialogClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkColorSelectionDialogPrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkColorSelectionDialogPrivate = *mut _GtkColorSelectionDialogPrivate;
+pub type GtkColorSelectionDialogPrivate = _GtkColorSelectionDialogPrivate;
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkColorSelectionPrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkColorSelectionPrivate = *mut _GtkColorSelectionPrivate;
+pub type GtkColorSelectionPrivate = _GtkColorSelectionPrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -3720,12 +3783,13 @@ impl ::std::fmt::Debug for GtkComboBoxAccessibleClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkComboBoxAccessiblePrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkComboBoxAccessiblePrivate = *mut _GtkComboBoxAccessiblePrivate;
+pub type GtkComboBoxAccessiblePrivate = _GtkComboBoxAccessiblePrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -3753,12 +3817,13 @@ impl ::std::fmt::Debug for GtkComboBoxClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkComboBoxPrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkComboBoxPrivate = *mut _GtkComboBoxPrivate;
+pub type GtkComboBoxPrivate = _GtkComboBoxPrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -3783,12 +3848,13 @@ impl ::std::fmt::Debug for GtkComboBoxTextClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkComboBoxTextPrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkComboBoxTextPrivate = *mut _GtkComboBoxTextPrivate;
+pub type GtkComboBoxTextPrivate = _GtkComboBoxTextPrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -3810,12 +3876,13 @@ impl ::std::fmt::Debug for GtkContainerAccessibleClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkContainerAccessiblePrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkContainerAccessiblePrivate = *mut _GtkContainerAccessiblePrivate;
+pub type GtkContainerAccessiblePrivate = _GtkContainerAccessiblePrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -3832,12 +3899,13 @@ impl ::std::fmt::Debug for GtkContainerCellAccessibleClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkContainerCellAccessiblePrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkContainerCellAccessiblePrivate = *mut _GtkContainerCellAccessiblePrivate;
+pub type GtkContainerCellAccessiblePrivate = _GtkContainerCellAccessiblePrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -3909,12 +3977,13 @@ impl ::std::fmt::Debug for GtkContainerClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkContainerPrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkContainerPrivate = *mut _GtkContainerPrivate;
+pub type GtkContainerPrivate = _GtkContainerPrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -3940,14 +4009,16 @@ impl ::std::fmt::Debug for GtkCssProviderClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkCssProviderPrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkCssProviderPrivate = *mut _GtkCssProviderPrivate;
+pub type GtkCssProviderPrivate = _GtkCssProviderPrivate;
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct GtkCssSection {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
@@ -3987,12 +4058,13 @@ impl ::std::fmt::Debug for GtkDialogClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkDialogPrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkDialogPrivate = *mut _GtkDialogPrivate;
+pub type GtkDialogPrivate = _GtkDialogPrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -4068,12 +4140,13 @@ impl ::std::fmt::Debug for GtkEntryAccessibleClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkEntryAccessiblePrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkEntryAccessiblePrivate = *mut _GtkEntryAccessiblePrivate;
+pub type GtkEntryAccessiblePrivate = _GtkEntryAccessiblePrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -4120,12 +4193,13 @@ impl ::std::fmt::Debug for GtkEntryBufferClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkEntryBufferPrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkEntryBufferPrivate = *mut _GtkEntryBufferPrivate;
+pub type GtkEntryBufferPrivate = _GtkEntryBufferPrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -4146,12 +4220,12 @@ pub struct GtkEntryClass {
     pub get_frame_size:
         Option<unsafe extern "C" fn(*mut GtkEntry, *mut c_int, *mut c_int, *mut c_int, *mut c_int)>,
     pub insert_emoji: Option<unsafe extern "C" fn(*mut GtkEntry)>,
+    pub toggle_direction: Option<unsafe extern "C" fn(*mut GtkEntry)>,
     pub _gtk_reserved1: Option<unsafe extern "C" fn()>,
     pub _gtk_reserved2: Option<unsafe extern "C" fn()>,
     pub _gtk_reserved3: Option<unsafe extern "C" fn()>,
     pub _gtk_reserved4: Option<unsafe extern "C" fn()>,
     pub _gtk_reserved5: Option<unsafe extern "C" fn()>,
-    pub _gtk_reserved6: Option<unsafe extern "C" fn()>,
 }
 
 impl ::std::fmt::Debug for GtkEntryClass {
@@ -4171,12 +4245,12 @@ impl ::std::fmt::Debug for GtkEntryClass {
             .field("get_text_area_size", &self.get_text_area_size)
             .field("get_frame_size", &self.get_frame_size)
             .field("insert_emoji", &self.insert_emoji)
+            .field("toggle_direction", &self.toggle_direction)
             .field("_gtk_reserved1", &self._gtk_reserved1)
             .field("_gtk_reserved2", &self._gtk_reserved2)
             .field("_gtk_reserved3", &self._gtk_reserved3)
             .field("_gtk_reserved4", &self._gtk_reserved4)
             .field("_gtk_reserved5", &self._gtk_reserved5)
-            .field("_gtk_reserved6", &self._gtk_reserved6)
             .finish()
     }
 }
@@ -4225,20 +4299,22 @@ impl ::std::fmt::Debug for GtkEntryCompletionClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkEntryCompletionPrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkEntryCompletionPrivate = *mut _GtkEntryCompletionPrivate;
+pub type GtkEntryCompletionPrivate = _GtkEntryCompletionPrivate;
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkEntryPrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkEntryPrivate = *mut _GtkEntryPrivate;
+pub type GtkEntryPrivate = _GtkEntryPrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -4263,44 +4339,49 @@ impl ::std::fmt::Debug for GtkEventBoxClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkEventBoxPrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkEventBoxPrivate = *mut _GtkEventBoxPrivate;
+pub type GtkEventBoxPrivate = _GtkEventBoxPrivate;
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkEventControllerClass {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkEventControllerClass = *mut _GtkEventControllerClass;
+pub type GtkEventControllerClass = _GtkEventControllerClass;
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkEventControllerKeyClass {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkEventControllerKeyClass = *mut _GtkEventControllerKeyClass;
+pub type GtkEventControllerKeyClass = _GtkEventControllerKeyClass;
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkEventControllerMotionClass {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkEventControllerMotionClass = *mut _GtkEventControllerMotionClass;
+pub type GtkEventControllerMotionClass = _GtkEventControllerMotionClass;
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkEventControllerScrollClass {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkEventControllerScrollClass = *mut _GtkEventControllerScrollClass;
+pub type GtkEventControllerScrollClass = _GtkEventControllerScrollClass;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -4317,12 +4398,13 @@ impl ::std::fmt::Debug for GtkExpanderAccessibleClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkExpanderAccessiblePrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkExpanderAccessiblePrivate = *mut _GtkExpanderAccessiblePrivate;
+pub type GtkExpanderAccessiblePrivate = _GtkExpanderAccessiblePrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -4349,12 +4431,13 @@ impl ::std::fmt::Debug for GtkExpanderClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkExpanderPrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkExpanderPrivate = *mut _GtkExpanderPrivate;
+pub type GtkExpanderPrivate = _GtkExpanderPrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -4381,12 +4464,13 @@ impl ::std::fmt::Debug for GtkFileChooserButtonClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkFileChooserButtonPrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkFileChooserButtonPrivate = *mut _GtkFileChooserButtonPrivate;
+pub type GtkFileChooserButtonPrivate = _GtkFileChooserButtonPrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -4411,12 +4495,13 @@ impl ::std::fmt::Debug for GtkFileChooserDialogClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkFileChooserDialogPrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkFileChooserDialogPrivate = *mut _GtkFileChooserDialogPrivate;
+pub type GtkFileChooserDialogPrivate = _GtkFileChooserDialogPrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -4447,12 +4532,13 @@ impl ::std::fmt::Debug for GtkFileChooserWidgetAccessibleClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkFileChooserWidgetAccessiblePrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkFileChooserWidgetAccessiblePrivate = *mut _GtkFileChooserWidgetAccessiblePrivate;
+pub type GtkFileChooserWidgetAccessiblePrivate = _GtkFileChooserWidgetAccessiblePrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -4477,12 +4563,13 @@ impl ::std::fmt::Debug for GtkFileChooserWidgetClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkFileChooserWidgetPrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkFileChooserWidgetPrivate = *mut _GtkFileChooserWidgetPrivate;
+pub type GtkFileChooserWidgetPrivate = _GtkFileChooserWidgetPrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -4547,12 +4634,13 @@ impl ::std::fmt::Debug for GtkFixedClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkFixedPrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkFixedPrivate = *mut _GtkFixedPrivate;
+pub type GtkFixedPrivate = _GtkFixedPrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -4569,12 +4657,13 @@ impl ::std::fmt::Debug for GtkFlowBoxAccessibleClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkFlowBoxAccessiblePrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkFlowBoxAccessiblePrivate = *mut _GtkFlowBoxAccessiblePrivate;
+pub type GtkFlowBoxAccessiblePrivate = _GtkFlowBoxAccessiblePrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -4676,12 +4765,13 @@ impl ::std::fmt::Debug for GtkFontButtonClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkFontButtonPrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkFontButtonPrivate = *mut _GtkFontButtonPrivate;
+pub type GtkFontButtonPrivate = _GtkFontButtonPrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -4706,12 +4796,13 @@ impl ::std::fmt::Debug for GtkFontChooserDialogClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkFontChooserDialogPrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkFontChooserDialogPrivate = *mut _GtkFontChooserDialogPrivate;
+pub type GtkFontChooserDialogPrivate = _GtkFontChooserDialogPrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -4783,12 +4874,13 @@ impl ::std::fmt::Debug for GtkFontChooserWidgetClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkFontChooserWidgetPrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkFontChooserWidgetPrivate = *mut _GtkFontChooserWidgetPrivate;
+pub type GtkFontChooserWidgetPrivate = _GtkFontChooserWidgetPrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -4835,20 +4927,22 @@ impl ::std::fmt::Debug for GtkFontSelectionDialogClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkFontSelectionDialogPrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkFontSelectionDialogPrivate = *mut _GtkFontSelectionDialogPrivate;
+pub type GtkFontSelectionDialogPrivate = _GtkFontSelectionDialogPrivate;
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkFontSelectionPrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkFontSelectionPrivate = *mut _GtkFontSelectionPrivate;
+pub type GtkFontSelectionPrivate = _GtkFontSelectionPrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -4865,12 +4959,13 @@ impl ::std::fmt::Debug for GtkFrameAccessibleClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkFrameAccessiblePrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkFrameAccessiblePrivate = *mut _GtkFrameAccessiblePrivate;
+pub type GtkFrameAccessiblePrivate = _GtkFrameAccessiblePrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -4897,12 +4992,13 @@ impl ::std::fmt::Debug for GtkFrameClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkFramePrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkFramePrivate = *mut _GtkFramePrivate;
+pub type GtkFramePrivate = _GtkFramePrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -4925,86 +5021,97 @@ impl ::std::fmt::Debug for GtkGLAreaClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkGestureClass {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkGestureClass = *mut _GtkGestureClass;
+pub type GtkGestureClass = _GtkGestureClass;
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkGestureDragClass {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkGestureDragClass = *mut _GtkGestureDragClass;
+pub type GtkGestureDragClass = _GtkGestureDragClass;
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkGestureLongPressClass {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkGestureLongPressClass = *mut _GtkGestureLongPressClass;
+pub type GtkGestureLongPressClass = _GtkGestureLongPressClass;
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkGestureMultiPressClass {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkGestureMultiPressClass = *mut _GtkGestureMultiPressClass;
+pub type GtkGestureMultiPressClass = _GtkGestureMultiPressClass;
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkGesturePanClass {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkGesturePanClass = *mut _GtkGesturePanClass;
+pub type GtkGesturePanClass = _GtkGesturePanClass;
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkGestureRotateClass {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkGestureRotateClass = *mut _GtkGestureRotateClass;
+pub type GtkGestureRotateClass = _GtkGestureRotateClass;
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkGestureSingleClass {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkGestureSingleClass = *mut _GtkGestureSingleClass;
+pub type GtkGestureSingleClass = _GtkGestureSingleClass;
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkGestureStylusClass {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkGestureStylusClass = *mut _GtkGestureStylusClass;
+pub type GtkGestureStylusClass = _GtkGestureStylusClass;
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkGestureSwipeClass {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkGestureSwipeClass = *mut _GtkGestureSwipeClass;
+pub type GtkGestureSwipeClass = _GtkGestureSwipeClass;
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkGestureZoomClass {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkGestureZoomClass = *mut _GtkGestureZoomClass;
+pub type GtkGestureZoomClass = _GtkGestureZoomClass;
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct GtkGradient {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
@@ -5047,12 +5154,13 @@ impl ::std::fmt::Debug for GtkGridClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkGridPrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkGridPrivate = *mut _GtkGridPrivate;
+pub type GtkGridPrivate = _GtkGridPrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -5123,12 +5231,13 @@ impl ::std::fmt::Debug for GtkHSVClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkHSVPrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkHSVPrivate = *mut _GtkHSVPrivate;
+pub type GtkHSVPrivate = _GtkHSVPrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -5199,12 +5308,13 @@ impl ::std::fmt::Debug for GtkHandleBoxClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkHandleBoxPrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkHandleBoxPrivate = *mut _GtkHandleBoxPrivate;
+pub type GtkHandleBoxPrivate = _GtkHandleBoxPrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -5221,12 +5331,13 @@ impl ::std::fmt::Debug for GtkHeaderBarAccessibleClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkHeaderBarAccessiblePrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkHeaderBarAccessiblePrivate = *mut _GtkHeaderBarAccessiblePrivate;
+pub type GtkHeaderBarAccessiblePrivate = _GtkHeaderBarAccessiblePrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -5251,12 +5362,13 @@ impl ::std::fmt::Debug for GtkHeaderBarClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkHeaderBarPrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkHeaderBarPrivate = *mut _GtkHeaderBarPrivate;
+pub type GtkHeaderBarPrivate = _GtkHeaderBarPrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -5364,12 +5476,13 @@ impl ::std::fmt::Debug for GtkIMContextSimpleClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkIMContextSimplePrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkIMContextSimplePrivate = *mut _GtkIMContextSimplePrivate;
+pub type GtkIMContextSimplePrivate = _GtkIMContextSimplePrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -5394,12 +5507,13 @@ impl ::std::fmt::Debug for GtkIMMulticontextClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkIMMulticontextPrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkIMMulticontextPrivate = *mut _GtkIMMulticontextPrivate;
+pub type GtkIMMulticontextPrivate = _GtkIMMulticontextPrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -5424,22 +5538,25 @@ impl ::std::fmt::Debug for GtkIconFactoryClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkIconFactoryPrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkIconFactoryPrivate = *mut _GtkIconFactoryPrivate;
+pub type GtkIconFactoryPrivate = _GtkIconFactoryPrivate;
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkIconInfoClass {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkIconInfoClass = *mut _GtkIconInfoClass;
+pub type GtkIconInfoClass = _GtkIconInfoClass;
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct GtkIconSet {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
@@ -5452,6 +5569,7 @@ impl ::std::fmt::Debug for GtkIconSet {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct GtkIconSource {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
@@ -5489,12 +5607,13 @@ impl ::std::fmt::Debug for GtkIconThemeClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkIconThemePrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkIconThemePrivate = *mut _GtkIconThemePrivate;
+pub type GtkIconThemePrivate = _GtkIconThemePrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -5511,12 +5630,13 @@ impl ::std::fmt::Debug for GtkIconViewAccessibleClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkIconViewAccessiblePrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkIconViewAccessiblePrivate = *mut _GtkIconViewAccessiblePrivate;
+pub type GtkIconViewAccessiblePrivate = _GtkIconViewAccessiblePrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -5558,12 +5678,13 @@ impl ::std::fmt::Debug for GtkIconViewClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkIconViewPrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkIconViewPrivate = *mut _GtkIconViewPrivate;
+pub type GtkIconViewPrivate = _GtkIconViewPrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -5580,12 +5701,13 @@ impl ::std::fmt::Debug for GtkImageAccessibleClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkImageAccessiblePrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkImageAccessiblePrivate = *mut _GtkImageAccessiblePrivate;
+pub type GtkImageAccessiblePrivate = _GtkImageAccessiblePrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -5602,12 +5724,13 @@ impl ::std::fmt::Debug for GtkImageCellAccessibleClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkImageCellAccessiblePrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkImageCellAccessiblePrivate = *mut _GtkImageCellAccessiblePrivate;
+pub type GtkImageCellAccessiblePrivate = _GtkImageCellAccessiblePrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -5654,20 +5777,22 @@ impl ::std::fmt::Debug for GtkImageMenuItemClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkImageMenuItemPrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkImageMenuItemPrivate = *mut _GtkImageMenuItemPrivate;
+pub type GtkImageMenuItemPrivate = _GtkImageMenuItemPrivate;
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkImagePrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkImagePrivate = *mut _GtkImagePrivate;
+pub type GtkImagePrivate = _GtkImagePrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -5696,12 +5821,13 @@ impl ::std::fmt::Debug for GtkInfoBarClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkInfoBarPrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkInfoBarPrivate = *mut _GtkInfoBarPrivate;
+pub type GtkInfoBarPrivate = _GtkInfoBarPrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -5726,12 +5852,13 @@ impl ::std::fmt::Debug for GtkInvisibleClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkInvisiblePrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkInvisiblePrivate = *mut _GtkInvisiblePrivate;
+pub type GtkInvisiblePrivate = _GtkInvisiblePrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -5748,12 +5875,13 @@ impl ::std::fmt::Debug for GtkLabelAccessibleClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkLabelAccessiblePrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkLabelAccessiblePrivate = *mut _GtkLabelAccessiblePrivate;
+pub type GtkLabelAccessiblePrivate = _GtkLabelAccessiblePrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -5794,20 +5922,22 @@ impl ::std::fmt::Debug for GtkLabelClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkLabelPrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkLabelPrivate = *mut _GtkLabelPrivate;
+pub type GtkLabelPrivate = _GtkLabelPrivate;
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkLabelSelectionInfo {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkLabelSelectionInfo = *mut _GtkLabelSelectionInfo;
+pub type GtkLabelSelectionInfo = _GtkLabelSelectionInfo;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -5832,12 +5962,13 @@ impl ::std::fmt::Debug for GtkLayoutClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkLayoutPrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkLayoutPrivate = *mut _GtkLayoutPrivate;
+pub type GtkLayoutPrivate = _GtkLayoutPrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -5854,12 +5985,13 @@ impl ::std::fmt::Debug for GtkLevelBarAccessibleClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkLevelBarAccessiblePrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkLevelBarAccessiblePrivate = *mut _GtkLevelBarAccessiblePrivate;
+pub type GtkLevelBarAccessiblePrivate = _GtkLevelBarAccessiblePrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -5878,12 +6010,13 @@ impl ::std::fmt::Debug for GtkLevelBarClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkLevelBarPrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkLevelBarPrivate = *mut _GtkLevelBarPrivate;
+pub type GtkLevelBarPrivate = _GtkLevelBarPrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -5900,12 +6033,13 @@ impl ::std::fmt::Debug for GtkLinkButtonAccessibleClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkLinkButtonAccessiblePrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkLinkButtonAccessiblePrivate = *mut _GtkLinkButtonAccessiblePrivate;
+pub type GtkLinkButtonAccessiblePrivate = _GtkLinkButtonAccessiblePrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -5931,12 +6065,13 @@ impl ::std::fmt::Debug for GtkLinkButtonClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkLinkButtonPrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkLinkButtonPrivate = *mut _GtkLinkButtonPrivate;
+pub type GtkLinkButtonPrivate = _GtkLinkButtonPrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -5953,12 +6088,13 @@ impl ::std::fmt::Debug for GtkListBoxAccessibleClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkListBoxAccessiblePrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkListBoxAccessiblePrivate = *mut _GtkListBoxAccessiblePrivate;
+pub type GtkListBoxAccessiblePrivate = _GtkListBoxAccessiblePrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -6053,12 +6189,13 @@ impl ::std::fmt::Debug for GtkListStoreClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkListStorePrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkListStorePrivate = *mut _GtkListStorePrivate;
+pub type GtkListStorePrivate = _GtkListStorePrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -6075,12 +6212,13 @@ impl ::std::fmt::Debug for GtkLockButtonAccessibleClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkLockButtonAccessiblePrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkLockButtonAccessiblePrivate = *mut _GtkLockButtonAccessiblePrivate;
+pub type GtkLockButtonAccessiblePrivate = _GtkLockButtonAccessiblePrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -6113,12 +6251,13 @@ impl ::std::fmt::Debug for GtkLockButtonClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkLockButtonPrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkLockButtonPrivate = *mut _GtkLockButtonPrivate;
+pub type GtkLockButtonPrivate = _GtkLockButtonPrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -6135,12 +6274,13 @@ impl ::std::fmt::Debug for GtkMenuAccessibleClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkMenuAccessiblePrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkMenuAccessiblePrivate = *mut _GtkMenuAccessiblePrivate;
+pub type GtkMenuAccessiblePrivate = _GtkMenuAccessiblePrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -6165,12 +6305,13 @@ impl ::std::fmt::Debug for GtkMenuBarClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkMenuBarPrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkMenuBarPrivate = *mut _GtkMenuBarPrivate;
+pub type GtkMenuBarPrivate = _GtkMenuBarPrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -6187,12 +6328,13 @@ impl ::std::fmt::Debug for GtkMenuButtonAccessibleClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkMenuButtonAccessiblePrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkMenuButtonAccessiblePrivate = *mut _GtkMenuButtonAccessiblePrivate;
+pub type GtkMenuButtonAccessiblePrivate = _GtkMenuButtonAccessiblePrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -6217,12 +6359,13 @@ impl ::std::fmt::Debug for GtkMenuButtonClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkMenuButtonPrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkMenuButtonPrivate = *mut _GtkMenuButtonPrivate;
+pub type GtkMenuButtonPrivate = _GtkMenuButtonPrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -6261,12 +6404,13 @@ impl ::std::fmt::Debug for GtkMenuItemAccessibleClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkMenuItemAccessiblePrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkMenuItemAccessiblePrivate = *mut _GtkMenuItemAccessiblePrivate;
+pub type GtkMenuItemAccessiblePrivate = _GtkMenuItemAccessiblePrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -6309,20 +6453,22 @@ impl ::std::fmt::Debug for GtkMenuItemClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkMenuItemPrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkMenuItemPrivate = *mut _GtkMenuItemPrivate;
+pub type GtkMenuItemPrivate = _GtkMenuItemPrivate;
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkMenuPrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkMenuPrivate = *mut _GtkMenuPrivate;
+pub type GtkMenuPrivate = _GtkMenuPrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -6339,12 +6485,13 @@ impl ::std::fmt::Debug for GtkMenuShellAccessibleClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkMenuShellAccessiblePrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkMenuShellAccessiblePrivate = *mut _GtkMenuShellAccessiblePrivate;
+pub type GtkMenuShellAccessiblePrivate = _GtkMenuShellAccessiblePrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -6389,12 +6536,13 @@ impl ::std::fmt::Debug for GtkMenuShellClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkMenuShellPrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkMenuShellPrivate = *mut _GtkMenuShellPrivate;
+pub type GtkMenuShellPrivate = _GtkMenuShellPrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -6421,12 +6569,13 @@ impl ::std::fmt::Debug for GtkMenuToolButtonClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkMenuToolButtonPrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkMenuToolButtonPrivate = *mut _GtkMenuToolButtonPrivate;
+pub type GtkMenuToolButtonPrivate = _GtkMenuToolButtonPrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -6451,12 +6600,13 @@ impl ::std::fmt::Debug for GtkMessageDialogClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkMessageDialogPrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkMessageDialogPrivate = *mut _GtkMessageDialogPrivate;
+pub type GtkMessageDialogPrivate = _GtkMessageDialogPrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -6481,12 +6631,13 @@ impl ::std::fmt::Debug for GtkMiscClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkMiscPrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkMiscPrivate = *mut _GtkMiscPrivate;
+pub type GtkMiscPrivate = _GtkMiscPrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -6511,12 +6662,13 @@ impl ::std::fmt::Debug for GtkMountOperationClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkMountOperationPrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkMountOperationPrivate = *mut _GtkMountOperationPrivate;
+pub type GtkMountOperationPrivate = _GtkMountOperationPrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -6561,12 +6713,13 @@ impl ::std::fmt::Debug for GtkNotebookAccessibleClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkNotebookAccessiblePrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkNotebookAccessiblePrivate = *mut _GtkNotebookAccessiblePrivate;
+pub type GtkNotebookAccessiblePrivate = _GtkNotebookAccessiblePrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -6646,20 +6799,22 @@ impl ::std::fmt::Debug for GtkNotebookPageAccessibleClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkNotebookPageAccessiblePrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkNotebookPageAccessiblePrivate = *mut _GtkNotebookPageAccessiblePrivate;
+pub type GtkNotebookPageAccessiblePrivate = _GtkNotebookPageAccessiblePrivate;
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkNotebookPrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkNotebookPrivate = *mut _GtkNotebookPrivate;
+pub type GtkNotebookPrivate = _GtkNotebookPrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -6678,12 +6833,13 @@ impl ::std::fmt::Debug for GtkNumerableIconClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkNumerableIconPrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkNumerableIconPrivate = *mut _GtkNumerableIconPrivate;
+pub type GtkNumerableIconPrivate = _GtkNumerableIconPrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -6756,12 +6912,13 @@ impl ::std::fmt::Debug for GtkOverlayClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkOverlayPrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkOverlayPrivate = *mut _GtkOverlayPrivate;
+pub type GtkOverlayPrivate = _GtkOverlayPrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -6786,12 +6943,13 @@ impl ::std::fmt::Debug for GtkPadActionEntry {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkPadControllerClass {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkPadControllerClass = *mut _GtkPadControllerClass;
+pub type GtkPadControllerClass = _GtkPadControllerClass;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -6824,12 +6982,13 @@ impl ::std::fmt::Debug for GtkPanedAccessibleClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkPanedAccessiblePrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkPanedAccessiblePrivate = *mut _GtkPanedAccessiblePrivate;
+pub type GtkPanedAccessiblePrivate = _GtkPanedAccessiblePrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -6866,14 +7025,16 @@ impl ::std::fmt::Debug for GtkPanedClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkPanedPrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkPanedPrivate = *mut _GtkPanedPrivate;
+pub type GtkPanedPrivate = _GtkPanedPrivate;
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct GtkPaperSize {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
@@ -6886,12 +7047,13 @@ impl ::std::fmt::Debug for GtkPaperSize {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkPlacesSidebarClass {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkPlacesSidebarClass = *mut _GtkPlacesSidebarClass;
+pub type GtkPlacesSidebarClass = _GtkPlacesSidebarClass;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -6908,12 +7070,13 @@ impl ::std::fmt::Debug for GtkPlugAccessibleClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkPlugAccessiblePrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkPlugAccessiblePrivate = *mut _GtkPlugAccessiblePrivate;
+pub type GtkPlugAccessiblePrivate = _GtkPlugAccessiblePrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -6940,12 +7103,13 @@ impl ::std::fmt::Debug for GtkPlugClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkPlugPrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkPlugPrivate = *mut _GtkPlugPrivate;
+pub type GtkPlugPrivate = _GtkPlugPrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -6994,12 +7158,13 @@ impl ::std::fmt::Debug for GtkPopoverMenuClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkPopoverPrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkPopoverPrivate = *mut _GtkPopoverPrivate;
+pub type GtkPopoverPrivate = _GtkPopoverPrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -7124,12 +7289,13 @@ impl ::std::fmt::Debug for GtkPrintOperationPreviewIface {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkPrintOperationPrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkPrintOperationPrivate = *mut _GtkPrintOperationPrivate;
+pub type GtkPrintOperationPrivate = _GtkPrintOperationPrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -7146,12 +7312,13 @@ impl ::std::fmt::Debug for GtkProgressBarAccessibleClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkProgressBarAccessiblePrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkProgressBarAccessiblePrivate = *mut _GtkProgressBarAccessiblePrivate;
+pub type GtkProgressBarAccessiblePrivate = _GtkProgressBarAccessiblePrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -7176,12 +7343,13 @@ impl ::std::fmt::Debug for GtkProgressBarClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkProgressBarPrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkProgressBarPrivate = *mut _GtkProgressBarPrivate;
+pub type GtkProgressBarPrivate = _GtkProgressBarPrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -7232,12 +7400,13 @@ impl ::std::fmt::Debug for GtkRadioActionEntry {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkRadioActionPrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkRadioActionPrivate = *mut _GtkRadioActionPrivate;
+pub type GtkRadioActionPrivate = _GtkRadioActionPrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -7254,12 +7423,13 @@ impl ::std::fmt::Debug for GtkRadioButtonAccessibleClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkRadioButtonAccessiblePrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkRadioButtonAccessiblePrivate = *mut _GtkRadioButtonAccessiblePrivate;
+pub type GtkRadioButtonAccessiblePrivate = _GtkRadioButtonAccessiblePrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -7286,12 +7456,13 @@ impl ::std::fmt::Debug for GtkRadioButtonClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkRadioButtonPrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkRadioButtonPrivate = *mut _GtkRadioButtonPrivate;
+pub type GtkRadioButtonPrivate = _GtkRadioButtonPrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -7308,12 +7479,13 @@ impl ::std::fmt::Debug for GtkRadioMenuItemAccessibleClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkRadioMenuItemAccessiblePrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkRadioMenuItemAccessiblePrivate = *mut _GtkRadioMenuItemAccessiblePrivate;
+pub type GtkRadioMenuItemAccessiblePrivate = _GtkRadioMenuItemAccessiblePrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -7340,12 +7512,13 @@ impl ::std::fmt::Debug for GtkRadioMenuItemClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkRadioMenuItemPrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkRadioMenuItemPrivate = *mut _GtkRadioMenuItemPrivate;
+pub type GtkRadioMenuItemPrivate = _GtkRadioMenuItemPrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -7384,12 +7557,13 @@ impl ::std::fmt::Debug for GtkRangeAccessibleClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkRangeAccessiblePrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkRangeAccessiblePrivate = *mut _GtkRangeAccessiblePrivate;
+pub type GtkRangeAccessiblePrivate = _GtkRangeAccessiblePrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -7430,20 +7604,22 @@ impl ::std::fmt::Debug for GtkRangeClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkRangePrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkRangePrivate = *mut _GtkRangePrivate;
+pub type GtkRangePrivate = _GtkRangePrivate;
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkRcContext {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkRcContext = *mut _GtkRcContext;
+pub type GtkRcContext = _GtkRcContext;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -7520,12 +7696,13 @@ impl ::std::fmt::Debug for GtkRecentActionClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkRecentActionPrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkRecentActionPrivate = *mut _GtkRecentActionPrivate;
+pub type GtkRecentActionPrivate = _GtkRecentActionPrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -7550,12 +7727,13 @@ impl ::std::fmt::Debug for GtkRecentChooserDialogClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkRecentChooserDialogPrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkRecentChooserDialogPrivate = *mut _GtkRecentChooserDialogPrivate;
+pub type GtkRecentChooserDialogPrivate = _GtkRecentChooserDialogPrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -7641,12 +7819,13 @@ impl ::std::fmt::Debug for GtkRecentChooserMenuClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkRecentChooserMenuPrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkRecentChooserMenuPrivate = *mut _GtkRecentChooserMenuPrivate;
+pub type GtkRecentChooserMenuPrivate = _GtkRecentChooserMenuPrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -7671,12 +7850,13 @@ impl ::std::fmt::Debug for GtkRecentChooserWidgetClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkRecentChooserWidgetPrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkRecentChooserWidgetPrivate = *mut _GtkRecentChooserWidgetPrivate;
+pub type GtkRecentChooserWidgetPrivate = _GtkRecentChooserWidgetPrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -7731,6 +7911,7 @@ impl ::std::fmt::Debug for GtkRecentFilterInfo {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct GtkRecentInfo {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
@@ -7767,12 +7948,13 @@ impl ::std::fmt::Debug for GtkRecentManagerClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkRecentManagerPrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkRecentManagerPrivate = *mut _GtkRecentManagerPrivate;
+pub type GtkRecentManagerPrivate = _GtkRecentManagerPrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -7789,12 +7971,13 @@ impl ::std::fmt::Debug for GtkRendererCellAccessibleClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkRendererCellAccessiblePrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkRendererCellAccessiblePrivate = *mut _GtkRendererCellAccessiblePrivate;
+pub type GtkRendererCellAccessiblePrivate = _GtkRendererCellAccessiblePrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -7859,12 +8042,13 @@ impl ::std::fmt::Debug for GtkScaleAccessibleClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkScaleAccessiblePrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkScaleAccessiblePrivate = *mut _GtkScaleAccessiblePrivate;
+pub type GtkScaleAccessiblePrivate = _GtkScaleAccessiblePrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -7881,12 +8065,13 @@ impl ::std::fmt::Debug for GtkScaleButtonAccessibleClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkScaleButtonAccessiblePrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkScaleButtonAccessiblePrivate = *mut _GtkScaleButtonAccessiblePrivate;
+pub type GtkScaleButtonAccessiblePrivate = _GtkScaleButtonAccessiblePrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -7913,12 +8098,13 @@ impl ::std::fmt::Debug for GtkScaleButtonClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkScaleButtonPrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkScaleButtonPrivate = *mut _GtkScaleButtonPrivate;
+pub type GtkScaleButtonPrivate = _GtkScaleButtonPrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -7949,12 +8135,13 @@ impl ::std::fmt::Debug for GtkScaleClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkScalePrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkScalePrivate = *mut _GtkScalePrivate;
+pub type GtkScalePrivate = _GtkScalePrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -8009,12 +8196,13 @@ impl ::std::fmt::Debug for GtkScrolledWindowAccessibleClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkScrolledWindowAccessiblePrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkScrolledWindowAccessiblePrivate = *mut _GtkScrolledWindowAccessiblePrivate;
+pub type GtkScrolledWindowAccessiblePrivate = _GtkScrolledWindowAccessiblePrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -8046,12 +8234,13 @@ impl ::std::fmt::Debug for GtkScrolledWindowClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkScrolledWindowPrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkScrolledWindowPrivate = *mut _GtkScrolledWindowPrivate;
+pub type GtkScrolledWindowPrivate = _GtkScrolledWindowPrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -8098,6 +8287,7 @@ impl ::std::fmt::Debug for GtkSearchEntryClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct GtkSelectionData {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
@@ -8155,12 +8345,13 @@ impl ::std::fmt::Debug for GtkSeparatorMenuItemClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkSeparatorPrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkSeparatorPrivate = *mut _GtkSeparatorPrivate;
+pub type GtkSeparatorPrivate = _GtkSeparatorPrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -8185,12 +8376,13 @@ impl ::std::fmt::Debug for GtkSeparatorToolItemClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkSeparatorToolItemPrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkSeparatorToolItemPrivate = *mut _GtkSeparatorToolItemPrivate;
+pub type GtkSeparatorToolItemPrivate = _GtkSeparatorToolItemPrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -8215,12 +8407,13 @@ impl ::std::fmt::Debug for GtkSettingsClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkSettingsPrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkSettingsPrivate = *mut _GtkSettingsPrivate;
+pub type GtkSettingsPrivate = _GtkSettingsPrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -8239,36 +8432,40 @@ impl ::std::fmt::Debug for GtkSettingsValue {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkShortcutLabelClass {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkShortcutLabelClass = *mut _GtkShortcutLabelClass;
+pub type GtkShortcutLabelClass = _GtkShortcutLabelClass;
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkShortcutsGroupClass {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkShortcutsGroupClass = *mut _GtkShortcutsGroupClass;
+pub type GtkShortcutsGroupClass = _GtkShortcutsGroupClass;
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkShortcutsSectionClass {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkShortcutsSectionClass = *mut _GtkShortcutsSectionClass;
+pub type GtkShortcutsSectionClass = _GtkShortcutsSectionClass;
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkShortcutsShortcutClass {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkShortcutsShortcutClass = *mut _GtkShortcutsShortcutClass;
+pub type GtkShortcutsShortcutClass = _GtkShortcutsShortcutClass;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -8311,12 +8508,13 @@ impl ::std::fmt::Debug for GtkSizeGroupClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkSizeGroupPrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkSizeGroupPrivate = *mut _GtkSizeGroupPrivate;
+pub type GtkSizeGroupPrivate = _GtkSizeGroupPrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -8333,12 +8531,13 @@ impl ::std::fmt::Debug for GtkSocketAccessibleClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkSocketAccessiblePrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkSocketAccessiblePrivate = *mut _GtkSocketAccessiblePrivate;
+pub type GtkSocketAccessiblePrivate = _GtkSocketAccessiblePrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -8367,12 +8566,13 @@ impl ::std::fmt::Debug for GtkSocketClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkSocketPrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkSocketPrivate = *mut _GtkSocketPrivate;
+pub type GtkSocketPrivate = _GtkSocketPrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -8389,12 +8589,13 @@ impl ::std::fmt::Debug for GtkSpinButtonAccessibleClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkSpinButtonAccessiblePrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkSpinButtonAccessiblePrivate = *mut _GtkSpinButtonAccessiblePrivate;
+pub type GtkSpinButtonAccessiblePrivate = _GtkSpinButtonAccessiblePrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -8429,12 +8630,13 @@ impl ::std::fmt::Debug for GtkSpinButtonClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkSpinButtonPrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkSpinButtonPrivate = *mut _GtkSpinButtonPrivate;
+pub type GtkSpinButtonPrivate = _GtkSpinButtonPrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -8451,12 +8653,13 @@ impl ::std::fmt::Debug for GtkSpinnerAccessibleClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkSpinnerAccessiblePrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkSpinnerAccessiblePrivate = *mut _GtkSpinnerAccessiblePrivate;
+pub type GtkSpinnerAccessiblePrivate = _GtkSpinnerAccessiblePrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -8481,12 +8684,13 @@ impl ::std::fmt::Debug for GtkSpinnerClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkSpinnerPrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkSpinnerPrivate = *mut _GtkSpinnerPrivate;
+pub type GtkSpinnerPrivate = _GtkSpinnerPrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -8539,12 +8743,13 @@ impl ::std::fmt::Debug for GtkStackSidebarClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkStackSidebarPrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkStackSidebarPrivate = *mut _GtkStackSidebarPrivate;
+pub type GtkStackSidebarPrivate = _GtkStackSidebarPrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -8616,12 +8821,13 @@ impl ::std::fmt::Debug for GtkStatusIconClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkStatusIconPrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkStatusIconPrivate = *mut _GtkStatusIconPrivate;
+pub type GtkStatusIconPrivate = _GtkStatusIconPrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -8638,12 +8844,13 @@ impl ::std::fmt::Debug for GtkStatusbarAccessibleClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkStatusbarAccessiblePrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkStatusbarAccessiblePrivate = *mut _GtkStatusbarAccessiblePrivate;
+pub type GtkStatusbarAccessiblePrivate = _GtkStatusbarAccessiblePrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -8674,12 +8881,13 @@ impl ::std::fmt::Debug for GtkStatusbarClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkStatusbarPrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkStatusbarPrivate = *mut _GtkStatusbarPrivate;
+pub type GtkStatusbarPrivate = _GtkStatusbarPrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -9090,12 +9298,13 @@ impl ::std::fmt::Debug for GtkStyleContextClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkStyleContextPrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkStyleContextPrivate = *mut _GtkStyleContextPrivate;
+pub type GtkStyleContextPrivate = _GtkStyleContextPrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -9119,12 +9328,13 @@ impl ::std::fmt::Debug for GtkStylePropertiesClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkStylePropertiesPrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkStylePropertiesPrivate = *mut _GtkStylePropertiesPrivate;
+pub type GtkStylePropertiesPrivate = _GtkStylePropertiesPrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -9172,12 +9382,13 @@ impl ::std::fmt::Debug for GtkSwitchAccessibleClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkSwitchAccessiblePrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkSwitchAccessiblePrivate = *mut _GtkSwitchAccessiblePrivate;
+pub type GtkSwitchAccessiblePrivate = _GtkSwitchAccessiblePrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -9208,14 +9419,16 @@ impl ::std::fmt::Debug for GtkSwitchClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkSwitchPrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkSwitchPrivate = *mut _GtkSwitchPrivate;
+pub type GtkSwitchPrivate = _GtkSwitchPrivate;
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct GtkSymbolicColor {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
@@ -9229,6 +9442,7 @@ impl ::std::fmt::Debug for GtkSymbolicColor {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct GtkTableChild {
     pub widget: *mut GtkWidget,
     pub left_attach: u16,
@@ -9280,14 +9494,16 @@ impl ::std::fmt::Debug for GtkTableClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkTablePrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkTablePrivate = *mut _GtkTablePrivate;
+pub type GtkTablePrivate = _GtkTablePrivate;
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct GtkTableRowCol {
     pub requisition: u16,
     pub allocation: u16,
@@ -9327,6 +9543,7 @@ impl ::std::fmt::Debug for GtkTargetEntry {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct GtkTargetList {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
@@ -9380,14 +9597,16 @@ impl ::std::fmt::Debug for GtkTearoffMenuItemClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkTearoffMenuItemPrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkTearoffMenuItemPrivate = *mut _GtkTearoffMenuItemPrivate;
+pub type GtkTearoffMenuItemPrivate = _GtkTearoffMenuItemPrivate;
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct GtkTextAppearance {
     pub bg_color: gdk::GdkColor,
     pub fg_color: gdk::GdkColor,
@@ -9409,6 +9628,7 @@ impl ::std::fmt::Debug for GtkTextAppearance {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct GtkTextAttributes {
     pub refcount: c_uint,
     _truncated_record_marker: c_void,
@@ -9423,12 +9643,13 @@ impl ::std::fmt::Debug for GtkTextAttributes {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkTextBTree {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkTextBTree = *mut _GtkTextBTree;
+pub type GtkTextBTree = _GtkTextBTree;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -9499,12 +9720,13 @@ impl ::std::fmt::Debug for GtkTextBufferClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkTextBufferPrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkTextBufferPrivate = *mut _GtkTextBufferPrivate;
+pub type GtkTextBufferPrivate = _GtkTextBufferPrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -9521,12 +9743,13 @@ impl ::std::fmt::Debug for GtkTextCellAccessibleClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkTextCellAccessiblePrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkTextCellAccessiblePrivate = *mut _GtkTextCellAccessiblePrivate;
+pub type GtkTextCellAccessiblePrivate = _GtkTextCellAccessiblePrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -9629,12 +9852,13 @@ impl ::std::fmt::Debug for GtkTextTagClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkTextTagPrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkTextTagPrivate = *mut _GtkTextTagPrivate;
+pub type GtkTextTagPrivate = _GtkTextTagPrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -9665,12 +9889,13 @@ impl ::std::fmt::Debug for GtkTextTagTableClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkTextTagTablePrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkTextTagTablePrivate = *mut _GtkTextTagTablePrivate;
+pub type GtkTextTagTablePrivate = _GtkTextTagTablePrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -9687,12 +9912,13 @@ impl ::std::fmt::Debug for GtkTextViewAccessibleClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkTextViewAccessiblePrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkTextViewAccessiblePrivate = *mut _GtkTextViewAccessiblePrivate;
+pub type GtkTextViewAccessiblePrivate = _GtkTextViewAccessiblePrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -9755,20 +9981,22 @@ impl ::std::fmt::Debug for GtkTextViewClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkTextViewPrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkTextViewPrivate = *mut _GtkTextViewPrivate;
+pub type GtkTextViewPrivate = _GtkTextViewPrivate;
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkThemeEngine {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkThemeEngine = *mut _GtkThemeEngine;
+pub type GtkThemeEngine = _GtkThemeEngine;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -9972,12 +10200,13 @@ impl ::std::fmt::Debug for GtkThemingEngineClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkThemingEnginePrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkThemingEnginePrivate = *mut _GtkThemingEnginePrivate;
+pub type GtkThemingEnginePrivate = _GtkThemingEnginePrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -10030,12 +10259,13 @@ impl ::std::fmt::Debug for GtkToggleActionEntry {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkToggleActionPrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkToggleActionPrivate = *mut _GtkToggleActionPrivate;
+pub type GtkToggleActionPrivate = _GtkToggleActionPrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -10052,12 +10282,13 @@ impl ::std::fmt::Debug for GtkToggleButtonAccessibleClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkToggleButtonAccessiblePrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkToggleButtonAccessiblePrivate = *mut _GtkToggleButtonAccessiblePrivate;
+pub type GtkToggleButtonAccessiblePrivate = _GtkToggleButtonAccessiblePrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -10084,12 +10315,13 @@ impl ::std::fmt::Debug for GtkToggleButtonClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkToggleButtonPrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkToggleButtonPrivate = *mut _GtkToggleButtonPrivate;
+pub type GtkToggleButtonPrivate = _GtkToggleButtonPrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -10116,12 +10348,13 @@ impl ::std::fmt::Debug for GtkToggleToolButtonClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkToggleToolButtonPrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkToggleToolButtonPrivate = *mut _GtkToggleToolButtonPrivate;
+pub type GtkToggleToolButtonPrivate = _GtkToggleToolButtonPrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -10150,12 +10383,13 @@ impl ::std::fmt::Debug for GtkToolButtonClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkToolButtonPrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkToolButtonPrivate = *mut _GtkToolButtonPrivate;
+pub type GtkToolButtonPrivate = _GtkToolButtonPrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -10206,20 +10440,22 @@ impl ::std::fmt::Debug for GtkToolItemGroupClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkToolItemGroupPrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkToolItemGroupPrivate = *mut _GtkToolItemGroupPrivate;
+pub type GtkToolItemGroupPrivate = _GtkToolItemGroupPrivate;
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkToolItemPrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkToolItemPrivate = *mut _GtkToolItemPrivate;
+pub type GtkToolItemPrivate = _GtkToolItemPrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -10244,12 +10480,13 @@ impl ::std::fmt::Debug for GtkToolPaletteClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkToolPalettePrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkToolPalettePrivate = *mut _GtkToolPalettePrivate;
+pub type GtkToolPalettePrivate = _GtkToolPalettePrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -10313,12 +10550,13 @@ impl ::std::fmt::Debug for GtkToolbarClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkToolbarPrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkToolbarPrivate = *mut _GtkToolbarPrivate;
+pub type GtkToolbarPrivate = _GtkToolbarPrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -10335,12 +10573,13 @@ impl ::std::fmt::Debug for GtkToplevelAccessibleClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkToplevelAccessiblePrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkToplevelAccessiblePrivate = *mut _GtkToplevelAccessiblePrivate;
+pub type GtkToplevelAccessiblePrivate = _GtkToplevelAccessiblePrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -10459,12 +10698,13 @@ impl ::std::fmt::Debug for GtkTreeModelFilterClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkTreeModelFilterPrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkTreeModelFilterPrivate = *mut _GtkTreeModelFilterPrivate;
+pub type GtkTreeModelFilterPrivate = _GtkTreeModelFilterPrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -10565,14 +10805,16 @@ impl ::std::fmt::Debug for GtkTreeModelSortClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkTreeModelSortPrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkTreeModelSortPrivate = *mut _GtkTreeModelSortPrivate;
+pub type GtkTreeModelSortPrivate = _GtkTreeModelSortPrivate;
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct GtkTreePath {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
@@ -10585,6 +10827,7 @@ impl ::std::fmt::Debug for GtkTreePath {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct GtkTreeRowReference {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
@@ -10622,12 +10865,13 @@ impl ::std::fmt::Debug for GtkTreeSelectionClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkTreeSelectionPrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkTreeSelectionPrivate = *mut _GtkTreeSelectionPrivate;
+pub type GtkTreeSelectionPrivate = _GtkTreeSelectionPrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -10694,12 +10938,13 @@ impl ::std::fmt::Debug for GtkTreeStoreClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkTreeStorePrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkTreeStorePrivate = *mut _GtkTreeStorePrivate;
+pub type GtkTreeStorePrivate = _GtkTreeStorePrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -10716,12 +10961,13 @@ impl ::std::fmt::Debug for GtkTreeViewAccessibleClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkTreeViewAccessiblePrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkTreeViewAccessiblePrivate = *mut _GtkTreeViewAccessiblePrivate;
+pub type GtkTreeViewAccessiblePrivate = _GtkTreeViewAccessiblePrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -10820,20 +11066,22 @@ impl ::std::fmt::Debug for GtkTreeViewColumnClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkTreeViewColumnPrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkTreeViewColumnPrivate = *mut _GtkTreeViewColumnPrivate;
+pub type GtkTreeViewColumnPrivate = _GtkTreeViewColumnPrivate;
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkTreeViewPrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkTreeViewPrivate = *mut _GtkTreeViewPrivate;
+pub type GtkTreeViewPrivate = _GtkTreeViewPrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -10878,12 +11126,13 @@ impl ::std::fmt::Debug for GtkUIManagerClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkUIManagerPrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkUIManagerPrivate = *mut _GtkUIManagerPrivate;
+pub type GtkUIManagerPrivate = _GtkUIManagerPrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -10992,12 +11241,13 @@ impl ::std::fmt::Debug for GtkViewportClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkViewportPrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkViewportPrivate = *mut _GtkViewportPrivate;
+pub type GtkViewportPrivate = _GtkViewportPrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -11038,12 +11288,13 @@ impl ::std::fmt::Debug for GtkWidgetAccessibleClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkWidgetAccessiblePrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkWidgetAccessiblePrivate = *mut _GtkWidgetAccessiblePrivate;
+pub type GtkWidgetAccessiblePrivate = _GtkWidgetAccessiblePrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -11328,14 +11579,16 @@ impl ::std::fmt::Debug for GtkWidgetClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkWidgetClassPrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkWidgetClassPrivate = *mut _GtkWidgetClassPrivate;
+pub type GtkWidgetClassPrivate = _GtkWidgetClassPrivate;
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct GtkWidgetPath {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
@@ -11349,12 +11602,13 @@ impl ::std::fmt::Debug for GtkWidgetPath {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkWidgetPrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkWidgetPrivate = *mut _GtkWidgetPrivate;
+pub type GtkWidgetPrivate = _GtkWidgetPrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -11371,12 +11625,13 @@ impl ::std::fmt::Debug for GtkWindowAccessibleClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkWindowAccessiblePrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkWindowAccessiblePrivate = *mut _GtkWindowAccessiblePrivate;
+pub type GtkWindowAccessiblePrivate = _GtkWindowAccessiblePrivate;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -11409,12 +11664,13 @@ impl ::std::fmt::Debug for GtkWindowClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkWindowGeometryInfo {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkWindowGeometryInfo = *mut _GtkWindowGeometryInfo;
+pub type GtkWindowGeometryInfo = _GtkWindowGeometryInfo;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -11439,20 +11695,22 @@ impl ::std::fmt::Debug for GtkWindowGroupClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkWindowGroupPrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkWindowGroupPrivate = *mut _GtkWindowGroupPrivate;
+pub type GtkWindowGroupPrivate = _GtkWindowGroupPrivate;
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GtkWindowPrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GtkWindowPrivate = *mut _GtkWindowPrivate;
+pub type GtkWindowPrivate = _GtkWindowPrivate;
 
 // Classes
 #[derive(Copy, Clone)]
@@ -11503,6 +11761,7 @@ impl ::std::fmt::Debug for GtkAccelLabel {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct GtkAccelMap {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
@@ -12113,6 +12372,7 @@ impl ::std::fmt::Debug for GtkCheckMenuItemAccessible {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct GtkClipboard {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
@@ -12397,6 +12657,7 @@ impl ::std::fmt::Debug for GtkEntryCompletion {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct GtkEntryIconAccessible {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
@@ -12425,6 +12686,7 @@ impl ::std::fmt::Debug for GtkEventBox {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct GtkEventController {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
@@ -12438,6 +12700,7 @@ impl ::std::fmt::Debug for GtkEventController {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct GtkEventControllerKey {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
@@ -12451,6 +12714,7 @@ impl ::std::fmt::Debug for GtkEventControllerKey {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct GtkEventControllerMotion {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
@@ -12464,6 +12728,7 @@ impl ::std::fmt::Debug for GtkEventControllerMotion {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct GtkEventControllerScroll {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
@@ -12540,6 +12805,7 @@ impl ::std::fmt::Debug for GtkFileChooserDialog {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct GtkFileChooserNative {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
@@ -12585,6 +12851,7 @@ impl ::std::fmt::Debug for GtkFileChooserWidgetAccessible {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct GtkFileFilter {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
@@ -12789,6 +13056,7 @@ impl ::std::fmt::Debug for GtkGLArea {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct GtkGesture {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
@@ -12801,6 +13069,7 @@ impl ::std::fmt::Debug for GtkGesture {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct GtkGestureDrag {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
@@ -12814,6 +13083,7 @@ impl ::std::fmt::Debug for GtkGestureDrag {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct GtkGestureLongPress {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
@@ -12827,6 +13097,7 @@ impl ::std::fmt::Debug for GtkGestureLongPress {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct GtkGestureMultiPress {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
@@ -12840,6 +13111,7 @@ impl ::std::fmt::Debug for GtkGestureMultiPress {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct GtkGesturePan {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
@@ -12853,6 +13125,7 @@ impl ::std::fmt::Debug for GtkGesturePan {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct GtkGestureRotate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
@@ -12866,6 +13139,7 @@ impl ::std::fmt::Debug for GtkGestureRotate {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct GtkGestureSingle {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
@@ -12879,6 +13153,7 @@ impl ::std::fmt::Debug for GtkGestureSingle {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct GtkGestureStylus {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
@@ -12892,6 +13167,7 @@ impl ::std::fmt::Debug for GtkGestureStylus {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct GtkGestureSwipe {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
@@ -12905,6 +13181,7 @@ impl ::std::fmt::Debug for GtkGestureSwipe {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct GtkGestureZoom {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
@@ -13132,6 +13409,7 @@ impl ::std::fmt::Debug for GtkIconFactory {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct GtkIconInfo {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
@@ -13674,6 +13952,7 @@ impl ::std::fmt::Debug for GtkMisc {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct GtkModelButton {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
@@ -13807,6 +14086,7 @@ impl ::std::fmt::Debug for GtkOverlay {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct GtkPadController {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
@@ -13820,6 +14100,7 @@ impl ::std::fmt::Debug for GtkPadController {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct GtkPageSetup {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
@@ -13863,6 +14144,7 @@ impl ::std::fmt::Debug for GtkPanedAccessible {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct GtkPlacesSidebar {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
@@ -13937,6 +14219,7 @@ impl ::std::fmt::Debug for GtkPopoverAccessible {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct GtkPopoverMenu {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
@@ -13950,6 +14233,7 @@ impl ::std::fmt::Debug for GtkPopoverMenu {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct GtkPrintContext {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
@@ -13978,6 +14262,7 @@ impl ::std::fmt::Debug for GtkPrintOperation {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct GtkPrintSettings {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
@@ -14243,6 +14528,7 @@ impl ::std::fmt::Debug for GtkRecentChooserWidget {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct GtkRecentFilter {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
@@ -14494,6 +14780,7 @@ impl ::std::fmt::Debug for GtkSettings {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct GtkShortcutLabel {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
@@ -14507,6 +14794,7 @@ impl ::std::fmt::Debug for GtkShortcutLabel {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct GtkShortcutsGroup {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
@@ -14520,6 +14808,7 @@ impl ::std::fmt::Debug for GtkShortcutsGroup {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct GtkShortcutsSection {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
@@ -14533,6 +14822,7 @@ impl ::std::fmt::Debug for GtkShortcutsSection {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct GtkShortcutsShortcut {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
@@ -14772,6 +15062,7 @@ impl ::std::fmt::Debug for GtkStatusbarAccessible {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct GtkStyle {
     pub parent_instance: gobject::GObject,
     pub fg: [gdk::GdkColor; 5],
@@ -15180,6 +15471,7 @@ impl ::std::fmt::Debug for GtkToolbar {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct GtkTooltip {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
@@ -15523,6 +15815,7 @@ impl ::std::fmt::Debug for GtkWindowGroup {
 
 // Interfaces
 #[repr(C)]
+#[allow(dead_code)]
 pub struct GtkActionable {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
@@ -15535,6 +15828,7 @@ impl ::std::fmt::Debug for GtkActionable {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct GtkActivatable {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
@@ -15547,6 +15841,7 @@ impl ::std::fmt::Debug for GtkActivatable {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct GtkAppChooser {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
@@ -15559,6 +15854,7 @@ impl ::std::fmt::Debug for GtkAppChooser {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct GtkBuildable {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
@@ -15571,6 +15867,7 @@ impl ::std::fmt::Debug for GtkBuildable {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct GtkCellAccessibleParent {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
@@ -15583,6 +15880,7 @@ impl ::std::fmt::Debug for GtkCellAccessibleParent {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct GtkCellEditable {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
@@ -15595,6 +15893,7 @@ impl ::std::fmt::Debug for GtkCellEditable {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct GtkCellLayout {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
@@ -15607,6 +15906,7 @@ impl ::std::fmt::Debug for GtkCellLayout {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct GtkColorChooser {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
@@ -15619,6 +15919,7 @@ impl ::std::fmt::Debug for GtkColorChooser {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct GtkEditable {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
@@ -15631,6 +15932,7 @@ impl ::std::fmt::Debug for GtkEditable {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct GtkFileChooser {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
@@ -15643,6 +15945,7 @@ impl ::std::fmt::Debug for GtkFileChooser {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct GtkFontChooser {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
@@ -15655,6 +15958,7 @@ impl ::std::fmt::Debug for GtkFontChooser {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct GtkOrientable {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
@@ -15667,6 +15971,7 @@ impl ::std::fmt::Debug for GtkOrientable {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct GtkPrintOperationPreview {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
@@ -15679,6 +15984,7 @@ impl ::std::fmt::Debug for GtkPrintOperationPreview {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct GtkRecentChooser {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
@@ -15691,6 +15997,7 @@ impl ::std::fmt::Debug for GtkRecentChooser {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct GtkScrollable {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
@@ -15703,6 +16010,7 @@ impl ::std::fmt::Debug for GtkScrollable {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct GtkStyleProvider {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
@@ -15715,6 +16023,7 @@ impl ::std::fmt::Debug for GtkStyleProvider {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct GtkToolShell {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
@@ -15727,6 +16036,7 @@ impl ::std::fmt::Debug for GtkToolShell {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct GtkTreeDragDest {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
@@ -15739,6 +16049,7 @@ impl ::std::fmt::Debug for GtkTreeDragDest {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct GtkTreeDragSource {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
@@ -15751,6 +16062,7 @@ impl ::std::fmt::Debug for GtkTreeDragSource {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct GtkTreeModel {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
@@ -15763,6 +16075,7 @@ impl ::std::fmt::Debug for GtkTreeModel {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct GtkTreeSortable {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
@@ -15774,8 +16087,7 @@ impl ::std::fmt::Debug for GtkTreeSortable {
     }
 }
 
-#[link(name = "gtk-3")]
-extern "C" {
+unsafe extern "C" {
 
     //=========================================================================
     // GtkAlign
@@ -16735,14 +17047,14 @@ extern "C" {
         error: *mut *mut glib::GError,
     ) -> *mut gio::GAppInfo;
     pub fn gtk_recent_info_exists(info: *mut GtkRecentInfo) -> gboolean;
-    pub fn gtk_recent_info_get_added(info: *mut GtkRecentInfo) -> c_long;
+    pub fn gtk_recent_info_get_added(info: *mut GtkRecentInfo) -> time_t;
     pub fn gtk_recent_info_get_age(info: *mut GtkRecentInfo) -> c_int;
     pub fn gtk_recent_info_get_application_info(
         info: *mut GtkRecentInfo,
         app_name: *const c_char,
         app_exec: *mut *const c_char,
         count: *mut c_uint,
-        time_: *mut c_long,
+        time_: *mut time_t,
     ) -> gboolean;
     pub fn gtk_recent_info_get_applications(
         info: *mut GtkRecentInfo,
@@ -16760,12 +17072,12 @@ extern "C" {
         size: c_int,
     ) -> *mut gdk_pixbuf::GdkPixbuf;
     pub fn gtk_recent_info_get_mime_type(info: *mut GtkRecentInfo) -> *const c_char;
-    pub fn gtk_recent_info_get_modified(info: *mut GtkRecentInfo) -> c_long;
+    pub fn gtk_recent_info_get_modified(info: *mut GtkRecentInfo) -> time_t;
     pub fn gtk_recent_info_get_private_hint(info: *mut GtkRecentInfo) -> gboolean;
     pub fn gtk_recent_info_get_short_name(info: *mut GtkRecentInfo) -> *mut c_char;
     pub fn gtk_recent_info_get_uri(info: *mut GtkRecentInfo) -> *const c_char;
     pub fn gtk_recent_info_get_uri_display(info: *mut GtkRecentInfo) -> *mut c_char;
-    pub fn gtk_recent_info_get_visited(info: *mut GtkRecentInfo) -> c_long;
+    pub fn gtk_recent_info_get_visited(info: *mut GtkRecentInfo) -> time_t;
     pub fn gtk_recent_info_has_application(
         info: *mut GtkRecentInfo,
         app_name: *const c_char,

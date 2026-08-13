@@ -2,7 +2,7 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use crate::{Buildable, Container, Widget};
+use crate::{ffi, Buildable, Container, Widget};
 use glib::{prelude::*, translate::*};
 
 glib::wrapper! {
@@ -18,12 +18,7 @@ impl Bin {
     pub const NONE: Option<&'static Bin> = None;
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::IsA<super::Bin>> Sealed for T {}
-}
-
-pub trait BinExt: IsA<Bin> + sealed::Sealed + 'static {
+pub trait BinExt: IsA<Bin> + 'static {
     #[doc(alias = "gtk_bin_get_child")]
     #[doc(alias = "get_child")]
     fn child(&self) -> Option<Widget> {

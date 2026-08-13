@@ -2,7 +2,7 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use crate::CoordType;
+use crate::{ffi, CoordType};
 use glib::{prelude::*, translate::*};
 
 glib::wrapper! {
@@ -18,12 +18,7 @@ impl Image {
     pub const NONE: Option<&'static Image> = None;
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::IsA<super::Image>> Sealed for T {}
-}
-
-pub trait AtkImageExt: IsA<Image> + sealed::Sealed + 'static {
+pub trait AtkImageExt: IsA<Image> + 'static {
     #[doc(alias = "atk_image_get_image_description")]
     #[doc(alias = "get_image_description")]
     fn image_description(&self) -> Option<glib::GString> {

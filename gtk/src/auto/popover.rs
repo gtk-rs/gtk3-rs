@@ -3,9 +3,10 @@
 // DO NOT EDIT
 
 use crate::{
-    Align, Bin, Buildable, Container, PopoverConstraint, PositionType, ResizeMode, Widget,
+    ffi, Align, Bin, Buildable, Container, PopoverConstraint, PositionType, ResizeMode, Widget,
 };
 use glib::{
+    object::ObjectType as _,
     prelude::*,
     signal::{connect_raw, SignalHandlerId},
     translate::*,
@@ -330,16 +331,12 @@ impl PopoverBuilder {
     /// Build the [`Popover`].
     #[must_use = "Building the object from the builder is usually expensive and is not expected to have side effects"]
     pub fn build(self) -> Popover {
+        assert_initialized_main_thread!();
         self.builder.build()
     }
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::IsA<super::Popover>> Sealed for T {}
-}
-
-pub trait PopoverExt: IsA<Popover> + sealed::Sealed + 'static {
+pub trait PopoverExt: IsA<Popover> + 'static {
     #[doc(alias = "gtk_popover_bind_model")]
     fn bind_model(&self, model: Option<&impl IsA<gio::MenuModel>>, action_namespace: Option<&str>) {
         unsafe {
@@ -353,6 +350,7 @@ pub trait PopoverExt: IsA<Popover> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_popover_get_constrain_to")]
     #[doc(alias = "get_constrain_to")]
+    #[doc(alias = "constrain-to")]
     fn constrain_to(&self) -> PopoverConstraint {
         unsafe {
             from_glib(ffi::gtk_popover_get_constrain_to(
@@ -373,12 +371,14 @@ pub trait PopoverExt: IsA<Popover> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_popover_get_modal")]
     #[doc(alias = "get_modal")]
+    #[doc(alias = "modal")]
     fn is_modal(&self) -> bool {
         unsafe { from_glib(ffi::gtk_popover_get_modal(self.as_ref().to_glib_none().0)) }
     }
 
     #[doc(alias = "gtk_popover_get_pointing_to")]
     #[doc(alias = "get_pointing_to")]
+    #[doc(alias = "pointing-to")]
     fn pointing_to(&self) -> Option<gdk::Rectangle> {
         unsafe {
             let mut rect = gdk::Rectangle::uninitialized();
@@ -406,6 +406,7 @@ pub trait PopoverExt: IsA<Popover> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_popover_get_relative_to")]
     #[doc(alias = "get_relative_to")]
+    #[doc(alias = "relative-to")]
     fn relative_to(&self) -> Option<Widget> {
         unsafe {
             from_glib_none(ffi::gtk_popover_get_relative_to(
@@ -429,6 +430,7 @@ pub trait PopoverExt: IsA<Popover> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_popover_set_constrain_to")]
+    #[doc(alias = "constrain-to")]
     fn set_constrain_to(&self, constraint: PopoverConstraint) {
         unsafe {
             ffi::gtk_popover_set_constrain_to(
@@ -449,6 +451,7 @@ pub trait PopoverExt: IsA<Popover> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_popover_set_modal")]
+    #[doc(alias = "modal")]
     fn set_modal(&self, modal: bool) {
         unsafe {
             ffi::gtk_popover_set_modal(self.as_ref().to_glib_none().0, modal.into_glib());
@@ -456,6 +459,7 @@ pub trait PopoverExt: IsA<Popover> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_popover_set_pointing_to")]
+    #[doc(alias = "pointing-to")]
     fn set_pointing_to(&self, rect: &gdk::Rectangle) {
         unsafe {
             ffi::gtk_popover_set_pointing_to(self.as_ref().to_glib_none().0, rect.to_glib_none().0);
@@ -463,6 +467,7 @@ pub trait PopoverExt: IsA<Popover> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_popover_set_position")]
+    #[doc(alias = "position")]
     fn set_position(&self, position: PositionType) {
         unsafe {
             ffi::gtk_popover_set_position(self.as_ref().to_glib_none().0, position.into_glib());
@@ -470,6 +475,7 @@ pub trait PopoverExt: IsA<Popover> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_popover_set_relative_to")]
+    #[doc(alias = "relative-to")]
     fn set_relative_to(&self, relative_to: Option<&impl IsA<Widget>>) {
         unsafe {
             ffi::gtk_popover_set_relative_to(
@@ -485,15 +491,17 @@ pub trait PopoverExt: IsA<Popover> + sealed::Sealed + 'static {
             this: *mut ffi::GtkPopover,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Popover::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Popover::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"closed\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"closed".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     closed_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -511,15 +519,17 @@ pub trait PopoverExt: IsA<Popover> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Popover::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Popover::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::constrain-to\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::constrain-to".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_constrain_to_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -534,15 +544,17 @@ pub trait PopoverExt: IsA<Popover> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Popover::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Popover::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::modal\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::modal".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_modal_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -557,15 +569,17 @@ pub trait PopoverExt: IsA<Popover> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Popover::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Popover::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::pointing-to\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::pointing-to".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_pointing_to_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -580,15 +594,17 @@ pub trait PopoverExt: IsA<Popover> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Popover::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Popover::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::position\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::position".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_position_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -603,15 +619,17 @@ pub trait PopoverExt: IsA<Popover> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Popover::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Popover::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::relative-to\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::relative-to".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_relative_to_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),

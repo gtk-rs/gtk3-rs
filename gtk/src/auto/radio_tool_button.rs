@@ -3,7 +3,7 @@
 // DO NOT EDIT
 
 use crate::{
-    Actionable, Align, Bin, Buildable, Container, RadioButton, ResizeMode, ToggleToolButton,
+    ffi, Actionable, Align, Bin, Buildable, Container, RadioButton, ResizeMode, ToggleToolButton,
     ToolButton, ToolItem, Widget,
 };
 use glib::{prelude::*, translate::*};
@@ -347,16 +347,12 @@ impl RadioToolButtonBuilder {
     /// Build the [`RadioToolButton`].
     #[must_use = "Building the object from the builder is usually expensive and is not expected to have side effects"]
     pub fn build(self) -> RadioToolButton {
+        assert_initialized_main_thread!();
         self.builder.build()
     }
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::IsA<super::RadioToolButton>> Sealed for T {}
-}
-
-pub trait RadioToolButtonExt: IsA<RadioToolButton> + sealed::Sealed + 'static {
+pub trait RadioToolButtonExt: IsA<RadioToolButton> + 'static {
     #[doc(alias = "gtk_radio_tool_button_get_group")]
     #[doc(alias = "get_group")]
     fn group(&self) -> Vec<RadioButton> {

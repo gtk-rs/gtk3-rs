@@ -2,7 +2,7 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use crate::{Component, Object};
+use crate::{ffi, Component, Object};
 use glib::{prelude::*, translate::*};
 
 glib::wrapper! {
@@ -30,12 +30,7 @@ impl Default for Plug {
     }
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::IsA<super::Plug>> Sealed for T {}
-}
-
-pub trait AtkPlugExt: IsA<Plug> + sealed::Sealed + 'static {
+pub trait AtkPlugExt: IsA<Plug> + 'static {
     #[doc(alias = "atk_plug_get_id")]
     #[doc(alias = "get_id")]
     fn id(&self) -> Option<glib::GString> {

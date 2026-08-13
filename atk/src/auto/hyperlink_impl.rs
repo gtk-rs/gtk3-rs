@@ -2,7 +2,7 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use crate::Hyperlink;
+use crate::{ffi, Hyperlink};
 use glib::{prelude::*, translate::*};
 
 glib::wrapper! {
@@ -18,12 +18,7 @@ impl HyperlinkImpl {
     pub const NONE: Option<&'static HyperlinkImpl> = None;
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::IsA<super::HyperlinkImpl>> Sealed for T {}
-}
-
-pub trait HyperlinkImplExt: IsA<HyperlinkImpl> + sealed::Sealed + 'static {
+pub trait HyperlinkImplExt: IsA<HyperlinkImpl> + 'static {
     #[doc(alias = "atk_hyperlink_impl_get_hyperlink")]
     #[doc(alias = "get_hyperlink")]
     fn hyperlink(&self) -> Option<Hyperlink> {

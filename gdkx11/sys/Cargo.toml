@@ -33,21 +33,17 @@ name = "gdk_x11_sys"
 libc = "0.2"
 x11 = "2.18"
 
-[dependencies.gdk]
-package = "gdk-sys"
+[dependencies.cairo-sys]
+workspace = true
+
+[dependencies.gdk-sys]
 path = "../../gdk/sys"
 
-[dependencies.glib]
-package = "glib-sys"
-version = "0.22"
-
-[dependencies.cairo]
-package = "cairo-sys-rs"
-version = "0.22"
-optional = true
+[dependencies.glib-sys]
+workspace = true
 
 [build-dependencies]
-system-deps = "6"
+system-deps = "8"
 
 [dev-dependencies]
 shell-words = "1.0.0"
@@ -55,4 +51,4 @@ tempfile = "3"
 
 [features]
 v3_24 = []
-v3_24_2 = ["v3_24", "cairo"]
+v3_24_2 = ["v3_24"]

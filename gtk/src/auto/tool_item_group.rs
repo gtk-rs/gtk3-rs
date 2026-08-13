@@ -2,7 +2,9 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use crate::{Align, Buildable, Container, ReliefStyle, ResizeMode, ToolItem, ToolShell, Widget};
+use crate::{
+    ffi, Align, Buildable, Container, ReliefStyle, ResizeMode, ToolItem, ToolShell, Widget,
+};
 use glib::{
     prelude::*,
     signal::{connect_raw, SignalHandlerId},
@@ -310,18 +312,15 @@ impl ToolItemGroupBuilder {
     /// Build the [`ToolItemGroup`].
     #[must_use = "Building the object from the builder is usually expensive and is not expected to have side effects"]
     pub fn build(self) -> ToolItemGroup {
+        assert_initialized_main_thread!();
         self.builder.build()
     }
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::IsA<super::ToolItemGroup>> Sealed for T {}
-}
-
-pub trait ToolItemGroupExt: IsA<ToolItemGroup> + sealed::Sealed + 'static {
+pub trait ToolItemGroupExt: IsA<ToolItemGroup> + 'static {
     #[doc(alias = "gtk_tool_item_group_get_collapsed")]
     #[doc(alias = "get_collapsed")]
+    #[doc(alias = "collapsed")]
     fn is_collapsed(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_tool_item_group_get_collapsed(
@@ -354,6 +353,7 @@ pub trait ToolItemGroupExt: IsA<ToolItemGroup> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_tool_item_group_get_header_relief")]
     #[doc(alias = "get_header_relief")]
+    #[doc(alias = "header-relief")]
     fn header_relief(&self) -> ReliefStyle {
         unsafe {
             from_glib(ffi::gtk_tool_item_group_get_header_relief(
@@ -385,6 +385,7 @@ pub trait ToolItemGroupExt: IsA<ToolItemGroup> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_tool_item_group_get_label_widget")]
     #[doc(alias = "get_label_widget")]
+    #[doc(alias = "label-widget")]
     fn label_widget(&self) -> Option<Widget> {
         unsafe {
             from_glib_none(ffi::gtk_tool_item_group_get_label_widget(
@@ -422,6 +423,7 @@ pub trait ToolItemGroupExt: IsA<ToolItemGroup> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_tool_item_group_set_collapsed")]
+    #[doc(alias = "collapsed")]
     fn set_collapsed(&self, collapsed: bool) {
         unsafe {
             ffi::gtk_tool_item_group_set_collapsed(
@@ -432,6 +434,7 @@ pub trait ToolItemGroupExt: IsA<ToolItemGroup> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_tool_item_group_set_ellipsize")]
+    #[doc(alias = "ellipsize")]
     fn set_ellipsize(&self, ellipsize: pango::EllipsizeMode) {
         unsafe {
             ffi::gtk_tool_item_group_set_ellipsize(
@@ -442,6 +445,7 @@ pub trait ToolItemGroupExt: IsA<ToolItemGroup> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_tool_item_group_set_header_relief")]
+    #[doc(alias = "header-relief")]
     fn set_header_relief(&self, style: ReliefStyle) {
         unsafe {
             ffi::gtk_tool_item_group_set_header_relief(
@@ -463,6 +467,7 @@ pub trait ToolItemGroupExt: IsA<ToolItemGroup> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_tool_item_group_set_label")]
+    #[doc(alias = "label")]
     fn set_label(&self, label: &str) {
         unsafe {
             ffi::gtk_tool_item_group_set_label(
@@ -473,6 +478,7 @@ pub trait ToolItemGroupExt: IsA<ToolItemGroup> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_tool_item_group_set_label_widget")]
+    #[doc(alias = "label-widget")]
     fn set_label_widget(&self, label_widget: &impl IsA<Widget>) {
         unsafe {
             ffi::gtk_tool_item_group_set_label_widget(
@@ -562,15 +568,17 @@ pub trait ToolItemGroupExt: IsA<ToolItemGroup> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(ToolItemGroup::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(ToolItemGroup::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::collapsed\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::collapsed".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_collapsed_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -588,15 +596,17 @@ pub trait ToolItemGroupExt: IsA<ToolItemGroup> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(ToolItemGroup::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(ToolItemGroup::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::ellipsize\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::ellipsize".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_ellipsize_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -614,15 +624,17 @@ pub trait ToolItemGroupExt: IsA<ToolItemGroup> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(ToolItemGroup::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(ToolItemGroup::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::header-relief\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::header-relief".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_header_relief_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -637,15 +649,17 @@ pub trait ToolItemGroupExt: IsA<ToolItemGroup> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(ToolItemGroup::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(ToolItemGroup::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::label\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::label".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_label_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -663,15 +677,17 @@ pub trait ToolItemGroupExt: IsA<ToolItemGroup> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(ToolItemGroup::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(ToolItemGroup::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::label-widget\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::label-widget".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_label_widget_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),

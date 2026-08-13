@@ -2,7 +2,7 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use crate::{Align, Bin, Buildable, Container, PackType, ResizeMode, Widget};
+use crate::{ffi, Align, Bin, Buildable, Container, PackType, ResizeMode, Widget};
 use glib::{prelude::*, translate::*};
 
 glib::wrapper! {
@@ -270,16 +270,12 @@ impl ActionBarBuilder {
     /// Build the [`ActionBar`].
     #[must_use = "Building the object from the builder is usually expensive and is not expected to have side effects"]
     pub fn build(self) -> ActionBar {
+        assert_initialized_main_thread!();
         self.builder.build()
     }
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::IsA<super::ActionBar>> Sealed for T {}
-}
-
-pub trait ActionBarExt: IsA<ActionBar> + sealed::Sealed + 'static {
+pub trait ActionBarExt: IsA<ActionBar> + 'static {
     #[doc(alias = "gtk_action_bar_get_center_widget")]
     #[doc(alias = "get_center_widget")]
     fn center_widget(&self) -> Option<Widget> {

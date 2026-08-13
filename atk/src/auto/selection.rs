@@ -2,8 +2,9 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use crate::Object;
+use crate::{ffi, Object};
 use glib::{
+    object::ObjectType as _,
     prelude::*,
     signal::{connect_raw, SignalHandlerId},
     translate::*,
@@ -23,12 +24,7 @@ impl Selection {
     pub const NONE: Option<&'static Selection> = None;
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::IsA<super::Selection>> Sealed for T {}
-}
-
-pub trait SelectionExt: IsA<Selection> + sealed::Sealed + 'static {
+pub trait SelectionExt: IsA<Selection> + 'static {
     #[doc(alias = "atk_selection_add_selection")]
     fn add_selection(&self, i: i32) -> bool {
         unsafe {
@@ -102,15 +98,17 @@ pub trait SelectionExt: IsA<Selection> + sealed::Sealed + 'static {
             this: *mut ffi::AtkSelection,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Selection::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Selection::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"selection-changed\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"selection-changed".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     selection_changed_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),

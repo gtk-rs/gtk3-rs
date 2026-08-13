@@ -3,10 +3,11 @@
 // DO NOT EDIT
 
 use crate::{
-    Align, Buildable, Container, IconSize, Orientable, Orientation, ReliefStyle, ResizeMode,
+    ffi, Align, Buildable, Container, IconSize, Orientable, Orientation, ReliefStyle, ResizeMode,
     ToolItem, ToolShell, ToolbarStyle, Widget,
 };
 use glib::{
+    object::ObjectType as _,
     prelude::*,
     signal::{connect_raw, SignalHandlerId},
     translate::*,
@@ -308,16 +309,12 @@ impl ToolbarBuilder {
     /// Build the [`Toolbar`].
     #[must_use = "Building the object from the builder is usually expensive and is not expected to have side effects"]
     pub fn build(self) -> Toolbar {
+        assert_initialized_main_thread!();
         self.builder.build()
     }
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::IsA<super::Toolbar>> Sealed for T {}
-}
-
-pub trait ToolbarExt: IsA<Toolbar> + sealed::Sealed + 'static {
+pub trait ToolbarExt: IsA<Toolbar> + 'static {
     #[doc(alias = "gtk_toolbar_get_drop_index")]
     #[doc(alias = "get_drop_index")]
     fn drop_index(&self, x: i32, y: i32) -> i32 {
@@ -326,6 +323,7 @@ pub trait ToolbarExt: IsA<Toolbar> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_toolbar_get_icon_size")]
     #[doc(alias = "get_icon_size")]
+    #[doc(alias = "icon-size")]
     fn icon_size(&self) -> IconSize {
         unsafe {
             from_glib(ffi::gtk_toolbar_get_icon_size(
@@ -374,6 +372,7 @@ pub trait ToolbarExt: IsA<Toolbar> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_toolbar_get_show_arrow")]
     #[doc(alias = "get_show_arrow")]
+    #[doc(alias = "show-arrow")]
     fn shows_arrow(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_toolbar_get_show_arrow(
@@ -411,6 +410,7 @@ pub trait ToolbarExt: IsA<Toolbar> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_toolbar_set_icon_size")]
+    #[doc(alias = "icon-size")]
     fn set_icon_size(&self, icon_size: IconSize) {
         unsafe {
             ffi::gtk_toolbar_set_icon_size(self.as_ref().to_glib_none().0, icon_size.into_glib());
@@ -418,6 +418,7 @@ pub trait ToolbarExt: IsA<Toolbar> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_toolbar_set_show_arrow")]
+    #[doc(alias = "show-arrow")]
     fn set_show_arrow(&self, show_arrow: bool) {
         unsafe {
             ffi::gtk_toolbar_set_show_arrow(self.as_ref().to_glib_none().0, show_arrow.into_glib());
@@ -512,19 +513,21 @@ pub trait ToolbarExt: IsA<Toolbar> + sealed::Sealed + 'static {
             focus_home: glib::ffi::gboolean,
             f: glib::ffi::gpointer,
         ) -> glib::ffi::gboolean {
-            let f: &F = &*(f as *const F);
-            f(
-                Toolbar::from_glib_borrow(this).unsafe_cast_ref(),
-                from_glib(focus_home),
-            )
-            .into_glib()
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(
+                    Toolbar::from_glib_borrow(this).unsafe_cast_ref(),
+                    from_glib(focus_home),
+                )
+                .into_glib()
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"focus-home-or-end\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"focus-home-or-end".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     focus_home_or_end_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -549,18 +552,20 @@ pub trait ToolbarExt: IsA<Toolbar> + sealed::Sealed + 'static {
             orientation: ffi::GtkOrientation,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(
-                Toolbar::from_glib_borrow(this).unsafe_cast_ref(),
-                from_glib(orientation),
-            )
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(
+                    Toolbar::from_glib_borrow(this).unsafe_cast_ref(),
+                    from_glib(orientation),
+                )
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"orientation-changed\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"orientation-changed".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     orientation_changed_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -578,26 +583,28 @@ pub trait ToolbarExt: IsA<Toolbar> + sealed::Sealed + 'static {
             F: Fn(&P, i32, i32, i32) -> glib::Propagation + 'static,
         >(
             this: *mut ffi::GtkToolbar,
-            x: libc::c_int,
-            y: libc::c_int,
-            button: libc::c_int,
+            x: std::ffi::c_int,
+            y: std::ffi::c_int,
+            button: std::ffi::c_int,
             f: glib::ffi::gpointer,
         ) -> glib::ffi::gboolean {
-            let f: &F = &*(f as *const F);
-            f(
-                Toolbar::from_glib_borrow(this).unsafe_cast_ref(),
-                x,
-                y,
-                button,
-            )
-            .into_glib()
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(
+                    Toolbar::from_glib_borrow(this).unsafe_cast_ref(),
+                    x,
+                    y,
+                    button,
+                )
+                .into_glib()
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"popup-context-menu\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"popup-context-menu".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     popup_context_menu_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -615,18 +622,20 @@ pub trait ToolbarExt: IsA<Toolbar> + sealed::Sealed + 'static {
             style: ffi::GtkToolbarStyle,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(
-                Toolbar::from_glib_borrow(this).unsafe_cast_ref(),
-                from_glib(style),
-            )
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(
+                    Toolbar::from_glib_borrow(this).unsafe_cast_ref(),
+                    from_glib(style),
+                )
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"style-changed\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"style-changed".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     style_changed_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -641,15 +650,17 @@ pub trait ToolbarExt: IsA<Toolbar> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Toolbar::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Toolbar::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::icon-size\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::icon-size".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_icon_size_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -667,15 +678,17 @@ pub trait ToolbarExt: IsA<Toolbar> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Toolbar::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Toolbar::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::icon-size-set\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::icon-size-set".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_icon_size_set_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -690,15 +703,17 @@ pub trait ToolbarExt: IsA<Toolbar> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Toolbar::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Toolbar::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::show-arrow\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::show-arrow".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_show_arrow_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -716,15 +731,17 @@ pub trait ToolbarExt: IsA<Toolbar> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Toolbar::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Toolbar::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::toolbar-style\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::toolbar-style".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_toolbar_style_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),

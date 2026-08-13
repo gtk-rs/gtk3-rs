@@ -1,5 +1,7 @@
 // Take a look at the license at the top of the repository in the LICENSE file.
 
+use gobject_sys as gobject;
+
 pub mod xlib {
     pub type Window = i32;
 }

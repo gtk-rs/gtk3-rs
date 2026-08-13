@@ -2,8 +2,9 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use crate::Object;
+use crate::{ffi, Object};
 use glib::{
+    object::ObjectType as _,
     prelude::*,
     signal::{connect_raw, SignalHandlerId},
     translate::*,
@@ -23,12 +24,7 @@ impl Table {
     pub const NONE: Option<&'static Table> = None;
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::IsA<super::Table>> Sealed for T {}
-}
-
-pub trait TableExt: IsA<Table> + sealed::Sealed + 'static {
+pub trait TableExt: IsA<Table> + 'static {
     #[doc(alias = "atk_table_add_column_selection")]
     fn add_column_selection(&self, column: i32) -> bool {
         unsafe {
@@ -280,19 +276,21 @@ pub trait TableExt: IsA<Table> + sealed::Sealed + 'static {
             F: Fn(&P, i32, i32) + 'static,
         >(
             this: *mut ffi::AtkTable,
-            arg1: libc::c_int,
-            arg2: libc::c_int,
+            arg1: std::ffi::c_int,
+            arg2: std::ffi::c_int,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Table::from_glib_borrow(this).unsafe_cast_ref(), arg1, arg2)
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Table::from_glib_borrow(this).unsafe_cast_ref(), arg1, arg2)
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"column-deleted\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"column-deleted".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     column_deleted_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -307,19 +305,21 @@ pub trait TableExt: IsA<Table> + sealed::Sealed + 'static {
             F: Fn(&P, i32, i32) + 'static,
         >(
             this: *mut ffi::AtkTable,
-            arg1: libc::c_int,
-            arg2: libc::c_int,
+            arg1: std::ffi::c_int,
+            arg2: std::ffi::c_int,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Table::from_glib_borrow(this).unsafe_cast_ref(), arg1, arg2)
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Table::from_glib_borrow(this).unsafe_cast_ref(), arg1, arg2)
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"column-inserted\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"column-inserted".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     column_inserted_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -333,15 +333,17 @@ pub trait TableExt: IsA<Table> + sealed::Sealed + 'static {
             this: *mut ffi::AtkTable,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Table::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Table::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"column-reordered\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"column-reordered".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     column_reordered_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -355,15 +357,17 @@ pub trait TableExt: IsA<Table> + sealed::Sealed + 'static {
             this: *mut ffi::AtkTable,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Table::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Table::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"model-changed\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"model-changed".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     model_changed_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -378,19 +382,21 @@ pub trait TableExt: IsA<Table> + sealed::Sealed + 'static {
             F: Fn(&P, i32, i32) + 'static,
         >(
             this: *mut ffi::AtkTable,
-            arg1: libc::c_int,
-            arg2: libc::c_int,
+            arg1: std::ffi::c_int,
+            arg2: std::ffi::c_int,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Table::from_glib_borrow(this).unsafe_cast_ref(), arg1, arg2)
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Table::from_glib_borrow(this).unsafe_cast_ref(), arg1, arg2)
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"row-deleted\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"row-deleted".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     row_deleted_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -405,19 +411,21 @@ pub trait TableExt: IsA<Table> + sealed::Sealed + 'static {
             F: Fn(&P, i32, i32) + 'static,
         >(
             this: *mut ffi::AtkTable,
-            arg1: libc::c_int,
-            arg2: libc::c_int,
+            arg1: std::ffi::c_int,
+            arg2: std::ffi::c_int,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Table::from_glib_borrow(this).unsafe_cast_ref(), arg1, arg2)
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Table::from_glib_borrow(this).unsafe_cast_ref(), arg1, arg2)
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"row-inserted\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"row-inserted".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     row_inserted_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -431,15 +439,17 @@ pub trait TableExt: IsA<Table> + sealed::Sealed + 'static {
             this: *mut ffi::AtkTable,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Table::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Table::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"row-reordered\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"row-reordered".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     row_reordered_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),

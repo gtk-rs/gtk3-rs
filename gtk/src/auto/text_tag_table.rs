@@ -2,8 +2,9 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use crate::{Buildable, TextTag};
+use crate::{ffi, Buildable, TextTag};
 use glib::{
+    object::ObjectType as _,
     prelude::*,
     signal::{connect_raw, SignalHandlerId},
     translate::*,
@@ -35,12 +36,7 @@ impl Default for TextTagTable {
     }
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::IsA<super::TextTagTable>> Sealed for T {}
-}
-
-pub trait TextTagTableExt: IsA<TextTagTable> + sealed::Sealed + 'static {
+pub trait TextTagTableExt: IsA<TextTagTable> + 'static {
     #[doc(alias = "gtk_text_tag_table_add")]
     fn add(&self, tag: &impl IsA<TextTag>) -> bool {
         unsafe {
@@ -53,22 +49,24 @@ pub trait TextTagTableExt: IsA<TextTagTable> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_text_tag_table_foreach")]
     fn foreach<P: FnMut(&TextTag)>(&self, func: P) {
-        let func_data: P = func;
+        let mut func_data: P = func;
         unsafe extern "C" fn func_func<P: FnMut(&TextTag)>(
             tag: *mut ffi::GtkTextTag,
             data: glib::ffi::gpointer,
         ) {
-            let tag = from_glib_borrow(tag);
-            let callback: *mut P = data as *const _ as usize as *mut P;
-            (*callback)(&tag)
+            unsafe {
+                let tag = from_glib_borrow(tag);
+                let callback = data as *mut P;
+                (*callback)(&tag)
+            }
         }
         let func = Some(func_func::<P> as _);
-        let super_callback0: &P = &func_data;
+        let super_callback0: &mut P = &mut func_data;
         unsafe {
             ffi::gtk_text_tag_table_foreach(
                 self.as_ref().to_glib_none().0,
                 func,
-                super_callback0 as *const _ as usize as *mut _,
+                super_callback0 as *mut _ as *mut _,
             );
         }
     }
@@ -109,18 +107,20 @@ pub trait TextTagTableExt: IsA<TextTagTable> + sealed::Sealed + 'static {
             tag: *mut ffi::GtkTextTag,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(
-                TextTagTable::from_glib_borrow(this).unsafe_cast_ref(),
-                &from_glib_borrow(tag),
-            )
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(
+                    TextTagTable::from_glib_borrow(this).unsafe_cast_ref(),
+                    &from_glib_borrow(tag),
+                )
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"tag-added\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"tag-added".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     tag_added_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -139,19 +139,21 @@ pub trait TextTagTableExt: IsA<TextTagTable> + sealed::Sealed + 'static {
             size_changed: glib::ffi::gboolean,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(
-                TextTagTable::from_glib_borrow(this).unsafe_cast_ref(),
-                &from_glib_borrow(tag),
-                from_glib(size_changed),
-            )
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(
+                    TextTagTable::from_glib_borrow(this).unsafe_cast_ref(),
+                    &from_glib_borrow(tag),
+                    from_glib(size_changed),
+                )
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"tag-changed\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"tag-changed".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     tag_changed_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -169,18 +171,20 @@ pub trait TextTagTableExt: IsA<TextTagTable> + sealed::Sealed + 'static {
             tag: *mut ffi::GtkTextTag,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(
-                TextTagTable::from_glib_borrow(this).unsafe_cast_ref(),
-                &from_glib_borrow(tag),
-            )
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(
+                    TextTagTable::from_glib_borrow(this).unsafe_cast_ref(),
+                    &from_glib_borrow(tag),
+                )
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"tag-removed\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"tag-removed".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     tag_removed_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),

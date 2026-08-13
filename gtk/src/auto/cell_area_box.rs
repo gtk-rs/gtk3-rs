@@ -2,7 +2,7 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use crate::{Buildable, CellArea, CellLayout, CellRenderer, Orientable, Orientation};
+use crate::{ffi, Buildable, CellArea, CellLayout, CellRenderer, Orientable, Orientation};
 use glib::{
     prelude::*,
     signal::{connect_raw, SignalHandlerId},
@@ -83,16 +83,12 @@ impl CellAreaBoxBuilder {
     /// Build the [`CellAreaBox`].
     #[must_use = "Building the object from the builder is usually expensive and is not expected to have side effects"]
     pub fn build(self) -> CellAreaBox {
+        assert_initialized_main_thread!();
         self.builder.build()
     }
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::IsA<super::CellAreaBox>> Sealed for T {}
-}
-
-pub trait CellAreaBoxExt: IsA<CellAreaBox> + sealed::Sealed + 'static {
+pub trait CellAreaBoxExt: IsA<CellAreaBox> + 'static {
     #[doc(alias = "gtk_cell_area_box_get_spacing")]
     #[doc(alias = "get_spacing")]
     fn spacing(&self) -> i32 {
@@ -132,6 +128,7 @@ pub trait CellAreaBoxExt: IsA<CellAreaBox> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_cell_area_box_set_spacing")]
+    #[doc(alias = "spacing")]
     fn set_spacing(&self, spacing: i32) {
         unsafe {
             ffi::gtk_cell_area_box_set_spacing(self.as_ref().to_glib_none().0, spacing);
@@ -145,15 +142,17 @@ pub trait CellAreaBoxExt: IsA<CellAreaBox> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(CellAreaBox::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(CellAreaBox::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::spacing\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::spacing".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_spacing_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),

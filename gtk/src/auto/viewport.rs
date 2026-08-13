@@ -3,7 +3,7 @@
 // DO NOT EDIT
 
 use crate::{
-    Adjustment, Align, Bin, Buildable, Container, ResizeMode, Scrollable, ScrollablePolicy,
+    ffi, Adjustment, Align, Bin, Buildable, Container, ResizeMode, Scrollable, ScrollablePolicy,
     ShadowType, Widget,
 };
 use glib::{
@@ -321,16 +321,12 @@ impl ViewportBuilder {
     /// Build the [`Viewport`].
     #[must_use = "Building the object from the builder is usually expensive and is not expected to have side effects"]
     pub fn build(self) -> Viewport {
+        assert_initialized_main_thread!();
         self.builder.build()
     }
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::IsA<super::Viewport>> Sealed for T {}
-}
-
-pub trait ViewportExt: IsA<Viewport> + sealed::Sealed + 'static {
+pub trait ViewportExt: IsA<Viewport> + 'static {
     #[doc(alias = "gtk_viewport_get_bin_window")]
     #[doc(alias = "get_bin_window")]
     fn bin_window(&self) -> Option<gdk::Window> {
@@ -343,6 +339,7 @@ pub trait ViewportExt: IsA<Viewport> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_viewport_get_shadow_type")]
     #[doc(alias = "get_shadow_type")]
+    #[doc(alias = "shadow-type")]
     fn shadow_type(&self) -> ShadowType {
         unsafe {
             from_glib(ffi::gtk_viewport_get_shadow_type(
@@ -362,6 +359,7 @@ pub trait ViewportExt: IsA<Viewport> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_viewport_set_shadow_type")]
+    #[doc(alias = "shadow-type")]
     fn set_shadow_type(&self, type_: ShadowType) {
         unsafe {
             ffi::gtk_viewport_set_shadow_type(self.as_ref().to_glib_none().0, type_.into_glib());
@@ -378,15 +376,17 @@ pub trait ViewportExt: IsA<Viewport> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Viewport::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Viewport::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::shadow-type\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::shadow-type".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_shadow_type_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),

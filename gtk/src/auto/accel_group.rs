@@ -2,7 +2,9 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
+use crate::ffi;
 use glib::{
+    object::ObjectType as _,
     prelude::*,
     signal::{connect_raw, SignalHandlerId},
     translate::*,
@@ -44,12 +46,7 @@ impl Default for AccelGroup {
     }
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::IsA<super::AccelGroup>> Sealed for T {}
-}
-
-pub trait AccelGroupExt: IsA<AccelGroup> + sealed::Sealed + 'static {
+pub trait AccelGroupExt: IsA<AccelGroup> + 'static {
     #[doc(alias = "gtk_accel_group_activate")]
     fn activate(
         &self,
@@ -97,6 +94,7 @@ pub trait AccelGroupExt: IsA<AccelGroup> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_accel_group_get_is_locked")]
     #[doc(alias = "get_is_locked")]
+    #[doc(alias = "is-locked")]
     fn is_locked(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_accel_group_get_is_locked(
@@ -107,6 +105,7 @@ pub trait AccelGroupExt: IsA<AccelGroup> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_accel_group_get_modifier_mask")]
     #[doc(alias = "get_modifier_mask")]
+    #[doc(alias = "modifier-mask")]
     fn modifier_mask(&self) -> gdk::ModifierType {
         unsafe {
             from_glib(ffi::gtk_accel_group_get_modifier_mask(
@@ -143,29 +142,33 @@ pub trait AccelGroupExt: IsA<AccelGroup> + sealed::Sealed + 'static {
         >(
             this: *mut ffi::GtkAccelGroup,
             acceleratable: *mut glib::gobject_ffi::GObject,
-            keyval: libc::c_uint,
+            keyval: std::ffi::c_uint,
             modifier: gdk::ffi::GdkModifierType,
             f: glib::ffi::gpointer,
         ) -> glib::ffi::gboolean {
-            let f: &F = &*(f as *const F);
-            f(
-                AccelGroup::from_glib_borrow(this).unsafe_cast_ref(),
-                &from_glib_borrow(acceleratable),
-                keyval,
-                from_glib(modifier),
-            )
-            .into_glib()
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(
+                    AccelGroup::from_glib_borrow(this).unsafe_cast_ref(),
+                    &from_glib_borrow(acceleratable),
+                    keyval,
+                    from_glib(modifier),
+                )
+                .into_glib()
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             let detailed_signal_name = detail.map(|name| format!("accel-activate::{name}\0"));
-            let signal_name: &[u8] = detailed_signal_name
+            let signal_name = detailed_signal_name
                 .as_ref()
-                .map_or(&b"accel-activate\0"[..], |n| n.as_bytes());
+                .map_or(c"accel-activate", |n| {
+                    std::ffi::CStr::from_bytes_with_nul_unchecked(n.as_bytes())
+                });
             connect_raw(
                 self.as_ptr() as *mut _,
-                signal_name.as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                signal_name.as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     accel_activate_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -184,29 +187,31 @@ pub trait AccelGroupExt: IsA<AccelGroup> + sealed::Sealed + 'static {
             F: Fn(&P, u32, gdk::ModifierType, &glib::Closure) + 'static,
         >(
             this: *mut ffi::GtkAccelGroup,
-            keyval: libc::c_uint,
+            keyval: std::ffi::c_uint,
             modifier: gdk::ffi::GdkModifierType,
             accel_closure: *mut glib::gobject_ffi::GClosure,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(
-                AccelGroup::from_glib_borrow(this).unsafe_cast_ref(),
-                keyval,
-                from_glib(modifier),
-                &from_glib_borrow(accel_closure),
-            )
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(
+                    AccelGroup::from_glib_borrow(this).unsafe_cast_ref(),
+                    keyval,
+                    from_glib(modifier),
+                    &from_glib_borrow(accel_closure),
+                )
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             let detailed_signal_name = detail.map(|name| format!("accel-changed::{name}\0"));
-            let signal_name: &[u8] = detailed_signal_name
-                .as_ref()
-                .map_or(&b"accel-changed\0"[..], |n| n.as_bytes());
+            let signal_name = detailed_signal_name.as_ref().map_or(c"accel-changed", |n| {
+                std::ffi::CStr::from_bytes_with_nul_unchecked(n.as_bytes())
+            });
             connect_raw(
                 self.as_ptr() as *mut _,
-                signal_name.as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                signal_name.as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     accel_changed_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -224,15 +229,17 @@ pub trait AccelGroupExt: IsA<AccelGroup> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(AccelGroup::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(AccelGroup::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::is-locked\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::is-locked".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_is_locked_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -250,15 +257,17 @@ pub trait AccelGroupExt: IsA<AccelGroup> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(AccelGroup::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(AccelGroup::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::modifier-mask\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::modifier-mask".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_modifier_mask_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),

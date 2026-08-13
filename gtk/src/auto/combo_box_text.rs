@@ -3,8 +3,8 @@
 // DO NOT EDIT
 
 use crate::{
-    Align, Bin, Buildable, CellArea, CellEditable, CellLayout, ComboBox, Container, ResizeMode,
-    SensitivityType, TreeModel, Widget,
+    ffi, Align, Bin, Buildable, CellArea, CellEditable, CellLayout, ComboBox, Container,
+    ResizeMode, SensitivityType, TreeModel, Widget,
 };
 use glib::{prelude::*, translate::*};
 
@@ -374,16 +374,12 @@ impl ComboBoxTextBuilder {
     /// Build the [`ComboBoxText`].
     #[must_use = "Building the object from the builder is usually expensive and is not expected to have side effects"]
     pub fn build(self) -> ComboBoxText {
+        assert_initialized_main_thread!();
         self.builder.build()
     }
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::IsA<super::ComboBoxText>> Sealed for T {}
-}
-
-pub trait ComboBoxTextExt: IsA<ComboBoxText> + sealed::Sealed + 'static {
+pub trait ComboBoxTextExt: IsA<ComboBoxText> + 'static {
     #[doc(alias = "gtk_combo_box_text_append")]
     fn append(&self, id: Option<&str>, text: &str) {
         unsafe {

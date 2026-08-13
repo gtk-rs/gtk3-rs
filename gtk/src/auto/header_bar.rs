@@ -2,7 +2,7 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use crate::{Align, Buildable, Container, PackType, ResizeMode, Widget};
+use crate::{ffi, Align, Buildable, Container, PackType, ResizeMode, Widget};
 use glib::{
     prelude::*,
     signal::{connect_raw, SignalHandlerId},
@@ -331,18 +331,15 @@ impl HeaderBarBuilder {
     /// Build the [`HeaderBar`].
     #[must_use = "Building the object from the builder is usually expensive and is not expected to have side effects"]
     pub fn build(self) -> HeaderBar {
+        assert_initialized_main_thread!();
         self.builder.build()
     }
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::IsA<super::HeaderBar>> Sealed for T {}
-}
-
-pub trait HeaderBarExt: IsA<HeaderBar> + sealed::Sealed + 'static {
+pub trait HeaderBarExt: IsA<HeaderBar> + 'static {
     #[doc(alias = "gtk_header_bar_get_custom_title")]
     #[doc(alias = "get_custom_title")]
+    #[doc(alias = "custom-title")]
     fn custom_title(&self) -> Option<Widget> {
         unsafe {
             from_glib_none(ffi::gtk_header_bar_get_custom_title(
@@ -353,6 +350,7 @@ pub trait HeaderBarExt: IsA<HeaderBar> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_header_bar_get_decoration_layout")]
     #[doc(alias = "get_decoration_layout")]
+    #[doc(alias = "decoration-layout")]
     fn decoration_layout(&self) -> Option<glib::GString> {
         unsafe {
             from_glib_none(ffi::gtk_header_bar_get_decoration_layout(
@@ -363,6 +361,7 @@ pub trait HeaderBarExt: IsA<HeaderBar> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_header_bar_get_has_subtitle")]
     #[doc(alias = "get_has_subtitle")]
+    #[doc(alias = "has-subtitle")]
     fn has_subtitle(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_header_bar_get_has_subtitle(
@@ -373,6 +372,7 @@ pub trait HeaderBarExt: IsA<HeaderBar> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_header_bar_get_show_close_button")]
     #[doc(alias = "get_show_close_button")]
+    #[doc(alias = "show-close-button")]
     fn shows_close_button(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_header_bar_get_show_close_button(
@@ -422,6 +422,7 @@ pub trait HeaderBarExt: IsA<HeaderBar> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_header_bar_set_custom_title")]
+    #[doc(alias = "custom-title")]
     fn set_custom_title(&self, title_widget: Option<&impl IsA<Widget>>) {
         unsafe {
             ffi::gtk_header_bar_set_custom_title(
@@ -432,6 +433,7 @@ pub trait HeaderBarExt: IsA<HeaderBar> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_header_bar_set_decoration_layout")]
+    #[doc(alias = "decoration-layout")]
     fn set_decoration_layout(&self, layout: Option<&str>) {
         unsafe {
             ffi::gtk_header_bar_set_decoration_layout(
@@ -442,6 +444,7 @@ pub trait HeaderBarExt: IsA<HeaderBar> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_header_bar_set_has_subtitle")]
+    #[doc(alias = "has-subtitle")]
     fn set_has_subtitle(&self, setting: bool) {
         unsafe {
             ffi::gtk_header_bar_set_has_subtitle(
@@ -452,6 +455,7 @@ pub trait HeaderBarExt: IsA<HeaderBar> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_header_bar_set_show_close_button")]
+    #[doc(alias = "show-close-button")]
     fn set_show_close_button(&self, setting: bool) {
         unsafe {
             ffi::gtk_header_bar_set_show_close_button(
@@ -462,6 +466,7 @@ pub trait HeaderBarExt: IsA<HeaderBar> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_header_bar_set_subtitle")]
+    #[doc(alias = "subtitle")]
     fn set_subtitle(&self, subtitle: Option<&str>) {
         unsafe {
             ffi::gtk_header_bar_set_subtitle(
@@ -472,6 +477,7 @@ pub trait HeaderBarExt: IsA<HeaderBar> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_header_bar_set_title")]
+    #[doc(alias = "title")]
     fn set_title(&self, title: Option<&str>) {
         unsafe {
             ffi::gtk_header_bar_set_title(self.as_ref().to_glib_none().0, title.to_glib_none().0);
@@ -546,15 +552,17 @@ pub trait HeaderBarExt: IsA<HeaderBar> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(HeaderBar::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(HeaderBar::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::custom-title\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::custom-title".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_custom_title_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -572,15 +580,17 @@ pub trait HeaderBarExt: IsA<HeaderBar> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(HeaderBar::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(HeaderBar::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::decoration-layout\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::decoration-layout".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_decoration_layout_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -601,15 +611,17 @@ pub trait HeaderBarExt: IsA<HeaderBar> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(HeaderBar::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(HeaderBar::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::decoration-layout-set\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::decoration-layout-set".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_decoration_layout_set_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -627,15 +639,17 @@ pub trait HeaderBarExt: IsA<HeaderBar> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(HeaderBar::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(HeaderBar::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::has-subtitle\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::has-subtitle".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_has_subtitle_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -653,15 +667,17 @@ pub trait HeaderBarExt: IsA<HeaderBar> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(HeaderBar::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(HeaderBar::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::show-close-button\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::show-close-button".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_show_close_button_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -676,15 +692,17 @@ pub trait HeaderBarExt: IsA<HeaderBar> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(HeaderBar::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(HeaderBar::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::spacing\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::spacing".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_spacing_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -699,15 +717,17 @@ pub trait HeaderBarExt: IsA<HeaderBar> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(HeaderBar::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(HeaderBar::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::subtitle\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::subtitle".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_subtitle_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -722,15 +742,17 @@ pub trait HeaderBarExt: IsA<HeaderBar> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(HeaderBar::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(HeaderBar::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::title\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::title".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_title_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),

@@ -615,6 +615,13 @@ const RUST_LAYOUTS: &[(&str, Layout)] = &[
         },
     ),
     (
+        "AtkTextSelection",
+        Layout {
+            size: size_of::<AtkTextSelection>(),
+            alignment: align_of::<AtkTextSelection>(),
+        },
+    ),
+    (
         "AtkUtil",
         Layout {
             size: size_of::<AtkUtil>(),
@@ -698,6 +705,7 @@ const RUST_CONSTANTS: &[(&str, &str)] = &[
     ("(gint) ATK_ROLE_AUDIO", "104"),
     ("(gint) ATK_ROLE_AUTOCOMPLETE", "74"),
     ("(gint) ATK_ROLE_BLOCK_QUOTE", "103"),
+    ("(gint) ATK_ROLE_BUTTON", "42"),
     ("(gint) ATK_ROLE_CALENDAR", "5"),
     ("(gint) ATK_ROLE_CANVAS", "6"),
     ("(gint) ATK_ROLE_CAPTION", "79"),
@@ -751,7 +759,7 @@ const RUST_CONSTANTS: &[(&str, &str)] = &[
     ("(gint) ATK_ROLE_INVALID", "0"),
     ("(gint) ATK_ROLE_LABEL", "28"),
     ("(gint) ATK_ROLE_LANDMARK", "108"),
-    ("(gint) ATK_ROLE_LAST_DEFINED", "128"),
+    ("(gint) ATK_ROLE_LAST_DEFINED", "129"),
     ("(gint) ATK_ROLE_LAYERED_PANE", "29"),
     ("(gint) ATK_ROLE_LEVEL_BAR", "101"),
     ("(gint) ATK_ROLE_LINK", "86"),
@@ -798,6 +806,7 @@ const RUST_CONSTANTS: &[(&str, &str)] = &[
     ("(gint) ATK_ROLE_SUBSCRIPT", "120"),
     ("(gint) ATK_ROLE_SUGGESTION", "126"),
     ("(gint) ATK_ROLE_SUPERSCRIPT", "121"),
+    ("(gint) ATK_ROLE_SWITCH", "128"),
     ("(gint) ATK_ROLE_TABLE", "54"),
     ("(gint) ATK_ROLE_TABLE_CELL", "55"),
     ("(gint) ATK_ROLE_TABLE_COLUMN_HEADER", "56"),

@@ -2,8 +2,9 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use crate::{Action, Object};
+use crate::{ffi, Action, Object};
 use glib::{
+    object::ObjectType as _,
     prelude::*,
     signal::{connect_raw, SignalHandlerId},
     translate::*,
@@ -23,14 +24,10 @@ impl Hyperlink {
     pub const NONE: Option<&'static Hyperlink> = None;
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::IsA<super::Hyperlink>> Sealed for T {}
-}
-
-pub trait HyperlinkExt: IsA<Hyperlink> + sealed::Sealed + 'static {
+pub trait HyperlinkExt: IsA<Hyperlink> + 'static {
     #[doc(alias = "atk_hyperlink_get_end_index")]
     #[doc(alias = "get_end_index")]
+    #[doc(alias = "end-index")]
     fn end_index(&self) -> i32 {
         unsafe { ffi::atk_hyperlink_get_end_index(self.as_ref().to_glib_none().0) }
     }
@@ -54,6 +51,7 @@ pub trait HyperlinkExt: IsA<Hyperlink> + sealed::Sealed + 'static {
 
     #[doc(alias = "atk_hyperlink_get_start_index")]
     #[doc(alias = "get_start_index")]
+    #[doc(alias = "start-index")]
     fn start_index(&self) -> i32 {
         unsafe { ffi::atk_hyperlink_get_start_index(self.as_ref().to_glib_none().0) }
     }
@@ -90,15 +88,17 @@ pub trait HyperlinkExt: IsA<Hyperlink> + sealed::Sealed + 'static {
             this: *mut ffi::AtkHyperlink,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Hyperlink::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Hyperlink::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"link-activated\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"link-activated".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     link_activated_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -113,15 +113,17 @@ pub trait HyperlinkExt: IsA<Hyperlink> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Hyperlink::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Hyperlink::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::end-index\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::end-index".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_end_index_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -139,15 +141,17 @@ pub trait HyperlinkExt: IsA<Hyperlink> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Hyperlink::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Hyperlink::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::number-of-anchors\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::number-of-anchors".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_number_of_anchors_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -165,15 +169,17 @@ pub trait HyperlinkExt: IsA<Hyperlink> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Hyperlink::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Hyperlink::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::start-index\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::start-index".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_start_index_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),

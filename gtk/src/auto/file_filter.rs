@@ -2,7 +2,7 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use crate::{Buildable, FileFilterFlags, FileFilterInfo};
+use crate::{ffi, Buildable, FileFilterFlags, FileFilterInfo};
 use glib::translate::*;
 use std::boxed::Box as Box_;
 
@@ -44,15 +44,19 @@ impl FileFilter {
             filter_info: *const ffi::GtkFileFilterInfo,
             data: glib::ffi::gpointer,
         ) -> glib::ffi::gboolean {
-            let filter_info = from_glib_borrow(filter_info);
-            let callback: &P = &*(data as *mut _);
-            (*callback)(&filter_info).into_glib()
+            unsafe {
+                let filter_info = from_glib_borrow(filter_info);
+                let callback = &*(data as *mut P);
+                (*callback)(&filter_info).into_glib()
+            }
         }
         let func = Some(func_func::<P> as _);
         unsafe extern "C" fn notify_func<P: Fn(&FileFilterInfo) -> bool + 'static>(
             data: glib::ffi::gpointer,
         ) {
-            let _callback: Box_<P> = Box_::from_raw(data as *mut _);
+            unsafe {
+                let _callback = Box_::from_raw(data as *mut P);
+            }
         }
         let destroy_call4 = Some(notify_func::<P> as _);
         let super_callback0: Box_<P> = func_data;

@@ -2,8 +2,9 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use crate::{EventController, Gesture, PropagationPhase, Widget};
+use crate::{ffi, EventController, Gesture, PropagationPhase, Widget};
 use glib::{
+    object::ObjectType as _,
     prelude::*,
     signal::{connect_raw, SignalHandlerId},
     translate::*,
@@ -47,18 +48,20 @@ impl GestureZoom {
     pub fn connect_scale_changed<F: Fn(&Self, f64) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn scale_changed_trampoline<F: Fn(&GestureZoom, f64) + 'static>(
             this: *mut ffi::GtkGestureZoom,
-            scale: libc::c_double,
+            scale: std::ffi::c_double,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(&from_glib_borrow(this), scale)
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(&from_glib_borrow(this), scale)
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"scale-changed\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"scale-changed".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     scale_changed_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -119,6 +122,7 @@ impl GestureZoomBuilder {
     /// Build the [`GestureZoom`].
     #[must_use = "Building the object from the builder is usually expensive and is not expected to have side effects"]
     pub fn build(self) -> GestureZoom {
+        assert_initialized_main_thread!();
         self.builder.build()
     }
 }

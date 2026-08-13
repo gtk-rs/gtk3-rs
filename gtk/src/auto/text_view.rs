@@ -3,11 +3,13 @@
 // DO NOT EDIT
 
 use crate::{
-    Adjustment, Align, Buildable, Container, DeleteType, InputHints, InputPurpose, Justification,
-    MovementStep, ResizeMode, ScrollStep, Scrollable, ScrollablePolicy, TextAttributes, TextBuffer,
-    TextChildAnchor, TextExtendSelection, TextIter, TextMark, TextWindowType, Widget, WrapMode,
+    ffi, Adjustment, Align, Buildable, Container, DeleteType, InputHints, InputPurpose,
+    Justification, MovementStep, ResizeMode, ScrollStep, Scrollable, ScrollablePolicy,
+    TextAttributes, TextBuffer, TextChildAnchor, TextExtendSelection, TextIter, TextMark,
+    TextWindowType, Widget, WrapMode,
 };
 use glib::{
+    object::ObjectType as _,
     prelude::*,
     signal::{connect_raw, SignalHandlerId},
     translate::*,
@@ -451,16 +453,12 @@ impl TextViewBuilder {
     /// Build the [`TextView`].
     #[must_use = "Building the object from the builder is usually expensive and is not expected to have side effects"]
     pub fn build(self) -> TextView {
+        assert_initialized_main_thread!();
         self.builder.build()
     }
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::IsA<super::TextView>> Sealed for T {}
-}
-
-pub trait TextViewExt: IsA<TextView> + sealed::Sealed + 'static {
+pub trait TextViewExt: IsA<TextView> + 'static {
     #[doc(alias = "gtk_text_view_add_child_at_anchor")]
     fn add_child_at_anchor(&self, child: &impl IsA<Widget>, anchor: &impl IsA<TextChildAnchor>) {
         unsafe {
@@ -555,6 +553,7 @@ pub trait TextViewExt: IsA<TextView> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_text_view_get_accepts_tab")]
     #[doc(alias = "get_accepts_tab")]
+    #[doc(alias = "accepts-tab")]
     fn accepts_tab(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_text_view_get_accepts_tab(
@@ -576,6 +575,7 @@ pub trait TextViewExt: IsA<TextView> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_text_view_get_bottom_margin")]
     #[doc(alias = "get_bottom_margin")]
+    #[doc(alias = "bottom-margin")]
     fn bottom_margin(&self) -> i32 {
         unsafe { ffi::gtk_text_view_get_bottom_margin(self.as_ref().to_glib_none().0) }
     }
@@ -608,6 +608,7 @@ pub trait TextViewExt: IsA<TextView> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_text_view_get_cursor_visible")]
     #[doc(alias = "get_cursor_visible")]
+    #[doc(alias = "cursor-visible")]
     fn is_cursor_visible(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_text_view_get_cursor_visible(
@@ -628,6 +629,7 @@ pub trait TextViewExt: IsA<TextView> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_text_view_get_editable")]
     #[doc(alias = "get_editable")]
+    #[doc(alias = "editable")]
     fn is_editable(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_text_view_get_editable(
@@ -644,6 +646,7 @@ pub trait TextViewExt: IsA<TextView> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_text_view_get_input_hints")]
     #[doc(alias = "get_input_hints")]
+    #[doc(alias = "input-hints")]
     fn input_hints(&self) -> InputHints {
         unsafe {
             from_glib(ffi::gtk_text_view_get_input_hints(
@@ -654,6 +657,7 @@ pub trait TextViewExt: IsA<TextView> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_text_view_get_input_purpose")]
     #[doc(alias = "get_input_purpose")]
+    #[doc(alias = "input-purpose")]
     fn input_purpose(&self) -> InputPurpose {
         unsafe {
             from_glib(ffi::gtk_text_view_get_input_purpose(
@@ -728,6 +732,7 @@ pub trait TextViewExt: IsA<TextView> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_text_view_get_left_margin")]
     #[doc(alias = "get_left_margin")]
+    #[doc(alias = "left-margin")]
     fn left_margin(&self) -> i32 {
         unsafe { ffi::gtk_text_view_get_left_margin(self.as_ref().to_glib_none().0) }
     }
@@ -766,6 +771,7 @@ pub trait TextViewExt: IsA<TextView> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_text_view_get_monospace")]
     #[doc(alias = "get_monospace")]
+    #[doc(alias = "monospace")]
     fn is_monospace(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_text_view_get_monospace(
@@ -776,6 +782,7 @@ pub trait TextViewExt: IsA<TextView> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_text_view_get_overwrite")]
     #[doc(alias = "get_overwrite")]
+    #[doc(alias = "overwrite")]
     fn overwrites(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_text_view_get_overwrite(
@@ -786,24 +793,28 @@ pub trait TextViewExt: IsA<TextView> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_text_view_get_pixels_above_lines")]
     #[doc(alias = "get_pixels_above_lines")]
+    #[doc(alias = "pixels-above-lines")]
     fn pixels_above_lines(&self) -> i32 {
         unsafe { ffi::gtk_text_view_get_pixels_above_lines(self.as_ref().to_glib_none().0) }
     }
 
     #[doc(alias = "gtk_text_view_get_pixels_below_lines")]
     #[doc(alias = "get_pixels_below_lines")]
+    #[doc(alias = "pixels-below-lines")]
     fn pixels_below_lines(&self) -> i32 {
         unsafe { ffi::gtk_text_view_get_pixels_below_lines(self.as_ref().to_glib_none().0) }
     }
 
     #[doc(alias = "gtk_text_view_get_pixels_inside_wrap")]
     #[doc(alias = "get_pixels_inside_wrap")]
+    #[doc(alias = "pixels-inside-wrap")]
     fn pixels_inside_wrap(&self) -> i32 {
         unsafe { ffi::gtk_text_view_get_pixels_inside_wrap(self.as_ref().to_glib_none().0) }
     }
 
     #[doc(alias = "gtk_text_view_get_right_margin")]
     #[doc(alias = "get_right_margin")]
+    #[doc(alias = "right-margin")]
     fn right_margin(&self) -> i32 {
         unsafe { ffi::gtk_text_view_get_right_margin(self.as_ref().to_glib_none().0) }
     }
@@ -816,6 +827,7 @@ pub trait TextViewExt: IsA<TextView> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_text_view_get_top_margin")]
     #[doc(alias = "get_top_margin")]
+    #[doc(alias = "top-margin")]
     fn top_margin(&self) -> i32 {
         unsafe { ffi::gtk_text_view_get_top_margin(self.as_ref().to_glib_none().0) }
     }
@@ -857,6 +869,7 @@ pub trait TextViewExt: IsA<TextView> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_text_view_get_wrap_mode")]
     #[doc(alias = "get_wrap_mode")]
+    #[doc(alias = "wrap-mode")]
     fn wrap_mode(&self) -> WrapMode {
         unsafe {
             from_glib(ffi::gtk_text_view_get_wrap_mode(
@@ -984,6 +997,7 @@ pub trait TextViewExt: IsA<TextView> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_text_view_set_accepts_tab")]
+    #[doc(alias = "accepts-tab")]
     fn set_accepts_tab(&self, accepts_tab: bool) {
         unsafe {
             ffi::gtk_text_view_set_accepts_tab(
@@ -1005,6 +1019,7 @@ pub trait TextViewExt: IsA<TextView> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_text_view_set_bottom_margin")]
+    #[doc(alias = "bottom-margin")]
     fn set_bottom_margin(&self, bottom_margin: i32) {
         unsafe {
             ffi::gtk_text_view_set_bottom_margin(self.as_ref().to_glib_none().0, bottom_margin);
@@ -1012,6 +1027,7 @@ pub trait TextViewExt: IsA<TextView> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_text_view_set_buffer")]
+    #[doc(alias = "buffer")]
     fn set_buffer(&self, buffer: Option<&impl IsA<TextBuffer>>) {
         unsafe {
             ffi::gtk_text_view_set_buffer(
@@ -1022,6 +1038,7 @@ pub trait TextViewExt: IsA<TextView> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_text_view_set_cursor_visible")]
+    #[doc(alias = "cursor-visible")]
     fn set_cursor_visible(&self, setting: bool) {
         unsafe {
             ffi::gtk_text_view_set_cursor_visible(
@@ -1032,6 +1049,7 @@ pub trait TextViewExt: IsA<TextView> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_text_view_set_editable")]
+    #[doc(alias = "editable")]
     fn set_editable(&self, setting: bool) {
         unsafe {
             ffi::gtk_text_view_set_editable(self.as_ref().to_glib_none().0, setting.into_glib());
@@ -1039,6 +1057,7 @@ pub trait TextViewExt: IsA<TextView> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_text_view_set_indent")]
+    #[doc(alias = "indent")]
     fn set_indent(&self, indent: i32) {
         unsafe {
             ffi::gtk_text_view_set_indent(self.as_ref().to_glib_none().0, indent);
@@ -1046,6 +1065,7 @@ pub trait TextViewExt: IsA<TextView> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_text_view_set_input_hints")]
+    #[doc(alias = "input-hints")]
     fn set_input_hints(&self, hints: InputHints) {
         unsafe {
             ffi::gtk_text_view_set_input_hints(self.as_ref().to_glib_none().0, hints.into_glib());
@@ -1053,6 +1073,7 @@ pub trait TextViewExt: IsA<TextView> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_text_view_set_input_purpose")]
+    #[doc(alias = "input-purpose")]
     fn set_input_purpose(&self, purpose: InputPurpose) {
         unsafe {
             ffi::gtk_text_view_set_input_purpose(
@@ -1063,6 +1084,7 @@ pub trait TextViewExt: IsA<TextView> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_text_view_set_justification")]
+    #[doc(alias = "justification")]
     fn set_justification(&self, justification: Justification) {
         unsafe {
             ffi::gtk_text_view_set_justification(
@@ -1073,6 +1095,7 @@ pub trait TextViewExt: IsA<TextView> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_text_view_set_left_margin")]
+    #[doc(alias = "left-margin")]
     fn set_left_margin(&self, left_margin: i32) {
         unsafe {
             ffi::gtk_text_view_set_left_margin(self.as_ref().to_glib_none().0, left_margin);
@@ -1080,6 +1103,7 @@ pub trait TextViewExt: IsA<TextView> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_text_view_set_monospace")]
+    #[doc(alias = "monospace")]
     fn set_monospace(&self, monospace: bool) {
         unsafe {
             ffi::gtk_text_view_set_monospace(self.as_ref().to_glib_none().0, monospace.into_glib());
@@ -1087,6 +1111,7 @@ pub trait TextViewExt: IsA<TextView> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_text_view_set_overwrite")]
+    #[doc(alias = "overwrite")]
     fn set_overwrite(&self, overwrite: bool) {
         unsafe {
             ffi::gtk_text_view_set_overwrite(self.as_ref().to_glib_none().0, overwrite.into_glib());
@@ -1094,6 +1119,7 @@ pub trait TextViewExt: IsA<TextView> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_text_view_set_pixels_above_lines")]
+    #[doc(alias = "pixels-above-lines")]
     fn set_pixels_above_lines(&self, pixels_above_lines: i32) {
         unsafe {
             ffi::gtk_text_view_set_pixels_above_lines(
@@ -1104,6 +1130,7 @@ pub trait TextViewExt: IsA<TextView> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_text_view_set_pixels_below_lines")]
+    #[doc(alias = "pixels-below-lines")]
     fn set_pixels_below_lines(&self, pixels_below_lines: i32) {
         unsafe {
             ffi::gtk_text_view_set_pixels_below_lines(
@@ -1114,6 +1141,7 @@ pub trait TextViewExt: IsA<TextView> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_text_view_set_pixels_inside_wrap")]
+    #[doc(alias = "pixels-inside-wrap")]
     fn set_pixels_inside_wrap(&self, pixels_inside_wrap: i32) {
         unsafe {
             ffi::gtk_text_view_set_pixels_inside_wrap(
@@ -1124,6 +1152,7 @@ pub trait TextViewExt: IsA<TextView> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_text_view_set_right_margin")]
+    #[doc(alias = "right-margin")]
     fn set_right_margin(&self, right_margin: i32) {
         unsafe {
             ffi::gtk_text_view_set_right_margin(self.as_ref().to_glib_none().0, right_margin);
@@ -1131,6 +1160,7 @@ pub trait TextViewExt: IsA<TextView> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_text_view_set_tabs")]
+    #[doc(alias = "tabs")]
     fn set_tabs(&self, tabs: &pango::TabArray) {
         unsafe {
             ffi::gtk_text_view_set_tabs(
@@ -1141,6 +1171,7 @@ pub trait TextViewExt: IsA<TextView> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_text_view_set_top_margin")]
+    #[doc(alias = "top-margin")]
     fn set_top_margin(&self, top_margin: i32) {
         unsafe {
             ffi::gtk_text_view_set_top_margin(self.as_ref().to_glib_none().0, top_margin);
@@ -1148,6 +1179,7 @@ pub trait TextViewExt: IsA<TextView> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_text_view_set_wrap_mode")]
+    #[doc(alias = "wrap-mode")]
     fn set_wrap_mode(&self, wrap_mode: WrapMode) {
         unsafe {
             ffi::gtk_text_view_set_wrap_mode(self.as_ref().to_glib_none().0, wrap_mode.into_glib());
@@ -1212,15 +1244,17 @@ pub trait TextViewExt: IsA<TextView> + sealed::Sealed + 'static {
             this: *mut ffi::GtkTextView,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(TextView::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(TextView::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"backspace\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"backspace".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     backspace_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1238,15 +1272,17 @@ pub trait TextViewExt: IsA<TextView> + sealed::Sealed + 'static {
             this: *mut ffi::GtkTextView,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(TextView::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(TextView::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"copy-clipboard\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"copy-clipboard".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     copy_clipboard_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1264,15 +1300,17 @@ pub trait TextViewExt: IsA<TextView> + sealed::Sealed + 'static {
             this: *mut ffi::GtkTextView,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(TextView::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(TextView::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"cut-clipboard\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"cut-clipboard".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     cut_clipboard_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1295,22 +1333,24 @@ pub trait TextViewExt: IsA<TextView> + sealed::Sealed + 'static {
         >(
             this: *mut ffi::GtkTextView,
             type_: ffi::GtkDeleteType,
-            count: libc::c_int,
+            count: std::ffi::c_int,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(
-                TextView::from_glib_borrow(this).unsafe_cast_ref(),
-                from_glib(type_),
-                count,
-            )
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(
+                    TextView::from_glib_borrow(this).unsafe_cast_ref(),
+                    from_glib(type_),
+                    count,
+                )
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"delete-from-cursor\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"delete-from-cursor".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     delete_from_cursor_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1342,22 +1382,24 @@ pub trait TextViewExt: IsA<TextView> + sealed::Sealed + 'static {
             end: *mut ffi::GtkTextIter,
             f: glib::ffi::gpointer,
         ) -> glib::ffi::gboolean {
-            let f: &F = &*(f as *const F);
-            f(
-                TextView::from_glib_borrow(this).unsafe_cast_ref(),
-                from_glib(granularity),
-                &from_glib_borrow(location),
-                &from_glib_borrow(start),
-                &from_glib_borrow(end),
-            )
-            .into_glib()
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(
+                    TextView::from_glib_borrow(this).unsafe_cast_ref(),
+                    from_glib(granularity),
+                    &from_glib_borrow(location),
+                    &from_glib_borrow(start),
+                    &from_glib_borrow(end),
+                )
+                .into_glib()
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"extend-selection\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"extend-selection".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     extend_selection_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1372,21 +1414,23 @@ pub trait TextViewExt: IsA<TextView> + sealed::Sealed + 'static {
             F: Fn(&P, &str) + 'static,
         >(
             this: *mut ffi::GtkTextView,
-            string: *mut libc::c_char,
+            string: *mut std::ffi::c_char,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(
-                TextView::from_glib_borrow(this).unsafe_cast_ref(),
-                &glib::GString::from_glib_borrow(string),
-            )
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(
+                    TextView::from_glib_borrow(this).unsafe_cast_ref(),
+                    &glib::GString::from_glib_borrow(string),
+                )
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"insert-at-cursor\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"insert-at-cursor".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     insert_at_cursor_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1404,15 +1448,17 @@ pub trait TextViewExt: IsA<TextView> + sealed::Sealed + 'static {
             this: *mut ffi::GtkTextView,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(TextView::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(TextView::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"insert-emoji\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"insert-emoji".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     insert_emoji_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1435,24 +1481,26 @@ pub trait TextViewExt: IsA<TextView> + sealed::Sealed + 'static {
         >(
             this: *mut ffi::GtkTextView,
             step: ffi::GtkMovementStep,
-            count: libc::c_int,
+            count: std::ffi::c_int,
             extend_selection: glib::ffi::gboolean,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(
-                TextView::from_glib_borrow(this).unsafe_cast_ref(),
-                from_glib(step),
-                count,
-                from_glib(extend_selection),
-            )
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(
+                    TextView::from_glib_borrow(this).unsafe_cast_ref(),
+                    from_glib(step),
+                    count,
+                    from_glib(extend_selection),
+                )
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"move-cursor\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"move-cursor".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     move_cursor_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1475,22 +1523,24 @@ pub trait TextViewExt: IsA<TextView> + sealed::Sealed + 'static {
         >(
             this: *mut ffi::GtkTextView,
             step: ffi::GtkScrollStep,
-            count: libc::c_int,
+            count: std::ffi::c_int,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(
-                TextView::from_glib_borrow(this).unsafe_cast_ref(),
-                from_glib(step),
-                count,
-            )
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(
+                    TextView::from_glib_borrow(this).unsafe_cast_ref(),
+                    from_glib(step),
+                    count,
+                )
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"move-viewport\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"move-viewport".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     move_viewport_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1508,15 +1558,17 @@ pub trait TextViewExt: IsA<TextView> + sealed::Sealed + 'static {
             this: *mut ffi::GtkTextView,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(TextView::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(TextView::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"paste-clipboard\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"paste-clipboard".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     paste_clipboard_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1538,18 +1590,20 @@ pub trait TextViewExt: IsA<TextView> + sealed::Sealed + 'static {
             popup: *mut ffi::GtkWidget,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(
-                TextView::from_glib_borrow(this).unsafe_cast_ref(),
-                &from_glib_borrow(popup),
-            )
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(
+                    TextView::from_glib_borrow(this).unsafe_cast_ref(),
+                    &from_glib_borrow(popup),
+                )
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"populate-popup\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"populate-popup".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     populate_popup_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1564,21 +1618,23 @@ pub trait TextViewExt: IsA<TextView> + sealed::Sealed + 'static {
             F: Fn(&P, &str) + 'static,
         >(
             this: *mut ffi::GtkTextView,
-            preedit: *mut libc::c_char,
+            preedit: *mut std::ffi::c_char,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(
-                TextView::from_glib_borrow(this).unsafe_cast_ref(),
-                &glib::GString::from_glib_borrow(preedit),
-            )
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(
+                    TextView::from_glib_borrow(this).unsafe_cast_ref(),
+                    &glib::GString::from_glib_borrow(preedit),
+                )
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"preedit-changed\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"preedit-changed".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     preedit_changed_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1597,18 +1653,20 @@ pub trait TextViewExt: IsA<TextView> + sealed::Sealed + 'static {
             select: glib::ffi::gboolean,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(
-                TextView::from_glib_borrow(this).unsafe_cast_ref(),
-                from_glib(select),
-            )
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(
+                    TextView::from_glib_borrow(this).unsafe_cast_ref(),
+                    from_glib(select),
+                )
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"select-all\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"select-all".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     select_all_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1626,15 +1684,17 @@ pub trait TextViewExt: IsA<TextView> + sealed::Sealed + 'static {
             this: *mut ffi::GtkTextView,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(TextView::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(TextView::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"set-anchor\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"set-anchor".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     set_anchor_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1655,15 +1715,17 @@ pub trait TextViewExt: IsA<TextView> + sealed::Sealed + 'static {
             this: *mut ffi::GtkTextView,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(TextView::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(TextView::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"toggle-cursor-visible\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"toggle-cursor-visible".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     toggle_cursor_visible_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1681,15 +1743,17 @@ pub trait TextViewExt: IsA<TextView> + sealed::Sealed + 'static {
             this: *mut ffi::GtkTextView,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(TextView::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(TextView::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"toggle-overwrite\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"toggle-overwrite".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     toggle_overwrite_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1711,15 +1775,17 @@ pub trait TextViewExt: IsA<TextView> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(TextView::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(TextView::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::accepts-tab\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::accepts-tab".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_accepts_tab_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1737,15 +1803,17 @@ pub trait TextViewExt: IsA<TextView> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(TextView::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(TextView::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::bottom-margin\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::bottom-margin".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_bottom_margin_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1760,15 +1828,17 @@ pub trait TextViewExt: IsA<TextView> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(TextView::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(TextView::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::buffer\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::buffer".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_buffer_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1786,15 +1856,17 @@ pub trait TextViewExt: IsA<TextView> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(TextView::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(TextView::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::cursor-visible\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::cursor-visible".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_cursor_visible_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1809,15 +1881,17 @@ pub trait TextViewExt: IsA<TextView> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(TextView::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(TextView::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::editable\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::editable".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_editable_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1832,15 +1906,17 @@ pub trait TextViewExt: IsA<TextView> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(TextView::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(TextView::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::im-module\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::im-module".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_im_module_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1855,15 +1931,17 @@ pub trait TextViewExt: IsA<TextView> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(TextView::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(TextView::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::indent\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::indent".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_indent_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1881,15 +1959,17 @@ pub trait TextViewExt: IsA<TextView> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(TextView::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(TextView::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::input-hints\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::input-hints".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_input_hints_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1907,15 +1987,17 @@ pub trait TextViewExt: IsA<TextView> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(TextView::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(TextView::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::input-purpose\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::input-purpose".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_input_purpose_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1933,15 +2015,17 @@ pub trait TextViewExt: IsA<TextView> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(TextView::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(TextView::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::justification\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::justification".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_justification_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1959,15 +2043,17 @@ pub trait TextViewExt: IsA<TextView> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(TextView::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(TextView::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::left-margin\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::left-margin".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_left_margin_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1982,15 +2068,17 @@ pub trait TextViewExt: IsA<TextView> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(TextView::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(TextView::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::monospace\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::monospace".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_monospace_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -2005,15 +2093,17 @@ pub trait TextViewExt: IsA<TextView> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(TextView::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(TextView::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::overwrite\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::overwrite".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_overwrite_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -2031,15 +2121,17 @@ pub trait TextViewExt: IsA<TextView> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(TextView::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(TextView::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::pixels-above-lines\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::pixels-above-lines".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_pixels_above_lines_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -2057,15 +2149,17 @@ pub trait TextViewExt: IsA<TextView> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(TextView::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(TextView::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::pixels-below-lines\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::pixels-below-lines".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_pixels_below_lines_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -2083,15 +2177,17 @@ pub trait TextViewExt: IsA<TextView> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(TextView::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(TextView::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::pixels-inside-wrap\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::pixels-inside-wrap".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_pixels_inside_wrap_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -2109,15 +2205,17 @@ pub trait TextViewExt: IsA<TextView> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(TextView::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(TextView::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::populate-all\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::populate-all".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_populate_all_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -2135,15 +2233,17 @@ pub trait TextViewExt: IsA<TextView> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(TextView::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(TextView::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::right-margin\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::right-margin".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_right_margin_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -2158,15 +2258,17 @@ pub trait TextViewExt: IsA<TextView> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(TextView::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(TextView::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::tabs\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::tabs".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_tabs_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -2181,15 +2283,17 @@ pub trait TextViewExt: IsA<TextView> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(TextView::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(TextView::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::top-margin\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::top-margin".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_top_margin_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -2204,15 +2308,17 @@ pub trait TextViewExt: IsA<TextView> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(TextView::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(TextView::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::wrap-mode\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::wrap-mode".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_wrap_mode_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),

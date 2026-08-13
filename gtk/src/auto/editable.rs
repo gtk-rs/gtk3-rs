@@ -2,6 +2,7 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
+use crate::ffi;
 use glib::{prelude::*, translate::*};
 
 glib::wrapper! {
@@ -17,12 +18,7 @@ impl Editable {
     pub const NONE: Option<&'static Editable> = None;
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::IsA<super::Editable>> Sealed for T {}
-}
-
-pub trait EditableExt: IsA<Editable> + sealed::Sealed + 'static {
+pub trait EditableExt: IsA<Editable> + 'static {
     #[doc(alias = "gtk_editable_copy_clipboard")]
     fn copy_clipboard(&self) {
         unsafe {

@@ -2,7 +2,7 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use crate::{Align, Bin, Buildable, Container, ResizeMode, Widget};
+use crate::{ffi, Align, Bin, Buildable, Container, ResizeMode, Widget};
 use glib::{
     prelude::*,
     signal::{connect_raw, SignalHandlerId},
@@ -287,18 +287,15 @@ impl EventBoxBuilder {
     /// Build the [`EventBox`].
     #[must_use = "Building the object from the builder is usually expensive and is not expected to have side effects"]
     pub fn build(self) -> EventBox {
+        assert_initialized_main_thread!();
         self.builder.build()
     }
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::IsA<super::EventBox>> Sealed for T {}
-}
-
-pub trait EventBoxExt: IsA<EventBox> + sealed::Sealed + 'static {
+pub trait EventBoxExt: IsA<EventBox> + 'static {
     #[doc(alias = "gtk_event_box_get_above_child")]
     #[doc(alias = "get_above_child")]
+    #[doc(alias = "above-child")]
     fn is_above_child(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_event_box_get_above_child(
@@ -309,6 +306,7 @@ pub trait EventBoxExt: IsA<EventBox> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_event_box_get_visible_window")]
     #[doc(alias = "get_visible_window")]
+    #[doc(alias = "visible-window")]
     fn is_visible_window(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_event_box_get_visible_window(
@@ -318,6 +316,7 @@ pub trait EventBoxExt: IsA<EventBox> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_event_box_set_above_child")]
+    #[doc(alias = "above-child")]
     fn set_above_child(&self, above_child: bool) {
         unsafe {
             ffi::gtk_event_box_set_above_child(
@@ -328,6 +327,7 @@ pub trait EventBoxExt: IsA<EventBox> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_event_box_set_visible_window")]
+    #[doc(alias = "visible-window")]
     fn set_visible_window(&self, visible_window: bool) {
         unsafe {
             ffi::gtk_event_box_set_visible_window(
@@ -347,15 +347,17 @@ pub trait EventBoxExt: IsA<EventBox> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(EventBox::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(EventBox::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::above-child\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::above-child".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_above_child_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -373,15 +375,17 @@ pub trait EventBoxExt: IsA<EventBox> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(EventBox::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(EventBox::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::visible-window\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::visible-window".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_visible_window_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),

@@ -3,10 +3,11 @@
 // DO NOT EDIT
 
 use crate::{
-    Align, Application, AssistantPageType, Bin, Buildable, Container, ResizeMode, Widget, Window,
-    WindowPosition, WindowType,
+    ffi, Align, Application, AssistantPageType, Bin, Buildable, Container, ResizeMode, Widget,
+    Window, WindowPosition, WindowType,
 };
 use glib::{
+    object::ObjectType as _,
     prelude::*,
     signal::{connect_raw, SignalHandlerId},
     translate::*,
@@ -466,16 +467,12 @@ impl AssistantBuilder {
     /// Build the [`Assistant`].
     #[must_use = "Building the object from the builder is usually expensive and is not expected to have side effects"]
     pub fn build(self) -> Assistant {
+        assert_initialized_main_thread!();
         self.builder.build()
     }
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::IsA<super::Assistant>> Sealed for T {}
-}
-
-pub trait AssistantExt: IsA<Assistant> + sealed::Sealed + 'static {
+pub trait AssistantExt: IsA<Assistant> + 'static {
     #[doc(alias = "gtk_assistant_add_action_widget")]
     fn add_action_widget(&self, child: &impl IsA<Widget>) {
         unsafe {
@@ -633,14 +630,16 @@ pub trait AssistantExt: IsA<Assistant> + sealed::Sealed + 'static {
     fn set_forward_page_func(&self, page_func: Option<Box_<dyn Fn(i32) -> i32 + 'static>>) {
         let page_func_data: Box_<Option<Box_<dyn Fn(i32) -> i32 + 'static>>> = Box_::new(page_func);
         unsafe extern "C" fn page_func_func(
-            current_page: libc::c_int,
+            current_page: std::ffi::c_int,
             data: glib::ffi::gpointer,
-        ) -> libc::c_int {
-            let callback: &Option<Box_<dyn Fn(i32) -> i32 + 'static>> = &*(data as *mut _);
-            if let Some(ref callback) = *callback {
-                callback(current_page)
-            } else {
-                panic!("cannot get closure...")
+        ) -> std::ffi::c_int {
+            unsafe {
+                let callback = &*(data as *mut Option<Box_<dyn Fn(i32) -> i32 + 'static>>);
+                if let Some(ref callback) = *callback {
+                    callback(current_page)
+                } else {
+                    panic!("cannot get closure...")
+                }
             }
         }
         let page_func = if page_func_data.is_some() {
@@ -649,8 +648,10 @@ pub trait AssistantExt: IsA<Assistant> + sealed::Sealed + 'static {
             None
         };
         unsafe extern "C" fn destroy_func(data: glib::ffi::gpointer) {
-            let _callback: Box_<Option<Box_<dyn Fn(i32) -> i32 + 'static>>> =
-                Box_::from_raw(data as *mut _);
+            unsafe {
+                let _callback =
+                    Box_::from_raw(data as *mut Option<Box_<dyn Fn(i32) -> i32 + 'static>>);
+            }
         }
         let destroy_call3 = Some(destroy_func as _);
         let super_callback0: Box_<Option<Box_<dyn Fn(i32) -> i32 + 'static>>> = page_func_data;
@@ -798,15 +799,17 @@ pub trait AssistantExt: IsA<Assistant> + sealed::Sealed + 'static {
             this: *mut ffi::GtkAssistant,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Assistant::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Assistant::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"apply\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"apply".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     apply_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -820,15 +823,17 @@ pub trait AssistantExt: IsA<Assistant> + sealed::Sealed + 'static {
             this: *mut ffi::GtkAssistant,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Assistant::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Assistant::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"cancel\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"cancel".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     cancel_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -842,15 +847,17 @@ pub trait AssistantExt: IsA<Assistant> + sealed::Sealed + 'static {
             this: *mut ffi::GtkAssistant,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Assistant::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Assistant::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"close\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"close".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     close_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -864,15 +871,17 @@ pub trait AssistantExt: IsA<Assistant> + sealed::Sealed + 'static {
             this: *mut ffi::GtkAssistant,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Assistant::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Assistant::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"escape\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"escape".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     escape_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -891,18 +900,20 @@ pub trait AssistantExt: IsA<Assistant> + sealed::Sealed + 'static {
             page: *mut ffi::GtkWidget,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(
-                Assistant::from_glib_borrow(this).unsafe_cast_ref(),
-                &from_glib_borrow(page),
-            )
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(
+                    Assistant::from_glib_borrow(this).unsafe_cast_ref(),
+                    &from_glib_borrow(page),
+                )
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"prepare\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"prepare".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     prepare_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),

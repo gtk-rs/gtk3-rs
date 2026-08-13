@@ -2,7 +2,7 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use crate::{CursorType, Display};
+use crate::{ffi, CursorType, Display};
 use glib::translate::*;
 
 glib::wrapper! {
@@ -69,6 +69,7 @@ impl Cursor {
 
     #[doc(alias = "gdk_cursor_get_cursor_type")]
     #[doc(alias = "get_cursor_type")]
+    #[doc(alias = "cursor-type")]
     pub fn cursor_type(&self) -> CursorType {
         unsafe { from_glib(ffi::gdk_cursor_get_cursor_type(self.to_glib_none().0)) }
     }

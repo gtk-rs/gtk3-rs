@@ -3,7 +3,7 @@
 // DO NOT EDIT
 
 use crate::{
-    Align, Application, Bin, Buildable, Container, Dialog, RecentChooser, RecentFilter,
+    ffi, Align, Application, Bin, Buildable, Container, Dialog, RecentChooser, RecentFilter,
     RecentManager, RecentSortType, ResizeMode, Widget, Window, WindowPosition, WindowType,
 };
 use glib::prelude::*;
@@ -528,6 +528,7 @@ impl RecentChooserDialogBuilder {
     /// Build the [`RecentChooserDialog`].
     #[must_use = "Building the object from the builder is usually expensive and is not expected to have side effects"]
     pub fn build(self) -> RecentChooserDialog {
+        assert_initialized_main_thread!();
         self.builder.build()
     }
 }

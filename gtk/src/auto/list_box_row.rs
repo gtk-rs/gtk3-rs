@@ -2,8 +2,9 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use crate::{Actionable, Align, Bin, Buildable, Container, ResizeMode, Widget};
+use crate::{ffi, Actionable, Align, Bin, Buildable, Container, ResizeMode, Widget};
 use glib::{
+    object::ObjectType as _,
     prelude::*,
     signal::{connect_raw, SignalHandlerId},
     translate::*,
@@ -301,16 +302,12 @@ impl ListBoxRowBuilder {
     /// Build the [`ListBoxRow`].
     #[must_use = "Building the object from the builder is usually expensive and is not expected to have side effects"]
     pub fn build(self) -> ListBoxRow {
+        assert_initialized_main_thread!();
         self.builder.build()
     }
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::IsA<super::ListBoxRow>> Sealed for T {}
-}
-
-pub trait ListBoxRowExt: IsA<ListBoxRow> + sealed::Sealed + 'static {
+pub trait ListBoxRowExt: IsA<ListBoxRow> + 'static {
     #[doc(alias = "gtk_list_box_row_changed")]
     fn changed(&self) {
         unsafe {
@@ -320,6 +317,7 @@ pub trait ListBoxRowExt: IsA<ListBoxRow> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_list_box_row_get_activatable")]
     #[doc(alias = "get_activatable")]
+    #[doc(alias = "activatable")]
     fn is_activatable(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_list_box_row_get_activatable(
@@ -346,6 +344,7 @@ pub trait ListBoxRowExt: IsA<ListBoxRow> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_list_box_row_get_selectable")]
     #[doc(alias = "get_selectable")]
+    #[doc(alias = "selectable")]
     fn is_selectable(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_list_box_row_get_selectable(
@@ -364,6 +363,7 @@ pub trait ListBoxRowExt: IsA<ListBoxRow> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_list_box_row_set_activatable")]
+    #[doc(alias = "activatable")]
     fn set_activatable(&self, activatable: bool) {
         unsafe {
             ffi::gtk_list_box_row_set_activatable(
@@ -384,6 +384,7 @@ pub trait ListBoxRowExt: IsA<ListBoxRow> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_list_box_row_set_selectable")]
+    #[doc(alias = "selectable")]
     fn set_selectable(&self, selectable: bool) {
         unsafe {
             ffi::gtk_list_box_row_set_selectable(
@@ -399,15 +400,17 @@ pub trait ListBoxRowExt: IsA<ListBoxRow> + sealed::Sealed + 'static {
             this: *mut ffi::GtkListBoxRow,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(ListBoxRow::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(ListBoxRow::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"activate\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"activate".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     activate_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -429,15 +432,17 @@ pub trait ListBoxRowExt: IsA<ListBoxRow> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(ListBoxRow::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(ListBoxRow::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::activatable\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::activatable".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_activatable_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -455,15 +460,17 @@ pub trait ListBoxRowExt: IsA<ListBoxRow> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(ListBoxRow::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(ListBoxRow::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::selectable\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::selectable".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_selectable_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),

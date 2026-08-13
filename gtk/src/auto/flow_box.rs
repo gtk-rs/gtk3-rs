@@ -3,10 +3,11 @@
 // DO NOT EDIT
 
 use crate::{
-    Adjustment, Align, Buildable, Container, FlowBoxChild, MovementStep, Orientable, Orientation,
-    ResizeMode, SelectionMode, Widget,
+    ffi, Adjustment, Align, Buildable, Container, FlowBoxChild, MovementStep, Orientable,
+    Orientation, ResizeMode, SelectionMode, Widget,
 };
 use glib::{
+    object::ObjectType as _,
     prelude::*,
     signal::{connect_raw, SignalHandlerId},
     translate::*,
@@ -332,16 +333,12 @@ impl FlowBoxBuilder {
     /// Build the [`FlowBox`].
     #[must_use = "Building the object from the builder is usually expensive and is not expected to have side effects"]
     pub fn build(self) -> FlowBox {
+        assert_initialized_main_thread!();
         self.builder.build()
     }
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::IsA<super::FlowBox>> Sealed for T {}
-}
-
-pub trait FlowBoxExt: IsA<FlowBox> + sealed::Sealed + 'static {
+pub trait FlowBoxExt: IsA<FlowBox> + 'static {
     #[doc(alias = "gtk_flow_box_bind_model")]
     fn bind_model<P: Fn(&glib::Object) -> Widget + 'static>(
         &self,
@@ -353,15 +350,19 @@ pub trait FlowBoxExt: IsA<FlowBox> + sealed::Sealed + 'static {
             item: *mut glib::gobject_ffi::GObject,
             user_data: glib::ffi::gpointer,
         ) -> *mut ffi::GtkWidget {
-            let item = from_glib_borrow(item);
-            let callback: &P = &*(user_data as *mut _);
-            (*callback)(&item).to_glib_full()
+            unsafe {
+                let item = from_glib_borrow(item);
+                let callback = &*(user_data as *mut P);
+                (*callback)(&item).to_glib_full()
+            }
         }
         let create_widget_func = Some(create_widget_func_func::<P> as _);
         unsafe extern "C" fn user_data_free_func_func<P: Fn(&glib::Object) -> Widget + 'static>(
             data: glib::ffi::gpointer,
         ) {
-            let _callback: Box_<P> = Box_::from_raw(data as *mut _);
+            unsafe {
+                let _callback = Box_::from_raw(data as *mut P);
+            }
         }
         let destroy_call4 = Some(user_data_free_func_func::<P> as _);
         let super_callback0: Box_<P> = create_widget_func_data;
@@ -378,6 +379,7 @@ pub trait FlowBoxExt: IsA<FlowBox> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_flow_box_get_activate_on_single_click")]
     #[doc(alias = "get_activate_on_single_click")]
+    #[doc(alias = "activate-on-single-click")]
     fn activates_on_single_click(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_flow_box_get_activate_on_single_click(
@@ -411,12 +413,14 @@ pub trait FlowBoxExt: IsA<FlowBox> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_flow_box_get_column_spacing")]
     #[doc(alias = "get_column_spacing")]
+    #[doc(alias = "column-spacing")]
     fn column_spacing(&self) -> u32 {
         unsafe { ffi::gtk_flow_box_get_column_spacing(self.as_ref().to_glib_none().0) }
     }
 
     #[doc(alias = "gtk_flow_box_get_homogeneous")]
     #[doc(alias = "get_homogeneous")]
+    #[doc(alias = "homogeneous")]
     fn is_homogeneous(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_flow_box_get_homogeneous(
@@ -427,18 +431,21 @@ pub trait FlowBoxExt: IsA<FlowBox> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_flow_box_get_max_children_per_line")]
     #[doc(alias = "get_max_children_per_line")]
+    #[doc(alias = "max-children-per-line")]
     fn max_children_per_line(&self) -> u32 {
         unsafe { ffi::gtk_flow_box_get_max_children_per_line(self.as_ref().to_glib_none().0) }
     }
 
     #[doc(alias = "gtk_flow_box_get_min_children_per_line")]
     #[doc(alias = "get_min_children_per_line")]
+    #[doc(alias = "min-children-per-line")]
     fn min_children_per_line(&self) -> u32 {
         unsafe { ffi::gtk_flow_box_get_min_children_per_line(self.as_ref().to_glib_none().0) }
     }
 
     #[doc(alias = "gtk_flow_box_get_row_spacing")]
     #[doc(alias = "get_row_spacing")]
+    #[doc(alias = "row-spacing")]
     fn row_spacing(&self) -> u32 {
         unsafe { ffi::gtk_flow_box_get_row_spacing(self.as_ref().to_glib_none().0) }
     }
@@ -455,6 +462,7 @@ pub trait FlowBoxExt: IsA<FlowBox> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_flow_box_get_selection_mode")]
     #[doc(alias = "get_selection_mode")]
+    #[doc(alias = "selection-mode")]
     fn selection_mode(&self) -> SelectionMode {
         unsafe {
             from_glib(ffi::gtk_flow_box_get_selection_mode(
@@ -507,29 +515,32 @@ pub trait FlowBoxExt: IsA<FlowBox> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_flow_box_selected_foreach")]
     fn selected_foreach<P: FnMut(&FlowBox, &FlowBoxChild)>(&self, func: P) {
-        let func_data: P = func;
+        let mut func_data: P = func;
         unsafe extern "C" fn func_func<P: FnMut(&FlowBox, &FlowBoxChild)>(
             box_: *mut ffi::GtkFlowBox,
             child: *mut ffi::GtkFlowBoxChild,
             user_data: glib::ffi::gpointer,
         ) {
-            let box_ = from_glib_borrow(box_);
-            let child = from_glib_borrow(child);
-            let callback: *mut P = user_data as *const _ as usize as *mut P;
-            (*callback)(&box_, &child)
+            unsafe {
+                let box_ = from_glib_borrow(box_);
+                let child = from_glib_borrow(child);
+                let callback = user_data as *mut P;
+                (*callback)(&box_, &child)
+            }
         }
         let func = Some(func_func::<P> as _);
-        let super_callback0: &P = &func_data;
+        let super_callback0: &mut P = &mut func_data;
         unsafe {
             ffi::gtk_flow_box_selected_foreach(
                 self.as_ref().to_glib_none().0,
                 func,
-                super_callback0 as *const _ as usize as *mut _,
+                super_callback0 as *mut _ as *mut _,
             );
         }
     }
 
     #[doc(alias = "gtk_flow_box_set_activate_on_single_click")]
+    #[doc(alias = "activate-on-single-click")]
     fn set_activate_on_single_click(&self, single: bool) {
         unsafe {
             ffi::gtk_flow_box_set_activate_on_single_click(
@@ -540,6 +551,7 @@ pub trait FlowBoxExt: IsA<FlowBox> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_flow_box_set_column_spacing")]
+    #[doc(alias = "column-spacing")]
     fn set_column_spacing(&self, spacing: u32) {
         unsafe {
             ffi::gtk_flow_box_set_column_spacing(self.as_ref().to_glib_none().0, spacing);
@@ -554,15 +566,17 @@ pub trait FlowBoxExt: IsA<FlowBox> + sealed::Sealed + 'static {
             child: *mut ffi::GtkFlowBoxChild,
             user_data: glib::ffi::gpointer,
         ) -> glib::ffi::gboolean {
-            let child = from_glib_borrow(child);
-            let callback: &Option<Box_<dyn Fn(&FlowBoxChild) -> bool + 'static>> =
-                &*(user_data as *mut _);
-            if let Some(ref callback) = *callback {
-                callback(&child)
-            } else {
-                panic!("cannot get closure...")
+            unsafe {
+                let child = from_glib_borrow(child);
+                let callback =
+                    &*(user_data as *mut Option<Box_<dyn Fn(&FlowBoxChild) -> bool + 'static>>);
+                if let Some(ref callback) = *callback {
+                    callback(&child)
+                } else {
+                    panic!("cannot get closure...")
+                }
+                .into_glib()
             }
-            .into_glib()
         }
         let filter_func = if filter_func_data.is_some() {
             Some(filter_func_func as _)
@@ -570,8 +584,11 @@ pub trait FlowBoxExt: IsA<FlowBox> + sealed::Sealed + 'static {
             None
         };
         unsafe extern "C" fn destroy_func(data: glib::ffi::gpointer) {
-            let _callback: Box_<Option<Box_<dyn Fn(&FlowBoxChild) -> bool + 'static>>> =
-                Box_::from_raw(data as *mut _);
+            unsafe {
+                let _callback = Box_::from_raw(
+                    data as *mut Option<Box_<dyn Fn(&FlowBoxChild) -> bool + 'static>>,
+                );
+            }
         }
         let destroy_call3 = Some(destroy_func as _);
         let super_callback0: Box_<Option<Box_<dyn Fn(&FlowBoxChild) -> bool + 'static>>> =
@@ -597,6 +614,7 @@ pub trait FlowBoxExt: IsA<FlowBox> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_flow_box_set_homogeneous")]
+    #[doc(alias = "homogeneous")]
     fn set_homogeneous(&self, homogeneous: bool) {
         unsafe {
             ffi::gtk_flow_box_set_homogeneous(
@@ -607,6 +625,7 @@ pub trait FlowBoxExt: IsA<FlowBox> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_flow_box_set_max_children_per_line")]
+    #[doc(alias = "max-children-per-line")]
     fn set_max_children_per_line(&self, n_children: u32) {
         unsafe {
             ffi::gtk_flow_box_set_max_children_per_line(self.as_ref().to_glib_none().0, n_children);
@@ -614,6 +633,7 @@ pub trait FlowBoxExt: IsA<FlowBox> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_flow_box_set_min_children_per_line")]
+    #[doc(alias = "min-children-per-line")]
     fn set_min_children_per_line(&self, n_children: u32) {
         unsafe {
             ffi::gtk_flow_box_set_min_children_per_line(self.as_ref().to_glib_none().0, n_children);
@@ -621,6 +641,7 @@ pub trait FlowBoxExt: IsA<FlowBox> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_flow_box_set_row_spacing")]
+    #[doc(alias = "row-spacing")]
     fn set_row_spacing(&self, spacing: u32) {
         unsafe {
             ffi::gtk_flow_box_set_row_spacing(self.as_ref().to_glib_none().0, spacing);
@@ -628,6 +649,7 @@ pub trait FlowBoxExt: IsA<FlowBox> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_flow_box_set_selection_mode")]
+    #[doc(alias = "selection-mode")]
     fn set_selection_mode(&self, mode: SelectionMode) {
         unsafe {
             ffi::gtk_flow_box_set_selection_mode(self.as_ref().to_glib_none().0, mode.into_glib());
@@ -646,15 +668,17 @@ pub trait FlowBoxExt: IsA<FlowBox> + sealed::Sealed + 'static {
             child1: *mut ffi::GtkFlowBoxChild,
             child2: *mut ffi::GtkFlowBoxChild,
             user_data: glib::ffi::gpointer,
-        ) -> libc::c_int {
-            let child1 = from_glib_borrow(child1);
-            let child2 = from_glib_borrow(child2);
-            let callback: &Option<Box_<dyn Fn(&FlowBoxChild, &FlowBoxChild) -> i32 + 'static>> =
-                &*(user_data as *mut _);
-            if let Some(ref callback) = *callback {
-                callback(&child1, &child2)
-            } else {
-                panic!("cannot get closure...")
+        ) -> std::ffi::c_int {
+            unsafe {
+                let child1 = from_glib_borrow(child1);
+                let child2 = from_glib_borrow(child2);
+                let callback = &*(user_data
+                    as *mut Option<Box_<dyn Fn(&FlowBoxChild, &FlowBoxChild) -> i32 + 'static>>);
+                if let Some(ref callback) = *callback {
+                    callback(&child1, &child2)
+                } else {
+                    panic!("cannot get closure...")
+                }
             }
         }
         let sort_func = if sort_func_data.is_some() {
@@ -663,9 +687,13 @@ pub trait FlowBoxExt: IsA<FlowBox> + sealed::Sealed + 'static {
             None
         };
         unsafe extern "C" fn destroy_func(data: glib::ffi::gpointer) {
-            let _callback: Box_<
-                Option<Box_<dyn Fn(&FlowBoxChild, &FlowBoxChild) -> i32 + 'static>>,
-            > = Box_::from_raw(data as *mut _);
+            unsafe {
+                let _callback = Box_::from_raw(
+                    data as *mut Option<
+                        Box_<dyn Fn(&FlowBoxChild, &FlowBoxChild) -> i32 + 'static>,
+                    >,
+                );
+            }
         }
         let destroy_call3 = Some(destroy_func as _);
         let super_callback0: Box_<
@@ -717,15 +745,17 @@ pub trait FlowBoxExt: IsA<FlowBox> + sealed::Sealed + 'static {
             this: *mut ffi::GtkFlowBox,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(FlowBox::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(FlowBox::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"activate-cursor-child\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"activate-cursor-child".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     activate_cursor_child_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -750,18 +780,20 @@ pub trait FlowBoxExt: IsA<FlowBox> + sealed::Sealed + 'static {
             child: *mut ffi::GtkFlowBoxChild,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(
-                FlowBox::from_glib_borrow(this).unsafe_cast_ref(),
-                &from_glib_borrow(child),
-            )
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(
+                    FlowBox::from_glib_borrow(this).unsafe_cast_ref(),
+                    &from_glib_borrow(child),
+                )
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"child-activated\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"child-activated".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     child_activated_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -780,23 +812,25 @@ pub trait FlowBoxExt: IsA<FlowBox> + sealed::Sealed + 'static {
         >(
             this: *mut ffi::GtkFlowBox,
             step: ffi::GtkMovementStep,
-            count: libc::c_int,
+            count: std::ffi::c_int,
             f: glib::ffi::gpointer,
         ) -> glib::ffi::gboolean {
-            let f: &F = &*(f as *const F);
-            f(
-                FlowBox::from_glib_borrow(this).unsafe_cast_ref(),
-                from_glib(step),
-                count,
-            )
-            .into_glib()
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(
+                    FlowBox::from_glib_borrow(this).unsafe_cast_ref(),
+                    from_glib(step),
+                    count,
+                )
+                .into_glib()
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"move-cursor\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"move-cursor".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     move_cursor_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -814,15 +848,17 @@ pub trait FlowBoxExt: IsA<FlowBox> + sealed::Sealed + 'static {
             this: *mut ffi::GtkFlowBox,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(FlowBox::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(FlowBox::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"select-all\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"select-all".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     select_all_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -843,15 +879,17 @@ pub trait FlowBoxExt: IsA<FlowBox> + sealed::Sealed + 'static {
             this: *mut ffi::GtkFlowBox,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(FlowBox::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(FlowBox::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"selected-children-changed\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"selected-children-changed".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     selected_children_changed_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -868,15 +906,17 @@ pub trait FlowBoxExt: IsA<FlowBox> + sealed::Sealed + 'static {
             this: *mut ffi::GtkFlowBox,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(FlowBox::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(FlowBox::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"toggle-cursor-child\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"toggle-cursor-child".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     toggle_cursor_child_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -894,15 +934,17 @@ pub trait FlowBoxExt: IsA<FlowBox> + sealed::Sealed + 'static {
             this: *mut ffi::GtkFlowBox,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(FlowBox::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(FlowBox::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"unselect-all\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"unselect-all".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     unselect_all_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -927,15 +969,17 @@ pub trait FlowBoxExt: IsA<FlowBox> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(FlowBox::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(FlowBox::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::activate-on-single-click\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::activate-on-single-click".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_activate_on_single_click_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -953,15 +997,17 @@ pub trait FlowBoxExt: IsA<FlowBox> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(FlowBox::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(FlowBox::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::column-spacing\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::column-spacing".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_column_spacing_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -976,15 +1022,17 @@ pub trait FlowBoxExt: IsA<FlowBox> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(FlowBox::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(FlowBox::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::homogeneous\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::homogeneous".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_homogeneous_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1005,15 +1053,17 @@ pub trait FlowBoxExt: IsA<FlowBox> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(FlowBox::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(FlowBox::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::max-children-per-line\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::max-children-per-line".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_max_children_per_line_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1034,15 +1084,17 @@ pub trait FlowBoxExt: IsA<FlowBox> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(FlowBox::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(FlowBox::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::min-children-per-line\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::min-children-per-line".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_min_children_per_line_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1057,15 +1109,17 @@ pub trait FlowBoxExt: IsA<FlowBox> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(FlowBox::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(FlowBox::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::row-spacing\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::row-spacing".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_row_spacing_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1083,15 +1137,17 @@ pub trait FlowBoxExt: IsA<FlowBox> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(FlowBox::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(FlowBox::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::selection-mode\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::selection-mode".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_selection_mode_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),

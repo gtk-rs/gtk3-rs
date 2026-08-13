@@ -2,7 +2,7 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use crate::ObjectFactory;
+use crate::{ffi, ObjectFactory};
 use glib::{prelude::*, translate::*};
 
 glib::wrapper! {
@@ -18,12 +18,7 @@ impl Registry {
     pub const NONE: Option<&'static Registry> = None;
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::IsA<super::Registry>> Sealed for T {}
-}
-
-pub trait RegistryExt: IsA<Registry> + sealed::Sealed + 'static {
+pub trait RegistryExt: IsA<Registry> + 'static {
     #[doc(alias = "atk_registry_get_factory")]
     #[doc(alias = "get_factory")]
     fn factory(&self, type_: glib::types::Type) -> Option<ObjectFactory> {

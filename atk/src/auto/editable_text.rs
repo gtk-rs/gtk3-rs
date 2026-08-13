@@ -2,6 +2,7 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
+use crate::ffi;
 use glib::{prelude::*, translate::*};
 
 glib::wrapper! {
@@ -17,12 +18,7 @@ impl EditableText {
     pub const NONE: Option<&'static EditableText> = None;
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::IsA<super::EditableText>> Sealed for T {}
-}
-
-pub trait EditableTextExt: IsA<EditableText> + sealed::Sealed + 'static {
+pub trait EditableTextExt: IsA<EditableText> + 'static {
     #[doc(alias = "atk_editable_text_copy_text")]
     fn copy_text(&self, start_pos: i32, end_pos: i32) {
         unsafe {

@@ -3,7 +3,8 @@
 // DO NOT EDIT
 
 use crate::{
-    Align, Bin, Buildable, Container, Popover, PopoverConstraint, PositionType, ResizeMode, Widget,
+    ffi, Align, Bin, Buildable, Container, Popover, PopoverConstraint, PositionType, ResizeMode,
+    Widget,
 };
 use glib::{
     prelude::*,
@@ -86,15 +87,17 @@ impl PopoverMenu {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(&from_glib_borrow(this))
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(&from_glib_borrow(this))
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::visible-submenu\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::visible-submenu".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_visible_submenu_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -381,6 +384,7 @@ impl PopoverMenuBuilder {
     /// Build the [`PopoverMenu`].
     #[must_use = "Building the object from the builder is usually expensive and is not expected to have side effects"]
     pub fn build(self) -> PopoverMenu {
+        assert_initialized_main_thread!();
         self.builder.build()
     }
 }

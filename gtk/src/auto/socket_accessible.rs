@@ -2,6 +2,7 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
+use crate::ffi;
 use glib::{prelude::*, translate::*};
 
 glib::wrapper! {
@@ -46,6 +47,20 @@ impl SocketAccessibleBuilder {
             builder: self
                 .builder
                 .property("accessible-description", accessible_description.into()),
+        }
+    }
+
+    pub fn accessible_help_text(self, accessible_help_text: impl Into<glib::GString>) -> Self {
+        Self {
+            builder: self
+                .builder
+                .property("accessible-help-text", accessible_help_text.into()),
+        }
+    }
+
+    pub fn accessible_id(self, accessible_id: impl Into<glib::GString>) -> Self {
+        Self {
+            builder: self.builder.property("accessible-id", accessible_id.into()),
         }
     }
 
@@ -164,16 +179,12 @@ impl SocketAccessibleBuilder {
     /// Build the [`SocketAccessible`].
     #[must_use = "Building the object from the builder is usually expensive and is not expected to have side effects"]
     pub fn build(self) -> SocketAccessible {
+        assert_initialized_main_thread!();
         self.builder.build()
     }
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::IsA<super::SocketAccessible>> Sealed for T {}
-}
-
-pub trait SocketAccessibleExt: IsA<SocketAccessible> + sealed::Sealed + 'static {
+pub trait SocketAccessibleExt: IsA<SocketAccessible> + 'static {
     #[doc(alias = "gtk_socket_accessible_embed")]
     fn embed(&self, path: &str) {
         unsafe {

@@ -14,27 +14,18 @@ rust-version = "1.70"
 name = "gdk_wayland_sys"
 
 [features]
-v3_24 = ["gdk/v3_24"]
+v3_24 = ["gdk-sys/v3_24"]
 v3_24_22 = ["v3_24"]
 
 [dependencies]
+gdk-sys = { path = "../../gdk/sys" }
+glib-sys.workspace = true
+gobject-sys.workspace = true
 libc = "0.2"
-
-[dependencies.glib]
-package = "glib-sys"
-version = "0.22"
-
-[dependencies.gobject]
-package = "gobject-sys"
-version = "0.22"
-
-[dependencies.gdk]
-package = "gdk-sys"
-path = "../../gdk/sys"
 
 [build-dependencies]
 pkg-config = "0.3.7"
-system-deps = "6"
+system-deps = "8"
 
 [package.metadata.docs.rs]
 rustdoc-args = ["--cfg", "docsrs"]

@@ -3,7 +3,7 @@
 // DO NOT EDIT
 
 use crate::{
-    Align, Application, Bin, Buildable, Container, ResizeMode, Widget, Window, WindowPosition,
+    ffi, Align, Application, Bin, Buildable, Container, ResizeMode, Widget, Window, WindowPosition,
     WindowType,
 };
 use glib::{prelude::*, translate::*};
@@ -455,16 +455,12 @@ impl OffscreenWindowBuilder {
     /// Build the [`OffscreenWindow`].
     #[must_use = "Building the object from the builder is usually expensive and is not expected to have side effects"]
     pub fn build(self) -> OffscreenWindow {
+        assert_initialized_main_thread!();
         self.builder.build()
     }
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::IsA<super::OffscreenWindow>> Sealed for T {}
-}
-
-pub trait OffscreenWindowExt: IsA<OffscreenWindow> + sealed::Sealed + 'static {
+pub trait OffscreenWindowExt: IsA<OffscreenWindow> + 'static {
     #[doc(alias = "gtk_offscreen_window_get_pixbuf")]
     #[doc(alias = "get_pixbuf")]
     fn pixbuf(&self) -> Option<gdk_pixbuf::Pixbuf> {

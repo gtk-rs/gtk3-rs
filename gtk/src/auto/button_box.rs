@@ -3,8 +3,8 @@
 // DO NOT EDIT
 
 use crate::{
-    Align, BaselinePosition, Box, Buildable, ButtonBoxStyle, Container, Orientable, Orientation,
-    ResizeMode, Widget,
+    ffi, Align, BaselinePosition, Box, Buildable, ButtonBoxStyle, Container, Orientable,
+    Orientation, ResizeMode, Widget,
 };
 use glib::{
     prelude::*,
@@ -312,16 +312,12 @@ impl ButtonBoxBuilder {
     /// Build the [`ButtonBox`].
     #[must_use = "Building the object from the builder is usually expensive and is not expected to have side effects"]
     pub fn build(self) -> ButtonBox {
+        assert_initialized_main_thread!();
         self.builder.build()
     }
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::IsA<super::ButtonBox>> Sealed for T {}
-}
-
-pub trait ButtonBoxExt: IsA<ButtonBox> + sealed::Sealed + 'static {
+pub trait ButtonBoxExt: IsA<ButtonBox> + 'static {
     #[doc(alias = "gtk_button_box_get_child_non_homogeneous")]
     #[doc(alias = "get_child_non_homogeneous")]
     fn child_is_non_homogeneous(&self, child: &impl IsA<Widget>) -> bool {
@@ -406,15 +402,17 @@ pub trait ButtonBoxExt: IsA<ButtonBox> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(ButtonBox::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(ButtonBox::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::layout-style\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::layout-style".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_layout_style_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),

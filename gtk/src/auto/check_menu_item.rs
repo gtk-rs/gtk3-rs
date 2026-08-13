@@ -2,8 +2,11 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use crate::{Actionable, Align, Bin, Buildable, Container, Menu, MenuItem, ResizeMode, Widget};
+use crate::{
+    ffi, Actionable, Align, Bin, Buildable, Container, Menu, MenuItem, ResizeMode, Widget,
+};
 use glib::{
+    object::ObjectType as _,
     prelude::*,
     signal::{connect_raw, SignalHandlerId},
     translate::*,
@@ -361,18 +364,15 @@ impl CheckMenuItemBuilder {
     /// Build the [`CheckMenuItem`].
     #[must_use = "Building the object from the builder is usually expensive and is not expected to have side effects"]
     pub fn build(self) -> CheckMenuItem {
+        assert_initialized_main_thread!();
         self.builder.build()
     }
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::IsA<super::CheckMenuItem>> Sealed for T {}
-}
-
-pub trait CheckMenuItemExt: IsA<CheckMenuItem> + sealed::Sealed + 'static {
+pub trait CheckMenuItemExt: IsA<CheckMenuItem> + 'static {
     #[doc(alias = "gtk_check_menu_item_get_active")]
     #[doc(alias = "get_active")]
+    #[doc(alias = "active")]
     fn is_active(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_check_menu_item_get_active(
@@ -383,6 +383,7 @@ pub trait CheckMenuItemExt: IsA<CheckMenuItem> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_check_menu_item_get_draw_as_radio")]
     #[doc(alias = "get_draw_as_radio")]
+    #[doc(alias = "draw-as-radio")]
     fn draws_as_radio(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_check_menu_item_get_draw_as_radio(
@@ -393,6 +394,7 @@ pub trait CheckMenuItemExt: IsA<CheckMenuItem> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_check_menu_item_get_inconsistent")]
     #[doc(alias = "get_inconsistent")]
+    #[doc(alias = "inconsistent")]
     fn is_inconsistent(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_check_menu_item_get_inconsistent(
@@ -402,6 +404,7 @@ pub trait CheckMenuItemExt: IsA<CheckMenuItem> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_check_menu_item_set_active")]
+    #[doc(alias = "active")]
     fn set_active(&self, is_active: bool) {
         unsafe {
             ffi::gtk_check_menu_item_set_active(
@@ -412,6 +415,7 @@ pub trait CheckMenuItemExt: IsA<CheckMenuItem> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_check_menu_item_set_draw_as_radio")]
+    #[doc(alias = "draw-as-radio")]
     fn set_draw_as_radio(&self, draw_as_radio: bool) {
         unsafe {
             ffi::gtk_check_menu_item_set_draw_as_radio(
@@ -422,6 +426,7 @@ pub trait CheckMenuItemExt: IsA<CheckMenuItem> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_check_menu_item_set_inconsistent")]
+    #[doc(alias = "inconsistent")]
     fn set_inconsistent(&self, setting: bool) {
         unsafe {
             ffi::gtk_check_menu_item_set_inconsistent(
@@ -444,15 +449,17 @@ pub trait CheckMenuItemExt: IsA<CheckMenuItem> + sealed::Sealed + 'static {
             this: *mut ffi::GtkCheckMenuItem,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(CheckMenuItem::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(CheckMenuItem::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"toggled\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"toggled".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     toggled_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -470,15 +477,17 @@ pub trait CheckMenuItemExt: IsA<CheckMenuItem> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(CheckMenuItem::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(CheckMenuItem::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::active\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::active".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_active_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -496,15 +505,17 @@ pub trait CheckMenuItemExt: IsA<CheckMenuItem> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(CheckMenuItem::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(CheckMenuItem::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::draw-as-radio\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::draw-as-radio".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_draw_as_radio_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -522,15 +533,17 @@ pub trait CheckMenuItemExt: IsA<CheckMenuItem> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(CheckMenuItem::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(CheckMenuItem::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::inconsistent\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::inconsistent".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_inconsistent_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),

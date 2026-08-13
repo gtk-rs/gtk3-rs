@@ -3,10 +3,11 @@
 // DO NOT EDIT
 
 use crate::{
-    Border, CssSection, JunctionSides, StateFlags, StyleContextPrintFlags, StyleProvider,
+    ffi, Border, CssSection, JunctionSides, StateFlags, StyleContextPrintFlags, StyleProvider,
     TextDirection, WidgetPath,
 };
 use glib::{
+    object::ObjectType as _,
     prelude::*,
     signal::{connect_raw, SignalHandlerId},
     translate::*,
@@ -125,16 +126,12 @@ impl StyleContextBuilder {
     /// Build the [`StyleContext`].
     #[must_use = "Building the object from the builder is usually expensive and is not expected to have side effects"]
     pub fn build(self) -> StyleContext {
+        assert_initialized_main_thread!();
         self.builder.build()
     }
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::IsA<super::StyleContext>> Sealed for T {}
-}
-
-pub trait StyleContextExt: IsA<StyleContext> + sealed::Sealed + 'static {
+pub trait StyleContextExt: IsA<StyleContext> + 'static {
     #[doc(alias = "gtk_style_context_add_class")]
     fn add_class(&self, class_name: &str) {
         unsafe {
@@ -428,6 +425,7 @@ pub trait StyleContextExt: IsA<StyleContext> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_style_context_set_parent")]
+    #[doc(alias = "parent")]
     fn set_parent(&self, parent: Option<&impl IsA<StyleContext>>) {
         unsafe {
             ffi::gtk_style_context_set_parent(
@@ -452,6 +450,7 @@ pub trait StyleContextExt: IsA<StyleContext> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_style_context_set_screen")]
+    #[doc(alias = "screen")]
     fn set_screen(&self, screen: &gdk::Screen) {
         unsafe {
             ffi::gtk_style_context_set_screen(
@@ -502,15 +501,17 @@ pub trait StyleContextExt: IsA<StyleContext> + sealed::Sealed + 'static {
             this: *mut ffi::GtkStyleContext,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(StyleContext::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(StyleContext::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"changed\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"changed".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     changed_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -528,15 +529,17 @@ pub trait StyleContextExt: IsA<StyleContext> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(StyleContext::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(StyleContext::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::direction\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::direction".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_direction_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -554,15 +557,17 @@ pub trait StyleContextExt: IsA<StyleContext> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(StyleContext::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(StyleContext::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::paint-clock\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::paint-clock".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_paint_clock_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -577,15 +582,17 @@ pub trait StyleContextExt: IsA<StyleContext> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(StyleContext::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(StyleContext::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::parent\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::parent".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_parent_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -600,15 +607,17 @@ pub trait StyleContextExt: IsA<StyleContext> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(StyleContext::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(StyleContext::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::screen\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::screen".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_screen_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),

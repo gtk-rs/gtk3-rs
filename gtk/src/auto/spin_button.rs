@@ -3,7 +3,7 @@
 // DO NOT EDIT
 
 use crate::{
-    Adjustment, Align, Buildable, CellEditable, Container, Editable, Entry, EntryBuffer,
+    ffi, Adjustment, Align, Buildable, CellEditable, Container, Editable, Entry, EntryBuffer,
     EntryCompletion, InputHints, InputPurpose, Orientable, Orientation, SpinButtonUpdatePolicy,
     SpinType, Widget,
 };
@@ -653,16 +653,12 @@ impl SpinButtonBuilder {
     /// Build the [`SpinButton`].
     #[must_use = "Building the object from the builder is usually expensive and is not expected to have side effects"]
     pub fn build(self) -> SpinButton {
+        assert_initialized_main_thread!();
         self.builder.build()
     }
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::IsA<super::SpinButton>> Sealed for T {}
-}
-
-pub trait SpinButtonExt: IsA<SpinButton> + sealed::Sealed + 'static {
+pub trait SpinButtonExt: IsA<SpinButton> + 'static {
     #[doc(alias = "gtk_spin_button_configure")]
     fn configure(&self, adjustment: Option<&impl IsA<Adjustment>>, climb_rate: f64, digits: u32) {
         unsafe {
@@ -708,6 +704,7 @@ pub trait SpinButtonExt: IsA<SpinButton> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_spin_button_get_numeric")]
     #[doc(alias = "get_numeric")]
+    #[doc(alias = "numeric")]
     fn is_numeric(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_spin_button_get_numeric(
@@ -733,6 +730,7 @@ pub trait SpinButtonExt: IsA<SpinButton> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_spin_button_get_snap_to_ticks")]
     #[doc(alias = "get_snap_to_ticks")]
+    #[doc(alias = "snap-to-ticks")]
     fn snaps_to_ticks(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_spin_button_get_snap_to_ticks(
@@ -743,6 +741,7 @@ pub trait SpinButtonExt: IsA<SpinButton> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_spin_button_get_update_policy")]
     #[doc(alias = "get_update_policy")]
+    #[doc(alias = "update-policy")]
     fn update_policy(&self) -> SpinButtonUpdatePolicy {
         unsafe {
             from_glib(ffi::gtk_spin_button_get_update_policy(
@@ -765,6 +764,7 @@ pub trait SpinButtonExt: IsA<SpinButton> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_spin_button_get_wrap")]
     #[doc(alias = "get_wrap")]
+    #[doc(alias = "wrap")]
     fn wraps(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_spin_button_get_wrap(
@@ -774,6 +774,7 @@ pub trait SpinButtonExt: IsA<SpinButton> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_spin_button_set_adjustment")]
+    #[doc(alias = "adjustment")]
     fn set_adjustment(&self, adjustment: &impl IsA<Adjustment>) {
         unsafe {
             ffi::gtk_spin_button_set_adjustment(
@@ -784,6 +785,7 @@ pub trait SpinButtonExt: IsA<SpinButton> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_spin_button_set_digits")]
+    #[doc(alias = "digits")]
     fn set_digits(&self, digits: u32) {
         unsafe {
             ffi::gtk_spin_button_set_digits(self.as_ref().to_glib_none().0, digits);
@@ -798,6 +800,7 @@ pub trait SpinButtonExt: IsA<SpinButton> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_spin_button_set_numeric")]
+    #[doc(alias = "numeric")]
     fn set_numeric(&self, numeric: bool) {
         unsafe {
             ffi::gtk_spin_button_set_numeric(self.as_ref().to_glib_none().0, numeric.into_glib());
@@ -812,6 +815,7 @@ pub trait SpinButtonExt: IsA<SpinButton> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_spin_button_set_snap_to_ticks")]
+    #[doc(alias = "snap-to-ticks")]
     fn set_snap_to_ticks(&self, snap_to_ticks: bool) {
         unsafe {
             ffi::gtk_spin_button_set_snap_to_ticks(
@@ -822,6 +826,7 @@ pub trait SpinButtonExt: IsA<SpinButton> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_spin_button_set_update_policy")]
+    #[doc(alias = "update-policy")]
     fn set_update_policy(&self, policy: SpinButtonUpdatePolicy) {
         unsafe {
             ffi::gtk_spin_button_set_update_policy(
@@ -832,6 +837,7 @@ pub trait SpinButtonExt: IsA<SpinButton> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_spin_button_set_value")]
+    #[doc(alias = "value")]
     fn set_value(&self, value: f64) {
         unsafe {
             ffi::gtk_spin_button_set_value(self.as_ref().to_glib_none().0, value);
@@ -839,6 +845,7 @@ pub trait SpinButtonExt: IsA<SpinButton> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_spin_button_set_wrap")]
+    #[doc(alias = "wrap")]
     fn set_wrap(&self, wrap: bool) {
         unsafe {
             ffi::gtk_spin_button_set_wrap(self.as_ref().to_glib_none().0, wrap.into_glib());
@@ -883,15 +890,17 @@ pub trait SpinButtonExt: IsA<SpinButton> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(SpinButton::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(SpinButton::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::adjustment\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::adjustment".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_adjustment_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -909,15 +918,17 @@ pub trait SpinButtonExt: IsA<SpinButton> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(SpinButton::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(SpinButton::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::climb-rate\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::climb-rate".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_climb_rate_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -932,15 +943,17 @@ pub trait SpinButtonExt: IsA<SpinButton> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(SpinButton::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(SpinButton::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::digits\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::digits".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_digits_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -955,15 +968,17 @@ pub trait SpinButtonExt: IsA<SpinButton> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(SpinButton::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(SpinButton::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::numeric\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::numeric".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_numeric_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -981,15 +996,17 @@ pub trait SpinButtonExt: IsA<SpinButton> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(SpinButton::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(SpinButton::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::snap-to-ticks\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::snap-to-ticks".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_snap_to_ticks_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1007,15 +1024,17 @@ pub trait SpinButtonExt: IsA<SpinButton> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(SpinButton::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(SpinButton::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::update-policy\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::update-policy".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_update_policy_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1030,15 +1049,17 @@ pub trait SpinButtonExt: IsA<SpinButton> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(SpinButton::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(SpinButton::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::value\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::value".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_value_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1053,15 +1074,17 @@ pub trait SpinButtonExt: IsA<SpinButton> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(SpinButton::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(SpinButton::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::wrap\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::wrap".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_wrap_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),

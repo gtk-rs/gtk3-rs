@@ -3,7 +3,7 @@
 // DO NOT EDIT
 
 use crate::{
-    Adjustment, Align, Buildable, Container, DestDefaults, IconSize, Orientable, Orientation,
+    ffi, Adjustment, Align, Buildable, Container, DestDefaults, IconSize, Orientable, Orientation,
     ResizeMode, Scrollable, ScrollablePolicy, SelectionData, TargetEntry, ToolItem, ToolItemGroup,
     ToolPaletteDragTargets, ToolbarStyle, Widget,
 };
@@ -345,16 +345,12 @@ impl ToolPaletteBuilder {
     /// Build the [`ToolPalette`].
     #[must_use = "Building the object from the builder is usually expensive and is not expected to have side effects"]
     pub fn build(self) -> ToolPalette {
+        assert_initialized_main_thread!();
         self.builder.build()
     }
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::IsA<super::ToolPalette>> Sealed for T {}
-}
-
-pub trait ToolPaletteExt: IsA<ToolPalette> + sealed::Sealed + 'static {
+pub trait ToolPaletteExt: IsA<ToolPalette> + 'static {
     #[doc(alias = "gtk_tool_palette_add_drag_dest")]
     fn add_drag_dest(
         &self,
@@ -444,6 +440,7 @@ pub trait ToolPaletteExt: IsA<ToolPalette> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_tool_palette_get_icon_size")]
     #[doc(alias = "get_icon_size")]
+    #[doc(alias = "icon-size")]
     fn icon_size(&self) -> IconSize {
         unsafe {
             from_glib(ffi::gtk_tool_palette_get_icon_size(
@@ -506,6 +503,7 @@ pub trait ToolPaletteExt: IsA<ToolPalette> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_tool_palette_set_icon_size")]
+    #[doc(alias = "icon-size")]
     fn set_icon_size(&self, icon_size: IconSize) {
         unsafe {
             ffi::gtk_tool_palette_set_icon_size(
@@ -566,15 +564,17 @@ pub trait ToolPaletteExt: IsA<ToolPalette> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(ToolPalette::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(ToolPalette::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::icon-size\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::icon-size".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_icon_size_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -592,15 +592,17 @@ pub trait ToolPaletteExt: IsA<ToolPalette> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(ToolPalette::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(ToolPalette::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::icon-size-set\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::icon-size-set".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_icon_size_set_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -618,15 +620,17 @@ pub trait ToolPaletteExt: IsA<ToolPalette> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(ToolPalette::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(ToolPalette::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::toolbar-style\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::toolbar-style".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_toolbar_style_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),

@@ -2,6 +2,7 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
+use crate::ffi;
 use glib::{prelude::*, translate::*};
 
 glib::wrapper! {
@@ -24,12 +25,7 @@ impl Misc {
     }
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::IsA<super::Misc>> Sealed for T {}
-}
-
-pub trait AtkMiscExt: IsA<Misc> + sealed::Sealed + 'static {
+pub trait AtkMiscExt: IsA<Misc> + 'static {
     #[doc(alias = "atk_misc_threads_enter")]
     fn threads_enter(&self) {
         unsafe {

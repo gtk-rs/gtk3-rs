@@ -2,6 +2,7 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
+use crate::ffi;
 use glib::{prelude::*, translate::*};
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
@@ -76,7 +77,7 @@ unsafe impl<'a> glib::value::FromValue<'a> for CoordType {
     #[inline]
     unsafe fn from_value(value: &'a glib::Value) -> Self {
         skip_assert_initialized!();
-        from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0))
+        unsafe { from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0)) }
     }
 }
 
@@ -196,7 +197,7 @@ unsafe impl<'a> glib::value::FromValue<'a> for Layer {
     #[inline]
     unsafe fn from_value(value: &'a glib::Value) -> Self {
         skip_assert_initialized!();
-        from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0))
+        unsafe { from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0)) }
     }
 }
 
@@ -310,7 +311,7 @@ unsafe impl<'a> glib::value::FromValue<'a> for Live {
     #[inline]
     unsafe fn from_value(value: &'a glib::Value) -> Self {
         skip_assert_initialized!();
-        from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0))
+        unsafe { from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0)) }
     }
 }
 
@@ -503,7 +504,7 @@ unsafe impl<'a> glib::value::FromValue<'a> for RelationType {
     #[inline]
     unsafe fn from_value(value: &'a glib::Value) -> Self {
         skip_assert_initialized!();
-        from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0))
+        unsafe { from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0)) }
     }
 }
 
@@ -619,8 +620,8 @@ pub enum Role {
     PopupMenu,
     #[doc(alias = "ATK_ROLE_PROGRESS_BAR")]
     ProgressBar,
-    #[doc(alias = "ATK_ROLE_PUSH_BUTTON")]
-    PushButton,
+    #[doc(alias = "ATK_ROLE_BUTTON")]
+    Button,
     #[doc(alias = "ATK_ROLE_RADIO_BUTTON")]
     RadioButton,
     #[doc(alias = "ATK_ROLE_RADIO_MENU_ITEM")]
@@ -791,6 +792,8 @@ pub enum Role {
     Suggestion,
     #[doc(alias = "ATK_ROLE_PUSH_BUTTON_MENU")]
     PushButtonMenu,
+    #[doc(alias = "ATK_ROLE_SWITCH")]
+    Switch,
     #[doc(alias = "ATK_ROLE_LAST_DEFINED")]
     LastDefined,
     #[doc(hidden)]
@@ -867,7 +870,7 @@ impl IntoGlib for Role {
             Self::PasswordText => ffi::ATK_ROLE_PASSWORD_TEXT,
             Self::PopupMenu => ffi::ATK_ROLE_POPUP_MENU,
             Self::ProgressBar => ffi::ATK_ROLE_PROGRESS_BAR,
-            Self::PushButton => ffi::ATK_ROLE_PUSH_BUTTON,
+            Self::Button => ffi::ATK_ROLE_BUTTON,
             Self::RadioButton => ffi::ATK_ROLE_RADIO_BUTTON,
             Self::RadioMenuItem => ffi::ATK_ROLE_RADIO_MENU_ITEM,
             Self::RootPane => ffi::ATK_ROLE_ROOT_PANE,
@@ -953,6 +956,7 @@ impl IntoGlib for Role {
             Self::Mark => ffi::ATK_ROLE_MARK,
             Self::Suggestion => ffi::ATK_ROLE_SUGGESTION,
             Self::PushButtonMenu => ffi::ATK_ROLE_PUSH_BUTTON_MENU,
+            Self::Switch => ffi::ATK_ROLE_SWITCH,
             Self::LastDefined => ffi::ATK_ROLE_LAST_DEFINED,
             Self::__Unknown(value) => value,
         }
@@ -1007,7 +1011,7 @@ impl FromGlib<ffi::AtkRole> for Role {
             ffi::ATK_ROLE_PASSWORD_TEXT => Self::PasswordText,
             ffi::ATK_ROLE_POPUP_MENU => Self::PopupMenu,
             ffi::ATK_ROLE_PROGRESS_BAR => Self::ProgressBar,
-            ffi::ATK_ROLE_PUSH_BUTTON => Self::PushButton,
+            ffi::ATK_ROLE_BUTTON => Self::Button,
             ffi::ATK_ROLE_RADIO_BUTTON => Self::RadioButton,
             ffi::ATK_ROLE_RADIO_MENU_ITEM => Self::RadioMenuItem,
             ffi::ATK_ROLE_ROOT_PANE => Self::RootPane,
@@ -1093,6 +1097,7 @@ impl FromGlib<ffi::AtkRole> for Role {
             ffi::ATK_ROLE_MARK => Self::Mark,
             ffi::ATK_ROLE_SUGGESTION => Self::Suggestion,
             ffi::ATK_ROLE_PUSH_BUTTON_MENU => Self::PushButtonMenu,
+            ffi::ATK_ROLE_SWITCH => Self::Switch,
             ffi::ATK_ROLE_LAST_DEFINED => Self::LastDefined,
             value => Self::__Unknown(value),
         }
@@ -1127,7 +1132,7 @@ unsafe impl<'a> glib::value::FromValue<'a> for Role {
     #[inline]
     unsafe fn from_value(value: &'a glib::Value) -> Self {
         skip_assert_initialized!();
-        from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0))
+        unsafe { from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0)) }
     }
 }
 
@@ -1257,7 +1262,7 @@ unsafe impl<'a> glib::value::FromValue<'a> for ScrollType {
     #[inline]
     unsafe fn from_value(value: &'a glib::Value) -> Self {
         skip_assert_initialized!();
-        from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0))
+        unsafe { from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0)) }
     }
 }
 
@@ -1383,6 +1388,8 @@ pub enum StateType {
     #[cfg_attr(docsrs, doc(cfg(feature = "v2_38")))]
     #[doc(alias = "ATK_STATE_COLLAPSED")]
     Collapsed,
+    #[doc(alias = "ATK_STATE_LAST_DEFINED")]
+    LastDefined,
     #[doc(hidden)]
     __Unknown(i32),
 }
@@ -1453,6 +1460,7 @@ impl IntoGlib for StateType {
             Self::ReadOnly => ffi::ATK_STATE_READ_ONLY,
             #[cfg(feature = "v2_38")]
             Self::Collapsed => ffi::ATK_STATE_COLLAPSED,
+            Self::LastDefined => ffi::ATK_STATE_LAST_DEFINED,
             Self::__Unknown(value) => value,
         }
     }
@@ -1509,6 +1517,7 @@ impl FromGlib<ffi::AtkStateType> for StateType {
             ffi::ATK_STATE_READ_ONLY => Self::ReadOnly,
             #[cfg(feature = "v2_38")]
             ffi::ATK_STATE_COLLAPSED => Self::Collapsed,
+            ffi::ATK_STATE_LAST_DEFINED => Self::LastDefined,
             value => Self::__Unknown(value),
         }
     }
@@ -1542,7 +1551,7 @@ unsafe impl<'a> glib::value::FromValue<'a> for StateType {
     #[inline]
     unsafe fn from_value(value: &'a glib::Value) -> Self {
         skip_assert_initialized!();
-        from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0))
+        unsafe { from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0)) }
     }
 }
 
@@ -1770,7 +1779,7 @@ unsafe impl<'a> glib::value::FromValue<'a> for TextAttribute {
     #[inline]
     unsafe fn from_value(value: &'a glib::Value) -> Self {
         skip_assert_initialized!();
-        from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0))
+        unsafe { from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0)) }
     }
 }
 
@@ -1886,7 +1895,7 @@ unsafe impl<'a> glib::value::FromValue<'a> for TextBoundary {
     #[inline]
     unsafe fn from_value(value: &'a glib::Value) -> Self {
         skip_assert_initialized!();
-        from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0))
+        unsafe { from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0)) }
     }
 }
 
@@ -1990,7 +1999,7 @@ unsafe impl<'a> glib::value::FromValue<'a> for TextClipType {
     #[inline]
     unsafe fn from_value(value: &'a glib::Value) -> Self {
         skip_assert_initialized!();
-        from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0))
+        unsafe { from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0)) }
     }
 }
 
@@ -2098,7 +2107,7 @@ unsafe impl<'a> glib::value::FromValue<'a> for TextGranularity {
     #[inline]
     unsafe fn from_value(value: &'a glib::Value) -> Self {
         skip_assert_initialized!();
-        from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0))
+        unsafe { from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0)) }
     }
 }
 
@@ -2264,7 +2273,7 @@ unsafe impl<'a> glib::value::FromValue<'a> for ValueType {
     #[inline]
     unsafe fn from_value(value: &'a glib::Value) -> Self {
         skip_assert_initialized!();
-        from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0))
+        unsafe { from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0)) }
     }
 }
 

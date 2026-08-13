@@ -2,8 +2,9 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use crate::{RecentFilter, RecentInfo, RecentSortType};
+use crate::{ffi, RecentFilter, RecentInfo, RecentSortType};
 use glib::{
+    object::ObjectType as _,
     prelude::*,
     signal::{connect_raw, SignalHandlerId},
     translate::*,
@@ -23,12 +24,7 @@ impl RecentChooser {
     pub const NONE: Option<&'static RecentChooser> = None;
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::IsA<super::RecentChooser>> Sealed for T {}
-}
-
-pub trait RecentChooserExt: IsA<RecentChooser> + sealed::Sealed + 'static {
+pub trait RecentChooserExt: IsA<RecentChooser> + 'static {
     #[doc(alias = "gtk_recent_chooser_add_filter")]
     fn add_filter(&self, filter: &RecentFilter) {
         unsafe {
@@ -87,6 +83,7 @@ pub trait RecentChooserExt: IsA<RecentChooser> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_recent_chooser_get_local_only")]
     #[doc(alias = "get_local_only")]
+    #[doc(alias = "local-only")]
     fn is_local_only(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_recent_chooser_get_local_only(
@@ -97,6 +94,7 @@ pub trait RecentChooserExt: IsA<RecentChooser> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_recent_chooser_get_select_multiple")]
     #[doc(alias = "get_select_multiple")]
+    #[doc(alias = "select-multiple")]
     fn selects_multiple(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_recent_chooser_get_select_multiple(
@@ -107,6 +105,7 @@ pub trait RecentChooserExt: IsA<RecentChooser> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_recent_chooser_get_show_icons")]
     #[doc(alias = "get_show_icons")]
+    #[doc(alias = "show-icons")]
     fn shows_icons(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_recent_chooser_get_show_icons(
@@ -117,6 +116,7 @@ pub trait RecentChooserExt: IsA<RecentChooser> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_recent_chooser_get_show_not_found")]
     #[doc(alias = "get_show_not_found")]
+    #[doc(alias = "show-not-found")]
     fn shows_not_found(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_recent_chooser_get_show_not_found(
@@ -127,6 +127,7 @@ pub trait RecentChooserExt: IsA<RecentChooser> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_recent_chooser_get_show_private")]
     #[doc(alias = "get_show_private")]
+    #[doc(alias = "show-private")]
     fn shows_private(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_recent_chooser_get_show_private(
@@ -137,6 +138,7 @@ pub trait RecentChooserExt: IsA<RecentChooser> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_recent_chooser_get_show_tips")]
     #[doc(alias = "get_show_tips")]
+    #[doc(alias = "show-tips")]
     fn shows_tips(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_recent_chooser_get_show_tips(
@@ -147,6 +149,7 @@ pub trait RecentChooserExt: IsA<RecentChooser> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_recent_chooser_get_sort_type")]
     #[doc(alias = "get_sort_type")]
+    #[doc(alias = "sort-type")]
     fn sort_type(&self) -> RecentSortType {
         unsafe {
             from_glib(ffi::gtk_recent_chooser_get_sort_type(
@@ -234,6 +237,7 @@ pub trait RecentChooserExt: IsA<RecentChooser> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_recent_chooser_set_filter")]
+    #[doc(alias = "filter")]
     fn set_filter(&self, filter: Option<&RecentFilter>) {
         unsafe {
             ffi::gtk_recent_chooser_set_filter(
@@ -244,6 +248,7 @@ pub trait RecentChooserExt: IsA<RecentChooser> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_recent_chooser_set_limit")]
+    #[doc(alias = "limit")]
     fn set_limit(&self, limit: i32) {
         unsafe {
             ffi::gtk_recent_chooser_set_limit(self.as_ref().to_glib_none().0, limit);
@@ -251,6 +256,7 @@ pub trait RecentChooserExt: IsA<RecentChooser> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_recent_chooser_set_local_only")]
+    #[doc(alias = "local-only")]
     fn set_local_only(&self, local_only: bool) {
         unsafe {
             ffi::gtk_recent_chooser_set_local_only(
@@ -261,6 +267,7 @@ pub trait RecentChooserExt: IsA<RecentChooser> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_recent_chooser_set_select_multiple")]
+    #[doc(alias = "select-multiple")]
     fn set_select_multiple(&self, select_multiple: bool) {
         unsafe {
             ffi::gtk_recent_chooser_set_select_multiple(
@@ -271,6 +278,7 @@ pub trait RecentChooserExt: IsA<RecentChooser> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_recent_chooser_set_show_icons")]
+    #[doc(alias = "show-icons")]
     fn set_show_icons(&self, show_icons: bool) {
         unsafe {
             ffi::gtk_recent_chooser_set_show_icons(
@@ -281,6 +289,7 @@ pub trait RecentChooserExt: IsA<RecentChooser> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_recent_chooser_set_show_not_found")]
+    #[doc(alias = "show-not-found")]
     fn set_show_not_found(&self, show_not_found: bool) {
         unsafe {
             ffi::gtk_recent_chooser_set_show_not_found(
@@ -291,6 +300,7 @@ pub trait RecentChooserExt: IsA<RecentChooser> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_recent_chooser_set_show_private")]
+    #[doc(alias = "show-private")]
     fn set_show_private(&self, show_private: bool) {
         unsafe {
             ffi::gtk_recent_chooser_set_show_private(
@@ -301,6 +311,7 @@ pub trait RecentChooserExt: IsA<RecentChooser> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_recent_chooser_set_show_tips")]
+    #[doc(alias = "show-tips")]
     fn set_show_tips(&self, show_tips: bool) {
         unsafe {
             ffi::gtk_recent_chooser_set_show_tips(
@@ -317,17 +328,21 @@ pub trait RecentChooserExt: IsA<RecentChooser> + sealed::Sealed + 'static {
             a: *mut ffi::GtkRecentInfo,
             b: *mut ffi::GtkRecentInfo,
             user_data: glib::ffi::gpointer,
-        ) -> libc::c_int {
-            let a = from_glib_borrow(a);
-            let b = from_glib_borrow(b);
-            let callback: &P = &*(user_data as *mut _);
-            (*callback)(&a, &b)
+        ) -> std::ffi::c_int {
+            unsafe {
+                let a = from_glib_borrow(a);
+                let b = from_glib_borrow(b);
+                let callback = &*(user_data as *mut P);
+                (*callback)(&a, &b)
+            }
         }
         let sort_func = Some(sort_func_func::<P> as _);
         unsafe extern "C" fn data_destroy_func<P: Fn(&RecentInfo, &RecentInfo) -> i32 + 'static>(
             data: glib::ffi::gpointer,
         ) {
-            let _callback: Box_<P> = Box_::from_raw(data as *mut _);
+            unsafe {
+                let _callback = Box_::from_raw(data as *mut P);
+            }
         }
         let destroy_call3 = Some(data_destroy_func::<P> as _);
         let super_callback0: Box_<P> = sort_func_data;
@@ -342,6 +357,7 @@ pub trait RecentChooserExt: IsA<RecentChooser> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_recent_chooser_set_sort_type")]
+    #[doc(alias = "sort-type")]
     fn set_sort_type(&self, sort_type: RecentSortType) {
         unsafe {
             ffi::gtk_recent_chooser_set_sort_type(
@@ -377,15 +393,17 @@ pub trait RecentChooserExt: IsA<RecentChooser> + sealed::Sealed + 'static {
             this: *mut ffi::GtkRecentChooser,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(RecentChooser::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(RecentChooser::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"item-activated\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"item-activated".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     item_activated_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -402,15 +420,17 @@ pub trait RecentChooserExt: IsA<RecentChooser> + sealed::Sealed + 'static {
             this: *mut ffi::GtkRecentChooser,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(RecentChooser::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(RecentChooser::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"selection-changed\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"selection-changed".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     selection_changed_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -428,15 +448,17 @@ pub trait RecentChooserExt: IsA<RecentChooser> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(RecentChooser::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(RecentChooser::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::filter\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::filter".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_filter_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -451,15 +473,17 @@ pub trait RecentChooserExt: IsA<RecentChooser> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(RecentChooser::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(RecentChooser::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::limit\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::limit".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_limit_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -477,15 +501,17 @@ pub trait RecentChooserExt: IsA<RecentChooser> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(RecentChooser::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(RecentChooser::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::local-only\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::local-only".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_local_only_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -503,15 +529,17 @@ pub trait RecentChooserExt: IsA<RecentChooser> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(RecentChooser::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(RecentChooser::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::select-multiple\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::select-multiple".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_select_multiple_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -529,15 +557,17 @@ pub trait RecentChooserExt: IsA<RecentChooser> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(RecentChooser::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(RecentChooser::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::show-icons\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::show-icons".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_show_icons_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -555,15 +585,17 @@ pub trait RecentChooserExt: IsA<RecentChooser> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(RecentChooser::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(RecentChooser::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::show-not-found\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::show-not-found".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_show_not_found_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -581,15 +613,17 @@ pub trait RecentChooserExt: IsA<RecentChooser> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(RecentChooser::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(RecentChooser::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::show-private\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::show-private".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_show_private_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -607,15 +641,17 @@ pub trait RecentChooserExt: IsA<RecentChooser> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(RecentChooser::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(RecentChooser::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::show-tips\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::show-tips".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_show_tips_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -633,15 +669,17 @@ pub trait RecentChooserExt: IsA<RecentChooser> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(RecentChooser::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(RecentChooser::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::sort-type\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::sort-type".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_sort_type_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),

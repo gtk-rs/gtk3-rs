@@ -3,10 +3,11 @@
 // DO NOT EDIT
 
 use crate::{
-    Buildable, CellArea, CellLayout, CellRenderer, SortType, TreeIter, TreeModel,
+    ffi, Buildable, CellArea, CellLayout, CellRenderer, SortType, TreeIter, TreeModel,
     TreeViewColumnSizing, Widget,
 };
 use glib::{
+    object::ObjectType as _,
     prelude::*,
     signal::{connect_raw, SignalHandlerId},
     translate::*,
@@ -181,16 +182,12 @@ impl TreeViewColumnBuilder {
     /// Build the [`TreeViewColumn`].
     #[must_use = "Building the object from the builder is usually expensive and is not expected to have side effects"]
     pub fn build(self) -> TreeViewColumn {
+        assert_initialized_main_thread!();
         self.builder.build()
     }
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::IsA<super::TreeViewColumn>> Sealed for T {}
-}
-
-pub trait TreeViewColumnExt: IsA<TreeViewColumn> + sealed::Sealed + 'static {
+pub trait TreeViewColumnExt: IsA<TreeViewColumn> + 'static {
     #[doc(alias = "gtk_tree_view_column_add_attribute")]
     fn add_attribute(&self, cell_renderer: &impl IsA<CellRenderer>, attribute: &str, column: i32) {
         unsafe {
@@ -326,6 +323,7 @@ pub trait TreeViewColumnExt: IsA<TreeViewColumn> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_tree_view_column_get_clickable")]
     #[doc(alias = "get_clickable")]
+    #[doc(alias = "clickable")]
     fn is_clickable(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_tree_view_column_get_clickable(
@@ -336,6 +334,7 @@ pub trait TreeViewColumnExt: IsA<TreeViewColumn> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_tree_view_column_get_expand")]
     #[doc(alias = "get_expand")]
+    #[doc(alias = "expand")]
     fn expands(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_tree_view_column_get_expand(
@@ -346,24 +345,28 @@ pub trait TreeViewColumnExt: IsA<TreeViewColumn> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_tree_view_column_get_fixed_width")]
     #[doc(alias = "get_fixed_width")]
+    #[doc(alias = "fixed-width")]
     fn fixed_width(&self) -> i32 {
         unsafe { ffi::gtk_tree_view_column_get_fixed_width(self.as_ref().to_glib_none().0) }
     }
 
     #[doc(alias = "gtk_tree_view_column_get_max_width")]
     #[doc(alias = "get_max_width")]
+    #[doc(alias = "max-width")]
     fn max_width(&self) -> i32 {
         unsafe { ffi::gtk_tree_view_column_get_max_width(self.as_ref().to_glib_none().0) }
     }
 
     #[doc(alias = "gtk_tree_view_column_get_min_width")]
     #[doc(alias = "get_min_width")]
+    #[doc(alias = "min-width")]
     fn min_width(&self) -> i32 {
         unsafe { ffi::gtk_tree_view_column_get_min_width(self.as_ref().to_glib_none().0) }
     }
 
     #[doc(alias = "gtk_tree_view_column_get_reorderable")]
     #[doc(alias = "get_reorderable")]
+    #[doc(alias = "reorderable")]
     fn is_reorderable(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_tree_view_column_get_reorderable(
@@ -374,6 +377,7 @@ pub trait TreeViewColumnExt: IsA<TreeViewColumn> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_tree_view_column_get_resizable")]
     #[doc(alias = "get_resizable")]
+    #[doc(alias = "resizable")]
     fn is_resizable(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_tree_view_column_get_resizable(
@@ -394,12 +398,14 @@ pub trait TreeViewColumnExt: IsA<TreeViewColumn> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_tree_view_column_get_sort_column_id")]
     #[doc(alias = "get_sort_column_id")]
+    #[doc(alias = "sort-column-id")]
     fn sort_column_id(&self) -> i32 {
         unsafe { ffi::gtk_tree_view_column_get_sort_column_id(self.as_ref().to_glib_none().0) }
     }
 
     #[doc(alias = "gtk_tree_view_column_get_sort_indicator")]
     #[doc(alias = "get_sort_indicator")]
+    #[doc(alias = "sort-indicator")]
     fn is_sort_indicator(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_tree_view_column_get_sort_indicator(
@@ -410,6 +416,7 @@ pub trait TreeViewColumnExt: IsA<TreeViewColumn> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_tree_view_column_get_sort_order")]
     #[doc(alias = "get_sort_order")]
+    #[doc(alias = "sort-order")]
     fn sort_order(&self) -> SortType {
         unsafe {
             from_glib(ffi::gtk_tree_view_column_get_sort_order(
@@ -446,6 +453,7 @@ pub trait TreeViewColumnExt: IsA<TreeViewColumn> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_tree_view_column_get_visible")]
     #[doc(alias = "get_visible")]
+    #[doc(alias = "visible")]
     fn is_visible(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_tree_view_column_get_visible(
@@ -472,6 +480,7 @@ pub trait TreeViewColumnExt: IsA<TreeViewColumn> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_tree_view_column_get_x_offset")]
     #[doc(alias = "get_x_offset")]
+    #[doc(alias = "x-offset")]
     fn x_offset(&self) -> i32 {
         unsafe { ffi::gtk_tree_view_column_get_x_offset(self.as_ref().to_glib_none().0) }
     }
@@ -506,6 +515,7 @@ pub trait TreeViewColumnExt: IsA<TreeViewColumn> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_tree_view_column_set_alignment")]
+    #[doc(alias = "alignment")]
     fn set_alignment(&self, xalign: f32) {
         unsafe {
             ffi::gtk_tree_view_column_set_alignment(self.as_ref().to_glib_none().0, xalign);
@@ -533,17 +543,19 @@ pub trait TreeViewColumnExt: IsA<TreeViewColumn> + sealed::Sealed + 'static {
             iter: *mut ffi::GtkTreeIter,
             data: glib::ffi::gpointer,
         ) {
-            let tree_column = from_glib_borrow(tree_column);
-            let cell = from_glib_borrow(cell);
-            let tree_model = from_glib_borrow(tree_model);
-            let iter = from_glib_borrow(iter);
-            let callback: &Option<
-                Box_<dyn Fn(&TreeViewColumn, &CellRenderer, &TreeModel, &TreeIter) + 'static>,
-            > = &*(data as *mut _);
-            if let Some(ref callback) = *callback {
-                callback(&tree_column, &cell, &tree_model, &iter)
-            } else {
-                panic!("cannot get closure...")
+            unsafe {
+                let tree_column = from_glib_borrow(tree_column);
+                let cell = from_glib_borrow(cell);
+                let tree_model = from_glib_borrow(tree_model);
+                let iter = from_glib_borrow(iter);
+                let callback = &*(data as *mut Option<
+                    Box_<dyn Fn(&TreeViewColumn, &CellRenderer, &TreeModel, &TreeIter) + 'static>,
+                >);
+                if let Some(ref callback) = *callback {
+                    callback(&tree_column, &cell, &tree_model, &iter)
+                } else {
+                    panic!("cannot get closure...")
+                }
             }
         }
         let func = if func_data.is_some() {
@@ -552,11 +564,15 @@ pub trait TreeViewColumnExt: IsA<TreeViewColumn> + sealed::Sealed + 'static {
             None
         };
         unsafe extern "C" fn destroy_func(data: glib::ffi::gpointer) {
-            let _callback: Box_<
-                Option<
-                    Box_<dyn Fn(&TreeViewColumn, &CellRenderer, &TreeModel, &TreeIter) + 'static>,
-                >,
-            > = Box_::from_raw(data as *mut _);
+            unsafe {
+                let _callback = Box_::from_raw(
+                    data as *mut Option<
+                        Box_<
+                            dyn Fn(&TreeViewColumn, &CellRenderer, &TreeModel, &TreeIter) + 'static,
+                        >,
+                    >,
+                );
+            }
         }
         let destroy_call4 = Some(destroy_func as _);
         let super_callback0: Box_<
@@ -574,6 +590,7 @@ pub trait TreeViewColumnExt: IsA<TreeViewColumn> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_tree_view_column_set_clickable")]
+    #[doc(alias = "clickable")]
     fn set_clickable(&self, clickable: bool) {
         unsafe {
             ffi::gtk_tree_view_column_set_clickable(
@@ -584,6 +601,7 @@ pub trait TreeViewColumnExt: IsA<TreeViewColumn> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_tree_view_column_set_expand")]
+    #[doc(alias = "expand")]
     fn set_expand(&self, expand: bool) {
         unsafe {
             ffi::gtk_tree_view_column_set_expand(
@@ -594,6 +612,7 @@ pub trait TreeViewColumnExt: IsA<TreeViewColumn> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_tree_view_column_set_fixed_width")]
+    #[doc(alias = "fixed-width")]
     fn set_fixed_width(&self, fixed_width: i32) {
         unsafe {
             ffi::gtk_tree_view_column_set_fixed_width(self.as_ref().to_glib_none().0, fixed_width);
@@ -601,6 +620,7 @@ pub trait TreeViewColumnExt: IsA<TreeViewColumn> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_tree_view_column_set_max_width")]
+    #[doc(alias = "max-width")]
     fn set_max_width(&self, max_width: i32) {
         unsafe {
             ffi::gtk_tree_view_column_set_max_width(self.as_ref().to_glib_none().0, max_width);
@@ -608,6 +628,7 @@ pub trait TreeViewColumnExt: IsA<TreeViewColumn> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_tree_view_column_set_min_width")]
+    #[doc(alias = "min-width")]
     fn set_min_width(&self, min_width: i32) {
         unsafe {
             ffi::gtk_tree_view_column_set_min_width(self.as_ref().to_glib_none().0, min_width);
@@ -615,6 +636,7 @@ pub trait TreeViewColumnExt: IsA<TreeViewColumn> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_tree_view_column_set_reorderable")]
+    #[doc(alias = "reorderable")]
     fn set_reorderable(&self, reorderable: bool) {
         unsafe {
             ffi::gtk_tree_view_column_set_reorderable(
@@ -625,6 +647,7 @@ pub trait TreeViewColumnExt: IsA<TreeViewColumn> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_tree_view_column_set_resizable")]
+    #[doc(alias = "resizable")]
     fn set_resizable(&self, resizable: bool) {
         unsafe {
             ffi::gtk_tree_view_column_set_resizable(
@@ -635,6 +658,7 @@ pub trait TreeViewColumnExt: IsA<TreeViewColumn> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_tree_view_column_set_sizing")]
+    #[doc(alias = "sizing")]
     fn set_sizing(&self, type_: TreeViewColumnSizing) {
         unsafe {
             ffi::gtk_tree_view_column_set_sizing(self.as_ref().to_glib_none().0, type_.into_glib());
@@ -642,6 +666,7 @@ pub trait TreeViewColumnExt: IsA<TreeViewColumn> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_tree_view_column_set_sort_column_id")]
+    #[doc(alias = "sort-column-id")]
     fn set_sort_column_id(&self, sort_column_id: i32) {
         unsafe {
             ffi::gtk_tree_view_column_set_sort_column_id(
@@ -652,6 +677,7 @@ pub trait TreeViewColumnExt: IsA<TreeViewColumn> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_tree_view_column_set_sort_indicator")]
+    #[doc(alias = "sort-indicator")]
     fn set_sort_indicator(&self, setting: bool) {
         unsafe {
             ffi::gtk_tree_view_column_set_sort_indicator(
@@ -662,6 +688,7 @@ pub trait TreeViewColumnExt: IsA<TreeViewColumn> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_tree_view_column_set_sort_order")]
+    #[doc(alias = "sort-order")]
     fn set_sort_order(&self, order: SortType) {
         unsafe {
             ffi::gtk_tree_view_column_set_sort_order(
@@ -672,6 +699,7 @@ pub trait TreeViewColumnExt: IsA<TreeViewColumn> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_tree_view_column_set_spacing")]
+    #[doc(alias = "spacing")]
     fn set_spacing(&self, spacing: i32) {
         unsafe {
             ffi::gtk_tree_view_column_set_spacing(self.as_ref().to_glib_none().0, spacing);
@@ -679,6 +707,7 @@ pub trait TreeViewColumnExt: IsA<TreeViewColumn> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_tree_view_column_set_title")]
+    #[doc(alias = "title")]
     fn set_title(&self, title: &str) {
         unsafe {
             ffi::gtk_tree_view_column_set_title(
@@ -689,6 +718,7 @@ pub trait TreeViewColumnExt: IsA<TreeViewColumn> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_tree_view_column_set_visible")]
+    #[doc(alias = "visible")]
     fn set_visible(&self, visible: bool) {
         unsafe {
             ffi::gtk_tree_view_column_set_visible(
@@ -699,6 +729,7 @@ pub trait TreeViewColumnExt: IsA<TreeViewColumn> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_tree_view_column_set_widget")]
+    #[doc(alias = "widget")]
     fn set_widget(&self, widget: Option<&impl IsA<Widget>>) {
         unsafe {
             ffi::gtk_tree_view_column_set_widget(
@@ -719,15 +750,17 @@ pub trait TreeViewColumnExt: IsA<TreeViewColumn> + sealed::Sealed + 'static {
             this: *mut ffi::GtkTreeViewColumn,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(TreeViewColumn::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(TreeViewColumn::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"clicked\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"clicked".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     clicked_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -745,15 +778,17 @@ pub trait TreeViewColumnExt: IsA<TreeViewColumn> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(TreeViewColumn::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(TreeViewColumn::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::alignment\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::alignment".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_alignment_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -771,15 +806,17 @@ pub trait TreeViewColumnExt: IsA<TreeViewColumn> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(TreeViewColumn::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(TreeViewColumn::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::clickable\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::clickable".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_clickable_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -797,15 +834,17 @@ pub trait TreeViewColumnExt: IsA<TreeViewColumn> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(TreeViewColumn::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(TreeViewColumn::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::expand\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::expand".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_expand_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -823,15 +862,17 @@ pub trait TreeViewColumnExt: IsA<TreeViewColumn> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(TreeViewColumn::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(TreeViewColumn::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::fixed-width\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::fixed-width".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_fixed_width_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -849,15 +890,17 @@ pub trait TreeViewColumnExt: IsA<TreeViewColumn> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(TreeViewColumn::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(TreeViewColumn::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::max-width\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::max-width".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_max_width_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -875,15 +918,17 @@ pub trait TreeViewColumnExt: IsA<TreeViewColumn> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(TreeViewColumn::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(TreeViewColumn::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::min-width\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::min-width".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_min_width_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -901,15 +946,17 @@ pub trait TreeViewColumnExt: IsA<TreeViewColumn> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(TreeViewColumn::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(TreeViewColumn::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::reorderable\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::reorderable".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_reorderable_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -927,15 +974,17 @@ pub trait TreeViewColumnExt: IsA<TreeViewColumn> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(TreeViewColumn::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(TreeViewColumn::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::resizable\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::resizable".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_resizable_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -953,15 +1002,17 @@ pub trait TreeViewColumnExt: IsA<TreeViewColumn> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(TreeViewColumn::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(TreeViewColumn::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::sizing\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::sizing".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_sizing_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -979,15 +1030,17 @@ pub trait TreeViewColumnExt: IsA<TreeViewColumn> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(TreeViewColumn::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(TreeViewColumn::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::sort-column-id\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::sort-column-id".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_sort_column_id_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1005,15 +1058,17 @@ pub trait TreeViewColumnExt: IsA<TreeViewColumn> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(TreeViewColumn::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(TreeViewColumn::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::sort-indicator\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::sort-indicator".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_sort_indicator_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1031,15 +1086,17 @@ pub trait TreeViewColumnExt: IsA<TreeViewColumn> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(TreeViewColumn::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(TreeViewColumn::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::sort-order\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::sort-order".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_sort_order_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1057,15 +1114,17 @@ pub trait TreeViewColumnExt: IsA<TreeViewColumn> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(TreeViewColumn::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(TreeViewColumn::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::spacing\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::spacing".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_spacing_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1083,15 +1142,17 @@ pub trait TreeViewColumnExt: IsA<TreeViewColumn> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(TreeViewColumn::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(TreeViewColumn::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::title\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::title".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_title_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1109,15 +1170,17 @@ pub trait TreeViewColumnExt: IsA<TreeViewColumn> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(TreeViewColumn::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(TreeViewColumn::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::visible\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::visible".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_visible_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1135,15 +1198,17 @@ pub trait TreeViewColumnExt: IsA<TreeViewColumn> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(TreeViewColumn::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(TreeViewColumn::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::widget\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::widget".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_widget_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1161,15 +1226,17 @@ pub trait TreeViewColumnExt: IsA<TreeViewColumn> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(TreeViewColumn::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(TreeViewColumn::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::width\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::width".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_width_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1187,15 +1254,17 @@ pub trait TreeViewColumnExt: IsA<TreeViewColumn> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(TreeViewColumn::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(TreeViewColumn::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::x-offset\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::x-offset".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_x_offset_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),

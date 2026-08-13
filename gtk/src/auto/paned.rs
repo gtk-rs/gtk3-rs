@@ -2,8 +2,11 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use crate::{Align, Buildable, Container, Orientable, Orientation, ResizeMode, ScrollType, Widget};
+use crate::{
+    ffi, Align, Buildable, Container, Orientable, Orientation, ResizeMode, ScrollType, Widget,
+};
 use glib::{
+    object::ObjectType as _,
     prelude::*,
     signal::{connect_raw, SignalHandlerId},
     translate::*,
@@ -299,16 +302,12 @@ impl PanedBuilder {
     /// Build the [`Paned`].
     #[must_use = "Building the object from the builder is usually expensive and is not expected to have side effects"]
     pub fn build(self) -> Paned {
+        assert_initialized_main_thread!();
         self.builder.build()
     }
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::IsA<super::Paned>> Sealed for T {}
-}
-
-pub trait PanedExt: IsA<Paned> + sealed::Sealed + 'static {
+pub trait PanedExt: IsA<Paned> + 'static {
     #[doc(alias = "gtk_paned_add1")]
     fn add1(&self, child: &impl IsA<Widget>) {
         unsafe {
@@ -359,6 +358,7 @@ pub trait PanedExt: IsA<Paned> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_paned_get_wide_handle")]
     #[doc(alias = "get_wide_handle")]
+    #[doc(alias = "wide-handle")]
     fn is_wide_handle(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_paned_get_wide_handle(
@@ -392,6 +392,7 @@ pub trait PanedExt: IsA<Paned> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_paned_set_position")]
+    #[doc(alias = "position")]
     fn set_position(&self, position: i32) {
         unsafe {
             ffi::gtk_paned_set_position(self.as_ref().to_glib_none().0, position);
@@ -399,6 +400,7 @@ pub trait PanedExt: IsA<Paned> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_paned_set_wide_handle")]
+    #[doc(alias = "wide-handle")]
     fn set_wide_handle(&self, wide: bool) {
         unsafe {
             ffi::gtk_paned_set_wide_handle(self.as_ref().to_glib_none().0, wide.into_glib());
@@ -468,15 +470,17 @@ pub trait PanedExt: IsA<Paned> + sealed::Sealed + 'static {
             this: *mut ffi::GtkPaned,
             f: glib::ffi::gpointer,
         ) -> glib::ffi::gboolean {
-            let f: &F = &*(f as *const F);
-            f(Paned::from_glib_borrow(this).unsafe_cast_ref()).into_glib()
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Paned::from_glib_borrow(this).unsafe_cast_ref()).into_glib()
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"accept-position\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"accept-position".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     accept_position_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -497,15 +501,17 @@ pub trait PanedExt: IsA<Paned> + sealed::Sealed + 'static {
             this: *mut ffi::GtkPaned,
             f: glib::ffi::gpointer,
         ) -> glib::ffi::gboolean {
-            let f: &F = &*(f as *const F);
-            f(Paned::from_glib_borrow(this).unsafe_cast_ref()).into_glib()
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Paned::from_glib_borrow(this).unsafe_cast_ref()).into_glib()
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"cancel-position\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"cancel-position".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     cancel_position_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -530,19 +536,21 @@ pub trait PanedExt: IsA<Paned> + sealed::Sealed + 'static {
             reversed: glib::ffi::gboolean,
             f: glib::ffi::gpointer,
         ) -> glib::ffi::gboolean {
-            let f: &F = &*(f as *const F);
-            f(
-                Paned::from_glib_borrow(this).unsafe_cast_ref(),
-                from_glib(reversed),
-            )
-            .into_glib()
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(
+                    Paned::from_glib_borrow(this).unsafe_cast_ref(),
+                    from_glib(reversed),
+                )
+                .into_glib()
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"cycle-child-focus\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"cycle-child-focus".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     cycle_child_focus_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -567,19 +575,21 @@ pub trait PanedExt: IsA<Paned> + sealed::Sealed + 'static {
             reversed: glib::ffi::gboolean,
             f: glib::ffi::gpointer,
         ) -> glib::ffi::gboolean {
-            let f: &F = &*(f as *const F);
-            f(
-                Paned::from_glib_borrow(this).unsafe_cast_ref(),
-                from_glib(reversed),
-            )
-            .into_glib()
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(
+                    Paned::from_glib_borrow(this).unsafe_cast_ref(),
+                    from_glib(reversed),
+                )
+                .into_glib()
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"cycle-handle-focus\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"cycle-handle-focus".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     cycle_handle_focus_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -604,19 +614,21 @@ pub trait PanedExt: IsA<Paned> + sealed::Sealed + 'static {
             scroll_type: ffi::GtkScrollType,
             f: glib::ffi::gpointer,
         ) -> glib::ffi::gboolean {
-            let f: &F = &*(f as *const F);
-            f(
-                Paned::from_glib_borrow(this).unsafe_cast_ref(),
-                from_glib(scroll_type),
-            )
-            .into_glib()
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(
+                    Paned::from_glib_borrow(this).unsafe_cast_ref(),
+                    from_glib(scroll_type),
+                )
+                .into_glib()
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"move-handle\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"move-handle".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     move_handle_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -637,15 +649,17 @@ pub trait PanedExt: IsA<Paned> + sealed::Sealed + 'static {
             this: *mut ffi::GtkPaned,
             f: glib::ffi::gpointer,
         ) -> glib::ffi::gboolean {
-            let f: &F = &*(f as *const F);
-            f(Paned::from_glib_borrow(this).unsafe_cast_ref()).into_glib()
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Paned::from_glib_borrow(this).unsafe_cast_ref()).into_glib()
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"toggle-handle-focus\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"toggle-handle-focus".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     toggle_handle_focus_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -664,15 +678,17 @@ pub trait PanedExt: IsA<Paned> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Paned::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Paned::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::max-position\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::max-position".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_max_position_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -687,15 +703,17 @@ pub trait PanedExt: IsA<Paned> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Paned::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Paned::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::min-position\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::min-position".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_min_position_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -710,15 +728,17 @@ pub trait PanedExt: IsA<Paned> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Paned::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Paned::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::position\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::position".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_position_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -733,15 +753,17 @@ pub trait PanedExt: IsA<Paned> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Paned::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Paned::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::position-set\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::position-set".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_position_set_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -756,15 +778,17 @@ pub trait PanedExt: IsA<Paned> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Paned::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Paned::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::wide-handle\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::wide-handle".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_wide_handle_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),

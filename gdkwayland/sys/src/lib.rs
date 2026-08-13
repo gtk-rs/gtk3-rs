@@ -1,5 +1,8 @@
 #![cfg_attr(docsrs, feature(doc_cfg))]
 
+use gdk_sys as gdk;
+use glib_sys as glib;
+
 use gdk::{GdkAtom, GdkDevicePadFeature};
 use glib::{gpointer, GType};
 use libc::{c_char, c_int, c_uint};

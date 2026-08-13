@@ -2,8 +2,9 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use crate::Range;
+use crate::{ffi, Range};
 use glib::{
+    object::ObjectType as _,
     prelude::*,
     signal::{connect_raw, SignalHandlerId},
     translate::*,
@@ -23,12 +24,7 @@ impl Value {
     pub const NONE: Option<&'static Value> = None;
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::IsA<super::Value>> Sealed for T {}
-}
-
-pub trait ValueExt: IsA<Value> + sealed::Sealed + 'static {
+pub trait ValueExt: IsA<Value> + 'static {
     #[doc(alias = "atk_value_get_current_value")]
     #[doc(alias = "get_current_value")]
     fn current_value(&self) -> glib::Value {
@@ -142,23 +138,25 @@ pub trait ValueExt: IsA<Value> + sealed::Sealed + 'static {
             F: Fn(&P, f64, &str) + 'static,
         >(
             this: *mut ffi::AtkValue,
-            value: libc::c_double,
-            text: *mut libc::c_char,
+            value: std::ffi::c_double,
+            text: *mut std::ffi::c_char,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(
-                Value::from_glib_borrow(this).unsafe_cast_ref(),
-                value,
-                &glib::GString::from_glib_borrow(text),
-            )
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(
+                    Value::from_glib_borrow(this).unsafe_cast_ref(),
+                    value,
+                    &glib::GString::from_glib_borrow(text),
+                )
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"value-changed\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"value-changed".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     value_changed_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),

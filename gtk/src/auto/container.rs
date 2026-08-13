@@ -3,8 +3,9 @@
 // DO NOT EDIT
 #![allow(deprecated)]
 
-use crate::{Adjustment, Buildable, ResizeMode, Widget, WidgetPath};
+use crate::{ffi, Adjustment, Buildable, ResizeMode, Widget, WidgetPath};
 use glib::{
+    object::ObjectType as _,
     prelude::*,
     signal::{connect_raw, SignalHandlerId},
     translate::*,
@@ -24,12 +25,7 @@ impl Container {
     pub const NONE: Option<&'static Container> = None;
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::IsA<super::Container>> Sealed for T {}
-}
-
-pub trait ContainerExt: IsA<Container> + sealed::Sealed + 'static {
+pub trait ContainerExt: IsA<Container> + 'static {
     #[doc(alias = "gtk_container_add")]
     fn add(&self, widget: &impl IsA<Widget>) {
         unsafe {
@@ -105,50 +101,55 @@ pub trait ContainerExt: IsA<Container> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_container_forall")]
     fn forall<P: FnMut(&Widget)>(&self, callback: P) {
-        let callback_data: P = callback;
+        let mut callback_data: P = callback;
         unsafe extern "C" fn callback_func<P: FnMut(&Widget)>(
             widget: *mut ffi::GtkWidget,
             data: glib::ffi::gpointer,
         ) {
-            let widget = from_glib_borrow(widget);
-            let callback: *mut P = data as *const _ as usize as *mut P;
-            (*callback)(&widget)
+            unsafe {
+                let widget = from_glib_borrow(widget);
+                let callback = data as *mut P;
+                (*callback)(&widget)
+            }
         }
         let callback = Some(callback_func::<P> as _);
-        let super_callback0: &P = &callback_data;
+        let super_callback0: &mut P = &mut callback_data;
         unsafe {
             ffi::gtk_container_forall(
                 self.as_ref().to_glib_none().0,
                 callback,
-                super_callback0 as *const _ as usize as *mut _,
+                super_callback0 as *mut _ as *mut _,
             );
         }
     }
 
     #[doc(alias = "gtk_container_foreach")]
     fn foreach<P: FnMut(&Widget)>(&self, callback: P) {
-        let callback_data: P = callback;
+        let mut callback_data: P = callback;
         unsafe extern "C" fn callback_func<P: FnMut(&Widget)>(
             widget: *mut ffi::GtkWidget,
             data: glib::ffi::gpointer,
         ) {
-            let widget = from_glib_borrow(widget);
-            let callback: *mut P = data as *const _ as usize as *mut P;
-            (*callback)(&widget)
+            unsafe {
+                let widget = from_glib_borrow(widget);
+                let callback = data as *mut P;
+                (*callback)(&widget)
+            }
         }
         let callback = Some(callback_func::<P> as _);
-        let super_callback0: &P = &callback_data;
+        let super_callback0: &mut P = &mut callback_data;
         unsafe {
             ffi::gtk_container_foreach(
                 self.as_ref().to_glib_none().0,
                 callback,
-                super_callback0 as *const _ as usize as *mut _,
+                super_callback0 as *mut _ as *mut _,
             );
         }
     }
 
     #[doc(alias = "gtk_container_get_border_width")]
     #[doc(alias = "get_border_width")]
+    #[doc(alias = "border-width")]
     fn border_width(&self) -> u32 {
         unsafe { ffi::gtk_container_get_border_width(self.as_ref().to_glib_none().0) }
     }
@@ -234,6 +235,7 @@ pub trait ContainerExt: IsA<Container> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_container_set_border_width")]
+    #[doc(alias = "border-width")]
     fn set_border_width(&self, border_width: u32) {
         unsafe {
             ffi::gtk_container_set_border_width(self.as_ref().to_glib_none().0, border_width);
@@ -312,18 +314,20 @@ pub trait ContainerExt: IsA<Container> + sealed::Sealed + 'static {
             object: *mut ffi::GtkWidget,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(
-                Container::from_glib_borrow(this).unsafe_cast_ref(),
-                &from_glib_borrow(object),
-            )
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(
+                    Container::from_glib_borrow(this).unsafe_cast_ref(),
+                    &from_glib_borrow(object),
+                )
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"add\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"add".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     add_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -337,15 +341,17 @@ pub trait ContainerExt: IsA<Container> + sealed::Sealed + 'static {
             this: *mut ffi::GtkContainer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Container::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Container::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"check-resize\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"check-resize".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     check_resize_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -360,18 +366,20 @@ pub trait ContainerExt: IsA<Container> + sealed::Sealed + 'static {
             object: *mut ffi::GtkWidget,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(
-                Container::from_glib_borrow(this).unsafe_cast_ref(),
-                &from_glib_borrow(object),
-            )
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(
+                    Container::from_glib_borrow(this).unsafe_cast_ref(),
+                    &from_glib_borrow(object),
+                )
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"remove\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"remove".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     remove_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -389,18 +397,20 @@ pub trait ContainerExt: IsA<Container> + sealed::Sealed + 'static {
             object: *mut ffi::GtkWidget,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(
-                Container::from_glib_borrow(this).unsafe_cast_ref(),
-                &from_glib_borrow(object),
-            )
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(
+                    Container::from_glib_borrow(this).unsafe_cast_ref(),
+                    &from_glib_borrow(object),
+                )
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"set-focus-child\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"set-focus-child".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     set_focus_child_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -418,15 +428,17 @@ pub trait ContainerExt: IsA<Container> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Container::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Container::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::border-width\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::border-width".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_border_width_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -441,15 +453,17 @@ pub trait ContainerExt: IsA<Container> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Container::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Container::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::child\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::child".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_child_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -467,15 +481,17 @@ pub trait ContainerExt: IsA<Container> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Container::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Container::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::resize-mode\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::resize-mode".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_resize_mode_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),

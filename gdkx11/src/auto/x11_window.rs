@@ -2,7 +2,7 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use crate::X11Display;
+use crate::{ffi, X11Display};
 use glib::{prelude::*, translate::*};
 use x11::xlib;
 

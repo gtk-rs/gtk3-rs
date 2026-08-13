@@ -2,8 +2,9 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use crate::{Layer, RelationSet, RelationType, Role, State, StateSet};
+use crate::{ffi, Layer, RelationSet, RelationType, Role, State, StateSet};
 use glib::{
+    object::ObjectType as _,
     prelude::*,
     signal::{connect_raw, SignalHandlerId},
     translate::*,
@@ -23,12 +24,7 @@ impl Object {
     pub const NONE: Option<&'static Object> = None;
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::IsA<super::Object>> Sealed for T {}
-}
-
-pub trait AtkObjectExt: IsA<Object> + sealed::Sealed + 'static {
+pub trait AtkObjectExt: IsA<Object> + 'static {
     #[doc(alias = "atk_object_add_relationship")]
     fn add_relationship(&self, relationship: RelationType, target: &impl IsA<Object>) -> bool {
         unsafe {
@@ -44,6 +40,7 @@ pub trait AtkObjectExt: IsA<Object> + sealed::Sealed + 'static {
     #[cfg_attr(docsrs, doc(cfg(feature = "v2_34")))]
     #[doc(alias = "atk_object_get_accessible_id")]
     #[doc(alias = "get_accessible_id")]
+    #[doc(alias = "accessible-id")]
     fn accessible_id(&self) -> Option<glib::GString> {
         unsafe {
             from_glib_none(ffi::atk_object_get_accessible_id(
@@ -57,6 +54,18 @@ pub trait AtkObjectExt: IsA<Object> + sealed::Sealed + 'static {
     fn description(&self) -> Option<glib::GString> {
         unsafe {
             from_glib_none(ffi::atk_object_get_description(
+                self.as_ref().to_glib_none().0,
+            ))
+        }
+    }
+
+    #[cfg(feature = "v2_52")]
+    #[cfg_attr(docsrs, doc(cfg(feature = "v2_52")))]
+    #[doc(alias = "atk_object_get_help_text")]
+    #[doc(alias = "get_help_text")]
+    fn help_text(&self) -> Option<glib::GString> {
+        unsafe {
+            from_glib_none(ffi::atk_object_get_help_text(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -180,12 +189,10 @@ pub trait AtkObjectExt: IsA<Object> + sealed::Sealed + 'static {
     #[cfg(feature = "v2_34")]
     #[cfg_attr(docsrs, doc(cfg(feature = "v2_34")))]
     #[doc(alias = "atk_object_set_accessible_id")]
-    fn set_accessible_id(&self, name: &str) {
+    #[doc(alias = "accessible-id")]
+    fn set_accessible_id(&self, id: &str) {
         unsafe {
-            ffi::atk_object_set_accessible_id(
-                self.as_ref().to_glib_none().0,
-                name.to_glib_none().0,
-            );
+            ffi::atk_object_set_accessible_id(self.as_ref().to_glib_none().0, id.to_glib_none().0);
         }
     }
 
@@ -195,6 +202,18 @@ pub trait AtkObjectExt: IsA<Object> + sealed::Sealed + 'static {
             ffi::atk_object_set_description(
                 self.as_ref().to_glib_none().0,
                 description.to_glib_none().0,
+            );
+        }
+    }
+
+    #[cfg(feature = "v2_52")]
+    #[cfg_attr(docsrs, doc(cfg(feature = "v2_52")))]
+    #[doc(alias = "atk_object_set_help_text")]
+    fn set_help_text(&self, help_text: &str) {
+        unsafe {
+            ffi::atk_object_set_help_text(
+                self.as_ref().to_glib_none().0,
+                help_text.to_glib_none().0,
             );
         }
     }
@@ -247,9 +266,33 @@ pub trait AtkObjectExt: IsA<Object> + sealed::Sealed + 'static {
         )
     }
 
+    #[doc(alias = "accessible-help-text")]
+    fn accessible_help_text(&self) -> Option<glib::GString> {
+        ObjectExt::property(self.as_ref(), "accessible-help-text")
+    }
+
+    #[doc(alias = "accessible-help-text")]
+    fn set_accessible_help_text(&self, accessible_help_text: Option<&str>) {
+        ObjectExt::set_property(self.as_ref(), "accessible-help-text", accessible_help_text)
+    }
+
     #[doc(alias = "accessible-hypertext-nlinks")]
     fn accessible_hypertext_nlinks(&self) -> i32 {
         ObjectExt::property(self.as_ref(), "accessible-hypertext-nlinks")
+    }
+
+    #[cfg(not(feature = "v2_34"))]
+    #[cfg_attr(docsrs, doc(cfg(not(feature = "v2_34"))))]
+    #[doc(alias = "accessible-id")]
+    fn accessible_id(&self) -> Option<glib::GString> {
+        ObjectExt::property(self.as_ref(), "accessible-id")
+    }
+
+    #[cfg(not(feature = "v2_34"))]
+    #[cfg_attr(docsrs, doc(cfg(not(feature = "v2_34"))))]
+    #[doc(alias = "accessible-id")]
+    fn set_accessible_id(&self, accessible_id: Option<&str>) {
+        ObjectExt::set_property(self.as_ref(), "accessible-id", accessible_id)
     }
 
     #[doc(alias = "accessible-name")]
@@ -416,23 +459,27 @@ pub trait AtkObjectExt: IsA<Object> + sealed::Sealed + 'static {
             arg1: *mut ffi::AtkObject,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(
-                Object::from_glib_borrow(this).unsafe_cast_ref(),
-                &from_glib_borrow(arg1),
-            )
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(
+                    Object::from_glib_borrow(this).unsafe_cast_ref(),
+                    &from_glib_borrow(arg1),
+                )
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             let detailed_signal_name =
                 detail.map(|name| format!("active-descendant-changed::{name}\0"));
-            let signal_name: &[u8] = detailed_signal_name
+            let signal_name = detailed_signal_name
                 .as_ref()
-                .map_or(&b"active-descendant-changed\0"[..], |n| n.as_bytes());
+                .map_or(c"active-descendant-changed", |n| {
+                    std::ffi::CStr::from_bytes_with_nul_unchecked(n.as_bytes())
+                });
             connect_raw(
                 self.as_ptr() as *mut _,
-                signal_name.as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                signal_name.as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     active_descendant_changed_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -446,22 +493,62 @@ pub trait AtkObjectExt: IsA<Object> + sealed::Sealed + 'static {
     fn connect_announcement<F: Fn(&Self, &str) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn announcement_trampoline<P: IsA<Object>, F: Fn(&P, &str) + 'static>(
             this: *mut ffi::AtkObject,
-            arg1: *mut libc::c_char,
+            arg1: *mut std::ffi::c_char,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(
-                Object::from_glib_borrow(this).unsafe_cast_ref(),
-                &glib::GString::from_glib_borrow(arg1),
-            )
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(
+                    Object::from_glib_borrow(this).unsafe_cast_ref(),
+                    &glib::GString::from_glib_borrow(arg1),
+                )
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"announcement\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"announcement".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     announcement_trampoline::<Self, F> as *const (),
+                )),
+                Box_::into_raw(f),
+            )
+        }
+    }
+
+    #[cfg(feature = "v2_52")]
+    #[cfg_attr(docsrs, doc(cfg(feature = "v2_52")))]
+    #[doc(alias = "attribute-changed")]
+    fn connect_attribute_changed<F: Fn(&Self, &str, &str) + 'static>(
+        &self,
+        f: F,
+    ) -> SignalHandlerId {
+        unsafe extern "C" fn attribute_changed_trampoline<
+            P: IsA<Object>,
+            F: Fn(&P, &str, &str) + 'static,
+        >(
+            this: *mut ffi::AtkObject,
+            arg1: *mut std::ffi::c_char,
+            arg2: *mut std::ffi::c_char,
+            f: glib::ffi::gpointer,
+        ) {
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(
+                    Object::from_glib_borrow(this).unsafe_cast_ref(),
+                    &glib::GString::from_glib_borrow(arg1),
+                    &glib::GString::from_glib_borrow(arg2),
+                )
+            }
+        }
+        unsafe {
+            let f: Box_<F> = Box_::new(f);
+            connect_raw(
+                self.as_ptr() as *mut _,
+                c"attribute-changed".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
+                    attribute_changed_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
             )
@@ -479,27 +566,31 @@ pub trait AtkObjectExt: IsA<Object> + sealed::Sealed + 'static {
             F: Fn(&P, u32, &Object) + 'static,
         >(
             this: *mut ffi::AtkObject,
-            arg1: libc::c_uint,
+            arg1: std::ffi::c_uint,
             arg2: *mut ffi::AtkObject,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(
-                Object::from_glib_borrow(this).unsafe_cast_ref(),
-                arg1,
-                &from_glib_borrow(arg2),
-            )
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(
+                    Object::from_glib_borrow(this).unsafe_cast_ref(),
+                    arg1,
+                    &from_glib_borrow(arg2),
+                )
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             let detailed_signal_name = detail.map(|name| format!("children-changed::{name}\0"));
-            let signal_name: &[u8] = detailed_signal_name
+            let signal_name = detailed_signal_name
                 .as_ref()
-                .map_or(&b"children-changed\0"[..], |n| n.as_bytes());
+                .map_or(c"children-changed", |n| {
+                    std::ffi::CStr::from_bytes_with_nul_unchecked(n.as_bytes())
+                });
             connect_raw(
                 self.as_ptr() as *mut _,
-                signal_name.as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                signal_name.as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     children_changed_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -516,23 +607,25 @@ pub trait AtkObjectExt: IsA<Object> + sealed::Sealed + 'static {
             F: Fn(&P, &str, i32) + 'static,
         >(
             this: *mut ffi::AtkObject,
-            arg1: *mut libc::c_char,
-            arg2: libc::c_int,
+            arg1: *mut std::ffi::c_char,
+            arg2: std::ffi::c_int,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(
-                Object::from_glib_borrow(this).unsafe_cast_ref(),
-                &glib::GString::from_glib_borrow(arg1),
-                arg2,
-            )
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(
+                    Object::from_glib_borrow(this).unsafe_cast_ref(),
+                    &glib::GString::from_glib_borrow(arg1),
+                    arg2,
+                )
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notification\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notification".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notification_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -556,27 +649,29 @@ pub trait AtkObjectExt: IsA<Object> + sealed::Sealed + 'static {
             F: Fn(&P, &str, bool) + 'static,
         >(
             this: *mut ffi::AtkObject,
-            arg1: *mut libc::c_char,
+            arg1: *mut std::ffi::c_char,
             arg2: glib::ffi::gboolean,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(
-                Object::from_glib_borrow(this).unsafe_cast_ref(),
-                &glib::GString::from_glib_borrow(arg1),
-                from_glib(arg2),
-            )
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(
+                    Object::from_glib_borrow(this).unsafe_cast_ref(),
+                    &glib::GString::from_glib_borrow(arg1),
+                    from_glib(arg2),
+                )
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             let detailed_signal_name = detail.map(|name| format!("state-change::{name}\0"));
-            let signal_name: &[u8] = detailed_signal_name
-                .as_ref()
-                .map_or(&b"state-change\0"[..], |n| n.as_bytes());
+            let signal_name = detailed_signal_name.as_ref().map_or(c"state-change", |n| {
+                std::ffi::CStr::from_bytes_with_nul_unchecked(n.as_bytes())
+            });
             connect_raw(
                 self.as_ptr() as *mut _,
-                signal_name.as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                signal_name.as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     state_change_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -593,15 +688,17 @@ pub trait AtkObjectExt: IsA<Object> + sealed::Sealed + 'static {
             this: *mut ffi::AtkObject,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Object::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Object::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"visible-data-changed\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"visible-data-changed".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     visible_data_changed_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -622,15 +719,17 @@ pub trait AtkObjectExt: IsA<Object> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Object::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Object::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::accessible-component-layer\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::accessible-component-layer".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_accessible_component_layer_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -651,15 +750,17 @@ pub trait AtkObjectExt: IsA<Object> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Object::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Object::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::accessible-component-mdi-zorder\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::accessible-component-mdi-zorder".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_accessible_component_mdi_zorder_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -680,16 +781,46 @@ pub trait AtkObjectExt: IsA<Object> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Object::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Object::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::accessible-description\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::accessible-description".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_accessible_description_trampoline::<Self, F> as *const (),
+                )),
+                Box_::into_raw(f),
+            )
+        }
+    }
+
+    #[doc(alias = "accessible-help-text")]
+    fn connect_accessible_help_text_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+        unsafe extern "C" fn notify_accessible_help_text_trampoline<
+            P: IsA<Object>,
+            F: Fn(&P) + 'static,
+        >(
+            this: *mut ffi::AtkObject,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
+        ) {
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Object::from_glib_borrow(this).unsafe_cast_ref())
+            }
+        }
+        unsafe {
+            let f: Box_<F> = Box_::new(f);
+            connect_raw(
+                self.as_ptr() as *mut _,
+                c"notify::accessible-help-text".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
+                    notify_accessible_help_text_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
             )
@@ -709,16 +840,46 @@ pub trait AtkObjectExt: IsA<Object> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Object::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Object::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::accessible-hypertext-nlinks\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::accessible-hypertext-nlinks".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_accessible_hypertext_nlinks_trampoline::<Self, F> as *const (),
+                )),
+                Box_::into_raw(f),
+            )
+        }
+    }
+
+    #[doc(alias = "accessible-id")]
+    fn connect_accessible_id_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+        unsafe extern "C" fn notify_accessible_id_trampoline<
+            P: IsA<Object>,
+            F: Fn(&P) + 'static,
+        >(
+            this: *mut ffi::AtkObject,
+            _param_spec: glib::ffi::gpointer,
+            f: glib::ffi::gpointer,
+        ) {
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Object::from_glib_borrow(this).unsafe_cast_ref())
+            }
+        }
+        unsafe {
+            let f: Box_<F> = Box_::new(f);
+            connect_raw(
+                self.as_ptr() as *mut _,
+                c"notify::accessible-id".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
+                    notify_accessible_id_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
             )
@@ -735,15 +896,17 @@ pub trait AtkObjectExt: IsA<Object> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Object::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Object::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::accessible-name\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::accessible-name".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_accessible_name_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -761,15 +924,17 @@ pub trait AtkObjectExt: IsA<Object> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Object::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Object::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::accessible-parent\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::accessible-parent".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_accessible_parent_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -787,15 +952,17 @@ pub trait AtkObjectExt: IsA<Object> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Object::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Object::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::accessible-role\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::accessible-role".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_accessible_role_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -816,15 +983,17 @@ pub trait AtkObjectExt: IsA<Object> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Object::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Object::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::accessible-table-caption\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::accessible-table-caption".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_accessible_table_caption_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -845,15 +1014,17 @@ pub trait AtkObjectExt: IsA<Object> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Object::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Object::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::accessible-table-caption-object\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::accessible-table-caption-object".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_accessible_table_caption_object_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -874,15 +1045,17 @@ pub trait AtkObjectExt: IsA<Object> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Object::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Object::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::accessible-table-column-description\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::accessible-table-column-description".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_accessible_table_column_description_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -903,15 +1076,17 @@ pub trait AtkObjectExt: IsA<Object> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Object::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Object::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::accessible-table-column-header\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::accessible-table-column-header".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_accessible_table_column_header_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -932,15 +1107,17 @@ pub trait AtkObjectExt: IsA<Object> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Object::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Object::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::accessible-table-row-description\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::accessible-table-row-description".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_accessible_table_row_description_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -961,15 +1138,17 @@ pub trait AtkObjectExt: IsA<Object> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Object::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Object::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::accessible-table-row-header\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::accessible-table-row-header".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_accessible_table_row_header_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -990,15 +1169,17 @@ pub trait AtkObjectExt: IsA<Object> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Object::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Object::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::accessible-table-summary\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::accessible-table-summary".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_accessible_table_summary_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1016,15 +1197,17 @@ pub trait AtkObjectExt: IsA<Object> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Object::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Object::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::accessible-value\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::accessible-value".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_accessible_value_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),

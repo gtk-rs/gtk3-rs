@@ -2,8 +2,9 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use crate::{Align, Bin, Buildable, Container, ResizeMode, Widget};
+use crate::{ffi, Align, Bin, Buildable, Container, ResizeMode, Widget};
 use glib::{
+    object::ObjectType as _,
     prelude::*,
     signal::{connect_raw, SignalHandlerId},
     translate::*,
@@ -331,18 +332,15 @@ impl ExpanderBuilder {
     /// Build the [`Expander`].
     #[must_use = "Building the object from the builder is usually expensive and is not expected to have side effects"]
     pub fn build(self) -> Expander {
+        assert_initialized_main_thread!();
         self.builder.build()
     }
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::IsA<super::Expander>> Sealed for T {}
-}
-
-pub trait ExpanderExt: IsA<Expander> + sealed::Sealed + 'static {
+pub trait ExpanderExt: IsA<Expander> + 'static {
     #[doc(alias = "gtk_expander_get_expanded")]
     #[doc(alias = "get_expanded")]
+    #[doc(alias = "expanded")]
     fn is_expanded(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_expander_get_expanded(
@@ -359,6 +357,7 @@ pub trait ExpanderExt: IsA<Expander> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_expander_get_label_fill")]
     #[doc(alias = "get_label_fill")]
+    #[doc(alias = "label-fill")]
     fn is_label_fill(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_expander_get_label_fill(
@@ -369,6 +368,7 @@ pub trait ExpanderExt: IsA<Expander> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_expander_get_label_widget")]
     #[doc(alias = "get_label_widget")]
+    #[doc(alias = "label-widget")]
     fn label_widget(&self) -> Option<Widget> {
         unsafe {
             from_glib_none(ffi::gtk_expander_get_label_widget(
@@ -379,6 +379,7 @@ pub trait ExpanderExt: IsA<Expander> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_expander_get_resize_toplevel")]
     #[doc(alias = "get_resize_toplevel")]
+    #[doc(alias = "resize-toplevel")]
     fn resizes_toplevel(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_expander_get_resize_toplevel(
@@ -389,6 +390,7 @@ pub trait ExpanderExt: IsA<Expander> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_expander_get_use_markup")]
     #[doc(alias = "get_use_markup")]
+    #[doc(alias = "use-markup")]
     fn uses_markup(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_expander_get_use_markup(
@@ -399,6 +401,7 @@ pub trait ExpanderExt: IsA<Expander> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_expander_get_use_underline")]
     #[doc(alias = "get_use_underline")]
+    #[doc(alias = "use-underline")]
     fn uses_underline(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_expander_get_use_underline(
@@ -408,6 +411,7 @@ pub trait ExpanderExt: IsA<Expander> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_expander_set_expanded")]
+    #[doc(alias = "expanded")]
     fn set_expanded(&self, expanded: bool) {
         unsafe {
             ffi::gtk_expander_set_expanded(self.as_ref().to_glib_none().0, expanded.into_glib());
@@ -415,6 +419,7 @@ pub trait ExpanderExt: IsA<Expander> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_expander_set_label")]
+    #[doc(alias = "label")]
     fn set_label(&self, label: Option<&str>) {
         unsafe {
             ffi::gtk_expander_set_label(self.as_ref().to_glib_none().0, label.to_glib_none().0);
@@ -422,6 +427,7 @@ pub trait ExpanderExt: IsA<Expander> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_expander_set_label_fill")]
+    #[doc(alias = "label-fill")]
     fn set_label_fill(&self, label_fill: bool) {
         unsafe {
             ffi::gtk_expander_set_label_fill(
@@ -432,6 +438,7 @@ pub trait ExpanderExt: IsA<Expander> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_expander_set_label_widget")]
+    #[doc(alias = "label-widget")]
     fn set_label_widget(&self, label_widget: Option<&impl IsA<Widget>>) {
         unsafe {
             ffi::gtk_expander_set_label_widget(
@@ -442,6 +449,7 @@ pub trait ExpanderExt: IsA<Expander> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_expander_set_resize_toplevel")]
+    #[doc(alias = "resize-toplevel")]
     fn set_resize_toplevel(&self, resize_toplevel: bool) {
         unsafe {
             ffi::gtk_expander_set_resize_toplevel(
@@ -452,6 +460,7 @@ pub trait ExpanderExt: IsA<Expander> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_expander_set_use_markup")]
+    #[doc(alias = "use-markup")]
     fn set_use_markup(&self, use_markup: bool) {
         unsafe {
             ffi::gtk_expander_set_use_markup(
@@ -462,6 +471,7 @@ pub trait ExpanderExt: IsA<Expander> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_expander_set_use_underline")]
+    #[doc(alias = "use-underline")]
     fn set_use_underline(&self, use_underline: bool) {
         unsafe {
             ffi::gtk_expander_set_use_underline(
@@ -477,15 +487,17 @@ pub trait ExpanderExt: IsA<Expander> + sealed::Sealed + 'static {
             this: *mut ffi::GtkExpander,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Expander::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Expander::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"activate\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"activate".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     activate_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -504,15 +516,17 @@ pub trait ExpanderExt: IsA<Expander> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Expander::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Expander::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::expanded\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::expanded".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_expanded_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -527,15 +541,17 @@ pub trait ExpanderExt: IsA<Expander> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Expander::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Expander::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::label\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::label".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_label_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -550,15 +566,17 @@ pub trait ExpanderExt: IsA<Expander> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Expander::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Expander::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::label-fill\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::label-fill".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_label_fill_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -576,15 +594,17 @@ pub trait ExpanderExt: IsA<Expander> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Expander::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Expander::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::label-widget\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::label-widget".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_label_widget_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -602,15 +622,17 @@ pub trait ExpanderExt: IsA<Expander> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Expander::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Expander::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::resize-toplevel\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::resize-toplevel".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_resize_toplevel_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -625,15 +647,17 @@ pub trait ExpanderExt: IsA<Expander> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Expander::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Expander::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::use-markup\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::use-markup".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_use_markup_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -651,15 +675,17 @@ pub trait ExpanderExt: IsA<Expander> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Expander::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Expander::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::use-underline\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::use-underline".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_use_underline_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),

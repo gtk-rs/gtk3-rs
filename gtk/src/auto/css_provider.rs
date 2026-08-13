@@ -3,8 +3,9 @@
 // DO NOT EDIT
 #![allow(deprecated)]
 
-use crate::{CssSection, StyleProvider};
+use crate::{ffi, CssSection, StyleProvider};
 use glib::{
+    object::ObjectType as _,
     prelude::*,
     signal::{connect_raw, SignalHandlerId},
     translate::*,
@@ -65,12 +66,7 @@ impl std::fmt::Display for CssProvider {
     }
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::IsA<super::CssProvider>> Sealed for T {}
-}
-
-pub trait CssProviderExt: IsA<CssProvider> + sealed::Sealed + 'static {
+pub trait CssProviderExt: IsA<CssProvider> + 'static {
     #[doc(alias = "gtk_css_provider_load_from_data")]
     fn load_from_data(&self, data: &[u8]) -> Result<(), glib::Error> {
         let length = data.len() as _;
@@ -161,19 +157,21 @@ pub trait CssProviderExt: IsA<CssProvider> + sealed::Sealed + 'static {
             error: *mut glib::ffi::GError,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(
-                CssProvider::from_glib_borrow(this).unsafe_cast_ref(),
-                &from_glib_borrow(section),
-                &from_glib_borrow(error),
-            )
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(
+                    CssProvider::from_glib_borrow(this).unsafe_cast_ref(),
+                    &from_glib_borrow(section),
+                    &from_glib_borrow(error),
+                )
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"parsing-error\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"parsing-error".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     parsing_error_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),

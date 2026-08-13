@@ -2,6 +2,7 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
+use crate::ffi;
 use glib::prelude::*;
 
 glib::wrapper! {
@@ -46,6 +47,20 @@ impl HeaderBarAccessibleBuilder {
             builder: self
                 .builder
                 .property("accessible-description", accessible_description.into()),
+        }
+    }
+
+    pub fn accessible_help_text(self, accessible_help_text: impl Into<glib::GString>) -> Self {
+        Self {
+            builder: self
+                .builder
+                .property("accessible-help-text", accessible_help_text.into()),
+        }
+    }
+
+    pub fn accessible_id(self, accessible_id: impl Into<glib::GString>) -> Self {
+        Self {
+            builder: self.builder.property("accessible-id", accessible_id.into()),
         }
     }
 
@@ -164,6 +179,7 @@ impl HeaderBarAccessibleBuilder {
     /// Build the [`HeaderBarAccessible`].
     #[must_use = "Building the object from the builder is usually expensive and is not expected to have side effects"]
     pub fn build(self) -> HeaderBarAccessible {
+        assert_initialized_main_thread!();
         self.builder.build()
     }
 }

@@ -2,8 +2,9 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use crate::{InputHints, InputPurpose};
+use crate::{ffi, InputHints, InputPurpose};
 use glib::{
+    object::ObjectType as _,
     prelude::*,
     signal::{connect_raw, SignalHandlerId},
     translate::*,
@@ -23,12 +24,7 @@ impl IMContext {
     pub const NONE: Option<&'static IMContext> = None;
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::IsA<super::IMContext>> Sealed for T {}
-}
-
-pub trait IMContextExt: IsA<IMContext> + sealed::Sealed + 'static {
+pub trait IMContextExt: IsA<IMContext> + 'static {
     #[doc(alias = "gtk_im_context_delete_surrounding")]
     fn delete_surrounding(&self, offset: i32, n_chars: i32) -> bool {
         unsafe {
@@ -178,21 +174,23 @@ pub trait IMContextExt: IsA<IMContext> + sealed::Sealed + 'static {
     fn connect_commit<F: Fn(&Self, &str) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn commit_trampoline<P: IsA<IMContext>, F: Fn(&P, &str) + 'static>(
             this: *mut ffi::GtkIMContext,
-            str: *mut libc::c_char,
+            str: *mut std::ffi::c_char,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(
-                IMContext::from_glib_borrow(this).unsafe_cast_ref(),
-                &glib::GString::from_glib_borrow(str),
-            )
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(
+                    IMContext::from_glib_borrow(this).unsafe_cast_ref(),
+                    &glib::GString::from_glib_borrow(str),
+                )
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"commit\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"commit".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     commit_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -210,24 +208,26 @@ pub trait IMContextExt: IsA<IMContext> + sealed::Sealed + 'static {
             F: Fn(&P, i32, i32) -> bool + 'static,
         >(
             this: *mut ffi::GtkIMContext,
-            offset: libc::c_int,
-            n_chars: libc::c_int,
+            offset: std::ffi::c_int,
+            n_chars: std::ffi::c_int,
             f: glib::ffi::gpointer,
         ) -> glib::ffi::gboolean {
-            let f: &F = &*(f as *const F);
-            f(
-                IMContext::from_glib_borrow(this).unsafe_cast_ref(),
-                offset,
-                n_chars,
-            )
-            .into_glib()
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(
+                    IMContext::from_glib_borrow(this).unsafe_cast_ref(),
+                    offset,
+                    n_chars,
+                )
+                .into_glib()
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"delete-surrounding\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"delete-surrounding".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     delete_surrounding_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -241,15 +241,17 @@ pub trait IMContextExt: IsA<IMContext> + sealed::Sealed + 'static {
             this: *mut ffi::GtkIMContext,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(IMContext::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(IMContext::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"preedit-changed\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"preedit-changed".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     preedit_changed_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -263,15 +265,17 @@ pub trait IMContextExt: IsA<IMContext> + sealed::Sealed + 'static {
             this: *mut ffi::GtkIMContext,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(IMContext::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(IMContext::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"preedit-end\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"preedit-end".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     preedit_end_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -285,15 +289,17 @@ pub trait IMContextExt: IsA<IMContext> + sealed::Sealed + 'static {
             this: *mut ffi::GtkIMContext,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(IMContext::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(IMContext::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"preedit-start\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"preedit-start".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     preedit_start_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -313,15 +319,17 @@ pub trait IMContextExt: IsA<IMContext> + sealed::Sealed + 'static {
             this: *mut ffi::GtkIMContext,
             f: glib::ffi::gpointer,
         ) -> glib::ffi::gboolean {
-            let f: &F = &*(f as *const F);
-            f(IMContext::from_glib_borrow(this).unsafe_cast_ref()).into_glib()
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(IMContext::from_glib_borrow(this).unsafe_cast_ref()).into_glib()
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"retrieve-surrounding\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"retrieve-surrounding".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     retrieve_surrounding_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -339,15 +347,17 @@ pub trait IMContextExt: IsA<IMContext> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(IMContext::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(IMContext::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::input-hints\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::input-hints".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_input_hints_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -365,15 +375,17 @@ pub trait IMContextExt: IsA<IMContext> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(IMContext::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(IMContext::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::input-purpose\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::input-purpose".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_input_purpose_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),

@@ -2,7 +2,7 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use crate::{Align, Buildable, Container, MenuShell, PackDirection, ResizeMode, Widget};
+use crate::{ffi, Align, Buildable, Container, MenuShell, PackDirection, ResizeMode, Widget};
 use glib::{
     prelude::*,
     signal::{connect_raw, SignalHandlerId},
@@ -307,18 +307,15 @@ impl MenuBarBuilder {
     /// Build the [`MenuBar`].
     #[must_use = "Building the object from the builder is usually expensive and is not expected to have side effects"]
     pub fn build(self) -> MenuBar {
+        assert_initialized_main_thread!();
         self.builder.build()
     }
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::IsA<super::MenuBar>> Sealed for T {}
-}
-
-pub trait MenuBarExt: IsA<MenuBar> + sealed::Sealed + 'static {
+pub trait MenuBarExt: IsA<MenuBar> + 'static {
     #[doc(alias = "gtk_menu_bar_get_child_pack_direction")]
     #[doc(alias = "get_child_pack_direction")]
+    #[doc(alias = "child-pack-direction")]
     fn child_pack_direction(&self) -> PackDirection {
         unsafe {
             from_glib(ffi::gtk_menu_bar_get_child_pack_direction(
@@ -329,6 +326,7 @@ pub trait MenuBarExt: IsA<MenuBar> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_menu_bar_get_pack_direction")]
     #[doc(alias = "get_pack_direction")]
+    #[doc(alias = "pack-direction")]
     fn pack_direction(&self) -> PackDirection {
         unsafe {
             from_glib(ffi::gtk_menu_bar_get_pack_direction(
@@ -338,6 +336,7 @@ pub trait MenuBarExt: IsA<MenuBar> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_menu_bar_set_child_pack_direction")]
+    #[doc(alias = "child-pack-direction")]
     fn set_child_pack_direction(&self, child_pack_dir: PackDirection) {
         unsafe {
             ffi::gtk_menu_bar_set_child_pack_direction(
@@ -348,6 +347,7 @@ pub trait MenuBarExt: IsA<MenuBar> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_menu_bar_set_pack_direction")]
+    #[doc(alias = "pack-direction")]
     fn set_pack_direction(&self, pack_dir: PackDirection) {
         unsafe {
             ffi::gtk_menu_bar_set_pack_direction(
@@ -367,15 +367,17 @@ pub trait MenuBarExt: IsA<MenuBar> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(MenuBar::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(MenuBar::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::child-pack-direction\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::child-pack-direction".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_child_pack_direction_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -393,15 +395,17 @@ pub trait MenuBarExt: IsA<MenuBar> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(MenuBar::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(MenuBar::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::pack-direction\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::pack-direction".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_pack_direction_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),

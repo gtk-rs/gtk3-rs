@@ -2,7 +2,7 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use crate::{SelectionData, TreePath};
+use crate::{ffi, SelectionData, TreePath};
 use glib::{prelude::*, translate::*};
 
 glib::wrapper! {
@@ -18,12 +18,7 @@ impl TreeDragSource {
     pub const NONE: Option<&'static TreeDragSource> = None;
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::IsA<super::TreeDragSource>> Sealed for T {}
-}
-
-pub trait TreeDragSourceExt: IsA<TreeDragSource> + sealed::Sealed + 'static {
+pub trait TreeDragSourceExt: IsA<TreeDragSource> + 'static {
     #[doc(alias = "gtk_tree_drag_source_drag_data_delete")]
     fn drag_data_delete(&self, path: &mut TreePath) -> bool {
         unsafe {

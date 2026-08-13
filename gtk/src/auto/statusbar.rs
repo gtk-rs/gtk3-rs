@@ -3,9 +3,11 @@
 // DO NOT EDIT
 
 use crate::{
-    Align, BaselinePosition, Box, Buildable, Container, Orientable, Orientation, ResizeMode, Widget,
+    ffi, Align, BaselinePosition, Box, Buildable, Container, Orientable, Orientation, ResizeMode,
+    Widget,
 };
 use glib::{
+    object::ObjectType as _,
     prelude::*,
     signal::{connect_raw, SignalHandlerId},
     translate::*,
@@ -303,16 +305,12 @@ impl StatusbarBuilder {
     /// Build the [`Statusbar`].
     #[must_use = "Building the object from the builder is usually expensive and is not expected to have side effects"]
     pub fn build(self) -> Statusbar {
+        assert_initialized_main_thread!();
         self.builder.build()
     }
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::IsA<super::Statusbar>> Sealed for T {}
-}
-
-pub trait StatusbarExt: IsA<Statusbar> + sealed::Sealed + 'static {
+pub trait StatusbarExt: IsA<Statusbar> + 'static {
     #[doc(alias = "gtk_statusbar_get_context_id")]
     #[doc(alias = "get_context_id")]
     fn context_id(&self, context_description: &str) -> u32 {
@@ -373,23 +371,25 @@ pub trait StatusbarExt: IsA<Statusbar> + sealed::Sealed + 'static {
             F: Fn(&P, u32, &str) + 'static,
         >(
             this: *mut ffi::GtkStatusbar,
-            context_id: libc::c_uint,
-            text: *mut libc::c_char,
+            context_id: std::ffi::c_uint,
+            text: *mut std::ffi::c_char,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(
-                Statusbar::from_glib_borrow(this).unsafe_cast_ref(),
-                context_id,
-                &glib::GString::from_glib_borrow(text),
-            )
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(
+                    Statusbar::from_glib_borrow(this).unsafe_cast_ref(),
+                    context_id,
+                    &glib::GString::from_glib_borrow(text),
+                )
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"text-popped\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"text-popped".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     text_popped_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -404,23 +404,25 @@ pub trait StatusbarExt: IsA<Statusbar> + sealed::Sealed + 'static {
             F: Fn(&P, u32, &str) + 'static,
         >(
             this: *mut ffi::GtkStatusbar,
-            context_id: libc::c_uint,
-            text: *mut libc::c_char,
+            context_id: std::ffi::c_uint,
+            text: *mut std::ffi::c_char,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(
-                Statusbar::from_glib_borrow(this).unsafe_cast_ref(),
-                context_id,
-                &glib::GString::from_glib_borrow(text),
-            )
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(
+                    Statusbar::from_glib_borrow(this).unsafe_cast_ref(),
+                    context_id,
+                    &glib::GString::from_glib_borrow(text),
+                )
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"text-pushed\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"text-pushed".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     text_pushed_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),

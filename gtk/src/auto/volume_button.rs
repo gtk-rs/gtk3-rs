@@ -3,7 +3,7 @@
 // DO NOT EDIT
 
 use crate::{
-    Actionable, Adjustment, Align, Bin, Buildable, Button, Container, IconSize, Orientable,
+    ffi, Actionable, Adjustment, Align, Bin, Buildable, Button, Container, IconSize, Orientable,
     Orientation, PositionType, ReliefStyle, ResizeMode, ScaleButton, Widget,
 };
 use glib::{
@@ -368,16 +368,12 @@ impl VolumeButtonBuilder {
     /// Build the [`VolumeButton`].
     #[must_use = "Building the object from the builder is usually expensive and is not expected to have side effects"]
     pub fn build(self) -> VolumeButton {
+        assert_initialized_main_thread!();
         self.builder.build()
     }
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::IsA<super::VolumeButton>> Sealed for T {}
-}
-
-pub trait VolumeButtonExt: IsA<VolumeButton> + sealed::Sealed + 'static {
+pub trait VolumeButtonExt: IsA<VolumeButton> + 'static {
     #[doc(alias = "use-symbolic")]
     fn uses_symbolic(&self) -> bool {
         ObjectExt::property(self.as_ref(), "use-symbolic")
@@ -398,15 +394,17 @@ pub trait VolumeButtonExt: IsA<VolumeButton> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(VolumeButton::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(VolumeButton::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::use-symbolic\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::use-symbolic".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_use_symbolic_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),

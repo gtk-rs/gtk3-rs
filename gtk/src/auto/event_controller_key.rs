@@ -2,8 +2,9 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use crate::{EventController, IMContext, Widget};
+use crate::{ffi, EventController, IMContext, Widget};
 use glib::{
+    object::ObjectType as _,
     prelude::*,
     signal::{connect_raw, SignalHandlerId},
     translate::*,
@@ -73,15 +74,17 @@ impl EventControllerKey {
             this: *mut ffi::GtkEventControllerKey,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(&from_glib_borrow(this))
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(&from_glib_borrow(this))
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"focus-in\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"focus-in".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     focus_in_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -95,15 +98,17 @@ impl EventControllerKey {
             this: *mut ffi::GtkEventControllerKey,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(&from_glib_borrow(this))
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(&from_glib_borrow(this))
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"focus-out\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"focus-out".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     focus_out_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -117,15 +122,17 @@ impl EventControllerKey {
             this: *mut ffi::GtkEventControllerKey,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(&from_glib_borrow(this))
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(&from_glib_borrow(this))
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"im-update\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"im-update".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     im_update_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -144,20 +151,22 @@ impl EventControllerKey {
             F: Fn(&EventControllerKey, u32, u32, gdk::ModifierType) -> bool + 'static,
         >(
             this: *mut ffi::GtkEventControllerKey,
-            keyval: libc::c_uint,
-            keycode: libc::c_uint,
+            keyval: std::ffi::c_uint,
+            keycode: std::ffi::c_uint,
             state: gdk::ffi::GdkModifierType,
             f: glib::ffi::gpointer,
         ) -> glib::ffi::gboolean {
-            let f: &F = &*(f as *const F);
-            f(&from_glib_borrow(this), keyval, keycode, from_glib(state)).into_glib()
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(&from_glib_borrow(this), keyval, keycode, from_glib(state)).into_glib()
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"key-pressed\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"key-pressed".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     key_pressed_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -176,20 +185,22 @@ impl EventControllerKey {
             F: Fn(&EventControllerKey, u32, u32, gdk::ModifierType) + 'static,
         >(
             this: *mut ffi::GtkEventControllerKey,
-            keyval: libc::c_uint,
-            keycode: libc::c_uint,
+            keyval: std::ffi::c_uint,
+            keycode: std::ffi::c_uint,
             state: gdk::ffi::GdkModifierType,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(&from_glib_borrow(this), keyval, keycode, from_glib(state))
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(&from_glib_borrow(this), keyval, keycode, from_glib(state))
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"key-released\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"key-released".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     key_released_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -209,15 +220,17 @@ impl EventControllerKey {
             object: gdk::ffi::GdkModifierType,
             f: glib::ffi::gpointer,
         ) -> glib::ffi::gboolean {
-            let f: &F = &*(f as *const F);
-            f(&from_glib_borrow(this), from_glib(object)).into_glib()
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(&from_glib_borrow(this), from_glib(object)).into_glib()
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"modifiers\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"modifiers".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     modifiers_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),

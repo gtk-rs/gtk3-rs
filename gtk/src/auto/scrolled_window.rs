@@ -3,10 +3,11 @@
 // DO NOT EDIT
 
 use crate::{
-    Adjustment, Align, Bin, Buildable, Container, CornerType, DirectionType, PolicyType,
+    ffi, Adjustment, Align, Bin, Buildable, Container, CornerType, DirectionType, PolicyType,
     PositionType, ResizeMode, ScrollType, ShadowType, Widget,
 };
 use glib::{
+    object::ObjectType as _,
     prelude::*,
     signal::{connect_raw, SignalHandlerId},
     translate::*,
@@ -395,16 +396,12 @@ impl ScrolledWindowBuilder {
     /// Build the [`ScrolledWindow`].
     #[must_use = "Building the object from the builder is usually expensive and is not expected to have side effects"]
     pub fn build(self) -> ScrolledWindow {
+        assert_initialized_main_thread!();
         self.builder.build()
     }
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::IsA<super::ScrolledWindow>> Sealed for T {}
-}
-
-pub trait ScrolledWindowExt: IsA<ScrolledWindow> + sealed::Sealed + 'static {
+pub trait ScrolledWindowExt: IsA<ScrolledWindow> + 'static {
     #[doc(alias = "gtk_scrolled_window_get_capture_button_press")]
     #[doc(alias = "get_capture_button_press")]
     fn is_capture_button_press(&self) -> bool {
@@ -437,6 +434,7 @@ pub trait ScrolledWindowExt: IsA<ScrolledWindow> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_scrolled_window_get_kinetic_scrolling")]
     #[doc(alias = "get_kinetic_scrolling")]
+    #[doc(alias = "kinetic-scrolling")]
     fn is_kinetic_scrolling(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_scrolled_window_get_kinetic_scrolling(
@@ -447,30 +445,35 @@ pub trait ScrolledWindowExt: IsA<ScrolledWindow> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_scrolled_window_get_max_content_height")]
     #[doc(alias = "get_max_content_height")]
+    #[doc(alias = "max-content-height")]
     fn max_content_height(&self) -> i32 {
         unsafe { ffi::gtk_scrolled_window_get_max_content_height(self.as_ref().to_glib_none().0) }
     }
 
     #[doc(alias = "gtk_scrolled_window_get_max_content_width")]
     #[doc(alias = "get_max_content_width")]
+    #[doc(alias = "max-content-width")]
     fn max_content_width(&self) -> i32 {
         unsafe { ffi::gtk_scrolled_window_get_max_content_width(self.as_ref().to_glib_none().0) }
     }
 
     #[doc(alias = "gtk_scrolled_window_get_min_content_height")]
     #[doc(alias = "get_min_content_height")]
+    #[doc(alias = "min-content-height")]
     fn min_content_height(&self) -> i32 {
         unsafe { ffi::gtk_scrolled_window_get_min_content_height(self.as_ref().to_glib_none().0) }
     }
 
     #[doc(alias = "gtk_scrolled_window_get_min_content_width")]
     #[doc(alias = "get_min_content_width")]
+    #[doc(alias = "min-content-width")]
     fn min_content_width(&self) -> i32 {
         unsafe { ffi::gtk_scrolled_window_get_min_content_width(self.as_ref().to_glib_none().0) }
     }
 
     #[doc(alias = "gtk_scrolled_window_get_overlay_scrolling")]
     #[doc(alias = "get_overlay_scrolling")]
+    #[doc(alias = "overlay-scrolling")]
     fn is_overlay_scrolling(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_scrolled_window_get_overlay_scrolling(
@@ -509,6 +512,7 @@ pub trait ScrolledWindowExt: IsA<ScrolledWindow> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_scrolled_window_get_propagate_natural_height")]
     #[doc(alias = "get_propagate_natural_height")]
+    #[doc(alias = "propagate-natural-height")]
     fn propagates_natural_height(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_scrolled_window_get_propagate_natural_height(
@@ -519,6 +523,7 @@ pub trait ScrolledWindowExt: IsA<ScrolledWindow> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_scrolled_window_get_propagate_natural_width")]
     #[doc(alias = "get_propagate_natural_width")]
+    #[doc(alias = "propagate-natural-width")]
     fn propagates_natural_width(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_scrolled_window_get_propagate_natural_width(
@@ -529,6 +534,7 @@ pub trait ScrolledWindowExt: IsA<ScrolledWindow> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_scrolled_window_get_shadow_type")]
     #[doc(alias = "get_shadow_type")]
+    #[doc(alias = "shadow-type")]
     fn shadow_type(&self) -> ShadowType {
         unsafe {
             from_glib(ffi::gtk_scrolled_window_get_shadow_type(
@@ -568,6 +574,7 @@ pub trait ScrolledWindowExt: IsA<ScrolledWindow> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_scrolled_window_set_hadjustment")]
+    #[doc(alias = "hadjustment")]
     fn set_hadjustment(&self, hadjustment: Option<&impl IsA<Adjustment>>) {
         unsafe {
             ffi::gtk_scrolled_window_set_hadjustment(
@@ -578,6 +585,7 @@ pub trait ScrolledWindowExt: IsA<ScrolledWindow> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_scrolled_window_set_kinetic_scrolling")]
+    #[doc(alias = "kinetic-scrolling")]
     fn set_kinetic_scrolling(&self, kinetic_scrolling: bool) {
         unsafe {
             ffi::gtk_scrolled_window_set_kinetic_scrolling(
@@ -588,6 +596,7 @@ pub trait ScrolledWindowExt: IsA<ScrolledWindow> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_scrolled_window_set_max_content_height")]
+    #[doc(alias = "max-content-height")]
     fn set_max_content_height(&self, height: i32) {
         unsafe {
             ffi::gtk_scrolled_window_set_max_content_height(self.as_ref().to_glib_none().0, height);
@@ -595,6 +604,7 @@ pub trait ScrolledWindowExt: IsA<ScrolledWindow> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_scrolled_window_set_max_content_width")]
+    #[doc(alias = "max-content-width")]
     fn set_max_content_width(&self, width: i32) {
         unsafe {
             ffi::gtk_scrolled_window_set_max_content_width(self.as_ref().to_glib_none().0, width);
@@ -602,6 +612,7 @@ pub trait ScrolledWindowExt: IsA<ScrolledWindow> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_scrolled_window_set_min_content_height")]
+    #[doc(alias = "min-content-height")]
     fn set_min_content_height(&self, height: i32) {
         unsafe {
             ffi::gtk_scrolled_window_set_min_content_height(self.as_ref().to_glib_none().0, height);
@@ -609,6 +620,7 @@ pub trait ScrolledWindowExt: IsA<ScrolledWindow> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_scrolled_window_set_min_content_width")]
+    #[doc(alias = "min-content-width")]
     fn set_min_content_width(&self, width: i32) {
         unsafe {
             ffi::gtk_scrolled_window_set_min_content_width(self.as_ref().to_glib_none().0, width);
@@ -616,6 +628,7 @@ pub trait ScrolledWindowExt: IsA<ScrolledWindow> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_scrolled_window_set_overlay_scrolling")]
+    #[doc(alias = "overlay-scrolling")]
     fn set_overlay_scrolling(&self, overlay_scrolling: bool) {
         unsafe {
             ffi::gtk_scrolled_window_set_overlay_scrolling(
@@ -647,6 +660,7 @@ pub trait ScrolledWindowExt: IsA<ScrolledWindow> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_scrolled_window_set_propagate_natural_height")]
+    #[doc(alias = "propagate-natural-height")]
     fn set_propagate_natural_height(&self, propagate: bool) {
         unsafe {
             ffi::gtk_scrolled_window_set_propagate_natural_height(
@@ -657,6 +671,7 @@ pub trait ScrolledWindowExt: IsA<ScrolledWindow> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_scrolled_window_set_propagate_natural_width")]
+    #[doc(alias = "propagate-natural-width")]
     fn set_propagate_natural_width(&self, propagate: bool) {
         unsafe {
             ffi::gtk_scrolled_window_set_propagate_natural_width(
@@ -667,6 +682,7 @@ pub trait ScrolledWindowExt: IsA<ScrolledWindow> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_scrolled_window_set_shadow_type")]
+    #[doc(alias = "shadow-type")]
     fn set_shadow_type(&self, type_: ShadowType) {
         unsafe {
             ffi::gtk_scrolled_window_set_shadow_type(
@@ -677,6 +693,7 @@ pub trait ScrolledWindowExt: IsA<ScrolledWindow> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_scrolled_window_set_vadjustment")]
+    #[doc(alias = "vadjustment")]
     fn set_vadjustment(&self, vadjustment: Option<&impl IsA<Adjustment>>) {
         unsafe {
             ffi::gtk_scrolled_window_set_vadjustment(
@@ -733,18 +750,20 @@ pub trait ScrolledWindowExt: IsA<ScrolledWindow> + sealed::Sealed + 'static {
             pos: ffi::GtkPositionType,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(
-                ScrolledWindow::from_glib_borrow(this).unsafe_cast_ref(),
-                from_glib(pos),
-            )
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(
+                    ScrolledWindow::from_glib_borrow(this).unsafe_cast_ref(),
+                    from_glib(pos),
+                )
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"edge-overshot\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"edge-overshot".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     edge_overshot_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -762,18 +781,20 @@ pub trait ScrolledWindowExt: IsA<ScrolledWindow> + sealed::Sealed + 'static {
             pos: ffi::GtkPositionType,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(
-                ScrolledWindow::from_glib_borrow(this).unsafe_cast_ref(),
-                from_glib(pos),
-            )
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(
+                    ScrolledWindow::from_glib_borrow(this).unsafe_cast_ref(),
+                    from_glib(pos),
+                )
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"edge-reached\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"edge-reached".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     edge_reached_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -794,18 +815,20 @@ pub trait ScrolledWindowExt: IsA<ScrolledWindow> + sealed::Sealed + 'static {
             direction_type: ffi::GtkDirectionType,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(
-                ScrolledWindow::from_glib_borrow(this).unsafe_cast_ref(),
-                from_glib(direction_type),
-            )
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(
+                    ScrolledWindow::from_glib_borrow(this).unsafe_cast_ref(),
+                    from_glib(direction_type),
+                )
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"move-focus-out\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"move-focus-out".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     move_focus_out_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -831,20 +854,22 @@ pub trait ScrolledWindowExt: IsA<ScrolledWindow> + sealed::Sealed + 'static {
             horizontal: glib::ffi::gboolean,
             f: glib::ffi::gpointer,
         ) -> glib::ffi::gboolean {
-            let f: &F = &*(f as *const F);
-            f(
-                ScrolledWindow::from_glib_borrow(this).unsafe_cast_ref(),
-                from_glib(scroll),
-                from_glib(horizontal),
-            )
-            .into_glib()
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(
+                    ScrolledWindow::from_glib_borrow(this).unsafe_cast_ref(),
+                    from_glib(scroll),
+                    from_glib(horizontal),
+                )
+                .into_glib()
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"scroll-child\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"scroll-child".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     scroll_child_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -866,15 +891,17 @@ pub trait ScrolledWindowExt: IsA<ScrolledWindow> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(ScrolledWindow::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(ScrolledWindow::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::hadjustment\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::hadjustment".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_hadjustment_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -892,15 +919,17 @@ pub trait ScrolledWindowExt: IsA<ScrolledWindow> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(ScrolledWindow::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(ScrolledWindow::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::hscrollbar-policy\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::hscrollbar-policy".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_hscrollbar_policy_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -918,15 +947,17 @@ pub trait ScrolledWindowExt: IsA<ScrolledWindow> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(ScrolledWindow::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(ScrolledWindow::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::kinetic-scrolling\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::kinetic-scrolling".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_kinetic_scrolling_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -944,15 +975,17 @@ pub trait ScrolledWindowExt: IsA<ScrolledWindow> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(ScrolledWindow::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(ScrolledWindow::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::max-content-height\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::max-content-height".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_max_content_height_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -970,15 +1003,17 @@ pub trait ScrolledWindowExt: IsA<ScrolledWindow> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(ScrolledWindow::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(ScrolledWindow::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::max-content-width\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::max-content-width".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_max_content_width_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -996,15 +1031,17 @@ pub trait ScrolledWindowExt: IsA<ScrolledWindow> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(ScrolledWindow::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(ScrolledWindow::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::min-content-height\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::min-content-height".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_min_content_height_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1022,15 +1059,17 @@ pub trait ScrolledWindowExt: IsA<ScrolledWindow> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(ScrolledWindow::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(ScrolledWindow::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::min-content-width\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::min-content-width".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_min_content_width_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1048,15 +1087,17 @@ pub trait ScrolledWindowExt: IsA<ScrolledWindow> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(ScrolledWindow::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(ScrolledWindow::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::overlay-scrolling\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::overlay-scrolling".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_overlay_scrolling_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1077,15 +1118,17 @@ pub trait ScrolledWindowExt: IsA<ScrolledWindow> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(ScrolledWindow::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(ScrolledWindow::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::propagate-natural-height\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::propagate-natural-height".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_propagate_natural_height_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1106,15 +1149,17 @@ pub trait ScrolledWindowExt: IsA<ScrolledWindow> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(ScrolledWindow::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(ScrolledWindow::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::propagate-natural-width\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::propagate-natural-width".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_propagate_natural_width_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1132,15 +1177,17 @@ pub trait ScrolledWindowExt: IsA<ScrolledWindow> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(ScrolledWindow::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(ScrolledWindow::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::shadow-type\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::shadow-type".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_shadow_type_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1158,15 +1205,17 @@ pub trait ScrolledWindowExt: IsA<ScrolledWindow> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(ScrolledWindow::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(ScrolledWindow::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::vadjustment\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::vadjustment".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_vadjustment_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1184,15 +1233,17 @@ pub trait ScrolledWindowExt: IsA<ScrolledWindow> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(ScrolledWindow::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(ScrolledWindow::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::vscrollbar-policy\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::vscrollbar-policy".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_vscrollbar_policy_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1210,15 +1261,17 @@ pub trait ScrolledWindowExt: IsA<ScrolledWindow> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(ScrolledWindow::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(ScrolledWindow::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::window-placement\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::window-placement".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_window_placement_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),

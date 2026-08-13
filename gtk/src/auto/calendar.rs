@@ -2,8 +2,9 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use crate::{Align, Buildable, CalendarDisplayOptions, Container, Widget};
+use crate::{ffi, Align, Buildable, CalendarDisplayOptions, Container, Widget};
 use glib::{
+    object::ObjectType as _,
     prelude::*,
     signal::{connect_raw, SignalHandlerId},
     translate::*,
@@ -323,16 +324,12 @@ impl CalendarBuilder {
     /// Build the [`Calendar`].
     #[must_use = "Building the object from the builder is usually expensive and is not expected to have side effects"]
     pub fn build(self) -> Calendar {
+        assert_initialized_main_thread!();
         self.builder.build()
     }
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::IsA<super::Calendar>> Sealed for T {}
-}
-
-pub trait CalendarExt: IsA<Calendar> + sealed::Sealed + 'static {
+pub trait CalendarExt: IsA<Calendar> + 'static {
     #[doc(alias = "gtk_calendar_clear_marks")]
     fn clear_marks(&self) {
         unsafe {
@@ -370,12 +367,14 @@ pub trait CalendarExt: IsA<Calendar> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_calendar_get_detail_height_rows")]
     #[doc(alias = "get_detail_height_rows")]
+    #[doc(alias = "detail-height-rows")]
     fn detail_height_rows(&self) -> i32 {
         unsafe { ffi::gtk_calendar_get_detail_height_rows(self.as_ref().to_glib_none().0) }
     }
 
     #[doc(alias = "gtk_calendar_get_detail_width_chars")]
     #[doc(alias = "get_detail_width_chars")]
+    #[doc(alias = "detail-width-chars")]
     fn detail_width_chars(&self) -> i32 {
         unsafe { ffi::gtk_calendar_get_detail_width_chars(self.as_ref().to_glib_none().0) }
     }
@@ -421,14 +420,16 @@ pub trait CalendarExt: IsA<Calendar> + sealed::Sealed + 'static {
             P: Fn(&Calendar, u32, u32, u32) -> Option<String> + 'static,
         >(
             calendar: *mut ffi::GtkCalendar,
-            year: libc::c_uint,
-            month: libc::c_uint,
-            day: libc::c_uint,
+            year: std::ffi::c_uint,
+            month: std::ffi::c_uint,
+            day: std::ffi::c_uint,
             user_data: glib::ffi::gpointer,
-        ) -> *mut libc::c_char {
-            let calendar = from_glib_borrow(calendar);
-            let callback: &P = &*(user_data as *mut _);
-            (*callback)(&calendar, year, month, day).to_glib_full()
+        ) -> *mut std::ffi::c_char {
+            unsafe {
+                let calendar = from_glib_borrow(calendar);
+                let callback = &*(user_data as *mut P);
+                (*callback)(&calendar, year, month, day).to_glib_full()
+            }
         }
         let func = Some(func_func::<P> as _);
         unsafe extern "C" fn destroy_func<
@@ -436,7 +437,9 @@ pub trait CalendarExt: IsA<Calendar> + sealed::Sealed + 'static {
         >(
             data: glib::ffi::gpointer,
         ) {
-            let _callback: Box_<P> = Box_::from_raw(data as *mut _);
+            unsafe {
+                let _callback = Box_::from_raw(data as *mut P);
+            }
         }
         let destroy_call3 = Some(destroy_func::<P> as _);
         let super_callback0: Box_<P> = func_data;
@@ -451,6 +454,7 @@ pub trait CalendarExt: IsA<Calendar> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_calendar_set_detail_height_rows")]
+    #[doc(alias = "detail-height-rows")]
     fn set_detail_height_rows(&self, rows: i32) {
         unsafe {
             ffi::gtk_calendar_set_detail_height_rows(self.as_ref().to_glib_none().0, rows);
@@ -458,6 +462,7 @@ pub trait CalendarExt: IsA<Calendar> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_calendar_set_detail_width_chars")]
+    #[doc(alias = "detail-width-chars")]
     fn set_detail_width_chars(&self, chars: i32) {
         unsafe {
             ffi::gtk_calendar_set_detail_width_chars(self.as_ref().to_glib_none().0, chars);
@@ -561,15 +566,17 @@ pub trait CalendarExt: IsA<Calendar> + sealed::Sealed + 'static {
             this: *mut ffi::GtkCalendar,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Calendar::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Calendar::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"day-selected\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"day-selected".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     day_selected_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -586,15 +593,17 @@ pub trait CalendarExt: IsA<Calendar> + sealed::Sealed + 'static {
             this: *mut ffi::GtkCalendar,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Calendar::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Calendar::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"day-selected-double-click\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"day-selected-double-click".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     day_selected_double_click_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -608,15 +617,17 @@ pub trait CalendarExt: IsA<Calendar> + sealed::Sealed + 'static {
             this: *mut ffi::GtkCalendar,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Calendar::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Calendar::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"month-changed\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"month-changed".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     month_changed_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -630,15 +641,17 @@ pub trait CalendarExt: IsA<Calendar> + sealed::Sealed + 'static {
             this: *mut ffi::GtkCalendar,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Calendar::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Calendar::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"next-month\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"next-month".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     next_month_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -652,15 +665,17 @@ pub trait CalendarExt: IsA<Calendar> + sealed::Sealed + 'static {
             this: *mut ffi::GtkCalendar,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Calendar::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Calendar::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"next-year\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"next-year".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     next_year_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -674,15 +689,17 @@ pub trait CalendarExt: IsA<Calendar> + sealed::Sealed + 'static {
             this: *mut ffi::GtkCalendar,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Calendar::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Calendar::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"prev-month\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"prev-month".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     prev_month_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -696,15 +713,17 @@ pub trait CalendarExt: IsA<Calendar> + sealed::Sealed + 'static {
             this: *mut ffi::GtkCalendar,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Calendar::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Calendar::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"prev-year\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"prev-year".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     prev_year_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -719,15 +738,17 @@ pub trait CalendarExt: IsA<Calendar> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Calendar::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Calendar::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::day\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::day".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_day_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -745,15 +766,17 @@ pub trait CalendarExt: IsA<Calendar> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Calendar::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Calendar::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::detail-height-rows\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::detail-height-rows".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_detail_height_rows_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -771,15 +794,17 @@ pub trait CalendarExt: IsA<Calendar> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Calendar::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Calendar::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::detail-width-chars\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::detail-width-chars".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_detail_width_chars_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -794,15 +819,17 @@ pub trait CalendarExt: IsA<Calendar> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Calendar::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Calendar::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::month\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::month".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_month_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -820,15 +847,17 @@ pub trait CalendarExt: IsA<Calendar> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Calendar::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Calendar::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::no-month-change\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::no-month-change".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_no_month_change_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -846,15 +875,17 @@ pub trait CalendarExt: IsA<Calendar> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Calendar::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Calendar::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::show-day-names\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::show-day-names".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_show_day_names_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -872,15 +903,17 @@ pub trait CalendarExt: IsA<Calendar> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Calendar::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Calendar::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::show-details\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::show-details".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_show_details_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -898,15 +931,17 @@ pub trait CalendarExt: IsA<Calendar> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Calendar::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Calendar::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::show-heading\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::show-heading".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_show_heading_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -924,15 +959,17 @@ pub trait CalendarExt: IsA<Calendar> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Calendar::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Calendar::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::show-week-numbers\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::show-week-numbers".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_show_week_numbers_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -947,15 +984,17 @@ pub trait CalendarExt: IsA<Calendar> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Calendar::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Calendar::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::year\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::year".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_year_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),

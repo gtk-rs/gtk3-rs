@@ -2,7 +2,7 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use crate::{Box, Buildable, Container, Orientable, Stack, Widget};
+use crate::{ffi, Box, Buildable, Container, Orientable, Stack, Widget};
 use glib::{
     prelude::*,
     signal::{connect_raw, SignalHandlerId},
@@ -35,12 +35,7 @@ impl Default for StackSwitcher {
     }
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::IsA<super::StackSwitcher>> Sealed for T {}
-}
-
-pub trait StackSwitcherExt: IsA<StackSwitcher> + sealed::Sealed + 'static {
+pub trait StackSwitcherExt: IsA<StackSwitcher> + 'static {
     #[doc(alias = "gtk_stack_switcher_get_stack")]
     #[doc(alias = "get_stack")]
     fn stack(&self) -> Option<Stack> {
@@ -52,6 +47,7 @@ pub trait StackSwitcherExt: IsA<StackSwitcher> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_stack_switcher_set_stack")]
+    #[doc(alias = "stack")]
     fn set_stack(&self, stack: Option<&impl IsA<Stack>>) {
         unsafe {
             ffi::gtk_stack_switcher_set_stack(
@@ -68,15 +64,17 @@ pub trait StackSwitcherExt: IsA<StackSwitcher> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(StackSwitcher::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(StackSwitcher::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::stack\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::stack".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_stack_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),

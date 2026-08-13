@@ -3,7 +3,7 @@
 // DO NOT EDIT
 
 use crate::{
-    Adjustment, Align, Buildable, Container, ResizeMode, Scrollable, ScrollablePolicy, Widget,
+    ffi, Adjustment, Align, Buildable, Container, ResizeMode, Scrollable, ScrollablePolicy, Widget,
 };
 use glib::{
     prelude::*,
@@ -326,16 +326,12 @@ impl LayoutBuilder {
     /// Build the [`Layout`].
     #[must_use = "Building the object from the builder is usually expensive and is not expected to have side effects"]
     pub fn build(self) -> Layout {
+        assert_initialized_main_thread!();
         self.builder.build()
     }
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::IsA<super::Layout>> Sealed for T {}
-}
-
-pub trait LayoutExt: IsA<Layout> + sealed::Sealed + 'static {
+pub trait LayoutExt: IsA<Layout> + 'static {
     #[doc(alias = "gtk_layout_get_bin_window")]
     #[doc(alias = "get_bin_window")]
     fn bin_window(&self) -> Option<gdk::Window> {
@@ -450,15 +446,17 @@ pub trait LayoutExt: IsA<Layout> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Layout::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Layout::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::height\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::height".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_height_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -473,15 +471,17 @@ pub trait LayoutExt: IsA<Layout> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Layout::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Layout::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::width\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::width".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_width_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),

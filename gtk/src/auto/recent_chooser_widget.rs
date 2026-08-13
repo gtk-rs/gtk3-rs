@@ -3,8 +3,8 @@
 // DO NOT EDIT
 
 use crate::{
-    Align, BaselinePosition, Box, Buildable, Container, Orientable, Orientation, RecentChooser,
-    RecentFilter, RecentManager, RecentSortType, ResizeMode, Widget,
+    ffi, Align, BaselinePosition, Box, Buildable, Container, Orientable, Orientation,
+    RecentChooser, RecentFilter, RecentManager, RecentSortType, ResizeMode, Widget,
 };
 use glib::{prelude::*, translate::*};
 
@@ -373,6 +373,7 @@ impl RecentChooserWidgetBuilder {
     /// Build the [`RecentChooserWidget`].
     #[must_use = "Building the object from the builder is usually expensive and is not expected to have side effects"]
     pub fn build(self) -> RecentChooserWidget {
+        assert_initialized_main_thread!();
         self.builder.build()
     }
 }

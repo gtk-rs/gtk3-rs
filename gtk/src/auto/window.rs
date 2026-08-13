@@ -3,10 +3,11 @@
 // DO NOT EDIT
 
 use crate::{
-    AccelGroup, Align, Application, Bin, Buildable, Container, ResizeMode, Widget, WindowGroup,
-    WindowPosition, WindowType,
+    ffi, AccelGroup, Align, Application, Bin, Buildable, Container, ResizeMode, Widget,
+    WindowGroup, WindowPosition, WindowType,
 };
 use glib::{
+    object::ObjectType as _,
     prelude::*,
     signal::{connect_raw, SignalHandlerId},
     translate::*,
@@ -542,16 +543,12 @@ impl WindowBuilder {
     /// Build the [`Window`].
     #[must_use = "Building the object from the builder is usually expensive and is not expected to have side effects"]
     pub fn build(self) -> Window {
+        assert_initialized_main_thread!();
         self.builder.build()
     }
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::IsA<super::Window>> Sealed for T {}
-}
-
-pub trait GtkWindowExt: IsA<Window> + sealed::Sealed + 'static {
+pub trait GtkWindowExt: IsA<Window> + 'static {
     #[doc(alias = "gtk_window_activate_default")]
     fn activate_default(&self) -> bool {
         unsafe {
@@ -669,6 +666,7 @@ pub trait GtkWindowExt: IsA<Window> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_window_get_accept_focus")]
     #[doc(alias = "get_accept_focus")]
+    #[doc(alias = "accept-focus")]
     fn accepts_focus(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_window_get_accept_focus(
@@ -689,6 +687,7 @@ pub trait GtkWindowExt: IsA<Window> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_window_get_attached_to")]
     #[doc(alias = "get_attached_to")]
+    #[doc(alias = "attached-to")]
     fn attached_to(&self) -> Option<Widget> {
         unsafe {
             from_glib_none(ffi::gtk_window_get_attached_to(
@@ -699,6 +698,7 @@ pub trait GtkWindowExt: IsA<Window> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_window_get_decorated")]
     #[doc(alias = "get_decorated")]
+    #[doc(alias = "decorated")]
     fn is_decorated(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_window_get_decorated(
@@ -734,6 +734,7 @@ pub trait GtkWindowExt: IsA<Window> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_window_get_deletable")]
     #[doc(alias = "get_deletable")]
+    #[doc(alias = "deletable")]
     fn is_deletable(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_window_get_deletable(
@@ -744,6 +745,7 @@ pub trait GtkWindowExt: IsA<Window> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_window_get_destroy_with_parent")]
     #[doc(alias = "get_destroy_with_parent")]
+    #[doc(alias = "destroy-with-parent")]
     fn must_destroy_with_parent(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_window_get_destroy_with_parent(
@@ -760,6 +762,7 @@ pub trait GtkWindowExt: IsA<Window> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_window_get_focus_on_map")]
     #[doc(alias = "get_focus_on_map")]
+    #[doc(alias = "focus-on-map")]
     fn gets_focus_on_map(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_window_get_focus_on_map(
@@ -770,6 +773,7 @@ pub trait GtkWindowExt: IsA<Window> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_window_get_focus_visible")]
     #[doc(alias = "get_focus_visible")]
+    #[doc(alias = "focus-visible")]
     fn gets_focus_visible(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_window_get_focus_visible(
@@ -792,6 +796,7 @@ pub trait GtkWindowExt: IsA<Window> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_window_get_hide_titlebar_when_maximized")]
     #[doc(alias = "get_hide_titlebar_when_maximized")]
+    #[doc(alias = "hide-titlebar-when-maximized")]
     fn hides_titlebar_when_maximized(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_window_get_hide_titlebar_when_maximized(
@@ -818,6 +823,7 @@ pub trait GtkWindowExt: IsA<Window> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_window_get_icon_name")]
     #[doc(alias = "get_icon_name")]
+    #[doc(alias = "icon-name")]
     fn icon_name(&self) -> Option<glib::GString> {
         unsafe {
             from_glib_none(ffi::gtk_window_get_icon_name(
@@ -838,6 +844,7 @@ pub trait GtkWindowExt: IsA<Window> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_window_get_mnemonics_visible")]
     #[doc(alias = "get_mnemonics_visible")]
+    #[doc(alias = "mnemonics-visible")]
     fn is_mnemonics_visible(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_window_get_mnemonics_visible(
@@ -848,6 +855,7 @@ pub trait GtkWindowExt: IsA<Window> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_window_get_modal")]
     #[doc(alias = "get_modal")]
+    #[doc(alias = "modal")]
     fn is_modal(&self) -> bool {
         unsafe { from_glib(ffi::gtk_window_get_modal(self.as_ref().to_glib_none().0)) }
     }
@@ -869,6 +877,7 @@ pub trait GtkWindowExt: IsA<Window> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_window_get_resizable")]
     #[doc(alias = "get_resizable")]
+    #[doc(alias = "resizable")]
     fn is_resizable(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_window_get_resizable(
@@ -906,6 +915,7 @@ pub trait GtkWindowExt: IsA<Window> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_window_get_skip_pager_hint")]
     #[doc(alias = "get_skip_pager_hint")]
+    #[doc(alias = "skip-pager-hint")]
     fn skips_pager_hint(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_window_get_skip_pager_hint(
@@ -916,6 +926,7 @@ pub trait GtkWindowExt: IsA<Window> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_window_get_skip_taskbar_hint")]
     #[doc(alias = "get_skip_taskbar_hint")]
+    #[doc(alias = "skip-taskbar-hint")]
     fn skips_taskbar_hint(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_window_get_skip_taskbar_hint(
@@ -938,6 +949,7 @@ pub trait GtkWindowExt: IsA<Window> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_window_get_transient_for")]
     #[doc(alias = "get_transient_for")]
+    #[doc(alias = "transient-for")]
     #[must_use]
     fn transient_for(&self) -> Option<Window> {
         unsafe {
@@ -949,6 +961,7 @@ pub trait GtkWindowExt: IsA<Window> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_window_get_type_hint")]
     #[doc(alias = "get_type_hint")]
+    #[doc(alias = "type-hint")]
     fn type_hint(&self) -> gdk::WindowTypeHint {
         unsafe {
             from_glib(ffi::gtk_window_get_type_hint(
@@ -959,6 +972,7 @@ pub trait GtkWindowExt: IsA<Window> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_window_get_urgency_hint")]
     #[doc(alias = "get_urgency_hint")]
+    #[doc(alias = "urgency-hint")]
     fn is_urgency_hint(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_window_get_urgency_hint(
@@ -983,6 +997,7 @@ pub trait GtkWindowExt: IsA<Window> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_window_has_toplevel_focus")]
+    #[doc(alias = "has-toplevel-focus")]
     fn has_toplevel_focus(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_window_has_toplevel_focus(
@@ -999,11 +1014,13 @@ pub trait GtkWindowExt: IsA<Window> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_window_is_active")]
+    #[doc(alias = "is-active")]
     fn is_active(&self) -> bool {
         unsafe { from_glib(ffi::gtk_window_is_active(self.as_ref().to_glib_none().0)) }
     }
 
     #[doc(alias = "gtk_window_is_maximized")]
+    #[doc(alias = "is-maximized")]
     fn is_maximized(&self) -> bool {
         unsafe { from_glib(ffi::gtk_window_is_maximized(self.as_ref().to_glib_none().0)) }
     }
@@ -1087,6 +1104,7 @@ pub trait GtkWindowExt: IsA<Window> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_window_set_accept_focus")]
+    #[doc(alias = "accept-focus")]
     fn set_accept_focus(&self, setting: bool) {
         unsafe {
             ffi::gtk_window_set_accept_focus(self.as_ref().to_glib_none().0, setting.into_glib());
@@ -1094,6 +1112,7 @@ pub trait GtkWindowExt: IsA<Window> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_window_set_application")]
+    #[doc(alias = "application")]
     fn set_application(&self, application: Option<&impl IsA<Application>>) {
         unsafe {
             ffi::gtk_window_set_application(
@@ -1104,6 +1123,7 @@ pub trait GtkWindowExt: IsA<Window> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_window_set_attached_to")]
+    #[doc(alias = "attached-to")]
     fn set_attached_to(&self, attach_widget: Option<&impl IsA<Widget>>) {
         unsafe {
             ffi::gtk_window_set_attached_to(
@@ -1114,6 +1134,7 @@ pub trait GtkWindowExt: IsA<Window> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_window_set_decorated")]
+    #[doc(alias = "decorated")]
     fn set_decorated(&self, setting: bool) {
         unsafe {
             ffi::gtk_window_set_decorated(self.as_ref().to_glib_none().0, setting.into_glib());
@@ -1138,6 +1159,7 @@ pub trait GtkWindowExt: IsA<Window> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_window_set_deletable")]
+    #[doc(alias = "deletable")]
     fn set_deletable(&self, setting: bool) {
         unsafe {
             ffi::gtk_window_set_deletable(self.as_ref().to_glib_none().0, setting.into_glib());
@@ -1145,6 +1167,7 @@ pub trait GtkWindowExt: IsA<Window> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_window_set_destroy_with_parent")]
+    #[doc(alias = "destroy-with-parent")]
     fn set_destroy_with_parent(&self, setting: bool) {
         unsafe {
             ffi::gtk_window_set_destroy_with_parent(
@@ -1165,6 +1188,7 @@ pub trait GtkWindowExt: IsA<Window> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_window_set_focus_on_map")]
+    #[doc(alias = "focus-on-map")]
     fn set_focus_on_map(&self, setting: bool) {
         unsafe {
             ffi::gtk_window_set_focus_on_map(self.as_ref().to_glib_none().0, setting.into_glib());
@@ -1172,6 +1196,7 @@ pub trait GtkWindowExt: IsA<Window> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_window_set_focus_visible")]
+    #[doc(alias = "focus-visible")]
     fn set_focus_visible(&self, setting: bool) {
         unsafe {
             ffi::gtk_window_set_focus_visible(self.as_ref().to_glib_none().0, setting.into_glib());
@@ -1196,6 +1221,7 @@ pub trait GtkWindowExt: IsA<Window> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_window_set_gravity")]
+    #[doc(alias = "gravity")]
     fn set_gravity(&self, gravity: gdk::Gravity) {
         unsafe {
             ffi::gtk_window_set_gravity(self.as_ref().to_glib_none().0, gravity.into_glib());
@@ -1213,6 +1239,7 @@ pub trait GtkWindowExt: IsA<Window> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_window_set_hide_titlebar_when_maximized")]
+    #[doc(alias = "hide-titlebar-when-maximized")]
     fn set_hide_titlebar_when_maximized(&self, setting: bool) {
         unsafe {
             ffi::gtk_window_set_hide_titlebar_when_maximized(
@@ -1223,6 +1250,7 @@ pub trait GtkWindowExt: IsA<Window> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_window_set_icon")]
+    #[doc(alias = "icon")]
     fn set_icon(&self, icon: Option<&gdk_pixbuf::Pixbuf>) {
         unsafe {
             ffi::gtk_window_set_icon(self.as_ref().to_glib_none().0, icon.to_glib_none().0);
@@ -1255,6 +1283,7 @@ pub trait GtkWindowExt: IsA<Window> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_window_set_icon_name")]
+    #[doc(alias = "icon-name")]
     fn set_icon_name(&self, name: Option<&str>) {
         unsafe {
             ffi::gtk_window_set_icon_name(self.as_ref().to_glib_none().0, name.to_glib_none().0);
@@ -1286,6 +1315,7 @@ pub trait GtkWindowExt: IsA<Window> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_window_set_mnemonics_visible")]
+    #[doc(alias = "mnemonics-visible")]
     fn set_mnemonics_visible(&self, setting: bool) {
         unsafe {
             ffi::gtk_window_set_mnemonics_visible(
@@ -1296,6 +1326,7 @@ pub trait GtkWindowExt: IsA<Window> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_window_set_modal")]
+    #[doc(alias = "modal")]
     fn set_modal(&self, modal: bool) {
         unsafe {
             ffi::gtk_window_set_modal(self.as_ref().to_glib_none().0, modal.into_glib());
@@ -1310,6 +1341,7 @@ pub trait GtkWindowExt: IsA<Window> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_window_set_resizable")]
+    #[doc(alias = "resizable")]
     fn set_resizable(&self, resizable: bool) {
         unsafe {
             ffi::gtk_window_set_resizable(self.as_ref().to_glib_none().0, resizable.into_glib());
@@ -1317,6 +1349,7 @@ pub trait GtkWindowExt: IsA<Window> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_window_set_role")]
+    #[doc(alias = "role")]
     fn set_role(&self, role: &str) {
         unsafe {
             ffi::gtk_window_set_role(self.as_ref().to_glib_none().0, role.to_glib_none().0);
@@ -1324,6 +1357,7 @@ pub trait GtkWindowExt: IsA<Window> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_window_set_screen")]
+    #[doc(alias = "screen")]
     fn set_screen(&self, screen: &gdk::Screen) {
         unsafe {
             ffi::gtk_window_set_screen(self.as_ref().to_glib_none().0, screen.to_glib_none().0);
@@ -1331,6 +1365,7 @@ pub trait GtkWindowExt: IsA<Window> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_window_set_skip_pager_hint")]
+    #[doc(alias = "skip-pager-hint")]
     fn set_skip_pager_hint(&self, setting: bool) {
         unsafe {
             ffi::gtk_window_set_skip_pager_hint(
@@ -1341,6 +1376,7 @@ pub trait GtkWindowExt: IsA<Window> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_window_set_skip_taskbar_hint")]
+    #[doc(alias = "skip-taskbar-hint")]
     fn set_skip_taskbar_hint(&self, setting: bool) {
         unsafe {
             ffi::gtk_window_set_skip_taskbar_hint(
@@ -1351,6 +1387,7 @@ pub trait GtkWindowExt: IsA<Window> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_window_set_startup_id")]
+    #[doc(alias = "startup-id")]
     fn set_startup_id(&self, startup_id: &str) {
         unsafe {
             ffi::gtk_window_set_startup_id(
@@ -1361,6 +1398,7 @@ pub trait GtkWindowExt: IsA<Window> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_window_set_title")]
+    #[doc(alias = "title")]
     fn set_title(&self, title: &str) {
         unsafe {
             ffi::gtk_window_set_title(self.as_ref().to_glib_none().0, title.to_glib_none().0);
@@ -1378,6 +1416,7 @@ pub trait GtkWindowExt: IsA<Window> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_window_set_transient_for")]
+    #[doc(alias = "transient-for")]
     fn set_transient_for(&self, parent: Option<&impl IsA<Window>>) {
         unsafe {
             ffi::gtk_window_set_transient_for(
@@ -1388,6 +1427,7 @@ pub trait GtkWindowExt: IsA<Window> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_window_set_type_hint")]
+    #[doc(alias = "type-hint")]
     fn set_type_hint(&self, hint: gdk::WindowTypeHint) {
         unsafe {
             ffi::gtk_window_set_type_hint(self.as_ref().to_glib_none().0, hint.into_glib());
@@ -1395,6 +1435,7 @@ pub trait GtkWindowExt: IsA<Window> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_window_set_urgency_hint")]
+    #[doc(alias = "urgency-hint")]
     fn set_urgency_hint(&self, setting: bool) {
         unsafe {
             ffi::gtk_window_set_urgency_hint(self.as_ref().to_glib_none().0, setting.into_glib());
@@ -1470,15 +1511,17 @@ pub trait GtkWindowExt: IsA<Window> + sealed::Sealed + 'static {
             this: *mut ffi::GtkWindow,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Window::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Window::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"activate-default\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"activate-default".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     activate_default_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1496,15 +1539,17 @@ pub trait GtkWindowExt: IsA<Window> + sealed::Sealed + 'static {
             this: *mut ffi::GtkWindow,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Window::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Window::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"activate-focus\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"activate-focus".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     activate_focus_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1529,19 +1574,21 @@ pub trait GtkWindowExt: IsA<Window> + sealed::Sealed + 'static {
             toggle: glib::ffi::gboolean,
             f: glib::ffi::gpointer,
         ) -> glib::ffi::gboolean {
-            let f: &F = &*(f as *const F);
-            f(
-                Window::from_glib_borrow(this).unsafe_cast_ref(),
-                from_glib(toggle),
-            )
-            .into_glib()
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(
+                    Window::from_glib_borrow(this).unsafe_cast_ref(),
+                    from_glib(toggle),
+                )
+                .into_glib()
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"enable-debugging\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"enable-debugging".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     enable_debugging_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1559,15 +1606,17 @@ pub trait GtkWindowExt: IsA<Window> + sealed::Sealed + 'static {
             this: *mut ffi::GtkWindow,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Window::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Window::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"keys-changed\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"keys-changed".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     keys_changed_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1585,18 +1634,20 @@ pub trait GtkWindowExt: IsA<Window> + sealed::Sealed + 'static {
             widget: *mut ffi::GtkWidget,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(
-                Window::from_glib_borrow(this).unsafe_cast_ref(),
-                Option::<Widget>::from_glib_borrow(widget).as_ref().as_ref(),
-            )
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(
+                    Window::from_glib_borrow(this).unsafe_cast_ref(),
+                    Option::<Widget>::from_glib_borrow(widget).as_ref().as_ref(),
+                )
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"set-focus\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"set-focus".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     set_focus_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1611,15 +1662,17 @@ pub trait GtkWindowExt: IsA<Window> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Window::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Window::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::accept-focus\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::accept-focus".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_accept_focus_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1634,15 +1687,17 @@ pub trait GtkWindowExt: IsA<Window> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Window::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Window::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::application\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::application".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_application_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1657,15 +1712,17 @@ pub trait GtkWindowExt: IsA<Window> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Window::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Window::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::attached-to\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::attached-to".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_attached_to_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1680,15 +1737,17 @@ pub trait GtkWindowExt: IsA<Window> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Window::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Window::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::decorated\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::decorated".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_decorated_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1706,15 +1765,17 @@ pub trait GtkWindowExt: IsA<Window> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Window::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Window::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::default-height\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::default-height".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_default_height_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1732,15 +1793,17 @@ pub trait GtkWindowExt: IsA<Window> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Window::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Window::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::default-width\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::default-width".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_default_width_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1755,15 +1818,17 @@ pub trait GtkWindowExt: IsA<Window> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Window::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Window::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::deletable\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::deletable".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_deletable_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1781,15 +1846,17 @@ pub trait GtkWindowExt: IsA<Window> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Window::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Window::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::destroy-with-parent\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::destroy-with-parent".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_destroy_with_parent_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1804,15 +1871,17 @@ pub trait GtkWindowExt: IsA<Window> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Window::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Window::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::focus-on-map\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::focus-on-map".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_focus_on_map_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1830,15 +1899,17 @@ pub trait GtkWindowExt: IsA<Window> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Window::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Window::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::focus-visible\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::focus-visible".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_focus_visible_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1853,15 +1924,17 @@ pub trait GtkWindowExt: IsA<Window> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Window::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Window::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::gravity\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::gravity".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_gravity_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1879,15 +1952,17 @@ pub trait GtkWindowExt: IsA<Window> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Window::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Window::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::has-toplevel-focus\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::has-toplevel-focus".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_has_toplevel_focus_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1908,15 +1983,17 @@ pub trait GtkWindowExt: IsA<Window> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Window::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Window::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::hide-titlebar-when-maximized\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::hide-titlebar-when-maximized".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_hide_titlebar_when_maximized_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1931,15 +2008,17 @@ pub trait GtkWindowExt: IsA<Window> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Window::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Window::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::icon\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::icon".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_icon_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1954,15 +2033,17 @@ pub trait GtkWindowExt: IsA<Window> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Window::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Window::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::icon-name\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::icon-name".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_icon_name_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1977,15 +2058,17 @@ pub trait GtkWindowExt: IsA<Window> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Window::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Window::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::is-active\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::is-active".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_is_active_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -2000,15 +2083,17 @@ pub trait GtkWindowExt: IsA<Window> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Window::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Window::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::is-maximized\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::is-maximized".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_is_maximized_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -2026,15 +2111,17 @@ pub trait GtkWindowExt: IsA<Window> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Window::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Window::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::mnemonics-visible\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::mnemonics-visible".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_mnemonics_visible_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -2049,15 +2136,17 @@ pub trait GtkWindowExt: IsA<Window> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Window::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Window::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::modal\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::modal".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_modal_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -2072,15 +2161,17 @@ pub trait GtkWindowExt: IsA<Window> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Window::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Window::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::resizable\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::resizable".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_resizable_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -2095,15 +2186,17 @@ pub trait GtkWindowExt: IsA<Window> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Window::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Window::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::role\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::role".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_role_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -2118,15 +2211,17 @@ pub trait GtkWindowExt: IsA<Window> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Window::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Window::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::screen\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::screen".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_screen_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -2144,15 +2239,17 @@ pub trait GtkWindowExt: IsA<Window> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Window::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Window::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::skip-pager-hint\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::skip-pager-hint".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_skip_pager_hint_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -2170,15 +2267,17 @@ pub trait GtkWindowExt: IsA<Window> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Window::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Window::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::skip-taskbar-hint\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::skip-taskbar-hint".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_skip_taskbar_hint_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -2193,15 +2292,17 @@ pub trait GtkWindowExt: IsA<Window> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Window::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Window::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::startup-id\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::startup-id".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_startup_id_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -2216,15 +2317,17 @@ pub trait GtkWindowExt: IsA<Window> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Window::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Window::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::title\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::title".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_title_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -2242,15 +2345,17 @@ pub trait GtkWindowExt: IsA<Window> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Window::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Window::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::transient-for\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::transient-for".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_transient_for_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -2265,15 +2370,17 @@ pub trait GtkWindowExt: IsA<Window> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Window::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Window::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::type-hint\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::type-hint".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_type_hint_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -2288,15 +2395,17 @@ pub trait GtkWindowExt: IsA<Window> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Window::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Window::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::urgency-hint\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::urgency-hint".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_urgency_hint_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -2314,15 +2423,17 @@ pub trait GtkWindowExt: IsA<Window> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Window::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Window::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::window-position\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::window-position".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_window_position_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),

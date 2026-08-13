@@ -2,6 +2,8 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
+use crate::ffi;
+
 glib::wrapper! {
     #[doc(alias = "AtkUtil")]
     pub struct Util(Object<ffi::AtkUtil, ffi::AtkUtilClass>);

@@ -2,7 +2,7 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use crate::{Buildable, TreeDragDest, TreeDragSource, TreeIter, TreeModel, TreeSortable};
+use crate::{ffi, Buildable, TreeDragDest, TreeDragSource, TreeIter, TreeModel, TreeSortable};
 use glib::{prelude::*, translate::*};
 
 glib::wrapper! {
@@ -28,12 +28,7 @@ impl TreeStore {
     //}
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::IsA<super::TreeStore>> Sealed for T {}
-}
-
-pub trait TreeStoreExt: IsA<TreeStore> + sealed::Sealed + 'static {
+pub trait TreeStoreExt: IsA<TreeStore> + 'static {
     #[doc(alias = "gtk_tree_store_append")]
     fn append(&self, parent: Option<&TreeIter>) -> TreeIter {
         unsafe {

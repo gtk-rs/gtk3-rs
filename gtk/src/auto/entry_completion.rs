@@ -2,8 +2,9 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use crate::{Buildable, CellArea, CellLayout, TreeIter, TreeModel};
+use crate::{ffi, Buildable, CellArea, CellLayout, TreeIter, TreeModel};
 use glib::{
+    object::ObjectType as _,
     prelude::*,
     signal::{connect_raw, SignalHandlerId},
     translate::*,
@@ -136,16 +137,12 @@ impl EntryCompletionBuilder {
     /// Build the [`EntryCompletion`].
     #[must_use = "Building the object from the builder is usually expensive and is not expected to have side effects"]
     pub fn build(self) -> EntryCompletion {
+        assert_initialized_main_thread!();
         self.builder.build()
     }
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::IsA<super::EntryCompletion>> Sealed for T {}
-}
-
-pub trait EntryCompletionExt: IsA<EntryCompletion> + sealed::Sealed + 'static {
+pub trait EntryCompletionExt: IsA<EntryCompletion> + 'static {
     #[doc(alias = "gtk_entry_completion_complete")]
     fn complete(&self) {
         unsafe {
@@ -182,6 +179,7 @@ pub trait EntryCompletionExt: IsA<EntryCompletion> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_entry_completion_get_inline_completion")]
     #[doc(alias = "get_inline_completion")]
+    #[doc(alias = "inline-completion")]
     fn is_inline_completion(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_entry_completion_get_inline_completion(
@@ -192,6 +190,7 @@ pub trait EntryCompletionExt: IsA<EntryCompletion> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_entry_completion_get_inline_selection")]
     #[doc(alias = "get_inline_selection")]
+    #[doc(alias = "inline-selection")]
     fn is_inline_selection(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_entry_completion_get_inline_selection(
@@ -202,6 +201,7 @@ pub trait EntryCompletionExt: IsA<EntryCompletion> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_entry_completion_get_minimum_key_length")]
     #[doc(alias = "get_minimum_key_length")]
+    #[doc(alias = "minimum-key-length")]
     fn minimum_key_length(&self) -> i32 {
         unsafe { ffi::gtk_entry_completion_get_minimum_key_length(self.as_ref().to_glib_none().0) }
     }
@@ -218,6 +218,7 @@ pub trait EntryCompletionExt: IsA<EntryCompletion> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_entry_completion_get_popup_completion")]
     #[doc(alias = "get_popup_completion")]
+    #[doc(alias = "popup-completion")]
     fn is_popup_completion(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_entry_completion_get_popup_completion(
@@ -228,6 +229,7 @@ pub trait EntryCompletionExt: IsA<EntryCompletion> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_entry_completion_get_popup_set_width")]
     #[doc(alias = "get_popup_set_width")]
+    #[doc(alias = "popup-set-width")]
     fn is_popup_set_width(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_entry_completion_get_popup_set_width(
@@ -238,6 +240,7 @@ pub trait EntryCompletionExt: IsA<EntryCompletion> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_entry_completion_get_popup_single_match")]
     #[doc(alias = "get_popup_single_match")]
+    #[doc(alias = "popup-single-match")]
     fn is_popup_single_match(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_entry_completion_get_popup_single_match(
@@ -248,6 +251,7 @@ pub trait EntryCompletionExt: IsA<EntryCompletion> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_entry_completion_get_text_column")]
     #[doc(alias = "get_text_column")]
+    #[doc(alias = "text-column")]
     fn text_column(&self) -> i32 {
         unsafe { ffi::gtk_entry_completion_get_text_column(self.as_ref().to_glib_none().0) }
     }
@@ -282,6 +286,7 @@ pub trait EntryCompletionExt: IsA<EntryCompletion> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_entry_completion_set_inline_completion")]
+    #[doc(alias = "inline-completion")]
     fn set_inline_completion(&self, inline_completion: bool) {
         unsafe {
             ffi::gtk_entry_completion_set_inline_completion(
@@ -292,6 +297,7 @@ pub trait EntryCompletionExt: IsA<EntryCompletion> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_entry_completion_set_inline_selection")]
+    #[doc(alias = "inline-selection")]
     fn set_inline_selection(&self, inline_selection: bool) {
         unsafe {
             ffi::gtk_entry_completion_set_inline_selection(
@@ -308,15 +314,17 @@ pub trait EntryCompletionExt: IsA<EntryCompletion> + sealed::Sealed + 'static {
             P: Fn(&EntryCompletion, &str, &TreeIter) -> bool + 'static,
         >(
             completion: *mut ffi::GtkEntryCompletion,
-            key: *const libc::c_char,
+            key: *const std::ffi::c_char,
             iter: *mut ffi::GtkTreeIter,
             user_data: glib::ffi::gpointer,
         ) -> glib::ffi::gboolean {
-            let completion = from_glib_borrow(completion);
-            let key: Borrowed<glib::GString> = from_glib_borrow(key);
-            let iter = from_glib_borrow(iter);
-            let callback: &P = &*(user_data as *mut _);
-            (*callback)(&completion, key.as_str(), &iter).into_glib()
+            unsafe {
+                let completion = from_glib_borrow(completion);
+                let key: Borrowed<glib::GString> = from_glib_borrow(key);
+                let iter = from_glib_borrow(iter);
+                let callback = &*(user_data as *mut P);
+                (*callback)(&completion, key.as_str(), &iter).into_glib()
+            }
         }
         let func = Some(func_func::<P> as _);
         unsafe extern "C" fn func_notify_func<
@@ -324,7 +332,9 @@ pub trait EntryCompletionExt: IsA<EntryCompletion> + sealed::Sealed + 'static {
         >(
             data: glib::ffi::gpointer,
         ) {
-            let _callback: Box_<P> = Box_::from_raw(data as *mut _);
+            unsafe {
+                let _callback = Box_::from_raw(data as *mut P);
+            }
         }
         let destroy_call3 = Some(func_notify_func::<P> as _);
         let super_callback0: Box_<P> = func_data;
@@ -339,6 +349,7 @@ pub trait EntryCompletionExt: IsA<EntryCompletion> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_entry_completion_set_minimum_key_length")]
+    #[doc(alias = "minimum-key-length")]
     fn set_minimum_key_length(&self, length: i32) {
         unsafe {
             ffi::gtk_entry_completion_set_minimum_key_length(
@@ -349,6 +360,7 @@ pub trait EntryCompletionExt: IsA<EntryCompletion> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_entry_completion_set_model")]
+    #[doc(alias = "model")]
     fn set_model(&self, model: Option<&impl IsA<TreeModel>>) {
         unsafe {
             ffi::gtk_entry_completion_set_model(
@@ -359,6 +371,7 @@ pub trait EntryCompletionExt: IsA<EntryCompletion> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_entry_completion_set_popup_completion")]
+    #[doc(alias = "popup-completion")]
     fn set_popup_completion(&self, popup_completion: bool) {
         unsafe {
             ffi::gtk_entry_completion_set_popup_completion(
@@ -369,6 +382,7 @@ pub trait EntryCompletionExt: IsA<EntryCompletion> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_entry_completion_set_popup_set_width")]
+    #[doc(alias = "popup-set-width")]
     fn set_popup_set_width(&self, popup_set_width: bool) {
         unsafe {
             ffi::gtk_entry_completion_set_popup_set_width(
@@ -379,6 +393,7 @@ pub trait EntryCompletionExt: IsA<EntryCompletion> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_entry_completion_set_popup_single_match")]
+    #[doc(alias = "popup-single-match")]
     fn set_popup_single_match(&self, popup_single_match: bool) {
         unsafe {
             ffi::gtk_entry_completion_set_popup_single_match(
@@ -389,6 +404,7 @@ pub trait EntryCompletionExt: IsA<EntryCompletion> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_entry_completion_set_text_column")]
+    #[doc(alias = "text-column")]
     fn set_text_column(&self, column: i32) {
         unsafe {
             ffi::gtk_entry_completion_set_text_column(self.as_ref().to_glib_none().0, column);
@@ -407,21 +423,23 @@ pub trait EntryCompletionExt: IsA<EntryCompletion> + sealed::Sealed + 'static {
             F: Fn(&P, i32) + 'static,
         >(
             this: *mut ffi::GtkEntryCompletion,
-            index: libc::c_int,
+            index: std::ffi::c_int,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(
-                EntryCompletion::from_glib_borrow(this).unsafe_cast_ref(),
-                index,
-            )
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(
+                    EntryCompletion::from_glib_borrow(this).unsafe_cast_ref(),
+                    index,
+                )
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"action-activated\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"action-activated".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     action_activated_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -445,20 +463,22 @@ pub trait EntryCompletionExt: IsA<EntryCompletion> + sealed::Sealed + 'static {
             iter: *mut ffi::GtkTreeIter,
             f: glib::ffi::gpointer,
         ) -> glib::ffi::gboolean {
-            let f: &F = &*(f as *const F);
-            f(
-                EntryCompletion::from_glib_borrow(this).unsafe_cast_ref(),
-                &from_glib_borrow(model),
-                &from_glib_borrow(iter),
-            )
-            .into_glib()
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(
+                    EntryCompletion::from_glib_borrow(this).unsafe_cast_ref(),
+                    &from_glib_borrow(model),
+                    &from_glib_borrow(iter),
+                )
+                .into_glib()
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"cursor-on-match\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"cursor-on-match".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     cursor_on_match_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -476,22 +496,24 @@ pub trait EntryCompletionExt: IsA<EntryCompletion> + sealed::Sealed + 'static {
             F: Fn(&P, &str) -> glib::Propagation + 'static,
         >(
             this: *mut ffi::GtkEntryCompletion,
-            prefix: *mut libc::c_char,
+            prefix: *mut std::ffi::c_char,
             f: glib::ffi::gpointer,
         ) -> glib::ffi::gboolean {
-            let f: &F = &*(f as *const F);
-            f(
-                EntryCompletion::from_glib_borrow(this).unsafe_cast_ref(),
-                &glib::GString::from_glib_borrow(prefix),
-            )
-            .into_glib()
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(
+                    EntryCompletion::from_glib_borrow(this).unsafe_cast_ref(),
+                    &glib::GString::from_glib_borrow(prefix),
+                )
+                .into_glib()
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"insert-prefix\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"insert-prefix".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     insert_prefix_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -515,20 +537,22 @@ pub trait EntryCompletionExt: IsA<EntryCompletion> + sealed::Sealed + 'static {
             iter: *mut ffi::GtkTreeIter,
             f: glib::ffi::gpointer,
         ) -> glib::ffi::gboolean {
-            let f: &F = &*(f as *const F);
-            f(
-                EntryCompletion::from_glib_borrow(this).unsafe_cast_ref(),
-                &from_glib_borrow(model),
-                &from_glib_borrow(iter),
-            )
-            .into_glib()
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(
+                    EntryCompletion::from_glib_borrow(this).unsafe_cast_ref(),
+                    &from_glib_borrow(model),
+                    &from_glib_borrow(iter),
+                )
+                .into_glib()
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"match-selected\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"match-selected".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     match_selected_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -542,15 +566,17 @@ pub trait EntryCompletionExt: IsA<EntryCompletion> + sealed::Sealed + 'static {
             this: *mut ffi::GtkEntryCompletion,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(EntryCompletion::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(EntryCompletion::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"no-matches\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"no-matches".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     no_matches_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -568,15 +594,17 @@ pub trait EntryCompletionExt: IsA<EntryCompletion> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(EntryCompletion::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(EntryCompletion::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::inline-completion\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::inline-completion".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_inline_completion_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -594,15 +622,17 @@ pub trait EntryCompletionExt: IsA<EntryCompletion> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(EntryCompletion::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(EntryCompletion::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::inline-selection\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::inline-selection".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_inline_selection_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -620,15 +650,17 @@ pub trait EntryCompletionExt: IsA<EntryCompletion> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(EntryCompletion::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(EntryCompletion::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::minimum-key-length\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::minimum-key-length".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_minimum_key_length_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -646,15 +678,17 @@ pub trait EntryCompletionExt: IsA<EntryCompletion> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(EntryCompletion::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(EntryCompletion::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::model\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::model".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_model_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -672,15 +706,17 @@ pub trait EntryCompletionExt: IsA<EntryCompletion> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(EntryCompletion::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(EntryCompletion::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::popup-completion\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::popup-completion".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_popup_completion_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -698,15 +734,17 @@ pub trait EntryCompletionExt: IsA<EntryCompletion> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(EntryCompletion::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(EntryCompletion::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::popup-set-width\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::popup-set-width".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_popup_set_width_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -724,15 +762,17 @@ pub trait EntryCompletionExt: IsA<EntryCompletion> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(EntryCompletion::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(EntryCompletion::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::popup-single-match\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::popup-single-match".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_popup_single_match_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -750,15 +790,17 @@ pub trait EntryCompletionExt: IsA<EntryCompletion> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(EntryCompletion::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(EntryCompletion::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::text-column\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::text-column".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_text_column_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),

@@ -2,7 +2,9 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
+use crate::ffi;
 use glib::{
+    object::ObjectType as _,
     prelude::*,
     signal::{connect_raw, SignalHandlerId},
     translate::*,
@@ -22,12 +24,7 @@ impl ColorChooser {
     pub const NONE: Option<&'static ColorChooser> = None;
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::IsA<super::ColorChooser>> Sealed for T {}
-}
-
-pub trait ColorChooserExt: IsA<ColorChooser> + sealed::Sealed + 'static {
+pub trait ColorChooserExt: IsA<ColorChooser> + 'static {
     #[doc(alias = "gtk_color_chooser_get_rgba")]
     #[doc(alias = "get_rgba")]
     fn rgba(&self) -> gdk::RGBA {
@@ -43,6 +40,7 @@ pub trait ColorChooserExt: IsA<ColorChooser> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_color_chooser_get_use_alpha")]
     #[doc(alias = "get_use_alpha")]
+    #[doc(alias = "use-alpha")]
     fn uses_alpha(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_color_chooser_get_use_alpha(
@@ -52,6 +50,7 @@ pub trait ColorChooserExt: IsA<ColorChooser> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_color_chooser_set_rgba")]
+    #[doc(alias = "rgba")]
     fn set_rgba(&self, color: &gdk::RGBA) {
         unsafe {
             ffi::gtk_color_chooser_set_rgba(self.as_ref().to_glib_none().0, color.to_glib_none().0);
@@ -59,6 +58,7 @@ pub trait ColorChooserExt: IsA<ColorChooser> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_color_chooser_set_use_alpha")]
+    #[doc(alias = "use-alpha")]
     fn set_use_alpha(&self, use_alpha: bool) {
         unsafe {
             ffi::gtk_color_chooser_set_use_alpha(
@@ -78,18 +78,20 @@ pub trait ColorChooserExt: IsA<ColorChooser> + sealed::Sealed + 'static {
             color: *mut gdk::ffi::GdkRGBA,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(
-                ColorChooser::from_glib_borrow(this).unsafe_cast_ref(),
-                &from_glib_borrow(color),
-            )
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(
+                    ColorChooser::from_glib_borrow(this).unsafe_cast_ref(),
+                    &from_glib_borrow(color),
+                )
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"color-activated\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"color-activated".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     color_activated_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -104,15 +106,17 @@ pub trait ColorChooserExt: IsA<ColorChooser> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(ColorChooser::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(ColorChooser::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::rgba\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::rgba".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_rgba_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -130,15 +134,17 @@ pub trait ColorChooserExt: IsA<ColorChooser> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(ColorChooser::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(ColorChooser::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::use-alpha\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::use-alpha".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_use_alpha_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),

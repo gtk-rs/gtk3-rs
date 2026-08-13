@@ -24,6 +24,7 @@ v2_34 = ["v2_32", "ffi/v2_34"]
 v2_38 = ["v2_34", "ffi/v2_38"]
 v2_46 = ["v2_38", "ffi/v2_46"]
 v2_50 = ["v2_46", "ffi/v2_50"]
+v2_52 = ["v2_50", "ffi/v2_52"]
 
 [package.metadata.docs.rs]
 rustdoc-args = ["--cfg", "docsrs", "--generate-link-to-definition"]

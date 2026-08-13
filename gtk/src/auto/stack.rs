@@ -2,7 +2,7 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use crate::{Align, Buildable, Container, ResizeMode, StackTransitionType, Widget};
+use crate::{ffi, Align, Buildable, Container, ResizeMode, StackTransitionType, Widget};
 use glib::{
     prelude::*,
     signal::{connect_raw, SignalHandlerId},
@@ -329,16 +329,12 @@ impl StackBuilder {
     /// Build the [`Stack`].
     #[must_use = "Building the object from the builder is usually expensive and is not expected to have side effects"]
     pub fn build(self) -> Stack {
+        assert_initialized_main_thread!();
         self.builder.build()
     }
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::IsA<super::Stack>> Sealed for T {}
-}
-
-pub trait StackExt: IsA<Stack> + sealed::Sealed + 'static {
+pub trait StackExt: IsA<Stack> + 'static {
     #[doc(alias = "gtk_stack_add_named")]
     fn add_named(&self, child: &impl IsA<Widget>, name: &str) {
         unsafe {
@@ -375,6 +371,7 @@ pub trait StackExt: IsA<Stack> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_stack_get_hhomogeneous")]
     #[doc(alias = "get_hhomogeneous")]
+    #[doc(alias = "hhomogeneous")]
     fn is_hhomogeneous(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_stack_get_hhomogeneous(
@@ -385,6 +382,7 @@ pub trait StackExt: IsA<Stack> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_stack_get_homogeneous")]
     #[doc(alias = "get_homogeneous")]
+    #[doc(alias = "homogeneous")]
     fn is_homogeneous(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_stack_get_homogeneous(
@@ -395,6 +393,7 @@ pub trait StackExt: IsA<Stack> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_stack_get_interpolate_size")]
     #[doc(alias = "get_interpolate_size")]
+    #[doc(alias = "interpolate-size")]
     fn interpolates_size(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_stack_get_interpolate_size(
@@ -405,12 +404,14 @@ pub trait StackExt: IsA<Stack> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_stack_get_transition_duration")]
     #[doc(alias = "get_transition_duration")]
+    #[doc(alias = "transition-duration")]
     fn transition_duration(&self) -> u32 {
         unsafe { ffi::gtk_stack_get_transition_duration(self.as_ref().to_glib_none().0) }
     }
 
     #[doc(alias = "gtk_stack_get_transition_running")]
     #[doc(alias = "get_transition_running")]
+    #[doc(alias = "transition-running")]
     fn is_transition_running(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_stack_get_transition_running(
@@ -421,6 +422,7 @@ pub trait StackExt: IsA<Stack> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_stack_get_transition_type")]
     #[doc(alias = "get_transition_type")]
+    #[doc(alias = "transition-type")]
     fn transition_type(&self) -> StackTransitionType {
         unsafe {
             from_glib(ffi::gtk_stack_get_transition_type(
@@ -431,6 +433,7 @@ pub trait StackExt: IsA<Stack> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_stack_get_vhomogeneous")]
     #[doc(alias = "get_vhomogeneous")]
+    #[doc(alias = "vhomogeneous")]
     fn is_vhomogeneous(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_stack_get_vhomogeneous(
@@ -441,6 +444,7 @@ pub trait StackExt: IsA<Stack> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_stack_get_visible_child")]
     #[doc(alias = "get_visible_child")]
+    #[doc(alias = "visible-child")]
     fn visible_child(&self) -> Option<Widget> {
         unsafe {
             from_glib_none(ffi::gtk_stack_get_visible_child(
@@ -451,6 +455,7 @@ pub trait StackExt: IsA<Stack> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_stack_get_visible_child_name")]
     #[doc(alias = "get_visible_child_name")]
+    #[doc(alias = "visible-child-name")]
     fn visible_child_name(&self) -> Option<glib::GString> {
         unsafe {
             from_glib_none(ffi::gtk_stack_get_visible_child_name(
@@ -460,6 +465,7 @@ pub trait StackExt: IsA<Stack> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_stack_set_hhomogeneous")]
+    #[doc(alias = "hhomogeneous")]
     fn set_hhomogeneous(&self, hhomogeneous: bool) {
         unsafe {
             ffi::gtk_stack_set_hhomogeneous(
@@ -470,6 +476,7 @@ pub trait StackExt: IsA<Stack> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_stack_set_homogeneous")]
+    #[doc(alias = "homogeneous")]
     fn set_homogeneous(&self, homogeneous: bool) {
         unsafe {
             ffi::gtk_stack_set_homogeneous(self.as_ref().to_glib_none().0, homogeneous.into_glib());
@@ -477,6 +484,7 @@ pub trait StackExt: IsA<Stack> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_stack_set_interpolate_size")]
+    #[doc(alias = "interpolate-size")]
     fn set_interpolate_size(&self, interpolate_size: bool) {
         unsafe {
             ffi::gtk_stack_set_interpolate_size(
@@ -487,6 +495,7 @@ pub trait StackExt: IsA<Stack> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_stack_set_transition_duration")]
+    #[doc(alias = "transition-duration")]
     fn set_transition_duration(&self, duration: u32) {
         unsafe {
             ffi::gtk_stack_set_transition_duration(self.as_ref().to_glib_none().0, duration);
@@ -494,6 +503,7 @@ pub trait StackExt: IsA<Stack> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_stack_set_transition_type")]
+    #[doc(alias = "transition-type")]
     fn set_transition_type(&self, transition: StackTransitionType) {
         unsafe {
             ffi::gtk_stack_set_transition_type(
@@ -504,6 +514,7 @@ pub trait StackExt: IsA<Stack> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_stack_set_vhomogeneous")]
+    #[doc(alias = "vhomogeneous")]
     fn set_vhomogeneous(&self, vhomogeneous: bool) {
         unsafe {
             ffi::gtk_stack_set_vhomogeneous(
@@ -514,6 +525,7 @@ pub trait StackExt: IsA<Stack> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_stack_set_visible_child")]
+    #[doc(alias = "visible-child")]
     fn set_visible_child(&self, child: &impl IsA<Widget>) {
         unsafe {
             ffi::gtk_stack_set_visible_child(
@@ -535,6 +547,7 @@ pub trait StackExt: IsA<Stack> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_stack_set_visible_child_name")]
+    #[doc(alias = "visible-child-name")]
     fn set_visible_child_name(&self, name: &str) {
         unsafe {
             ffi::gtk_stack_set_visible_child_name(
@@ -640,15 +653,17 @@ pub trait StackExt: IsA<Stack> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Stack::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Stack::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::hhomogeneous\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::hhomogeneous".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_hhomogeneous_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -663,15 +678,17 @@ pub trait StackExt: IsA<Stack> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Stack::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Stack::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::homogeneous\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::homogeneous".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_homogeneous_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -689,15 +706,17 @@ pub trait StackExt: IsA<Stack> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Stack::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Stack::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::interpolate-size\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::interpolate-size".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_interpolate_size_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -715,15 +734,17 @@ pub trait StackExt: IsA<Stack> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Stack::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Stack::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::transition-duration\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::transition-duration".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_transition_duration_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -741,15 +762,17 @@ pub trait StackExt: IsA<Stack> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Stack::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Stack::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::transition-running\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::transition-running".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_transition_running_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -767,15 +790,17 @@ pub trait StackExt: IsA<Stack> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Stack::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Stack::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::transition-type\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::transition-type".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_transition_type_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -790,15 +815,17 @@ pub trait StackExt: IsA<Stack> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Stack::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Stack::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::vhomogeneous\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::vhomogeneous".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_vhomogeneous_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -813,15 +840,17 @@ pub trait StackExt: IsA<Stack> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Stack::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Stack::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::visible-child\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::visible-child".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_visible_child_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -839,15 +868,17 @@ pub trait StackExt: IsA<Stack> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Stack::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Stack::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::visible-child-name\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::visible-child-name".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_visible_child_name_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),

@@ -3,10 +3,11 @@
 // DO NOT EDIT
 
 use crate::{
-    Align, Bin, Buildable, Container, IconSize, Orientation, ReliefStyle, ResizeMode, SizeGroup,
-    ToolbarStyle, Widget,
+    ffi, Align, Bin, Buildable, Container, IconSize, Orientation, ReliefStyle, ResizeMode,
+    SizeGroup, ToolbarStyle, Widget,
 };
 use glib::{
+    object::ObjectType as _,
     prelude::*,
     signal::{connect_raw, SignalHandlerId},
     translate::*,
@@ -298,16 +299,12 @@ impl ToolItemBuilder {
     /// Build the [`ToolItem`].
     #[must_use = "Building the object from the builder is usually expensive and is not expected to have side effects"]
     pub fn build(self) -> ToolItem {
+        assert_initialized_main_thread!();
         self.builder.build()
     }
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::IsA<super::ToolItem>> Sealed for T {}
-}
-
-pub trait ToolItemExt: IsA<ToolItem> + sealed::Sealed + 'static {
+pub trait ToolItemExt: IsA<ToolItem> + 'static {
     #[doc(alias = "gtk_tool_item_get_ellipsize_mode")]
     #[doc(alias = "get_ellipsize_mode")]
     fn ellipsize_mode(&self) -> pango::EllipsizeMode {
@@ -350,6 +347,7 @@ pub trait ToolItemExt: IsA<ToolItem> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_tool_item_get_is_important")]
     #[doc(alias = "get_is_important")]
+    #[doc(alias = "is-important")]
     fn is_important(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_tool_item_get_is_important(
@@ -437,6 +435,7 @@ pub trait ToolItemExt: IsA<ToolItem> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_tool_item_get_visible_horizontal")]
     #[doc(alias = "get_visible_horizontal")]
+    #[doc(alias = "visible-horizontal")]
     fn is_visible_horizontal(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_tool_item_get_visible_horizontal(
@@ -447,6 +446,7 @@ pub trait ToolItemExt: IsA<ToolItem> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_tool_item_get_visible_vertical")]
     #[doc(alias = "get_visible_vertical")]
+    #[doc(alias = "visible-vertical")]
     fn is_visible_vertical(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_tool_item_get_visible_vertical(
@@ -489,6 +489,7 @@ pub trait ToolItemExt: IsA<ToolItem> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_tool_item_set_is_important")]
+    #[doc(alias = "is-important")]
     fn set_is_important(&self, is_important: bool) {
         unsafe {
             ffi::gtk_tool_item_set_is_important(
@@ -540,6 +541,7 @@ pub trait ToolItemExt: IsA<ToolItem> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_tool_item_set_visible_horizontal")]
+    #[doc(alias = "visible-horizontal")]
     fn set_visible_horizontal(&self, visible_horizontal: bool) {
         unsafe {
             ffi::gtk_tool_item_set_visible_horizontal(
@@ -550,6 +552,7 @@ pub trait ToolItemExt: IsA<ToolItem> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_tool_item_set_visible_vertical")]
+    #[doc(alias = "visible-vertical")]
     fn set_visible_vertical(&self, visible_vertical: bool) {
         unsafe {
             ffi::gtk_tool_item_set_visible_vertical(
@@ -578,15 +581,17 @@ pub trait ToolItemExt: IsA<ToolItem> + sealed::Sealed + 'static {
             this: *mut ffi::GtkToolItem,
             f: glib::ffi::gpointer,
         ) -> glib::ffi::gboolean {
-            let f: &F = &*(f as *const F);
-            f(ToolItem::from_glib_borrow(this).unsafe_cast_ref()).into_glib()
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(ToolItem::from_glib_borrow(this).unsafe_cast_ref()).into_glib()
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"create-menu-proxy\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"create-menu-proxy".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     create_menu_proxy_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -603,15 +608,17 @@ pub trait ToolItemExt: IsA<ToolItem> + sealed::Sealed + 'static {
             this: *mut ffi::GtkToolItem,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(ToolItem::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(ToolItem::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"toolbar-reconfigured\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"toolbar-reconfigured".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     toolbar_reconfigured_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -629,15 +636,17 @@ pub trait ToolItemExt: IsA<ToolItem> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(ToolItem::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(ToolItem::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::is-important\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::is-important".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_is_important_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -655,15 +664,17 @@ pub trait ToolItemExt: IsA<ToolItem> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(ToolItem::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(ToolItem::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::visible-horizontal\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::visible-horizontal".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_visible_horizontal_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -681,15 +692,17 @@ pub trait ToolItemExt: IsA<ToolItem> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(ToolItem::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(ToolItem::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::visible-vertical\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::visible-vertical".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_visible_vertical_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),

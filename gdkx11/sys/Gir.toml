@@ -14,9 +14,3 @@ external_libraries = [
 
 ignore = [
 ]
-
-[[feature_dependencies]]
-version = "3.24.2"
-dependencies = [
-    "cairo"
-]

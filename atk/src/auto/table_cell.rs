@@ -2,7 +2,7 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use crate::Object;
+use crate::{ffi, Object};
 use glib::{prelude::*, translate::*};
 
 glib::wrapper! {
@@ -18,12 +18,7 @@ impl TableCell {
     pub const NONE: Option<&'static TableCell> = None;
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::IsA<super::TableCell>> Sealed for T {}
-}
-
-pub trait TableCellExt: IsA<TableCell> + sealed::Sealed + 'static {
+pub trait TableCellExt: IsA<TableCell> + 'static {
     #[doc(alias = "atk_table_cell_get_column_header_cells")]
     #[doc(alias = "get_column_header_cells")]
     fn column_header_cells(&self) -> Vec<Object> {
