@@ -4,7 +4,7 @@ use std::cell::Cell;
 use std::sync::atomic::{AtomicBool, Ordering};
 
 thread_local! {
-    static IS_MAIN_THREAD: Cell<bool> = Cell::new(false)
+    static IS_MAIN_THREAD: Cell<bool> = const { Cell::new(false) }
 }
 
 static INITIALIZED: AtomicBool = AtomicBool::new(false);

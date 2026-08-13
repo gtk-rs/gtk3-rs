@@ -144,6 +144,7 @@ pub use crate::app_chooser::AppChooser;
 pub use crate::border::Border;
 pub use crate::entry_buffer::EntryBuffer;
 pub use crate::file_filter_info::FileFilterInfo;
+pub use crate::message_dialog::MessageDialogExt;
 pub use crate::page_range::PageRange;
 pub use crate::recent_data::RecentData;
 pub use crate::requisition::Requisition;

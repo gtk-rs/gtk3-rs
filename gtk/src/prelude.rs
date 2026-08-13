@@ -6,14 +6,6 @@
 pub use atk::prelude::*;
 #[doc(hidden)]
 pub use gdk::prelude::*;
-#[doc(hidden)]
-pub use gdk_pixbuf::prelude::*;
-#[doc(hidden)]
-pub use gio::prelude::*;
-#[doc(hidden)]
-pub use glib::prelude::*;
-#[doc(hidden)]
-pub use pango::prelude::*;
 
 pub use crate::auto::traits::*;
 

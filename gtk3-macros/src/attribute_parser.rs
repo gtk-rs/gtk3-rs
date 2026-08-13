@@ -1,12 +1,11 @@
 // Take a look at the license at the top of the repository in the LICENSE file.
 
-use proc_macro2::Span;
 use syn::spanned::Spanned;
 use syn::{
     parse::{Error, Parse, ParseStream},
     punctuated::Punctuated,
 };
-use syn::{Attribute, DeriveInput, Field, Fields, Ident, LitStr, Meta, Token, Type};
+use syn::{Attribute, DeriveInput, Field, Fields, Ident, LitStr, Meta, Token};
 
 mod kw {
     syn::custom_keyword!(file);
@@ -106,13 +105,10 @@ pub enum FieldAttributeType {
 pub struct FieldAttribute {
     pub ty: FieldAttributeType,
     pub args: Vec<FieldAttributeArg>,
-    pub path_span: Span,
-    pub span: Span,
 }
 
 pub struct AttributedField {
     pub ident: Ident,
-    pub ty: Type,
     pub attr: FieldAttribute,
 }
 
@@ -155,12 +151,10 @@ fn parse_field(field: &Field) -> Result<Option<AttributedField>, Error> {
         None => return Err(Error::new(field.span(), "expected identifier")),
     };
 
-    let ty = &field.ty;
     let mut attr = None;
 
     for field_attr in field_attrs {
         let span = field_attr.span();
-        let path_span = field_attr.path().span();
         let ty = if field_attr.path().is_ident("template_child") {
             Some(FieldAttributeType::TemplateChild)
         } else {
@@ -171,12 +165,7 @@ fn parse_field(field: &Field) -> Result<Option<AttributedField>, Error> {
             let args = parse_field_attr_args(field_attr)?;
 
             if attr.is_none() {
-                attr = Some(FieldAttribute {
-                    ty,
-                    args,
-                    path_span,
-                    span,
-                })
+                attr = Some(FieldAttribute { ty, args })
             } else {
                 return Err(Error::new(
                     span,
@@ -189,7 +178,6 @@ fn parse_field(field: &Field) -> Result<Option<AttributedField>, Error> {
     if let Some(attr) = attr {
         Ok(Some(AttributedField {
             ident: ident.clone(),
-            ty: ty.clone(),
             attr,
         }))
     } else {

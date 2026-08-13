@@ -40,9 +40,9 @@ pub trait GtkListStoreExtManual: IsA<ListStore> + sealed::Sealed + 'static {
     ) -> TreeIter {
         unsafe {
             assert!(
-                position.unwrap_or(0) <= i32::max_value() as u32,
+                position.unwrap_or(0) <= i32::MAX as u32,
                 "can't have more than {} rows",
-                i32::max_value()
+                i32::MAX
             );
             let n_columns = ffi::gtk_tree_model_get_n_columns(
                 self.as_ref().upcast_ref::<TreeModel>().to_glib_none().0,
@@ -106,7 +106,7 @@ pub trait GtkListStoreExtManual: IsA<ListStore> + sealed::Sealed + 'static {
                 "Incorrect `new_order` slice length. Expected `{count}`, found `{}`.",
                 new_order.len()
             );
-            let safe_values = new_order.iter().max().map_or(true, |&max| {
+            let safe_values = new_order.iter().max().is_none_or(|&max| {
                 let max = max as i32;
                 max >= 0 && max < count
             });

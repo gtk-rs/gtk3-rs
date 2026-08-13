@@ -31,21 +31,19 @@ pub trait FileChooserExtManual: IsA<FileChooser> + sealed::Sealed + 'static {
                 stashes_ids
                     .iter()
                     .map(|o| o.0)
-                    .collect::<Vec<*const libc::c_char>>()
-                    .as_ptr(),
+                    .collect::<Vec<*const libc::c_char>>(),
                 stashes_labels
                     .iter()
                     .map(|o| o.0)
-                    .collect::<Vec<*const libc::c_char>>()
-                    .as_ptr(),
+                    .collect::<Vec<*const libc::c_char>>(),
             );
 
             ffi::gtk_file_chooser_add_choice(
                 self.as_ref().to_glib_none().0,
                 id.to_glib_none().0,
                 label.to_glib_none().0,
-                mut_override(options_ids),
-                mut_override(options_labels),
+                mut_override(options_ids.as_ptr()),
+                mut_override(options_labels.as_ptr()),
             );
         }
     }

@@ -12,7 +12,7 @@ struct Ui {
 
 // Declare a new thread local storage key
 thread_local!(
-    static GLOBAL: RefCell<Option<Ui>> = RefCell::new(None)
+    static GLOBAL: RefCell<Option<Ui>> = const { RefCell::new(None) }
 );
 
 fn build_ui(application: &gtk::Application) {

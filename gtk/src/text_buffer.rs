@@ -52,8 +52,8 @@ pub trait TextBufferExtManual: IsA<TextBuffer> + sealed::Sealed + 'static {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"apply-tag\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                c"apply-tag".as_ptr() as *const _,
+                Some(transmute::<*const (), unsafe extern "C" fn()>(
                     apply_tag_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -93,8 +93,8 @@ pub trait TextBufferExtManual: IsA<TextBuffer> + sealed::Sealed + 'static {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"delete-range\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                c"delete-range".as_ptr() as *const _,
+                Some(transmute::<*const (), unsafe extern "C" fn()>(
                     delete_range_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -132,8 +132,8 @@ pub trait TextBufferExtManual: IsA<TextBuffer> + sealed::Sealed + 'static {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"insert-child-anchor\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                c"insert-child-anchor".as_ptr() as *const _,
+                Some(transmute::<*const (), unsafe extern "C" fn()>(
                     insert_child_anchor_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -171,8 +171,8 @@ pub trait TextBufferExtManual: IsA<TextBuffer> + sealed::Sealed + 'static {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"insert-pixbuf\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                c"insert-pixbuf".as_ptr() as *const _,
+                Some(transmute::<*const (), unsafe extern "C" fn()>(
                     insert_pixbuf_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -214,8 +214,8 @@ pub trait TextBufferExtManual: IsA<TextBuffer> + sealed::Sealed + 'static {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.to_glib_none().0 as *mut _,
-                b"insert-text\0".as_ptr() as *mut _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                c"insert-text".as_ptr() as *mut _,
+                Some(transmute::<*const (), unsafe extern "C" fn()>(
                     insert_text_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -257,8 +257,8 @@ pub trait TextBufferExtManual: IsA<TextBuffer> + sealed::Sealed + 'static {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"remove-tag\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                c"remove-tag".as_ptr() as *const _,
+                Some(transmute::<*const (), unsafe extern "C" fn()>(
                     remove_tag_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),

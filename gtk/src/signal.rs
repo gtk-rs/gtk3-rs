@@ -39,8 +39,8 @@ mod editable {
                 let f: Box<F> = Box::new(changed_func);
                 connect_raw(
                     self.to_glib_none().0 as *mut _,
-                    b"changed\0".as_ptr() as *mut _,
-                    Some(transmute::<_, unsafe extern "C" fn()>(
+                    c"changed".as_ptr() as *mut _,
+                    Some(transmute::<*const (), unsafe extern "C" fn()>(
                         trampoline::<Self, F> as *const (),
                     )),
                     Box::into_raw(f),
@@ -56,8 +56,8 @@ mod editable {
                 let f: Box<F> = Box::new(delete_text_func);
                 connect_raw(
                     self.to_glib_none().0 as *mut _,
-                    b"delete-text\0".as_ptr() as *mut _,
-                    Some(transmute::<_, unsafe extern "C" fn()>(
+                    c"delete-text".as_ptr() as *mut _,
+                    Some(transmute::<*const (), unsafe extern "C" fn()>(
                         delete_trampoline::<Self, F> as *const (),
                     )),
                     Box::into_raw(f),
@@ -73,8 +73,8 @@ mod editable {
                 let f: Box<F> = Box::new(insert_text_func);
                 connect_raw(
                     self.to_glib_none().0 as *mut _,
-                    b"insert-text\0".as_ptr() as *mut _,
-                    Some(transmute::<_, unsafe extern "C" fn()>(
+                    c"insert-text".as_ptr() as *mut _,
+                    Some(transmute::<*const (), unsafe extern "C" fn()>(
                         insert_trampoline::<Self, F> as *const (),
                     )),
                     Box::into_raw(f),
@@ -172,8 +172,8 @@ mod spin_button {
                 let f: Box<F> = Box::new(change_value_func);
                 connect_raw(
                     self.to_glib_none().0 as *mut _,
-                    b"change_value\0".as_ptr() as *mut _,
-                    Some(transmute::<_, unsafe extern "C" fn()>(
+                    c"change_value".as_ptr() as *mut _,
+                    Some(transmute::<*const (), unsafe extern "C" fn()>(
                         change_trampoline::<Self, F> as *const (),
                     )),
                     Box::into_raw(f),
@@ -189,8 +189,8 @@ mod spin_button {
                 let f: Box_<F> = Box_::new(f);
                 connect_raw(
                     self.to_glib_none().0 as *mut _,
-                    b"input\0".as_ptr() as *mut _,
-                    Some(transmute::<_, unsafe extern "C" fn()>(
+                    c"input".as_ptr() as *mut _,
+                    Some(transmute::<*const (), unsafe extern "C" fn()>(
                         input_trampoline::<Self, F> as *const (),
                     )),
                     Box_::into_raw(f),
@@ -206,8 +206,8 @@ mod spin_button {
                 let f: Box<F> = Box::new(output_func);
                 connect_raw(
                     self.to_glib_none().0 as *mut _,
-                    b"output\0".as_ptr() as *mut _,
-                    Some(transmute::<_, unsafe extern "C" fn()>(
+                    c"output".as_ptr() as *mut _,
+                    Some(transmute::<*const (), unsafe extern "C" fn()>(
                         output_trampoline::<Self, F> as *const (),
                     )),
                     Box::into_raw(f),
@@ -223,8 +223,8 @@ mod spin_button {
                 let f: Box<F> = Box::new(value_changed_func);
                 connect_raw(
                     self.to_glib_none().0 as *mut _,
-                    b"value-changed\0".as_ptr() as *mut _,
-                    Some(transmute::<_, unsafe extern "C" fn()>(
+                    c"value-changed".as_ptr() as *mut _,
+                    Some(transmute::<*const (), unsafe extern "C" fn()>(
                         trampoline::<Self, F> as *const (),
                     )),
                     Box::into_raw(f),
@@ -240,8 +240,8 @@ mod spin_button {
                 let f: Box<F> = Box::new(wrapped_func);
                 connect_raw(
                     self.to_glib_none().0 as *mut _,
-                    b"wrapped\0".as_ptr() as *mut _,
-                    Some(transmute::<_, unsafe extern "C" fn()>(
+                    c"wrapped".as_ptr() as *mut _,
+                    Some(transmute::<*const (), unsafe extern "C" fn()>(
                         trampoline::<Self, F> as *const (),
                     )),
                     Box::into_raw(f),
@@ -328,8 +328,8 @@ mod overlay {
                 let f: Box<F> = Box::new(f);
                 connect_raw(
                     self.to_glib_none().0 as *mut _,
-                    b"get-child-position\0".as_ptr() as *mut _,
-                    Some(transmute::<_, unsafe extern "C" fn()>(
+                    c"get-child-position".as_ptr() as *mut _,
+                    Some(transmute::<*const (), unsafe extern "C" fn()>(
                         child_position_trampoline::<Self, F> as *const (),
                     )),
                     Box::into_raw(f),

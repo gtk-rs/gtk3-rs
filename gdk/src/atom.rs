@@ -9,7 +9,9 @@ use std::ptr;
 #[doc(alias = "GdkAtom")]
 pub struct Atom(ffi::GdkAtom);
 
+#[allow(clippy::zero_ptr)]
 pub const NONE: Atom = Atom(0 as *mut _);
+#[allow(clippy::manual_dangling_ptr)]
 pub const SELECTION_PRIMARY: Atom = Atom(1 as *mut _);
 pub const SELECTION_SECONDARY: Atom = Atom(2 as *mut _);
 pub const SELECTION_CLIPBOARD: Atom = Atom(69 as *mut _);
