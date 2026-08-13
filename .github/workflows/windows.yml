@@ -28,7 +28,7 @@ jobs:
         run: mkdir C:\gtk-build\gtk\x64\release
 
       - name: (GTK binaries) get from cache
-        uses: actions/cache@v2
+        uses: actions/cache@v6
         id: cache
         with:
           path: C:\gtk-build\gtk\x64\release\**
@@ -36,7 +36,7 @@ jobs:
 
       - name: (GTK binaries) checkout gvsbuild
         if: steps.cache.outputs.cache-hit != 'true'
-        uses: actions/checkout@v2
+        uses: actions/checkout@v7
         with:
           repository: wingtk/gvsbuild
           ref: ${{ env.gvsbuildref }}
@@ -91,7 +91,7 @@ jobs:
         run: mkdir C:\gtk-build\gtk\x64\release
 
       - name: Get GTK binaries from cache
-        uses: actions/cache@v2
+        uses: actions/cache@v6
         id: cache
         with:
           path: C:\gtk-build\gtk\x64\release\**
@@ -103,7 +103,7 @@ jobs:
           echo "C:\gtk-build\gtk\x64\release\bin" >> $GITHUB_PATH
         shell: bash
 
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v7
 
       - uses: actions-rs/toolchain@v1
         with:

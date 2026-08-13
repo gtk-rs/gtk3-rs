@@ -22,7 +22,7 @@ jobs:
         0.14=0.14
       RUSTFLAGS: --cfg docsrs
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v7
         with:
           submodules: recursive
           set-safe-directory: true
@@ -65,7 +65,7 @@ jobs:
 
       - name: deploy
         if: ${{ (github.event_name == 'push' && github.ref == 'refs/heads/master') || github.event_name == 'release' }}
-        uses: peaceiris/actions-gh-pages@v3
+        uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./target/doc/
@@ -74,7 +74,7 @@ jobs:
 
       - run: python3 ./gir-rustdoc/gir-rustdoc.py --project-title 'GTK 3 Rust bindings' html-index
       - name: deploy index page
-        uses: peaceiris/actions-gh-pages@v3
+        uses: peaceiris/actions-gh-pages@v4
         if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}

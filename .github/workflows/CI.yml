@@ -26,12 +26,12 @@ jobs:
           - { name: "gdkwayland", features: "v3_24", test_sys: false }
           - { name: "gtk", features: "v3_24_9", test_sys: false }
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v7
       - uses: actions-rs/toolchain@v1
         with:
           toolchain: ${{ matrix.rust }}
           override: true
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v7
         with:
           repository: gtk-rs/checker
           ref: master
@@ -99,7 +99,7 @@ jobs:
           - nightly
           - "1.92"
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v7
       - uses: actions-rs/toolchain@v1
         with:
           toolchain: ${{ matrix.rust }}
@@ -119,7 +119,7 @@ jobs:
     name: rust fmt
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v7
       - uses: actions-rs/toolchain@v1
         with:
           profile: minimal
@@ -135,7 +135,7 @@ jobs:
     name: regen check
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v7
         with:
           submodules: recursive
           set-safe-directory: true
