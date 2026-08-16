@@ -3,9 +3,11 @@
 // DO NOT EDIT
 
 use crate::{
-    AccelGroup, Align, Buildable, Container, MenuItem, MenuShell, ResizeMode, ScrollType, Widget,
+    ffi, AccelGroup, Align, Buildable, Container, MenuItem, MenuShell, ResizeMode, ScrollType,
+    Widget,
 };
 use glib::{
+    object::ObjectType as _,
     prelude::*,
     signal::{connect_raw, SignalHandlerId},
     translate::*,
@@ -372,16 +374,12 @@ impl MenuBuilder {
     /// Build the [`Menu`].
     #[must_use = "Building the object from the builder is usually expensive and is not expected to have side effects"]
     pub fn build(self) -> Menu {
+        assert_initialized_main_thread!();
         self.builder.build()
     }
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::IsA<super::Menu>> Sealed for T {}
-}
-
-pub trait GtkMenuExt: IsA<Menu> + sealed::Sealed + 'static {
+pub trait GtkMenuExt: IsA<Menu> + 'static {
     #[doc(alias = "gtk_menu_attach")]
     fn attach(
         &self,
@@ -412,6 +410,7 @@ pub trait GtkMenuExt: IsA<Menu> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_menu_get_accel_group")]
     #[doc(alias = "get_accel_group")]
+    #[doc(alias = "accel-group")]
     fn accel_group(&self) -> Option<AccelGroup> {
         unsafe {
             from_glib_none(ffi::gtk_menu_get_accel_group(
@@ -422,6 +421,7 @@ pub trait GtkMenuExt: IsA<Menu> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_menu_get_accel_path")]
     #[doc(alias = "get_accel_path")]
+    #[doc(alias = "accel-path")]
     fn accel_path(&self) -> Option<glib::GString> {
         unsafe { from_glib_none(ffi::gtk_menu_get_accel_path(self.as_ref().to_glib_none().0)) }
     }
@@ -434,6 +434,7 @@ pub trait GtkMenuExt: IsA<Menu> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_menu_get_attach_widget")]
     #[doc(alias = "get_attach_widget")]
+    #[doc(alias = "attach-widget")]
     fn attach_widget(&self) -> Option<Widget> {
         unsafe {
             from_glib_none(ffi::gtk_menu_get_attach_widget(
@@ -450,6 +451,7 @@ pub trait GtkMenuExt: IsA<Menu> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_menu_get_reserve_toggle_size")]
     #[doc(alias = "get_reserve_toggle_size")]
+    #[doc(alias = "reserve-toggle-size")]
     fn must_reserve_toggle_size(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_menu_get_reserve_toggle_size(
@@ -544,6 +546,7 @@ pub trait GtkMenuExt: IsA<Menu> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_menu_set_accel_group")]
+    #[doc(alias = "accel-group")]
     fn set_accel_group(&self, accel_group: Option<&impl IsA<AccelGroup>>) {
         unsafe {
             ffi::gtk_menu_set_accel_group(
@@ -554,6 +557,7 @@ pub trait GtkMenuExt: IsA<Menu> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_menu_set_accel_path")]
+    #[doc(alias = "accel-path")]
     fn set_accel_path(&self, accel_path: Option<&str>) {
         unsafe {
             ffi::gtk_menu_set_accel_path(
@@ -564,6 +568,7 @@ pub trait GtkMenuExt: IsA<Menu> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_menu_set_active")]
+    #[doc(alias = "active")]
     fn set_active(&self, index: u32) {
         unsafe {
             ffi::gtk_menu_set_active(self.as_ref().to_glib_none().0, index);
@@ -571,6 +576,7 @@ pub trait GtkMenuExt: IsA<Menu> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_menu_set_monitor")]
+    #[doc(alias = "monitor")]
     fn set_monitor(&self, monitor_num: i32) {
         unsafe {
             ffi::gtk_menu_set_monitor(self.as_ref().to_glib_none().0, monitor_num);
@@ -578,6 +584,7 @@ pub trait GtkMenuExt: IsA<Menu> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_menu_set_reserve_toggle_size")]
+    #[doc(alias = "reserve-toggle-size")]
     fn set_reserve_toggle_size(&self, reserve_toggle_size: bool) {
         unsafe {
             ffi::gtk_menu_set_reserve_toggle_size(
@@ -725,18 +732,20 @@ pub trait GtkMenuExt: IsA<Menu> + sealed::Sealed + 'static {
             scroll_type: ffi::GtkScrollType,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(
-                Menu::from_glib_borrow(this).unsafe_cast_ref(),
-                from_glib(scroll_type),
-            )
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(
+                    Menu::from_glib_borrow(this).unsafe_cast_ref(),
+                    from_glib(scroll_type),
+                )
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"move-scroll\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"move-scroll".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     move_scroll_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -761,15 +770,17 @@ pub trait GtkMenuExt: IsA<Menu> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Menu::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Menu::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::accel-group\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::accel-group".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_accel_group_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -784,15 +795,17 @@ pub trait GtkMenuExt: IsA<Menu> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Menu::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Menu::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::accel-path\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::accel-path".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_accel_path_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -807,15 +820,17 @@ pub trait GtkMenuExt: IsA<Menu> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Menu::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Menu::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::active\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::active".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_active_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -830,15 +845,17 @@ pub trait GtkMenuExt: IsA<Menu> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Menu::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Menu::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::anchor-hints\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::anchor-hints".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_anchor_hints_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -853,15 +870,17 @@ pub trait GtkMenuExt: IsA<Menu> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Menu::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Menu::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::attach-widget\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::attach-widget".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_attach_widget_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -876,15 +895,17 @@ pub trait GtkMenuExt: IsA<Menu> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Menu::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Menu::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::menu-type-hint\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::menu-type-hint".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_menu_type_hint_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -899,15 +920,17 @@ pub trait GtkMenuExt: IsA<Menu> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Menu::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Menu::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::monitor\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::monitor".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_monitor_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -922,15 +945,17 @@ pub trait GtkMenuExt: IsA<Menu> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Menu::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Menu::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::rect-anchor-dx\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::rect-anchor-dx".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_rect_anchor_dx_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -945,15 +970,17 @@ pub trait GtkMenuExt: IsA<Menu> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Menu::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Menu::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::rect-anchor-dy\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::rect-anchor-dy".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_rect_anchor_dy_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -971,15 +998,17 @@ pub trait GtkMenuExt: IsA<Menu> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Menu::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Menu::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::reserve-toggle-size\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::reserve-toggle-size".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_reserve_toggle_size_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),

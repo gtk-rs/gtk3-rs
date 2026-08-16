@@ -6,7 +6,7 @@
 #[cfg_attr(docsrs, doc(cfg(feature = "v3_24")))]
 use crate::FontChooserLevel;
 use crate::{
-    Align, BaselinePosition, Box, Buildable, Container, FontChooser, Orientable, Orientation,
+    ffi, Align, BaselinePosition, Box, Buildable, Container, FontChooser, Orientable, Orientation,
     ResizeMode, Widget,
 };
 use glib::{
@@ -349,16 +349,12 @@ impl FontChooserWidgetBuilder {
     /// Build the [`FontChooserWidget`].
     #[must_use = "Building the object from the builder is usually expensive and is not expected to have side effects"]
     pub fn build(self) -> FontChooserWidget {
+        assert_initialized_main_thread!();
         self.builder.build()
     }
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::IsA<super::FontChooserWidget>> Sealed for T {}
-}
-
-pub trait FontChooserWidgetExt: IsA<FontChooserWidget> + sealed::Sealed + 'static {
+pub trait FontChooserWidgetExt: IsA<FontChooserWidget> + 'static {
     //#[doc(alias = "tweak-action")]
     //fn tweak_action(&self) -> /*Ignored*/Option<gio::Action> {
     //    ObjectExt::property(self.as_ref(), "tweak-action")
@@ -374,15 +370,17 @@ pub trait FontChooserWidgetExt: IsA<FontChooserWidget> + sealed::Sealed + 'stati
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(FontChooserWidget::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(FontChooserWidget::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::tweak-action\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::tweak-action".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_tweak_action_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),

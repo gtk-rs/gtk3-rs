@@ -11,10 +11,21 @@
 )]
 #![cfg_attr(docsrs, feature(doc_cfg))]
 
+use cairo_sys as cairo;
+use gdk_pixbuf_sys as gdk_pixbuf;
+use gio_sys as gio;
+use glib_sys as glib;
+use gobject_sys as gobject;
+use pango_sys as pango;
+
+#[cfg(unix)]
 #[allow(unused_imports)]
-use libc::{
+use libc::{dev_t, gid_t, pid_t, socklen_t, uid_t};
+#[allow(unused_imports)]
+use libc::{intptr_t, off_t, size_t, ssize_t, time_t, uintptr_t, FILE};
+#[allow(unused_imports)]
+use std::ffi::{
     c_char, c_double, c_float, c_int, c_long, c_short, c_uchar, c_uint, c_ulong, c_ushort, c_void,
-    intptr_t, size_t, ssize_t, uintptr_t, FILE,
 };
 
 #[allow(unused_imports)]
@@ -176,7 +187,9 @@ pub const GDK_DESTROY: GdkEventType = 1;
 pub const GDK_EXPOSE: GdkEventType = 2;
 pub const GDK_MOTION_NOTIFY: GdkEventType = 3;
 pub const GDK_BUTTON_PRESS: GdkEventType = 4;
+pub const GDK_2BUTTON_PRESS: GdkEventType = 5;
 pub const GDK_DOUBLE_BUTTON_PRESS: GdkEventType = 5;
+pub const GDK_3BUTTON_PRESS: GdkEventType = 6;
 pub const GDK_TRIPLE_BUTTON_PRESS: GdkEventType = 6;
 pub const GDK_BUTTON_RELEASE: GdkEventType = 7;
 pub const GDK_KEY_PRESS: GdkEventType = 8;
@@ -218,6 +231,7 @@ pub const GDK_PAD_BUTTON_RELEASE: GdkEventType = 44;
 pub const GDK_PAD_RING: GdkEventType = 45;
 pub const GDK_PAD_STRIP: GdkEventType = 46;
 pub const GDK_PAD_GROUP_MODE: GdkEventType = 47;
+pub const GDK_EVENT_LAST: GdkEventType = 48;
 
 pub type GdkFilterReturn = c_int;
 pub const GDK_FILTER_CONTINUE: GdkFilterReturn = 0;
@@ -2923,6 +2937,7 @@ pub type GdkWindowInvalidateHandlerFunc =
 
 // Records
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GdkAtom {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
@@ -2951,20 +2966,22 @@ impl ::std::fmt::Debug for GdkColor {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GdkDevicePadInterface {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GdkDevicePadInterface = *mut _GdkDevicePadInterface;
+pub type GdkDevicePadInterface = _GdkDevicePadInterface;
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GdkDrawingContextClass {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GdkDrawingContextClass = *mut _GdkDrawingContextClass;
+pub type GdkDrawingContextClass = _GdkDrawingContextClass;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -3469,6 +3486,7 @@ impl ::std::fmt::Debug for GdkEventSelection {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct GdkEventSequence {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
@@ -3664,22 +3682,25 @@ impl ::std::fmt::Debug for GdkEventWindowState {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GdkFrameClockClass {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GdkFrameClockClass = *mut _GdkFrameClockClass;
+pub type GdkFrameClockClass = _GdkFrameClockClass;
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GdkFrameClockPrivate {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GdkFrameClockPrivate = *mut _GdkFrameClockPrivate;
+pub type GdkFrameClockPrivate = _GdkFrameClockPrivate;
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct GdkFrameTimings {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
@@ -3745,12 +3766,13 @@ impl ::std::fmt::Debug for GdkKeymapKey {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GdkMonitorClass {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GdkMonitorClass = *mut _GdkMonitorClass;
+pub type GdkMonitorClass = _GdkMonitorClass;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -3908,15 +3930,17 @@ impl ::std::fmt::Debug for GdkWindowClass {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GdkWindowRedirect {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GdkWindowRedirect = *mut _GdkWindowRedirect;
+pub type GdkWindowRedirect = _GdkWindowRedirect;
 
 // Classes
 #[repr(C)]
+#[allow(dead_code)]
 pub struct GdkAppLaunchContext {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
@@ -3930,6 +3954,7 @@ impl ::std::fmt::Debug for GdkAppLaunchContext {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct GdkCursor {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
@@ -3942,6 +3967,7 @@ impl ::std::fmt::Debug for GdkCursor {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct GdkDevice {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
@@ -3954,6 +3980,7 @@ impl ::std::fmt::Debug for GdkDevice {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct GdkDeviceManager {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
@@ -3967,6 +3994,7 @@ impl ::std::fmt::Debug for GdkDeviceManager {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct GdkDeviceTool {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
@@ -3980,6 +4008,7 @@ impl ::std::fmt::Debug for GdkDeviceTool {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct GdkDisplay {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
@@ -3992,6 +4021,7 @@ impl ::std::fmt::Debug for GdkDisplay {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct GdkDisplayManager {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
@@ -4005,6 +4035,7 @@ impl ::std::fmt::Debug for GdkDisplayManager {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct GdkDragContext {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
@@ -4018,6 +4049,7 @@ impl ::std::fmt::Debug for GdkDragContext {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct GdkDrawingContext {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
@@ -4031,6 +4063,7 @@ impl ::std::fmt::Debug for GdkDrawingContext {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct GdkFrameClock {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
@@ -4044,6 +4077,7 @@ impl ::std::fmt::Debug for GdkFrameClock {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct GdkGLContext {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
@@ -4056,6 +4090,7 @@ impl ::std::fmt::Debug for GdkGLContext {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct GdkKeymap {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
@@ -4068,6 +4103,7 @@ impl ::std::fmt::Debug for GdkKeymap {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct GdkMonitor {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
@@ -4080,6 +4116,7 @@ impl ::std::fmt::Debug for GdkMonitor {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct GdkScreen {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
@@ -4106,6 +4143,7 @@ impl ::std::fmt::Debug for GdkSeat {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct GdkVisual {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
@@ -4118,6 +4156,7 @@ impl ::std::fmt::Debug for GdkVisual {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct GdkWindow {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
@@ -4131,6 +4170,7 @@ impl ::std::fmt::Debug for GdkWindow {
 
 // Interfaces
 #[repr(C)]
+#[allow(dead_code)]
 pub struct GdkDevicePad {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
@@ -4142,8 +4182,7 @@ impl ::std::fmt::Debug for GdkDevicePad {
     }
 }
 
-#[link(name = "gdk-3")]
-extern "C" {
+unsafe extern "C" {
 
     //=========================================================================
     // GdkAxisUse

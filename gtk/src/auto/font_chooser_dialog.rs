@@ -6,8 +6,8 @@
 #[cfg_attr(docsrs, doc(cfg(feature = "v3_24")))]
 use crate::FontChooserLevel;
 use crate::{
-    Align, Application, Bin, Buildable, Container, Dialog, FontChooser, ResizeMode, Widget, Window,
-    WindowPosition, WindowType,
+    ffi, Align, Application, Bin, Buildable, Container, Dialog, FontChooser, ResizeMode, Widget,
+    Window, WindowPosition, WindowType,
 };
 use glib::{prelude::*, translate::*};
 
@@ -512,6 +512,7 @@ impl FontChooserDialogBuilder {
     /// Build the [`FontChooserDialog`].
     #[must_use = "Building the object from the builder is usually expensive and is not expected to have side effects"]
     pub fn build(self) -> FontChooserDialog {
+        assert_initialized_main_thread!();
         self.builder.build()
     }
 }

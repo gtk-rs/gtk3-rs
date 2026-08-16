@@ -3,10 +3,11 @@
 // DO NOT EDIT
 
 use crate::{
-    Actionable, Adjustment, Align, Bin, Buildable, Button, Container, IconSize, Orientable,
+    ffi, Actionable, Adjustment, Align, Bin, Buildable, Button, Container, IconSize, Orientable,
     Orientation, PositionType, ReliefStyle, ResizeMode, Widget,
 };
 use glib::{
+    object::ObjectType as _,
     prelude::*,
     signal::{connect_raw, SignalHandlerId},
     translate::*,
@@ -371,16 +372,12 @@ impl ScaleButtonBuilder {
     /// Build the [`ScaleButton`].
     #[must_use = "Building the object from the builder is usually expensive and is not expected to have side effects"]
     pub fn build(self) -> ScaleButton {
+        assert_initialized_main_thread!();
         self.builder.build()
     }
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::IsA<super::ScaleButton>> Sealed for T {}
-}
-
-pub trait ScaleButtonExt: IsA<ScaleButton> + sealed::Sealed + 'static {
+pub trait ScaleButtonExt: IsA<ScaleButton> + 'static {
     #[doc(alias = "gtk_scale_button_get_adjustment")]
     #[doc(alias = "get_adjustment")]
     fn adjustment(&self) -> Adjustment {
@@ -428,6 +425,7 @@ pub trait ScaleButtonExt: IsA<ScaleButton> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_scale_button_set_adjustment")]
+    #[doc(alias = "adjustment")]
     fn set_adjustment(&self, adjustment: &impl IsA<Adjustment>) {
         unsafe {
             ffi::gtk_scale_button_set_adjustment(
@@ -438,6 +436,7 @@ pub trait ScaleButtonExt: IsA<ScaleButton> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_scale_button_set_icons")]
+    #[doc(alias = "icons")]
     fn set_icons(&self, icons: &[&str]) {
         unsafe {
             ffi::gtk_scale_button_set_icons(self.as_ref().to_glib_none().0, icons.to_glib_none().0);
@@ -445,6 +444,7 @@ pub trait ScaleButtonExt: IsA<ScaleButton> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_scale_button_set_value")]
+    #[doc(alias = "value")]
     fn set_value(&self, value: f64) {
         unsafe {
             ffi::gtk_scale_button_set_value(self.as_ref().to_glib_none().0, value);
@@ -469,15 +469,17 @@ pub trait ScaleButtonExt: IsA<ScaleButton> + sealed::Sealed + 'static {
             this: *mut ffi::GtkScaleButton,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(ScaleButton::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(ScaleButton::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"popdown\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"popdown".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     popdown_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -495,15 +497,17 @@ pub trait ScaleButtonExt: IsA<ScaleButton> + sealed::Sealed + 'static {
             this: *mut ffi::GtkScaleButton,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(ScaleButton::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(ScaleButton::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"popup\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"popup".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     popup_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -522,18 +526,20 @@ pub trait ScaleButtonExt: IsA<ScaleButton> + sealed::Sealed + 'static {
             F: Fn(&P, f64) + 'static,
         >(
             this: *mut ffi::GtkScaleButton,
-            value: libc::c_double,
+            value: std::ffi::c_double,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(ScaleButton::from_glib_borrow(this).unsafe_cast_ref(), value)
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(ScaleButton::from_glib_borrow(this).unsafe_cast_ref(), value)
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"value-changed\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"value-changed".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     value_changed_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -551,15 +557,17 @@ pub trait ScaleButtonExt: IsA<ScaleButton> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(ScaleButton::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(ScaleButton::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::adjustment\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::adjustment".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_adjustment_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -574,15 +582,17 @@ pub trait ScaleButtonExt: IsA<ScaleButton> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(ScaleButton::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(ScaleButton::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::icons\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::icons".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_icons_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -597,15 +607,17 @@ pub trait ScaleButtonExt: IsA<ScaleButton> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(ScaleButton::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(ScaleButton::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::size\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::size".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_size_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -620,15 +632,17 @@ pub trait ScaleButtonExt: IsA<ScaleButton> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(ScaleButton::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(ScaleButton::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::value\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::value".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_value_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),

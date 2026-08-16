@@ -39,8 +39,6 @@ pub mod window;
 pub mod prelude {
     #[doc(hidden)]
     pub use gio::subclass::prelude::*;
-    #[doc(hidden)]
-    pub use glib::subclass::prelude::*;
 
     pub use super::application::{GtkApplicationImpl, GtkApplicationImplExt};
     pub use super::application_window::ApplicationWindowImpl;

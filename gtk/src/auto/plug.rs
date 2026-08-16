@@ -3,10 +3,11 @@
 // DO NOT EDIT
 
 use crate::{
-    xlib, Align, Application, Bin, Buildable, Container, ResizeMode, Widget, Window,
+    ffi, xlib, Align, Application, Bin, Buildable, Container, ResizeMode, Widget, Window,
     WindowPosition, WindowType,
 };
 use glib::{
+    object::ObjectType as _,
     prelude::*,
     signal::{connect_raw, SignalHandlerId},
     translate::*,
@@ -473,16 +474,12 @@ impl PlugBuilder {
     /// Build the [`Plug`].
     #[must_use = "Building the object from the builder is usually expensive and is not expected to have side effects"]
     pub fn build(self) -> Plug {
+        assert_initialized_main_thread!();
         self.builder.build()
     }
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::IsA<super::Plug>> Sealed for T {}
-}
-
-pub trait PlugExt: IsA<Plug> + sealed::Sealed + 'static {
+pub trait PlugExt: IsA<Plug> + 'static {
     #[doc(alias = "gtk_plug_construct")]
     fn construct(&self, socket_id: xlib::Window) {
         unsafe {
@@ -503,6 +500,7 @@ pub trait PlugExt: IsA<Plug> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_plug_get_embedded")]
     #[doc(alias = "get_embedded")]
+    #[doc(alias = "embedded")]
     fn is_embedded(&self) -> bool {
         unsafe { from_glib(ffi::gtk_plug_get_embedded(self.as_ref().to_glib_none().0)) }
     }
@@ -515,6 +513,7 @@ pub trait PlugExt: IsA<Plug> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_plug_get_socket_window")]
     #[doc(alias = "get_socket_window")]
+    #[doc(alias = "socket-window")]
     fn socket_window(&self) -> Option<gdk::Window> {
         unsafe {
             from_glib_none(ffi::gtk_plug_get_socket_window(
@@ -529,15 +528,17 @@ pub trait PlugExt: IsA<Plug> + sealed::Sealed + 'static {
             this: *mut ffi::GtkPlug,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Plug::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Plug::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"embedded\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"embedded".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     embedded_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -552,15 +553,17 @@ pub trait PlugExt: IsA<Plug> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Plug::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Plug::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::embedded\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::embedded".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_embedded_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -575,15 +578,17 @@ pub trait PlugExt: IsA<Plug> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Plug::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Plug::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::socket-window\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::socket-window".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_socket_window_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),

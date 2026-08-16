@@ -1,33 +1,27 @@
 [build-dependencies]
 pkg-config = "0.3.7"
-system-deps = "6"
+system-deps = "8"
 
 [dependencies]
 libc = "0.2"
 
-[dependencies.cairo]
-package = "cairo-sys-rs"
-git = "https://github.com/gtk-rs/gtk-rs-core"
+[dependencies.cairo-sys]
+workspace = true
 
-[dependencies.gdk_pixbuf]
-package = "gdk-pixbuf-sys"
-git = "https://github.com/gtk-rs/gtk-rs-core"
+[dependencies.gdk-pixbuf-sys]
+workspace = true
 
-[dependencies.gio]
-package = "gio-sys"
-git = "https://github.com/gtk-rs/gtk-rs-core"
+[dependencies.gio-sys]
+workspace = true
 
-[dependencies.glib]
-package = "glib-sys"
-git = "https://github.com/gtk-rs/gtk-rs-core"
+[dependencies.glib-sys]
+workspace = true
 
-[dependencies.gobject]
-package = "gobject-sys"
-git = "https://github.com/gtk-rs/gtk-rs-core"
+[dependencies.gobject-sys]
+workspace = true
 
-[dependencies.pango]
-package = "pango-sys"
-git = "https://github.com/gtk-rs/gtk-rs-core"
+[dependencies.pango-sys]
+workspace = true
 
 [dev-dependencies]
 shell-words = "1.0.0"
@@ -51,7 +45,7 @@ name = "gdk-sys"
 repository = "https://github.com/gtk-rs/gtk3-rs"
 version = "0.19.0"
 edition = "2021"
-rust-version = "1.70"
+rust-version = "1.92"
 
 [package.metadata.docs.rs]
 rustdoc-args = ["--cfg", "docsrs"]

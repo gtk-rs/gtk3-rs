@@ -15,7 +15,7 @@ glib::wrapper! {
 
 mod sealed {
     pub trait Sealed {}
-    impl<T: glib::IsA<crate::AppChooser>> Sealed for T {}
+    impl<T: glib::object::IsA<crate::AppChooser>> Sealed for T {}
 }
 
 pub trait AppChooserExt: IsA<AppChooser> + sealed::Sealed + 'static {

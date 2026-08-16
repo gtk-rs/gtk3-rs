@@ -28,7 +28,7 @@ impl MessageDialog {
                 flags.into_glib(),
                 type_.into_glib(),
                 buttons.into_glib(),
-                b"%s\0".as_ptr() as *const c_char,
+                c"%s".as_ptr() as *const c_char,
                 message.0,
                 ptr::null::<c_char>(),
             ))
@@ -39,7 +39,7 @@ impl MessageDialog {
 
 mod sealed {
     pub trait Sealed {}
-    impl<T: glib::IsA<crate::MessageDialog>> Sealed for T {}
+    impl<T: glib::object::IsA<crate::MessageDialog>> Sealed for T {}
 }
 
 pub trait MessageDialogExt: IsA<MessageDialog> + sealed::Sealed + 'static {
@@ -50,7 +50,7 @@ pub trait MessageDialogExt: IsA<MessageDialog> + sealed::Sealed + 'static {
                 let message: Stash<*const c_char, _> = m.to_glib_none();
                 ffi::gtk_message_dialog_format_secondary_markup(
                     self.as_ref().to_glib_none().0,
-                    b"%s\0".as_ptr() as *const c_char,
+                    c"%s".as_ptr() as *const c_char,
                     message.0,
                     ptr::null::<c_char>(),
                 )
@@ -71,7 +71,7 @@ pub trait MessageDialogExt: IsA<MessageDialog> + sealed::Sealed + 'static {
                 let message: Stash<*const c_char, _> = m.to_glib_none();
                 ffi::gtk_message_dialog_format_secondary_text(
                     self.as_ref().to_glib_none().0,
-                    b"%s\0".as_ptr() as *const c_char,
+                    c"%s".as_ptr() as *const c_char,
                     message.0,
                     ptr::null::<c_char>(),
                 )

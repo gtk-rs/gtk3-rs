@@ -9,17 +9,17 @@ use crate::ResizeMode;
 use crate::Stack;
 use crate::StackSwitcher;
 use crate::Widget;
+use glib::object::Cast;
 use glib::object::IsA;
 use glib::object::ObjectExt;
 use glib::signal::{connect_raw, SignalHandlerId};
 use glib::translate::*;
-use glib::Cast;
 use std::boxed::Box as Box_;
 use std::mem::transmute;
 
 mod sealed {
     pub trait Sealed {}
-    impl<T: glib::IsA<crate::StackSwitcher>> Sealed for T {}
+    impl<T: glib::object::IsA<crate::StackSwitcher>> Sealed for T {}
 }
 
 pub trait StackSwitcherExtManual: IsA<StackSwitcher> + sealed::Sealed + 'static {
@@ -51,8 +51,8 @@ pub trait StackSwitcherExtManual: IsA<StackSwitcher> + sealed::Sealed + 'static 
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::icon-size\0".as_ptr() as *const _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                c"notify::icon-size".as_ptr() as *const _,
+                Some(transmute::<*const (), unsafe extern "C" fn()>(
                     notify_icon_size_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),

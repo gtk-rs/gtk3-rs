@@ -2,7 +2,9 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
+use crate::ffi;
 use glib::{
+    object::ObjectType as _,
     prelude::*,
     signal::{connect_raw, SignalHandlerId},
     translate::*,
@@ -22,12 +24,7 @@ impl Document {
     pub const NONE: Option<&'static Document> = None;
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::IsA<super::Document>> Sealed for T {}
-}
-
-pub trait DocumentExt: IsA<Document> + sealed::Sealed + 'static {
+pub trait DocumentExt: IsA<Document> + 'static {
     #[doc(alias = "atk_document_get_attribute_value")]
     #[doc(alias = "get_attribute_value")]
     fn attribute_value(&self, attribute_name: &str) -> Option<glib::GString> {
@@ -67,6 +64,14 @@ pub trait DocumentExt: IsA<Document> + sealed::Sealed + 'static {
         unsafe { ffi::atk_document_get_page_count(self.as_ref().to_glib_none().0) }
     }
 
+    //#[cfg(feature = "v2_52")]
+    //#[cfg_attr(docsrs, doc(cfg(feature = "v2_52")))]
+    //#[doc(alias = "atk_document_get_text_selections")]
+    //#[doc(alias = "get_text_selections")]
+    //fn text_selections(&self) -> /*Unknown conversion*//*Unimplemented*/Array TypeId { ns_id: 1, id: 38 } {
+    //    unsafe { TODO: call ffi:atk_document_get_text_selections() }
+    //}
+
     #[doc(alias = "atk_document_set_attribute_value")]
     fn set_attribute_value(&self, attribute_name: &str, attribute_value: &str) -> bool {
         unsafe {
@@ -78,21 +83,68 @@ pub trait DocumentExt: IsA<Document> + sealed::Sealed + 'static {
         }
     }
 
+    //#[cfg(feature = "v2_52")]
+    //#[cfg_attr(docsrs, doc(cfg(feature = "v2_52")))]
+    //#[doc(alias = "atk_document_set_text_selections")]
+    //fn set_text_selections(&self, selections: /*Unknown conversion*//*Unimplemented*/Array TypeId { ns_id: 1, id: 38 }) -> bool {
+    //    unsafe { TODO: call ffi:atk_document_set_text_selections() }
+    //}
+
+    #[cfg(feature = "v2_52")]
+    #[cfg_attr(docsrs, doc(cfg(feature = "v2_52")))]
+    #[doc(alias = "document-attribute-changed")]
+    fn connect_document_attribute_changed<F: Fn(&Self, &str, &str) + 'static>(
+        &self,
+        f: F,
+    ) -> SignalHandlerId {
+        unsafe extern "C" fn document_attribute_changed_trampoline<
+            P: IsA<Document>,
+            F: Fn(&P, &str, &str) + 'static,
+        >(
+            this: *mut ffi::AtkDocument,
+            arg1: *mut std::ffi::c_char,
+            arg2: *mut std::ffi::c_char,
+            f: glib::ffi::gpointer,
+        ) {
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(
+                    Document::from_glib_borrow(this).unsafe_cast_ref(),
+                    &glib::GString::from_glib_borrow(arg1),
+                    &glib::GString::from_glib_borrow(arg2),
+                )
+            }
+        }
+        unsafe {
+            let f: Box_<F> = Box_::new(f);
+            connect_raw(
+                self.as_ptr() as *mut _,
+                c"document-attribute-changed".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
+                    document_attribute_changed_trampoline::<Self, F> as *const (),
+                )),
+                Box_::into_raw(f),
+            )
+        }
+    }
+
     #[doc(alias = "load-complete")]
     fn connect_load_complete<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn load_complete_trampoline<P: IsA<Document>, F: Fn(&P) + 'static>(
             this: *mut ffi::AtkDocument,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Document::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Document::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"load-complete\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"load-complete".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     load_complete_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -106,15 +158,17 @@ pub trait DocumentExt: IsA<Document> + sealed::Sealed + 'static {
             this: *mut ffi::AtkDocument,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Document::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Document::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"load-stopped\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"load-stopped".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     load_stopped_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -126,21 +180,23 @@ pub trait DocumentExt: IsA<Document> + sealed::Sealed + 'static {
     fn connect_page_changed<F: Fn(&Self, i32) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn page_changed_trampoline<P: IsA<Document>, F: Fn(&P, i32) + 'static>(
             this: *mut ffi::AtkDocument,
-            page_number: libc::c_int,
+            page_number: std::ffi::c_int,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(
-                Document::from_glib_borrow(this).unsafe_cast_ref(),
-                page_number,
-            )
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(
+                    Document::from_glib_borrow(this).unsafe_cast_ref(),
+                    page_number,
+                )
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"page-changed\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"page-changed".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     page_changed_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -154,15 +210,17 @@ pub trait DocumentExt: IsA<Document> + sealed::Sealed + 'static {
             this: *mut ffi::AtkDocument,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Document::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Document::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"reload\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"reload".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     reload_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),

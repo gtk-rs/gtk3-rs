@@ -2,7 +2,7 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use crate::{Align, Bin, Buildable, Container, ResizeMode, ToolItem, Widget};
+use crate::{ffi, Align, Bin, Buildable, Container, ResizeMode, ToolItem, Widget};
 use glib::{
     prelude::*,
     signal::{connect_raw, SignalHandlerId},
@@ -301,18 +301,15 @@ impl SeparatorToolItemBuilder {
     /// Build the [`SeparatorToolItem`].
     #[must_use = "Building the object from the builder is usually expensive and is not expected to have side effects"]
     pub fn build(self) -> SeparatorToolItem {
+        assert_initialized_main_thread!();
         self.builder.build()
     }
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::IsA<super::SeparatorToolItem>> Sealed for T {}
-}
-
-pub trait SeparatorToolItemExt: IsA<SeparatorToolItem> + sealed::Sealed + 'static {
+pub trait SeparatorToolItemExt: IsA<SeparatorToolItem> + 'static {
     #[doc(alias = "gtk_separator_tool_item_get_draw")]
     #[doc(alias = "get_draw")]
+    #[doc(alias = "draw")]
     fn draws(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_separator_tool_item_get_draw(
@@ -322,6 +319,7 @@ pub trait SeparatorToolItemExt: IsA<SeparatorToolItem> + sealed::Sealed + 'stati
     }
 
     #[doc(alias = "gtk_separator_tool_item_set_draw")]
+    #[doc(alias = "draw")]
     fn set_draw(&self, draw: bool) {
         unsafe {
             ffi::gtk_separator_tool_item_set_draw(self.as_ref().to_glib_none().0, draw.into_glib());
@@ -338,15 +336,17 @@ pub trait SeparatorToolItemExt: IsA<SeparatorToolItem> + sealed::Sealed + 'stati
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(SeparatorToolItem::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(SeparatorToolItem::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::draw\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::draw".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_draw_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),

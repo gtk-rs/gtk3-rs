@@ -2,8 +2,9 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use crate::{Actionable, Align, Buildable, Container, Widget};
+use crate::{ffi, Actionable, Align, Buildable, Container, Widget};
 use glib::{
+    object::ObjectType as _,
     prelude::*,
     signal::{connect_raw, SignalHandlerId},
     translate::*,
@@ -283,18 +284,15 @@ impl SwitchBuilder {
     /// Build the [`Switch`].
     #[must_use = "Building the object from the builder is usually expensive and is not expected to have side effects"]
     pub fn build(self) -> Switch {
+        assert_initialized_main_thread!();
         self.builder.build()
     }
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::IsA<super::Switch>> Sealed for T {}
-}
-
-pub trait SwitchExt: IsA<Switch> + sealed::Sealed + 'static {
+pub trait SwitchExt: IsA<Switch> + 'static {
     #[doc(alias = "gtk_switch_get_active")]
     #[doc(alias = "get_active")]
+    #[doc(alias = "active")]
     fn is_active(&self) -> bool {
         unsafe { from_glib(ffi::gtk_switch_get_active(self.as_ref().to_glib_none().0)) }
     }
@@ -306,6 +304,7 @@ pub trait SwitchExt: IsA<Switch> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_switch_set_active")]
+    #[doc(alias = "active")]
     fn set_active(&self, is_active: bool) {
         unsafe {
             ffi::gtk_switch_set_active(self.as_ref().to_glib_none().0, is_active.into_glib());
@@ -313,6 +312,7 @@ pub trait SwitchExt: IsA<Switch> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_switch_set_state")]
+    #[doc(alias = "state")]
     fn set_state(&self, state: bool) {
         unsafe {
             ffi::gtk_switch_set_state(self.as_ref().to_glib_none().0, state.into_glib());
@@ -325,15 +325,17 @@ pub trait SwitchExt: IsA<Switch> + sealed::Sealed + 'static {
             this: *mut ffi::GtkSwitch,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Switch::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Switch::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"activate\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"activate".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     activate_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -358,19 +360,21 @@ pub trait SwitchExt: IsA<Switch> + sealed::Sealed + 'static {
             state: glib::ffi::gboolean,
             f: glib::ffi::gpointer,
         ) -> glib::ffi::gboolean {
-            let f: &F = &*(f as *const F);
-            f(
-                Switch::from_glib_borrow(this).unsafe_cast_ref(),
-                from_glib(state),
-            )
-            .into_glib()
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(
+                    Switch::from_glib_borrow(this).unsafe_cast_ref(),
+                    from_glib(state),
+                )
+                .into_glib()
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"state-set\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"state-set".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     state_set_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -385,15 +389,17 @@ pub trait SwitchExt: IsA<Switch> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Switch::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Switch::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::active\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::active".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_active_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -408,15 +414,17 @@ pub trait SwitchExt: IsA<Switch> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Switch::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Switch::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::state\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::state".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_state_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),

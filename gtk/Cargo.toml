@@ -13,12 +13,13 @@ repository = "https://github.com/gtk-rs/gtk3-rs"
 build = "build.rs"
 exclude = ["gir-files/*"]
 edition = "2021"
-rust-version = "1.70"
+rust-version = "1.92"
 
 [lib]
 name = "gtk"
 
 [features]
+v3_22 = []
 v3_24 = ["ffi/v3_24"]
 v3_24_1 = ["v3_24", "ffi/v3_24_1"]
 v3_24_8 = ["v3_24_1", "ffi/v3_24_8"]
@@ -26,6 +27,7 @@ v3_24_9 = ["v3_24_8", "ffi/v3_24_9"]
 v3_24_11 = ["v3_24_9", "ffi/v3_24_11"]
 v3_24_30 = ["v3_24_11", "ffi/v3_24_30"]
 gio_v2_58 = ["gio/v2_58"]
+gio_v2_80 = ["gio/v2_80"]
 unsafe-assume-initialized = []
 
 [package.metadata.docs.rs]
@@ -35,18 +37,18 @@ rustdoc-args = ["--cfg", "docsrs", "--generate-link-to-definition"]
 pkg-config = "0.3.7"
 
 [dependencies]
-libc = "0.2"
+atk = { path = "../atk" }
+cairo.workspace = true
+ffi = { package = "gtk-sys", path = "sys" }
 field-offset = "0.3"
 futures-channel = "0.3"
-atk = { path = "../atk" }
-ffi = { package = "gtk-sys", path = "sys" }
-gtk3-macros = { path = "../gtk3-macros" }
-cairo-rs = { git = "https://github.com/gtk-rs/gtk-rs-core" }
-gio = { git = "https://github.com/gtk-rs/gtk-rs-core" }
-glib = { git = "https://github.com/gtk-rs/gtk-rs-core" }
 gdk = { path = "../gdk" }
-gdk-pixbuf = { git = "https://github.com/gtk-rs/gtk-rs-core" }
-pango = { git = "https://github.com/gtk-rs/gtk-rs-core" }
+gdk-pixbuf.workspace = true
+gio.workspace = true
+glib.workspace = true
+gtk3-macros = { path = "../gtk3-macros" }
+libc = "0.2"
+pango.workspace = true
 
 [dev-dependencies]
 gir-format-check = "^0.1"

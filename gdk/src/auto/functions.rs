@@ -2,7 +2,7 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use crate::{Atom, Display, Event, EventType, ModifierType, Screen, Window, WindowState};
+use crate::{ffi, Atom, Display, Event, EventType, ModifierType, Screen, Window, WindowState};
 use glib::translate::*;
 
 #[doc(alias = "gdk_beep")]

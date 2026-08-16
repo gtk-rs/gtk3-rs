@@ -2,7 +2,7 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use crate::{CellArea, CellRenderer, TreeIter, TreeModel};
+use crate::{ffi, CellArea, CellRenderer, TreeIter, TreeModel};
 use glib::{prelude::*, translate::*};
 use std::boxed::Box as Box_;
 
@@ -19,12 +19,7 @@ impl CellLayout {
     pub const NONE: Option<&'static CellLayout> = None;
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::IsA<super::CellLayout>> Sealed for T {}
-}
-
-pub trait CellLayoutExt: IsA<CellLayout> + sealed::Sealed + 'static {
+pub trait CellLayoutExt: IsA<CellLayout> + 'static {
     #[doc(alias = "gtk_cell_layout_add_attribute")]
     fn add_attribute(&self, cell: &impl IsA<CellRenderer>, attribute: &str, column: i32) {
         unsafe {
@@ -128,17 +123,19 @@ pub trait CellLayoutExt: IsA<CellLayout> + sealed::Sealed + 'static {
             iter: *mut ffi::GtkTreeIter,
             data: glib::ffi::gpointer,
         ) {
-            let cell_layout = from_glib_borrow(cell_layout);
-            let cell = from_glib_borrow(cell);
-            let tree_model = from_glib_borrow(tree_model);
-            let iter = from_glib_borrow(iter);
-            let callback: &Option<
-                Box_<dyn Fn(&CellLayout, &CellRenderer, &TreeModel, &TreeIter) + 'static>,
-            > = &*(data as *mut _);
-            if let Some(ref callback) = *callback {
-                callback(&cell_layout, &cell, &tree_model, &iter)
-            } else {
-                panic!("cannot get closure...")
+            unsafe {
+                let cell_layout = from_glib_borrow(cell_layout);
+                let cell = from_glib_borrow(cell);
+                let tree_model = from_glib_borrow(tree_model);
+                let iter = from_glib_borrow(iter);
+                let callback = &*(data as *mut Option<
+                    Box_<dyn Fn(&CellLayout, &CellRenderer, &TreeModel, &TreeIter) + 'static>,
+                >);
+                if let Some(ref callback) = *callback {
+                    callback(&cell_layout, &cell, &tree_model, &iter)
+                } else {
+                    panic!("cannot get closure...")
+                }
             }
         }
         let func = if func_data.is_some() {
@@ -147,9 +144,13 @@ pub trait CellLayoutExt: IsA<CellLayout> + sealed::Sealed + 'static {
             None
         };
         unsafe extern "C" fn destroy_func(data: glib::ffi::gpointer) {
-            let _callback: Box_<
-                Option<Box_<dyn Fn(&CellLayout, &CellRenderer, &TreeModel, &TreeIter) + 'static>>,
-            > = Box_::from_raw(data as *mut _);
+            unsafe {
+                let _callback = Box_::from_raw(
+                    data as *mut Option<
+                        Box_<dyn Fn(&CellLayout, &CellRenderer, &TreeModel, &TreeIter) + 'static>,
+                    >,
+                );
+            }
         }
         let destroy_call4 = Some(destroy_func as _);
         let super_callback0: Box_<

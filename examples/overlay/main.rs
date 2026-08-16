@@ -36,15 +36,27 @@ fn build_ui(application: &gtk::Application) {
     let but3 = gtk::Button::with_label("Why not me?");
 
     // When a button is clicked on, we set its label to the overlay label.
-    but1.connect_clicked(glib::clone!(@weak overlay_text => move |b| {
-        button_clicked(b, &overlay_text);
-    }));
-    but2.connect_clicked(glib::clone!(@weak overlay_text => move |b| {
-        button_clicked(b, &overlay_text);
-    }));
-    but3.connect_clicked(glib::clone!(@weak overlay_text => move |b| {
-        button_clicked(b, &overlay_text);
-    }));
+    but1.connect_clicked(glib::clone!(
+        #[weak]
+        overlay_text,
+        move |b| {
+            button_clicked(b, &overlay_text);
+        }
+    ));
+    but2.connect_clicked(glib::clone!(
+        #[weak]
+        overlay_text,
+        move |b| {
+            button_clicked(b, &overlay_text);
+        }
+    ));
+    but3.connect_clicked(glib::clone!(
+        #[weak]
+        overlay_text,
+        move |b| {
+            button_clicked(b, &overlay_text);
+        }
+    ));
 
     hbox.add(&but1);
     hbox.add(&but2);

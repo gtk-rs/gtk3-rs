@@ -2,6 +2,7 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
+use crate::ffi;
 use glib::translate::*;
 
 glib::wrapper! {
@@ -43,7 +44,7 @@ impl RecentInfo {
 
     #[doc(alias = "gtk_recent_info_get_added")]
     #[doc(alias = "get_added")]
-    pub fn added(&self) -> libc::c_long {
+    pub fn added(&self) -> libc::time_t {
         unsafe { ffi::gtk_recent_info_get_added(self.to_glib_none().0) }
     }
 
@@ -55,7 +56,7 @@ impl RecentInfo {
 
     #[doc(alias = "gtk_recent_info_get_application_info")]
     #[doc(alias = "get_application_info")]
-    pub fn application_info(&self, app_name: &str) -> Option<(glib::GString, u32, libc::c_long)> {
+    pub fn application_info(&self, app_name: &str) -> Option<(glib::GString, u32, libc::time_t)> {
         unsafe {
             let mut app_exec = std::ptr::null();
             let mut count = std::mem::MaybeUninit::uninit();
@@ -137,7 +138,7 @@ impl RecentInfo {
 
     #[doc(alias = "gtk_recent_info_get_modified")]
     #[doc(alias = "get_modified")]
-    pub fn modified(&self) -> libc::c_long {
+    pub fn modified(&self) -> libc::time_t {
         unsafe { ffi::gtk_recent_info_get_modified(self.to_glib_none().0) }
     }
 
@@ -167,7 +168,7 @@ impl RecentInfo {
 
     #[doc(alias = "gtk_recent_info_get_visited")]
     #[doc(alias = "get_visited")]
-    pub fn visited(&self) -> libc::c_long {
+    pub fn visited(&self) -> libc::time_t {
         unsafe { ffi::gtk_recent_info_get_visited(self.to_glib_none().0) }
     }
 

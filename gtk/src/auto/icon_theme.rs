@@ -2,8 +2,9 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use crate::{IconInfo, IconLookupFlags};
+use crate::{ffi, IconInfo, IconLookupFlags};
 use glib::{
+    object::ObjectType as _,
     prelude::*,
     signal::{connect_raw, SignalHandlerId},
     translate::*,
@@ -50,12 +51,7 @@ impl Default for IconTheme {
     }
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::IsA<super::IconTheme>> Sealed for T {}
-}
-
-pub trait IconThemeExt: IsA<IconTheme> + sealed::Sealed + 'static {
+pub trait IconThemeExt: IsA<IconTheme> + 'static {
     #[doc(alias = "gtk_icon_theme_add_resource_path")]
     fn add_resource_path(&self, path: &str) {
         unsafe {
@@ -302,15 +298,17 @@ pub trait IconThemeExt: IsA<IconTheme> + sealed::Sealed + 'static {
             this: *mut ffi::GtkIconTheme,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(IconTheme::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(IconTheme::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"changed\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"changed".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     changed_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),

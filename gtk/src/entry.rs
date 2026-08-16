@@ -8,7 +8,7 @@ use crate::Entry;
 
 mod sealed {
     pub trait Sealed {}
-    impl<T: glib::IsA<crate::Entry>> Sealed for T {}
+    impl<T: glib::object::IsA<crate::Entry>> Sealed for T {}
 }
 
 pub trait EntryExtManual: IsA<Entry> + sealed::Sealed + 'static {

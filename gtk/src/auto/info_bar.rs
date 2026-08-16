@@ -3,10 +3,11 @@
 // DO NOT EDIT
 
 use crate::{
-    Align, BaselinePosition, Box, Buildable, Button, Container, MessageType, Orientable,
+    ffi, Align, BaselinePosition, Box, Buildable, Button, Container, MessageType, Orientable,
     Orientation, ResizeMode, ResponseType, Widget,
 };
 use glib::{
+    object::ObjectType as _,
     prelude::*,
     signal::{connect_raw, SignalHandlerId},
     translate::*,
@@ -330,16 +331,12 @@ impl InfoBarBuilder {
     /// Build the [`InfoBar`].
     #[must_use = "Building the object from the builder is usually expensive and is not expected to have side effects"]
     pub fn build(self) -> InfoBar {
+        assert_initialized_main_thread!();
         self.builder.build()
     }
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::IsA<super::InfoBar>> Sealed for T {}
-}
-
-pub trait InfoBarExt: IsA<InfoBar> + sealed::Sealed + 'static {
+pub trait InfoBarExt: IsA<InfoBar> + 'static {
     #[doc(alias = "gtk_info_bar_add_action_widget")]
     fn add_action_widget(&self, child: &impl IsA<Widget>, response_id: ResponseType) {
         unsafe {
@@ -389,6 +386,7 @@ pub trait InfoBarExt: IsA<InfoBar> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_info_bar_get_message_type")]
     #[doc(alias = "get_message_type")]
+    #[doc(alias = "message-type")]
     fn message_type(&self) -> MessageType {
         unsafe {
             from_glib(ffi::gtk_info_bar_get_message_type(
@@ -399,6 +397,7 @@ pub trait InfoBarExt: IsA<InfoBar> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_info_bar_get_revealed")]
     #[doc(alias = "get_revealed")]
+    #[doc(alias = "revealed")]
     fn is_revealed(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_info_bar_get_revealed(
@@ -409,6 +408,7 @@ pub trait InfoBarExt: IsA<InfoBar> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_info_bar_get_show_close_button")]
     #[doc(alias = "get_show_close_button")]
+    #[doc(alias = "show-close-button")]
     fn shows_close_button(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_info_bar_get_show_close_button(
@@ -435,6 +435,7 @@ pub trait InfoBarExt: IsA<InfoBar> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_info_bar_set_message_type")]
+    #[doc(alias = "message-type")]
     fn set_message_type(&self, message_type: MessageType) {
         unsafe {
             ffi::gtk_info_bar_set_message_type(
@@ -456,6 +457,7 @@ pub trait InfoBarExt: IsA<InfoBar> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_info_bar_set_revealed")]
+    #[doc(alias = "revealed")]
     fn set_revealed(&self, revealed: bool) {
         unsafe {
             ffi::gtk_info_bar_set_revealed(self.as_ref().to_glib_none().0, revealed.into_glib());
@@ -463,6 +465,7 @@ pub trait InfoBarExt: IsA<InfoBar> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_info_bar_set_show_close_button")]
+    #[doc(alias = "show-close-button")]
     fn set_show_close_button(&self, setting: bool) {
         unsafe {
             ffi::gtk_info_bar_set_show_close_button(
@@ -478,15 +481,17 @@ pub trait InfoBarExt: IsA<InfoBar> + sealed::Sealed + 'static {
             this: *mut ffi::GtkInfoBar,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(InfoBar::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(InfoBar::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"close\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"close".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     close_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -508,18 +513,20 @@ pub trait InfoBarExt: IsA<InfoBar> + sealed::Sealed + 'static {
             response_id: ffi::GtkResponseType,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(
-                InfoBar::from_glib_borrow(this).unsafe_cast_ref(),
-                from_glib(response_id),
-            )
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(
+                    InfoBar::from_glib_borrow(this).unsafe_cast_ref(),
+                    from_glib(response_id),
+                )
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"response\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"response".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     response_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -537,15 +544,17 @@ pub trait InfoBarExt: IsA<InfoBar> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(InfoBar::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(InfoBar::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::message-type\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::message-type".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_message_type_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -560,15 +569,17 @@ pub trait InfoBarExt: IsA<InfoBar> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(InfoBar::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(InfoBar::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::revealed\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::revealed".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_revealed_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -586,15 +597,17 @@ pub trait InfoBarExt: IsA<InfoBar> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(InfoBar::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(InfoBar::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::show-close-button\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::show-close-button".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_show_close_button_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),

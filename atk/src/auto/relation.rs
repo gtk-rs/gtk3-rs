@@ -2,7 +2,7 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use crate::{Object, RelationType};
+use crate::{ffi, Object, RelationType};
 use glib::{
     prelude::*,
     signal::{connect_raw, SignalHandlerId},
@@ -36,12 +36,7 @@ impl Relation {
     }
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::IsA<super::Relation>> Sealed for T {}
-}
-
-pub trait RelationExt: IsA<Relation> + sealed::Sealed + 'static {
+pub trait RelationExt: IsA<Relation> + 'static {
     #[doc(alias = "atk_relation_add_target")]
     fn add_target(&self, target: &impl IsA<Object>) {
         unsafe {
@@ -54,6 +49,7 @@ pub trait RelationExt: IsA<Relation> + sealed::Sealed + 'static {
 
     #[doc(alias = "atk_relation_get_relation_type")]
     #[doc(alias = "get_relation_type")]
+    #[doc(alias = "relation-type")]
     fn relation_type(&self) -> RelationType {
         unsafe {
             from_glib(ffi::atk_relation_get_relation_type(
@@ -101,15 +97,17 @@ pub trait RelationExt: IsA<Relation> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Relation::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Relation::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::relation-type\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::relation-type".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_relation_type_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -124,15 +122,17 @@ pub trait RelationExt: IsA<Relation> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Relation::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Relation::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::target\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::target".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_target_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),

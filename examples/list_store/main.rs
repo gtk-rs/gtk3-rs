@@ -63,10 +63,16 @@ fn build_ui(application: &gtk::Application) {
 
     glib::timeout_add_local(
         Duration::from_millis(80),
-        glib::clone!(@weak model => @default-return glib::ControlFlow::Break, move || {
-            spinner_timeout(&model);
-            glib::ControlFlow::Break
-        }),
+        glib::clone!(
+            #[weak]
+            model,
+            #[upgrade_or]
+            glib::ControlFlow::Break,
+            move || {
+                spinner_timeout(&model);
+                glib::ControlFlow::Break
+            }
+        ),
     );
 }
 

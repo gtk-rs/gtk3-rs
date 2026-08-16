@@ -1,8 +1,8 @@
 // Take a look at the license at the top of the repository in the LICENSE file.
 
+use glib::object::Cast;
 use glib::subclass::prelude::*;
 use glib::translate::*;
-use glib::Cast;
 
 use super::widget::WidgetImpl;
 use crate::Entry;

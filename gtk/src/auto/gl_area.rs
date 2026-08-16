@@ -2,8 +2,9 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use crate::{Align, Buildable, Container, Widget};
+use crate::{ffi, Align, Buildable, Container, Widget};
 use glib::{
+    object::ObjectType as _,
     prelude::*,
     signal::{connect_raw, SignalHandlerId},
     translate::*,
@@ -289,16 +290,12 @@ impl GLAreaBuilder {
     /// Build the [`GLArea`].
     #[must_use = "Building the object from the builder is usually expensive and is not expected to have side effects"]
     pub fn build(self) -> GLArea {
+        assert_initialized_main_thread!();
         self.builder.build()
     }
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::IsA<super::GLArea>> Sealed for T {}
-}
-
-pub trait GLAreaExt: IsA<GLArea> + sealed::Sealed + 'static {
+pub trait GLAreaExt: IsA<GLArea> + 'static {
     #[doc(alias = "gtk_gl_area_attach_buffers")]
     fn attach_buffers(&self) {
         unsafe {
@@ -308,6 +305,7 @@ pub trait GLAreaExt: IsA<GLArea> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_gl_area_get_auto_render")]
     #[doc(alias = "get_auto_render")]
+    #[doc(alias = "auto-render")]
     fn is_auto_render(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_gl_area_get_auto_render(
@@ -330,6 +328,7 @@ pub trait GLAreaExt: IsA<GLArea> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_gl_area_get_has_alpha")]
     #[doc(alias = "get_has_alpha")]
+    #[doc(alias = "has-alpha")]
     fn has_alpha(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_gl_area_get_has_alpha(
@@ -340,6 +339,7 @@ pub trait GLAreaExt: IsA<GLArea> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_gl_area_get_has_depth_buffer")]
     #[doc(alias = "get_has_depth_buffer")]
+    #[doc(alias = "has-depth-buffer")]
     fn has_depth_buffer(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_gl_area_get_has_depth_buffer(
@@ -350,6 +350,7 @@ pub trait GLAreaExt: IsA<GLArea> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_gl_area_get_has_stencil_buffer")]
     #[doc(alias = "get_has_stencil_buffer")]
+    #[doc(alias = "has-stencil-buffer")]
     fn has_stencil_buffer(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_gl_area_get_has_stencil_buffer(
@@ -375,6 +376,7 @@ pub trait GLAreaExt: IsA<GLArea> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_gl_area_get_use_es")]
     #[doc(alias = "get_use_es")]
+    #[doc(alias = "use-es")]
     fn uses_es(&self) -> bool {
         unsafe { from_glib(ffi::gtk_gl_area_get_use_es(self.as_ref().to_glib_none().0)) }
     }
@@ -394,6 +396,7 @@ pub trait GLAreaExt: IsA<GLArea> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_gl_area_set_auto_render")]
+    #[doc(alias = "auto-render")]
     fn set_auto_render(&self, auto_render: bool) {
         unsafe {
             ffi::gtk_gl_area_set_auto_render(
@@ -411,6 +414,7 @@ pub trait GLAreaExt: IsA<GLArea> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_gl_area_set_has_alpha")]
+    #[doc(alias = "has-alpha")]
     fn set_has_alpha(&self, has_alpha: bool) {
         unsafe {
             ffi::gtk_gl_area_set_has_alpha(self.as_ref().to_glib_none().0, has_alpha.into_glib());
@@ -418,6 +422,7 @@ pub trait GLAreaExt: IsA<GLArea> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_gl_area_set_has_depth_buffer")]
+    #[doc(alias = "has-depth-buffer")]
     fn set_has_depth_buffer(&self, has_depth_buffer: bool) {
         unsafe {
             ffi::gtk_gl_area_set_has_depth_buffer(
@@ -428,6 +433,7 @@ pub trait GLAreaExt: IsA<GLArea> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_gl_area_set_has_stencil_buffer")]
+    #[doc(alias = "has-stencil-buffer")]
     fn set_has_stencil_buffer(&self, has_stencil_buffer: bool) {
         unsafe {
             ffi::gtk_gl_area_set_has_stencil_buffer(
@@ -445,6 +451,7 @@ pub trait GLAreaExt: IsA<GLArea> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_gl_area_set_use_es")]
+    #[doc(alias = "use-es")]
     fn set_use_es(&self, use_es: bool) {
         unsafe {
             ffi::gtk_gl_area_set_use_es(self.as_ref().to_glib_none().0, use_es.into_glib());
@@ -463,15 +470,17 @@ pub trait GLAreaExt: IsA<GLArea> + sealed::Sealed + 'static {
             this: *mut ffi::GtkGLArea,
             f: glib::ffi::gpointer,
         ) -> *mut gdk::ffi::GdkGLContext {
-            let f: &F = &*(f as *const F);
-            f(GLArea::from_glib_borrow(this).unsafe_cast_ref()).to_glib_full()
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(GLArea::from_glib_borrow(this).unsafe_cast_ref()).to_glib_full()
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"create-context\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"create-context".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     create_context_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -492,19 +501,21 @@ pub trait GLAreaExt: IsA<GLArea> + sealed::Sealed + 'static {
             context: *mut gdk::ffi::GdkGLContext,
             f: glib::ffi::gpointer,
         ) -> glib::ffi::gboolean {
-            let f: &F = &*(f as *const F);
-            f(
-                GLArea::from_glib_borrow(this).unsafe_cast_ref(),
-                &from_glib_borrow(context),
-            )
-            .into_glib()
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(
+                    GLArea::from_glib_borrow(this).unsafe_cast_ref(),
+                    &from_glib_borrow(context),
+                )
+                .into_glib()
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"render\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"render".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     render_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -516,23 +527,25 @@ pub trait GLAreaExt: IsA<GLArea> + sealed::Sealed + 'static {
     fn connect_resize<F: Fn(&Self, i32, i32) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn resize_trampoline<P: IsA<GLArea>, F: Fn(&P, i32, i32) + 'static>(
             this: *mut ffi::GtkGLArea,
-            width: libc::c_int,
-            height: libc::c_int,
+            width: std::ffi::c_int,
+            height: std::ffi::c_int,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(
-                GLArea::from_glib_borrow(this).unsafe_cast_ref(),
-                width,
-                height,
-            )
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(
+                    GLArea::from_glib_borrow(this).unsafe_cast_ref(),
+                    width,
+                    height,
+                )
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"resize\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"resize".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     resize_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -547,15 +560,17 @@ pub trait GLAreaExt: IsA<GLArea> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(GLArea::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(GLArea::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::auto-render\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::auto-render".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_auto_render_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -570,15 +585,17 @@ pub trait GLAreaExt: IsA<GLArea> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(GLArea::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(GLArea::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::context\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::context".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_context_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -593,15 +610,17 @@ pub trait GLAreaExt: IsA<GLArea> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(GLArea::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(GLArea::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::has-alpha\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::has-alpha".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_has_alpha_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -619,15 +638,17 @@ pub trait GLAreaExt: IsA<GLArea> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(GLArea::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(GLArea::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::has-depth-buffer\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::has-depth-buffer".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_has_depth_buffer_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -645,15 +666,17 @@ pub trait GLAreaExt: IsA<GLArea> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(GLArea::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(GLArea::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::has-stencil-buffer\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::has-stencil-buffer".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_has_stencil_buffer_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -668,15 +691,17 @@ pub trait GLAreaExt: IsA<GLArea> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(GLArea::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(GLArea::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::use-es\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::use-es".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_use_es_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),

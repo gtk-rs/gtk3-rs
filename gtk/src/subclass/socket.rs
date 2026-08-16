@@ -2,8 +2,8 @@
 
 use glib::subclass::prelude::*;
 
+use glib::object::Cast;
 use glib::translate::*;
-use glib::Cast;
 
 use super::container::ContainerImpl;
 

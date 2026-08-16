@@ -6,7 +6,7 @@ use glib::translate::*;
 
 mod sealed {
     pub trait Sealed {}
-    impl<T: glib::IsA<gdk::DragContext>> Sealed for T {}
+    impl<T: glib::object::IsA<gdk::DragContext>> Sealed for T {}
 }
 
 pub trait DragContextExtManual: IsA<gdk::DragContext> + sealed::Sealed + 'static {

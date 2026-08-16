@@ -2,7 +2,7 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use crate::{CellRenderer, CellRendererMode, IconSize};
+use crate::{ffi, CellRenderer, CellRendererMode, IconSize};
 use glib::{
     prelude::*,
     signal::{connect_raw, SignalHandlerId},
@@ -171,16 +171,12 @@ impl CellRendererSpinnerBuilder {
     /// Build the [`CellRendererSpinner`].
     #[must_use = "Building the object from the builder is usually expensive and is not expected to have side effects"]
     pub fn build(self) -> CellRendererSpinner {
+        assert_initialized_main_thread!();
         self.builder.build()
     }
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::IsA<super::CellRendererSpinner>> Sealed for T {}
-}
-
-pub trait CellRendererSpinnerExt: IsA<CellRendererSpinner> + sealed::Sealed + 'static {
+pub trait CellRendererSpinnerExt: IsA<CellRendererSpinner> + 'static {
     fn is_active(&self) -> bool {
         ObjectExt::property(self.as_ref(), "active")
     }
@@ -215,15 +211,17 @@ pub trait CellRendererSpinnerExt: IsA<CellRendererSpinner> + sealed::Sealed + 's
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(CellRendererSpinner::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(CellRendererSpinner::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::active\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::active".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_active_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -241,15 +239,17 @@ pub trait CellRendererSpinnerExt: IsA<CellRendererSpinner> + sealed::Sealed + 's
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(CellRendererSpinner::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(CellRendererSpinner::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::pulse\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::pulse".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_pulse_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -267,15 +267,17 @@ pub trait CellRendererSpinnerExt: IsA<CellRendererSpinner> + sealed::Sealed + 's
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(CellRendererSpinner::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(CellRendererSpinner::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::size\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::size".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_size_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),

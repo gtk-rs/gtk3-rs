@@ -3,7 +3,7 @@
 // DO NOT EDIT
 
 use crate::{
-    AccelGroup, Align, Buildable, Container, Menu, MenuShell, RecentChooser, RecentFilter,
+    ffi, AccelGroup, Align, Buildable, Container, Menu, MenuShell, RecentChooser, RecentFilter,
     RecentManager, RecentSortType, ResizeMode, Widget,
 };
 use glib::{
@@ -430,18 +430,15 @@ impl RecentChooserMenuBuilder {
     /// Build the [`RecentChooserMenu`].
     #[must_use = "Building the object from the builder is usually expensive and is not expected to have side effects"]
     pub fn build(self) -> RecentChooserMenu {
+        assert_initialized_main_thread!();
         self.builder.build()
     }
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::IsA<super::RecentChooserMenu>> Sealed for T {}
-}
-
-pub trait RecentChooserMenuExt: IsA<RecentChooserMenu> + sealed::Sealed + 'static {
+pub trait RecentChooserMenuExt: IsA<RecentChooserMenu> + 'static {
     #[doc(alias = "gtk_recent_chooser_menu_get_show_numbers")]
     #[doc(alias = "get_show_numbers")]
+    #[doc(alias = "show-numbers")]
     fn shows_numbers(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_recent_chooser_menu_get_show_numbers(
@@ -451,6 +448,7 @@ pub trait RecentChooserMenuExt: IsA<RecentChooserMenu> + sealed::Sealed + 'stati
     }
 
     #[doc(alias = "gtk_recent_chooser_menu_set_show_numbers")]
+    #[doc(alias = "show-numbers")]
     fn set_show_numbers(&self, show_numbers: bool) {
         unsafe {
             ffi::gtk_recent_chooser_menu_set_show_numbers(
@@ -470,15 +468,17 @@ pub trait RecentChooserMenuExt: IsA<RecentChooserMenu> + sealed::Sealed + 'stati
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(RecentChooserMenu::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(RecentChooserMenu::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::show-numbers\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::show-numbers".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_show_numbers_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),

@@ -2,7 +2,7 @@
 
 use glib::translate::*;
 
-#[repr(packed)]
+#[repr(C, packed)]
 pub struct GRange(pub i32, pub i32);
 
 #[doc(alias = "gdk_pango_layout_line_get_clip_region")]

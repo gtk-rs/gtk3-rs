@@ -2,7 +2,7 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use crate::{Buildable, IconSize, Orientation, ReliefStyle, SizeGroup, ToolbarStyle, Widget};
+use crate::{ffi, Buildable, IconSize, Orientation, ReliefStyle, SizeGroup, ToolbarStyle, Widget};
 use glib::{prelude::*, translate::*};
 
 glib::wrapper! {
@@ -18,12 +18,7 @@ impl ToolShell {
     pub const NONE: Option<&'static ToolShell> = None;
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::IsA<super::ToolShell>> Sealed for T {}
-}
-
-pub trait ToolShellExt: IsA<ToolShell> + sealed::Sealed + 'static {
+pub trait ToolShellExt: IsA<ToolShell> + 'static {
     #[doc(alias = "gtk_tool_shell_get_ellipsize_mode")]
     #[doc(alias = "get_ellipsize_mode")]
     fn ellipsize_mode(&self) -> pango::EllipsizeMode {

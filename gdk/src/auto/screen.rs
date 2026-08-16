@@ -2,8 +2,9 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use crate::{Display, Visual, Window};
+use crate::{ffi, Display, Visual, Window};
 use glib::{
+    object::ObjectType as _,
     prelude::*,
     signal::{connect_raw, SignalHandlerId},
     translate::*,
@@ -85,6 +86,7 @@ impl Screen {
     }
 
     #[doc(alias = "gdk_screen_set_font_options")]
+    #[doc(alias = "font-options")]
     pub fn set_font_options(&self, options: Option<&cairo::FontOptions>) {
         unsafe {
             ffi::gdk_screen_set_font_options(self.to_glib_none().0, options.to_glib_none().0);
@@ -92,6 +94,7 @@ impl Screen {
     }
 
     #[doc(alias = "gdk_screen_set_resolution")]
+    #[doc(alias = "resolution")]
     pub fn set_resolution(&self, dpi: f64) {
         unsafe {
             ffi::gdk_screen_set_resolution(self.to_glib_none().0, dpi);
@@ -112,15 +115,17 @@ impl Screen {
             this: *mut ffi::GdkScreen,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(&from_glib_borrow(this))
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(&from_glib_borrow(this))
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"composited-changed\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"composited-changed".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     composited_changed_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -134,15 +139,17 @@ impl Screen {
             this: *mut ffi::GdkScreen,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(&from_glib_borrow(this))
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(&from_glib_borrow(this))
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"monitors-changed\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"monitors-changed".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     monitors_changed_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -156,15 +163,17 @@ impl Screen {
             this: *mut ffi::GdkScreen,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(&from_glib_borrow(this))
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(&from_glib_borrow(this))
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"size-changed\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"size-changed".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     size_changed_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -179,15 +188,17 @@ impl Screen {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(&from_glib_borrow(this))
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(&from_glib_borrow(this))
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::font-options\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::font-options".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_font_options_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -202,15 +213,17 @@ impl Screen {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(&from_glib_borrow(this))
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(&from_glib_borrow(this))
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::resolution\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::resolution".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_resolution_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),

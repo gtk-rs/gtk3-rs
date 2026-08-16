@@ -29,6 +29,10 @@ fn build_ui(application: &gtk::Application) {
         glib::Propagation::Stop
     });
 
-    bigbutton.connect_clicked(glib::clone!(@weak dialog => move |_| dialog.show_all()));
+    bigbutton.connect_clicked(glib::clone!(
+        #[weak]
+        dialog,
+        move |_| dialog.show_all()
+    ));
     window.show_all();
 }

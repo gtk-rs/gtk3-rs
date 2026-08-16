@@ -2,8 +2,9 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use crate::{Adjustment, Buildable, Orientable, ScrollType, SensitivityType, Widget};
+use crate::{ffi, Adjustment, Buildable, Orientable, ScrollType, SensitivityType, Widget};
 use glib::{
+    object::ObjectType as _,
     prelude::*,
     signal::{connect_raw, SignalHandlerId},
     translate::*,
@@ -23,12 +24,7 @@ impl Range {
     pub const NONE: Option<&'static Range> = None;
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::IsA<super::Range>> Sealed for T {}
-}
-
-pub trait RangeExt: IsA<Range> + sealed::Sealed + 'static {
+pub trait RangeExt: IsA<Range> + 'static {
     #[doc(alias = "gtk_range_get_adjustment")]
     #[doc(alias = "get_adjustment")]
     fn adjustment(&self) -> Adjustment {
@@ -41,6 +37,7 @@ pub trait RangeExt: IsA<Range> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_range_get_fill_level")]
     #[doc(alias = "get_fill_level")]
+    #[doc(alias = "fill-level")]
     fn fill_level(&self) -> f64 {
         unsafe { ffi::gtk_range_get_fill_level(self.as_ref().to_glib_none().0) }
     }
@@ -53,12 +50,14 @@ pub trait RangeExt: IsA<Range> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_range_get_inverted")]
     #[doc(alias = "get_inverted")]
+    #[doc(alias = "inverted")]
     fn is_inverted(&self) -> bool {
         unsafe { from_glib(ffi::gtk_range_get_inverted(self.as_ref().to_glib_none().0)) }
     }
 
     #[doc(alias = "gtk_range_get_lower_stepper_sensitivity")]
     #[doc(alias = "get_lower_stepper_sensitivity")]
+    #[doc(alias = "lower-stepper-sensitivity")]
     fn lower_stepper_sensitivity(&self) -> SensitivityType {
         unsafe {
             from_glib(ffi::gtk_range_get_lower_stepper_sensitivity(
@@ -82,6 +81,7 @@ pub trait RangeExt: IsA<Range> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_range_get_restrict_to_fill_level")]
     #[doc(alias = "get_restrict_to_fill_level")]
+    #[doc(alias = "restrict-to-fill-level")]
     fn restricts_to_fill_level(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_range_get_restrict_to_fill_level(
@@ -92,12 +92,14 @@ pub trait RangeExt: IsA<Range> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_range_get_round_digits")]
     #[doc(alias = "get_round_digits")]
+    #[doc(alias = "round-digits")]
     fn round_digits(&self) -> i32 {
         unsafe { ffi::gtk_range_get_round_digits(self.as_ref().to_glib_none().0) }
     }
 
     #[doc(alias = "gtk_range_get_show_fill_level")]
     #[doc(alias = "get_show_fill_level")]
+    #[doc(alias = "show-fill-level")]
     fn shows_fill_level(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_range_get_show_fill_level(
@@ -133,6 +135,7 @@ pub trait RangeExt: IsA<Range> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_range_get_upper_stepper_sensitivity")]
     #[doc(alias = "get_upper_stepper_sensitivity")]
+    #[doc(alias = "upper-stepper-sensitivity")]
     fn upper_stepper_sensitivity(&self) -> SensitivityType {
         unsafe {
             from_glib(ffi::gtk_range_get_upper_stepper_sensitivity(
@@ -148,6 +151,7 @@ pub trait RangeExt: IsA<Range> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_range_set_adjustment")]
+    #[doc(alias = "adjustment")]
     fn set_adjustment(&self, adjustment: &impl IsA<Adjustment>) {
         unsafe {
             ffi::gtk_range_set_adjustment(
@@ -158,6 +162,7 @@ pub trait RangeExt: IsA<Range> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_range_set_fill_level")]
+    #[doc(alias = "fill-level")]
     fn set_fill_level(&self, fill_level: f64) {
         unsafe {
             ffi::gtk_range_set_fill_level(self.as_ref().to_glib_none().0, fill_level);
@@ -179,6 +184,7 @@ pub trait RangeExt: IsA<Range> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_range_set_inverted")]
+    #[doc(alias = "inverted")]
     fn set_inverted(&self, setting: bool) {
         unsafe {
             ffi::gtk_range_set_inverted(self.as_ref().to_glib_none().0, setting.into_glib());
@@ -186,6 +192,7 @@ pub trait RangeExt: IsA<Range> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_range_set_lower_stepper_sensitivity")]
+    #[doc(alias = "lower-stepper-sensitivity")]
     fn set_lower_stepper_sensitivity(&self, sensitivity: SensitivityType) {
         unsafe {
             ffi::gtk_range_set_lower_stepper_sensitivity(
@@ -203,6 +210,7 @@ pub trait RangeExt: IsA<Range> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_range_set_restrict_to_fill_level")]
+    #[doc(alias = "restrict-to-fill-level")]
     fn set_restrict_to_fill_level(&self, restrict_to_fill_level: bool) {
         unsafe {
             ffi::gtk_range_set_restrict_to_fill_level(
@@ -213,6 +221,7 @@ pub trait RangeExt: IsA<Range> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_range_set_round_digits")]
+    #[doc(alias = "round-digits")]
     fn set_round_digits(&self, round_digits: i32) {
         unsafe {
             ffi::gtk_range_set_round_digits(self.as_ref().to_glib_none().0, round_digits);
@@ -220,6 +229,7 @@ pub trait RangeExt: IsA<Range> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_range_set_show_fill_level")]
+    #[doc(alias = "show-fill-level")]
     fn set_show_fill_level(&self, show_fill_level: bool) {
         unsafe {
             ffi::gtk_range_set_show_fill_level(
@@ -240,6 +250,7 @@ pub trait RangeExt: IsA<Range> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_range_set_upper_stepper_sensitivity")]
+    #[doc(alias = "upper-stepper-sensitivity")]
     fn set_upper_stepper_sensitivity(&self, sensitivity: SensitivityType) {
         unsafe {
             ffi::gtk_range_set_upper_stepper_sensitivity(
@@ -260,18 +271,20 @@ pub trait RangeExt: IsA<Range> + sealed::Sealed + 'static {
     fn connect_adjust_bounds<F: Fn(&Self, f64) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn adjust_bounds_trampoline<P: IsA<Range>, F: Fn(&P, f64) + 'static>(
             this: *mut ffi::GtkRange,
-            value: libc::c_double,
+            value: std::ffi::c_double,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Range::from_glib_borrow(this).unsafe_cast_ref(), value)
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Range::from_glib_borrow(this).unsafe_cast_ref(), value)
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"adjust-bounds\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"adjust-bounds".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     adjust_bounds_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -290,23 +303,25 @@ pub trait RangeExt: IsA<Range> + sealed::Sealed + 'static {
         >(
             this: *mut ffi::GtkRange,
             scroll: ffi::GtkScrollType,
-            value: libc::c_double,
+            value: std::ffi::c_double,
             f: glib::ffi::gpointer,
         ) -> glib::ffi::gboolean {
-            let f: &F = &*(f as *const F);
-            f(
-                Range::from_glib_borrow(this).unsafe_cast_ref(),
-                from_glib(scroll),
-                value,
-            )
-            .into_glib()
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(
+                    Range::from_glib_borrow(this).unsafe_cast_ref(),
+                    from_glib(scroll),
+                    value,
+                )
+                .into_glib()
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"change-value\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"change-value".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     change_value_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -324,18 +339,20 @@ pub trait RangeExt: IsA<Range> + sealed::Sealed + 'static {
             step: ffi::GtkScrollType,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(
-                Range::from_glib_borrow(this).unsafe_cast_ref(),
-                from_glib(step),
-            )
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(
+                    Range::from_glib_borrow(this).unsafe_cast_ref(),
+                    from_glib(step),
+                )
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"move-slider\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"move-slider".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     move_slider_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -353,15 +370,17 @@ pub trait RangeExt: IsA<Range> + sealed::Sealed + 'static {
             this: *mut ffi::GtkRange,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Range::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Range::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"value-changed\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"value-changed".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     value_changed_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -376,15 +395,17 @@ pub trait RangeExt: IsA<Range> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Range::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Range::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::adjustment\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::adjustment".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_adjustment_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -399,15 +420,17 @@ pub trait RangeExt: IsA<Range> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Range::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Range::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::fill-level\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::fill-level".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_fill_level_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -422,15 +445,17 @@ pub trait RangeExt: IsA<Range> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Range::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Range::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::inverted\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::inverted".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_inverted_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -451,15 +476,17 @@ pub trait RangeExt: IsA<Range> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Range::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Range::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::lower-stepper-sensitivity\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::lower-stepper-sensitivity".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_lower_stepper_sensitivity_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -480,15 +507,17 @@ pub trait RangeExt: IsA<Range> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Range::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Range::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::restrict-to-fill-level\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::restrict-to-fill-level".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_restrict_to_fill_level_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -503,15 +532,17 @@ pub trait RangeExt: IsA<Range> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Range::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Range::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::round-digits\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::round-digits".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_round_digits_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -529,15 +560,17 @@ pub trait RangeExt: IsA<Range> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Range::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Range::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::show-fill-level\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::show-fill-level".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_show_fill_level_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -558,15 +591,17 @@ pub trait RangeExt: IsA<Range> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Range::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Range::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::upper-stepper-sensitivity\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::upper-stepper-sensitivity".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_upper_stepper_sensitivity_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),

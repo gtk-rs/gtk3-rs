@@ -2,8 +2,9 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use crate::{Buildable, Container, DirectionType, MenuDirectionType, MenuItem, Widget};
+use crate::{ffi, Buildable, Container, DirectionType, MenuDirectionType, MenuItem, Widget};
 use glib::{
+    object::ObjectType as _,
     prelude::*,
     signal::{connect_raw, SignalHandlerId},
     translate::*,
@@ -23,12 +24,7 @@ impl MenuShell {
     pub const NONE: Option<&'static MenuShell> = None;
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::IsA<super::MenuShell>> Sealed for T {}
-}
-
-pub trait MenuShellExt: IsA<MenuShell> + sealed::Sealed + 'static {
+pub trait MenuShellExt: IsA<MenuShell> + 'static {
     #[doc(alias = "gtk_menu_shell_activate_item")]
     fn activate_item(&self, menu_item: &impl IsA<Widget>, force_deactivate: bool) {
         unsafe {
@@ -110,6 +106,7 @@ pub trait MenuShellExt: IsA<MenuShell> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_menu_shell_get_take_focus")]
     #[doc(alias = "get_take_focus")]
+    #[doc(alias = "take-focus")]
     fn takes_focus(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_menu_shell_get_take_focus(
@@ -160,6 +157,7 @@ pub trait MenuShellExt: IsA<MenuShell> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_menu_shell_set_take_focus")]
+    #[doc(alias = "take-focus")]
     fn set_take_focus(&self, take_focus: bool) {
         unsafe {
             ffi::gtk_menu_shell_set_take_focus(
@@ -179,18 +177,20 @@ pub trait MenuShellExt: IsA<MenuShell> + sealed::Sealed + 'static {
             force_hide: glib::ffi::gboolean,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(
-                MenuShell::from_glib_borrow(this).unsafe_cast_ref(),
-                from_glib(force_hide),
-            )
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(
+                    MenuShell::from_glib_borrow(this).unsafe_cast_ref(),
+                    from_glib(force_hide),
+                )
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"activate-current\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"activate-current".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     activate_current_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -208,15 +208,17 @@ pub trait MenuShellExt: IsA<MenuShell> + sealed::Sealed + 'static {
             this: *mut ffi::GtkMenuShell,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(MenuShell::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(MenuShell::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"cancel\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"cancel".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     cancel_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -238,18 +240,20 @@ pub trait MenuShellExt: IsA<MenuShell> + sealed::Sealed + 'static {
             direction: ffi::GtkDirectionType,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(
-                MenuShell::from_glib_borrow(this).unsafe_cast_ref(),
-                from_glib(direction),
-            )
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(
+                    MenuShell::from_glib_borrow(this).unsafe_cast_ref(),
+                    from_glib(direction),
+                )
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"cycle-focus\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"cycle-focus".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     cycle_focus_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -267,15 +271,17 @@ pub trait MenuShellExt: IsA<MenuShell> + sealed::Sealed + 'static {
             this: *mut ffi::GtkMenuShell,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(MenuShell::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(MenuShell::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"deactivate\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"deactivate".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     deactivate_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -291,22 +297,24 @@ pub trait MenuShellExt: IsA<MenuShell> + sealed::Sealed + 'static {
         >(
             this: *mut ffi::GtkMenuShell,
             child: *mut ffi::GtkWidget,
-            position: libc::c_int,
+            position: std::ffi::c_int,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(
-                MenuShell::from_glib_borrow(this).unsafe_cast_ref(),
-                &from_glib_borrow(child),
-                position,
-            )
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(
+                    MenuShell::from_glib_borrow(this).unsafe_cast_ref(),
+                    &from_glib_borrow(child),
+                    position,
+                )
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"insert\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"insert".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     insert_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -327,18 +335,20 @@ pub trait MenuShellExt: IsA<MenuShell> + sealed::Sealed + 'static {
             direction: ffi::GtkMenuDirectionType,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(
-                MenuShell::from_glib_borrow(this).unsafe_cast_ref(),
-                from_glib(direction),
-            )
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(
+                    MenuShell::from_glib_borrow(this).unsafe_cast_ref(),
+                    from_glib(direction),
+                )
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"move-current\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"move-current".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     move_current_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -360,22 +370,24 @@ pub trait MenuShellExt: IsA<MenuShell> + sealed::Sealed + 'static {
             F: Fn(&P, i32) -> glib::Propagation + 'static,
         >(
             this: *mut ffi::GtkMenuShell,
-            distance: libc::c_int,
+            distance: std::ffi::c_int,
             f: glib::ffi::gpointer,
         ) -> glib::ffi::gboolean {
-            let f: &F = &*(f as *const F);
-            f(
-                MenuShell::from_glib_borrow(this).unsafe_cast_ref(),
-                distance,
-            )
-            .into_glib()
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(
+                    MenuShell::from_glib_borrow(this).unsafe_cast_ref(),
+                    distance,
+                )
+                .into_glib()
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"move-selected\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"move-selected".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     move_selected_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -389,15 +401,17 @@ pub trait MenuShellExt: IsA<MenuShell> + sealed::Sealed + 'static {
             this: *mut ffi::GtkMenuShell,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(MenuShell::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(MenuShell::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"selection-done\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"selection-done".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     selection_done_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -415,15 +429,17 @@ pub trait MenuShellExt: IsA<MenuShell> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(MenuShell::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(MenuShell::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::take-focus\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::take-focus".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_take_focus_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),

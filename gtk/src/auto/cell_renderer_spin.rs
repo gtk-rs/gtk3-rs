@@ -2,7 +2,7 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use crate::{Adjustment, CellRenderer, CellRendererMode, CellRendererText};
+use crate::{ffi, Adjustment, CellRenderer, CellRendererMode, CellRendererText};
 use glib::{
     prelude::*,
     signal::{connect_raw, SignalHandlerId},
@@ -455,16 +455,12 @@ impl CellRendererSpinBuilder {
     /// Build the [`CellRendererSpin`].
     #[must_use = "Building the object from the builder is usually expensive and is not expected to have side effects"]
     pub fn build(self) -> CellRendererSpin {
+        assert_initialized_main_thread!();
         self.builder.build()
     }
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::IsA<super::CellRendererSpin>> Sealed for T {}
-}
-
-pub trait CellRendererSpinExt: IsA<CellRendererSpin> + sealed::Sealed + 'static {
+pub trait CellRendererSpinExt: IsA<CellRendererSpin> + 'static {
     fn adjustment(&self) -> Option<Adjustment> {
         ObjectExt::property(self.as_ref(), "adjustment")
     }
@@ -501,15 +497,17 @@ pub trait CellRendererSpinExt: IsA<CellRendererSpin> + sealed::Sealed + 'static 
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(CellRendererSpin::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(CellRendererSpin::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::adjustment\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::adjustment".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_adjustment_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -527,15 +525,17 @@ pub trait CellRendererSpinExt: IsA<CellRendererSpin> + sealed::Sealed + 'static 
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(CellRendererSpin::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(CellRendererSpin::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::climb-rate\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::climb-rate".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_climb_rate_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -553,15 +553,17 @@ pub trait CellRendererSpinExt: IsA<CellRendererSpin> + sealed::Sealed + 'static 
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(CellRendererSpin::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(CellRendererSpin::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::digits\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::digits".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_digits_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),

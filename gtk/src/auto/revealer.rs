@@ -2,7 +2,7 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use crate::{Align, Bin, Buildable, Container, ResizeMode, RevealerTransitionType, Widget};
+use crate::{ffi, Align, Bin, Buildable, Container, ResizeMode, RevealerTransitionType, Widget};
 use glib::{
     prelude::*,
     signal::{connect_raw, SignalHandlerId},
@@ -295,18 +295,15 @@ impl RevealerBuilder {
     /// Build the [`Revealer`].
     #[must_use = "Building the object from the builder is usually expensive and is not expected to have side effects"]
     pub fn build(self) -> Revealer {
+        assert_initialized_main_thread!();
         self.builder.build()
     }
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::IsA<super::Revealer>> Sealed for T {}
-}
-
-pub trait RevealerExt: IsA<Revealer> + sealed::Sealed + 'static {
+pub trait RevealerExt: IsA<Revealer> + 'static {
     #[doc(alias = "gtk_revealer_get_child_revealed")]
     #[doc(alias = "get_child_revealed")]
+    #[doc(alias = "child-revealed")]
     fn is_child_revealed(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_revealer_get_child_revealed(
@@ -317,6 +314,7 @@ pub trait RevealerExt: IsA<Revealer> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_revealer_get_reveal_child")]
     #[doc(alias = "get_reveal_child")]
+    #[doc(alias = "reveal-child")]
     fn reveals_child(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_revealer_get_reveal_child(
@@ -327,12 +325,14 @@ pub trait RevealerExt: IsA<Revealer> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_revealer_get_transition_duration")]
     #[doc(alias = "get_transition_duration")]
+    #[doc(alias = "transition-duration")]
     fn transition_duration(&self) -> u32 {
         unsafe { ffi::gtk_revealer_get_transition_duration(self.as_ref().to_glib_none().0) }
     }
 
     #[doc(alias = "gtk_revealer_get_transition_type")]
     #[doc(alias = "get_transition_type")]
+    #[doc(alias = "transition-type")]
     fn transition_type(&self) -> RevealerTransitionType {
         unsafe {
             from_glib(ffi::gtk_revealer_get_transition_type(
@@ -342,6 +342,7 @@ pub trait RevealerExt: IsA<Revealer> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_revealer_set_reveal_child")]
+    #[doc(alias = "reveal-child")]
     fn set_reveal_child(&self, reveal_child: bool) {
         unsafe {
             ffi::gtk_revealer_set_reveal_child(
@@ -352,6 +353,7 @@ pub trait RevealerExt: IsA<Revealer> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_revealer_set_transition_duration")]
+    #[doc(alias = "transition-duration")]
     fn set_transition_duration(&self, duration: u32) {
         unsafe {
             ffi::gtk_revealer_set_transition_duration(self.as_ref().to_glib_none().0, duration);
@@ -359,6 +361,7 @@ pub trait RevealerExt: IsA<Revealer> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_revealer_set_transition_type")]
+    #[doc(alias = "transition-type")]
     fn set_transition_type(&self, transition: RevealerTransitionType) {
         unsafe {
             ffi::gtk_revealer_set_transition_type(
@@ -378,15 +381,17 @@ pub trait RevealerExt: IsA<Revealer> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Revealer::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Revealer::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::child-revealed\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::child-revealed".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_child_revealed_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -404,15 +409,17 @@ pub trait RevealerExt: IsA<Revealer> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Revealer::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Revealer::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::reveal-child\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::reveal-child".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_reveal_child_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -430,15 +437,17 @@ pub trait RevealerExt: IsA<Revealer> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Revealer::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Revealer::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::transition-duration\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::transition-duration".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_transition_duration_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -456,15 +465,17 @@ pub trait RevealerExt: IsA<Revealer> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Revealer::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Revealer::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::transition-type\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::transition-type".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_transition_type_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),

@@ -21,8 +21,8 @@
                     unsigned long: "%lu", \
                     long long: "%lld", \
                     unsigned long long: "%llu", \
-                    float: "%f", \
-                    double: "%f", \
+                    float: "%.6f", \
+                    double: "%.6f", \
                     long double: "%ld"), \
            CONSTANT_NAME); \
     printf("\n");
@@ -74,6 +74,7 @@ int main() {
     PRINT_CONSTANT((gint) ATK_ROLE_AUDIO);
     PRINT_CONSTANT((gint) ATK_ROLE_AUTOCOMPLETE);
     PRINT_CONSTANT((gint) ATK_ROLE_BLOCK_QUOTE);
+    PRINT_CONSTANT((gint) ATK_ROLE_BUTTON);
     PRINT_CONSTANT((gint) ATK_ROLE_CALENDAR);
     PRINT_CONSTANT((gint) ATK_ROLE_CANVAS);
     PRINT_CONSTANT((gint) ATK_ROLE_CAPTION);
@@ -174,6 +175,7 @@ int main() {
     PRINT_CONSTANT((gint) ATK_ROLE_SUBSCRIPT);
     PRINT_CONSTANT((gint) ATK_ROLE_SUGGESTION);
     PRINT_CONSTANT((gint) ATK_ROLE_SUPERSCRIPT);
+    PRINT_CONSTANT((gint) ATK_ROLE_SWITCH);
     PRINT_CONSTANT((gint) ATK_ROLE_TABLE);
     PRINT_CONSTANT((gint) ATK_ROLE_TABLE_CELL);
     PRINT_CONSTANT((gint) ATK_ROLE_TABLE_COLUMN_HEADER);

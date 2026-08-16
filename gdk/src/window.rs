@@ -163,7 +163,7 @@ impl Window {
 
 mod sealed {
     pub trait Sealed {}
-    impl<T: glib::IsA<crate::Window>> Sealed for T {}
+    impl<T: glib::object::IsA<crate::Window>> Sealed for T {}
 }
 
 pub trait WindowExtManual: IsA<Window> + sealed::Sealed + 'static {

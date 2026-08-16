@@ -21,20 +21,24 @@ fn build_ui(application: &gtk::Application) {
     let minus_button = Button::with_label("-");
     vbox.add(&minus_button);
 
-    minus_button.connect_clicked(glib::clone!(@weak counter_label => move |_| {
-        let nb = counter_label.text()
-            .parse()
-            .unwrap_or(0);
-        if nb > 0 {
-            counter_label.set_text(&format!("{}", nb - 1));
+    minus_button.connect_clicked(glib::clone!(
+        #[weak]
+        counter_label,
+        move |_| {
+            let nb = counter_label.text().parse().unwrap_or(0);
+            if nb > 0 {
+                counter_label.set_text(&format!("{}", nb - 1));
+            }
         }
-    }));
-    plus_button.connect_clicked(glib::clone!(@weak counter_label => move |_| {
-        let nb = counter_label.text()
-            .parse()
-            .unwrap_or(0);
-        counter_label.set_text(&format!("{}", nb + 1));
-    }));
+    ));
+    plus_button.connect_clicked(glib::clone!(
+        #[weak]
+        counter_label,
+        move |_| {
+            let nb = counter_label.text().parse().unwrap_or(0);
+            counter_label.set_text(&format!("{}", nb + 1));
+        }
+    ));
 
     let window = ApplicationWindow::new(application);
 

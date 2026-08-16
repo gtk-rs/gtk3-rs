@@ -1,16 +1,14 @@
 [build-dependencies]
-system-deps = "6"
+system-deps = "8"
 
 [dependencies]
 libc = "0.2"
 
-[dependencies.glib]
-package = "glib-sys"
-git = "https://github.com/gtk-rs/gtk-rs-core"
+[dependencies.glib-sys]
+workspace = true
 
-[dependencies.gobject]
-package = "gobject-sys"
-git = "https://github.com/gtk-rs/gtk-rs-core"
+[dependencies.gobject-sys]
+workspace = true
 
 [dev-dependencies]
 shell-words = "1.0.0"
@@ -23,6 +21,7 @@ v2_34 = ["v2_32"]
 v2_38 = ["v2_34"]
 v2_46 = ["v2_38"]
 v2_50 = ["v2_46"]
+v2_52 = ["v2_50"]
 
 [lib]
 name = "atk_sys"
@@ -39,7 +38,7 @@ name = "atk-sys"
 repository = "https://github.com/gtk-rs/gtk3-rs"
 version = "0.19.0"
 edition = "2021"
-rust-version = "1.70"
+rust-version = "1.92"
 
 [package.metadata.docs.rs]
 rustdoc-args = ["--cfg", "docsrs"]
@@ -67,3 +66,6 @@ version = "2.46"
 
 [package.metadata.system-deps.atk.v2_50]
 version = "2.50"
+
+[package.metadata.system-deps.atk.v2_52]
+version = "2.52"

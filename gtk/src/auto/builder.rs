@@ -2,7 +2,7 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use crate::Application;
+use crate::{ffi, Application};
 use glib::{
     prelude::*,
     signal::{connect_raw, SignalHandlerId},
@@ -59,12 +59,7 @@ impl Default for Builder {
     }
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::IsA<super::Builder>> Sealed for T {}
-}
-
-pub trait BuilderExt: IsA<Builder> + sealed::Sealed + 'static {
+pub trait BuilderExt: IsA<Builder> + 'static {
     //#[doc(alias = "gtk_builder_add_callback_symbol")]
     //fn add_callback_symbol<P: FnOnce() + 'static>(&self, callback_name: &str, callback_symbol: P) {
     //    unsafe { TODO: call ffi:gtk_builder_add_callback_symbol() }
@@ -113,6 +108,7 @@ pub trait BuilderExt: IsA<Builder> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_builder_get_translation_domain")]
     #[doc(alias = "get_translation_domain")]
+    #[doc(alias = "translation-domain")]
     fn translation_domain(&self) -> Option<glib::GString> {
         unsafe {
             from_glib_none(ffi::gtk_builder_get_translation_domain(
@@ -148,6 +144,7 @@ pub trait BuilderExt: IsA<Builder> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_builder_set_translation_domain")]
+    #[doc(alias = "translation-domain")]
     fn set_translation_domain(&self, domain: Option<&str>) {
         unsafe {
             ffi::gtk_builder_set_translation_domain(
@@ -217,15 +214,17 @@ pub trait BuilderExt: IsA<Builder> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Builder::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Builder::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::translation-domain\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::translation-domain".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_translation_domain_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),

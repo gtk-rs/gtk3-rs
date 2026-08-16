@@ -1,13 +1,13 @@
 // Take a look at the license at the top of the repository in the LICENSE file.
 
 use crate::Invisible;
+use glib::object::IsA;
 use glib::translate::{from_glib_none, ToGlibPtr};
-use glib::IsA;
 
 // For some reasons, it's not generated...
 mod sealed {
     pub trait Sealed {}
-    impl<T: glib::IsA<crate::Invisible>> Sealed for T {}
+    impl<T: glib::object::IsA<crate::Invisible>> Sealed for T {}
 }
 
 pub trait InvisibleExtManual: IsA<Invisible> + sealed::Sealed + 'static {

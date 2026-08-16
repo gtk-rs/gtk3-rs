@@ -3,10 +3,11 @@
 // DO NOT EDIT
 
 use crate::{
-    Align, AppChooser, Bin, Buildable, CellArea, CellEditable, CellLayout, ComboBox, Container,
-    ResizeMode, SensitivityType, TreeModel, Widget,
+    ffi, Align, AppChooser, Bin, Buildable, CellArea, CellEditable, CellLayout, ComboBox,
+    Container, ResizeMode, SensitivityType, TreeModel, Widget,
 };
 use glib::{
+    object::ObjectType as _,
     prelude::*,
     signal::{connect_raw, SignalHandlerId},
     translate::*,
@@ -403,16 +404,12 @@ impl AppChooserButtonBuilder {
     /// Build the [`AppChooserButton`].
     #[must_use = "Building the object from the builder is usually expensive and is not expected to have side effects"]
     pub fn build(self) -> AppChooserButton {
+        assert_initialized_main_thread!();
         self.builder.build()
     }
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::IsA<super::AppChooserButton>> Sealed for T {}
-}
-
-pub trait AppChooserButtonExt: IsA<AppChooserButton> + sealed::Sealed + 'static {
+pub trait AppChooserButtonExt: IsA<AppChooserButton> + 'static {
     #[doc(alias = "gtk_app_chooser_button_append_custom_item")]
     fn append_custom_item(&self, name: &str, label: &str, icon: &impl IsA<gio::Icon>) {
         unsafe {
@@ -444,6 +441,7 @@ pub trait AppChooserButtonExt: IsA<AppChooserButton> + sealed::Sealed + 'static 
 
     #[doc(alias = "gtk_app_chooser_button_get_show_default_item")]
     #[doc(alias = "get_show_default_item")]
+    #[doc(alias = "show-default-item")]
     fn shows_default_item(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_app_chooser_button_get_show_default_item(
@@ -454,6 +452,7 @@ pub trait AppChooserButtonExt: IsA<AppChooserButton> + sealed::Sealed + 'static 
 
     #[doc(alias = "gtk_app_chooser_button_get_show_dialog_item")]
     #[doc(alias = "get_show_dialog_item")]
+    #[doc(alias = "show-dialog-item")]
     fn shows_dialog_item(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_app_chooser_button_get_show_dialog_item(
@@ -473,6 +472,7 @@ pub trait AppChooserButtonExt: IsA<AppChooserButton> + sealed::Sealed + 'static 
     }
 
     #[doc(alias = "gtk_app_chooser_button_set_heading")]
+    #[doc(alias = "heading")]
     fn set_heading(&self, heading: &str) {
         unsafe {
             ffi::gtk_app_chooser_button_set_heading(
@@ -483,6 +483,7 @@ pub trait AppChooserButtonExt: IsA<AppChooserButton> + sealed::Sealed + 'static 
     }
 
     #[doc(alias = "gtk_app_chooser_button_set_show_default_item")]
+    #[doc(alias = "show-default-item")]
     fn set_show_default_item(&self, setting: bool) {
         unsafe {
             ffi::gtk_app_chooser_button_set_show_default_item(
@@ -493,6 +494,7 @@ pub trait AppChooserButtonExt: IsA<AppChooserButton> + sealed::Sealed + 'static 
     }
 
     #[doc(alias = "gtk_app_chooser_button_set_show_dialog_item")]
+    #[doc(alias = "show-dialog-item")]
     fn set_show_dialog_item(&self, setting: bool) {
         unsafe {
             ffi::gtk_app_chooser_button_set_show_dialog_item(
@@ -513,26 +515,30 @@ pub trait AppChooserButtonExt: IsA<AppChooserButton> + sealed::Sealed + 'static 
             F: Fn(&P, &str) + 'static,
         >(
             this: *mut ffi::GtkAppChooserButton,
-            item_name: *mut libc::c_char,
+            item_name: *mut std::ffi::c_char,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(
-                AppChooserButton::from_glib_borrow(this).unsafe_cast_ref(),
-                &glib::GString::from_glib_borrow(item_name),
-            )
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(
+                    AppChooserButton::from_glib_borrow(this).unsafe_cast_ref(),
+                    &glib::GString::from_glib_borrow(item_name),
+                )
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             let detailed_signal_name =
                 detail.map(|name| format!("custom-item-activated::{name}\0"));
-            let signal_name: &[u8] = detailed_signal_name
+            let signal_name = detailed_signal_name
                 .as_ref()
-                .map_or(&b"custom-item-activated\0"[..], |n| n.as_bytes());
+                .map_or(c"custom-item-activated", |n| {
+                    std::ffi::CStr::from_bytes_with_nul_unchecked(n.as_bytes())
+                });
             connect_raw(
                 self.as_ptr() as *mut _,
-                signal_name.as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                signal_name.as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     custom_item_activated_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -550,15 +556,17 @@ pub trait AppChooserButtonExt: IsA<AppChooserButton> + sealed::Sealed + 'static 
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(AppChooserButton::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(AppChooserButton::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::heading\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::heading".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_heading_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -576,15 +584,17 @@ pub trait AppChooserButtonExt: IsA<AppChooserButton> + sealed::Sealed + 'static 
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(AppChooserButton::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(AppChooserButton::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::show-default-item\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::show-default-item".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_show_default_item_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -602,15 +612,17 @@ pub trait AppChooserButtonExt: IsA<AppChooserButton> + sealed::Sealed + 'static 
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(AppChooserButton::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(AppChooserButton::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::show-dialog-item\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::show-dialog-item".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_show_dialog_item_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),

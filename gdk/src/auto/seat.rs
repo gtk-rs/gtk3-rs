@@ -2,8 +2,11 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use crate::{Cursor, Device, DeviceTool, Display, Event, GrabStatus, SeatCapabilities, Window};
+use crate::{
+    ffi, Cursor, Device, DeviceTool, Display, Event, GrabStatus, SeatCapabilities, Window,
+};
 use glib::{
+    object::ObjectType as _,
     prelude::*,
     signal::{connect_raw, SignalHandlerId},
     translate::*,
@@ -23,12 +26,7 @@ impl Seat {
     pub const NONE: Option<&'static Seat> = None;
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::IsA<super::Seat>> Sealed for T {}
-}
-
-pub trait SeatExt: IsA<Seat> + sealed::Sealed + 'static {
+pub trait SeatExt: IsA<Seat> + 'static {
     #[doc(alias = "gdk_seat_get_capabilities")]
     #[doc(alias = "get_capabilities")]
     fn capabilities(&self) -> SeatCapabilities {
@@ -76,22 +74,23 @@ pub trait SeatExt: IsA<Seat> + sealed::Sealed + 'static {
         owner_events: bool,
         cursor: Option<&Cursor>,
         event: Option<&Event>,
-        prepare_func: Option<&mut dyn (FnMut(&Seat, &Window))>,
+        prepare_func: Option<&mut dyn FnMut(&Seat, &Window)>,
     ) -> GrabStatus {
-        let prepare_func_data: Option<&mut dyn (FnMut(&Seat, &Window))> = prepare_func;
+        let mut prepare_func_data: Option<&mut dyn FnMut(&Seat, &Window)> = prepare_func;
         unsafe extern "C" fn prepare_func_func(
             seat: *mut ffi::GdkSeat,
             window: *mut ffi::GdkWindow,
             user_data: glib::ffi::gpointer,
         ) {
-            let seat = from_glib_borrow(seat);
-            let window = from_glib_borrow(window);
-            let callback: *mut Option<&mut dyn (FnMut(&Seat, &Window))> =
-                user_data as *const _ as usize as *mut Option<&mut dyn (FnMut(&Seat, &Window))>;
-            if let Some(ref mut callback) = *callback {
-                callback(&seat, &window)
-            } else {
-                panic!("cannot get closure...")
+            unsafe {
+                let seat = from_glib_borrow(seat);
+                let window = from_glib_borrow(window);
+                let callback = user_data as *mut Option<&mut dyn FnMut(&Seat, &Window)>;
+                if let Some(ref mut callback) = *callback {
+                    callback(&seat, &window)
+                } else {
+                    panic!("cannot get closure...")
+                }
             }
         }
         let prepare_func = if prepare_func_data.is_some() {
@@ -99,7 +98,7 @@ pub trait SeatExt: IsA<Seat> + sealed::Sealed + 'static {
         } else {
             None
         };
-        let super_callback0: &Option<&mut dyn (FnMut(&Seat, &Window))> = &prepare_func_data;
+        let super_callback0: &mut Option<&mut dyn FnMut(&Seat, &Window)> = &mut prepare_func_data;
         unsafe {
             from_glib(ffi::gdk_seat_grab(
                 self.as_ref().to_glib_none().0,
@@ -109,7 +108,7 @@ pub trait SeatExt: IsA<Seat> + sealed::Sealed + 'static {
                 cursor.to_glib_none().0,
                 event.to_glib_none().0,
                 prepare_func,
-                super_callback0 as *const _ as usize as *mut _,
+                super_callback0 as *mut _ as *mut _,
             ))
         }
     }
@@ -128,18 +127,20 @@ pub trait SeatExt: IsA<Seat> + sealed::Sealed + 'static {
             device: *mut ffi::GdkDevice,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(
-                Seat::from_glib_borrow(this).unsafe_cast_ref(),
-                &from_glib_borrow(device),
-            )
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(
+                    Seat::from_glib_borrow(this).unsafe_cast_ref(),
+                    &from_glib_borrow(device),
+                )
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"device-added\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"device-added".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     device_added_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -157,18 +158,20 @@ pub trait SeatExt: IsA<Seat> + sealed::Sealed + 'static {
             device: *mut ffi::GdkDevice,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(
-                Seat::from_glib_borrow(this).unsafe_cast_ref(),
-                &from_glib_borrow(device),
-            )
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(
+                    Seat::from_glib_borrow(this).unsafe_cast_ref(),
+                    &from_glib_borrow(device),
+                )
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"device-removed\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"device-removed".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     device_removed_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -186,18 +189,20 @@ pub trait SeatExt: IsA<Seat> + sealed::Sealed + 'static {
             tool: *mut ffi::GdkDeviceTool,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(
-                Seat::from_glib_borrow(this).unsafe_cast_ref(),
-                &from_glib_borrow(tool),
-            )
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(
+                    Seat::from_glib_borrow(this).unsafe_cast_ref(),
+                    &from_glib_borrow(tool),
+                )
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"tool-added\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"tool-added".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     tool_added_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -215,18 +220,20 @@ pub trait SeatExt: IsA<Seat> + sealed::Sealed + 'static {
             tool: *mut ffi::GdkDeviceTool,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(
-                Seat::from_glib_borrow(this).unsafe_cast_ref(),
-                &from_glib_borrow(tool),
-            )
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(
+                    Seat::from_glib_borrow(this).unsafe_cast_ref(),
+                    &from_glib_borrow(tool),
+                )
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"tool-removed\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"tool-removed".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     tool_removed_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),

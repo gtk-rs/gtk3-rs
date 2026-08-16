@@ -3,10 +3,11 @@
 // DO NOT EDIT
 
 use crate::{
-    Actionable, Align, Bin, Buildable, Button, Container, PositionType, ReliefStyle, ResizeMode,
-    Widget,
+    ffi, Actionable, Align, Bin, Buildable, Button, Container, PositionType, ReliefStyle,
+    ResizeMode, Widget,
 };
 use glib::{
+    object::ObjectType as _,
     prelude::*,
     signal::{connect_raw, SignalHandlerId},
     translate::*,
@@ -357,16 +358,12 @@ impl LinkButtonBuilder {
     /// Build the [`LinkButton`].
     #[must_use = "Building the object from the builder is usually expensive and is not expected to have side effects"]
     pub fn build(self) -> LinkButton {
+        assert_initialized_main_thread!();
         self.builder.build()
     }
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::IsA<super::LinkButton>> Sealed for T {}
-}
-
-pub trait LinkButtonExt: IsA<LinkButton> + sealed::Sealed + 'static {
+pub trait LinkButtonExt: IsA<LinkButton> + 'static {
     #[doc(alias = "gtk_link_button_get_uri")]
     #[doc(alias = "get_uri")]
     fn uri(&self) -> Option<glib::GString> {
@@ -375,6 +372,7 @@ pub trait LinkButtonExt: IsA<LinkButton> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_link_button_get_visited")]
     #[doc(alias = "get_visited")]
+    #[doc(alias = "visited")]
     fn is_visited(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_link_button_get_visited(
@@ -384,6 +382,7 @@ pub trait LinkButtonExt: IsA<LinkButton> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_link_button_set_uri")]
+    #[doc(alias = "uri")]
     fn set_uri(&self, uri: &str) {
         unsafe {
             ffi::gtk_link_button_set_uri(self.as_ref().to_glib_none().0, uri.to_glib_none().0);
@@ -391,6 +390,7 @@ pub trait LinkButtonExt: IsA<LinkButton> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_link_button_set_visited")]
+    #[doc(alias = "visited")]
     fn set_visited(&self, visited: bool) {
         unsafe {
             ffi::gtk_link_button_set_visited(self.as_ref().to_glib_none().0, visited.into_glib());
@@ -409,15 +409,17 @@ pub trait LinkButtonExt: IsA<LinkButton> + sealed::Sealed + 'static {
             this: *mut ffi::GtkLinkButton,
             f: glib::ffi::gpointer,
         ) -> glib::ffi::gboolean {
-            let f: &F = &*(f as *const F);
-            f(LinkButton::from_glib_borrow(this).unsafe_cast_ref()).into_glib()
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(LinkButton::from_glib_borrow(this).unsafe_cast_ref()).into_glib()
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"activate-link\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"activate-link".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     activate_link_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -432,15 +434,17 @@ pub trait LinkButtonExt: IsA<LinkButton> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(LinkButton::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(LinkButton::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::uri\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::uri".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_uri_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -455,15 +459,17 @@ pub trait LinkButtonExt: IsA<LinkButton> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(LinkButton::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(LinkButton::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::visited\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::visited".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_visited_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),

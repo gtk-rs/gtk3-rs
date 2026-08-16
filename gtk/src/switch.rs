@@ -9,7 +9,7 @@ use std::mem::transmute;
 
 mod sealed {
     pub trait Sealed {}
-    impl<T: glib::IsA<crate::Switch>> Sealed for T {}
+    impl<T: glib::object::IsA<crate::Switch>> Sealed for T {}
 }
 
 pub trait SwitchExtManual: IsA<Switch> + sealed::Sealed + 'static {
@@ -28,8 +28,8 @@ pub trait SwitchExtManual: IsA<Switch> + sealed::Sealed + 'static {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.to_glib_none().0 as *mut _,
-                b"notify::active\0".as_ptr() as *mut _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                c"notify::active".as_ptr() as *mut _,
+                Some(transmute::<*const (), unsafe extern "C" fn()>(
                     changed_active_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),

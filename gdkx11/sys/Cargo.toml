@@ -9,7 +9,7 @@ name = "gdkx11-sys"
 version = "0.19.0"
 build = "build.rs"
 edition = "2021"
-rust-version = "1.70"
+rust-version = "1.92"
 
 [package.metadata.docs.rs]
 rustdoc-args = ["--cfg", "docsrs"]
@@ -33,21 +33,17 @@ name = "gdk_x11_sys"
 libc = "0.2"
 x11 = "2.18"
 
-[dependencies.gdk]
-package = "gdk-sys"
+[dependencies.cairo-sys]
+workspace = true
+
+[dependencies.gdk-sys]
 path = "../../gdk/sys"
 
-[dependencies.glib]
-package = "glib-sys"
-git = "https://github.com/gtk-rs/gtk-rs-core"
-
-[dependencies.cairo]
-package = "cairo-sys-rs"
-git = "https://github.com/gtk-rs/gtk-rs-core"
-optional = true
+[dependencies.glib-sys]
+workspace = true
 
 [build-dependencies]
-system-deps = "6"
+system-deps = "8"
 
 [dev-dependencies]
 shell-words = "1.0.0"
@@ -55,4 +51,4 @@ tempfile = "3"
 
 [features]
 v3_24 = []
-v3_24_2 = ["v3_24", "cairo"]
+v3_24_2 = ["v3_24"]

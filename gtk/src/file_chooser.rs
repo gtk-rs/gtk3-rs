@@ -1,16 +1,16 @@
 // Take a look at the license at the top of the repository in the LICENSE file.
 
 use crate::FileChooser;
+use glib::object::IsA;
 #[cfg(feature = "v3_22")]
 #[cfg_attr(docsrs, doc(cfg(feature = "v3_22")))]
 use glib::translate::*;
-use glib::IsA;
 
 // rustdoc-stripper-ignore-next
 /// Trait containing manually implemented methods of [`FileChooser`](crate::FileChooser).
 mod sealed {
     pub trait Sealed {}
-    impl<T: glib::IsA<crate::FileChooser>> Sealed for T {}
+    impl<T: glib::object::IsA<crate::FileChooser>> Sealed for T {}
 }
 
 pub trait FileChooserExtManual: IsA<FileChooser> + sealed::Sealed + 'static {
@@ -31,21 +31,19 @@ pub trait FileChooserExtManual: IsA<FileChooser> + sealed::Sealed + 'static {
                 stashes_ids
                     .iter()
                     .map(|o| o.0)
-                    .collect::<Vec<*const libc::c_char>>()
-                    .as_ptr(),
+                    .collect::<Vec<*const libc::c_char>>(),
                 stashes_labels
                     .iter()
                     .map(|o| o.0)
-                    .collect::<Vec<*const libc::c_char>>()
-                    .as_ptr(),
+                    .collect::<Vec<*const libc::c_char>>(),
             );
 
             ffi::gtk_file_chooser_add_choice(
                 self.as_ref().to_glib_none().0,
                 id.to_glib_none().0,
                 label.to_glib_none().0,
-                mut_override(options_ids),
-                mut_override(options_labels),
+                mut_override(options_ids.as_ptr()),
+                mut_override(options_labels.as_ptr()),
             );
         }
     }

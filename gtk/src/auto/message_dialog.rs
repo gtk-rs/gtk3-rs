@@ -3,8 +3,8 @@
 // DO NOT EDIT
 
 use crate::{
-    Align, Application, Bin, Buildable, ButtonsType, Container, Dialog, MessageType, ResizeMode,
-    Widget, Window, WindowPosition, WindowType,
+    ffi, Align, Application, Bin, Buildable, ButtonsType, Container, Dialog, MessageType,
+    ResizeMode, Widget, Window, WindowPosition, WindowType,
 };
 use glib::{
     prelude::*,
@@ -511,16 +511,12 @@ impl MessageDialogBuilder {
     /// Build the [`MessageDialog`].
     #[must_use = "Building the object from the builder is usually expensive and is not expected to have side effects"]
     pub fn build(self) -> MessageDialog {
+        assert_initialized_main_thread!();
         self.builder.build()
     }
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::IsA<super::MessageDialog>> Sealed for T {}
-}
-
-pub trait MessageDialogExt: IsA<MessageDialog> + sealed::Sealed + 'static {
+pub trait MessageDialogExt: IsA<MessageDialog> + 'static {
     //#[doc(alias = "gtk_message_dialog_format_secondary_markup")]
     //fn format_secondary_markup(&self, message_format: &str, : /*Unknown conversion*//*Unimplemented*/Basic: VarArgs) {
     //    unsafe { TODO: call ffi:gtk_message_dialog_format_secondary_markup() }
@@ -533,6 +529,7 @@ pub trait MessageDialogExt: IsA<MessageDialog> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_message_dialog_get_message_area")]
     #[doc(alias = "get_message_area")]
+    #[doc(alias = "message-area")]
     fn message_area(&self) -> Widget {
         unsafe {
             from_glib_none(ffi::gtk_message_dialog_get_message_area(
@@ -609,15 +606,17 @@ pub trait MessageDialogExt: IsA<MessageDialog> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(MessageDialog::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(MessageDialog::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::message-area\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::message-area".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_message_area_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -635,15 +634,17 @@ pub trait MessageDialogExt: IsA<MessageDialog> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(MessageDialog::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(MessageDialog::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::message-type\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::message-type".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_message_type_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -661,15 +662,17 @@ pub trait MessageDialogExt: IsA<MessageDialog> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(MessageDialog::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(MessageDialog::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::secondary-text\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::secondary-text".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_secondary_text_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -687,15 +690,17 @@ pub trait MessageDialogExt: IsA<MessageDialog> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(MessageDialog::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(MessageDialog::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::secondary-use-markup\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::secondary-use-markup".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_secondary_use_markup_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -710,15 +715,17 @@ pub trait MessageDialogExt: IsA<MessageDialog> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(MessageDialog::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(MessageDialog::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::text\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::text".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_text_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -736,15 +743,17 @@ pub trait MessageDialogExt: IsA<MessageDialog> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(MessageDialog::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(MessageDialog::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::use-markup\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::use-markup".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_use_markup_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),

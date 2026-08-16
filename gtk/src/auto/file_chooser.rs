@@ -2,8 +2,9 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use crate::{FileChooserAction, FileChooserConfirmation, FileFilter, Widget};
+use crate::{ffi, FileChooserAction, FileChooserConfirmation, FileFilter, Widget};
 use glib::{
+    object::ObjectType as _,
     prelude::*,
     signal::{connect_raw, SignalHandlerId},
     translate::*,
@@ -23,12 +24,7 @@ impl FileChooser {
     pub const NONE: Option<&'static FileChooser> = None;
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::IsA<super::FileChooser>> Sealed for T {}
-}
-
-pub trait FileChooserExt: IsA<FileChooser> + sealed::Sealed + 'static {
+pub trait FileChooserExt: IsA<FileChooser> + 'static {
     #[doc(alias = "gtk_file_chooser_add_filter")]
     fn add_filter(&self, filter: FileFilter) {
         unsafe {
@@ -98,6 +94,7 @@ pub trait FileChooserExt: IsA<FileChooser> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_file_chooser_get_create_folders")]
     #[doc(alias = "get_create_folders")]
+    #[doc(alias = "create-folders")]
     fn creates_folders(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_file_chooser_get_create_folders(
@@ -148,6 +145,7 @@ pub trait FileChooserExt: IsA<FileChooser> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_file_chooser_get_do_overwrite_confirmation")]
     #[doc(alias = "get_do_overwrite_confirmation")]
+    #[doc(alias = "do-overwrite-confirmation")]
     fn does_overwrite_confirmation(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_file_chooser_get_do_overwrite_confirmation(
@@ -158,6 +156,7 @@ pub trait FileChooserExt: IsA<FileChooser> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_file_chooser_get_extra_widget")]
     #[doc(alias = "get_extra_widget")]
+    #[doc(alias = "extra-widget")]
     fn extra_widget(&self) -> Option<Widget> {
         unsafe {
             from_glib_none(ffi::gtk_file_chooser_get_extra_widget(
@@ -218,6 +217,7 @@ pub trait FileChooserExt: IsA<FileChooser> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_file_chooser_get_local_only")]
     #[doc(alias = "get_local_only")]
+    #[doc(alias = "local-only")]
     fn is_local_only(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_file_chooser_get_local_only(
@@ -258,6 +258,7 @@ pub trait FileChooserExt: IsA<FileChooser> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_file_chooser_get_preview_widget")]
     #[doc(alias = "get_preview_widget")]
+    #[doc(alias = "preview-widget")]
     fn preview_widget(&self) -> Option<Widget> {
         unsafe {
             from_glib_none(ffi::gtk_file_chooser_get_preview_widget(
@@ -268,6 +269,7 @@ pub trait FileChooserExt: IsA<FileChooser> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_file_chooser_get_preview_widget_active")]
     #[doc(alias = "get_preview_widget_active")]
+    #[doc(alias = "preview-widget-active")]
     fn is_preview_widget_active(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_file_chooser_get_preview_widget_active(
@@ -278,6 +280,7 @@ pub trait FileChooserExt: IsA<FileChooser> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_file_chooser_get_select_multiple")]
     #[doc(alias = "get_select_multiple")]
+    #[doc(alias = "select-multiple")]
     fn selects_multiple(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_file_chooser_get_select_multiple(
@@ -288,6 +291,7 @@ pub trait FileChooserExt: IsA<FileChooser> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_file_chooser_get_show_hidden")]
     #[doc(alias = "get_show_hidden")]
+    #[doc(alias = "show-hidden")]
     fn shows_hidden(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_file_chooser_get_show_hidden(
@@ -318,6 +322,7 @@ pub trait FileChooserExt: IsA<FileChooser> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_file_chooser_get_use_preview_label")]
     #[doc(alias = "get_use_preview_label")]
+    #[doc(alias = "use-preview-label")]
     fn uses_preview_label(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_file_chooser_get_use_preview_label(
@@ -458,6 +463,7 @@ pub trait FileChooserExt: IsA<FileChooser> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_file_chooser_set_action")]
+    #[doc(alias = "action")]
     fn set_action(&self, action: FileChooserAction) {
         unsafe {
             ffi::gtk_file_chooser_set_action(self.as_ref().to_glib_none().0, action.into_glib());
@@ -476,6 +482,7 @@ pub trait FileChooserExt: IsA<FileChooser> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_file_chooser_set_create_folders")]
+    #[doc(alias = "create-folders")]
     fn set_create_folders(&self, create_folders: bool) {
         unsafe {
             ffi::gtk_file_chooser_set_create_folders(
@@ -534,6 +541,7 @@ pub trait FileChooserExt: IsA<FileChooser> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_file_chooser_set_do_overwrite_confirmation")]
+    #[doc(alias = "do-overwrite-confirmation")]
     fn set_do_overwrite_confirmation(&self, do_overwrite_confirmation: bool) {
         unsafe {
             ffi::gtk_file_chooser_set_do_overwrite_confirmation(
@@ -544,6 +552,7 @@ pub trait FileChooserExt: IsA<FileChooser> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_file_chooser_set_extra_widget")]
+    #[doc(alias = "extra-widget")]
     fn set_extra_widget(&self, extra_widget: &impl IsA<Widget>) {
         unsafe {
             ffi::gtk_file_chooser_set_extra_widget(
@@ -582,6 +591,7 @@ pub trait FileChooserExt: IsA<FileChooser> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_file_chooser_set_filter")]
+    #[doc(alias = "filter")]
     fn set_filter(&self, filter: &FileFilter) {
         unsafe {
             ffi::gtk_file_chooser_set_filter(
@@ -592,6 +602,7 @@ pub trait FileChooserExt: IsA<FileChooser> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_file_chooser_set_local_only")]
+    #[doc(alias = "local-only")]
     fn set_local_only(&self, local_only: bool) {
         unsafe {
             ffi::gtk_file_chooser_set_local_only(
@@ -602,6 +613,7 @@ pub trait FileChooserExt: IsA<FileChooser> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_file_chooser_set_preview_widget")]
+    #[doc(alias = "preview-widget")]
     fn set_preview_widget(&self, preview_widget: &impl IsA<Widget>) {
         unsafe {
             ffi::gtk_file_chooser_set_preview_widget(
@@ -612,6 +624,7 @@ pub trait FileChooserExt: IsA<FileChooser> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_file_chooser_set_preview_widget_active")]
+    #[doc(alias = "preview-widget-active")]
     fn set_preview_widget_active(&self, active: bool) {
         unsafe {
             ffi::gtk_file_chooser_set_preview_widget_active(
@@ -622,6 +635,7 @@ pub trait FileChooserExt: IsA<FileChooser> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_file_chooser_set_select_multiple")]
+    #[doc(alias = "select-multiple")]
     fn set_select_multiple(&self, select_multiple: bool) {
         unsafe {
             ffi::gtk_file_chooser_set_select_multiple(
@@ -632,6 +646,7 @@ pub trait FileChooserExt: IsA<FileChooser> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_file_chooser_set_show_hidden")]
+    #[doc(alias = "show-hidden")]
     fn set_show_hidden(&self, show_hidden: bool) {
         unsafe {
             ffi::gtk_file_chooser_set_show_hidden(
@@ -652,6 +667,7 @@ pub trait FileChooserExt: IsA<FileChooser> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_file_chooser_set_use_preview_label")]
+    #[doc(alias = "use-preview-label")]
     fn set_use_preview_label(&self, use_label: bool) {
         unsafe {
             ffi::gtk_file_chooser_set_use_preview_label(
@@ -710,15 +726,17 @@ pub trait FileChooserExt: IsA<FileChooser> + sealed::Sealed + 'static {
             this: *mut ffi::GtkFileChooser,
             f: glib::ffi::gpointer,
         ) -> ffi::GtkFileChooserConfirmation {
-            let f: &F = &*(f as *const F);
-            f(FileChooser::from_glib_borrow(this).unsafe_cast_ref()).into_glib()
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(FileChooser::from_glib_borrow(this).unsafe_cast_ref()).into_glib()
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"confirm-overwrite\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"confirm-overwrite".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     confirm_overwrite_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -735,15 +753,17 @@ pub trait FileChooserExt: IsA<FileChooser> + sealed::Sealed + 'static {
             this: *mut ffi::GtkFileChooser,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(FileChooser::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(FileChooser::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"current-folder-changed\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"current-folder-changed".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     current_folder_changed_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -757,15 +777,17 @@ pub trait FileChooserExt: IsA<FileChooser> + sealed::Sealed + 'static {
             this: *mut ffi::GtkFileChooser,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(FileChooser::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(FileChooser::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"file-activated\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"file-activated".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     file_activated_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -782,15 +804,17 @@ pub trait FileChooserExt: IsA<FileChooser> + sealed::Sealed + 'static {
             this: *mut ffi::GtkFileChooser,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(FileChooser::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(FileChooser::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"selection-changed\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"selection-changed".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     selection_changed_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -804,15 +828,17 @@ pub trait FileChooserExt: IsA<FileChooser> + sealed::Sealed + 'static {
             this: *mut ffi::GtkFileChooser,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(FileChooser::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(FileChooser::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"update-preview\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"update-preview".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     update_preview_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -827,15 +853,17 @@ pub trait FileChooserExt: IsA<FileChooser> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(FileChooser::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(FileChooser::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::action\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::action".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_action_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -853,15 +881,17 @@ pub trait FileChooserExt: IsA<FileChooser> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(FileChooser::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(FileChooser::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::create-folders\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::create-folders".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_create_folders_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -882,15 +912,17 @@ pub trait FileChooserExt: IsA<FileChooser> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(FileChooser::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(FileChooser::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::do-overwrite-confirmation\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::do-overwrite-confirmation".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_do_overwrite_confirmation_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -908,15 +940,17 @@ pub trait FileChooserExt: IsA<FileChooser> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(FileChooser::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(FileChooser::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::extra-widget\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::extra-widget".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_extra_widget_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -931,15 +965,17 @@ pub trait FileChooserExt: IsA<FileChooser> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(FileChooser::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(FileChooser::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::filter\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::filter".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_filter_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -957,15 +993,17 @@ pub trait FileChooserExt: IsA<FileChooser> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(FileChooser::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(FileChooser::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::local-only\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::local-only".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_local_only_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -983,15 +1021,17 @@ pub trait FileChooserExt: IsA<FileChooser> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(FileChooser::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(FileChooser::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::preview-widget\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::preview-widget".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_preview_widget_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1012,15 +1052,17 @@ pub trait FileChooserExt: IsA<FileChooser> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(FileChooser::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(FileChooser::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::preview-widget-active\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::preview-widget-active".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_preview_widget_active_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1038,15 +1080,17 @@ pub trait FileChooserExt: IsA<FileChooser> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(FileChooser::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(FileChooser::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::select-multiple\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::select-multiple".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_select_multiple_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1064,15 +1108,17 @@ pub trait FileChooserExt: IsA<FileChooser> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(FileChooser::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(FileChooser::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::show-hidden\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::show-hidden".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_show_hidden_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1090,15 +1136,17 @@ pub trait FileChooserExt: IsA<FileChooser> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(FileChooser::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(FileChooser::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::use-preview-label\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::use-preview-label".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_use_preview_label_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),

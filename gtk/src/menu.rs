@@ -3,15 +3,15 @@
 use crate::Menu;
 use crate::Widget;
 use glib::object::Cast;
+use glib::object::IsA;
 use glib::translate::*;
-use glib::IsA;
 use libc::c_int;
 use std::boxed::Box as Box_;
 use std::ptr;
 
 mod sealed {
     pub trait Sealed {}
-    impl<T: glib::IsA<crate::Menu>> Sealed for T {}
+    impl<T: glib::object::IsA<crate::Menu>> Sealed for T {}
 }
 
 pub trait GtkMenuExtManual: IsA<Menu> + sealed::Sealed + 'static {

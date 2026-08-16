@@ -2,6 +2,7 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
+use crate::ffi;
 use glib::{prelude::*, translate::*};
 
 glib::wrapper! {
@@ -122,6 +123,7 @@ impl X11DeviceXI2Builder {
     /// Build the [`X11DeviceXI2`].
     #[must_use = "Building the object from the builder is usually expensive and is not expected to have side effects"]
     pub fn build(self) -> X11DeviceXI2 {
+        assert_initialized_main_thread!();
         self.builder.build()
     }
 }

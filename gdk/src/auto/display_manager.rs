@@ -2,8 +2,9 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use crate::Display;
+use crate::{ffi, Display};
 use glib::{
+    object::ObjectType as _,
     prelude::*,
     signal::{connect_raw, SignalHandlerId},
     translate::*,
@@ -22,6 +23,7 @@ glib::wrapper! {
 impl DisplayManager {
     #[doc(alias = "gdk_display_manager_get_default_display")]
     #[doc(alias = "get_default_display")]
+    #[doc(alias = "default-display")]
     pub fn default_display(&self) -> Option<Display> {
         unsafe {
             from_glib_none(ffi::gdk_display_manager_get_default_display(
@@ -50,6 +52,7 @@ impl DisplayManager {
     }
 
     #[doc(alias = "gdk_display_manager_set_default_display")]
+    #[doc(alias = "default-display")]
     pub fn set_default_display(&self, display: &Display) {
         unsafe {
             ffi::gdk_display_manager_set_default_display(
@@ -77,15 +80,17 @@ impl DisplayManager {
             display: *mut ffi::GdkDisplay,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(&from_glib_borrow(this), &from_glib_borrow(display))
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(&from_glib_borrow(this), &from_glib_borrow(display))
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"display-opened\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"display-opened".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     display_opened_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -100,15 +105,17 @@ impl DisplayManager {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(&from_glib_borrow(this))
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(&from_glib_borrow(this))
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::default-display\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::default-display".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_default_display_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),

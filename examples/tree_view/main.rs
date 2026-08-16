@@ -58,15 +58,24 @@ fn build_ui(application: &gtk::Application) {
     let image = Pixbuf::from_resource("/org/gtk-rs/examples/eye.png")
         .map_err(|err| {
             let msg = err.to_string();
-            glib::idle_add_local(
-                glib::clone!(@weak window => @default-return glib::ControlFlow::Break, move || {
-                    let dialog = MessageDialog::new(Some(&window), DialogFlags::MODAL,
-                        MessageType::Error, ButtonsType::Ok, &msg);
+            glib::idle_add_local(glib::clone!(
+                #[weak]
+                window,
+                #[upgrade_or]
+                glib::ControlFlow::Break,
+                move || {
+                    let dialog = MessageDialog::new(
+                        Some(&window),
+                        DialogFlags::MODAL,
+                        MessageType::Error,
+                        ButtonsType::Ok,
+                        &msg,
+                    );
                     dialog.connect_response(|dialog, _| dialog.close());
                     dialog.show_all();
                     glib::ControlFlow::Break
-                }),
-            );
+                }
+            ));
         })
         .ok();
 
@@ -85,15 +94,19 @@ fn build_ui(application: &gtk::Application) {
     // selection and path manipulation
 
     let left_selection = left_tree.selection();
-    left_selection.connect_changed(glib::clone!(@weak right_tree => move |tree_selection| {
-        let (left_model, iter) = tree_selection.selected().expect("Couldn't get selected");
-        let mut path = left_model.path(&iter).expect("Couldn't get path");
-        // get the top-level element path
-        while path.depth() > 1 {
-            path.up();
+    left_selection.connect_changed(glib::clone!(
+        #[weak]
+        right_tree,
+        move |tree_selection| {
+            let (left_model, iter) = tree_selection.selected().expect("Couldn't get selected");
+            let mut path = left_model.path(&iter).expect("Couldn't get path");
+            // get the top-level element path
+            while path.depth() > 1 {
+                path.up();
+            }
+            right_tree.selection().select_path(&path);
         }
-        right_tree.selection().select_path(&path);
-    }));
+    ));
 
     // display the panes
 

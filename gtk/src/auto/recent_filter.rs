@@ -2,7 +2,7 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use crate::{Buildable, RecentFilterFlags};
+use crate::{ffi, Buildable, RecentFilterFlags};
 use glib::translate::*;
 
 glib::wrapper! {

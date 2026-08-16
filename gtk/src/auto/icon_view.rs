@@ -3,11 +3,12 @@
 // DO NOT EDIT
 
 use crate::{
-    Adjustment, Align, Buildable, CellArea, CellLayout, CellRenderer, Container,
+    ffi, Adjustment, Align, Buildable, CellArea, CellLayout, CellRenderer, Container,
     IconViewDropPosition, MovementStep, Orientation, ResizeMode, Scrollable, ScrollablePolicy,
     SelectionMode, Tooltip, TreeIter, TreeModel, TreePath, Widget,
 };
 use glib::{
+    object::ObjectType as _,
     prelude::*,
     signal::{connect_raw, SignalHandlerId},
     translate::*,
@@ -431,16 +432,12 @@ impl IconViewBuilder {
     /// Build the [`IconView`].
     #[must_use = "Building the object from the builder is usually expensive and is not expected to have side effects"]
     pub fn build(self) -> IconView {
+        assert_initialized_main_thread!();
         self.builder.build()
     }
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::IsA<super::IconView>> Sealed for T {}
-}
-
-pub trait IconViewExt: IsA<IconView> + sealed::Sealed + 'static {
+pub trait IconViewExt: IsA<IconView> + 'static {
     #[doc(alias = "gtk_icon_view_convert_widget_to_bin_window_coords")]
     fn convert_widget_to_bin_window_coords(&self, wx: i32, wy: i32) -> (i32, i32) {
         unsafe {
@@ -469,6 +466,7 @@ pub trait IconViewExt: IsA<IconView> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_icon_view_get_activate_on_single_click")]
     #[doc(alias = "get_activate_on_single_click")]
+    #[doc(alias = "activate-on-single-click")]
     fn activates_on_single_click(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_icon_view_get_activate_on_single_click(
@@ -502,6 +500,7 @@ pub trait IconViewExt: IsA<IconView> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_icon_view_get_column_spacing")]
     #[doc(alias = "get_column_spacing")]
+    #[doc(alias = "column-spacing")]
     fn column_spacing(&self) -> i32 {
         unsafe { ffi::gtk_icon_view_get_column_spacing(self.as_ref().to_glib_none().0) }
     }
@@ -605,6 +604,7 @@ pub trait IconViewExt: IsA<IconView> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_icon_view_get_item_orientation")]
     #[doc(alias = "get_item_orientation")]
+    #[doc(alias = "item-orientation")]
     fn item_orientation(&self) -> Orientation {
         unsafe {
             from_glib(ffi::gtk_icon_view_get_item_orientation(
@@ -615,6 +615,7 @@ pub trait IconViewExt: IsA<IconView> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_icon_view_get_item_padding")]
     #[doc(alias = "get_item_padding")]
+    #[doc(alias = "item-padding")]
     fn item_padding(&self) -> i32 {
         unsafe { ffi::gtk_icon_view_get_item_padding(self.as_ref().to_glib_none().0) }
     }
@@ -632,6 +633,7 @@ pub trait IconViewExt: IsA<IconView> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_icon_view_get_item_width")]
     #[doc(alias = "get_item_width")]
+    #[doc(alias = "item-width")]
     fn item_width(&self) -> i32 {
         unsafe { ffi::gtk_icon_view_get_item_width(self.as_ref().to_glib_none().0) }
     }
@@ -644,6 +646,7 @@ pub trait IconViewExt: IsA<IconView> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_icon_view_get_markup_column")]
     #[doc(alias = "get_markup_column")]
+    #[doc(alias = "markup-column")]
     fn markup_column(&self) -> i32 {
         unsafe { ffi::gtk_icon_view_get_markup_column(self.as_ref().to_glib_none().0) }
     }
@@ -668,12 +671,14 @@ pub trait IconViewExt: IsA<IconView> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_icon_view_get_pixbuf_column")]
     #[doc(alias = "get_pixbuf_column")]
+    #[doc(alias = "pixbuf-column")]
     fn pixbuf_column(&self) -> i32 {
         unsafe { ffi::gtk_icon_view_get_pixbuf_column(self.as_ref().to_glib_none().0) }
     }
 
     #[doc(alias = "gtk_icon_view_get_reorderable")]
     #[doc(alias = "get_reorderable")]
+    #[doc(alias = "reorderable")]
     fn is_reorderable(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_icon_view_get_reorderable(
@@ -684,6 +689,7 @@ pub trait IconViewExt: IsA<IconView> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_icon_view_get_row_spacing")]
     #[doc(alias = "get_row_spacing")]
+    #[doc(alias = "row-spacing")]
     fn row_spacing(&self) -> i32 {
         unsafe { ffi::gtk_icon_view_get_row_spacing(self.as_ref().to_glib_none().0) }
     }
@@ -700,6 +706,7 @@ pub trait IconViewExt: IsA<IconView> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_icon_view_get_selection_mode")]
     #[doc(alias = "get_selection_mode")]
+    #[doc(alias = "selection-mode")]
     fn selection_mode(&self) -> SelectionMode {
         unsafe {
             from_glib(ffi::gtk_icon_view_get_selection_mode(
@@ -716,12 +723,14 @@ pub trait IconViewExt: IsA<IconView> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_icon_view_get_text_column")]
     #[doc(alias = "get_text_column")]
+    #[doc(alias = "text-column")]
     fn text_column(&self) -> i32 {
         unsafe { ffi::gtk_icon_view_get_text_column(self.as_ref().to_glib_none().0) }
     }
 
     #[doc(alias = "gtk_icon_view_get_tooltip_column")]
     #[doc(alias = "get_tooltip_column")]
+    #[doc(alias = "tooltip-column")]
     fn tooltip_column(&self) -> i32 {
         unsafe { ffi::gtk_icon_view_get_tooltip_column(self.as_ref().to_glib_none().0) }
     }
@@ -826,29 +835,32 @@ pub trait IconViewExt: IsA<IconView> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_icon_view_selected_foreach")]
     fn selected_foreach<P: FnMut(&IconView, &TreePath)>(&self, func: P) {
-        let func_data: P = func;
+        let mut func_data: P = func;
         unsafe extern "C" fn func_func<P: FnMut(&IconView, &TreePath)>(
             icon_view: *mut ffi::GtkIconView,
             path: *mut ffi::GtkTreePath,
             data: glib::ffi::gpointer,
         ) {
-            let icon_view = from_glib_borrow(icon_view);
-            let path = from_glib_borrow(path);
-            let callback: *mut P = data as *const _ as usize as *mut P;
-            (*callback)(&icon_view, &path)
+            unsafe {
+                let icon_view = from_glib_borrow(icon_view);
+                let path = from_glib_borrow(path);
+                let callback = data as *mut P;
+                (*callback)(&icon_view, &path)
+            }
         }
         let func = Some(func_func::<P> as _);
-        let super_callback0: &P = &func_data;
+        let super_callback0: &mut P = &mut func_data;
         unsafe {
             ffi::gtk_icon_view_selected_foreach(
                 self.as_ref().to_glib_none().0,
                 func,
-                super_callback0 as *const _ as usize as *mut _,
+                super_callback0 as *mut _ as *mut _,
             );
         }
     }
 
     #[doc(alias = "gtk_icon_view_set_activate_on_single_click")]
+    #[doc(alias = "activate-on-single-click")]
     fn set_activate_on_single_click(&self, single: bool) {
         unsafe {
             ffi::gtk_icon_view_set_activate_on_single_click(
@@ -859,6 +871,7 @@ pub trait IconViewExt: IsA<IconView> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_icon_view_set_column_spacing")]
+    #[doc(alias = "column-spacing")]
     fn set_column_spacing(&self, column_spacing: i32) {
         unsafe {
             ffi::gtk_icon_view_set_column_spacing(self.as_ref().to_glib_none().0, column_spacing);
@@ -866,6 +879,7 @@ pub trait IconViewExt: IsA<IconView> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_icon_view_set_columns")]
+    #[doc(alias = "columns")]
     fn set_columns(&self, columns: i32) {
         unsafe {
             ffi::gtk_icon_view_set_columns(self.as_ref().to_glib_none().0, columns);
@@ -901,6 +915,7 @@ pub trait IconViewExt: IsA<IconView> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_icon_view_set_item_orientation")]
+    #[doc(alias = "item-orientation")]
     fn set_item_orientation(&self, orientation: Orientation) {
         unsafe {
             ffi::gtk_icon_view_set_item_orientation(
@@ -911,6 +926,7 @@ pub trait IconViewExt: IsA<IconView> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_icon_view_set_item_padding")]
+    #[doc(alias = "item-padding")]
     fn set_item_padding(&self, item_padding: i32) {
         unsafe {
             ffi::gtk_icon_view_set_item_padding(self.as_ref().to_glib_none().0, item_padding);
@@ -918,6 +934,7 @@ pub trait IconViewExt: IsA<IconView> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_icon_view_set_item_width")]
+    #[doc(alias = "item-width")]
     fn set_item_width(&self, item_width: i32) {
         unsafe {
             ffi::gtk_icon_view_set_item_width(self.as_ref().to_glib_none().0, item_width);
@@ -925,6 +942,7 @@ pub trait IconViewExt: IsA<IconView> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_icon_view_set_margin")]
+    #[doc(alias = "margin")]
     fn set_margin(&self, margin: i32) {
         unsafe {
             ffi::gtk_icon_view_set_margin(self.as_ref().to_glib_none().0, margin);
@@ -932,6 +950,7 @@ pub trait IconViewExt: IsA<IconView> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_icon_view_set_markup_column")]
+    #[doc(alias = "markup-column")]
     fn set_markup_column(&self, column: i32) {
         unsafe {
             ffi::gtk_icon_view_set_markup_column(self.as_ref().to_glib_none().0, column);
@@ -939,6 +958,7 @@ pub trait IconViewExt: IsA<IconView> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_icon_view_set_model")]
+    #[doc(alias = "model")]
     fn set_model(&self, model: Option<&impl IsA<TreeModel>>) {
         unsafe {
             ffi::gtk_icon_view_set_model(
@@ -949,6 +969,7 @@ pub trait IconViewExt: IsA<IconView> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_icon_view_set_pixbuf_column")]
+    #[doc(alias = "pixbuf-column")]
     fn set_pixbuf_column(&self, column: i32) {
         unsafe {
             ffi::gtk_icon_view_set_pixbuf_column(self.as_ref().to_glib_none().0, column);
@@ -956,6 +977,7 @@ pub trait IconViewExt: IsA<IconView> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_icon_view_set_reorderable")]
+    #[doc(alias = "reorderable")]
     fn set_reorderable(&self, reorderable: bool) {
         unsafe {
             ffi::gtk_icon_view_set_reorderable(
@@ -966,6 +988,7 @@ pub trait IconViewExt: IsA<IconView> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_icon_view_set_row_spacing")]
+    #[doc(alias = "row-spacing")]
     fn set_row_spacing(&self, row_spacing: i32) {
         unsafe {
             ffi::gtk_icon_view_set_row_spacing(self.as_ref().to_glib_none().0, row_spacing);
@@ -973,6 +996,7 @@ pub trait IconViewExt: IsA<IconView> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_icon_view_set_selection_mode")]
+    #[doc(alias = "selection-mode")]
     fn set_selection_mode(&self, mode: SelectionMode) {
         unsafe {
             ffi::gtk_icon_view_set_selection_mode(self.as_ref().to_glib_none().0, mode.into_glib());
@@ -980,6 +1004,7 @@ pub trait IconViewExt: IsA<IconView> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_icon_view_set_spacing")]
+    #[doc(alias = "spacing")]
     fn set_spacing(&self, spacing: i32) {
         unsafe {
             ffi::gtk_icon_view_set_spacing(self.as_ref().to_glib_none().0, spacing);
@@ -987,6 +1012,7 @@ pub trait IconViewExt: IsA<IconView> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_icon_view_set_text_column")]
+    #[doc(alias = "text-column")]
     fn set_text_column(&self, column: i32) {
         unsafe {
             ffi::gtk_icon_view_set_text_column(self.as_ref().to_glib_none().0, column);
@@ -1011,6 +1037,7 @@ pub trait IconViewExt: IsA<IconView> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_icon_view_set_tooltip_column")]
+    #[doc(alias = "tooltip-column")]
     fn set_tooltip_column(&self, column: i32) {
         unsafe {
             ffi::gtk_icon_view_set_tooltip_column(self.as_ref().to_glib_none().0, column);
@@ -1076,15 +1103,17 @@ pub trait IconViewExt: IsA<IconView> + sealed::Sealed + 'static {
             this: *mut ffi::GtkIconView,
             f: glib::ffi::gpointer,
         ) -> glib::ffi::gboolean {
-            let f: &F = &*(f as *const F);
-            f(IconView::from_glib_borrow(this).unsafe_cast_ref()).into_glib()
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(IconView::from_glib_borrow(this).unsafe_cast_ref()).into_glib()
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"activate-cursor-item\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"activate-cursor-item".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     activate_cursor_item_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1106,18 +1135,20 @@ pub trait IconViewExt: IsA<IconView> + sealed::Sealed + 'static {
             path: *mut ffi::GtkTreePath,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(
-                IconView::from_glib_borrow(this).unsafe_cast_ref(),
-                &from_glib_borrow(path),
-            )
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(
+                    IconView::from_glib_borrow(this).unsafe_cast_ref(),
+                    &from_glib_borrow(path),
+                )
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"item-activated\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"item-activated".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     item_activated_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1136,23 +1167,25 @@ pub trait IconViewExt: IsA<IconView> + sealed::Sealed + 'static {
         >(
             this: *mut ffi::GtkIconView,
             step: ffi::GtkMovementStep,
-            count: libc::c_int,
+            count: std::ffi::c_int,
             f: glib::ffi::gpointer,
         ) -> glib::ffi::gboolean {
-            let f: &F = &*(f as *const F);
-            f(
-                IconView::from_glib_borrow(this).unsafe_cast_ref(),
-                from_glib(step),
-                count,
-            )
-            .into_glib()
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(
+                    IconView::from_glib_borrow(this).unsafe_cast_ref(),
+                    from_glib(step),
+                    count,
+                )
+                .into_glib()
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"move-cursor\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"move-cursor".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     move_cursor_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1170,15 +1203,17 @@ pub trait IconViewExt: IsA<IconView> + sealed::Sealed + 'static {
             this: *mut ffi::GtkIconView,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(IconView::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(IconView::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"select-all\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"select-all".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     select_all_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1199,15 +1234,17 @@ pub trait IconViewExt: IsA<IconView> + sealed::Sealed + 'static {
             this: *mut ffi::GtkIconView,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(IconView::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(IconView::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"select-cursor-item\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"select-cursor-item".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     select_cursor_item_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1225,15 +1262,17 @@ pub trait IconViewExt: IsA<IconView> + sealed::Sealed + 'static {
             this: *mut ffi::GtkIconView,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(IconView::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(IconView::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"selection-changed\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"selection-changed".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     selection_changed_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1250,15 +1289,17 @@ pub trait IconViewExt: IsA<IconView> + sealed::Sealed + 'static {
             this: *mut ffi::GtkIconView,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(IconView::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(IconView::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"toggle-cursor-item\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"toggle-cursor-item".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     toggle_cursor_item_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1276,15 +1317,17 @@ pub trait IconViewExt: IsA<IconView> + sealed::Sealed + 'static {
             this: *mut ffi::GtkIconView,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(IconView::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(IconView::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"unselect-all\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"unselect-all".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     unselect_all_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1309,15 +1352,17 @@ pub trait IconViewExt: IsA<IconView> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(IconView::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(IconView::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::activate-on-single-click\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::activate-on-single-click".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_activate_on_single_click_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1335,15 +1380,17 @@ pub trait IconViewExt: IsA<IconView> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(IconView::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(IconView::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::column-spacing\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::column-spacing".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_column_spacing_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1358,15 +1405,17 @@ pub trait IconViewExt: IsA<IconView> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(IconView::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(IconView::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::columns\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::columns".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_columns_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1384,15 +1433,17 @@ pub trait IconViewExt: IsA<IconView> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(IconView::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(IconView::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::item-orientation\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::item-orientation".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_item_orientation_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1410,15 +1461,17 @@ pub trait IconViewExt: IsA<IconView> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(IconView::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(IconView::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::item-padding\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::item-padding".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_item_padding_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1433,15 +1486,17 @@ pub trait IconViewExt: IsA<IconView> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(IconView::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(IconView::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::item-width\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::item-width".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_item_width_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1459,15 +1514,17 @@ pub trait IconViewExt: IsA<IconView> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(IconView::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(IconView::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::markup-column\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::markup-column".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_markup_column_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1482,15 +1539,17 @@ pub trait IconViewExt: IsA<IconView> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(IconView::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(IconView::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::model\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::model".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_model_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1508,15 +1567,17 @@ pub trait IconViewExt: IsA<IconView> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(IconView::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(IconView::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::pixbuf-column\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::pixbuf-column".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_pixbuf_column_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1534,15 +1595,17 @@ pub trait IconViewExt: IsA<IconView> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(IconView::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(IconView::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::reorderable\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::reorderable".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_reorderable_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1560,15 +1623,17 @@ pub trait IconViewExt: IsA<IconView> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(IconView::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(IconView::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::row-spacing\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::row-spacing".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_row_spacing_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1586,15 +1651,17 @@ pub trait IconViewExt: IsA<IconView> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(IconView::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(IconView::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::selection-mode\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::selection-mode".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_selection_mode_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1609,15 +1676,17 @@ pub trait IconViewExt: IsA<IconView> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(IconView::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(IconView::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::spacing\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::spacing".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_spacing_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1635,15 +1704,17 @@ pub trait IconViewExt: IsA<IconView> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(IconView::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(IconView::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::text-column\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::text-column".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_text_column_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1661,15 +1732,17 @@ pub trait IconViewExt: IsA<IconView> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(IconView::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(IconView::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::tooltip-column\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::tooltip-column".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_tooltip_column_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),

@@ -2,8 +2,9 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use crate::{CellRenderer, CellRendererMode, CellRendererText, TreeIter, TreeModel, TreePath};
+use crate::{ffi, CellRenderer, CellRendererMode, CellRendererText, TreeIter, TreeModel, TreePath};
 use glib::{
+    object::ObjectType as _,
     prelude::*,
     signal::{connect_raw, SignalHandlerId},
     translate::*,
@@ -453,16 +454,12 @@ impl CellRendererComboBuilder {
     /// Build the [`CellRendererCombo`].
     #[must_use = "Building the object from the builder is usually expensive and is not expected to have side effects"]
     pub fn build(self) -> CellRendererCombo {
+        assert_initialized_main_thread!();
         self.builder.build()
     }
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::IsA<super::CellRendererCombo>> Sealed for T {}
-}
-
-pub trait CellRendererComboExt: IsA<CellRendererCombo> + sealed::Sealed + 'static {
+pub trait CellRendererComboExt: IsA<CellRendererCombo> + 'static {
     #[doc(alias = "has-entry")]
     fn has_entry(&self) -> bool {
         ObjectExt::property(self.as_ref(), "has-entry")
@@ -501,24 +498,26 @@ pub trait CellRendererComboExt: IsA<CellRendererCombo> + sealed::Sealed + 'stati
             F: Fn(&P, TreePath, &TreeIter) + 'static,
         >(
             this: *mut ffi::GtkCellRendererCombo,
-            path_string: *mut libc::c_char,
+            path_string: *mut std::ffi::c_char,
             new_iter: *mut ffi::GtkTreeIter,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            let path = from_glib_full(crate::ffi::gtk_tree_path_new_from_string(path_string));
-            f(
-                CellRendererCombo::from_glib_borrow(this).unsafe_cast_ref(),
-                path,
-                &from_glib_borrow(new_iter),
-            )
+            unsafe {
+                let f: &F = &*(f as *const F);
+                let path = from_glib_full(crate::ffi::gtk_tree_path_new_from_string(path_string));
+                f(
+                    CellRendererCombo::from_glib_borrow(this).unsafe_cast_ref(),
+                    path,
+                    &from_glib_borrow(new_iter),
+                )
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"changed\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"changed".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     changed_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -536,15 +535,17 @@ pub trait CellRendererComboExt: IsA<CellRendererCombo> + sealed::Sealed + 'stati
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(CellRendererCombo::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(CellRendererCombo::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::has-entry\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::has-entry".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_has_entry_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -562,15 +563,17 @@ pub trait CellRendererComboExt: IsA<CellRendererCombo> + sealed::Sealed + 'stati
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(CellRendererCombo::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(CellRendererCombo::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::model\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::model".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_model_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -588,15 +591,17 @@ pub trait CellRendererComboExt: IsA<CellRendererCombo> + sealed::Sealed + 'stati
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(CellRendererCombo::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(CellRendererCombo::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::text-column\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::text-column".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_text_column_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),

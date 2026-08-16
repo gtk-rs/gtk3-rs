@@ -3,10 +3,11 @@
 // DO NOT EDIT
 
 use crate::{
-    Atom, AxisFlags, AxisUse, DeviceManager, DeviceTool, DeviceType, Display, InputMode,
+    ffi, Atom, AxisFlags, AxisUse, DeviceManager, DeviceTool, DeviceType, Display, InputMode,
     InputSource, ModifierType, Screen, Seat, Window,
 };
 use glib::{
+    object::ObjectType as _,
     prelude::*,
     signal::{connect_raw, SignalHandlerId},
     translate::*,
@@ -26,14 +27,10 @@ impl Device {
     pub const NONE: Option<&'static Device> = None;
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::IsA<super::Device>> Sealed for T {}
-}
-
-pub trait DeviceExt: IsA<Device> + sealed::Sealed + 'static {
+pub trait DeviceExt: IsA<Device> + 'static {
     #[doc(alias = "gdk_device_get_associated_device")]
     #[doc(alias = "get_associated_device")]
+    #[doc(alias = "associated-device")]
     #[must_use]
     fn associated_device(&self) -> Option<Device> {
         unsafe {
@@ -90,6 +87,7 @@ pub trait DeviceExt: IsA<Device> + sealed::Sealed + 'static {
 
     #[doc(alias = "gdk_device_get_has_cursor")]
     #[doc(alias = "get_has_cursor")]
+    #[doc(alias = "has-cursor")]
     fn has_cursor(&self) -> bool {
         unsafe {
             from_glib(ffi::gdk_device_get_has_cursor(
@@ -136,6 +134,7 @@ pub trait DeviceExt: IsA<Device> + sealed::Sealed + 'static {
 
     #[doc(alias = "gdk_device_get_n_axes")]
     #[doc(alias = "get_n_axes")]
+    #[doc(alias = "n-axes")]
     fn n_axes(&self) -> i32 {
         unsafe { ffi::gdk_device_get_n_axes(self.as_ref().to_glib_none().0) }
     }
@@ -188,6 +187,7 @@ pub trait DeviceExt: IsA<Device> + sealed::Sealed + 'static {
 
     #[doc(alias = "gdk_device_get_product_id")]
     #[doc(alias = "get_product_id")]
+    #[doc(alias = "product-id")]
     fn product_id(&self) -> Option<glib::GString> {
         unsafe {
             from_glib_none(ffi::gdk_device_get_product_id(
@@ -216,6 +216,7 @@ pub trait DeviceExt: IsA<Device> + sealed::Sealed + 'static {
 
     #[doc(alias = "gdk_device_get_vendor_id")]
     #[doc(alias = "get_vendor_id")]
+    #[doc(alias = "vendor-id")]
     fn vendor_id(&self) -> Option<glib::GString> {
         unsafe {
             from_glib_none(ffi::gdk_device_get_vendor_id(
@@ -357,15 +358,17 @@ pub trait DeviceExt: IsA<Device> + sealed::Sealed + 'static {
             this: *mut ffi::GdkDevice,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Device::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Device::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"changed\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"changed".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     changed_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -383,18 +386,20 @@ pub trait DeviceExt: IsA<Device> + sealed::Sealed + 'static {
             tool: *mut ffi::GdkDeviceTool,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(
-                Device::from_glib_borrow(this).unsafe_cast_ref(),
-                &from_glib_borrow(tool),
-            )
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(
+                    Device::from_glib_borrow(this).unsafe_cast_ref(),
+                    &from_glib_borrow(tool),
+                )
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"tool-changed\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"tool-changed".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     tool_changed_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -412,15 +417,17 @@ pub trait DeviceExt: IsA<Device> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Device::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Device::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::associated-device\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::associated-device".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_associated_device_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -435,15 +442,17 @@ pub trait DeviceExt: IsA<Device> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Device::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Device::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::axes\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::axes".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_axes_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -458,15 +467,17 @@ pub trait DeviceExt: IsA<Device> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Device::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Device::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::input-mode\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::input-mode".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_input_mode_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -481,15 +492,17 @@ pub trait DeviceExt: IsA<Device> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Device::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Device::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::n-axes\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::n-axes".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_n_axes_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -504,15 +517,17 @@ pub trait DeviceExt: IsA<Device> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Device::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Device::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::seat\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::seat".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_seat_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -527,15 +542,17 @@ pub trait DeviceExt: IsA<Device> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Device::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Device::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::tool\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::tool".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_tool_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -550,15 +567,17 @@ pub trait DeviceExt: IsA<Device> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Device::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Device::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::type\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::type".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_type_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),

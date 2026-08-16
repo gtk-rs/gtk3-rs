@@ -2,7 +2,7 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use crate::{SelectionData, TextBuffer};
+use crate::{ffi, SelectionData, TextBuffer};
 use glib::{prelude::*, translate::*};
 use std::boxed::Box as Box_;
 
@@ -53,10 +53,12 @@ impl Clipboard {
             selection_data: *mut ffi::GtkSelectionData,
             data: glib::ffi::gpointer,
         ) {
-            let clipboard = from_glib_borrow(clipboard);
-            let selection_data = from_glib_borrow(selection_data);
-            let callback: Box_<P> = Box_::from_raw(data as *mut _);
-            (*callback)(&clipboard, &selection_data)
+            unsafe {
+                let clipboard = from_glib_borrow(clipboard);
+                let selection_data = from_glib_borrow(selection_data);
+                let callback = Box_::from_raw(data as *mut P);
+                (*callback)(&clipboard, &selection_data)
+            }
         }
         let callback = Some(callback_func::<P> as _);
         let super_callback0: Box_<P> = callback_data;
@@ -83,10 +85,12 @@ impl Clipboard {
             pixbuf: *mut gdk_pixbuf::ffi::GdkPixbuf,
             data: glib::ffi::gpointer,
         ) {
-            let clipboard = from_glib_borrow(clipboard);
-            let pixbuf: Borrowed<Option<gdk_pixbuf::Pixbuf>> = from_glib_borrow(pixbuf);
-            let callback: Box_<P> = Box_::from_raw(data as *mut _);
-            (*callback)(&clipboard, pixbuf.as_ref().as_ref())
+            unsafe {
+                let clipboard = from_glib_borrow(clipboard);
+                let pixbuf: Borrowed<Option<gdk_pixbuf::Pixbuf>> = from_glib_borrow(pixbuf);
+                let callback = Box_::from_raw(data as *mut P);
+                (*callback)(&clipboard, pixbuf.as_ref().as_ref())
+            }
         }
         let callback = Some(callback_func::<P> as _);
         let super_callback0: Box_<P> = callback_data;
@@ -111,20 +115,22 @@ impl Clipboard {
         >(
             clipboard: *mut ffi::GtkClipboard,
             format: gdk::ffi::GdkAtom,
-            text: *const libc::c_char,
+            text: *const std::ffi::c_char,
             length: libc::size_t,
             data: glib::ffi::gpointer,
         ) {
-            let clipboard = from_glib_borrow(clipboard);
-            let format = from_glib_borrow(format);
-            let text: Borrowed<Option<glib::GString>> = from_glib_borrow(text);
-            let callback: Box_<P> = Box_::from_raw(data as *mut _);
-            (*callback)(
-                &clipboard,
-                &format,
-                (*text).as_ref().map(|s| s.as_str()),
-                length,
-            )
+            unsafe {
+                let clipboard = from_glib_borrow(clipboard);
+                let format = from_glib_borrow(format);
+                let text: Borrowed<Option<glib::GString>> = from_glib_borrow(text);
+                let callback = Box_::from_raw(data as *mut P);
+                (*callback)(
+                    &clipboard,
+                    &format,
+                    (*text).as_ref().map(|s| s.as_str()),
+                    length,
+                )
+            }
         }
         let callback = Some(callback_func::<P> as _);
         let super_callback0: Box_<P> = callback_data;
@@ -143,13 +149,15 @@ impl Clipboard {
         let callback_data: Box_<P> = Box_::new(callback);
         unsafe extern "C" fn callback_func<P: FnOnce(&Clipboard, Option<&str>) + 'static>(
             clipboard: *mut ffi::GtkClipboard,
-            text: *const libc::c_char,
+            text: *const std::ffi::c_char,
             data: glib::ffi::gpointer,
         ) {
-            let clipboard = from_glib_borrow(clipboard);
-            let text: Borrowed<Option<glib::GString>> = from_glib_borrow(text);
-            let callback: Box_<P> = Box_::from_raw(data as *mut _);
-            (*callback)(&clipboard, (*text).as_ref().map(|s| s.as_str()))
+            unsafe {
+                let clipboard = from_glib_borrow(clipboard);
+                let text: Borrowed<Option<glib::GString>> = from_glib_borrow(text);
+                let callback = Box_::from_raw(data as *mut P);
+                (*callback)(&clipboard, (*text).as_ref().map(|s| s.as_str()))
+            }
         }
         let callback = Some(callback_func::<P> as _);
         let super_callback0: Box_<P> = callback_data;

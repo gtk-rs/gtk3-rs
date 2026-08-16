@@ -2,7 +2,7 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use crate::{Align, Buildable, Container, Justification, Label, Misc, Widget};
+use crate::{ffi, Align, Buildable, Container, Justification, Label, Misc, Widget};
 use glib::{
     prelude::*,
     signal::{connect_raw, SignalHandlerId},
@@ -393,16 +393,12 @@ impl AccelLabelBuilder {
     /// Build the [`AccelLabel`].
     #[must_use = "Building the object from the builder is usually expensive and is not expected to have side effects"]
     pub fn build(self) -> AccelLabel {
+        assert_initialized_main_thread!();
         self.builder.build()
     }
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::IsA<super::AccelLabel>> Sealed for T {}
-}
-
-pub trait AccelLabelExt: IsA<AccelLabel> + sealed::Sealed + 'static {
+pub trait AccelLabelExt: IsA<AccelLabel> + 'static {
     #[doc(alias = "gtk_accel_label_get_accel")]
     #[doc(alias = "get_accel")]
     fn accel(&self) -> (u32, gdk::ModifierType) {
@@ -423,6 +419,7 @@ pub trait AccelLabelExt: IsA<AccelLabel> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_accel_label_get_accel_widget")]
     #[doc(alias = "get_accel_widget")]
+    #[doc(alias = "accel-widget")]
     fn accel_widget(&self) -> Option<Widget> {
         unsafe {
             from_glib_none(ffi::gtk_accel_label_get_accel_widget(
@@ -454,6 +451,7 @@ pub trait AccelLabelExt: IsA<AccelLabel> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_accel_label_set_accel_closure")]
+    #[doc(alias = "accel-closure")]
     fn set_accel_closure(&self, accel_closure: Option<&glib::Closure>) {
         unsafe {
             ffi::gtk_accel_label_set_accel_closure(
@@ -464,6 +462,7 @@ pub trait AccelLabelExt: IsA<AccelLabel> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_accel_label_set_accel_widget")]
+    #[doc(alias = "accel-widget")]
     fn set_accel_widget(&self, accel_widget: Option<&impl IsA<Widget>>) {
         unsafe {
             ffi::gtk_accel_label_set_accel_widget(
@@ -488,15 +487,17 @@ pub trait AccelLabelExt: IsA<AccelLabel> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(AccelLabel::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(AccelLabel::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::accel-closure\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::accel-closure".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_accel_closure_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -514,15 +515,17 @@ pub trait AccelLabelExt: IsA<AccelLabel> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(AccelLabel::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(AccelLabel::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::accel-widget\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::accel-widget".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_accel_widget_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),

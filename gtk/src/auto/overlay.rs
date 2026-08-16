@@ -2,7 +2,7 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use crate::{Align, Bin, Buildable, Container, ResizeMode, Widget};
+use crate::{ffi, Align, Bin, Buildable, Container, ResizeMode, Widget};
 use glib::{prelude::*, translate::*};
 
 glib::wrapper! {
@@ -270,16 +270,12 @@ impl OverlayBuilder {
     /// Build the [`Overlay`].
     #[must_use = "Building the object from the builder is usually expensive and is not expected to have side effects"]
     pub fn build(self) -> Overlay {
+        assert_initialized_main_thread!();
         self.builder.build()
     }
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::IsA<super::Overlay>> Sealed for T {}
-}
-
-pub trait OverlayExt: IsA<Overlay> + sealed::Sealed + 'static {
+pub trait OverlayExt: IsA<Overlay> + 'static {
     #[doc(alias = "gtk_overlay_add_overlay")]
     fn add_overlay(&self, widget: &impl IsA<Widget>) {
         unsafe {

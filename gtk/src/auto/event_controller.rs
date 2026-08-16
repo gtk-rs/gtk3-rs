@@ -2,7 +2,7 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use crate::{PropagationPhase, Widget};
+use crate::{ffi, PropagationPhase, Widget};
 use glib::{
     prelude::*,
     signal::{connect_raw, SignalHandlerId},
@@ -23,14 +23,10 @@ impl EventController {
     pub const NONE: Option<&'static EventController> = None;
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::IsA<super::EventController>> Sealed for T {}
-}
-
-pub trait EventControllerExt: IsA<EventController> + sealed::Sealed + 'static {
+pub trait EventControllerExt: IsA<EventController> + 'static {
     #[doc(alias = "gtk_event_controller_get_propagation_phase")]
     #[doc(alias = "get_propagation_phase")]
+    #[doc(alias = "propagation-phase")]
     fn propagation_phase(&self) -> PropagationPhase {
         unsafe {
             from_glib(ffi::gtk_event_controller_get_propagation_phase(
@@ -67,6 +63,7 @@ pub trait EventControllerExt: IsA<EventController> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_event_controller_set_propagation_phase")]
+    #[doc(alias = "propagation-phase")]
     fn set_propagation_phase(&self, phase: PropagationPhase) {
         unsafe {
             ffi::gtk_event_controller_set_propagation_phase(
@@ -86,15 +83,17 @@ pub trait EventControllerExt: IsA<EventController> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(EventController::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(EventController::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::propagation-phase\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::propagation-phase".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_propagation_phase_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),

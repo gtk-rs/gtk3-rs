@@ -3,8 +3,8 @@
 // DO NOT EDIT
 
 use crate::{
-    Actionable, Align, Bin, Buildable, Button, Container, PositionType, ReliefStyle, ResizeMode,
-    Widget,
+    ffi, Actionable, Align, Bin, Buildable, Button, Container, PositionType, ReliefStyle,
+    ResizeMode, Widget,
 };
 use glib::{
     prelude::*,
@@ -377,16 +377,12 @@ impl LockButtonBuilder {
     /// Build the [`LockButton`].
     #[must_use = "Building the object from the builder is usually expensive and is not expected to have side effects"]
     pub fn build(self) -> LockButton {
+        assert_initialized_main_thread!();
         self.builder.build()
     }
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::IsA<super::LockButton>> Sealed for T {}
-}
-
-pub trait LockButtonExt: IsA<LockButton> + sealed::Sealed + 'static {
+pub trait LockButtonExt: IsA<LockButton> + 'static {
     #[doc(alias = "gtk_lock_button_get_permission")]
     #[doc(alias = "get_permission")]
     fn permission(&self) -> Option<gio::Permission> {
@@ -398,6 +394,7 @@ pub trait LockButtonExt: IsA<LockButton> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_lock_button_set_permission")]
+    #[doc(alias = "permission")]
     fn set_permission(&self, permission: Option<&impl IsA<gio::Permission>>) {
         unsafe {
             ffi::gtk_lock_button_set_permission(
@@ -471,15 +468,17 @@ pub trait LockButtonExt: IsA<LockButton> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(LockButton::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(LockButton::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::permission\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::permission".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_permission_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -497,15 +496,17 @@ pub trait LockButtonExt: IsA<LockButton> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(LockButton::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(LockButton::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::text-lock\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::text-lock".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_text_lock_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -523,15 +524,17 @@ pub trait LockButtonExt: IsA<LockButton> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(LockButton::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(LockButton::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::text-unlock\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::text-unlock".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_text_unlock_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -549,15 +552,17 @@ pub trait LockButtonExt: IsA<LockButton> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(LockButton::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(LockButton::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::tooltip-lock\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::tooltip-lock".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_tooltip_lock_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -578,15 +583,17 @@ pub trait LockButtonExt: IsA<LockButton> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(LockButton::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(LockButton::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::tooltip-not-authorized\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::tooltip-not-authorized".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_tooltip_not_authorized_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -604,15 +611,17 @@ pub trait LockButtonExt: IsA<LockButton> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(LockButton::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(LockButton::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::tooltip-unlock\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::tooltip-unlock".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_tooltip_unlock_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),

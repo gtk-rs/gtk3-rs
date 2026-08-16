@@ -3,10 +3,11 @@
 // DO NOT EDIT
 
 use crate::{
-    Actionable, Align, Bin, Buildable, Container, IconSize, PositionType, ReliefStyle, ResizeMode,
-    Widget,
+    ffi, Actionable, Align, Bin, Buildable, Container, IconSize, PositionType, ReliefStyle,
+    ResizeMode, Widget,
 };
 use glib::{
+    object::ObjectType as _,
     prelude::*,
     signal::{connect_raw, SignalHandlerId},
     translate::*,
@@ -363,16 +364,12 @@ impl ButtonBuilder {
     /// Build the [`Button`].
     #[must_use = "Building the object from the builder is usually expensive and is not expected to have side effects"]
     pub fn build(self) -> Button {
+        assert_initialized_main_thread!();
         self.builder.build()
     }
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::IsA<super::Button>> Sealed for T {}
-}
-
-pub trait ButtonExt: IsA<Button> + sealed::Sealed + 'static {
+pub trait ButtonExt: IsA<Button> + 'static {
     #[doc(alias = "gtk_button_clicked")]
     fn clicked(&self) {
         unsafe {
@@ -382,6 +379,7 @@ pub trait ButtonExt: IsA<Button> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_button_get_always_show_image")]
     #[doc(alias = "get_always_show_image")]
+    #[doc(alias = "always-show-image")]
     fn must_always_show_image(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_button_get_always_show_image(
@@ -408,6 +406,7 @@ pub trait ButtonExt: IsA<Button> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_button_get_image_position")]
     #[doc(alias = "get_image_position")]
+    #[doc(alias = "image-position")]
     fn image_position(&self) -> PositionType {
         unsafe {
             from_glib(ffi::gtk_button_get_image_position(
@@ -430,6 +429,7 @@ pub trait ButtonExt: IsA<Button> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_button_get_use_underline")]
     #[doc(alias = "get_use_underline")]
+    #[doc(alias = "use-underline")]
     fn uses_underline(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_button_get_use_underline(
@@ -439,6 +439,7 @@ pub trait ButtonExt: IsA<Button> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_button_set_always_show_image")]
+    #[doc(alias = "always-show-image")]
     fn set_always_show_image(&self, always_show: bool) {
         unsafe {
             ffi::gtk_button_set_always_show_image(
@@ -449,6 +450,7 @@ pub trait ButtonExt: IsA<Button> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_button_set_image")]
+    #[doc(alias = "image")]
     fn set_image(&self, image: Option<&impl IsA<Widget>>) {
         unsafe {
             ffi::gtk_button_set_image(
@@ -459,6 +461,7 @@ pub trait ButtonExt: IsA<Button> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_button_set_image_position")]
+    #[doc(alias = "image-position")]
     fn set_image_position(&self, position: PositionType) {
         unsafe {
             ffi::gtk_button_set_image_position(
@@ -469,6 +472,7 @@ pub trait ButtonExt: IsA<Button> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_button_set_label")]
+    #[doc(alias = "label")]
     fn set_label(&self, label: &str) {
         unsafe {
             ffi::gtk_button_set_label(self.as_ref().to_glib_none().0, label.to_glib_none().0);
@@ -476,6 +480,7 @@ pub trait ButtonExt: IsA<Button> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_button_set_relief")]
+    #[doc(alias = "relief")]
     fn set_relief(&self, relief: ReliefStyle) {
         unsafe {
             ffi::gtk_button_set_relief(self.as_ref().to_glib_none().0, relief.into_glib());
@@ -483,6 +488,7 @@ pub trait ButtonExt: IsA<Button> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_button_set_use_underline")]
+    #[doc(alias = "use-underline")]
     fn set_use_underline(&self, use_underline: bool) {
         unsafe {
             ffi::gtk_button_set_use_underline(
@@ -498,15 +504,17 @@ pub trait ButtonExt: IsA<Button> + sealed::Sealed + 'static {
             this: *mut ffi::GtkButton,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Button::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Button::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"activate\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"activate".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     activate_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -524,15 +532,17 @@ pub trait ButtonExt: IsA<Button> + sealed::Sealed + 'static {
             this: *mut ffi::GtkButton,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Button::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Button::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"clicked\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"clicked".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     clicked_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -554,15 +564,17 @@ pub trait ButtonExt: IsA<Button> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Button::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Button::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::always-show-image\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::always-show-image".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_always_show_image_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -577,15 +589,17 @@ pub trait ButtonExt: IsA<Button> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Button::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Button::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::image\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::image".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_image_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -603,15 +617,17 @@ pub trait ButtonExt: IsA<Button> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Button::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Button::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::image-position\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::image-position".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_image_position_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -626,15 +642,17 @@ pub trait ButtonExt: IsA<Button> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Button::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Button::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::label\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::label".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_label_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -649,15 +667,17 @@ pub trait ButtonExt: IsA<Button> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Button::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Button::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::relief\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::relief".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_relief_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -675,15 +695,17 @@ pub trait ButtonExt: IsA<Button> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Button::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Button::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::use-underline\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::use-underline".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_use_underline_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),

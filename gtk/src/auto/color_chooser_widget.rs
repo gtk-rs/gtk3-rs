@@ -3,7 +3,7 @@
 // DO NOT EDIT
 
 use crate::{
-    Align, BaselinePosition, Box, Buildable, ColorChooser, Container, Orientable, Orientation,
+    ffi, Align, BaselinePosition, Box, Buildable, ColorChooser, Container, Orientable, Orientation,
     ResizeMode, Widget,
 };
 use glib::{
@@ -322,16 +322,12 @@ impl ColorChooserWidgetBuilder {
     /// Build the [`ColorChooserWidget`].
     #[must_use = "Building the object from the builder is usually expensive and is not expected to have side effects"]
     pub fn build(self) -> ColorChooserWidget {
+        assert_initialized_main_thread!();
         self.builder.build()
     }
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::IsA<super::ColorChooserWidget>> Sealed for T {}
-}
-
-pub trait ColorChooserWidgetExt: IsA<ColorChooserWidget> + sealed::Sealed + 'static {
+pub trait ColorChooserWidgetExt: IsA<ColorChooserWidget> + 'static {
     #[doc(alias = "show-editor")]
     fn shows_editor(&self) -> bool {
         ObjectExt::property(self.as_ref(), "show-editor")
@@ -352,15 +348,17 @@ pub trait ColorChooserWidgetExt: IsA<ColorChooserWidget> + sealed::Sealed + 'sta
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(ColorChooserWidget::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(ColorChooserWidget::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::show-editor\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::show-editor".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_show_editor_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),

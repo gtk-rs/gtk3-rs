@@ -7,7 +7,7 @@ use std::ptr;
 
 mod sealed {
     pub trait Sealed {}
-    impl<T: glib::IsA<crate::FlowBox>> Sealed for T {}
+    impl<T: glib::object::IsA<crate::FlowBox>> Sealed for T {}
 }
 
 pub trait FlowBoxExtManual: IsA<FlowBox> + sealed::Sealed + 'static {

@@ -11,14 +11,22 @@
 )]
 #![cfg_attr(docsrs, feature(doc_cfg))]
 
+use cairo_sys as cairo;
+use gdk_sys as gdk;
+use glib_sys as glib;
+
 mod manual;
 
 pub use manual::*;
 
+#[cfg(unix)]
 #[allow(unused_imports)]
-use libc::{
+use libc::{dev_t, gid_t, pid_t, socklen_t, uid_t};
+#[allow(unused_imports)]
+use libc::{intptr_t, off_t, size_t, ssize_t, time_t, uintptr_t, FILE};
+#[allow(unused_imports)]
+use std::ffi::{
     c_char, c_double, c_float, c_int, c_long, c_short, c_uchar, c_uint, c_ulong, c_ushort, c_void,
-    intptr_t, size_t, ssize_t, uintptr_t, FILE,
 };
 
 #[allow(unused_imports)]
@@ -26,127 +34,143 @@ use glib::{gboolean, gconstpointer, gpointer, GType};
 
 // Records
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GdkX11AppLaunchContextClass {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GdkX11AppLaunchContextClass = *mut _GdkX11AppLaunchContextClass;
+pub type GdkX11AppLaunchContextClass = _GdkX11AppLaunchContextClass;
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GdkX11CursorClass {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GdkX11CursorClass = *mut _GdkX11CursorClass;
+pub type GdkX11CursorClass = _GdkX11CursorClass;
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GdkX11DeviceCoreClass {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GdkX11DeviceCoreClass = *mut _GdkX11DeviceCoreClass;
+pub type GdkX11DeviceCoreClass = _GdkX11DeviceCoreClass;
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GdkX11DeviceManagerCoreClass {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GdkX11DeviceManagerCoreClass = *mut _GdkX11DeviceManagerCoreClass;
+pub type GdkX11DeviceManagerCoreClass = _GdkX11DeviceManagerCoreClass;
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GdkX11DeviceManagerXI2Class {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GdkX11DeviceManagerXI2Class = *mut _GdkX11DeviceManagerXI2Class;
+pub type GdkX11DeviceManagerXI2Class = _GdkX11DeviceManagerXI2Class;
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GdkX11DeviceXI2Class {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GdkX11DeviceXI2Class = *mut _GdkX11DeviceXI2Class;
+pub type GdkX11DeviceXI2Class = _GdkX11DeviceXI2Class;
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GdkX11DisplayClass {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GdkX11DisplayClass = *mut _GdkX11DisplayClass;
+pub type GdkX11DisplayClass = _GdkX11DisplayClass;
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GdkX11DisplayManagerClass {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GdkX11DisplayManagerClass = *mut _GdkX11DisplayManagerClass;
+pub type GdkX11DisplayManagerClass = _GdkX11DisplayManagerClass;
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GdkX11DragContextClass {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GdkX11DragContextClass = *mut _GdkX11DragContextClass;
+pub type GdkX11DragContextClass = _GdkX11DragContextClass;
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GdkX11GLContextClass {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GdkX11GLContextClass = *mut _GdkX11GLContextClass;
+pub type GdkX11GLContextClass = _GdkX11GLContextClass;
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GdkX11KeymapClass {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GdkX11KeymapClass = *mut _GdkX11KeymapClass;
+pub type GdkX11KeymapClass = _GdkX11KeymapClass;
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GdkX11MonitorClass {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GdkX11MonitorClass = *mut _GdkX11MonitorClass;
+pub type GdkX11MonitorClass = _GdkX11MonitorClass;
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GdkX11ScreenClass {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GdkX11ScreenClass = *mut _GdkX11ScreenClass;
+pub type GdkX11ScreenClass = _GdkX11ScreenClass;
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GdkX11VisualClass {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GdkX11VisualClass = *mut _GdkX11VisualClass;
+pub type GdkX11VisualClass = _GdkX11VisualClass;
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _GdkX11WindowClass {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type GdkX11WindowClass = *mut _GdkX11WindowClass;
+pub type GdkX11WindowClass = _GdkX11WindowClass;
 
 // Classes
 #[repr(C)]
+#[allow(dead_code)]
 pub struct GdkX11AppLaunchContext {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
@@ -160,6 +184,7 @@ impl ::std::fmt::Debug for GdkX11AppLaunchContext {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct GdkX11Cursor {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
@@ -172,6 +197,7 @@ impl ::std::fmt::Debug for GdkX11Cursor {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct GdkX11DeviceCore {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
@@ -185,6 +211,7 @@ impl ::std::fmt::Debug for GdkX11DeviceCore {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct GdkX11DeviceManagerCore {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
@@ -198,6 +225,7 @@ impl ::std::fmt::Debug for GdkX11DeviceManagerCore {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct GdkX11DeviceManagerXI2 {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
@@ -211,6 +239,7 @@ impl ::std::fmt::Debug for GdkX11DeviceManagerXI2 {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct GdkX11DeviceXI2 {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
@@ -224,6 +253,7 @@ impl ::std::fmt::Debug for GdkX11DeviceXI2 {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct GdkX11Display {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
@@ -237,6 +267,7 @@ impl ::std::fmt::Debug for GdkX11Display {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct GdkX11DisplayManager {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
@@ -250,6 +281,7 @@ impl ::std::fmt::Debug for GdkX11DisplayManager {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct GdkX11DragContext {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
@@ -263,6 +295,7 @@ impl ::std::fmt::Debug for GdkX11DragContext {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct GdkX11GLContext {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
@@ -276,6 +309,7 @@ impl ::std::fmt::Debug for GdkX11GLContext {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct GdkX11Keymap {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
@@ -288,6 +322,7 @@ impl ::std::fmt::Debug for GdkX11Keymap {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct GdkX11Monitor {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
@@ -301,6 +336,7 @@ impl ::std::fmt::Debug for GdkX11Monitor {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct GdkX11Screen {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
@@ -313,6 +349,7 @@ impl ::std::fmt::Debug for GdkX11Screen {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct GdkX11Visual {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
@@ -325,6 +362,7 @@ impl ::std::fmt::Debug for GdkX11Visual {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct GdkX11Window {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
@@ -336,8 +374,7 @@ impl ::std::fmt::Debug for GdkX11Window {
     }
 }
 
-#[link(name = "gdk-3")]
-extern "C" {
+unsafe extern "C" {
 
     //=========================================================================
     // GdkX11AppLaunchContext

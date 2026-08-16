@@ -12,7 +12,7 @@ use std::ptr;
 
 mod sealed {
     pub trait Sealed {}
-    impl<T: glib::IsA<crate::Device>> Sealed for T {}
+    impl<T: glib::object::IsA<crate::Device>> Sealed for T {}
 }
 
 pub trait DeviceExtManual: IsA<Device> + sealed::Sealed + 'static {

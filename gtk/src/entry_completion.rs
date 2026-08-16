@@ -3,13 +3,13 @@
 use crate::Entry;
 use crate::EntryCompletion;
 use crate::Widget;
+use glib::object::Cast;
 use glib::object::IsA;
 use glib::translate::*;
-use glib::Cast;
 
 mod sealed {
     pub trait Sealed {}
-    impl<T: glib::IsA<crate::EntryCompletion>> Sealed for T {}
+    impl<T: glib::object::IsA<crate::EntryCompletion>> Sealed for T {}
 }
 
 pub trait EntryCompletionExtManual: IsA<EntryCompletion> + sealed::Sealed + 'static {

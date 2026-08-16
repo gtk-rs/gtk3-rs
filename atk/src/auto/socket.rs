@@ -2,7 +2,7 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use crate::{Component, Object};
+use crate::{ffi, Component, Object};
 use glib::{prelude::*, translate::*};
 
 glib::wrapper! {
@@ -30,12 +30,7 @@ impl Default for Socket {
     }
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::IsA<super::Socket>> Sealed for T {}
-}
-
-pub trait AtkSocketExt: IsA<Socket> + sealed::Sealed + 'static {
+pub trait AtkSocketExt: IsA<Socket> + 'static {
     #[doc(alias = "atk_socket_embed")]
     fn embed(&self, plug_id: &str) {
         unsafe {

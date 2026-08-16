@@ -6,10 +6,11 @@
 #[cfg_attr(docsrs, doc(cfg(feature = "v3_24")))]
 use crate::FontChooserLevel;
 use crate::{
-    Actionable, Align, Bin, Buildable, Button, Container, FontChooser, PositionType, ReliefStyle,
-    ResizeMode, Widget,
+    ffi, Actionable, Align, Bin, Buildable, Button, Container, FontChooser, PositionType,
+    ReliefStyle, ResizeMode, Widget,
 };
 use glib::{
+    object::ObjectType as _,
     prelude::*,
     signal::{connect_raw, SignalHandlerId},
     translate::*,
@@ -417,18 +418,15 @@ impl FontButtonBuilder {
     /// Build the [`FontButton`].
     #[must_use = "Building the object from the builder is usually expensive and is not expected to have side effects"]
     pub fn build(self) -> FontButton {
+        assert_initialized_main_thread!();
         self.builder.build()
     }
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::IsA<super::FontButton>> Sealed for T {}
-}
-
-pub trait FontButtonExt: IsA<FontButton> + sealed::Sealed + 'static {
+pub trait FontButtonExt: IsA<FontButton> + 'static {
     #[doc(alias = "gtk_font_button_get_show_size")]
     #[doc(alias = "get_show_size")]
+    #[doc(alias = "show-size")]
     fn shows_size(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_font_button_get_show_size(
@@ -439,6 +437,7 @@ pub trait FontButtonExt: IsA<FontButton> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_font_button_get_show_style")]
     #[doc(alias = "get_show_style")]
+    #[doc(alias = "show-style")]
     fn shows_style(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_font_button_get_show_style(
@@ -459,6 +458,7 @@ pub trait FontButtonExt: IsA<FontButton> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_font_button_get_use_font")]
     #[doc(alias = "get_use_font")]
+    #[doc(alias = "use-font")]
     fn uses_font(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_font_button_get_use_font(
@@ -469,6 +469,7 @@ pub trait FontButtonExt: IsA<FontButton> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_font_button_get_use_size")]
     #[doc(alias = "get_use_size")]
+    #[doc(alias = "use-size")]
     fn uses_size(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_font_button_get_use_size(
@@ -478,6 +479,7 @@ pub trait FontButtonExt: IsA<FontButton> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_font_button_set_show_size")]
+    #[doc(alias = "show-size")]
     fn set_show_size(&self, show_size: bool) {
         unsafe {
             ffi::gtk_font_button_set_show_size(
@@ -488,6 +490,7 @@ pub trait FontButtonExt: IsA<FontButton> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_font_button_set_show_style")]
+    #[doc(alias = "show-style")]
     fn set_show_style(&self, show_style: bool) {
         unsafe {
             ffi::gtk_font_button_set_show_style(
@@ -498,6 +501,7 @@ pub trait FontButtonExt: IsA<FontButton> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_font_button_set_title")]
+    #[doc(alias = "title")]
     fn set_title(&self, title: &str) {
         unsafe {
             ffi::gtk_font_button_set_title(self.as_ref().to_glib_none().0, title.to_glib_none().0);
@@ -505,6 +509,7 @@ pub trait FontButtonExt: IsA<FontButton> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_font_button_set_use_font")]
+    #[doc(alias = "use-font")]
     fn set_use_font(&self, use_font: bool) {
         unsafe {
             ffi::gtk_font_button_set_use_font(self.as_ref().to_glib_none().0, use_font.into_glib());
@@ -512,6 +517,7 @@ pub trait FontButtonExt: IsA<FontButton> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_font_button_set_use_size")]
+    #[doc(alias = "use-size")]
     fn set_use_size(&self, use_size: bool) {
         unsafe {
             ffi::gtk_font_button_set_use_size(self.as_ref().to_glib_none().0, use_size.into_glib());
@@ -524,15 +530,17 @@ pub trait FontButtonExt: IsA<FontButton> + sealed::Sealed + 'static {
             this: *mut ffi::GtkFontButton,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(FontButton::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(FontButton::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"font-set\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"font-set".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     font_set_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -550,15 +558,17 @@ pub trait FontButtonExt: IsA<FontButton> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(FontButton::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(FontButton::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::show-size\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::show-size".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_show_size_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -576,15 +586,17 @@ pub trait FontButtonExt: IsA<FontButton> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(FontButton::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(FontButton::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::show-style\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::show-style".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_show_style_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -599,15 +611,17 @@ pub trait FontButtonExt: IsA<FontButton> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(FontButton::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(FontButton::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::title\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::title".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_title_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -622,15 +636,17 @@ pub trait FontButtonExt: IsA<FontButton> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(FontButton::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(FontButton::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::use-font\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::use-font".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_use_font_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -645,15 +661,17 @@ pub trait FontButtonExt: IsA<FontButton> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(FontButton::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(FontButton::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::use-size\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::use-size".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_use_size_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),

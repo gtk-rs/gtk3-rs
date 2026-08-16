@@ -28,7 +28,7 @@ impl TickCallbackId {
 
 mod sealed {
     pub trait Sealed {}
-    impl<T: glib::IsA<crate::Widget>> Sealed for T {}
+    impl<T: glib::object::IsA<crate::Widget>> Sealed for T {}
 }
 
 pub trait WidgetExtManual: IsA<Widget> + sealed::Sealed + 'static {
@@ -113,8 +113,8 @@ pub trait WidgetExtManual: IsA<Widget> + sealed::Sealed + 'static {
             let f: Box<F> = Box::new(f);
             connect_raw(
                 self.to_glib_none().0 as *mut _,
-                b"map-event\0".as_ptr() as *mut _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                c"map-event".as_ptr() as *mut _,
+                Some(transmute::<*const (), unsafe extern "C" fn()>(
                     event_any_trampoline::<Self, F> as *const (),
                 )),
                 Box::into_raw(f),
@@ -147,8 +147,8 @@ pub trait WidgetExtManual: IsA<Widget> + sealed::Sealed + 'static {
             let f: Box<F> = Box::new(f);
             connect_raw(
                 self.to_glib_none().0 as *mut _,
-                b"unmap-event\0".as_ptr() as *mut _,
-                Some(transmute::<_, unsafe extern "C" fn()>(
+                c"unmap-event".as_ptr() as *mut _,
+                Some(transmute::<*const (), unsafe extern "C" fn()>(
                     event_any_trampoline::<Self, F> as *const (),
                 )),
                 Box::into_raw(f),

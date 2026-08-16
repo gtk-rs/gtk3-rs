@@ -4,7 +4,7 @@ use glib::translate::*;
 
 use glib::subclass::prelude::*;
 
-use glib::Cast;
+use glib::object::Cast;
 
 use super::widget::WidgetImpl;
 use crate::Container;
@@ -218,13 +218,13 @@ unsafe extern "C" fn container_get_path_for_child<T: ContainerImpl>(
     imp.path_for_child(&widget).to_glib_none().0
 }
 
-unsafe extern "C" fn container_forall<T: ObjectSubclass>(
+unsafe extern "C" fn container_forall<T>(
     ptr: *mut ffi::GtkContainer,
     include_internals: glib::ffi::gboolean,
     callback: ffi::GtkCallback,
     user_data: glib::ffi::gpointer,
 ) where
-    T: ContainerImpl,
+    T: ObjectSubclass + ContainerImpl,
 {
     let instance = &*(ptr as *mut T::Instance);
     let imp = instance.imp();

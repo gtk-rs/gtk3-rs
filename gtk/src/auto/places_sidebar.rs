@@ -3,10 +3,11 @@
 // DO NOT EDIT
 
 use crate::{
-    Adjustment, Align, Bin, Buildable, Container, CornerType, PlacesOpenFlags, PolicyType,
+    ffi, Adjustment, Align, Bin, Buildable, Container, CornerType, PlacesOpenFlags, PolicyType,
     ResizeMode, ScrolledWindow, ShadowType, Widget,
 };
 use glib::{
+    object::ObjectType as _,
     prelude::*,
     signal::{connect_raw, SignalHandlerId},
     translate::*,
@@ -49,6 +50,7 @@ impl PlacesSidebar {
 
     #[doc(alias = "gtk_places_sidebar_get_local_only")]
     #[doc(alias = "get_local_only")]
+    #[doc(alias = "local-only")]
     pub fn is_local_only(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_places_sidebar_get_local_only(
@@ -76,6 +78,7 @@ impl PlacesSidebar {
 
     #[doc(alias = "gtk_places_sidebar_get_open_flags")]
     #[doc(alias = "get_open_flags")]
+    #[doc(alias = "open-flags")]
     pub fn open_flags(&self) -> PlacesOpenFlags {
         unsafe {
             from_glib(ffi::gtk_places_sidebar_get_open_flags(
@@ -86,6 +89,7 @@ impl PlacesSidebar {
 
     #[doc(alias = "gtk_places_sidebar_get_show_desktop")]
     #[doc(alias = "get_show_desktop")]
+    #[doc(alias = "show-desktop")]
     pub fn shows_desktop(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_places_sidebar_get_show_desktop(
@@ -96,6 +100,7 @@ impl PlacesSidebar {
 
     #[doc(alias = "gtk_places_sidebar_get_show_enter_location")]
     #[doc(alias = "get_show_enter_location")]
+    #[doc(alias = "show-enter-location")]
     pub fn shows_enter_location(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_places_sidebar_get_show_enter_location(
@@ -106,6 +111,7 @@ impl PlacesSidebar {
 
     #[doc(alias = "gtk_places_sidebar_get_show_other_locations")]
     #[doc(alias = "get_show_other_locations")]
+    #[doc(alias = "show-other-locations")]
     pub fn shows_other_locations(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_places_sidebar_get_show_other_locations(
@@ -116,6 +122,7 @@ impl PlacesSidebar {
 
     #[doc(alias = "gtk_places_sidebar_get_show_recent")]
     #[doc(alias = "get_show_recent")]
+    #[doc(alias = "show-recent")]
     pub fn shows_recent(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_places_sidebar_get_show_recent(
@@ -126,6 +133,7 @@ impl PlacesSidebar {
 
     #[doc(alias = "gtk_places_sidebar_get_show_starred_location")]
     #[doc(alias = "get_show_starred_location")]
+    #[doc(alias = "show-starred-location")]
     pub fn shows_starred_location(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_places_sidebar_get_show_starred_location(
@@ -136,6 +144,7 @@ impl PlacesSidebar {
 
     #[doc(alias = "gtk_places_sidebar_get_show_trash")]
     #[doc(alias = "get_show_trash")]
+    #[doc(alias = "show-trash")]
     pub fn shows_trash(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_places_sidebar_get_show_trash(
@@ -175,6 +184,7 @@ impl PlacesSidebar {
     }
 
     #[doc(alias = "gtk_places_sidebar_set_local_only")]
+    #[doc(alias = "local-only")]
     pub fn set_local_only(&self, local_only: bool) {
         unsafe {
             ffi::gtk_places_sidebar_set_local_only(self.to_glib_none().0, local_only.into_glib());
@@ -182,6 +192,7 @@ impl PlacesSidebar {
     }
 
     #[doc(alias = "gtk_places_sidebar_set_location")]
+    #[doc(alias = "location")]
     pub fn set_location(&self, location: Option<&impl IsA<gio::File>>) {
         unsafe {
             ffi::gtk_places_sidebar_set_location(
@@ -192,6 +203,7 @@ impl PlacesSidebar {
     }
 
     #[doc(alias = "gtk_places_sidebar_set_open_flags")]
+    #[doc(alias = "open-flags")]
     pub fn set_open_flags(&self, flags: PlacesOpenFlags) {
         unsafe {
             ffi::gtk_places_sidebar_set_open_flags(self.to_glib_none().0, flags.into_glib());
@@ -199,6 +211,7 @@ impl PlacesSidebar {
     }
 
     #[doc(alias = "gtk_places_sidebar_set_show_desktop")]
+    #[doc(alias = "show-desktop")]
     pub fn set_show_desktop(&self, show_desktop: bool) {
         unsafe {
             ffi::gtk_places_sidebar_set_show_desktop(
@@ -209,6 +222,7 @@ impl PlacesSidebar {
     }
 
     #[doc(alias = "gtk_places_sidebar_set_show_enter_location")]
+    #[doc(alias = "show-enter-location")]
     pub fn set_show_enter_location(&self, show_enter_location: bool) {
         unsafe {
             ffi::gtk_places_sidebar_set_show_enter_location(
@@ -219,6 +233,7 @@ impl PlacesSidebar {
     }
 
     #[doc(alias = "gtk_places_sidebar_set_show_other_locations")]
+    #[doc(alias = "show-other-locations")]
     pub fn set_show_other_locations(&self, show_other_locations: bool) {
         unsafe {
             ffi::gtk_places_sidebar_set_show_other_locations(
@@ -229,6 +244,7 @@ impl PlacesSidebar {
     }
 
     #[doc(alias = "gtk_places_sidebar_set_show_recent")]
+    #[doc(alias = "show-recent")]
     pub fn set_show_recent(&self, show_recent: bool) {
         unsafe {
             ffi::gtk_places_sidebar_set_show_recent(self.to_glib_none().0, show_recent.into_glib());
@@ -236,6 +252,7 @@ impl PlacesSidebar {
     }
 
     #[doc(alias = "gtk_places_sidebar_set_show_starred_location")]
+    #[doc(alias = "show-starred-location")]
     pub fn set_show_starred_location(&self, show_starred_location: bool) {
         unsafe {
             ffi::gtk_places_sidebar_set_show_starred_location(
@@ -246,6 +263,7 @@ impl PlacesSidebar {
     }
 
     #[doc(alias = "gtk_places_sidebar_set_show_trash")]
+    #[doc(alias = "show-trash")]
     pub fn set_show_trash(&self, show_trash: bool) {
         unsafe {
             ffi::gtk_places_sidebar_set_show_trash(self.to_glib_none().0, show_trash.into_glib());
@@ -281,18 +299,20 @@ impl PlacesSidebar {
             F: Fn(&PlacesSidebar, i32) -> i32 + 'static,
         >(
             this: *mut ffi::GtkPlacesSidebar,
-            actions: libc::c_int,
+            actions: std::ffi::c_int,
             f: glib::ffi::gpointer,
-        ) -> libc::c_int {
-            let f: &F = &*(f as *const F);
-            f(&from_glib_borrow(this), actions)
+        ) -> std::ffi::c_int {
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(&from_glib_borrow(this), actions)
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"drag-action-ask\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"drag-action-ask".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     drag_action_ask_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -312,15 +332,17 @@ impl PlacesSidebar {
             mount_operation: *mut gio::ffi::GMountOperation,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(&from_glib_borrow(this), &from_glib_borrow(mount_operation))
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(&from_glib_borrow(this), &from_glib_borrow(mount_operation))
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"mount\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"mount".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     mount_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -341,19 +363,21 @@ impl PlacesSidebar {
             open_flags: ffi::GtkPlacesOpenFlags,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(
-                &from_glib_borrow(this),
-                &from_glib_borrow(location),
-                from_glib(open_flags),
-            )
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(
+                    &from_glib_borrow(this),
+                    &from_glib_borrow(location),
+                    from_glib(open_flags),
+                )
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"open-location\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"open-location".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     open_location_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -372,15 +396,17 @@ impl PlacesSidebar {
             this: *mut ffi::GtkPlacesSidebar,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(&from_glib_borrow(this))
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(&from_glib_borrow(this))
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"show-enter-location\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"show-enter-location".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     show_enter_location_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -397,23 +423,25 @@ impl PlacesSidebar {
             F: Fn(&PlacesSidebar, &str, &str) + 'static,
         >(
             this: *mut ffi::GtkPlacesSidebar,
-            primary: *mut libc::c_char,
-            secondary: *mut libc::c_char,
+            primary: *mut std::ffi::c_char,
+            secondary: *mut std::ffi::c_char,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(
-                &from_glib_borrow(this),
-                &glib::GString::from_glib_borrow(primary),
-                &glib::GString::from_glib_borrow(secondary),
-            )
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(
+                    &from_glib_borrow(this),
+                    &glib::GString::from_glib_borrow(primary),
+                    &glib::GString::from_glib_borrow(secondary),
+                )
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"show-error-message\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"show-error-message".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     show_error_message_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -433,15 +461,17 @@ impl PlacesSidebar {
             open_flags: ffi::GtkPlacesOpenFlags,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(&from_glib_borrow(this), from_glib(open_flags))
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(&from_glib_borrow(this), from_glib(open_flags))
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"show-other-locations-with-flags\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"show-other-locations-with-flags".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     show_other_locations_with_flags_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -461,15 +491,17 @@ impl PlacesSidebar {
             open_flags: ffi::GtkPlacesOpenFlags,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(&from_glib_borrow(this), from_glib(open_flags))
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(&from_glib_borrow(this), from_glib(open_flags))
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"show-starred-location\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"show-starred-location".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     show_starred_location_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -489,15 +521,17 @@ impl PlacesSidebar {
             mount_operation: *mut gio::ffi::GMountOperation,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(&from_glib_borrow(this), &from_glib_borrow(mount_operation))
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(&from_glib_borrow(this), &from_glib_borrow(mount_operation))
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"unmount\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"unmount".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     unmount_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -512,15 +546,17 @@ impl PlacesSidebar {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(&from_glib_borrow(this))
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(&from_glib_borrow(this))
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::local-only\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::local-only".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_local_only_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -535,15 +571,17 @@ impl PlacesSidebar {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(&from_glib_borrow(this))
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(&from_glib_borrow(this))
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::location\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::location".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_location_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -558,15 +596,17 @@ impl PlacesSidebar {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(&from_glib_borrow(this))
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(&from_glib_borrow(this))
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::open-flags\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::open-flags".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_open_flags_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -581,15 +621,17 @@ impl PlacesSidebar {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(&from_glib_borrow(this))
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(&from_glib_borrow(this))
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::populate-all\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::populate-all".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_populate_all_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -609,15 +651,17 @@ impl PlacesSidebar {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(&from_glib_borrow(this))
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(&from_glib_borrow(this))
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::show-connect-to-server\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::show-connect-to-server".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_show_connect_to_server_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -632,15 +676,17 @@ impl PlacesSidebar {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(&from_glib_borrow(this))
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(&from_glib_borrow(this))
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::show-desktop\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::show-desktop".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_show_desktop_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -660,15 +706,17 @@ impl PlacesSidebar {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(&from_glib_borrow(this))
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(&from_glib_borrow(this))
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::show-enter-location\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::show-enter-location".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_show_enter_location_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -688,15 +736,17 @@ impl PlacesSidebar {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(&from_glib_borrow(this))
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(&from_glib_borrow(this))
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::show-other-locations\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::show-other-locations".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_show_other_locations_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -711,15 +761,17 @@ impl PlacesSidebar {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(&from_glib_borrow(this))
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(&from_glib_borrow(this))
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::show-recent\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::show-recent".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_show_recent_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -739,15 +791,17 @@ impl PlacesSidebar {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(&from_glib_borrow(this))
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(&from_glib_borrow(this))
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::show-starred-location\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::show-starred-location".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_show_starred_location_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -762,15 +816,17 @@ impl PlacesSidebar {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(&from_glib_borrow(this))
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(&from_glib_borrow(this))
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::show-trash\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::show-trash".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_show_trash_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1199,6 +1255,7 @@ impl PlacesSidebarBuilder {
     /// Build the [`PlacesSidebar`].
     #[must_use = "Building the object from the builder is usually expensive and is not expected to have side effects"]
     pub fn build(self) -> PlacesSidebar {
+        assert_initialized_main_thread!();
         self.builder.build()
     }
 }

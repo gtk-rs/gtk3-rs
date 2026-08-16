@@ -2,7 +2,7 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use crate::{Box, Buildable, Container, Orientable, Widget};
+use crate::{ffi, Box, Buildable, Container, Orientable, Widget};
 use glib::{
     prelude::*,
     signal::{connect_raw, SignalHandlerId},
@@ -41,6 +41,7 @@ impl ShortcutLabel {
 
     #[doc(alias = "gtk_shortcut_label_get_disabled_text")]
     #[doc(alias = "get_disabled_text")]
+    #[doc(alias = "disabled-text")]
     pub fn disabled_text(&self) -> Option<glib::GString> {
         unsafe {
             from_glib_none(ffi::gtk_shortcut_label_get_disabled_text(
@@ -50,6 +51,7 @@ impl ShortcutLabel {
     }
 
     #[doc(alias = "gtk_shortcut_label_set_accelerator")]
+    #[doc(alias = "accelerator")]
     pub fn set_accelerator(&self, accelerator: &str) {
         unsafe {
             ffi::gtk_shortcut_label_set_accelerator(
@@ -60,6 +62,7 @@ impl ShortcutLabel {
     }
 
     #[doc(alias = "gtk_shortcut_label_set_disabled_text")]
+    #[doc(alias = "disabled-text")]
     pub fn set_disabled_text(&self, disabled_text: &str) {
         unsafe {
             ffi::gtk_shortcut_label_set_disabled_text(
@@ -76,15 +79,17 @@ impl ShortcutLabel {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(&from_glib_borrow(this))
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(&from_glib_borrow(this))
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::accelerator\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::accelerator".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_accelerator_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -99,15 +104,17 @@ impl ShortcutLabel {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(&from_glib_borrow(this))
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(&from_glib_borrow(this))
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::disabled-text\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::disabled-text".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_disabled_text_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),

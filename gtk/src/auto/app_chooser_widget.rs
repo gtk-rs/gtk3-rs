@@ -3,10 +3,11 @@
 // DO NOT EDIT
 
 use crate::{
-    Align, AppChooser, BaselinePosition, Box, Buildable, Container, Menu, Orientable, Orientation,
-    ResizeMode, Widget,
+    ffi, Align, AppChooser, BaselinePosition, Box, Buildable, Container, Menu, Orientable,
+    Orientation, ResizeMode, Widget,
 };
 use glib::{
+    object::ObjectType as _,
     prelude::*,
     signal::{connect_raw, SignalHandlerId},
     translate::*,
@@ -351,18 +352,15 @@ impl AppChooserWidgetBuilder {
     /// Build the [`AppChooserWidget`].
     #[must_use = "Building the object from the builder is usually expensive and is not expected to have side effects"]
     pub fn build(self) -> AppChooserWidget {
+        assert_initialized_main_thread!();
         self.builder.build()
     }
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::IsA<super::AppChooserWidget>> Sealed for T {}
-}
-
-pub trait AppChooserWidgetExt: IsA<AppChooserWidget> + sealed::Sealed + 'static {
+pub trait AppChooserWidgetExt: IsA<AppChooserWidget> + 'static {
     #[doc(alias = "gtk_app_chooser_widget_get_default_text")]
     #[doc(alias = "get_default_text")]
+    #[doc(alias = "default-text")]
     fn default_text(&self) -> Option<glib::GString> {
         unsafe {
             from_glib_none(ffi::gtk_app_chooser_widget_get_default_text(
@@ -373,6 +371,7 @@ pub trait AppChooserWidgetExt: IsA<AppChooserWidget> + sealed::Sealed + 'static 
 
     #[doc(alias = "gtk_app_chooser_widget_get_show_all")]
     #[doc(alias = "get_show_all")]
+    #[doc(alias = "show-all")]
     fn shows_all(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_app_chooser_widget_get_show_all(
@@ -383,6 +382,7 @@ pub trait AppChooserWidgetExt: IsA<AppChooserWidget> + sealed::Sealed + 'static 
 
     #[doc(alias = "gtk_app_chooser_widget_get_show_default")]
     #[doc(alias = "get_show_default")]
+    #[doc(alias = "show-default")]
     fn shows_default(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_app_chooser_widget_get_show_default(
@@ -393,6 +393,7 @@ pub trait AppChooserWidgetExt: IsA<AppChooserWidget> + sealed::Sealed + 'static 
 
     #[doc(alias = "gtk_app_chooser_widget_get_show_fallback")]
     #[doc(alias = "get_show_fallback")]
+    #[doc(alias = "show-fallback")]
     fn shows_fallback(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_app_chooser_widget_get_show_fallback(
@@ -403,6 +404,7 @@ pub trait AppChooserWidgetExt: IsA<AppChooserWidget> + sealed::Sealed + 'static 
 
     #[doc(alias = "gtk_app_chooser_widget_get_show_other")]
     #[doc(alias = "get_show_other")]
+    #[doc(alias = "show-other")]
     fn shows_other(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_app_chooser_widget_get_show_other(
@@ -413,6 +415,7 @@ pub trait AppChooserWidgetExt: IsA<AppChooserWidget> + sealed::Sealed + 'static 
 
     #[doc(alias = "gtk_app_chooser_widget_get_show_recommended")]
     #[doc(alias = "get_show_recommended")]
+    #[doc(alias = "show-recommended")]
     fn shows_recommended(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_app_chooser_widget_get_show_recommended(
@@ -422,6 +425,7 @@ pub trait AppChooserWidgetExt: IsA<AppChooserWidget> + sealed::Sealed + 'static 
     }
 
     #[doc(alias = "gtk_app_chooser_widget_set_default_text")]
+    #[doc(alias = "default-text")]
     fn set_default_text(&self, text: &str) {
         unsafe {
             ffi::gtk_app_chooser_widget_set_default_text(
@@ -432,6 +436,7 @@ pub trait AppChooserWidgetExt: IsA<AppChooserWidget> + sealed::Sealed + 'static 
     }
 
     #[doc(alias = "gtk_app_chooser_widget_set_show_all")]
+    #[doc(alias = "show-all")]
     fn set_show_all(&self, setting: bool) {
         unsafe {
             ffi::gtk_app_chooser_widget_set_show_all(
@@ -442,6 +447,7 @@ pub trait AppChooserWidgetExt: IsA<AppChooserWidget> + sealed::Sealed + 'static 
     }
 
     #[doc(alias = "gtk_app_chooser_widget_set_show_default")]
+    #[doc(alias = "show-default")]
     fn set_show_default(&self, setting: bool) {
         unsafe {
             ffi::gtk_app_chooser_widget_set_show_default(
@@ -452,6 +458,7 @@ pub trait AppChooserWidgetExt: IsA<AppChooserWidget> + sealed::Sealed + 'static 
     }
 
     #[doc(alias = "gtk_app_chooser_widget_set_show_fallback")]
+    #[doc(alias = "show-fallback")]
     fn set_show_fallback(&self, setting: bool) {
         unsafe {
             ffi::gtk_app_chooser_widget_set_show_fallback(
@@ -462,6 +469,7 @@ pub trait AppChooserWidgetExt: IsA<AppChooserWidget> + sealed::Sealed + 'static 
     }
 
     #[doc(alias = "gtk_app_chooser_widget_set_show_other")]
+    #[doc(alias = "show-other")]
     fn set_show_other(&self, setting: bool) {
         unsafe {
             ffi::gtk_app_chooser_widget_set_show_other(
@@ -472,6 +480,7 @@ pub trait AppChooserWidgetExt: IsA<AppChooserWidget> + sealed::Sealed + 'static 
     }
 
     #[doc(alias = "gtk_app_chooser_widget_set_show_recommended")]
+    #[doc(alias = "show-recommended")]
     fn set_show_recommended(&self, setting: bool) {
         unsafe {
             ffi::gtk_app_chooser_widget_set_show_recommended(
@@ -494,18 +503,20 @@ pub trait AppChooserWidgetExt: IsA<AppChooserWidget> + sealed::Sealed + 'static 
             application: *mut gio::ffi::GAppInfo,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(
-                AppChooserWidget::from_glib_borrow(this).unsafe_cast_ref(),
-                &from_glib_borrow(application),
-            )
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(
+                    AppChooserWidget::from_glib_borrow(this).unsafe_cast_ref(),
+                    &from_glib_borrow(application),
+                )
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"application-activated\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"application-activated".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     application_activated_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -526,18 +537,20 @@ pub trait AppChooserWidgetExt: IsA<AppChooserWidget> + sealed::Sealed + 'static 
             application: *mut gio::ffi::GAppInfo,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(
-                AppChooserWidget::from_glib_borrow(this).unsafe_cast_ref(),
-                &from_glib_borrow(application),
-            )
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(
+                    AppChooserWidget::from_glib_borrow(this).unsafe_cast_ref(),
+                    &from_glib_borrow(application),
+                )
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"application-selected\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"application-selected".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     application_selected_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -559,19 +572,21 @@ pub trait AppChooserWidgetExt: IsA<AppChooserWidget> + sealed::Sealed + 'static 
             application: *mut gio::ffi::GAppInfo,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(
-                AppChooserWidget::from_glib_borrow(this).unsafe_cast_ref(),
-                &from_glib_borrow(menu),
-                &from_glib_borrow(application),
-            )
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(
+                    AppChooserWidget::from_glib_borrow(this).unsafe_cast_ref(),
+                    &from_glib_borrow(menu),
+                    &from_glib_borrow(application),
+                )
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"populate-popup\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"populate-popup".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     populate_popup_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -589,15 +604,17 @@ pub trait AppChooserWidgetExt: IsA<AppChooserWidget> + sealed::Sealed + 'static 
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(AppChooserWidget::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(AppChooserWidget::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::default-text\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::default-text".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_default_text_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -615,15 +632,17 @@ pub trait AppChooserWidgetExt: IsA<AppChooserWidget> + sealed::Sealed + 'static 
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(AppChooserWidget::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(AppChooserWidget::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::show-all\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::show-all".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_show_all_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -641,15 +660,17 @@ pub trait AppChooserWidgetExt: IsA<AppChooserWidget> + sealed::Sealed + 'static 
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(AppChooserWidget::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(AppChooserWidget::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::show-default\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::show-default".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_show_default_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -667,15 +688,17 @@ pub trait AppChooserWidgetExt: IsA<AppChooserWidget> + sealed::Sealed + 'static 
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(AppChooserWidget::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(AppChooserWidget::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::show-fallback\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::show-fallback".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_show_fallback_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -693,15 +716,17 @@ pub trait AppChooserWidgetExt: IsA<AppChooserWidget> + sealed::Sealed + 'static 
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(AppChooserWidget::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(AppChooserWidget::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::show-other\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::show-other".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_show_other_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -719,15 +744,17 @@ pub trait AppChooserWidgetExt: IsA<AppChooserWidget> + sealed::Sealed + 'static 
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(AppChooserWidget::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(AppChooserWidget::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::show-recommended\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::show-recommended".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_show_recommended_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),

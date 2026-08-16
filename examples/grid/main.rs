@@ -18,17 +18,25 @@ fn build_ui(application: &gtk::Application) {
     window.set_application(Some(application));
     let grid: Grid = builder.object("grid").expect("Couldn't get grid");
     let button6: Button = builder.object("button6").expect("Couldn't get button6");
-    button6.connect_clicked(glib::clone!(@weak grid => move |button| {
-        let height = grid.cell_height(button);
-        let new_height = if height == 2 { 1 } else { 2 };
-        grid.set_cell_height(button, new_height);
-    }));
+    button6.connect_clicked(glib::clone!(
+        #[weak]
+        grid,
+        move |button| {
+            let height = grid.cell_height(button);
+            let new_height = if height == 2 { 1 } else { 2 };
+            grid.set_cell_height(button, new_height);
+        }
+    ));
     let button7: Button = builder.object("button7").expect("Couldn't get button7");
-    button7.connect_clicked(glib::clone!(@weak grid => move |button| {
-        let left_attach = grid.cell_left_attach(button);
-        let new_left_attach = if left_attach == 2 { 0 } else { left_attach + 1 };
-        grid.set_cell_left_attach(button, new_left_attach);
-    }));
+    button7.connect_clicked(glib::clone!(
+        #[weak]
+        grid,
+        move |button| {
+            let left_attach = grid.cell_left_attach(button);
+            let new_left_attach = if left_attach == 2 { 0 } else { left_attach + 1 };
+            grid.set_cell_left_attach(button, new_left_attach);
+        }
+    ));
 
     window.show_all();
 }

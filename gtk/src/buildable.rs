@@ -1,12 +1,12 @@
 // Take a look at the license at the top of the repository in the LICENSE file.
 
 use crate::Buildable;
+use glib::object::IsA;
 use glib::translate::*;
-use glib::IsA;
 
 mod sealed {
     pub trait Sealed {}
-    impl<T: glib::IsA<crate::Buildable>> Sealed for T {}
+    impl<T: glib::object::IsA<crate::Buildable>> Sealed for T {}
 }
 
 pub trait BuildableExtManual: IsA<Buildable> + sealed::Sealed + 'static {

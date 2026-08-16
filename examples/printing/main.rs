@@ -68,11 +68,15 @@ fn build_ui(application: &gtk::Application) {
         .object("buttonprint")
         .expect("Couldn't get buttonprint");
 
-    button_print.connect_clicked(glib::clone!(@weak window => move |_| {
-        let text1 = entry1.text().to_string();
-        let text2 = entry2.text().to_string();
-        print(&window, text1, text2);
-    }));
+    button_print.connect_clicked(glib::clone!(
+        #[weak]
+        window,
+        move |_| {
+            let text1 = entry1.text().to_string();
+            let text2 = entry2.text().to_string();
+            print(&window, text1, text2);
+        }
+    ));
 
     window.show_all();
 }

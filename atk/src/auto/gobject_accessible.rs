@@ -2,7 +2,7 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use crate::Object;
+use crate::{ffi, Object};
 use glib::{prelude::*, translate::*};
 
 glib::wrapper! {
@@ -28,12 +28,7 @@ impl GObjectAccessible {
     }
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::IsA<super::GObjectAccessible>> Sealed for T {}
-}
-
-pub trait GObjectAccessibleExt: IsA<GObjectAccessible> + sealed::Sealed + 'static {
+pub trait GObjectAccessibleExt: IsA<GObjectAccessible> + 'static {
     #[doc(alias = "atk_gobject_accessible_get_object")]
     #[doc(alias = "get_object")]
     fn object(&self) -> Option<glib::Object> {

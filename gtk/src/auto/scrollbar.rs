@@ -3,7 +3,7 @@
 // DO NOT EDIT
 
 use crate::{
-    Adjustment, Align, Buildable, Container, Orientable, Orientation, Range, SensitivityType,
+    ffi, Adjustment, Align, Buildable, Container, Orientable, Orientation, Range, SensitivityType,
     Widget,
 };
 use glib::{prelude::*, translate::*};
@@ -323,6 +323,7 @@ impl ScrollbarBuilder {
     /// Build the [`Scrollbar`].
     #[must_use = "Building the object from the builder is usually expensive and is not expected to have side effects"]
     pub fn build(self) -> Scrollbar {
+        assert_initialized_main_thread!();
         self.builder.build()
     }
 }

@@ -2,7 +2,7 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use crate::StateType;
+use crate::{ffi, StateType};
 use glib::{prelude::*, translate::*};
 
 glib::wrapper! {
@@ -30,12 +30,7 @@ impl Default for StateSet {
     }
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::IsA<super::StateSet>> Sealed for T {}
-}
-
-pub trait StateSetExt: IsA<StateSet> + sealed::Sealed + 'static {
+pub trait StateSetExt: IsA<StateSet> + 'static {
     #[doc(alias = "atk_state_set_add_state")]
     fn add_state(&self, type_: StateType) -> bool {
         unsafe {
@@ -47,7 +42,7 @@ pub trait StateSetExt: IsA<StateSet> + sealed::Sealed + 'static {
     }
 
     //#[doc(alias = "atk_state_set_add_states")]
-    //fn add_states(&self, types: /*Unimplemented*/&CArray TypeId { ns_id: 1, id: 69 }) {
+    //fn add_states(&self, types: /*Unimplemented*/&CArray TypeId { ns_id: 1, id: 32 }) {
     //    unsafe { TODO: call ffi:atk_state_set_add_states() }
     //}
 
@@ -80,7 +75,7 @@ pub trait StateSetExt: IsA<StateSet> + sealed::Sealed + 'static {
     }
 
     //#[doc(alias = "atk_state_set_contains_states")]
-    //fn contains_states(&self, types: /*Unimplemented*/&CArray TypeId { ns_id: 1, id: 69 }) -> bool {
+    //fn contains_states(&self, types: /*Unimplemented*/&CArray TypeId { ns_id: 1, id: 32 }) -> bool {
     //    unsafe { TODO: call ffi:atk_state_set_contains_states() }
     //}
 

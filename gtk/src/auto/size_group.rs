@@ -2,7 +2,7 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use crate::{Buildable, SizeGroupMode, Widget};
+use crate::{ffi, Buildable, SizeGroupMode, Widget};
 use glib::{
     prelude::*,
     signal::{connect_raw, SignalHandlerId},
@@ -69,16 +69,12 @@ impl SizeGroupBuilder {
     /// Build the [`SizeGroup`].
     #[must_use = "Building the object from the builder is usually expensive and is not expected to have side effects"]
     pub fn build(self) -> SizeGroup {
+        assert_initialized_main_thread!();
         self.builder.build()
     }
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::IsA<super::SizeGroup>> Sealed for T {}
-}
-
-pub trait SizeGroupExt: IsA<SizeGroup> + sealed::Sealed + 'static {
+pub trait SizeGroupExt: IsA<SizeGroup> + 'static {
     #[doc(alias = "gtk_size_group_add_widget")]
     fn add_widget(&self, widget: &impl IsA<Widget>) {
         unsafe {
@@ -116,6 +112,7 @@ pub trait SizeGroupExt: IsA<SizeGroup> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_size_group_set_mode")]
+    #[doc(alias = "mode")]
     fn set_mode(&self, mode: SizeGroupMode) {
         unsafe {
             ffi::gtk_size_group_set_mode(self.as_ref().to_glib_none().0, mode.into_glib());
@@ -129,15 +126,17 @@ pub trait SizeGroupExt: IsA<SizeGroup> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(SizeGroup::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(SizeGroup::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::mode\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::mode".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_mode_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),

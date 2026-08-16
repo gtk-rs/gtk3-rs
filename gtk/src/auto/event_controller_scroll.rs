@@ -2,8 +2,9 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use crate::{EventController, EventControllerScrollFlags, Widget};
+use crate::{ffi, EventController, EventControllerScrollFlags, Widget};
 use glib::{
+    object::ObjectType as _,
     prelude::*,
     signal::{connect_raw, SignalHandlerId},
     translate::*,
@@ -46,6 +47,7 @@ impl EventControllerScroll {
     }
 
     #[doc(alias = "gtk_event_controller_scroll_set_flags")]
+    #[doc(alias = "flags")]
     pub fn set_flags(&self, flags: EventControllerScrollFlags) {
         unsafe {
             ffi::gtk_event_controller_scroll_set_flags(self.to_glib_none().0, flags.into_glib());
@@ -58,19 +60,21 @@ impl EventControllerScroll {
             F: Fn(&EventControllerScroll, f64, f64) + 'static,
         >(
             this: *mut ffi::GtkEventControllerScroll,
-            vel_x: libc::c_double,
-            vel_y: libc::c_double,
+            vel_x: std::ffi::c_double,
+            vel_y: std::ffi::c_double,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(&from_glib_borrow(this), vel_x, vel_y)
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(&from_glib_borrow(this), vel_x, vel_y)
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"decelerate\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"decelerate".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     decelerate_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -84,19 +88,21 @@ impl EventControllerScroll {
             F: Fn(&EventControllerScroll, f64, f64) + 'static,
         >(
             this: *mut ffi::GtkEventControllerScroll,
-            dx: libc::c_double,
-            dy: libc::c_double,
+            dx: std::ffi::c_double,
+            dy: std::ffi::c_double,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(&from_glib_borrow(this), dx, dy)
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(&from_glib_borrow(this), dx, dy)
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"scroll\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"scroll".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     scroll_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -110,15 +116,17 @@ impl EventControllerScroll {
             this: *mut ffi::GtkEventControllerScroll,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(&from_glib_borrow(this))
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(&from_glib_borrow(this))
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"scroll-begin\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"scroll-begin".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     scroll_begin_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -132,15 +140,17 @@ impl EventControllerScroll {
             this: *mut ffi::GtkEventControllerScroll,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(&from_glib_borrow(this))
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(&from_glib_borrow(this))
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"scroll-end\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"scroll-end".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     scroll_end_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -157,15 +167,17 @@ impl EventControllerScroll {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(&from_glib_borrow(this))
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(&from_glib_borrow(this))
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::flags\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::flags".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_flags_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),

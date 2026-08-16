@@ -2,6 +2,7 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
+use crate::ffi;
 use glib::{prelude::*, translate::*};
 
 glib::wrapper! {
@@ -17,12 +18,7 @@ impl Action {
     pub const NONE: Option<&'static Action> = None;
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::IsA<super::Action>> Sealed for T {}
-}
-
-pub trait AtkActionExt: IsA<Action> + sealed::Sealed + 'static {
+pub trait AtkActionExt: IsA<Action> + 'static {
     #[doc(alias = "atk_action_do_action")]
     fn do_action(&self, i: i32) -> bool {
         unsafe { from_glib(ffi::atk_action_do_action(self.as_ref().to_glib_none().0, i)) }

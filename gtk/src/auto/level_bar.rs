@@ -2,8 +2,9 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use crate::{Align, Buildable, Container, LevelBarMode, Orientable, Orientation, Widget};
+use crate::{ffi, Align, Buildable, Container, LevelBarMode, Orientable, Orientation, Widget};
 use glib::{
+    object::ObjectType as _,
     prelude::*,
     signal::{connect_raw, SignalHandlerId},
     translate::*,
@@ -303,16 +304,12 @@ impl LevelBarBuilder {
     /// Build the [`LevelBar`].
     #[must_use = "Building the object from the builder is usually expensive and is not expected to have side effects"]
     pub fn build(self) -> LevelBar {
+        assert_initialized_main_thread!();
         self.builder.build()
     }
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::IsA<super::LevelBar>> Sealed for T {}
-}
-
-pub trait LevelBarExt: IsA<LevelBar> + sealed::Sealed + 'static {
+pub trait LevelBarExt: IsA<LevelBar> + 'static {
     #[doc(alias = "gtk_level_bar_add_offset_value")]
     fn add_offset_value(&self, name: &str, value: f64) {
         unsafe {
@@ -326,6 +323,7 @@ pub trait LevelBarExt: IsA<LevelBar> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_level_bar_get_inverted")]
     #[doc(alias = "get_inverted")]
+    #[doc(alias = "inverted")]
     fn is_inverted(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_level_bar_get_inverted(
@@ -336,12 +334,14 @@ pub trait LevelBarExt: IsA<LevelBar> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_level_bar_get_max_value")]
     #[doc(alias = "get_max_value")]
+    #[doc(alias = "max-value")]
     fn max_value(&self) -> f64 {
         unsafe { ffi::gtk_level_bar_get_max_value(self.as_ref().to_glib_none().0) }
     }
 
     #[doc(alias = "gtk_level_bar_get_min_value")]
     #[doc(alias = "get_min_value")]
+    #[doc(alias = "min-value")]
     fn min_value(&self) -> f64 {
         unsafe { ffi::gtk_level_bar_get_min_value(self.as_ref().to_glib_none().0) }
     }
@@ -387,6 +387,7 @@ pub trait LevelBarExt: IsA<LevelBar> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_level_bar_set_inverted")]
+    #[doc(alias = "inverted")]
     fn set_inverted(&self, inverted: bool) {
         unsafe {
             ffi::gtk_level_bar_set_inverted(self.as_ref().to_glib_none().0, inverted.into_glib());
@@ -394,6 +395,7 @@ pub trait LevelBarExt: IsA<LevelBar> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_level_bar_set_max_value")]
+    #[doc(alias = "max-value")]
     fn set_max_value(&self, value: f64) {
         unsafe {
             ffi::gtk_level_bar_set_max_value(self.as_ref().to_glib_none().0, value);
@@ -401,6 +403,7 @@ pub trait LevelBarExt: IsA<LevelBar> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_level_bar_set_min_value")]
+    #[doc(alias = "min-value")]
     fn set_min_value(&self, value: f64) {
         unsafe {
             ffi::gtk_level_bar_set_min_value(self.as_ref().to_glib_none().0, value);
@@ -408,6 +411,7 @@ pub trait LevelBarExt: IsA<LevelBar> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_level_bar_set_mode")]
+    #[doc(alias = "mode")]
     fn set_mode(&self, mode: LevelBarMode) {
         unsafe {
             ffi::gtk_level_bar_set_mode(self.as_ref().to_glib_none().0, mode.into_glib());
@@ -415,6 +419,7 @@ pub trait LevelBarExt: IsA<LevelBar> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_level_bar_set_value")]
+    #[doc(alias = "value")]
     fn set_value(&self, value: f64) {
         unsafe {
             ffi::gtk_level_bar_set_value(self.as_ref().to_glib_none().0, value);
@@ -432,25 +437,29 @@ pub trait LevelBarExt: IsA<LevelBar> + sealed::Sealed + 'static {
             F: Fn(&P, &str) + 'static,
         >(
             this: *mut ffi::GtkLevelBar,
-            name: *mut libc::c_char,
+            name: *mut std::ffi::c_char,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(
-                LevelBar::from_glib_borrow(this).unsafe_cast_ref(),
-                &glib::GString::from_glib_borrow(name),
-            )
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(
+                    LevelBar::from_glib_borrow(this).unsafe_cast_ref(),
+                    &glib::GString::from_glib_borrow(name),
+                )
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             let detailed_signal_name = detail.map(|name| format!("offset-changed::{name}\0"));
-            let signal_name: &[u8] = detailed_signal_name
+            let signal_name = detailed_signal_name
                 .as_ref()
-                .map_or(&b"offset-changed\0"[..], |n| n.as_bytes());
+                .map_or(c"offset-changed", |n| {
+                    std::ffi::CStr::from_bytes_with_nul_unchecked(n.as_bytes())
+                });
             connect_raw(
                 self.as_ptr() as *mut _,
-                signal_name.as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                signal_name.as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     offset_changed_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -465,15 +474,17 @@ pub trait LevelBarExt: IsA<LevelBar> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(LevelBar::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(LevelBar::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::inverted\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::inverted".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_inverted_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -488,15 +499,17 @@ pub trait LevelBarExt: IsA<LevelBar> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(LevelBar::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(LevelBar::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::max-value\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::max-value".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_max_value_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -511,15 +524,17 @@ pub trait LevelBarExt: IsA<LevelBar> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(LevelBar::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(LevelBar::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::min-value\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::min-value".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_min_value_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -534,15 +549,17 @@ pub trait LevelBarExt: IsA<LevelBar> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(LevelBar::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(LevelBar::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::mode\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::mode".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_mode_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -557,15 +574,17 @@ pub trait LevelBarExt: IsA<LevelBar> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(LevelBar::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(LevelBar::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::value\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::value".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_value_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),

@@ -2,7 +2,7 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use crate::{TreeDragSource, TreeIter, TreeModel, TreePath};
+use crate::{ffi, TreeDragSource, TreeIter, TreeModel, TreePath};
 use glib::{prelude::*, translate::*};
 use std::boxed::Box as Box_;
 
@@ -19,12 +19,7 @@ impl TreeModelFilter {
     pub const NONE: Option<&'static TreeModelFilter> = None;
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::IsA<super::TreeModelFilter>> Sealed for T {}
-}
-
-pub trait TreeModelFilterExt: IsA<TreeModelFilter> + sealed::Sealed + 'static {
+pub trait TreeModelFilterExt: IsA<TreeModelFilter> + 'static {
     #[doc(alias = "gtk_tree_model_filter_clear_cache")]
     fn clear_cache(&self) {
         unsafe {
@@ -119,16 +114,20 @@ pub trait TreeModelFilterExt: IsA<TreeModelFilter> + sealed::Sealed + 'static {
             iter: *mut ffi::GtkTreeIter,
             data: glib::ffi::gpointer,
         ) -> glib::ffi::gboolean {
-            let model = from_glib_borrow(model);
-            let iter = from_glib_borrow(iter);
-            let callback: &P = &*(data as *mut _);
-            (*callback)(&model, &iter).into_glib()
+            unsafe {
+                let model = from_glib_borrow(model);
+                let iter = from_glib_borrow(iter);
+                let callback = &*(data as *mut P);
+                (*callback)(&model, &iter).into_glib()
+            }
         }
         let func = Some(func_func::<P> as _);
         unsafe extern "C" fn destroy_func<P: Fn(&TreeModel, &TreeIter) -> bool + 'static>(
             data: glib::ffi::gpointer,
         ) {
-            let _callback: Box_<P> = Box_::from_raw(data as *mut _);
+            unsafe {
+                let _callback = Box_::from_raw(data as *mut P);
+            }
         }
         let destroy_call3 = Some(destroy_func::<P> as _);
         let super_callback0: Box_<P> = func_data;

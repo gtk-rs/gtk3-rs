@@ -2,7 +2,7 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use crate::{Buildable, Widget};
+use crate::{ffi, Buildable, Widget};
 use glib::{
     prelude::*,
     signal::{connect_raw, SignalHandlerId},
@@ -23,14 +23,10 @@ impl Actionable {
     pub const NONE: Option<&'static Actionable> = None;
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::IsA<super::Actionable>> Sealed for T {}
-}
-
-pub trait ActionableExt: IsA<Actionable> + sealed::Sealed + 'static {
+pub trait ActionableExt: IsA<Actionable> + 'static {
     #[doc(alias = "gtk_actionable_get_action_name")]
     #[doc(alias = "get_action_name")]
+    #[doc(alias = "action-name")]
     fn action_name(&self) -> Option<glib::GString> {
         unsafe {
             from_glib_none(ffi::gtk_actionable_get_action_name(
@@ -50,6 +46,7 @@ pub trait ActionableExt: IsA<Actionable> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_actionable_set_action_name")]
+    #[doc(alias = "action-name")]
     fn set_action_name(&self, action_name: Option<&str>) {
         unsafe {
             ffi::gtk_actionable_set_action_name(
@@ -60,6 +57,7 @@ pub trait ActionableExt: IsA<Actionable> + sealed::Sealed + 'static {
     }
 
     //#[doc(alias = "gtk_actionable_set_action_target")]
+    //#[doc(alias = "action-target")]
     //fn set_action_target(&self, format_string: &str, : /*Unknown conversion*//*Unimplemented*/Basic: VarArgs) {
     //    unsafe { TODO: call ffi:gtk_actionable_set_action_target() }
     //}
@@ -94,15 +92,17 @@ pub trait ActionableExt: IsA<Actionable> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Actionable::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Actionable::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::action-name\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::action-name".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_action_name_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -120,15 +120,17 @@ pub trait ActionableExt: IsA<Actionable> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Actionable::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Actionable::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::action-target\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::action-target".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_action_target_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),

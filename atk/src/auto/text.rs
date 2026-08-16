@@ -5,8 +5,11 @@
 #[cfg(feature = "v2_32")]
 #[cfg_attr(docsrs, doc(cfg(feature = "v2_32")))]
 use crate::ScrollType;
-use crate::{CoordType, TextBoundary, TextClipType, TextGranularity, TextRange, TextRectangle};
+use crate::{
+    ffi, CoordType, TextBoundary, TextClipType, TextGranularity, TextRange, TextRectangle,
+};
 use glib::{
+    object::ObjectType as _,
     prelude::*,
     signal::{connect_raw, SignalHandlerId},
     translate::*,
@@ -26,12 +29,7 @@ impl Text {
     pub const NONE: Option<&'static Text> = None;
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::IsA<super::Text>> Sealed for T {}
-}
-
-pub trait TextExt: IsA<Text> + sealed::Sealed + 'static {
+pub trait TextExt: IsA<Text> + 'static {
     #[doc(alias = "atk_text_add_selection")]
     fn add_selection(&self, start_offset: i32, end_offset: i32) -> bool {
         unsafe {
@@ -313,15 +311,17 @@ pub trait TextExt: IsA<Text> + sealed::Sealed + 'static {
             this: *mut ffi::AtkText,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Text::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Text::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"text-attributes-changed\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"text-attributes-changed".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     text_attributes_changed_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -333,18 +333,20 @@ pub trait TextExt: IsA<Text> + sealed::Sealed + 'static {
     fn connect_text_caret_moved<F: Fn(&Self, i32) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn text_caret_moved_trampoline<P: IsA<Text>, F: Fn(&P, i32) + 'static>(
             this: *mut ffi::AtkText,
-            arg1: libc::c_int,
+            arg1: std::ffi::c_int,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Text::from_glib_borrow(this).unsafe_cast_ref(), arg1)
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Text::from_glib_borrow(this).unsafe_cast_ref(), arg1)
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"text-caret-moved\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"text-caret-moved".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     text_caret_moved_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -363,29 +365,31 @@ pub trait TextExt: IsA<Text> + sealed::Sealed + 'static {
             F: Fn(&P, i32, i32, &str) + 'static,
         >(
             this: *mut ffi::AtkText,
-            arg1: libc::c_int,
-            arg2: libc::c_int,
-            arg3: *mut libc::c_char,
+            arg1: std::ffi::c_int,
+            arg2: std::ffi::c_int,
+            arg3: *mut std::ffi::c_char,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(
-                Text::from_glib_borrow(this).unsafe_cast_ref(),
-                arg1,
-                arg2,
-                &glib::GString::from_glib_borrow(arg3),
-            )
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(
+                    Text::from_glib_borrow(this).unsafe_cast_ref(),
+                    arg1,
+                    arg2,
+                    &glib::GString::from_glib_borrow(arg3),
+                )
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             let detailed_signal_name = detail.map(|name| format!("text-insert::{name}\0"));
-            let signal_name: &[u8] = detailed_signal_name
-                .as_ref()
-                .map_or(&b"text-insert\0"[..], |n| n.as_bytes());
+            let signal_name = detailed_signal_name.as_ref().map_or(c"text-insert", |n| {
+                std::ffi::CStr::from_bytes_with_nul_unchecked(n.as_bytes())
+            });
             connect_raw(
                 self.as_ptr() as *mut _,
-                signal_name.as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                signal_name.as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     text_insert_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -404,29 +408,31 @@ pub trait TextExt: IsA<Text> + sealed::Sealed + 'static {
             F: Fn(&P, i32, i32, &str) + 'static,
         >(
             this: *mut ffi::AtkText,
-            arg1: libc::c_int,
-            arg2: libc::c_int,
-            arg3: *mut libc::c_char,
+            arg1: std::ffi::c_int,
+            arg2: std::ffi::c_int,
+            arg3: *mut std::ffi::c_char,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(
-                Text::from_glib_borrow(this).unsafe_cast_ref(),
-                arg1,
-                arg2,
-                &glib::GString::from_glib_borrow(arg3),
-            )
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(
+                    Text::from_glib_borrow(this).unsafe_cast_ref(),
+                    arg1,
+                    arg2,
+                    &glib::GString::from_glib_borrow(arg3),
+                )
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             let detailed_signal_name = detail.map(|name| format!("text-remove::{name}\0"));
-            let signal_name: &[u8] = detailed_signal_name
-                .as_ref()
-                .map_or(&b"text-remove\0"[..], |n| n.as_bytes());
+            let signal_name = detailed_signal_name.as_ref().map_or(c"text-remove", |n| {
+                std::ffi::CStr::from_bytes_with_nul_unchecked(n.as_bytes())
+            });
             connect_raw(
                 self.as_ptr() as *mut _,
-                signal_name.as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                signal_name.as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     text_remove_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -443,15 +449,17 @@ pub trait TextExt: IsA<Text> + sealed::Sealed + 'static {
             this: *mut ffi::AtkText,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(Text::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(Text::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"text-selection-changed\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"text-selection-changed".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     text_selection_changed_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),

@@ -44,8 +44,8 @@ pub const STYLE_PROVIDER_PRIORITY_USER: u32 = ffi::GTK_STYLE_PROVIDER_PRIORITY_U
 mod rt;
 
 #[cfg(test)]
-pub(crate) static TEST_THREAD_WORKER: glib::once_cell::sync::Lazy<glib::ThreadPool> =
-    glib::once_cell::sync::Lazy::new(|| {
+pub(crate) static TEST_THREAD_WORKER: std::sync::LazyLock<glib::ThreadPool> =
+    std::sync::LazyLock::new(|| {
         let pool = glib::ThreadPool::exclusive(1).unwrap();
         pool.push(move || {
             crate::init().expect("Tests failed to initialize gtk");
@@ -144,6 +144,7 @@ pub use crate::app_chooser::AppChooser;
 pub use crate::border::Border;
 pub use crate::entry_buffer::EntryBuffer;
 pub use crate::file_filter_info::FileFilterInfo;
+pub use crate::message_dialog::MessageDialogExt;
 pub use crate::page_range::PageRange;
 pub use crate::recent_data::RecentData;
 pub use crate::requisition::Requisition;

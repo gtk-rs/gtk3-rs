@@ -66,6 +66,7 @@ int main() {
     printf("%s;%zu;%zu\n", "AtkTextIface", sizeof(AtkTextIface), alignof(AtkTextIface));
     printf("%s;%zu;%zu\n", "AtkTextRange", sizeof(AtkTextRange), alignof(AtkTextRange));
     printf("%s;%zu;%zu\n", "AtkTextRectangle", sizeof(AtkTextRectangle), alignof(AtkTextRectangle));
+    printf("%s;%zu;%zu\n", "AtkTextSelection", sizeof(AtkTextSelection), alignof(AtkTextSelection));
     printf("%s;%zu;%zu\n", "AtkUtil", sizeof(AtkUtil), alignof(AtkUtil));
     printf("%s;%zu;%zu\n", "AtkUtilClass", sizeof(AtkUtilClass), alignof(AtkUtilClass));
     printf("%s;%zu;%zu\n", "AtkValueIface", sizeof(AtkValueIface), alignof(AtkValueIface));

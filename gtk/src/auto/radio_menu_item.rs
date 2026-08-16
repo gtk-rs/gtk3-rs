@@ -3,9 +3,11 @@
 // DO NOT EDIT
 
 use crate::{
-    Actionable, Align, Bin, Buildable, CheckMenuItem, Container, Menu, MenuItem, ResizeMode, Widget,
+    ffi, Actionable, Align, Bin, Buildable, CheckMenuItem, Container, Menu, MenuItem, ResizeMode,
+    Widget,
 };
 use glib::{
+    object::ObjectType as _,
     prelude::*,
     signal::{connect_raw, SignalHandlerId},
     translate::*,
@@ -371,16 +373,12 @@ impl RadioMenuItemBuilder {
     /// Build the [`RadioMenuItem`].
     #[must_use = "Building the object from the builder is usually expensive and is not expected to have side effects"]
     pub fn build(self) -> RadioMenuItem {
+        assert_initialized_main_thread!();
         self.builder.build()
     }
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::IsA<super::RadioMenuItem>> Sealed for T {}
-}
-
-pub trait RadioMenuItemExt: IsA<RadioMenuItem> + sealed::Sealed + 'static {
+pub trait RadioMenuItemExt: IsA<RadioMenuItem> + 'static {
     #[doc(alias = "gtk_radio_menu_item_get_group")]
     #[doc(alias = "get_group")]
     fn group(&self) -> Vec<RadioMenuItem> {
@@ -410,15 +408,17 @@ pub trait RadioMenuItemExt: IsA<RadioMenuItem> + sealed::Sealed + 'static {
             this: *mut ffi::GtkRadioMenuItem,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(RadioMenuItem::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(RadioMenuItem::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"group-changed\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"group-changed".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     group_changed_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),

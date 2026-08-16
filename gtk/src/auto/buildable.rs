@@ -2,7 +2,7 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use crate::Builder;
+use crate::{ffi, Builder};
 use glib::{prelude::*, translate::*};
 
 glib::wrapper! {
@@ -18,12 +18,7 @@ impl Buildable {
     pub const NONE: Option<&'static Buildable> = None;
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::IsA<super::Buildable>> Sealed for T {}
-}
-
-pub trait BuildableExt: IsA<Buildable> + sealed::Sealed + 'static {
+pub trait BuildableExt: IsA<Buildable> + 'static {
     #[doc(alias = "gtk_buildable_add_child")]
     fn add_child(
         &self,

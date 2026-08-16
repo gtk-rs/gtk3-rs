@@ -2,8 +2,9 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use crate::{Actionable, Align, Bin, Buildable, Container, ResizeMode, ToolItem, Widget};
+use crate::{ffi, Actionable, Align, Bin, Buildable, Container, ResizeMode, ToolItem, Widget};
 use glib::{
+    object::ObjectType as _,
     prelude::*,
     signal::{connect_raw, SignalHandlerId},
     translate::*,
@@ -349,18 +350,15 @@ impl ToolButtonBuilder {
     /// Build the [`ToolButton`].
     #[must_use = "Building the object from the builder is usually expensive and is not expected to have side effects"]
     pub fn build(self) -> ToolButton {
+        assert_initialized_main_thread!();
         self.builder.build()
     }
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::IsA<super::ToolButton>> Sealed for T {}
-}
-
-pub trait ToolButtonExt: IsA<ToolButton> + sealed::Sealed + 'static {
+pub trait ToolButtonExt: IsA<ToolButton> + 'static {
     #[doc(alias = "gtk_tool_button_get_icon_name")]
     #[doc(alias = "get_icon_name")]
+    #[doc(alias = "icon-name")]
     fn icon_name(&self) -> Option<glib::GString> {
         unsafe {
             from_glib_none(ffi::gtk_tool_button_get_icon_name(
@@ -371,6 +369,7 @@ pub trait ToolButtonExt: IsA<ToolButton> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_tool_button_get_icon_widget")]
     #[doc(alias = "get_icon_widget")]
+    #[doc(alias = "icon-widget")]
     fn icon_widget(&self) -> Option<Widget> {
         unsafe {
             from_glib_none(ffi::gtk_tool_button_get_icon_widget(
@@ -391,6 +390,7 @@ pub trait ToolButtonExt: IsA<ToolButton> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_tool_button_get_label_widget")]
     #[doc(alias = "get_label_widget")]
+    #[doc(alias = "label-widget")]
     fn label_widget(&self) -> Option<Widget> {
         unsafe {
             from_glib_none(ffi::gtk_tool_button_get_label_widget(
@@ -401,6 +401,7 @@ pub trait ToolButtonExt: IsA<ToolButton> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_tool_button_get_use_underline")]
     #[doc(alias = "get_use_underline")]
+    #[doc(alias = "use-underline")]
     fn uses_underline(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_tool_button_get_use_underline(
@@ -410,6 +411,7 @@ pub trait ToolButtonExt: IsA<ToolButton> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_tool_button_set_icon_name")]
+    #[doc(alias = "icon-name")]
     fn set_icon_name(&self, icon_name: Option<&str>) {
         unsafe {
             ffi::gtk_tool_button_set_icon_name(
@@ -420,6 +422,7 @@ pub trait ToolButtonExt: IsA<ToolButton> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_tool_button_set_icon_widget")]
+    #[doc(alias = "icon-widget")]
     fn set_icon_widget(&self, icon_widget: Option<&impl IsA<Widget>>) {
         unsafe {
             ffi::gtk_tool_button_set_icon_widget(
@@ -430,6 +433,7 @@ pub trait ToolButtonExt: IsA<ToolButton> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_tool_button_set_label")]
+    #[doc(alias = "label")]
     fn set_label(&self, label: Option<&str>) {
         unsafe {
             ffi::gtk_tool_button_set_label(self.as_ref().to_glib_none().0, label.to_glib_none().0);
@@ -437,6 +441,7 @@ pub trait ToolButtonExt: IsA<ToolButton> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_tool_button_set_label_widget")]
+    #[doc(alias = "label-widget")]
     fn set_label_widget(&self, label_widget: Option<&impl IsA<Widget>>) {
         unsafe {
             ffi::gtk_tool_button_set_label_widget(
@@ -447,6 +452,7 @@ pub trait ToolButtonExt: IsA<ToolButton> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_tool_button_set_use_underline")]
+    #[doc(alias = "use-underline")]
     fn set_use_underline(&self, use_underline: bool) {
         unsafe {
             ffi::gtk_tool_button_set_use_underline(
@@ -462,15 +468,17 @@ pub trait ToolButtonExt: IsA<ToolButton> + sealed::Sealed + 'static {
             this: *mut ffi::GtkToolButton,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(ToolButton::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(ToolButton::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"clicked\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"clicked".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     clicked_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -492,15 +500,17 @@ pub trait ToolButtonExt: IsA<ToolButton> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(ToolButton::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(ToolButton::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::icon-name\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::icon-name".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_icon_name_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -518,15 +528,17 @@ pub trait ToolButtonExt: IsA<ToolButton> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(ToolButton::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(ToolButton::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::icon-widget\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::icon-widget".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_icon_widget_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -541,15 +553,17 @@ pub trait ToolButtonExt: IsA<ToolButton> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(ToolButton::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(ToolButton::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::label\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::label".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_label_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -567,15 +581,17 @@ pub trait ToolButtonExt: IsA<ToolButton> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(ToolButton::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(ToolButton::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::label-widget\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::label-widget".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_label_widget_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -593,15 +609,17 @@ pub trait ToolButtonExt: IsA<ToolButton> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(ToolButton::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(ToolButton::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::use-underline\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::use-underline".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_use_underline_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),

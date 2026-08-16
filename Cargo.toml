@@ -26,3 +26,19 @@ members = [
 ]
 
 exclude = ["gir", "checker"]
+resolver = "2"
+
+[workspace.dependencies]
+cairo = { package = "cairo-rs", git = "https://github.com/gtk-rs/gtk-rs-core", version = "0.23.0-alpha" }
+cairo-sys = { package = "cairo-sys-rs", git = "https://github.com/gtk-rs/gtk-rs-core", version = "0.23.0-alpha" }
+gdk-pixbuf = { git = "https://github.com/gtk-rs/gtk-rs-core", version = "0.23.0-alpha" }
+gdk-pixbuf-sys = { git = "https://github.com/gtk-rs/gtk-rs-core", version = "0.23.0-alpha" }
+gio = { git = "https://github.com/gtk-rs/gtk-rs-core", version = "0.23.0-alpha" }
+gio-sys = { git = "https://github.com/gtk-rs/gtk-rs-core", version = "0.23.0-alpha" }
+glib = { git = "https://github.com/gtk-rs/gtk-rs-core", version = "0.23.0-alpha" }
+glib-build-tools = { git = "https://github.com/gtk-rs/gtk-rs-core", version = "0.23.0-alpha" }
+glib-sys = { git = "https://github.com/gtk-rs/gtk-rs-core", version = "0.23.0-alpha" }
+gobject-sys = { git = "https://github.com/gtk-rs/gtk-rs-core", version = "0.23.0-alpha" }
+pango = { git = "https://github.com/gtk-rs/gtk-rs-core", version = "0.23.0-alpha" }
+pango-sys = { git = "https://github.com/gtk-rs/gtk-rs-core", version = "0.23.0-alpha" }
+pangocairo = { git = "https://github.com/gtk-rs/gtk-rs-core", version = "0.23.0-alpha" }

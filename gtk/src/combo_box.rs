@@ -6,7 +6,7 @@ use glib::translate::*;
 
 mod sealed {
     pub trait Sealed {}
-    impl<T: glib::IsA<crate::ComboBox>> Sealed for T {}
+    impl<T: glib::object::IsA<crate::ComboBox>> Sealed for T {}
 }
 
 pub trait ComboBoxExtManual: IsA<ComboBox> + sealed::Sealed + 'static {

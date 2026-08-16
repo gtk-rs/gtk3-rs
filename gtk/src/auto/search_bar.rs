@@ -2,7 +2,7 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use crate::{Align, Bin, Buildable, Container, Entry, ResizeMode, Widget};
+use crate::{ffi, Align, Bin, Buildable, Container, Entry, ResizeMode, Widget};
 use glib::{
     prelude::*,
     signal::{connect_raw, SignalHandlerId},
@@ -291,16 +291,12 @@ impl SearchBarBuilder {
     /// Build the [`SearchBar`].
     #[must_use = "Building the object from the builder is usually expensive and is not expected to have side effects"]
     pub fn build(self) -> SearchBar {
+        assert_initialized_main_thread!();
         self.builder.build()
     }
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::IsA<super::SearchBar>> Sealed for T {}
-}
-
-pub trait SearchBarExt: IsA<SearchBar> + sealed::Sealed + 'static {
+pub trait SearchBarExt: IsA<SearchBar> + 'static {
     #[doc(alias = "gtk_search_bar_connect_entry")]
     fn connect_entry(&self, entry: &impl IsA<Entry>) {
         unsafe {
@@ -323,6 +319,7 @@ pub trait SearchBarExt: IsA<SearchBar> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_search_bar_get_show_close_button")]
     #[doc(alias = "get_show_close_button")]
+    #[doc(alias = "show-close-button")]
     fn shows_close_button(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_search_bar_get_show_close_button(
@@ -352,6 +349,7 @@ pub trait SearchBarExt: IsA<SearchBar> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_search_bar_set_show_close_button")]
+    #[doc(alias = "show-close-button")]
     fn set_show_close_button(&self, visible: bool) {
         unsafe {
             ffi::gtk_search_bar_set_show_close_button(
@@ -381,15 +379,17 @@ pub trait SearchBarExt: IsA<SearchBar> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(SearchBar::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(SearchBar::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::search-mode-enabled\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::search-mode-enabled".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_search_mode_enabled_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -407,15 +407,17 @@ pub trait SearchBarExt: IsA<SearchBar> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(SearchBar::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(SearchBar::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::show-close-button\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::show-close-button".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_show_close_button_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),

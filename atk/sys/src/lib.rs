@@ -11,10 +11,17 @@
 )]
 #![cfg_attr(docsrs, feature(doc_cfg))]
 
+use glib_sys as glib;
+use gobject_sys as gobject;
+
+#[cfg(unix)]
 #[allow(unused_imports)]
-use libc::{
+use libc::{dev_t, gid_t, pid_t, socklen_t, uid_t};
+#[allow(unused_imports)]
+use libc::{intptr_t, off_t, size_t, ssize_t, time_t, uintptr_t, FILE};
+#[allow(unused_imports)]
+use std::ffi::{
     c_char, c_double, c_float, c_int, c_long, c_short, c_uchar, c_uint, c_ulong, c_ushort, c_void,
-    intptr_t, size_t, ssize_t, uintptr_t, FILE,
 };
 
 #[allow(unused_imports)]
@@ -117,7 +124,7 @@ pub const ATK_ROLE_PANEL: AtkRole = 38;
 pub const ATK_ROLE_PASSWORD_TEXT: AtkRole = 39;
 pub const ATK_ROLE_POPUP_MENU: AtkRole = 40;
 pub const ATK_ROLE_PROGRESS_BAR: AtkRole = 41;
-pub const ATK_ROLE_PUSH_BUTTON: AtkRole = 42;
+pub const ATK_ROLE_BUTTON: AtkRole = 42;
 pub const ATK_ROLE_RADIO_BUTTON: AtkRole = 43;
 pub const ATK_ROLE_RADIO_MENU_ITEM: AtkRole = 44;
 pub const ATK_ROLE_ROOT_PANE: AtkRole = 45;
@@ -203,7 +210,9 @@ pub const ATK_ROLE_CONTENT_INSERTION: AtkRole = 124;
 pub const ATK_ROLE_MARK: AtkRole = 125;
 pub const ATK_ROLE_SUGGESTION: AtkRole = 126;
 pub const ATK_ROLE_PUSH_BUTTON_MENU: AtkRole = 127;
-pub const ATK_ROLE_LAST_DEFINED: AtkRole = 128;
+pub const ATK_ROLE_SWITCH: AtkRole = 128;
+pub const ATK_ROLE_LAST_DEFINED: AtkRole = 129;
+pub const ATK_ROLE_PUSH_BUTTON: AtkRole = 42;
 
 pub type AtkScrollType = c_int;
 pub const ATK_SCROLL_TOP_LEFT: AtkScrollType = 0;
@@ -261,6 +270,7 @@ pub const ATK_STATE_READ_ONLY: AtkStateType = 42;
 #[cfg(feature = "v2_38")]
 #[cfg_attr(docsrs, doc(cfg(feature = "v2_38")))]
 pub const ATK_STATE_COLLAPSED: AtkStateType = 43;
+pub const ATK_STATE_LAST_DEFINED: AtkStateType = 44;
 
 pub type AtkTextAttribute = c_int;
 pub const ATK_TEXT_ATTR_INVALID: AtkTextAttribute = 0;
@@ -481,6 +491,9 @@ pub struct AtkDocumentIface {
         Option<unsafe extern "C" fn(*mut AtkDocument, *const c_char, *const c_char) -> gboolean>,
     pub get_current_page_number: Option<unsafe extern "C" fn(*mut AtkDocument) -> c_int>,
     pub get_page_count: Option<unsafe extern "C" fn(*mut AtkDocument) -> c_int>,
+    pub get_text_selections: Option<unsafe extern "C" fn(*mut AtkDocument) -> *mut glib::GArray>,
+    pub set_text_selections:
+        Option<unsafe extern "C" fn(*mut AtkDocument, *mut glib::GArray) -> gboolean>,
 }
 
 impl ::std::fmt::Debug for AtkDocumentIface {
@@ -498,6 +511,8 @@ impl ::std::fmt::Debug for AtkDocumentIface {
             .field("set_document_attribute", &self.set_document_attribute)
             .field("get_current_page_number", &self.get_current_page_number)
             .field("get_page_count", &self.get_page_count)
+            .field("get_text_selections", &self.get_text_selections)
+            .field("set_text_selections", &self.set_text_selections)
             .finish()
     }
 }
@@ -650,12 +665,13 @@ impl ::std::fmt::Debug for AtkImageIface {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct _AtkImplementor {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
 }
 
-pub type AtkImplementor = *mut _AtkImplementor;
+pub type AtkImplementor = _AtkImplementor;
 
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -865,6 +881,7 @@ impl ::std::fmt::Debug for AtkPropertyValues {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct AtkRange {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
@@ -1325,6 +1342,28 @@ impl ::std::fmt::Debug for AtkTextRectangle {
 
 #[derive(Copy, Clone)]
 #[repr(C)]
+pub struct AtkTextSelection {
+    pub start_object: *mut AtkObject,
+    pub start_offset: c_int,
+    pub end_object: *mut AtkObject,
+    pub end_offset: c_int,
+    pub start_is_active: gboolean,
+}
+
+impl ::std::fmt::Debug for AtkTextSelection {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+        f.debug_struct(&format!("AtkTextSelection @ {self:p}"))
+            .field("start_object", &self.start_object)
+            .field("start_offset", &self.start_offset)
+            .field("end_object", &self.end_object)
+            .field("end_offset", &self.end_offset)
+            .field("start_is_active", &self.start_is_active)
+            .finish()
+    }
+}
+
+#[derive(Copy, Clone)]
+#[repr(C)]
 pub struct AtkUtilClass {
     pub parent: gobject::GObjectClass,
     pub add_global_event_listener:
@@ -1627,6 +1666,7 @@ impl ::std::fmt::Debug for AtkUtil {
 
 // Interfaces
 #[repr(C)]
+#[allow(dead_code)]
 pub struct AtkAction {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
@@ -1639,6 +1679,7 @@ impl ::std::fmt::Debug for AtkAction {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct AtkComponent {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
@@ -1651,6 +1692,7 @@ impl ::std::fmt::Debug for AtkComponent {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct AtkDocument {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
@@ -1663,6 +1705,7 @@ impl ::std::fmt::Debug for AtkDocument {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct AtkEditableText {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
@@ -1675,6 +1718,7 @@ impl ::std::fmt::Debug for AtkEditableText {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct AtkHyperlinkImpl {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
@@ -1687,6 +1731,7 @@ impl ::std::fmt::Debug for AtkHyperlinkImpl {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct AtkHypertext {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
@@ -1699,6 +1744,7 @@ impl ::std::fmt::Debug for AtkHypertext {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct AtkImage {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
@@ -1711,6 +1757,7 @@ impl ::std::fmt::Debug for AtkImage {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct AtkImplementorIface {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
@@ -1723,6 +1770,7 @@ impl ::std::fmt::Debug for AtkImplementorIface {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct AtkSelection {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
@@ -1735,6 +1783,7 @@ impl ::std::fmt::Debug for AtkSelection {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct AtkStreamableContent {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
@@ -1747,6 +1796,7 @@ impl ::std::fmt::Debug for AtkStreamableContent {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct AtkTable {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
@@ -1759,6 +1809,7 @@ impl ::std::fmt::Debug for AtkTable {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct AtkTableCell {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
@@ -1771,6 +1822,7 @@ impl ::std::fmt::Debug for AtkTableCell {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct AtkText {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
@@ -1783,6 +1835,7 @@ impl ::std::fmt::Debug for AtkText {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct AtkValue {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
@@ -1795,6 +1848,7 @@ impl ::std::fmt::Debug for AtkValue {
 }
 
 #[repr(C)]
+#[allow(dead_code)]
 pub struct AtkWindow {
     _data: [u8; 0],
     _marker: core::marker::PhantomData<(*mut u8, core::marker::PhantomPinned)>,
@@ -1806,8 +1860,7 @@ impl ::std::fmt::Debug for AtkWindow {
     }
 }
 
-#[link(name = "atk-1.0")]
-extern "C" {
+unsafe extern "C" {
 
     //=========================================================================
     // AtkCoordType
@@ -1994,6 +2047,9 @@ extern "C" {
     pub fn atk_object_get_accessible_id(accessible: *mut AtkObject) -> *const c_char;
     pub fn atk_object_get_attributes(accessible: *mut AtkObject) -> *mut AtkAttributeSet;
     pub fn atk_object_get_description(accessible: *mut AtkObject) -> *const c_char;
+    #[cfg(feature = "v2_52")]
+    #[cfg_attr(docsrs, doc(cfg(feature = "v2_52")))]
+    pub fn atk_object_get_help_text(accessible: *mut AtkObject) -> *const c_char;
     pub fn atk_object_get_index_in_parent(accessible: *mut AtkObject) -> c_int;
     pub fn atk_object_get_layer(accessible: *mut AtkObject) -> AtkLayer;
     pub fn atk_object_get_mdi_zorder(accessible: *mut AtkObject) -> c_int;
@@ -2023,8 +2079,11 @@ extern "C" {
     ) -> gboolean;
     #[cfg(feature = "v2_34")]
     #[cfg_attr(docsrs, doc(cfg(feature = "v2_34")))]
-    pub fn atk_object_set_accessible_id(accessible: *mut AtkObject, name: *const c_char);
+    pub fn atk_object_set_accessible_id(accessible: *mut AtkObject, id: *const c_char);
     pub fn atk_object_set_description(accessible: *mut AtkObject, description: *const c_char);
+    #[cfg(feature = "v2_52")]
+    #[cfg_attr(docsrs, doc(cfg(feature = "v2_52")))]
+    pub fn atk_object_set_help_text(accessible: *mut AtkObject, help_text: *const c_char);
     pub fn atk_object_set_name(accessible: *mut AtkObject, name: *const c_char);
     pub fn atk_object_set_parent(accessible: *mut AtkObject, parent: *mut AtkObject);
     pub fn atk_object_set_role(accessible: *mut AtkObject, role: AtkRole);
@@ -2258,10 +2317,19 @@ extern "C" {
     pub fn atk_document_get_document_type(document: *mut AtkDocument) -> *const c_char;
     pub fn atk_document_get_locale(document: *mut AtkDocument) -> *const c_char;
     pub fn atk_document_get_page_count(document: *mut AtkDocument) -> c_int;
+    #[cfg(feature = "v2_52")]
+    #[cfg_attr(docsrs, doc(cfg(feature = "v2_52")))]
+    pub fn atk_document_get_text_selections(document: *mut AtkDocument) -> *mut glib::GArray;
     pub fn atk_document_set_attribute_value(
         document: *mut AtkDocument,
         attribute_name: *const c_char,
         attribute_value: *const c_char,
+    ) -> gboolean;
+    #[cfg(feature = "v2_52")]
+    #[cfg_attr(docsrs, doc(cfg(feature = "v2_52")))]
+    pub fn atk_document_set_text_selections(
+        document: *mut AtkDocument,
+        selections: *mut glib::GArray,
     ) -> gboolean;
 
     //=========================================================================

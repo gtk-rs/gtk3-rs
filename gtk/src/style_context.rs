@@ -7,7 +7,7 @@ use pango::FontDescription;
 
 mod sealed {
     pub trait Sealed {}
-    impl<T: glib::IsA<crate::StyleContext>> Sealed for T {}
+    impl<T: glib::object::IsA<crate::StyleContext>> Sealed for T {}
 }
 
 pub trait StyleContextExtManual: IsA<StyleContext> + sealed::Sealed + 'static {

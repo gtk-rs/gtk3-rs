@@ -2,7 +2,7 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use crate::Object;
+use crate::{ffi, Object};
 use glib::{prelude::*, translate::*};
 
 glib::wrapper! {
@@ -18,12 +18,7 @@ impl ObjectFactory {
     pub const NONE: Option<&'static ObjectFactory> = None;
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::IsA<super::ObjectFactory>> Sealed for T {}
-}
-
-pub trait ObjectFactoryExt: IsA<ObjectFactory> + sealed::Sealed + 'static {
+pub trait ObjectFactoryExt: IsA<ObjectFactory> + 'static {
     #[doc(alias = "atk_object_factory_create_accessible")]
     fn create_accessible(&self, obj: &impl IsA<glib::Object>) -> Option<Object> {
         unsafe {

@@ -2,6 +2,7 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
+use crate::ffi;
 use glib::{prelude::*, translate::*};
 
 glib::wrapper! {
@@ -17,12 +18,7 @@ impl StreamableContent {
     pub const NONE: Option<&'static StreamableContent> = None;
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::IsA<super::StreamableContent>> Sealed for T {}
-}
-
-pub trait StreamableContentExt: IsA<StreamableContent> + sealed::Sealed + 'static {
+pub trait StreamableContentExt: IsA<StreamableContent> + 'static {
     #[doc(alias = "atk_streamable_content_get_mime_type")]
     #[doc(alias = "get_mime_type")]
     fn mime_type(&self, i: i32) -> Option<glib::GString> {

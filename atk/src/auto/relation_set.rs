@@ -2,7 +2,7 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use crate::{Object, Relation, RelationType};
+use crate::{ffi, Object, Relation, RelationType};
 use glib::{prelude::*, translate::*};
 
 glib::wrapper! {
@@ -30,12 +30,7 @@ impl Default for RelationSet {
     }
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::IsA<super::RelationSet>> Sealed for T {}
-}
-
-pub trait RelationSetExt: IsA<RelationSet> + sealed::Sealed + 'static {
+pub trait RelationSetExt: IsA<RelationSet> + 'static {
     #[doc(alias = "atk_relation_set_add")]
     fn add(&self, relation: &impl IsA<Relation>) {
         unsafe {

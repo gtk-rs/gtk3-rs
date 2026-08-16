@@ -2,7 +2,7 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use crate::{StateFlags, WidgetPath};
+use crate::{ffi, StateFlags, WidgetPath};
 use glib::{prelude::*, translate::*};
 
 glib::wrapper! {
@@ -18,12 +18,7 @@ impl StyleProvider {
     pub const NONE: Option<&'static StyleProvider> = None;
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::IsA<super::StyleProvider>> Sealed for T {}
-}
-
-pub trait StyleProviderExt: IsA<StyleProvider> + sealed::Sealed + 'static {
+pub trait StyleProviderExt: IsA<StyleProvider> + 'static {
     #[doc(alias = "gtk_style_provider_get_style_property")]
     #[doc(alias = "get_style_property")]
     fn style_property(

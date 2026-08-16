@@ -4,11 +4,11 @@ use crate::AccelFlags;
 use crate::AccelGroup;
 use glib::object::{Cast, IsA};
 use glib::translate::*;
-use glib::ToValue;
+use glib::value::ToValue;
 
 mod sealed {
     pub trait Sealed {}
-    impl<T: glib::IsA<crate::AccelGroup>> Sealed for T {}
+    impl<T: glib::object::IsA<crate::AccelGroup>> Sealed for T {}
 }
 
 pub trait AccelGroupExtManual: IsA<AccelGroup> + sealed::Sealed + 'static {

@@ -3,7 +3,7 @@
 // DO NOT EDIT
 
 use crate::{
-    NumberUpLayout, PageOrientation, PageRange, PageSet, PaperSize, PrintDuplex, PrintPages,
+    ffi, NumberUpLayout, PageOrientation, PageRange, PageSet, PaperSize, PrintDuplex, PrintPages,
     PrintQuality, Unit,
 };
 use glib::translate::*;
@@ -83,24 +83,26 @@ impl PrintSettings {
 
     #[doc(alias = "gtk_print_settings_foreach")]
     pub fn foreach<P: FnMut(&str, &str)>(&self, func: P) {
-        let func_data: P = func;
+        let mut func_data: P = func;
         unsafe extern "C" fn func_func<P: FnMut(&str, &str)>(
-            key: *const libc::c_char,
-            value: *const libc::c_char,
+            key: *const std::ffi::c_char,
+            value: *const std::ffi::c_char,
             user_data: glib::ffi::gpointer,
         ) {
-            let key: Borrowed<glib::GString> = from_glib_borrow(key);
-            let value: Borrowed<glib::GString> = from_glib_borrow(value);
-            let callback: *mut P = user_data as *const _ as usize as *mut P;
-            (*callback)(key.as_str(), value.as_str())
+            unsafe {
+                let key: Borrowed<glib::GString> = from_glib_borrow(key);
+                let value: Borrowed<glib::GString> = from_glib_borrow(value);
+                let callback = user_data as *mut P;
+                (*callback)(key.as_str(), value.as_str())
+            }
         }
         let func = Some(func_func::<P> as _);
-        let super_callback0: &P = &func_data;
+        let super_callback0: &mut P = &mut func_data;
         unsafe {
             ffi::gtk_print_settings_foreach(
                 self.to_glib_none().0,
                 func,
-                super_callback0 as *const _ as usize as *mut _,
+                super_callback0 as *mut _ as *mut _,
             );
         }
     }

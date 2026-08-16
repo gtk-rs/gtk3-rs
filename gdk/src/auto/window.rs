@@ -2,15 +2,16 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-#[cfg(feature = "v3_24")]
-#[cfg_attr(docsrs, doc(cfg(feature = "v3_24")))]
-use crate::{AnchorHints, Gravity};
 use crate::{
-    Cursor, Device, Display, DragProtocol, DrawingContext, Event, EventMask, FrameClock,
+    ffi, Cursor, Device, Display, DragProtocol, DrawingContext, Event, EventMask, FrameClock,
     FullscreenMode, GLContext, Geometry, InputSource, ModifierType, Rectangle, Screen, Visual,
     WMDecoration, WMFunction, WindowEdge, WindowHints, WindowState, WindowType, WindowTypeHint,
 };
+#[cfg(feature = "v3_24")]
+#[cfg_attr(docsrs, doc(cfg(feature = "v3_24")))]
+use crate::{AnchorHints, Gravity};
 use glib::{
+    object::ObjectType as _,
     prelude::*,
     signal::{connect_raw, SignalHandlerId},
     translate::*,
@@ -678,35 +679,36 @@ impl Window {
     pub fn invalidate_maybe_recurse(
         &self,
         region: &cairo::Region,
-        child_func: Option<&mut dyn (FnMut(&Window) -> bool)>,
+        child_func: Option<&mut dyn FnMut(&Window) -> bool>,
     ) {
-        let child_func_data: Option<&mut dyn (FnMut(&Window) -> bool)> = child_func;
+        let mut child_func_data: Option<&mut dyn FnMut(&Window) -> bool> = child_func;
         unsafe extern "C" fn child_func_func(
             window: *mut ffi::GdkWindow,
             user_data: glib::ffi::gpointer,
         ) -> glib::ffi::gboolean {
-            let window = from_glib_borrow(window);
-            let callback: *mut Option<&mut dyn (FnMut(&Window) -> bool)> =
-                user_data as *const _ as usize as *mut Option<&mut dyn (FnMut(&Window) -> bool)>;
-            if let Some(ref mut callback) = *callback {
-                callback(&window)
-            } else {
-                panic!("cannot get closure...")
+            unsafe {
+                let window = from_glib_borrow(window);
+                let callback = user_data as *mut Option<&mut dyn FnMut(&Window) -> bool>;
+                if let Some(ref mut callback) = *callback {
+                    callback(&window)
+                } else {
+                    panic!("cannot get closure...")
+                }
+                .into_glib()
             }
-            .into_glib()
         }
         let child_func = if child_func_data.is_some() {
             Some(child_func_func as _)
         } else {
             None
         };
-        let super_callback0: &Option<&mut dyn (FnMut(&Window) -> bool)> = &child_func_data;
+        let super_callback0: &mut Option<&mut dyn FnMut(&Window) -> bool> = &mut child_func_data;
         unsafe {
             ffi::gdk_window_invalidate_maybe_recurse(
                 self.to_glib_none().0,
                 region.to_glib_none().0,
                 child_func,
-                super_callback0 as *const _ as usize as *mut _,
+                super_callback0 as *mut _ as *mut _,
             );
         }
     }
@@ -925,6 +927,7 @@ impl Window {
     }
 
     #[doc(alias = "gdk_window_set_cursor")]
+    #[doc(alias = "cursor")]
     pub fn set_cursor(&self, cursor: Option<&Cursor>) {
         unsafe {
             ffi::gdk_window_set_cursor(self.to_glib_none().0, cursor.to_glib_none().0);
@@ -1289,19 +1292,21 @@ impl Window {
             F: Fn(&Window, i32, i32) -> cairo::Surface + 'static,
         >(
             this: *mut ffi::GdkWindow,
-            width: libc::c_int,
-            height: libc::c_int,
+            width: std::ffi::c_int,
+            height: std::ffi::c_int,
             f: glib::ffi::gpointer,
         ) -> *mut cairo::ffi::cairo_surface_t {
-            let f: &F = &*(f as *const F);
-            f(&from_glib_borrow(this), width, height).to_glib_full()
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(&from_glib_borrow(this), width, height).to_glib_full()
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"create-surface\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"create-surface".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     create_surface_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1330,21 +1335,23 @@ impl Window {
             F: Fn(&Window, f64, f64) -> Option<Window> + 'static,
         >(
             this: *mut ffi::GdkWindow,
-            x: libc::c_double,
-            y: libc::c_double,
+            x: std::ffi::c_double,
+            y: std::ffi::c_double,
             f: glib::ffi::gpointer,
         ) -> *mut ffi::GdkWindow {
-            let f: &F = &*(f as *const F);
-            f(&from_glib_borrow(this), x, y) /*Not checked*/
-                .to_glib_none()
-                .0
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(&from_glib_borrow(this), x, y) /*Not checked*/
+                    .to_glib_none()
+                    .0
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"pick-embedded-child\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"pick-embedded-child".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     pick_embedded_child_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1365,15 +1372,17 @@ impl Window {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(&from_glib_borrow(this))
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(&from_glib_borrow(this))
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::cursor\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::cursor".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_cursor_trampoline::<F> as *const (),
                 )),
                 Box_::into_raw(f),

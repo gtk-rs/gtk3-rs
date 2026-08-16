@@ -2,7 +2,7 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use crate::{Align, Bin, Buildable, Container, ResizeMode, Stack, Widget};
+use crate::{ffi, Align, Bin, Buildable, Container, ResizeMode, Stack, Widget};
 use glib::{
     prelude::*,
     signal::{connect_raw, SignalHandlerId},
@@ -281,16 +281,12 @@ impl StackSidebarBuilder {
     /// Build the [`StackSidebar`].
     #[must_use = "Building the object from the builder is usually expensive and is not expected to have side effects"]
     pub fn build(self) -> StackSidebar {
+        assert_initialized_main_thread!();
         self.builder.build()
     }
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::IsA<super::StackSidebar>> Sealed for T {}
-}
-
-pub trait StackSidebarExt: IsA<StackSidebar> + sealed::Sealed + 'static {
+pub trait StackSidebarExt: IsA<StackSidebar> + 'static {
     #[doc(alias = "gtk_stack_sidebar_get_stack")]
     #[doc(alias = "get_stack")]
     fn stack(&self) -> Option<Stack> {
@@ -302,6 +298,7 @@ pub trait StackSidebarExt: IsA<StackSidebar> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_stack_sidebar_set_stack")]
+    #[doc(alias = "stack")]
     fn set_stack(&self, stack: &impl IsA<Stack>) {
         unsafe {
             ffi::gtk_stack_sidebar_set_stack(
@@ -318,15 +315,17 @@ pub trait StackSidebarExt: IsA<StackSidebar> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(StackSidebar::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(StackSidebar::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::stack\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::stack".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_stack_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),

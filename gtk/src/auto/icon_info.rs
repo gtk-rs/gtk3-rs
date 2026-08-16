@@ -2,7 +2,7 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use crate::{IconTheme, StyleContext};
+use crate::{ffi, IconTheme, StyleContext};
 use glib::{prelude::*, translate::*};
 use std::{boxed::Box as Box_, pin::Pin};
 
@@ -89,18 +89,20 @@ impl IconInfo {
             res: *mut gio::ffi::GAsyncResult,
             user_data: glib::ffi::gpointer,
         ) {
-            let mut error = std::ptr::null_mut();
-            let ret =
-                ffi::gtk_icon_info_load_icon_finish(_source_object as *mut _, res, &mut error);
-            let result = if error.is_null() {
-                Ok(from_glib_full(ret))
-            } else {
-                Err(from_glib_full(error))
-            };
-            let callback: Box_<glib::thread_guard::ThreadGuard<P>> =
-                Box_::from_raw(user_data as *mut _);
-            let callback: P = callback.into_inner();
-            callback(result);
+            unsafe {
+                let mut error = std::ptr::null_mut();
+                let ret =
+                    ffi::gtk_icon_info_load_icon_finish(_source_object as *mut _, res, &mut error);
+                let result = if error.is_null() {
+                    Ok(from_glib_full(ret))
+                } else {
+                    Err(from_glib_full(error))
+                };
+                let callback: Box_<glib::thread_guard::ThreadGuard<P>> =
+                    Box_::from_raw(user_data as *mut _);
+                let callback: P = callback.into_inner();
+                callback(result);
+            }
         }
         let callback = load_icon_async_trampoline::<P>;
         unsafe {
@@ -204,23 +206,25 @@ impl IconInfo {
             res: *mut gio::ffi::GAsyncResult,
             user_data: glib::ffi::gpointer,
         ) {
-            let mut error = std::ptr::null_mut();
-            let mut was_symbolic = std::mem::MaybeUninit::uninit();
-            let ret = ffi::gtk_icon_info_load_symbolic_finish(
-                _source_object as *mut _,
-                res,
-                was_symbolic.as_mut_ptr(),
-                &mut error,
-            );
-            let result = if error.is_null() {
-                Ok((from_glib_full(ret), from_glib(was_symbolic.assume_init())))
-            } else {
-                Err(from_glib_full(error))
-            };
-            let callback: Box_<glib::thread_guard::ThreadGuard<P>> =
-                Box_::from_raw(user_data as *mut _);
-            let callback: P = callback.into_inner();
-            callback(result);
+            unsafe {
+                let mut error = std::ptr::null_mut();
+                let mut was_symbolic = std::mem::MaybeUninit::uninit();
+                let ret = ffi::gtk_icon_info_load_symbolic_finish(
+                    _source_object as *mut _,
+                    res,
+                    was_symbolic.as_mut_ptr(),
+                    &mut error,
+                );
+                let result = if error.is_null() {
+                    Ok((from_glib_full(ret), from_glib(was_symbolic.assume_init())))
+                } else {
+                    Err(from_glib_full(error))
+                };
+                let callback: Box_<glib::thread_guard::ThreadGuard<P>> =
+                    Box_::from_raw(user_data as *mut _);
+                let callback: P = callback.into_inner();
+                callback(result);
+            }
         }
         let callback = load_symbolic_async_trampoline::<P>;
         unsafe {
@@ -317,23 +321,25 @@ impl IconInfo {
             res: *mut gio::ffi::GAsyncResult,
             user_data: glib::ffi::gpointer,
         ) {
-            let mut error = std::ptr::null_mut();
-            let mut was_symbolic = std::mem::MaybeUninit::uninit();
-            let ret = ffi::gtk_icon_info_load_symbolic_for_context_finish(
-                _source_object as *mut _,
-                res,
-                was_symbolic.as_mut_ptr(),
-                &mut error,
-            );
-            let result = if error.is_null() {
-                Ok((from_glib_full(ret), from_glib(was_symbolic.assume_init())))
-            } else {
-                Err(from_glib_full(error))
-            };
-            let callback: Box_<glib::thread_guard::ThreadGuard<P>> =
-                Box_::from_raw(user_data as *mut _);
-            let callback: P = callback.into_inner();
-            callback(result);
+            unsafe {
+                let mut error = std::ptr::null_mut();
+                let mut was_symbolic = std::mem::MaybeUninit::uninit();
+                let ret = ffi::gtk_icon_info_load_symbolic_for_context_finish(
+                    _source_object as *mut _,
+                    res,
+                    was_symbolic.as_mut_ptr(),
+                    &mut error,
+                );
+                let result = if error.is_null() {
+                    Ok((from_glib_full(ret), from_glib(was_symbolic.assume_init())))
+                } else {
+                    Err(from_glib_full(error))
+                };
+                let callback: Box_<glib::thread_guard::ThreadGuard<P>> =
+                    Box_::from_raw(user_data as *mut _);
+                let callback: P = callback.into_inner();
+                callback(result);
+            }
         }
         let callback = load_symbolic_for_context_async_trampoline::<P>;
         unsafe {

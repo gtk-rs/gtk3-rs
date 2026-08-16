@@ -5,8 +5,9 @@
 #[cfg(feature = "v2_30")]
 #[cfg_attr(docsrs, doc(cfg(feature = "v2_30")))]
 use crate::ScrollType;
-use crate::{CoordType, Layer, Object, Rectangle};
+use crate::{ffi, CoordType, Layer, Object, Rectangle};
 use glib::{
+    object::ObjectType as _,
     prelude::*,
     signal::{connect_raw, SignalHandlerId},
     translate::*,
@@ -26,12 +27,7 @@ impl Component {
     pub const NONE: Option<&'static Component> = None;
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::IsA<super::Component>> Sealed for T {}
-}
-
-pub trait ComponentExt: IsA<Component> + sealed::Sealed + 'static {
+pub trait ComponentExt: IsA<Component> + 'static {
     #[doc(alias = "atk_component_contains")]
     fn contains(&self, x: i32, y: i32, coord_type: CoordType) -> bool {
         unsafe {
@@ -212,18 +208,20 @@ pub trait ComponentExt: IsA<Component> + sealed::Sealed + 'static {
             arg1: *mut ffi::AtkRectangle,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(
-                Component::from_glib_borrow(this).unsafe_cast_ref(),
-                &from_glib_borrow(arg1),
-            )
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(
+                    Component::from_glib_borrow(this).unsafe_cast_ref(),
+                    &from_glib_borrow(arg1),
+                )
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"bounds-changed\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"bounds-changed".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     bounds_changed_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),

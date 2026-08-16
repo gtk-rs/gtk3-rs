@@ -63,90 +63,120 @@ fn build_ui(application: &gtk::Application) {
     let button: Button = builder.object("button").expect("Couldn't get button");
     let entry: Entry = builder.object("entry").expect("Couldn't get entry");
 
-    button.connect_clicked(glib::clone!(@weak window, @weak entry => move |_| {
-        let dialog = Dialog::with_buttons(Some("Hello!"),
-                                              Some(&window),
-                                              gtk::DialogFlags::MODAL,
-                                              &[("No", ResponseType::No),
-                                                ("Yes", ResponseType::Yes),
-                                                ("Custom", ResponseType::Other(0))]);
+    button.connect_clicked(glib::clone!(
+        #[weak]
+        window,
+        #[weak]
+        entry,
+        move |_| {
+            let dialog = Dialog::with_buttons(
+                Some("Hello!"),
+                Some(&window),
+                gtk::DialogFlags::MODAL,
+                &[
+                    ("No", ResponseType::No),
+                    ("Yes", ResponseType::Yes),
+                    ("Custom", ResponseType::Other(0)),
+                ],
+            );
 
-        dialog.connect_response(glib::clone!(@weak entry => move |dialog, response| {
-            entry.set_text(&format!("Clicked {response}"));
-            dialog.close();
-        }));
-        dialog.show_all();
-    }));
+            dialog.connect_response(glib::clone!(
+                #[weak]
+                entry,
+                move |dialog, response| {
+                    entry.set_text(&format!("Clicked {response}"));
+                    dialog.close();
+                }
+            ));
+            dialog.show_all();
+        }
+    ));
 
     let button_font: Button = builder
         .object("button_font")
         .expect("Couldn't get button_font");
-    button_font.connect_clicked(glib::clone!(@weak window => move |_| {
-        let dialog = FontChooserDialog::new(Some("Font chooser test"), Some(&window));
+    button_font.connect_clicked(glib::clone!(
+        #[weak]
+        window,
+        move |_| {
+            let dialog = FontChooserDialog::new(Some("Font chooser test"), Some(&window));
 
-        dialog.connect_response(|dialog, _| dialog.close());
-        dialog.show_all();
-    }));
+            dialog.connect_response(|dialog, _| dialog.close());
+            dialog.show_all();
+        }
+    ));
 
     let button_recent: Button = builder
         .object("button_recent")
         .expect("Couldn't get button_recent");
-    button_recent.connect_clicked(glib::clone!(@weak window => move |_| {
-        let dialog = RecentChooserDialog::new(Some("Recent chooser test"), Some(&window));
-        dialog.add_buttons(&[
-            ("Ok", ResponseType::Ok),
-            ("Cancel", ResponseType::Cancel)
-        ]);
+    button_recent.connect_clicked(glib::clone!(
+        #[weak]
+        window,
+        move |_| {
+            let dialog = RecentChooserDialog::new(Some("Recent chooser test"), Some(&window));
+            dialog.add_buttons(&[("Ok", ResponseType::Ok), ("Cancel", ResponseType::Cancel)]);
 
-        dialog.connect_response(|dialog, _| dialog.close());
-        dialog.show_all();
-    }));
+            dialog.connect_response(|dialog, _| dialog.close());
+            dialog.show_all();
+        }
+    ));
 
     let file_button: Button = builder
         .object("file_button")
         .expect("Couldn't get file_button");
-    file_button.connect_clicked(glib::clone!(@weak window => move |_| {
-        // entry.set_text("Clicked!");
-        let dialog = FileChooserDialog::new(Some("Choose a file"), Some(&window),
-                                            FileChooserAction::Open);
-        dialog.add_buttons(&[
-            ("Open", ResponseType::Ok),
-            ("Cancel", ResponseType::Cancel)
-        ]);
+    file_button.connect_clicked(glib::clone!(
+        #[weak]
+        window,
+        move |_| {
+            // entry.set_text("Clicked!");
+            let dialog = FileChooserDialog::new(
+                Some("Choose a file"),
+                Some(&window),
+                FileChooserAction::Open,
+            );
+            dialog.add_buttons(&[("Open", ResponseType::Ok), ("Cancel", ResponseType::Cancel)]);
 
-        dialog.set_select_multiple(true);
+            dialog.set_select_multiple(true);
 
-        dialog.connect_response(|dialog, response| {
-            if response == ResponseType::Ok {
-                let files = dialog.filenames();
-                println!("Files: {files:?}");
-            }
-            dialog.close();
-        });
-        dialog.show_all();
-    }));
+            dialog.connect_response(|dialog, response| {
+                if response == ResponseType::Ok {
+                    let files = dialog.filenames();
+                    println!("Files: {files:?}");
+                }
+                dialog.close();
+            });
+            dialog.show_all();
+        }
+    ));
 
     let app_button: Button = builder
         .object("app_button")
         .expect("Couldn't get app_button");
-    app_button.connect_clicked(glib::clone!(@weak window => move |_| {
-        // entry.set_text("Clicked!");
-        let dialog = AppChooserDialog::for_content_type(Some(&window),
-                                                            gtk::DialogFlags::MODAL,
-                                                            "sh");
+    app_button.connect_clicked(glib::clone!(
+        #[weak]
+        window,
+        move |_| {
+            // entry.set_text("Clicked!");
+            let dialog =
+                AppChooserDialog::for_content_type(Some(&window), gtk::DialogFlags::MODAL, "sh");
 
-        dialog.connect_response(|dialog, _| dialog.close());
-        dialog.show_all();
-    }));
+            dialog.connect_response(|dialog, _| dialog.close());
+            dialog.show_all();
+        }
+    ));
 
     let switch: Switch = builder.object("switch").expect("Couldn't get switch");
-    switch.connect_changed_active(glib::clone!(@weak entry => move |switch| {
-        if switch.is_active() {
-            entry.set_text("Switch On");
-        } else {
-            entry.set_text("Switch Off");
+    switch.connect_changed_active(glib::clone!(
+        #[weak]
+        entry,
+        move |switch| {
+            if switch.is_active() {
+                entry.set_text("Switch On");
+            } else {
+                entry.set_text("Switch Off");
+            }
         }
-    }));
+    ));
 
     let button_about: Button = builder
         .object("button_about")
@@ -154,8 +184,12 @@ fn build_ui(application: &gtk::Application) {
     let dialog: AboutDialog = builder.object("dialog").expect("Couldn't get dialog");
     button_about.connect_clicked(move |x| about_clicked(x, &dialog));
 
-    window.connect_key_press_event(
-        glib::clone!(@weak entry => @default-return glib::Propagation::Proceed, move |_, key| {
+    window.connect_key_press_event(glib::clone!(
+        #[weak]
+        entry,
+        #[upgrade_or]
+        glib::Propagation::Proceed,
+        move |_, key| {
             let keyval = key.keyval();
             let keystate = key.state();
 
@@ -167,8 +201,8 @@ fn build_ui(application: &gtk::Application) {
             }
 
             glib::Propagation::Proceed
-        }),
-    );
+        }
+    ));
 
     window.show_all();
 }

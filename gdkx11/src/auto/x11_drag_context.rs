@@ -2,6 +2,8 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
+use crate::ffi;
+
 glib::wrapper! {
     #[doc(alias = "GdkX11DragContext")]
     pub struct X11DragContext(Object<ffi::GdkX11DragContext, ffi::GdkX11DragContextClass>) @extends gdk::DragContext;

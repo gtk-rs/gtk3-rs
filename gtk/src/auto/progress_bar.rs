@@ -2,7 +2,7 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use crate::{Align, Buildable, Container, Orientable, Orientation, Widget};
+use crate::{ffi, Align, Buildable, Container, Orientable, Orientation, Widget};
 use glib::{
     prelude::*,
     signal::{connect_raw, SignalHandlerId},
@@ -299,16 +299,12 @@ impl ProgressBarBuilder {
     /// Build the [`ProgressBar`].
     #[must_use = "Building the object from the builder is usually expensive and is not expected to have side effects"]
     pub fn build(self) -> ProgressBar {
+        assert_initialized_main_thread!();
         self.builder.build()
     }
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::IsA<super::ProgressBar>> Sealed for T {}
-}
-
-pub trait ProgressBarExt: IsA<ProgressBar> + sealed::Sealed + 'static {
+pub trait ProgressBarExt: IsA<ProgressBar> + 'static {
     #[doc(alias = "gtk_progress_bar_get_ellipsize")]
     #[doc(alias = "get_ellipsize")]
     fn ellipsize(&self) -> pango::EllipsizeMode {
@@ -327,6 +323,7 @@ pub trait ProgressBarExt: IsA<ProgressBar> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_progress_bar_get_inverted")]
     #[doc(alias = "get_inverted")]
+    #[doc(alias = "inverted")]
     fn is_inverted(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_progress_bar_get_inverted(
@@ -337,12 +334,14 @@ pub trait ProgressBarExt: IsA<ProgressBar> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_progress_bar_get_pulse_step")]
     #[doc(alias = "get_pulse_step")]
+    #[doc(alias = "pulse-step")]
     fn pulse_step(&self) -> f64 {
         unsafe { ffi::gtk_progress_bar_get_pulse_step(self.as_ref().to_glib_none().0) }
     }
 
     #[doc(alias = "gtk_progress_bar_get_show_text")]
     #[doc(alias = "get_show_text")]
+    #[doc(alias = "show-text")]
     fn shows_text(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_progress_bar_get_show_text(
@@ -369,6 +368,7 @@ pub trait ProgressBarExt: IsA<ProgressBar> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_progress_bar_set_ellipsize")]
+    #[doc(alias = "ellipsize")]
     fn set_ellipsize(&self, mode: pango::EllipsizeMode) {
         unsafe {
             ffi::gtk_progress_bar_set_ellipsize(self.as_ref().to_glib_none().0, mode.into_glib());
@@ -376,6 +376,7 @@ pub trait ProgressBarExt: IsA<ProgressBar> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_progress_bar_set_fraction")]
+    #[doc(alias = "fraction")]
     fn set_fraction(&self, fraction: f64) {
         unsafe {
             ffi::gtk_progress_bar_set_fraction(self.as_ref().to_glib_none().0, fraction);
@@ -383,6 +384,7 @@ pub trait ProgressBarExt: IsA<ProgressBar> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_progress_bar_set_inverted")]
+    #[doc(alias = "inverted")]
     fn set_inverted(&self, inverted: bool) {
         unsafe {
             ffi::gtk_progress_bar_set_inverted(
@@ -393,6 +395,7 @@ pub trait ProgressBarExt: IsA<ProgressBar> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_progress_bar_set_pulse_step")]
+    #[doc(alias = "pulse-step")]
     fn set_pulse_step(&self, fraction: f64) {
         unsafe {
             ffi::gtk_progress_bar_set_pulse_step(self.as_ref().to_glib_none().0, fraction);
@@ -400,6 +403,7 @@ pub trait ProgressBarExt: IsA<ProgressBar> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_progress_bar_set_show_text")]
+    #[doc(alias = "show-text")]
     fn set_show_text(&self, show_text: bool) {
         unsafe {
             ffi::gtk_progress_bar_set_show_text(
@@ -410,6 +414,7 @@ pub trait ProgressBarExt: IsA<ProgressBar> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_progress_bar_set_text")]
+    #[doc(alias = "text")]
     fn set_text(&self, text: Option<&str>) {
         unsafe {
             ffi::gtk_progress_bar_set_text(self.as_ref().to_glib_none().0, text.to_glib_none().0);
@@ -426,15 +431,17 @@ pub trait ProgressBarExt: IsA<ProgressBar> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(ProgressBar::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(ProgressBar::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::ellipsize\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::ellipsize".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_ellipsize_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -452,15 +459,17 @@ pub trait ProgressBarExt: IsA<ProgressBar> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(ProgressBar::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(ProgressBar::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::fraction\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::fraction".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_fraction_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -478,15 +487,17 @@ pub trait ProgressBarExt: IsA<ProgressBar> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(ProgressBar::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(ProgressBar::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::inverted\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::inverted".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_inverted_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -504,15 +515,17 @@ pub trait ProgressBarExt: IsA<ProgressBar> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(ProgressBar::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(ProgressBar::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::pulse-step\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::pulse-step".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_pulse_step_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -530,15 +543,17 @@ pub trait ProgressBarExt: IsA<ProgressBar> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(ProgressBar::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(ProgressBar::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::show-text\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::show-text".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_show_text_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -553,15 +568,17 @@ pub trait ProgressBarExt: IsA<ProgressBar> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(ProgressBar::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(ProgressBar::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::text\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::text".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_text_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),

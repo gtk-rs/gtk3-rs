@@ -3,10 +3,11 @@
 // DO NOT EDIT
 
 use crate::{
-    Align, Application, Bin, Buildable, Container, Dialog, License, ResizeMode, Widget, Window,
-    WindowPosition, WindowType,
+    ffi, Align, Application, Bin, Buildable, Container, Dialog, License, ResizeMode, Widget,
+    Window, WindowPosition, WindowType,
 };
 use glib::{
+    object::ObjectType as _,
     prelude::*,
     signal::{connect_raw, SignalHandlerId},
     translate::*,
@@ -560,16 +561,12 @@ impl AboutDialogBuilder {
     /// Build the [`AboutDialog`].
     #[must_use = "Building the object from the builder is usually expensive and is not expected to have side effects"]
     pub fn build(self) -> AboutDialog {
+        assert_initialized_main_thread!();
         self.builder.build()
     }
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::IsA<super::AboutDialog>> Sealed for T {}
-}
-
-pub trait AboutDialogExt: IsA<AboutDialog> + sealed::Sealed + 'static {
+pub trait AboutDialogExt: IsA<AboutDialog> + 'static {
     #[doc(alias = "gtk_about_dialog_add_credit_section")]
     fn add_credit_section(&self, section_name: &str, people: &[&str]) {
         unsafe {
@@ -643,6 +640,7 @@ pub trait AboutDialogExt: IsA<AboutDialog> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_about_dialog_get_license_type")]
     #[doc(alias = "get_license_type")]
+    #[doc(alias = "license-type")]
     fn license_type(&self) -> License {
         unsafe {
             from_glib(ffi::gtk_about_dialog_get_license_type(
@@ -663,6 +661,7 @@ pub trait AboutDialogExt: IsA<AboutDialog> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_about_dialog_get_logo_icon_name")]
     #[doc(alias = "get_logo_icon_name")]
+    #[doc(alias = "logo-icon-name")]
     fn logo_icon_name(&self) -> Option<glib::GString> {
         unsafe {
             from_glib_none(ffi::gtk_about_dialog_get_logo_icon_name(
@@ -673,6 +672,7 @@ pub trait AboutDialogExt: IsA<AboutDialog> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_about_dialog_get_program_name")]
     #[doc(alias = "get_program_name")]
+    #[doc(alias = "program-name")]
     fn program_name(&self) -> Option<glib::GString> {
         unsafe {
             from_glib_none(ffi::gtk_about_dialog_get_program_name(
@@ -683,6 +683,7 @@ pub trait AboutDialogExt: IsA<AboutDialog> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_about_dialog_get_translator_credits")]
     #[doc(alias = "get_translator_credits")]
+    #[doc(alias = "translator-credits")]
     fn translator_credits(&self) -> Option<glib::GString> {
         unsafe {
             from_glib_none(ffi::gtk_about_dialog_get_translator_credits(
@@ -713,6 +714,7 @@ pub trait AboutDialogExt: IsA<AboutDialog> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_about_dialog_get_website_label")]
     #[doc(alias = "get_website_label")]
+    #[doc(alias = "website-label")]
     fn website_label(&self) -> Option<glib::GString> {
         unsafe {
             from_glib_none(ffi::gtk_about_dialog_get_website_label(
@@ -723,6 +725,7 @@ pub trait AboutDialogExt: IsA<AboutDialog> + sealed::Sealed + 'static {
 
     #[doc(alias = "gtk_about_dialog_get_wrap_license")]
     #[doc(alias = "get_wrap_license")]
+    #[doc(alias = "wrap-license")]
     fn wraps_license(&self) -> bool {
         unsafe {
             from_glib(ffi::gtk_about_dialog_get_wrap_license(
@@ -732,6 +735,7 @@ pub trait AboutDialogExt: IsA<AboutDialog> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_about_dialog_set_artists")]
+    #[doc(alias = "artists")]
     fn set_artists(&self, artists: &[&str]) {
         unsafe {
             ffi::gtk_about_dialog_set_artists(
@@ -742,6 +746,7 @@ pub trait AboutDialogExt: IsA<AboutDialog> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_about_dialog_set_authors")]
+    #[doc(alias = "authors")]
     fn set_authors(&self, authors: &[&str]) {
         unsafe {
             ffi::gtk_about_dialog_set_authors(
@@ -752,6 +757,7 @@ pub trait AboutDialogExt: IsA<AboutDialog> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_about_dialog_set_comments")]
+    #[doc(alias = "comments")]
     fn set_comments(&self, comments: Option<&str>) {
         unsafe {
             ffi::gtk_about_dialog_set_comments(
@@ -762,6 +768,7 @@ pub trait AboutDialogExt: IsA<AboutDialog> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_about_dialog_set_copyright")]
+    #[doc(alias = "copyright")]
     fn set_copyright(&self, copyright: Option<&str>) {
         unsafe {
             ffi::gtk_about_dialog_set_copyright(
@@ -772,6 +779,7 @@ pub trait AboutDialogExt: IsA<AboutDialog> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_about_dialog_set_documenters")]
+    #[doc(alias = "documenters")]
     fn set_documenters(&self, documenters: &[&str]) {
         unsafe {
             ffi::gtk_about_dialog_set_documenters(
@@ -782,6 +790,7 @@ pub trait AboutDialogExt: IsA<AboutDialog> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_about_dialog_set_license")]
+    #[doc(alias = "license")]
     fn set_license(&self, license: Option<&str>) {
         unsafe {
             ffi::gtk_about_dialog_set_license(
@@ -792,6 +801,7 @@ pub trait AboutDialogExt: IsA<AboutDialog> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_about_dialog_set_license_type")]
+    #[doc(alias = "license-type")]
     fn set_license_type(&self, license_type: License) {
         unsafe {
             ffi::gtk_about_dialog_set_license_type(
@@ -802,6 +812,7 @@ pub trait AboutDialogExt: IsA<AboutDialog> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_about_dialog_set_logo")]
+    #[doc(alias = "logo")]
     fn set_logo(&self, logo: Option<&gdk_pixbuf::Pixbuf>) {
         unsafe {
             ffi::gtk_about_dialog_set_logo(self.as_ref().to_glib_none().0, logo.to_glib_none().0);
@@ -809,6 +820,7 @@ pub trait AboutDialogExt: IsA<AboutDialog> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_about_dialog_set_logo_icon_name")]
+    #[doc(alias = "logo-icon-name")]
     fn set_logo_icon_name(&self, icon_name: Option<&str>) {
         unsafe {
             ffi::gtk_about_dialog_set_logo_icon_name(
@@ -819,6 +831,7 @@ pub trait AboutDialogExt: IsA<AboutDialog> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_about_dialog_set_program_name")]
+    #[doc(alias = "program-name")]
     fn set_program_name(&self, name: &str) {
         unsafe {
             ffi::gtk_about_dialog_set_program_name(
@@ -829,6 +842,7 @@ pub trait AboutDialogExt: IsA<AboutDialog> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_about_dialog_set_translator_credits")]
+    #[doc(alias = "translator-credits")]
     fn set_translator_credits(&self, translator_credits: Option<&str>) {
         unsafe {
             ffi::gtk_about_dialog_set_translator_credits(
@@ -839,6 +853,7 @@ pub trait AboutDialogExt: IsA<AboutDialog> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_about_dialog_set_version")]
+    #[doc(alias = "version")]
     fn set_version(&self, version: Option<&str>) {
         unsafe {
             ffi::gtk_about_dialog_set_version(
@@ -849,6 +864,7 @@ pub trait AboutDialogExt: IsA<AboutDialog> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_about_dialog_set_website")]
+    #[doc(alias = "website")]
     fn set_website(&self, website: Option<&str>) {
         unsafe {
             ffi::gtk_about_dialog_set_website(
@@ -859,6 +875,7 @@ pub trait AboutDialogExt: IsA<AboutDialog> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_about_dialog_set_website_label")]
+    #[doc(alias = "website-label")]
     fn set_website_label(&self, website_label: Option<&str>) {
         unsafe {
             ffi::gtk_about_dialog_set_website_label(
@@ -869,6 +886,7 @@ pub trait AboutDialogExt: IsA<AboutDialog> + sealed::Sealed + 'static {
     }
 
     #[doc(alias = "gtk_about_dialog_set_wrap_license")]
+    #[doc(alias = "wrap-license")]
     fn set_wrap_license(&self, wrap_license: bool) {
         unsafe {
             ffi::gtk_about_dialog_set_wrap_license(
@@ -888,22 +906,24 @@ pub trait AboutDialogExt: IsA<AboutDialog> + sealed::Sealed + 'static {
             F: Fn(&P, &str) -> glib::Propagation + 'static,
         >(
             this: *mut ffi::GtkAboutDialog,
-            uri: *mut libc::c_char,
+            uri: *mut std::ffi::c_char,
             f: glib::ffi::gpointer,
         ) -> glib::ffi::gboolean {
-            let f: &F = &*(f as *const F);
-            f(
-                AboutDialog::from_glib_borrow(this).unsafe_cast_ref(),
-                &glib::GString::from_glib_borrow(uri),
-            )
-            .into_glib()
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(
+                    AboutDialog::from_glib_borrow(this).unsafe_cast_ref(),
+                    &glib::GString::from_glib_borrow(uri),
+                )
+                .into_glib()
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"activate-link\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"activate-link".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     activate_link_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -918,15 +938,17 @@ pub trait AboutDialogExt: IsA<AboutDialog> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(AboutDialog::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(AboutDialog::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::artists\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::artists".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_artists_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -941,15 +963,17 @@ pub trait AboutDialogExt: IsA<AboutDialog> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(AboutDialog::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(AboutDialog::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::authors\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::authors".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_authors_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -967,15 +991,17 @@ pub trait AboutDialogExt: IsA<AboutDialog> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(AboutDialog::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(AboutDialog::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::comments\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::comments".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_comments_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -993,15 +1019,17 @@ pub trait AboutDialogExt: IsA<AboutDialog> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(AboutDialog::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(AboutDialog::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::copyright\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::copyright".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_copyright_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1019,15 +1047,17 @@ pub trait AboutDialogExt: IsA<AboutDialog> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(AboutDialog::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(AboutDialog::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::documenters\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::documenters".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_documenters_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1042,15 +1072,17 @@ pub trait AboutDialogExt: IsA<AboutDialog> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(AboutDialog::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(AboutDialog::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::license\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::license".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_license_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1068,15 +1100,17 @@ pub trait AboutDialogExt: IsA<AboutDialog> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(AboutDialog::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(AboutDialog::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::license-type\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::license-type".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_license_type_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1091,15 +1125,17 @@ pub trait AboutDialogExt: IsA<AboutDialog> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(AboutDialog::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(AboutDialog::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::logo\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::logo".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_logo_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1117,15 +1153,17 @@ pub trait AboutDialogExt: IsA<AboutDialog> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(AboutDialog::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(AboutDialog::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::logo-icon-name\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::logo-icon-name".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_logo_icon_name_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1143,15 +1181,17 @@ pub trait AboutDialogExt: IsA<AboutDialog> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(AboutDialog::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(AboutDialog::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::program-name\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::program-name".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_program_name_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1169,15 +1209,17 @@ pub trait AboutDialogExt: IsA<AboutDialog> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(AboutDialog::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(AboutDialog::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::translator-credits\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::translator-credits".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_translator_credits_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1192,15 +1234,17 @@ pub trait AboutDialogExt: IsA<AboutDialog> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(AboutDialog::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(AboutDialog::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::version\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::version".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_version_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1215,15 +1259,17 @@ pub trait AboutDialogExt: IsA<AboutDialog> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(AboutDialog::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(AboutDialog::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::website\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::website".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_website_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1241,15 +1287,17 @@ pub trait AboutDialogExt: IsA<AboutDialog> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(AboutDialog::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(AboutDialog::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::website-label\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::website-label".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_website_label_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
@@ -1267,15 +1315,17 @@ pub trait AboutDialogExt: IsA<AboutDialog> + sealed::Sealed + 'static {
             _param_spec: glib::ffi::gpointer,
             f: glib::ffi::gpointer,
         ) {
-            let f: &F = &*(f as *const F);
-            f(AboutDialog::from_glib_borrow(this).unsafe_cast_ref())
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(AboutDialog::from_glib_borrow(this).unsafe_cast_ref())
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(
                 self.as_ptr() as *mut _,
-                b"notify::wrap-license\0".as_ptr() as *const _,
-                Some(std::mem::transmute::<_, unsafe extern "C" fn()>(
+                c"notify::wrap-license".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     notify_wrap_license_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
