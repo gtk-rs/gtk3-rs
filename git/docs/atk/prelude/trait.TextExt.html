@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Trait containing all `struct@Text` methods."><title>TextExt in atk::prelude - Rust</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-c67e44d78ab2db17.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="atk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.76.0-nightly (0e2dac837 2023-12-04)" data-channel="nightly" data-search-js="search-5a66c239c06b3a66.js" data-settings-js="settings-fe03fdc259827cd2.js" ><script src="../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="sidebar-items.js"></script><script defer src="../../static.files/main-77dede896d6ac08e.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc trait"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Trait containing all `struct@Text` methods."><title>TextExt in atk::prelude - Rust</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2"href="../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../static.files/rustdoc-0c87338a.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="atk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.100.0-nightly (67854e511 2026-08-15)" data-channel="nightly" data-search-js="search-cf4fc35e.js" data-stringdex-js="stringdex-b5109af9.js" data-settings-js="settings-170eb4bf.js" ><script src="../../static.files/storage-41dd4d93.js"></script><script defer src="sidebar-items.js"></script><script defer src="../../static.files/main-417ebf0a.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-9f56287d.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-eab170b8.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-044be391.svg"></head><body class="rustdoc trait"><a class="skip-main-content" href="#main-content">Skip to main content</a><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
 
@@ -71,7 +71,7 @@
 </script>
 
 
-<nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button></nav><nav class="sidebar"><div class="sidebar-crate"><h2><a href="../../atk/index.html">atk</a><span class="version">0.19.0</span></h2></div><h2 class="location"><a href="#">TextExt</a></h2><div class="sidebar-elems"><section><h3><a href="#provided-methods">Provided Methods</a></h3><ul class="block"><li><a href="#method.add_selection">add_selection</a></li><li><a href="#method.bounded_ranges">bounded_ranges</a></li><li><a href="#method.caret_offset">caret_offset</a></li><li><a href="#method.character_at_offset">character_at_offset</a></li><li><a href="#method.character_count">character_count</a></li><li><a href="#method.character_extents">character_extents</a></li><li><a href="#method.connect_text_attributes_changed">connect_text_attributes_changed</a></li><li><a href="#method.connect_text_caret_moved">connect_text_caret_moved</a></li><li><a href="#method.connect_text_insert">connect_text_insert</a></li><li><a href="#method.connect_text_remove">connect_text_remove</a></li><li><a href="#method.connect_text_selection_changed">connect_text_selection_changed</a></li><li><a href="#method.n_selections">n_selections</a></li><li><a href="#method.offset_at_point">offset_at_point</a></li><li><a href="#method.range_extents">range_extents</a></li><li><a href="#method.remove_selection">remove_selection</a></li><li><a href="#method.scroll_substring_to">scroll_substring_to</a></li><li><a href="#method.scroll_substring_to_point">scroll_substring_to_point</a></li><li><a href="#method.selection">selection</a></li><li><a href="#method.set_caret_offset">set_caret_offset</a></li><li><a href="#method.set_selection">set_selection</a></li><li><a href="#method.string_at_offset">string_at_offset</a></li><li><a href="#method.text">text</a></li><li><a href="#method.text_at_offset">text_at_offset</a></li></ul><h3><a href="#object-safety">Object Safety</a></h3><h3><a href="#implementors">Implementors</a></h3></section><h2><a href="index.html">In atk::prelude</a></h2></div></nav><main><div class="width-limiter"><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="main-heading"><h1>Trait <a href="../index.html">atk</a>::<wbr><a href="index.html">prelude</a>::<wbr><a class="trait" href="#">TextExt</a><button id="copy-path" title="Copy item path to clipboard"><img src="../../static.files/clipboard-7571035ce49a181d.svg" width="19" height="18" alt="Copy item path"></button></h1><span class="out-of-band"><a class="src" href="../../src/atk/auto/text.rs.html#117-881">source</a> · <button id="toggle-all-docs" title="collapse all docs">[<span>&#x2212;</span>]</button></span></div><pre class="rust item-decl"><code>pub trait TextExt: <a class="trait" href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.Text.html" title="struct atk::Text">Text</a>&gt; + Sealed + 'static {
+<rustdoc-topbar><h2><a href="#">TextExt</a></h2></rustdoc-topbar><nav class="sidebar"><div class="sidebar-crate"><h2><a href="../../atk/index.html">atk</a><span class="version">0.19.0</span></h2></div><div class="sidebar-elems"><section id="rustdoc-toc"><h2 class="location"><a href="#">TextExt</a></h2><h3><a href="#">Sections</a></h3><ul class="block top-toc"><li><a href="#implementors-1" title="Implementors">Implementors</a></li></ul><h3><a href="#provided-methods">Provided Methods</a></h3><ul class="block"><li><a href="#method.add_selection" title="add_selection">add_selection</a></li><li><a href="#method.bounded_ranges" title="bounded_ranges">bounded_ranges</a></li><li><a href="#method.caret_offset" title="caret_offset">caret_offset</a></li><li><a href="#method.character_at_offset" title="character_at_offset">character_at_offset</a></li><li><a href="#method.character_count" title="character_count">character_count</a></li><li><a href="#method.character_extents" title="character_extents">character_extents</a></li><li><a href="#method.connect_text_attributes_changed" title="connect_text_attributes_changed">connect_text_attributes_changed</a></li><li><a href="#method.connect_text_caret_moved" title="connect_text_caret_moved">connect_text_caret_moved</a></li><li><a href="#method.connect_text_insert" title="connect_text_insert">connect_text_insert</a></li><li><a href="#method.connect_text_remove" title="connect_text_remove">connect_text_remove</a></li><li><a href="#method.connect_text_selection_changed" title="connect_text_selection_changed">connect_text_selection_changed</a></li><li><a href="#method.n_selections" title="n_selections">n_selections</a></li><li><a href="#method.offset_at_point" title="offset_at_point">offset_at_point</a></li><li><a href="#method.range_extents" title="range_extents">range_extents</a></li><li><a href="#method.remove_selection" title="remove_selection">remove_selection</a></li><li><a href="#method.scroll_substring_to" title="scroll_substring_to">scroll_substring_to</a></li><li><a href="#method.scroll_substring_to_point" title="scroll_substring_to_point">scroll_substring_to_point</a></li><li><a href="#method.selection" title="selection">selection</a></li><li><a href="#method.set_caret_offset" title="set_caret_offset">set_caret_offset</a></li><li><a href="#method.set_selection" title="set_selection">set_selection</a></li><li><a href="#method.string_at_offset" title="string_at_offset">string_at_offset</a></li><li><a href="#method.text" title="text">text</a></li><li><a href="#method.text_at_offset" title="text_at_offset">text_at_offset</a></li></ul><h3><a href="#dyn-compatibility">Dyn Compatibility</a></h3><h3><a href="#implementors">Implementors</a></h3></section><div id="rustdoc-modnav"><h2><a href="index.html">In atk::<wbr>prelude</a></h2></div></div></nav><div class="sidebar-resizer" title="Drag to resize sidebar"></div><main><div class="width-limiter"><section id="main-content" class="content" tabindex="-1"><div class="main-heading"><div class="rustdoc-breadcrumbs"><a href="../index.html">atk</a>::<wbr><a href="index.html">prelude</a></div><h1>Trait <span class="trait">TextExt</span>&nbsp;<button id="copy-path" title="Copy item path to clipboard">Copy item path</button></h1><rustdoc-toolbar></rustdoc-toolbar><span class="sub-heading"><a class="src" href="../../src/atk/auto/text.rs.html#115-889">Source</a> </span></div><pre class="rust item-decl"><code>pub trait TextExt: <a class="trait" href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.Text.html" title="struct atk::Text">Text</a>&gt; + 'static {
 <details class="toggle type-contents-toggle"><summary class="hideme"><span>Show 23 methods</span></summary>    // Provided methods
     fn <a href="#method.add_selection" class="fn">add_selection</a>(&amp;self, start_offset: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, end_offset: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> { ... }
 <span class="item-spacer"></span>    fn <a href="#method.bounded_ranges" class="fn">bounded_ranges</a>(
@@ -79,7 +79,7 @@
         rect: &amp;mut <a class="struct" href="../struct.TextRectangle.html" title="struct atk::TextRectangle">TextRectangle</a>,
         coord_type: <a class="enum" href="../enum.CoordType.html" title="enum atk::CoordType">CoordType</a>,
         x_clip_type: <a class="enum" href="../enum.TextClipType.html" title="enum atk::TextClipType">TextClipType</a>,
-        y_clip_type: <a class="enum" href="../enum.TextClipType.html" title="enum atk::TextClipType">TextClipType</a>
+        y_clip_type: <a class="enum" href="../enum.TextClipType.html" title="enum atk::TextClipType">TextClipType</a>,
     ) -&gt; <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html" title="struct alloc::vec::Vec">Vec</a>&lt;<a class="struct" href="../struct.TextRange.html" title="struct atk::TextRange">TextRange</a>&gt; { ... }
 <span class="item-spacer"></span>    fn <a href="#method.caret_offset" class="fn">caret_offset</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a> { ... }
 <span class="item-spacer"></span>    fn <a href="#method.character_at_offset" class="fn">character_at_offset</a>(&amp;self, offset: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.char.html">char</a> { ... }
@@ -87,7 +87,7 @@
 <span class="item-spacer"></span>    fn <a href="#method.character_extents" class="fn">character_extents</a>(
         &amp;self,
         offset: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>,
-        coords: <a class="enum" href="../enum.CoordType.html" title="enum atk::CoordType">CoordType</a>
+        coords: <a class="enum" href="../enum.CoordType.html" title="enum atk::CoordType">CoordType</a>,
     ) -&gt; (<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) { ... }
 <span class="item-spacer"></span>    fn <a href="#method.n_selections" class="fn">n_selections</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a> { ... }
 <span class="item-spacer"></span>    fn <a href="#method.offset_at_point" class="fn">offset_at_point</a>(&amp;self, x: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, y: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, coords: <a class="enum" href="../enum.CoordType.html" title="enum atk::CoordType">CoordType</a>) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a> { ... }
@@ -95,26 +95,26 @@
         &amp;self,
         start_offset: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>,
         end_offset: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>,
-        coord_type: <a class="enum" href="../enum.CoordType.html" title="enum atk::CoordType">CoordType</a>
+        coord_type: <a class="enum" href="../enum.CoordType.html" title="enum atk::CoordType">CoordType</a>,
     ) -&gt; <a class="struct" href="../struct.TextRectangle.html" title="struct atk::TextRectangle">TextRectangle</a> { ... }
 <span class="item-spacer"></span>    fn <a href="#method.selection" class="fn">selection</a>(&amp;self, selection_num: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) -&gt; (<a class="struct" href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/gstring/struct.GString.html" title="struct glib::gstring::GString">GString</a>, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) { ... }
 <span class="item-spacer"></span>    fn <a href="#method.string_at_offset" class="fn">string_at_offset</a>(
         &amp;self,
         offset: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>,
-        granularity: <a class="enum" href="../enum.TextGranularity.html" title="enum atk::TextGranularity">TextGranularity</a>
+        granularity: <a class="enum" href="../enum.TextGranularity.html" title="enum atk::TextGranularity">TextGranularity</a>,
     ) -&gt; (<a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/gstring/struct.GString.html" title="struct glib::gstring::GString">GString</a>&gt;, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) { ... }
 <span class="item-spacer"></span>    fn <a href="#method.text" class="fn">text</a>(&amp;self, start_offset: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, end_offset: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/gstring/struct.GString.html" title="struct glib::gstring::GString">GString</a>&gt; { ... }
 <span class="item-spacer"></span>    fn <a href="#method.text_at_offset" class="fn">text_at_offset</a>(
         &amp;self,
         offset: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>,
-        boundary_type: <a class="enum" href="../enum.TextBoundary.html" title="enum atk::TextBoundary">TextBoundary</a>
+        boundary_type: <a class="enum" href="../enum.TextBoundary.html" title="enum atk::TextBoundary">TextBoundary</a>,
     ) -&gt; (<a class="struct" href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/gstring/struct.GString.html" title="struct glib::gstring::GString">GString</a>, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) { ... }
 <span class="item-spacer"></span>    fn <a href="#method.remove_selection" class="fn">remove_selection</a>(&amp;self, selection_num: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> { ... }
 <span class="item-spacer"></span>    fn <a href="#method.scroll_substring_to" class="fn">scroll_substring_to</a>(
         &amp;self,
         start_offset: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>,
         end_offset: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>,
-        type_: <a class="enum" href="../enum.ScrollType.html" title="enum atk::ScrollType">ScrollType</a>
+        type_: <a class="enum" href="../enum.ScrollType.html" title="enum atk::ScrollType">ScrollType</a>,
     ) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> { ... }
 <span class="item-spacer"></span>    fn <a href="#method.scroll_substring_to_point" class="fn">scroll_substring_to_point</a>(
         &amp;self,
@@ -122,151 +122,151 @@
         end_offset: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>,
         coords: <a class="enum" href="../enum.CoordType.html" title="enum atk::CoordType">CoordType</a>,
         x: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>,
-        y: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>
+        y: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>,
     ) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> { ... }
 <span class="item-spacer"></span>    fn <a href="#method.set_caret_offset" class="fn">set_caret_offset</a>(&amp;self, offset: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> { ... }
 <span class="item-spacer"></span>    fn <a href="#method.set_selection" class="fn">set_selection</a>(
         &amp;self,
         selection_num: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>,
         start_offset: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>,
-        end_offset: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>
+        end_offset: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>,
     ) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> { ... }
-<span class="item-spacer"></span>    fn <a href="#method.connect_text_attributes_changed" class="fn">connect_text_attributes_changed</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;Self</a>) + 'static&gt;(
+<span class="item-spacer"></span>    fn <a href="#method.connect_text_attributes_changed" class="fn">connect_text_attributes_changed</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;Self) + 'static&gt;(
         &amp;self,
-        f: F
+        f: F,
     ) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a> { ... }
-<span class="item-spacer"></span>    fn <a href="#method.connect_text_caret_moved" class="fn">connect_text_caret_moved</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;Self</a>, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) + 'static&gt;(
+<span class="item-spacer"></span>    fn <a href="#method.connect_text_caret_moved" class="fn">connect_text_caret_moved</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;Self, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) + 'static&gt;(
         &amp;self,
-        f: F
+        f: F,
     ) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a> { ... }
-<span class="item-spacer"></span>    fn <a href="#method.connect_text_insert" class="fn">connect_text_insert</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;Self</a>, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) + 'static&gt;(
+<span class="item-spacer"></span>    fn <a href="#method.connect_text_insert" class="fn">connect_text_insert</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;Self, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) + 'static&gt;(
         &amp;self,
         detail: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;&amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>&gt;,
-        f: F
+        f: F,
     ) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a> { ... }
-<span class="item-spacer"></span>    fn <a href="#method.connect_text_remove" class="fn">connect_text_remove</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;Self</a>, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) + 'static&gt;(
+<span class="item-spacer"></span>    fn <a href="#method.connect_text_remove" class="fn">connect_text_remove</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;Self, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) + 'static&gt;(
         &amp;self,
         detail: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;&amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>&gt;,
-        f: F
+        f: F,
     ) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a> { ... }
-<span class="item-spacer"></span>    fn <a href="#method.connect_text_selection_changed" class="fn">connect_text_selection_changed</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;Self</a>) + 'static&gt;(
+<span class="item-spacer"></span>    fn <a href="#method.connect_text_selection_changed" class="fn">connect_text_selection_changed</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;Self) + 'static&gt;(
         &amp;self,
-        f: F
+        f: F,
     ) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a> { ... }
 </details>}</code></pre><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>Trait containing all <a href="../struct.Text.html" title="struct atk::Text"><code>Text</code></a> methods.</p>
-<h2 id="implementors-1"><a href="#implementors-1">Implementors</a></h2>
+<h2 id="implementors-1"><a class="doc-anchor" href="#implementors-1">§</a>Implementors</h2>
 <p><a href="../struct.NoOpObject.html" title="struct atk::NoOpObject"><code>NoOpObject</code></a>, <a href="../struct.Text.html" title="struct atk::Text"><code>Text</code></a></p>
-</div></details><h2 id="provided-methods" class="section-header">Provided Methods<a href="#provided-methods" class="anchor">§</a></h2><div class="methods"><details class="toggle method-toggle" open><summary><section id="method.add_selection" class="method"><a class="src rightside" href="../../src/atk/auto/text.rs.html#128-136">source</a><h4 class="code-header">fn <a href="#method.add_selection" class="fn">add_selection</a>(&amp;self, start_offset: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, end_offset: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></h4></section></summary><div class="docblock"><p>Adds a selection bounded by the specified offsets.</p>
-<h6 id="start_offset"><a href="#start_offset"><code>start_offset</code></a></h6>
+</div></details><h2 id="provided-methods" class="section-header">Provided Methods<a href="#provided-methods" class="anchor">§</a></h2><div class="methods"><details class="toggle method-toggle" open><summary><section id="method.add_selection" class="method"><a class="src rightside" href="../../src/atk/auto/text.rs.html#126-134">Source</a><h4 class="code-header">fn <a href="#method.add_selection" class="fn">add_selection</a>(&amp;self, start_offset: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, end_offset: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></h4></section></summary><div class="docblock"><p>Adds a selection bounded by the specified offsets.</p>
+<h6 id="start_offset"><a class="doc-anchor" href="#start_offset">§</a><code>start_offset</code></h6>
 <p>the starting character offset of the selected region</p>
-<h6 id="end_offset"><a href="#end_offset"><code>end_offset</code></a></h6>
+<h6 id="end_offset"><a class="doc-anchor" href="#end_offset">§</a><code>end_offset</code></h6>
 <p>the offset of the first character after the selected region.</p>
-<h5 id="returns"><a href="#returns">Returns</a></h5>
+<h5 id="returns"><a class="doc-anchor" href="#returns">§</a>Returns</h5>
 <p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="primitive bool"><code>true</code></a> if successful, <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="primitive bool"><code>false</code></a> otherwise</p>
-</div></details><details class="toggle method-toggle" open><summary><section id="method.bounded_ranges" class="method"><a class="src rightside" href="../../src/atk/auto/text.rs.html#154-170">source</a><h4 class="code-header">fn <a href="#method.bounded_ranges" class="fn">bounded_ranges</a>(
+</div></details><details class="toggle method-toggle" open><summary><section id="method.bounded_ranges" class="method"><a class="src rightside" href="../../src/atk/auto/text.rs.html#152-168">Source</a><h4 class="code-header">fn <a href="#method.bounded_ranges" class="fn">bounded_ranges</a>(
     &amp;self,
     rect: &amp;mut <a class="struct" href="../struct.TextRectangle.html" title="struct atk::TextRectangle">TextRectangle</a>,
     coord_type: <a class="enum" href="../enum.CoordType.html" title="enum atk::CoordType">CoordType</a>,
     x_clip_type: <a class="enum" href="../enum.TextClipType.html" title="enum atk::TextClipType">TextClipType</a>,
-    y_clip_type: <a class="enum" href="../enum.TextClipType.html" title="enum atk::TextClipType">TextClipType</a>
+    y_clip_type: <a class="enum" href="../enum.TextClipType.html" title="enum atk::TextClipType">TextClipType</a>,
 ) -&gt; <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html" title="struct alloc::vec::Vec">Vec</a>&lt;<a class="struct" href="../struct.TextRange.html" title="struct atk::TextRange">TextRange</a>&gt;</h4></section></summary><div class="docblock"><p>Get the ranges of text in the specified bounding box.</p>
-<h6 id="rect"><a href="#rect"><code>rect</code></a></h6>
+<h6 id="rect"><a class="doc-anchor" href="#rect">§</a><code>rect</code></h6>
 <p>An AtkTextRectangle giving the dimensions of the bounding box.</p>
-<h6 id="coord_type"><a href="#coord_type"><code>coord_type</code></a></h6>
+<h6 id="coord_type"><a class="doc-anchor" href="#coord_type">§</a><code>coord_type</code></h6>
 <p>Specify whether coordinates are relative to the screen or widget window.</p>
-<h6 id="x_clip_type"><a href="#x_clip_type"><code>x_clip_type</code></a></h6>
+<h6 id="x_clip_type"><a class="doc-anchor" href="#x_clip_type">§</a><code>x_clip_type</code></h6>
 <p>Specify the horizontal clip type.</p>
-<h6 id="y_clip_type"><a href="#y_clip_type"><code>y_clip_type</code></a></h6>
+<h6 id="y_clip_type"><a class="doc-anchor" href="#y_clip_type">§</a><code>y_clip_type</code></h6>
 <p>Specify the vertical clip type.</p>
-<h5 id="returns-1"><a href="#returns-1">Returns</a></h5>
+<h5 id="returns-1"><a class="doc-anchor" href="#returns-1">§</a>Returns</h5>
 <p>Array of AtkTextRange. The last
 element of the array returned by this function will be NULL.</p>
-</div></details><details class="toggle method-toggle" open><summary><section id="method.caret_offset" class="method"><a class="src rightside" href="../../src/atk/auto/text.rs.html#181-183">source</a><h4 class="code-header">fn <a href="#method.caret_offset" class="fn">caret_offset</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a></h4></section></summary><div class="docblock"><p>Gets the offset of the position of the caret (cursor).</p>
-<h5 id="returns-2"><a href="#returns-2">Returns</a></h5>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.caret_offset" class="method"><a class="src rightside" href="../../src/atk/auto/text.rs.html#179-181">Source</a><h4 class="code-header">fn <a href="#method.caret_offset" class="fn">caret_offset</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a></h4></section></summary><div class="docblock"><p>Gets the offset of the position of the caret (cursor).</p>
+<h5 id="returns-2"><a class="doc-anchor" href="#returns-2">§</a>Returns</h5>
 <p>the character offset of the position of the caret or -1 if
 the caret is not located inside the element or in the case of
 any other failure.</p>
-</div></details><details class="toggle method-toggle" open><summary><section id="method.character_at_offset" class="method"><a class="src rightside" href="../../src/atk/auto/text.rs.html#194-202">source</a><h4 class="code-header">fn <a href="#method.character_at_offset" class="fn">character_at_offset</a>(&amp;self, offset: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.char.html">char</a></h4></section></summary><div class="docblock"><p>Gets the specified text.</p>
-<h6 id="offset"><a href="#offset"><code>offset</code></a></h6>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.character_at_offset" class="method"><a class="src rightside" href="../../src/atk/auto/text.rs.html#192-200">Source</a><h4 class="code-header">fn <a href="#method.character_at_offset" class="fn">character_at_offset</a>(&amp;self, offset: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.char.html">char</a></h4></section></summary><div class="docblock"><p>Gets the specified text.</p>
+<h6 id="offset"><a class="doc-anchor" href="#offset">§</a><code>offset</code></h6>
 <p>a character offset within <code>self</code></p>
-<h5 id="returns-3"><a href="#returns-3">Returns</a></h5>
+<h5 id="returns-3"><a class="doc-anchor" href="#returns-3">§</a>Returns</h5>
 <p>the character at <code>offset</code> or 0 in the case of failure.</p>
-</div></details><details class="toggle method-toggle" open><summary><section id="method.character_count" class="method"><a class="src rightside" href="../../src/atk/auto/text.rs.html#211-213">source</a><h4 class="code-header">fn <a href="#method.character_count" class="fn">character_count</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a></h4></section></summary><div class="docblock"><p>Gets the character count.</p>
-<h5 id="returns-4"><a href="#returns-4">Returns</a></h5>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.character_count" class="method"><a class="src rightside" href="../../src/atk/auto/text.rs.html#209-211">Source</a><h4 class="code-header">fn <a href="#method.character_count" class="fn">character_count</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a></h4></section></summary><div class="docblock"><p>Gets the character count.</p>
+<h5 id="returns-4"><a class="doc-anchor" href="#returns-4">§</a>Returns</h5>
 <p>the number of characters or -1 in case of failure.</p>
-</div></details><details class="toggle method-toggle" open><summary><section id="method.character_extents" class="method"><a class="src rightside" href="../../src/atk/auto/text.rs.html#241-263">source</a><h4 class="code-header">fn <a href="#method.character_extents" class="fn">character_extents</a>(
+</div></details><details class="toggle method-toggle" open><summary><section id="method.character_extents" class="method"><a class="src rightside" href="../../src/atk/auto/text.rs.html#239-261">Source</a><h4 class="code-header">fn <a href="#method.character_extents" class="fn">character_extents</a>(
     &amp;self,
     offset: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>,
-    coords: <a class="enum" href="../enum.CoordType.html" title="enum atk::CoordType">CoordType</a>
+    coords: <a class="enum" href="../enum.CoordType.html" title="enum atk::CoordType">CoordType</a>,
 ) -&gt; (<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>)</h4></section></summary><div class="docblock"><p>If the extent can not be obtained (e.g. missing support), all of x, y, width,
 height are set to -1.</p>
 <p>Get the bounding box containing the glyph representing the character at
 a particular text offset.</p>
-<h6 id="offset-1"><a href="#offset-1"><code>offset</code></a></h6>
+<h6 id="offset-1"><a class="doc-anchor" href="#offset-1">§</a><code>offset</code></h6>
 <p>The offset of the text character for which bounding information is required.</p>
-<h6 id="coords"><a href="#coords"><code>coords</code></a></h6>
+<h6 id="coords"><a class="doc-anchor" href="#coords">§</a><code>coords</code></h6>
 <p>specify whether coordinates are relative to the screen or widget window</p>
-<h5 id="returns-5"><a href="#returns-5">Returns</a></h5><h6 id="x"><a href="#x"><code>x</code></a></h6>
+<h5 id="returns-5"><a class="doc-anchor" href="#returns-5">§</a>Returns</h5><h6 id="x"><a class="doc-anchor" href="#x">§</a><code>x</code></h6>
 <p>Pointer for the x coordinate of the bounding box</p>
-<h6 id="y"><a href="#y"><code>y</code></a></h6>
+<h6 id="y"><a class="doc-anchor" href="#y">§</a><code>y</code></h6>
 <p>Pointer for the y coordinate of the bounding box</p>
-<h6 id="width"><a href="#width"><code>width</code></a></h6>
+<h6 id="width"><a class="doc-anchor" href="#width">§</a><code>width</code></h6>
 <p>Pointer for the width of the bounding box</p>
-<h6 id="height"><a href="#height"><code>height</code></a></h6>
+<h6 id="height"><a class="doc-anchor" href="#height">§</a><code>height</code></h6>
 <p>Pointer for the height of the bounding box</p>
-</div></details><details class="toggle method-toggle" open><summary><section id="method.n_selections" class="method"><a class="src rightside" href="../../src/atk/auto/text.rs.html#278-280">source</a><h4 class="code-header">fn <a href="#method.n_selections" class="fn">n_selections</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a></h4></section></summary><div class="docblock"><p>Gets the number of selected regions.</p>
-<h5 id="returns-6"><a href="#returns-6">Returns</a></h5>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.n_selections" class="method"><a class="src rightside" href="../../src/atk/auto/text.rs.html#276-278">Source</a><h4 class="code-header">fn <a href="#method.n_selections" class="fn">n_selections</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a></h4></section></summary><div class="docblock"><p>Gets the number of selected regions.</p>
+<h5 id="returns-6"><a class="doc-anchor" href="#returns-6">§</a>Returns</h5>
 <p>The number of selected regions, or -1 in the case of failure.</p>
-</div></details><details class="toggle method-toggle" open><summary><section id="method.offset_at_point" class="method"><a class="src rightside" href="../../src/atk/auto/text.rs.html#299-308">source</a><h4 class="code-header">fn <a href="#method.offset_at_point" class="fn">offset_at_point</a>(&amp;self, x: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, y: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, coords: <a class="enum" href="../enum.CoordType.html" title="enum atk::CoordType">CoordType</a>) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a></h4></section></summary><div class="docblock"><p>Gets the offset of the character located at coordinates <code>x</code> and <code>y</code>. <code>x</code> and <code>y</code>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.offset_at_point" class="method"><a class="src rightside" href="../../src/atk/auto/text.rs.html#297-306">Source</a><h4 class="code-header">fn <a href="#method.offset_at_point" class="fn">offset_at_point</a>(&amp;self, x: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, y: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, coords: <a class="enum" href="../enum.CoordType.html" title="enum atk::CoordType">CoordType</a>) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a></h4></section></summary><div class="docblock"><p>Gets the offset of the character located at coordinates <code>x</code> and <code>y</code>. <code>x</code> and <code>y</code>
 are interpreted as being relative to the screen or this widget’s window
 depending on <code>coords</code>.</p>
-<h6 id="x-1"><a href="#x-1"><code>x</code></a></h6>
+<h6 id="x-1"><a class="doc-anchor" href="#x-1">§</a><code>x</code></h6>
 <p>screen x-position of character</p>
-<h6 id="y-1"><a href="#y-1"><code>y</code></a></h6>
+<h6 id="y-1"><a class="doc-anchor" href="#y-1">§</a><code>y</code></h6>
 <p>screen y-position of character</p>
-<h6 id="coords-1"><a href="#coords-1"><code>coords</code></a></h6>
+<h6 id="coords-1"><a class="doc-anchor" href="#coords-1">§</a><code>coords</code></h6>
 <p>specify whether coordinates are relative to the screen or
 widget window</p>
-<h5 id="returns-7"><a href="#returns-7">Returns</a></h5>
+<h5 id="returns-7"><a class="doc-anchor" href="#returns-7">§</a>Returns</h5>
 <p>the offset to the character which is located at the specified
 <code>x</code> and <code>y</code> coordinates of -1 in case of failure.</p>
-</div></details><details class="toggle method-toggle" open><summary><section id="method.range_extents" class="method"><a class="src rightside" href="../../src/atk/auto/text.rs.html#330-347">source</a><h4 class="code-header">fn <a href="#method.range_extents" class="fn">range_extents</a>(
+</div></details><details class="toggle method-toggle" open><summary><section id="method.range_extents" class="method"><a class="src rightside" href="../../src/atk/auto/text.rs.html#328-345">Source</a><h4 class="code-header">fn <a href="#method.range_extents" class="fn">range_extents</a>(
     &amp;self,
     start_offset: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>,
     end_offset: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>,
-    coord_type: <a class="enum" href="../enum.CoordType.html" title="enum atk::CoordType">CoordType</a>
+    coord_type: <a class="enum" href="../enum.CoordType.html" title="enum atk::CoordType">CoordType</a>,
 ) -&gt; <a class="struct" href="../struct.TextRectangle.html" title="struct atk::TextRectangle">TextRectangle</a></h4></section></summary><div class="docblock"><p>Get the bounding box for text within the specified range.</p>
 <p>If the extents can not be obtained (e.g. or missing support), the rectangle
 fields are set to -1.</p>
-<h6 id="start_offset-1"><a href="#start_offset-1"><code>start_offset</code></a></h6>
+<h6 id="start_offset-1"><a class="doc-anchor" href="#start_offset-1">§</a><code>start_offset</code></h6>
 <p>The offset of the first text character for which boundary
 information is required.</p>
-<h6 id="end_offset-1"><a href="#end_offset-1"><code>end_offset</code></a></h6>
+<h6 id="end_offset-1"><a class="doc-anchor" href="#end_offset-1">§</a><code>end_offset</code></h6>
 <p>The offset of the text character after the last character
 for which boundary information is required.</p>
-<h6 id="coord_type-1"><a href="#coord_type-1"><code>coord_type</code></a></h6>
+<h6 id="coord_type-1"><a class="doc-anchor" href="#coord_type-1">§</a><code>coord_type</code></h6>
 <p>Specify whether coordinates are relative to the screen or widget window.</p>
-<h5 id="returns-8"><a href="#returns-8">Returns</a></h5><h6 id="rect-1"><a href="#rect-1"><code>rect</code></a></h6>
+<h5 id="returns-8"><a class="doc-anchor" href="#returns-8">§</a>Returns</h5><h6 id="rect-1"><a class="doc-anchor" href="#rect-1">§</a><code>rect</code></h6>
 <p>A pointer to a AtkTextRectangle which is filled in by this function.</p>
-</div></details><details class="toggle method-toggle" open><summary><section id="method.selection" class="method"><a class="src rightside" href="../../src/atk/auto/text.rs.html#376-388">source</a><h4 class="code-header">fn <a href="#method.selection" class="fn">selection</a>(&amp;self, selection_num: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) -&gt; (<a class="struct" href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/gstring/struct.GString.html" title="struct glib::gstring::GString">GString</a>, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>)</h4></section></summary><div class="docblock"><p>Gets the text from the specified selection.</p>
-<h6 id="selection_num"><a href="#selection_num"><code>selection_num</code></a></h6>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.selection" class="method"><a class="src rightside" href="../../src/atk/auto/text.rs.html#374-386">Source</a><h4 class="code-header">fn <a href="#method.selection" class="fn">selection</a>(&amp;self, selection_num: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) -&gt; (<a class="struct" href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/gstring/struct.GString.html" title="struct glib::gstring::GString">GString</a>, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>)</h4></section></summary><div class="docblock"><p>Gets the text from the specified selection.</p>
+<h6 id="selection_num"><a class="doc-anchor" href="#selection_num">§</a><code>selection_num</code></h6>
 <p>The selection number. The selected regions are
 assigned numbers that correspond to how far the region is from the
 start of the text. The selected region closest to the beginning
 of the text region is assigned the number 0, etc. Note that adding,
 moving or deleting a selected region can change the numbering.</p>
-<h5 id="returns-9"><a href="#returns-9">Returns</a></h5>
+<h5 id="returns-9"><a class="doc-anchor" href="#returns-9">§</a>Returns</h5>
 <p>a newly allocated string containing the selected text. Use <code>g_free()</code>
 to free the returned string.</p>
-<h6 id="start_offset-2"><a href="#start_offset-2"><code>start_offset</code></a></h6>
+<h6 id="start_offset-2"><a class="doc-anchor" href="#start_offset-2">§</a><code>start_offset</code></h6>
 <p>passes back the starting character offset of the selected region</p>
-<h6 id="end_offset-2"><a href="#end_offset-2"><code>end_offset</code></a></h6>
+<h6 id="end_offset-2"><a class="doc-anchor" href="#end_offset-2">§</a><code>end_offset</code></h6>
 <p>passes back the ending character offset (offset immediately past)
 of the selected region</p>
-</div></details><details class="toggle method-toggle" open><summary><section id="method.string_at_offset" class="method"><a class="src rightside" href="../../src/atk/auto/text.rs.html#441-458">source</a><h4 class="code-header">fn <a href="#method.string_at_offset" class="fn">string_at_offset</a>(
+</div></details><details class="toggle method-toggle" open><summary><section id="method.string_at_offset" class="method"><a class="src rightside" href="../../src/atk/auto/text.rs.html#439-456">Source</a><h4 class="code-header">fn <a href="#method.string_at_offset" class="fn">string_at_offset</a>(
     &amp;self,
     offset: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>,
-    granularity: <a class="enum" href="../enum.TextGranularity.html" title="enum atk::TextGranularity">TextGranularity</a>
+    granularity: <a class="enum" href="../enum.TextGranularity.html" title="enum atk::TextGranularity">TextGranularity</a>,
 ) -&gt; (<a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/gstring/struct.GString.html" title="struct glib::gstring::GString">GString</a>&gt;, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>)</h4></section></summary><div class="docblock"><p>Gets a portion of the text exposed through an <a href="../struct.Text.html" title="struct atk::Text"><code>Text</code></a> according to a given <code>offset</code>
 and a specific <code>granularity</code>, along with the start and end offsets defining the
 boundaries of such a portion of text.</p>
@@ -290,34 +290,34 @@ start after the offset.</p>
 <p>If <code>granularity</code> is ATK_TEXT_GRANULARITY_PARAGRAPH the returned string
 is from the start of the paragraph at or before the offset to the start
 of the following paragraph after the offset.</p>
-<h6 id="offset-2"><a href="#offset-2"><code>offset</code></a></h6>
+<h6 id="offset-2"><a class="doc-anchor" href="#offset-2">§</a><code>offset</code></h6>
 <p>position</p>
-<h6 id="granularity"><a href="#granularity"><code>granularity</code></a></h6>
+<h6 id="granularity"><a class="doc-anchor" href="#granularity">§</a><code>granularity</code></h6>
 <p>An <a href="../enum.TextGranularity.html" title="enum atk::TextGranularity"><code>TextGranularity</code></a></p>
-<h5 id="returns-10"><a href="#returns-10">Returns</a></h5>
+<h5 id="returns-10"><a class="doc-anchor" href="#returns-10">§</a>Returns</h5>
 <p>a newly allocated string containing the text at
 the <code>offset</code> bounded by the specified <code>granularity</code>. Use <code>g_free()</code>
 to free the returned string. Returns <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="variant core::option::Option::None"><code>None</code></a> if the offset is invalid
 or no implementation is available.</p>
-<h6 id="start_offset-3"><a href="#start_offset-3"><code>start_offset</code></a></h6>
+<h6 id="start_offset-3"><a class="doc-anchor" href="#start_offset-3">§</a><code>start_offset</code></h6>
 <p>the starting character offset of the returned string, or -1
 in the case of error (e.g. invalid offset, not implemented)</p>
-<h6 id="end_offset-3"><a href="#end_offset-3"><code>end_offset</code></a></h6>
+<h6 id="end_offset-3"><a class="doc-anchor" href="#end_offset-3">§</a><code>end_offset</code></h6>
 <p>the offset of the first character after the returned string,
 or -1 in the case of error (e.g. invalid offset, not implemented)</p>
-</div></details><details class="toggle method-toggle" open><summary><section id="method.text" class="method"><a class="src rightside" href="../../src/atk/auto/text.rs.html#473-481">source</a><h4 class="code-header">fn <a href="#method.text" class="fn">text</a>(&amp;self, start_offset: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, end_offset: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/gstring/struct.GString.html" title="struct glib::gstring::GString">GString</a>&gt;</h4></section></summary><div class="docblock"><p>Gets the specified text.</p>
-<h6 id="start_offset-4"><a href="#start_offset-4"><code>start_offset</code></a></h6>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.text" class="method"><a class="src rightside" href="../../src/atk/auto/text.rs.html#471-479">Source</a><h4 class="code-header">fn <a href="#method.text" class="fn">text</a>(&amp;self, start_offset: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, end_offset: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/gstring/struct.GString.html" title="struct glib::gstring::GString">GString</a>&gt;</h4></section></summary><div class="docblock"><p>Gets the specified text.</p>
+<h6 id="start_offset-4"><a class="doc-anchor" href="#start_offset-4">§</a><code>start_offset</code></h6>
 <p>a starting character offset within <code>self</code></p>
-<h6 id="end_offset-4"><a href="#end_offset-4"><code>end_offset</code></a></h6>
+<h6 id="end_offset-4"><a class="doc-anchor" href="#end_offset-4">§</a><code>end_offset</code></h6>
 <p>an ending character offset within <code>self</code>, or -1 for the end of the string.</p>
-<h5 id="returns-11"><a href="#returns-11">Returns</a></h5>
+<h5 id="returns-11"><a class="doc-anchor" href="#returns-11">§</a>Returns</h5>
 <p>a newly allocated string containing the text from <code>start_offset</code> up
 to, but not including <code>end_offset</code>. Use <code>g_free()</code> to free the returned
 string.</p>
-</div></details><details class="toggle method-toggle" open><summary><section id="method.text_at_offset" class="method"><a class="src rightside" href="../../src/atk/auto/text.rs.html#531-548">source</a><h4 class="code-header">fn <a href="#method.text_at_offset" class="fn">text_at_offset</a>(
+</div></details><details class="toggle method-toggle" open><summary><section id="method.text_at_offset" class="method"><a class="src rightside" href="../../src/atk/auto/text.rs.html#529-546">Source</a><h4 class="code-header">fn <a href="#method.text_at_offset" class="fn">text_at_offset</a>(
     &amp;self,
     offset: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>,
-    boundary_type: <a class="enum" href="../enum.TextBoundary.html" title="enum atk::TextBoundary">TextBoundary</a>
+    boundary_type: <a class="enum" href="../enum.TextBoundary.html" title="enum atk::TextBoundary">TextBoundary</a>,
 ) -&gt; (<a class="struct" href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/gstring/struct.GString.html" title="struct glib::gstring::GString">GString</a>, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>)</h4></section></summary><div class="docblock"><p>Gets the specified text.</p>
 <p>If the boundary_type if ATK_TEXT_BOUNDARY_CHAR the character at the
 offset is returned.</p>
@@ -336,68 +336,68 @@ if the offset is not inside a sentence.</p>
 <p>If the boundary type is ATK_TEXT_BOUNDARY_LINE_START the returned
 string is from the line start at or before the offset to the line
 start after the offset.</p>
-<h5 id="deprecated"><a href="#deprecated">Deprecated</a></h5>
+<h5 id="deprecated"><a class="doc-anchor" href="#deprecated">§</a>Deprecated</h5>
 <p>This method is deprecated since ATK version
-2.9.4. Please use <a href="trait.TextExt.html#method.string_at_offset"><code>string_at_offset()</code></a> instead.</p>
-<h6 id="offset-3"><a href="#offset-3"><code>offset</code></a></h6>
+2.9.4. Please use <a href="trait.TextExt.html#method.string_at_offset" title="method atk::prelude::TextExt::string_at_offset"><code>string_at_offset()</code></a> instead.</p>
+<h6 id="offset-3"><a class="doc-anchor" href="#offset-3">§</a><code>offset</code></h6>
 <p>position</p>
-<h6 id="boundary_type"><a href="#boundary_type"><code>boundary_type</code></a></h6>
+<h6 id="boundary_type"><a class="doc-anchor" href="#boundary_type">§</a><code>boundary_type</code></h6>
 <p>An <a href="../enum.TextBoundary.html" title="enum atk::TextBoundary"><code>TextBoundary</code></a></p>
-<h5 id="returns-12"><a href="#returns-12">Returns</a></h5>
+<h5 id="returns-12"><a class="doc-anchor" href="#returns-12">§</a>Returns</h5>
 <p>a newly allocated string containing the text at <code>offset</code> bounded
 by the specified <code>boundary_type</code>. Use <code>g_free()</code> to free the returned
 string.</p>
-<h6 id="start_offset-5"><a href="#start_offset-5"><code>start_offset</code></a></h6>
+<h6 id="start_offset-5"><a class="doc-anchor" href="#start_offset-5">§</a><code>start_offset</code></h6>
 <p>the starting character offset of the returned string</p>
-<h6 id="end_offset-5"><a href="#end_offset-5"><code>end_offset</code></a></h6>
+<h6 id="end_offset-5"><a class="doc-anchor" href="#end_offset-5">§</a><code>end_offset</code></h6>
 <p>the offset of the first character after the
 returned substring</p>
-</div></details><details class="toggle method-toggle" open><summary><section id="method.remove_selection" class="method"><a class="src rightside" href="../../src/atk/auto/text.rs.html#562-569">source</a><h4 class="code-header">fn <a href="#method.remove_selection" class="fn">remove_selection</a>(&amp;self, selection_num: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></h4></section></summary><div class="docblock"><p>Removes the specified selection.</p>
-<h6 id="selection_num-1"><a href="#selection_num-1"><code>selection_num</code></a></h6>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.remove_selection" class="method"><a class="src rightside" href="../../src/atk/auto/text.rs.html#560-567">Source</a><h4 class="code-header">fn <a href="#method.remove_selection" class="fn">remove_selection</a>(&amp;self, selection_num: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></h4></section></summary><div class="docblock"><p>Removes the specified selection.</p>
+<h6 id="selection_num-1"><a class="doc-anchor" href="#selection_num-1">§</a><code>selection_num</code></h6>
 <p>The selection number. The selected regions are
 assigned numbers that correspond to how far the region is from the
 start of the text. The selected region closest to the beginning
 of the text region is assigned the number 0, etc. Note that adding,
 moving or deleting a selected region can change the numbering.</p>
-<h5 id="returns-13"><a href="#returns-13">Returns</a></h5>
+<h5 id="returns-13"><a class="doc-anchor" href="#returns-13">§</a>Returns</h5>
 <p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="primitive bool"><code>true</code></a> if successful, <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="primitive bool"><code>false</code></a> otherwise</p>
-</div></details><details class="toggle method-toggle" open><summary><section id="method.scroll_substring_to" class="method"><a class="src rightside" href="../../src/atk/auto/text.rs.html#585-594">source</a><h4 class="code-header">fn <a href="#method.scroll_substring_to" class="fn">scroll_substring_to</a>(
+</div></details><details class="toggle method-toggle" open><summary><section id="method.scroll_substring_to" class="method"><a class="src rightside" href="../../src/atk/auto/text.rs.html#583-592">Source</a><h4 class="code-header">fn <a href="#method.scroll_substring_to" class="fn">scroll_substring_to</a>(
     &amp;self,
     start_offset: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>,
     end_offset: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>,
-    type_: <a class="enum" href="../enum.ScrollType.html" title="enum atk::ScrollType">ScrollType</a>
+    type_: <a class="enum" href="../enum.ScrollType.html" title="enum atk::ScrollType">ScrollType</a>,
 ) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></h4></section></summary><div class="docblock"><p>Makes a substring of <code>self</code> visible on the screen by scrolling all necessary parents.</p>
-<h6 id="start_offset-6"><a href="#start_offset-6"><code>start_offset</code></a></h6>
+<h6 id="start_offset-6"><a class="doc-anchor" href="#start_offset-6">§</a><code>start_offset</code></h6>
 <p>start offset in the <code>self</code></p>
-<h6 id="end_offset-6"><a href="#end_offset-6"><code>end_offset</code></a></h6>
+<h6 id="end_offset-6"><a class="doc-anchor" href="#end_offset-6">§</a><code>end_offset</code></h6>
 <p>end offset in the <code>self</code>, or -1 for the end of the text.</p>
-<h6 id="type_"><a href="#type_"><code>type_</code></a></h6>
+<h6 id="type_"><a class="doc-anchor" href="#type_">§</a><code>type_</code></h6>
 <p>specify where the object should be made visible.</p>
-<h5 id="returns-14"><a href="#returns-14">Returns</a></h5>
+<h5 id="returns-14"><a class="doc-anchor" href="#returns-14">§</a>Returns</h5>
 <p>whether scrolling was successful.</p>
-</div></details><details class="toggle method-toggle" open><summary><section id="method.scroll_substring_to_point" class="method"><a class="src rightside" href="../../src/atk/auto/text.rs.html#616-634">source</a><h4 class="code-header">fn <a href="#method.scroll_substring_to_point" class="fn">scroll_substring_to_point</a>(
+</div></details><details class="toggle method-toggle" open><summary><section id="method.scroll_substring_to_point" class="method"><a class="src rightside" href="../../src/atk/auto/text.rs.html#614-632">Source</a><h4 class="code-header">fn <a href="#method.scroll_substring_to_point" class="fn">scroll_substring_to_point</a>(
     &amp;self,
     start_offset: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>,
     end_offset: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>,
     coords: <a class="enum" href="../enum.CoordType.html" title="enum atk::CoordType">CoordType</a>,
     x: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>,
-    y: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>
+    y: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>,
 ) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></h4></section></summary><div class="docblock"><p>Move the top-left of a substring of <code>self</code> to a given position of the screen
 by scrolling all necessary parents.</p>
-<h6 id="start_offset-7"><a href="#start_offset-7"><code>start_offset</code></a></h6>
+<h6 id="start_offset-7"><a class="doc-anchor" href="#start_offset-7">§</a><code>start_offset</code></h6>
 <p>start offset in the <code>self</code></p>
-<h6 id="end_offset-7"><a href="#end_offset-7"><code>end_offset</code></a></h6>
+<h6 id="end_offset-7"><a class="doc-anchor" href="#end_offset-7">§</a><code>end_offset</code></h6>
 <p>end offset in the <code>self</code>, or -1 for the end of the text.</p>
-<h6 id="coords-2"><a href="#coords-2"><code>coords</code></a></h6>
+<h6 id="coords-2"><a class="doc-anchor" href="#coords-2">§</a><code>coords</code></h6>
 <p>specify whether coordinates are relative to the screen or to the
 parent object.</p>
-<h6 id="x-2"><a href="#x-2"><code>x</code></a></h6>
+<h6 id="x-2"><a class="doc-anchor" href="#x-2">§</a><code>x</code></h6>
 <p>x-position where to scroll to</p>
-<h6 id="y-2"><a href="#y-2"><code>y</code></a></h6>
+<h6 id="y-2"><a class="doc-anchor" href="#y-2">§</a><code>y</code></h6>
 <p>y-position where to scroll to</p>
-<h5 id="returns-15"><a href="#returns-15">Returns</a></h5>
+<h5 id="returns-15"><a class="doc-anchor" href="#returns-15">§</a>Returns</h5>
 <p>whether scrolling was successful.</p>
-</div></details><details class="toggle method-toggle" open><summary><section id="method.set_caret_offset" class="method"><a class="src rightside" href="../../src/atk/auto/text.rs.html#660-667">source</a><h4 class="code-header">fn <a href="#method.set_caret_offset" class="fn">set_caret_offset</a>(&amp;self, offset: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></h4></section></summary><div class="docblock"><p>Sets the caret (cursor) position to the specified <code>offset</code>.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.set_caret_offset" class="method"><a class="src rightside" href="../../src/atk/auto/text.rs.html#658-665">Source</a><h4 class="code-header">fn <a href="#method.set_caret_offset" class="fn">set_caret_offset</a>(&amp;self, offset: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></h4></section></summary><div class="docblock"><p>Sets the caret (cursor) position to the specified <code>offset</code>.</p>
 <p>In the case of rich-text content, this method should either grab focus
 or move the sequential focus navigation starting point (if the application
 supports this concept) as if the user had clicked on the new caret position.
@@ -412,74 +412,74 @@ caret motion or focus navigation does not trigger a scroll operation, this
 method should not trigger one either. If the application does not have a caret
 motion or focus navigation operation, this method should try to scroll the new
 caret position into view while minimizing unnecessary scroll motion.</p>
-<h6 id="offset-4"><a href="#offset-4"><code>offset</code></a></h6>
+<h6 id="offset-4"><a class="doc-anchor" href="#offset-4">§</a><code>offset</code></h6>
 <p>the character offset of the new caret position</p>
-<h5 id="returns-16"><a href="#returns-16">Returns</a></h5>
+<h5 id="returns-16"><a class="doc-anchor" href="#returns-16">§</a>Returns</h5>
 <p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="primitive bool"><code>true</code></a> if successful, <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="primitive bool"><code>false</code></a> otherwise.</p>
-</div></details><details class="toggle method-toggle" open><summary><section id="method.set_selection" class="method"><a class="src rightside" href="../../src/atk/auto/text.rs.html#686-695">source</a><h4 class="code-header">fn <a href="#method.set_selection" class="fn">set_selection</a>(
+</div></details><details class="toggle method-toggle" open><summary><section id="method.set_selection" class="method"><a class="src rightside" href="../../src/atk/auto/text.rs.html#684-693">Source</a><h4 class="code-header">fn <a href="#method.set_selection" class="fn">set_selection</a>(
     &amp;self,
     selection_num: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>,
     start_offset: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>,
-    end_offset: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>
+    end_offset: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>,
 ) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></h4></section></summary><div class="docblock"><p>Changes the start and end offset of the specified selection.</p>
-<h6 id="selection_num-2"><a href="#selection_num-2"><code>selection_num</code></a></h6>
+<h6 id="selection_num-2"><a class="doc-anchor" href="#selection_num-2">§</a><code>selection_num</code></h6>
 <p>The selection number. The selected regions are
 assigned numbers that correspond to how far the region is from the
 start of the text. The selected region closest to the beginning
 of the text region is assigned the number 0, etc. Note that adding,
 moving or deleting a selected region can change the numbering.</p>
-<h6 id="start_offset-8"><a href="#start_offset-8"><code>start_offset</code></a></h6>
+<h6 id="start_offset-8"><a class="doc-anchor" href="#start_offset-8">§</a><code>start_offset</code></h6>
 <p>the new starting character offset of the selection</p>
-<h6 id="end_offset-8"><a href="#end_offset-8"><code>end_offset</code></a></h6>
+<h6 id="end_offset-8"><a class="doc-anchor" href="#end_offset-8">§</a><code>end_offset</code></h6>
 <p>the new end position of (e.g. offset immediately past)
 the selection</p>
-<h5 id="returns-17"><a href="#returns-17">Returns</a></h5>
+<h5 id="returns-17"><a class="doc-anchor" href="#returns-17">§</a>Returns</h5>
 <p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="primitive bool"><code>true</code></a> if successful, <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="primitive bool"><code>false</code></a> otherwise</p>
-</div></details><details class="toggle method-toggle" open><summary><section id="method.connect_text_attributes_changed" class="method"><a class="src rightside" href="../../src/atk/auto/text.rs.html#701-723">source</a><h4 class="code-header">fn <a href="#method.connect_text_attributes_changed" class="fn">connect_text_attributes_changed</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;Self</a>) + 'static&gt;(
+</div></details><details class="toggle method-toggle" open><summary><section id="method.connect_text_attributes_changed" class="method"><a class="src rightside" href="../../src/atk/auto/text.rs.html#699-723">Source</a><h4 class="code-header">fn <a href="#method.connect_text_attributes_changed" class="fn">connect_text_attributes_changed</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;Self) + 'static&gt;(
     &amp;self,
-    f: F
+    f: F,
 ) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></h4></section></summary><div class="docblock"><p>The “text-attributes-changed” signal is emitted when the text
 attributes of the text of an object which implements AtkText
 changes.</p>
-</div></details><details class="toggle method-toggle" open><summary><section id="method.connect_text_caret_moved" class="method"><a class="src rightside" href="../../src/atk/auto/text.rs.html#731-751">source</a><h4 class="code-header">fn <a href="#method.connect_text_caret_moved" class="fn">connect_text_caret_moved</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;Self</a>, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) + 'static&gt;(
+</div></details><details class="toggle method-toggle" open><summary><section id="method.connect_text_caret_moved" class="method"><a class="src rightside" href="../../src/atk/auto/text.rs.html#731-753">Source</a><h4 class="code-header">fn <a href="#method.connect_text_caret_moved" class="fn">connect_text_caret_moved</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;Self, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) + 'static&gt;(
     &amp;self,
-    f: F
+    f: F,
 ) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></h4></section></summary><div class="docblock"><p>The “text-caret-moved” signal is emitted when the caret
 position of the text of an object which implements AtkText
 changes.</p>
-<h6 id="arg1"><a href="#arg1"><code>arg1</code></a></h6>
+<h6 id="arg1"><a class="doc-anchor" href="#arg1">§</a><code>arg1</code></h6>
 <p>The new position of the text caret.</p>
-</div></details><details class="toggle method-toggle" open><summary><section id="method.connect_text_insert" class="method"><a class="src rightside" href="../../src/atk/auto/text.rs.html#764-802">source</a><h4 class="code-header">fn <a href="#method.connect_text_insert" class="fn">connect_text_insert</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;Self</a>, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) + 'static&gt;(
+</div></details><details class="toggle method-toggle" open><summary><section id="method.connect_text_insert" class="method"><a class="src rightside" href="../../src/atk/auto/text.rs.html#766-806">Source</a><h4 class="code-header">fn <a href="#method.connect_text_insert" class="fn">connect_text_insert</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;Self, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) + 'static&gt;(
     &amp;self,
     detail: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;&amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>&gt;,
-    f: F
+    f: F,
 ) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></h4></section></summary><div class="docblock"><p>The “text-insert” signal is emitted when a new text is
 inserted. If the signal was not triggered by the user
 (e.g. typing or pasting text), the “system” detail should be
 included.</p>
-<h6 id="arg1-1"><a href="#arg1-1"><code>arg1</code></a></h6>
+<h6 id="arg1-1"><a class="doc-anchor" href="#arg1-1">§</a><code>arg1</code></h6>
 <p>The position (character offset) of the insertion.</p>
-<h6 id="arg2"><a href="#arg2"><code>arg2</code></a></h6>
+<h6 id="arg2"><a class="doc-anchor" href="#arg2">§</a><code>arg2</code></h6>
 <p>The length (in characters) of text inserted.</p>
-<h6 id="arg3"><a href="#arg3"><code>arg3</code></a></h6>
+<h6 id="arg3"><a class="doc-anchor" href="#arg3">§</a><code>arg3</code></h6>
 <p>The new text inserted</p>
-</div></details><details class="toggle method-toggle" open><summary><section id="method.connect_text_remove" class="method"><a class="src rightside" href="../../src/atk/auto/text.rs.html#815-853">source</a><h4 class="code-header">fn <a href="#method.connect_text_remove" class="fn">connect_text_remove</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;Self</a>, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) + 'static&gt;(
+</div></details><details class="toggle method-toggle" open><summary><section id="method.connect_text_remove" class="method"><a class="src rightside" href="../../src/atk/auto/text.rs.html#819-859">Source</a><h4 class="code-header">fn <a href="#method.connect_text_remove" class="fn">connect_text_remove</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;Self, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) + 'static&gt;(
     &amp;self,
     detail: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;&amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>&gt;,
-    f: F
+    f: F,
 ) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></h4></section></summary><div class="docblock"><p>The “text-remove” signal is emitted when a new text is
 removed. If the signal was not triggered by the user
 (e.g. typing or pasting text), the “system” detail should be
 included.</p>
-<h6 id="arg1-2"><a href="#arg1-2"><code>arg1</code></a></h6>
+<h6 id="arg1-2"><a class="doc-anchor" href="#arg1-2">§</a><code>arg1</code></h6>
 <p>The position (character offset) of the removal.</p>
-<h6 id="arg2-1"><a href="#arg2-1"><code>arg2</code></a></h6>
+<h6 id="arg2-1"><a class="doc-anchor" href="#arg2-1">§</a><code>arg2</code></h6>
 <p>The length (in characters) of text removed.</p>
-<h6 id="arg3-1"><a href="#arg3-1"><code>arg3</code></a></h6>
+<h6 id="arg3-1"><a class="doc-anchor" href="#arg3-1">§</a><code>arg3</code></h6>
 <p>The old text removed</p>
-</div></details><details class="toggle method-toggle" open><summary><section id="method.connect_text_selection_changed" class="method"><a class="src rightside" href="../../src/atk/auto/text.rs.html#858-880">source</a><h4 class="code-header">fn <a href="#method.connect_text_selection_changed" class="fn">connect_text_selection_changed</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;Self</a>) + 'static&gt;(
+</div></details><details class="toggle method-toggle" open><summary><section id="method.connect_text_selection_changed" class="method"><a class="src rightside" href="../../src/atk/auto/text.rs.html#864-888">Source</a><h4 class="code-header">fn <a href="#method.connect_text_selection_changed" class="fn">connect_text_selection_changed</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;Self) + 'static&gt;(
     &amp;self,
-    f: F
+    f: F,
 ) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></h4></section></summary><div class="docblock"><p>The “text-selection-changed” signal is emitted when the
 selected text of an object which implements AtkText changes.</p>
-</div></details></div><h2 id="object-safety" class="section-header">Object Safety<a href="#object-safety" class="anchor">§</a></h2><div class="object-safety-info">This trait is <b>not</b> <a href="https://doc.rust-lang.org/nightly/reference/items/traits.html#object-safety">object safe</a>.</div><h2 id="implementors" class="section-header">Implementors<a href="#implementors" class="anchor">§</a></h2><div id="implementors-list"><section id="impl-TextExt-for-O" class="impl"><a class="src rightside" href="../../src/atk/auto/text.rs.html#883">source</a><a href="#impl-TextExt-for-O" class="anchor">§</a><h3 class="code-header">impl&lt;O: <a class="trait" href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.Text.html" title="struct atk::Text">Text</a>&gt;&gt; <a class="trait" href="trait.TextExt.html" title="trait atk::prelude::TextExt">TextExt</a> for O</h3></section></div><script src="../../trait.impl/atk/auto/text/trait.TextExt.js" async></script></section></div></main></body></html>
+</div></details></div><h2 id="dyn-compatibility" class="section-header">Dyn Compatibility<a href="#dyn-compatibility" class="anchor">§</a></h2><div class="dyn-compatibility-info"><p>This trait is <b>not</b> <a href="https://doc.rust-lang.org/nightly/reference/items/traits.html#dyn-compatibility">dyn compatible</a>.</p><p><i>In older versions of Rust, dyn compatibility was called "object safety".</i></p></div><h2 id="implementors" class="section-header">Implementors<a href="#implementors" class="anchor">§</a></h2><div id="implementors-list"><div class="negative-marker"></div><section id="impl-TextExt-for-O" class="impl"><a class="src rightside" href="../../src/atk/auto/text.rs.html#891">Source</a><a href="#impl-TextExt-for-O" class="anchor">§</a><h3 class="code-header">impl&lt;O: <a class="trait" href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.Text.html" title="struct atk::Text">Text</a>&gt;&gt; <a class="trait" href="trait.TextExt.html" title="trait atk::prelude::TextExt">TextExt</a> for O</h3></section></div><script src="../../trait.impl/atk/auto/text/trait.TextExt.js" async></script></section></div></main></body></html>
