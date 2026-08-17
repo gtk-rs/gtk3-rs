@@ -28,6 +28,16 @@ members = [
 exclude = ["gir", "checker"]
 resolver = "2"
 
+[workspace.package]
+authors = ["The gtk-rs Project Developers"]
+edition = "2021"
+homepage = "https://gtk-rs.org/"
+license = "MIT"
+repository = "https://github.com/gtk-rs/gtk3-rs"
+version = "0.19.0"
+categories = ["api-bindings", "gui"]
+rust-version = "1.92"
+
 [workspace.dependencies]
 cairo = { package = "cairo-rs", git = "https://github.com/gtk-rs/gtk-rs-core", version = "0.23.0-alpha" }
 cairo-sys = { package = "cairo-sys-rs", git = "https://github.com/gtk-rs/gtk-rs-core", version = "0.23.0-alpha" }

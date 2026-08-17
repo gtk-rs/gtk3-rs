@@ -1,17 +1,18 @@
 [package]
 name = "gdkx11"
-license = "MIT"
-homepage = "https://gtk-rs.org/"
-authors = ["The gtk-rs Project Developers"]
+license.workspace = true
+homepage.workspace = true
+authors.workspace = true
+categories.workspace = true
 keywords = ["gdkx11", "gdk", "gtk-rs", "gnome", "GUI"]
 readme = "README.md"
 documentation = "https://gtk-rs.org/gtk3-rs/stable/latest/docs/gdkx11/"
-version = "0.19.0"
+version.workspace = true
 description = "Rust bindings for the GDK X11 library"
-repository = "https://github.com/gtk-rs/gtk3-rs"
+repository.workspace = true
 exclude = ["gir-files/*"]
-edition = "2021"
-rust-version = "1.92"
+edition.workspace = true
+rust-version.workspace = true
 
 [lib]
 name = "gdkx11"

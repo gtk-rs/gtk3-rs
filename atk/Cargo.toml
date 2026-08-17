@@ -1,18 +1,18 @@
 [package]
 documentation = "https://gtk-rs.org/gtk3-rs/stable/latest/docs/atk/"
-categories = ["api-bindings", "gui"]
-license = "MIT"
+categories.workspace = true
+license.workspace = true
 description = "Rust bindings for the ATK library"
 name = "atk"
-homepage = "https://gtk-rs.org/"
-authors = ["The gtk-rs Project Developers"]
+homepage.workspace = true
+authors.workspace = true
 readme = "README.md"
-version = "0.19.0"
+version.workspace = true
 keywords = ["atk", "gtk-rs", "gnome", "accessibility"]
-repository = "https://github.com/gtk-rs/gtk3-rs"
+repository.workspace = true
 exclude = ["gir-files/*"]
-edition = "2021"
-rust-version = "1.92"
+edition.workspace = true
+rust-version.workspace = true
 
 [lib]
 name = "atk"

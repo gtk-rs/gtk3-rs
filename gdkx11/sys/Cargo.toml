@@ -1,15 +1,15 @@
 [package]
-authors = ["The gtk-rs Project Developers"]
+authors.workspace = true
 description = "FFI binding for libgdkx11"
-homepage = "https://gtk-rs.org/"
+homepage.workspace = true
 keywords = ["gdkx11", "ffi", "gtk-rs", "gnome"]
-license = "MIT"
-repository = "https://github.com/gtk-rs/gtk3-rs"
+license.workspace = true
+repository.workspace = true
 name = "gdkx11-sys"
-version = "0.19.0"
+version.workspace = true
 build = "build.rs"
-edition = "2021"
-rust-version = "1.92"
+edition.workspace = true
+rust-version.workspace = true
 
 [package.metadata.docs.rs]
 rustdoc-args = ["--cfg", "docsrs"]
