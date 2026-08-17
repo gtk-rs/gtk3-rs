@@ -8,7 +8,7 @@ use glib::{object::Cast, GString};
 
 use super::cell_renderer::CellRendererImpl;
 
-use crate::CellRendererText;
+use crate::{ffi, CellRendererText};
 
 pub trait CellRendererTextImpl: CellRendererTextImplExt + CellRendererImpl {
     fn edited(&self, path: &str, new_text: &str) {

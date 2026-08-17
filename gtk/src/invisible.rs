@@ -1,6 +1,6 @@
 // Take a look at the license at the top of the repository in the LICENSE file.
 
-use crate::Invisible;
+use crate::{ffi, Invisible};
 use glib::object::IsA;
 use glib::translate::{from_glib_none, ToGlibPtr};
 

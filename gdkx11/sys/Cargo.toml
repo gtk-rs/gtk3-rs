@@ -1,15 +1,29 @@
 [package]
-authors.workspace = true
 description = "FFI binding for libgdkx11"
-homepage.workspace = true
 keywords = ["gdkx11", "ffi", "gtk-rs", "gnome"]
-license.workspace = true
-repository.workspace = true
 name = "gdkx11-sys"
-version.workspace = true
 build = "build.rs"
-edition.workspace = true
-rust-version.workspace = true
+
+[package.authors]
+workspace = true
+
+[package.homepage]
+workspace = true
+
+[package.license]
+workspace = true
+
+[package.repository]
+workspace = true
+
+[package.version]
+workspace = true
+
+[package.edition]
+workspace = true
+
+[package.rust-version]
+workspace = true
 
 [package.metadata.docs.rs]
 rustdoc-args = ["--cfg", "docsrs"]
@@ -37,7 +51,7 @@ x11 = "2.18"
 workspace = true
 
 [dependencies.gdk-sys]
-path = "../../gdk/sys"
+workspace = true
 
 [dependencies.glib-sys]
 workspace = true

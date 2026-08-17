@@ -14,19 +14,19 @@ version.workspace = true
 rust-version.workspace = true
 
 [features]
-v3_24 = ["ffi/v3_24", "gdk/v3_24"]
-v3_24_22 = ["v3_24", "ffi/v3_24_22"]
+v3_24 = ["gdkwayland-sys/v3_24", "gdk/v3_24"]
+v3_24_22 = ["v3_24", "gdkwayland-sys/v3_24_22"]
 
 [package.metadata.docs.rs]
 rustdoc-args = ["--cfg", "docsrs", "--generate-link-to-definition"]
 
 [dependencies]
-ffi = { path = "./sys", package = "gdkwayland-sys" }
-gdk = { path = "../gdk" }
+gdk.workspace = true
+gdkwayland-sys.workspace = true
 glib.workspace = true
 libc = "0.2"
-wayland-client = "0.31"
 wayland-backend = { version = "0.3.0", features = ["client_system"] }
+wayland-client = "0.31"
 
 [dev-dependencies]
 gir-format-check = "^0.1"

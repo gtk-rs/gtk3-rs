@@ -1,9 +1,9 @@
 // Take a look at the license at the top of the repository in the LICENSE file.
 
-use crate::Cursor;
 use crate::EventMask;
 use crate::Visual;
 use crate::Window;
+use crate::{ffi, Cursor};
 use cairo::{self, Surface};
 use glib::object::IsA;
 use glib::translate::*;

@@ -1,8 +1,8 @@
 // Take a look at the license at the top of the repository in the LICENSE file.
 
-use crate::Application;
 use crate::ApplicationWindow;
 use crate::Widget;
+use crate::{ffi, Application};
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::translate::*;

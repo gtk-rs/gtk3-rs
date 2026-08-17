@@ -1,8 +1,8 @@
 // Take a look at the license at the top of the repository in the LICENSE file.
 
-use crate::TreeIter;
 use crate::TreeModel;
 use crate::TreeStore;
+use crate::{ffi, TreeIter};
 use glib::object::{Cast, IsA};
 use glib::translate::*;
 use glib::{value::ToValue, Type, Value};

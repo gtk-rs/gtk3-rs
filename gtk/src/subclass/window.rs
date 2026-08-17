@@ -8,8 +8,8 @@ use glib::object::Cast;
 
 use super::bin::BinImpl;
 
-use crate::Widget;
 use crate::Window;
+use crate::{ffi, Widget};
 
 pub trait WindowImpl: WindowImplExt + BinImpl {
     fn set_focus(&self, focus: Option<&Widget>) {

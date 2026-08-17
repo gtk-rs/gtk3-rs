@@ -4,8 +4,8 @@
 #![allow(clippy::upper_case_acronyms)]
 #![doc = include_str!("../README.md")]
 
-pub use ffi;
 pub use gdk;
+pub use gdk_x11_sys as ffi;
 pub use gio;
 pub use glib;
 pub use x11;

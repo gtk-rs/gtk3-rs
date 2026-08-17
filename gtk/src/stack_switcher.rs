@@ -1,6 +1,5 @@
 // Take a look at the license at the top of the repository in the LICENSE file.
 
-use crate::Align;
 use crate::BaselinePosition;
 use crate::Container;
 use crate::IconSize;
@@ -9,6 +8,7 @@ use crate::ResizeMode;
 use crate::Stack;
 use crate::StackSwitcher;
 use crate::Widget;
+use crate::{ffi, Align};
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::object::ObjectExt;

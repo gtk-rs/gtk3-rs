@@ -1,9 +1,9 @@
 // Take a look at the license at the top of the repository in the LICENSE file.
 
-use crate::Align;
 use crate::Container;
 use crate::IconSize;
 use crate::Image;
+use crate::{ffi, Align};
 use glib::object::Cast;
 use glib::object::{IsA, ObjectExt};
 use glib::signal::{connect_raw, SignalHandlerId};

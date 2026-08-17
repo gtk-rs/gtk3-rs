@@ -1,7 +1,7 @@
 // Take a look at the license at the top of the repository in the LICENSE file.
 
-use crate::ColorChooser;
 use crate::Orientation;
+use crate::{ffi, ColorChooser};
 use gdk::RGBA;
 use glib::object::IsA;
 use glib::translate::*;

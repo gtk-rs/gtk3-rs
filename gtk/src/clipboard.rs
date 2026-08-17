@@ -1,8 +1,8 @@
 // Take a look at the license at the top of the repository in the LICENSE file.
 
-use crate::Clipboard;
 use crate::SelectionData;
 use crate::TargetEntry;
+use crate::{ffi, Clipboard};
 use glib::ffi::gpointer;
 use glib::translate::*;
 use libc::{c_char, c_uint};

@@ -7,8 +7,8 @@
 #![doc = include_str!("../README.md")]
 
 pub use cairo;
-pub use ffi;
 pub use gdk_pixbuf;
+pub use gdk_sys as ffi;
 pub use gio;
 pub use glib;
 pub use pango;

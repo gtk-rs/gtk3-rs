@@ -8,9 +8,9 @@ use glib::translate::*;
 
 use super::container::ContainerImpl;
 
-use crate::IconView;
 use crate::MovementStep;
 use crate::TreePath;
+use crate::{ffi, IconView};
 
 pub trait IconViewImpl: IconViewImplExt + ContainerImpl {
     fn item_activated(&self, path: &TreePath) {

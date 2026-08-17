@@ -1,7 +1,7 @@
 // Take a look at the license at the top of the repository in the LICENSE file.
 
-use crate::RadioToolButton;
 use crate::ToolItem;
+use crate::{ffi, RadioToolButton};
 use glib::object::{Cast, ObjectExt};
 use glib::translate::*;
 use std::ptr;

@@ -1,16 +1,30 @@
 [package]
 name = "gtk-sys"
-version.workspace = true
 links = "gtk-3"
 build = "build.rs"
-authors.workspace = true
 description = "FFI bindings to libgtk-3"
-homepage.workspace = true
 keywords = ["gtk", "ffi", "gtk-rs", "gnome"]
-license.workspace = true
-repository.workspace = true
-edition.workspace = true
-rust-version.workspace = true
+
+[package.version]
+workspace = true
+
+[package.authors]
+workspace = true
+
+[package.homepage]
+workspace = true
+
+[package.license]
+workspace = true
+
+[package.repository]
+workspace = true
+
+[package.edition]
+workspace = true
+
+[package.rust-version]
+workspace = true
 
 [package.metadata.docs.rs]
 rustdoc-args = ["--cfg", "docsrs"]
@@ -46,7 +60,7 @@ name = "gtk_sys"
 libc = "0.2"
 
 [dependencies.atk-sys]
-path = "../../atk/sys"
+workspace = true
 
 [dependencies.cairo-sys]
 workspace = true
@@ -55,7 +69,7 @@ workspace = true
 workspace = true
 
 [dependencies.gdk-sys]
-path = "../../gdk/sys"
+workspace = true
 
 [dependencies.gio-sys]
 workspace = true

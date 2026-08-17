@@ -1,7 +1,7 @@
 // Take a look at the license at the top of the repository in the LICENSE file.
 
-use crate::IconSize;
 use crate::ResponseType;
+use crate::{ffi, IconSize};
 use glib::translate::{from_glib, IntoGlib};
 
 impl IconSize {

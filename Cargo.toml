@@ -52,3 +52,13 @@ gobject-sys = { git = "https://github.com/gtk-rs/gtk-rs-core", version = "0.23.0
 pango = { git = "https://github.com/gtk-rs/gtk-rs-core", version = "0.23.0-alpha", branch = "main" }
 pango-sys = { git = "https://github.com/gtk-rs/gtk-rs-core", version = "0.23.0-alpha", branch = "main" }
 pangocairo = { git = "https://github.com/gtk-rs/gtk-rs-core", version = "0.23.0-alpha", branch = "main" }
+
+atk = { path = "atk", version = "0.19.0" }
+atk-sys = { path = "atk/sys", version = "0.19.0" }
+gdk = { path = "gdk", version = "0.19.0" }
+gdk-sys = { path = "gdk/sys", version = "0.19.0" }
+gdkwayland-sys = { path = "gdkwayland/sys", version = "0.19.0" }
+gdkx11-sys = { path = "gdkx11/sys", version = "0.19.0" }
+gtk = { path = "gtk", version = "0.19.0" }
+gtk-sys = { path = "gtk/sys", version = "0.19.0" }
+gtk3-macros = { path = "gtk3-macros", version = "0.19.0" }

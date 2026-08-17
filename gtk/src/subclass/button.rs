@@ -5,7 +5,7 @@ use glib::subclass::prelude::*;
 use glib::translate::*;
 
 use super::bin::BinImpl;
-use crate::Button;
+use crate::{ffi, Button};
 
 pub trait ButtonImpl: ButtonImplExt + BinImpl {
     fn activate(&self) {

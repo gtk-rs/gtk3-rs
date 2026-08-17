@@ -18,8 +18,8 @@ pub trait EditableSignals: 'static {
 }
 
 mod editable {
+    use crate::ffi::GtkEditable;
     use crate::Editable;
-    use ffi::GtkEditable;
     use glib::object::Cast;
     use glib::object::IsA;
     use glib::signal::{connect_raw, SignalHandlerId};
@@ -150,9 +150,9 @@ pub trait SpinButtonSignals: 'static {
 }
 
 mod spin_button {
+    use crate::ffi::{GtkScrollType, GtkSpinButton, GTK_INPUT_ERROR};
     use crate::ScrollType;
     use crate::SpinButton;
-    use ffi::{GtkScrollType, GtkSpinButton, GTK_INPUT_ERROR};
     use glib::ffi::gboolean;
     use glib::ffi::{GFALSE, GTRUE};
     use glib::object::Cast;
@@ -306,9 +306,9 @@ pub trait OverlaySignals: 'static {
 }
 
 mod overlay {
+    use crate::ffi::{GtkOverlay, GtkWidget};
     use crate::Overlay;
     use crate::Widget;
-    use ffi::{GtkOverlay, GtkWidget};
     use gdk::ffi::GdkRectangle;
     use gdk::Rectangle;
     use glib::ffi::{gboolean, gpointer};
