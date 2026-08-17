@@ -18,7 +18,7 @@ v3_24 = ["gdk-sys/v3_24"]
 v3_24_22 = ["v3_24"]
 
 [dependencies]
-gdk-sys = { path = "../../gdk/sys" }
+gdk-sys.workspace = true
 glib-sys.workspace = true
 gobject-sys.workspace = true
 libc = "0.2"

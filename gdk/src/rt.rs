@@ -2,6 +2,7 @@
 
 //! General — Library initialization and miscellaneous functions
 
+use crate::ffi;
 use std::cell::Cell;
 use std::ptr;
 use std::sync::atomic::{AtomicBool, Ordering};

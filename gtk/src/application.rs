@@ -1,7 +1,7 @@
 // Take a look at the license at the top of the repository in the LICENSE file.
 
-use crate::rt;
 use crate::Application;
+use crate::{ffi, rt};
 use gio::prelude::*;
 use gio::ApplicationFlags;
 use glib::signal::SignalHandlerId;

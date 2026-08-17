@@ -1,8 +1,8 @@
 // Take a look at the license at the top of the repository in the LICENSE file.
 
-use crate::TreeIter;
 use crate::TreePath;
 use crate::TreeRowReference;
+use crate::{ffi, TreeIter};
 use glib::object::IsA;
 use glib::translate::*;
 use libc::c_int;

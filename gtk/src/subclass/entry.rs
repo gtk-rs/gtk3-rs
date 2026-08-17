@@ -5,8 +5,8 @@ use glib::subclass::prelude::*;
 use glib::translate::*;
 
 use super::widget::WidgetImpl;
-use crate::Entry;
 use crate::Widget;
+use crate::{ffi, Entry};
 
 pub trait EntryImpl: EntryImplExt + WidgetImpl {
     fn populate_popup(&self, popup: &Widget) {

@@ -7,9 +7,9 @@ use glib::subclass::prelude::*;
 use glib::object::Cast;
 
 use super::bin::BinImpl;
-use crate::DirectionType;
 use crate::ScrollType;
 use crate::ScrolledWindow;
+use crate::{ffi, DirectionType};
 
 pub trait ScrolledWindowImpl: ScrolledWindowImplExt + BinImpl {
     fn move_focus_out(&self, direction_type: DirectionType) {

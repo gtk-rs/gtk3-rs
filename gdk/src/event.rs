@@ -6,7 +6,6 @@ use std::fmt;
 use std::mem;
 use std::ptr;
 
-use crate::AxisUse;
 use crate::Device;
 use crate::DeviceTool;
 use crate::EventSequence;
@@ -16,6 +15,7 @@ use crate::Screen;
 use crate::ScrollDirection;
 use crate::Seat;
 use crate::Window;
+use crate::{ffi, AxisUse};
 
 glib::wrapper! {
     /// A generic GDK event.
@@ -416,48 +416,52 @@ pub unsafe trait FromEvent: Sized {
 
 macro_rules! event_wrapper {
     ($name:ident, $ffi_name:ident) => {
-        impl<'a> ToGlibPtr<'a, *const ::ffi::$ffi_name> for $name {
+        impl<'a> ToGlibPtr<'a, *const $crate::ffi::$ffi_name> for $name {
             type Storage = &'a Self;
 
             #[inline]
-            fn to_glib_none(&'a self) -> Stash<'a, *const ::ffi::$ffi_name, Self> {
-                let ptr =
-                    <$crate::Event as ToGlibPtr<*const ::ffi::GdkEvent>>::to_glib_none(&*self).0;
-                Stash(ptr as *const ::ffi::$ffi_name, self)
+            fn to_glib_none(&'a self) -> Stash<'a, *const $crate::ffi::$ffi_name, Self> {
+                let ptr = <$crate::Event as ToGlibPtr<*const $crate::ffi::GdkEvent>>::to_glib_none(
+                    &*self,
+                )
+                .0;
+                Stash(ptr as *const $crate::ffi::$ffi_name, self)
             }
         }
 
-        impl<'a> ToGlibPtrMut<'a, *mut ::ffi::$ffi_name> for $name {
+        impl<'a> ToGlibPtrMut<'a, *mut $crate::ffi::$ffi_name> for $name {
             type Storage = &'a mut Self;
 
             #[inline]
-            fn to_glib_none_mut(&'a mut self) -> StashMut<'a, *mut ::ffi::$ffi_name, Self> {
-                let ptr = <$crate::Event as ToGlibPtrMut<*mut ::ffi::GdkEvent>>::to_glib_none_mut(
-                    &mut *self,
-                )
-                .0;
-                StashMut(ptr as *mut ::ffi::$ffi_name, self)
+            fn to_glib_none_mut(&'a mut self) -> StashMut<'a, *mut $crate::ffi::$ffi_name, Self> {
+                let ptr =
+                    <$crate::Event as ToGlibPtrMut<*mut $crate::ffi::GdkEvent>>::to_glib_none_mut(
+                        &mut *self,
+                    )
+                    .0;
+                StashMut(ptr as *mut $crate::ffi::$ffi_name, self)
             }
         }
 
-        impl FromGlibPtrNone<*mut ::ffi::$ffi_name> for $name {
+        impl FromGlibPtrNone<*mut $crate::ffi::$ffi_name> for $name {
             #[inline]
-            unsafe fn from_glib_none(ptr: *mut ::ffi::$ffi_name) -> Self {
+            unsafe fn from_glib_none(ptr: *mut $crate::ffi::$ffi_name) -> Self {
                 <$name as crate::event::FromEvent>::from(from_glib_none(
-                    ptr as *mut ::ffi::GdkEvent,
+                    ptr as *mut $crate::ffi::GdkEvent,
                 ))
                 .unwrap()
             }
         }
 
-        impl FromGlibPtrBorrow<*mut ::ffi::$ffi_name> for $name {
+        impl FromGlibPtrBorrow<*mut $crate::ffi::$ffi_name> for $name {
             #[inline]
             unsafe fn from_glib_borrow(
-                ptr: *mut ::ffi::$ffi_name,
+                ptr: *mut $crate::ffi::$ffi_name,
             ) -> glib::translate::Borrowed<Self> {
                 glib::translate::Borrowed::new(
                     <$name as crate::event::FromEvent>::from(
-                        crate::Event::from_glib_borrow(ptr as *mut ::ffi::GdkEvent).into_inner(),
+                        crate::Event::from_glib_borrow(ptr as *mut $crate::ffi::GdkEvent)
+                            .into_inner(),
                     )
                     .map_err(std::mem::forget)
                     .unwrap(),
@@ -465,31 +469,31 @@ macro_rules! event_wrapper {
             }
         }
 
-        impl FromGlibPtrFull<*mut ::ffi::$ffi_name> for $name {
+        impl FromGlibPtrFull<*mut $crate::ffi::$ffi_name> for $name {
             #[inline]
-            unsafe fn from_glib_full(ptr: *mut ::ffi::$ffi_name) -> Self {
+            unsafe fn from_glib_full(ptr: *mut $crate::ffi::$ffi_name) -> Self {
                 <$name as crate::event::FromEvent>::from(from_glib_full(
-                    ptr as *mut ::ffi::GdkEvent,
+                    ptr as *mut $crate::ffi::GdkEvent,
                 ))
                 .unwrap()
             }
         }
 
-        impl AsRef<::ffi::$ffi_name> for $name {
+        impl AsRef<$crate::ffi::$ffi_name> for $name {
             #[inline]
-            fn as_ref(&self) -> &::ffi::$ffi_name {
+            fn as_ref(&self) -> &$crate::ffi::$ffi_name {
                 unsafe {
-                    let ptr: *const ::ffi::$ffi_name = self.to_glib_none().0;
+                    let ptr: *const $crate::ffi::$ffi_name = self.to_glib_none().0;
                     &*ptr
                 }
             }
         }
 
-        impl AsMut<::ffi::$ffi_name> for $name {
+        impl AsMut<$crate::ffi::$ffi_name> for $name {
             #[inline]
-            fn as_mut(&mut self) -> &mut ::ffi::$ffi_name {
+            fn as_mut(&mut self) -> &mut $crate::ffi::$ffi_name {
                 unsafe {
-                    let ptr: *mut ::ffi::$ffi_name = self.to_glib_none_mut().0;
+                    let ptr: *mut $crate::ffi::$ffi_name = self.to_glib_none_mut().0;
                     &mut *ptr
                 }
             }

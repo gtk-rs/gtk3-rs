@@ -1,7 +1,7 @@
 // Take a look at the license at the top of the repository in the LICENSE file.
 
-use crate::TextAttributes;
 use crate::TextIter;
+use crate::{ffi, TextAttributes};
 use glib::translate::*;
 use std::convert::TryFrom;
 

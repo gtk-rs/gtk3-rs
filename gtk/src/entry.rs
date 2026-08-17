@@ -4,7 +4,7 @@ use glib::object::IsA;
 use glib::translate::ToGlibPtr;
 use std::convert::TryFrom;
 
-use crate::Entry;
+use crate::{ffi, Entry};
 
 mod sealed {
     pub trait Sealed {}

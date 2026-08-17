@@ -1,6 +1,6 @@
 // Take a look at the license at the top of the repository in the LICENSE file.
 
-use crate::PrintOperation;
+use crate::{ffi, PrintOperation};
 use glib::translate::*;
 use std::ptr;
 

@@ -9,13 +9,13 @@ use glib::translate::*;
 use glib::Propagation;
 
 use crate::prelude::*;
-use crate::Allocation;
 use crate::DragResult;
 use crate::Orientation;
 use crate::SelectionData;
 use crate::SizeRequestMode;
 use crate::TextDirection;
 use crate::Widget;
+use crate::{ffi, Allocation};
 
 pub trait WidgetImpl: WidgetImplExt + ObjectImpl {
     fn adjust_baseline_allocation(&self, baseline: &mut i32) {

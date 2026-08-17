@@ -20,12 +20,12 @@ name = "gtk"
 
 [features]
 v3_22 = []
-v3_24 = ["ffi/v3_24"]
-v3_24_1 = ["v3_24", "ffi/v3_24_1"]
-v3_24_8 = ["v3_24_1", "ffi/v3_24_8"]
-v3_24_9 = ["v3_24_8", "ffi/v3_24_9"]
-v3_24_11 = ["v3_24_9", "ffi/v3_24_11"]
-v3_24_30 = ["v3_24_11", "ffi/v3_24_30"]
+v3_24 = ["gtk-sys/v3_24"]
+v3_24_1 = ["v3_24", "gtk-sys/v3_24_1"]
+v3_24_8 = ["v3_24_1", "gtk-sys/v3_24_8"]
+v3_24_9 = ["v3_24_8", "gtk-sys/v3_24_9"]
+v3_24_11 = ["v3_24_9", "gtk-sys/v3_24_11"]
+v3_24_30 = ["v3_24_11", "gtk-sys/v3_24_30"]
 gio_v2_58 = ["gio/v2_58"]
 gio_v2_80 = ["gio/v2_80"]
 unsafe-assume-initialized = []
@@ -37,16 +37,16 @@ rustdoc-args = ["--cfg", "docsrs", "--generate-link-to-definition"]
 pkg-config = "0.3.7"
 
 [dependencies]
-atk = { path = "../atk" }
+atk.workspace = true
 cairo.workspace = true
-ffi = { package = "gtk-sys", path = "sys" }
 field-offset = "0.3"
 futures-channel = "0.3"
-gdk = { path = "../gdk" }
 gdk-pixbuf.workspace = true
+gdk.workspace = true
 gio.workspace = true
 glib.workspace = true
-gtk3-macros = { path = "../gtk3-macros" }
+gtk-sys.workspace = true
+gtk3-macros.workspace = true
 libc = "0.2"
 pango.workspace = true
 

@@ -9,11 +9,11 @@ use glib::subclass::prelude::*;
 use glib::translate::*;
 use glib::GString;
 
-use crate::CellEditable;
 use crate::CellRenderer;
 use crate::CellRendererState;
 use crate::SizeRequestMode;
 use crate::Widget;
+use crate::{ffi, CellEditable};
 
 pub trait CellRendererImpl: CellRendererImplExt + ObjectImpl {
     fn request_mode(&self) -> SizeRequestMode {

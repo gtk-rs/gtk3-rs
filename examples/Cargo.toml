@@ -3,6 +3,7 @@ name = "gtk-rs-examples"
 version.workspace = true
 authors.workspace = true
 edition.workspace = true
+publish = false
 
 [dependencies]
 async-channel = "2.0.0"
@@ -10,7 +11,7 @@ chrono = "0.4"
 futures = "0.3"
 futures-util = "0.3"
 glib.workspace = true
-gtk = { path = "../gtk" }
+gtk.workspace = true
 
 [dependencies.pangocairo]
 workspace = true

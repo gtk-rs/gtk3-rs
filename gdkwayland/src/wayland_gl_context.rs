@@ -1,5 +1,7 @@
 // Take a look at the license at the top of the repository in the LICENSE file.
 
+use crate::ffi;
+
 glib::wrapper! {
     #[doc(alias = "GdkWaylandGLContext")]
     pub struct WaylandGLContext(Object<ffi::GdkWaylandGLContext>) @extends gdk::GLContext;

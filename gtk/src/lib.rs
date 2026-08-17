@@ -11,7 +11,7 @@
 #![allow(clippy::new_without_default)]
 #![cfg_attr(docsrs, feature(doc_cfg))]
 
-pub use ffi;
+pub use gtk_sys as ffi;
 // Re-export gtk dependencies
 pub use atk;
 pub use cairo;

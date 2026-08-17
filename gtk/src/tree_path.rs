@@ -1,6 +1,6 @@
 // Take a look at the license at the top of the repository in the LICENSE file.
 
-use crate::TreePath;
+use crate::{ffi, TreePath};
 use glib::translate::*;
 use std::slice;
 

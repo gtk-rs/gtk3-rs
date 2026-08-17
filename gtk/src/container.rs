@@ -1,6 +1,6 @@
 // Take a look at the license at the top of the repository in the LICENSE file.
 
-use crate::{Container, Widget};
+use crate::{ffi, Container, Widget};
 use glib::translate::*;
 use glib::{object::IsA, value::FromValue, value::ToValue};
 

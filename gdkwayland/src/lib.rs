@@ -3,8 +3,8 @@
 #![cfg_attr(docsrs, feature(doc_cfg))]
 #![doc = include_str!("../README.md")]
 
-pub use ffi;
 pub use gdk;
+pub use gdk_wayland_sys as ffi;
 
 mod wayland_device;
 pub use wayland_device::WaylandDevice;

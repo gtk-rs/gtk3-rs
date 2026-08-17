@@ -7,9 +7,9 @@ use glib::subclass::prelude::*;
 use glib::object::Cast;
 
 use super::widget::WidgetImpl;
-use crate::Container;
 use crate::Widget;
 use crate::WidgetPath;
+use crate::{ffi, Container};
 
 pub trait ContainerImpl: ContainerImplExt + WidgetImpl {
     fn add(&self, widget: &Widget) {

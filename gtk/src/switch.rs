@@ -1,6 +1,6 @@
 // Take a look at the license at the top of the repository in the LICENSE file.
 
-use crate::Switch;
+use crate::{ffi, Switch};
 use glib::object::{Cast, IsA};
 use glib::signal::{connect_raw, SignalHandlerId};
 use glib::translate::*;

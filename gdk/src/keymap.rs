@@ -1,9 +1,9 @@
 // Take a look at the license at the top of the repository in the LICENSE file.
 
 use crate::keys::Key;
-use crate::Keymap;
 use crate::KeymapKey;
 use crate::ModifierType;
+use crate::{ffi, Keymap};
 use glib::translate::*;
 use std::mem;
 use std::ptr;

@@ -1,9 +1,9 @@
 // Take a look at the license at the top of the repository in the LICENSE file.
 
-use crate::AxisUse;
 use crate::Device;
 use crate::TimeCoord;
 use crate::Window;
+use crate::{ffi, AxisUse};
 use glib::object::IsA;
 use glib::translate::*;
 

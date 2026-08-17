@@ -1,6 +1,6 @@
 // Take a look at the license at the top of the repository in the LICENSE file.
 
-use crate::{Rectangle, Window, RGBA};
+use crate::{ffi, Rectangle, Window, RGBA};
 use cairo::Surface;
 use cairo::{Context, Region};
 use gdk_pixbuf::Pixbuf;

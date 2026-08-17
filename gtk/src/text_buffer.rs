@@ -1,9 +1,9 @@
 // Take a look at the license at the top of the repository in the LICENSE file.
 
-use crate::TextBuffer;
 use crate::TextChildAnchor;
 use crate::TextIter;
 use crate::TextTag;
+use crate::{ffi, TextBuffer};
 use glib::object::{Cast, IsA};
 use glib::signal::{connect_raw, SignalHandlerId};
 use glib::translate::*;

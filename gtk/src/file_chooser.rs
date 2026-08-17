@@ -38,7 +38,7 @@ pub trait FileChooserExtManual: IsA<FileChooser> + sealed::Sealed + 'static {
                     .collect::<Vec<*const libc::c_char>>(),
             );
 
-            ffi::gtk_file_chooser_add_choice(
+            crate::ffi::gtk_file_chooser_add_choice(
                 self.as_ref().to_glib_none().0,
                 id.to_glib_none().0,
                 label.to_glib_none().0,

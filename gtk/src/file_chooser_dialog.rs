@@ -1,10 +1,10 @@
 // Take a look at the license at the top of the repository in the LICENSE file.
 
-use crate::FileChooserAction;
 use crate::FileChooserDialog;
 use crate::ResponseType;
 use crate::Widget;
 use crate::Window;
+use crate::{ffi, FileChooserAction};
 use glib::object::{Cast, IsA};
 use glib::translate::*;
 use libc::c_char;

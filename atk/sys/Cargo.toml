@@ -27,18 +27,32 @@ v2_52 = ["v2_50"]
 name = "atk_sys"
 
 [package]
-authors.workspace = true
 build = "build.rs"
 description = "FFI bindings to libatk-1"
-homepage.workspace = true
 keywords = ["atk", "ffi", "gtk-rs", "gnome"]
-license.workspace = true
 links = "atk-1.0"
 name = "atk-sys"
-repository.workspace = true
-version.workspace = true
-edition.workspace = true
-rust-version.workspace = true
+
+[package.authors]
+workspace = true
+
+[package.homepage]
+workspace = true
+
+[package.license]
+workspace = true
+
+[package.repository]
+workspace = true
+
+[package.version]
+workspace = true
+
+[package.edition]
+workspace = true
+
+[package.rust-version]
+workspace = true
 
 [package.metadata.docs.rs]
 rustdoc-args = ["--cfg", "docsrs"]

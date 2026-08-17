@@ -1,5 +1,7 @@
 // Take a look at the license at the top of the repository in the LICENSE file.
 
+use crate::ffi;
+
 glib::wrapper! {
     #[doc(alias = "GdkTimeCoord")]
     pub struct TimeCoord(BoxedInline<ffi::GdkTimeCoord>);

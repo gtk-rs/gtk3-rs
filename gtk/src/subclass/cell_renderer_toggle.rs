@@ -8,7 +8,7 @@ use glib::{object::Cast, GString};
 
 use super::cell_renderer::CellRendererImpl;
 
-use crate::CellRendererToggle;
+use crate::{ffi, CellRendererToggle};
 
 pub trait CellRendererToggleImpl: CellRendererToggleImplExt + CellRendererImpl {
     fn toggled(&self, path: &str) {

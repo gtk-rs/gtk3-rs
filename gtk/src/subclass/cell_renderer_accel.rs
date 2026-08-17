@@ -7,7 +7,7 @@ use glib::translate::*;
 use glib::{object::Cast, GString};
 
 use super::cell_renderer_text::CellRendererTextImpl;
-use crate::CellRendererAccel;
+use crate::{ffi, CellRendererAccel};
 
 pub trait CellRendererAccelImpl: CellRendererAccelImplExt + CellRendererTextImpl {
     fn accel_edited(

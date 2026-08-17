@@ -1,6 +1,6 @@
 // Take a look at the license at the top of the repository in the LICENSE file.
 
-use crate::FlowBox;
+use crate::{ffi, FlowBox};
 use glib::object::IsA;
 use glib::translate::*;
 use std::ptr;

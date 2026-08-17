@@ -1,12 +1,12 @@
 // Take a look at the license at the top of the repository in the LICENSE file.
 
 use crate::atom::Atom;
-use crate::Device;
 use crate::DragAction;
 use crate::DragContext;
 use crate::DragProtocol;
 use crate::Screen;
 use crate::Window;
+use crate::{ffi, Device};
 use glib::object::IsA;
 use glib::translate::*;
 use std::ptr;

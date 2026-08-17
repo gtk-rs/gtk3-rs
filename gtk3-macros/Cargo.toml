@@ -27,4 +27,4 @@ syn = { version = "2.0", features = ["full"] }
 proc-macro-crate = "3.5"
 
 [dev-dependencies]
-gtk = { path = "../gtk" }
+gtk.workspace = true

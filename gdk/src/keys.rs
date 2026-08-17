@@ -1,5 +1,6 @@
 // Take a look at the license at the top of the repository in the LICENSE file.
 
+use crate::ffi;
 use glib::translate::*;
 use glib::GString;
 use libc::c_uint;
@@ -117,7 +118,7 @@ impl ::std::fmt::Display for Key {
 
 #[allow(non_upper_case_globals)]
 pub mod constants {
-    use super::Key;
+    use super::{ffi, Key};
 
     #[doc(alias = "GDK_KEY_VoidSymbol")]
     pub const VoidSymbol: Key = Key(ffi::GDK_KEY_VoidSymbol as u32);

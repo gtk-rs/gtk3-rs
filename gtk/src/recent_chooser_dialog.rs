@@ -1,9 +1,9 @@
 // Take a look at the license at the top of the repository in the LICENSE file.
 
-use crate::RecentChooserDialog;
 use crate::RecentManager;
 use crate::Widget;
 use crate::Window;
+use crate::{ffi, RecentChooserDialog};
 use glib::object::{Cast, IsA};
 use glib::translate::*;
 use std::ptr;

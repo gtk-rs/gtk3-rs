@@ -1,7 +1,7 @@
 // Take a look at the license at the top of the repository in the LICENSE file.
 
-use crate::ColorButton;
 use crate::Widget;
+use crate::{ffi, ColorButton};
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::translate::*;

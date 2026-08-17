@@ -3,7 +3,7 @@
 #![doc = include_str!("../README.md")]
 #![cfg_attr(docsrs, feature(doc_cfg))]
 
-pub use ffi;
+pub use atk_sys as ffi;
 pub use glib;
 
 #[macro_use]

@@ -8,7 +8,7 @@ use std::mem::transmute;
 use std::ptr;
 
 use crate::prelude::*;
-use crate::{DestDefaults, Rectangle, TargetEntry, Widget};
+use crate::{ffi, DestDefaults, Rectangle, TargetEntry, Widget};
 
 pub struct TickCallbackId {
     id: u32,

@@ -20,7 +20,7 @@ rust-version.workspace = true
 name = "gdk"
 
 [features]
-v3_24 = ["ffi/v3_24"]
+v3_24 = ["gdk-sys/v3_24"]
 unsafe-assume-initialized = []
 
 [package.metadata.docs.rs]
@@ -28,8 +28,8 @@ rustdoc-args = ["--cfg", "docsrs", "--generate-link-to-definition"]
 
 [dependencies]
 cairo.workspace = true
-ffi = { package = "gdk-sys", path = "sys" }
 gdk-pixbuf.workspace = true
+gdk-sys.workspace = true
 gio.workspace = true
 glib.workspace = true
 libc = "0.2"

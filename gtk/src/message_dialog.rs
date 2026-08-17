@@ -1,11 +1,11 @@
 // Take a look at the license at the top of the repository in the LICENSE file.
 
-use crate::ButtonsType;
 use crate::DialogFlags;
 use crate::MessageDialog;
 use crate::MessageType;
 use crate::Widget;
 use crate::Window;
+use crate::{ffi, ButtonsType};
 use glib::object::{Cast, IsA};
 use glib::translate::*;
 use libc::c_char;
