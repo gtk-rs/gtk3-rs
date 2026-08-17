@@ -34,21 +34,21 @@ unsafe-assume-initialized = []
 rustdoc-args = ["--cfg", "docsrs", "--generate-link-to-definition"]
 
 [build-dependencies]
-pkg-config = "0.3.7"
+pkg-config.workspace = true
 
 [dependencies]
 atk.workspace = true
 cairo.workspace = true
-field-offset = "0.3"
-futures-channel = "0.3"
+field-offset.workspace = true
+futures-channel.workspace = true
 gdk-pixbuf.workspace = true
 gdk.workspace = true
 gio.workspace = true
 glib.workspace = true
 gtk-sys.workspace = true
 gtk3-macros.workspace = true
-libc = "0.2"
+libc.workspace = true
 pango.workspace = true
 
 [dev-dependencies]
-gir-format-check = "^0.1"
+gir-format-check.workspace = true

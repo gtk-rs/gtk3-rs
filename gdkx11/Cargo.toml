@@ -28,8 +28,8 @@ gdk.workspace = true
 gdkx11-sys.workspace = true
 gio.workspace = true
 glib.workspace = true
-libc = "0.2"
-x11 = "2.18"
+libc.workspace = true
+x11.workspace = true
 
 [dev-dependencies]
-gir-format-check = "^0.1"
+gir-format-check.workspace = true

@@ -32,7 +32,7 @@ rustdoc-args = ["--cfg", "docsrs", "--generate-link-to-definition"]
 [dependencies]
 atk-sys.workspace = true
 glib.workspace = true
-libc = "0.2"
+libc.workspace = true
 
 [dev-dependencies]
-gir-format-check = "^0.1"
+gir-format-check.workspace = true
