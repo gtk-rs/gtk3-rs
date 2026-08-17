@@ -1,6 +1,6 @@
 use gtk::glib;
 use gtk::subclass::prelude::*;
-use gtk::{prelude::*, CompositeTemplate};
+use gtk::{CompositeTemplate, prelude::*};
 
 /// The private struct, which can hold widgets and other data.
 #[derive(Debug, Default, CompositeTemplate)]

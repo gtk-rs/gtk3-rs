@@ -2,8 +2,8 @@
 
 use crate::Application;
 use crate::{ffi, rt};
-use gio::prelude::*;
 use gio::ApplicationFlags;
+use gio::prelude::*;
 use glib::signal::SignalHandlerId;
 use glib::translate::*;
 

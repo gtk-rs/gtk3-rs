@@ -3,7 +3,7 @@
 use glib::object::{Cast, IsA};
 use glib::translate::*;
 
-use crate::{ffi, TreeModel, TreeModelFilter, TreePath};
+use crate::{TreeModel, TreeModelFilter, TreePath, ffi};
 
 impl TreeModelFilter {
     #[doc(alias = "gtk_tree_model_filter_new")]

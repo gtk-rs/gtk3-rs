@@ -3,14 +3,14 @@
 // DO NOT EDIT
 
 use crate::{
-    ffi, Adjustment, Align, Buildable, CellRenderer, Container, Entry, MovementStep, ResizeMode,
+    Adjustment, Align, Buildable, CellRenderer, Container, Entry, MovementStep, ResizeMode,
     Scrollable, ScrollablePolicy, Tooltip, TreeIter, TreeModel, TreePath, TreeSelection,
-    TreeViewColumn, TreeViewDropPosition, TreeViewGridLines, Widget,
+    TreeViewColumn, TreeViewDropPosition, TreeViewGridLines, Widget, ffi,
 };
 use glib::{
     object::ObjectType as _,
     prelude::*,
-    signal::{connect_raw, SignalHandlerId},
+    signal::{SignalHandlerId, connect_raw},
     translate::*,
 };
 use std::boxed::Box as Box_;

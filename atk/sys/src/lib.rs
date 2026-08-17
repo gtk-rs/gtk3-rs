@@ -14,18 +14,18 @@
 use glib_sys as glib;
 use gobject_sys as gobject;
 
+#[allow(unused_imports)]
+use libc::{FILE, intptr_t, off_t, size_t, ssize_t, time_t, uintptr_t};
 #[cfg(unix)]
 #[allow(unused_imports)]
 use libc::{dev_t, gid_t, pid_t, socklen_t, uid_t};
-#[allow(unused_imports)]
-use libc::{intptr_t, off_t, size_t, ssize_t, time_t, uintptr_t, FILE};
 #[allow(unused_imports)]
 use std::ffi::{
     c_char, c_double, c_float, c_int, c_long, c_short, c_uchar, c_uint, c_ulong, c_ushort, c_void,
 };
 
 #[allow(unused_imports)]
-use glib::{gboolean, gconstpointer, gpointer, GType};
+use glib::{GType, gboolean, gconstpointer, gpointer};
 
 // Aliases
 pub type AtkAttributeSet = glib::GSList;
@@ -2442,7 +2442,7 @@ unsafe extern "C" {
     pub fn atk_table_get_column_at_index(table: *mut AtkTable, index_: c_int) -> c_int;
     pub fn atk_table_get_column_description(table: *mut AtkTable, column: c_int) -> *const c_char;
     pub fn atk_table_get_column_extent_at(table: *mut AtkTable, row: c_int, column: c_int)
-        -> c_int;
+    -> c_int;
     pub fn atk_table_get_column_header(table: *mut AtkTable, column: c_int) -> *mut AtkObject;
     pub fn atk_table_get_index_at(table: *mut AtkTable, row: c_int, column: c_int) -> c_int;
     pub fn atk_table_get_n_columns(table: *mut AtkTable) -> c_int;
@@ -2452,7 +2452,7 @@ unsafe extern "C" {
     pub fn atk_table_get_row_extent_at(table: *mut AtkTable, row: c_int, column: c_int) -> c_int;
     pub fn atk_table_get_row_header(table: *mut AtkTable, row: c_int) -> *mut AtkObject;
     pub fn atk_table_get_selected_columns(table: *mut AtkTable, selected: *mut *mut c_int)
-        -> c_int;
+    -> c_int;
     pub fn atk_table_get_selected_rows(table: *mut AtkTable, selected: *mut *mut c_int) -> c_int;
     pub fn atk_table_get_summary(table: *mut AtkTable) -> *mut AtkObject;
     pub fn atk_table_is_column_selected(table: *mut AtkTable, column: c_int) -> gboolean;

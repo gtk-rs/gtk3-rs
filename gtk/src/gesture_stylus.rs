@@ -1,7 +1,7 @@
 // Take a look at the license at the top of the repository in the LICENSE file.
 
 #[cfg(feature = "v3_24")]
-use crate::{ffi, GestureStylus};
+use crate::{GestureStylus, ffi};
 use gdk::AxisUse;
 use glib::object::IsA;
 use glib::translate::*;

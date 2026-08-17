@@ -2,7 +2,7 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use crate::{ffi, Buildable, TreeDragDest, TreeDragSource, TreeIter, TreeModel, TreeSortable};
+use crate::{Buildable, TreeDragDest, TreeDragSource, TreeIter, TreeModel, TreeSortable, ffi};
 use glib::{prelude::*, translate::*};
 
 glib::wrapper! {

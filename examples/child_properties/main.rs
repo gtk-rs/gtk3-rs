@@ -1,6 +1,6 @@
+use gtk::Orientation::Vertical;
 use gtk::glib;
 use gtk::prelude::*;
-use gtk::Orientation::Vertical;
 use gtk::{ApplicationWindow, Button, Label, PackType};
 
 fn build_ui(application: &gtk::Application) {

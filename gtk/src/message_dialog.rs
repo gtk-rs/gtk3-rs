@@ -5,7 +5,7 @@ use crate::MessageDialog;
 use crate::MessageType;
 use crate::Widget;
 use crate::Window;
-use crate::{ffi, ButtonsType};
+use crate::{ButtonsType, ffi};
 use glib::object::{Cast, IsA};
 use glib::translate::*;
 use libc::c_char;

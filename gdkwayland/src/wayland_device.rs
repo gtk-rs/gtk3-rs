@@ -1,13 +1,13 @@
 // Take a look at the license at the top of the repository in the LICENSE file.
 
 use crate::ffi;
-use gdk::prelude::*;
 use gdk::DevicePadFeature;
+use gdk::prelude::*;
 use glib::translate::*;
 
+use wayland_client::Proxy;
 use wayland_client::backend::ObjectId;
 use wayland_client::protocol::{wl_keyboard::WlKeyboard, wl_pointer::WlPointer, wl_seat::WlSeat};
-use wayland_client::Proxy;
 
 glib::wrapper! {
     #[doc(alias = "GdkWaylandDevice")]

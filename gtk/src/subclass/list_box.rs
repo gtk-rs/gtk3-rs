@@ -10,7 +10,7 @@ use libc::c_int;
 
 use crate::ListBoxRow;
 use crate::MovementStep;
-use crate::{ffi, ListBox};
+use crate::{ListBox, ffi};
 
 pub trait ListBoxImpl: ListBoxImplExt + ContainerImpl + WidgetImpl {
     fn activate_cursor_row(&self) {

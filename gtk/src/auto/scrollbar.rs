@@ -3,8 +3,8 @@
 // DO NOT EDIT
 
 use crate::{
-    ffi, Adjustment, Align, Buildable, Container, Orientable, Orientation, Range, SensitivityType,
-    Widget,
+    Adjustment, Align, Buildable, Container, Orientable, Orientation, Range, SensitivityType,
+    Widget, ffi,
 };
 use glib::{prelude::*, translate::*};
 

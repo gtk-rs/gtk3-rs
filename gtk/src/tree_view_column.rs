@@ -1,6 +1,6 @@
 // Take a look at the license at the top of the repository in the LICENSE file.
 
-use crate::{prelude::TreeViewColumnExt, CellRenderer, TreeViewColumn};
+use crate::{CellRenderer, TreeViewColumn, prelude::TreeViewColumnExt};
 use glib::object::IsA;
 
 impl TreeViewColumn {

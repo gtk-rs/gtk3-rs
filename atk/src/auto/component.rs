@@ -5,11 +5,11 @@
 #[cfg(feature = "v2_30")]
 #[cfg_attr(docsrs, doc(cfg(feature = "v2_30")))]
 use crate::ScrollType;
-use crate::{ffi, CoordType, Layer, Object, Rectangle};
+use crate::{CoordType, Layer, Object, Rectangle, ffi};
 use glib::{
     object::ObjectType as _,
     prelude::*,
-    signal::{connect_raw, SignalHandlerId},
+    signal::{SignalHandlerId, connect_raw},
     translate::*,
 };
 use std::boxed::Box as Box_;

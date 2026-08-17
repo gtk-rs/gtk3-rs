@@ -6,7 +6,7 @@ use glib::translate::*;
 
 use super::widget::WidgetImpl;
 use crate::Widget;
-use crate::{ffi, Entry};
+use crate::{Entry, ffi};
 
 pub trait EntryImpl: EntryImplExt + WidgetImpl {
     fn populate_popup(&self, popup: &Widget) {

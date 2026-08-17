@@ -1,6 +1,6 @@
 // Take a look at the license at the top of the repository in the LICENSE file.
 
-use crate::{ffi, TargetFlags};
+use crate::{TargetFlags, ffi};
 use glib::translate::*;
 use libc::c_char;
 use std::ffi::CStr;

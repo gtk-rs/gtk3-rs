@@ -4,11 +4,11 @@ use libc::c_char;
 
 use glib::subclass::prelude::*;
 use glib::translate::*;
-use glib::{object::Cast, GString};
+use glib::{GString, object::Cast};
 
 use super::cell_renderer::CellRendererImpl;
 
-use crate::{ffi, CellRendererText};
+use crate::{CellRendererText, ffi};
 
 pub trait CellRendererTextImpl: CellRendererTextImplExt + CellRendererImpl {
     fn edited(&self, path: &str, new_text: &str) {

@@ -3,7 +3,7 @@
 use crate::EventMask;
 use crate::Visual;
 use crate::Window;
-use crate::{ffi, Cursor};
+use crate::{Cursor, ffi};
 use cairo::{self, Surface};
 use glib::object::IsA;
 use glib::translate::*;

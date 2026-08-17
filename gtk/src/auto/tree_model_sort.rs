@@ -2,7 +2,7 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use crate::{ffi, TreeDragSource, TreeIter, TreeModel, TreePath, TreeSortable};
+use crate::{TreeDragSource, TreeIter, TreeModel, TreePath, TreeSortable, ffi};
 use glib::{prelude::*, translate::*};
 
 glib::wrapper! {
@@ -46,11 +46,7 @@ pub trait TreeModelSortExt: IsA<TreeModelSort> + 'static {
                 sort_iter.to_glib_none_mut().0,
                 mut_override(child_iter.to_glib_none().0),
             ));
-            if ret {
-                Some(sort_iter)
-            } else {
-                None
-            }
+            if ret { Some(sort_iter) } else { None }
         }
     }
 

@@ -1,11 +1,11 @@
 // Take a look at the license at the top of the repository in the LICENSE file.
 
 use syn::spanned::Spanned;
+use syn::{Attribute, DeriveInput, Field, Fields, Ident, LitStr, Meta, Token};
 use syn::{
     parse::{Error, Parse, ParseStream},
     punctuated::Punctuated,
 };
-use syn::{Attribute, DeriveInput, Field, Fields, Ident, LitStr, Meta, Token};
 
 mod kw {
     syn::custom_keyword!(file);

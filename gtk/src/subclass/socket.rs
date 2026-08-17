@@ -7,7 +7,7 @@ use glib::translate::*;
 
 use super::container::ContainerImpl;
 
-use crate::{ffi, Socket};
+use crate::{Socket, ffi};
 
 pub trait SocketImpl: SocketImplExt + ContainerImpl {
     fn plug_added(&self) {

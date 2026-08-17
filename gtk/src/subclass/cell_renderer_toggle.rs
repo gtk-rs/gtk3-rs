@@ -4,11 +4,11 @@ use libc::c_char;
 
 use glib::subclass::prelude::*;
 use glib::translate::*;
-use glib::{object::Cast, GString};
+use glib::{GString, object::Cast};
 
 use super::cell_renderer::CellRendererImpl;
 
-use crate::{ffi, CellRendererToggle};
+use crate::{CellRendererToggle, ffi};
 
 pub trait CellRendererToggleImpl: CellRendererToggleImplExt + CellRendererImpl {
     fn toggled(&self, path: &str) {

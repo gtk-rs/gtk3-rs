@@ -3,19 +3,19 @@
 use libc::c_int;
 use std::mem;
 
+use glib::Propagation;
 use glib::prelude::*;
 use glib::subclass::prelude::*;
 use glib::translate::*;
-use glib::Propagation;
 
-use crate::prelude::*;
 use crate::DragResult;
 use crate::Orientation;
 use crate::SelectionData;
 use crate::SizeRequestMode;
 use crate::TextDirection;
 use crate::Widget;
-use crate::{ffi, Allocation};
+use crate::prelude::*;
+use crate::{Allocation, ffi};
 
 pub trait WidgetImpl: WidgetImplExt + ObjectImpl {
     fn adjust_baseline_allocation(&self, baseline: &mut i32) {

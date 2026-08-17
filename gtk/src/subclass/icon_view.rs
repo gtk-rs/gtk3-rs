@@ -10,7 +10,7 @@ use super::container::ContainerImpl;
 
 use crate::MovementStep;
 use crate::TreePath;
-use crate::{ffi, IconView};
+use crate::{IconView, ffi};
 
 pub trait IconViewImpl: IconViewImplExt + ContainerImpl {
     fn item_activated(&self, path: &TreePath) {

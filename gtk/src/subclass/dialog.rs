@@ -8,7 +8,7 @@ use glib::object::Cast;
 
 use super::window::WindowImpl;
 use crate::ResponseType;
-use crate::{ffi, Dialog};
+use crate::{Dialog, ffi};
 
 pub trait DialogImpl: DialogImplExt + WindowImpl {
     fn response(&self, response: ResponseType) {

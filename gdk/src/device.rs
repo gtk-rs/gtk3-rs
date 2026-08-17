@@ -3,7 +3,7 @@
 use crate::Device;
 use crate::TimeCoord;
 use crate::Window;
-use crate::{ffi, AxisUse};
+use crate::{AxisUse, ffi};
 use glib::object::IsA;
 use glib::translate::*;
 

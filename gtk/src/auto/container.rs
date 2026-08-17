@@ -3,11 +3,11 @@
 // DO NOT EDIT
 #![allow(deprecated)]
 
-use crate::{ffi, Adjustment, Buildable, ResizeMode, Widget, WidgetPath};
+use crate::{Adjustment, Buildable, ResizeMode, Widget, WidgetPath, ffi};
 use glib::{
     object::ObjectType as _,
     prelude::*,
-    signal::{connect_raw, SignalHandlerId},
+    signal::{SignalHandlerId, connect_raw},
     translate::*,
 };
 use std::boxed::Box as Box_;

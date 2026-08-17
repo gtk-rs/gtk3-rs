@@ -1,8 +1,8 @@
 // Take a look at the license at the top of the repository in the LICENSE file.
 
-use crate::{ffi, Invisible};
+use crate::{Invisible, ffi};
 use glib::object::IsA;
-use glib::translate::{from_glib_none, ToGlibPtr};
+use glib::translate::{ToGlibPtr, from_glib_none};
 
 // For some reasons, it's not generated...
 mod sealed {

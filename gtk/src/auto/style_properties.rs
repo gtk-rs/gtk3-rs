@@ -2,7 +2,7 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use crate::{ffi, StyleProvider};
+use crate::{StyleProvider, ffi};
 
 glib::wrapper! {
     #[doc(alias = "GtkStyleProperties")]

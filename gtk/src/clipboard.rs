@@ -2,7 +2,7 @@
 
 use crate::SelectionData;
 use crate::TargetEntry;
-use crate::{ffi, Clipboard};
+use crate::{Clipboard, ffi};
 use glib::ffi::gpointer;
 use glib::translate::*;
 use libc::{c_char, c_uint};

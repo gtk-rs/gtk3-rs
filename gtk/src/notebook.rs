@@ -1,7 +1,7 @@
 // Take a look at the license at the top of the repository in the LICENSE file.
 
 use crate::Widget;
-use crate::{ffi, Notebook};
+use crate::{Notebook, ffi};
 use glib::object::IsA;
 use glib::translate::*;
 use libc::c_int;
@@ -54,11 +54,7 @@ pub trait NotebookExtManual: IsA<Notebook> + sealed::Sealed + 'static {
     fn current_page(&self) -> Option<u32> {
         unsafe {
             let ret = ffi::gtk_notebook_get_current_page(self.as_ref().to_glib_none().0);
-            if ret >= 0 {
-                Some(ret as u32)
-            } else {
-                None
-            }
+            if ret >= 0 { Some(ret as u32) } else { None }
         }
     }
 
@@ -134,11 +130,7 @@ pub trait NotebookExtManual: IsA<Notebook> + sealed::Sealed + 'static {
                 self.as_ref().to_glib_none().0,
                 child.as_ref().to_glib_none().0,
             );
-            if ret >= 0 {
-                Some(ret as u32)
-            } else {
-                None
-            }
+            if ret >= 0 { Some(ret as u32) } else { None }
         }
     }
 

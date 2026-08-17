@@ -3,12 +3,12 @@
 // DO NOT EDIT
 
 use crate::{
-    ffi, Align, Bin, Buildable, Container, PopoverConstraint, PositionType, ResizeMode, Widget,
+    Align, Bin, Buildable, Container, PopoverConstraint, PositionType, ResizeMode, Widget, ffi,
 };
 use glib::{
     object::ObjectType as _,
     prelude::*,
-    signal::{connect_raw, SignalHandlerId},
+    signal::{SignalHandlerId, connect_raw},
     translate::*,
 };
 use std::boxed::Box as Box_;
@@ -386,11 +386,7 @@ pub trait PopoverExt: IsA<Popover> + 'static {
                 self.as_ref().to_glib_none().0,
                 rect.to_glib_none_mut().0,
             ));
-            if ret {
-                Some(rect)
-            } else {
-                None
-            }
+            if ret { Some(rect) } else { None }
         }
     }
 

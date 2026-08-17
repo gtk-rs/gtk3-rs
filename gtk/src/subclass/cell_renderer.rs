@@ -3,17 +3,17 @@
 use libc::{c_char, c_int};
 use std::mem;
 
+use glib::GString;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::subclass::prelude::*;
 use glib::translate::*;
-use glib::GString;
 
 use crate::CellRenderer;
 use crate::CellRendererState;
 use crate::SizeRequestMode;
 use crate::Widget;
-use crate::{ffi, CellEditable};
+use crate::{CellEditable, ffi};
 
 pub trait CellRendererImpl: CellRendererImplExt + ObjectImpl {
     fn request_mode(&self) -> SizeRequestMode {

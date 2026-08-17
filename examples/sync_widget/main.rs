@@ -1,5 +1,5 @@
 use gtk::prelude::*;
-use gtk::{glib, Builder};
+use gtk::{Builder, glib};
 
 fn build_ui(application: &gtk::Application) {
     let glade_src = include_str!("sync_widgets.ui");

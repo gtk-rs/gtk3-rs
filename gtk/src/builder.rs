@@ -1,10 +1,10 @@
 // Take a look at the license at the top of the repository in the LICENSE file.
 
-use crate::{ffi, Builder, Widget};
-use glib::prelude::*;
-use glib::translate::*;
+use crate::{Builder, Widget, ffi};
 use glib::GString;
 use glib::Object;
+use glib::prelude::*;
+use glib::translate::*;
 use std::path::Path;
 use std::ptr;
 

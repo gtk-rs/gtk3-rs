@@ -1,8 +1,8 @@
 // Take a look at the license at the top of the repository in the LICENSE file.
 
-use crate::{ffi, Switch};
+use crate::{Switch, ffi};
 use glib::object::{Cast, IsA};
-use glib::signal::{connect_raw, SignalHandlerId};
+use glib::signal::{SignalHandlerId, connect_raw};
 use glib::translate::*;
 use std::boxed::Box as Box_;
 use std::mem::transmute;

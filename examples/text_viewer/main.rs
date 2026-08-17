@@ -1,10 +1,10 @@
 use std::fs::File;
-use std::io::prelude::*;
 use std::io::BufReader;
+use std::io::prelude::*;
 
+use gtk::Builder;
 use gtk::glib;
 use gtk::prelude::*;
-use gtk::Builder;
 
 pub fn build_ui(application: &gtk::Application) {
     let glade_src = include_str!("text_viewer.glade");

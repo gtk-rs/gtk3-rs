@@ -3,14 +3,14 @@
 // DO NOT EDIT
 
 use crate::{
-    ffi, Adjustment, Align, Buildable, CellArea, CellLayout, CellRenderer, Container,
+    Adjustment, Align, Buildable, CellArea, CellLayout, CellRenderer, Container,
     IconViewDropPosition, MovementStep, Orientation, ResizeMode, Scrollable, ScrollablePolicy,
-    SelectionMode, Tooltip, TreeIter, TreeModel, TreePath, Widget,
+    SelectionMode, Tooltip, TreeIter, TreeModel, TreePath, Widget, ffi,
 };
 use glib::{
     object::ObjectType as _,
     prelude::*,
-    signal::{connect_raw, SignalHandlerId},
+    signal::{SignalHandlerId, connect_raw},
     translate::*,
 };
 use std::boxed::Box as Box_;
@@ -490,11 +490,7 @@ pub trait IconViewExt: IsA<IconView> + 'static {
                 cell.map(|p| p.as_ref()).to_glib_none().0,
                 rect.to_glib_none_mut().0,
             ));
-            if ret {
-                Some(rect)
-            } else {
-                None
-            }
+            if ret { Some(rect) } else { None }
         }
     }
 

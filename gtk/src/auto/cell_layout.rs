@@ -2,7 +2,7 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use crate::{ffi, CellArea, CellRenderer, TreeIter, TreeModel};
+use crate::{CellArea, CellRenderer, TreeIter, TreeModel, ffi};
 use glib::{prelude::*, translate::*};
 use std::boxed::Box as Box_;
 

@@ -3,14 +3,14 @@
 // DO NOT EDIT
 
 use crate::{
-    ffi, AccelFlags, AccelGroup, Align, Allocation, Buildable, Clipboard, DirectionType,
-    DragResult, Orientation, Requisition, SelectionData, Settings, SizeRequestMode, StateFlags,
-    StyleContext, TargetList, TextDirection, Tooltip, WidgetHelpType, WidgetPath, Window,
+    AccelFlags, AccelGroup, Align, Allocation, Buildable, Clipboard, DirectionType, DragResult,
+    Orientation, Requisition, SelectionData, Settings, SizeRequestMode, StateFlags, StyleContext,
+    TargetList, TextDirection, Tooltip, WidgetHelpType, WidgetPath, Window, ffi,
 };
 use glib::{
     object::ObjectType as _,
     prelude::*,
-    signal::{connect_raw, SignalHandlerId},
+    signal::{SignalHandlerId, connect_raw},
     translate::*,
 };
 use std::boxed::Box as Box_;

@@ -3,9 +3,9 @@
 use crate::TextChildAnchor;
 use crate::TextIter;
 use crate::TextTag;
-use crate::{ffi, TextBuffer};
+use crate::{TextBuffer, ffi};
 use glib::object::{Cast, IsA};
-use glib::signal::{connect_raw, SignalHandlerId};
+use glib::signal::{SignalHandlerId, connect_raw};
 use glib::translate::*;
 use libc::{c_char, c_int};
 use std::boxed::Box as Box_;

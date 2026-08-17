@@ -1,6 +1,6 @@
 // Take a look at the license at the top of the repository in the LICENSE file.
 
-use crate::{ffi, Rectangle, Window, RGBA};
+use crate::{RGBA, Rectangle, Window, ffi};
 use cairo::Surface;
 use cairo::{Context, Region};
 use gdk_pixbuf::Pixbuf;
@@ -25,7 +25,7 @@ impl GdkSurfaceExt for Surface {
 pub trait GdkPixbufExt {
     #[doc(alias = "gdk_cairo_surface_create_from_pixbuf")]
     fn create_surface<W: IsA<Window>>(&self, scale: i32, for_window: Option<&W>)
-        -> Option<Surface>;
+    -> Option<Surface>;
 }
 
 impl GdkPixbufExt for Pixbuf {

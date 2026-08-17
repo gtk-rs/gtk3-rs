@@ -2,7 +2,7 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use crate::{ffi, StateFlags, WidgetPath};
+use crate::{StateFlags, WidgetPath, ffi};
 use glib::{prelude::*, translate::*};
 
 glib::wrapper! {
@@ -36,11 +36,7 @@ pub trait StyleProviderExt: IsA<StyleProvider> + 'static {
                 pspec.as_ref().to_glib_none().0,
                 value.to_glib_none_mut().0,
             ));
-            if ret {
-                Some(value)
-            } else {
-                None
-            }
+            if ret { Some(value) } else { None }
         }
     }
 }

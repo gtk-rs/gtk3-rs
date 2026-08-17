@@ -2,7 +2,7 @@
 
 use crate::TreePath;
 use crate::TreeRowReference;
-use crate::{ffi, TreeIter};
+use crate::{TreeIter, ffi};
 use glib::object::IsA;
 use glib::translate::*;
 use libc::c_int;

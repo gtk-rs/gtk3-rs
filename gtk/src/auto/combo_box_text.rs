@@ -3,8 +3,8 @@
 // DO NOT EDIT
 
 use crate::{
-    ffi, Align, Bin, Buildable, CellArea, CellEditable, CellLayout, ComboBox, Container,
-    ResizeMode, SensitivityType, TreeModel, Widget,
+    Align, Bin, Buildable, CellArea, CellEditable, CellLayout, ComboBox, Container, ResizeMode,
+    SensitivityType, TreeModel, Widget, ffi,
 };
 use glib::{prelude::*, translate::*};
 

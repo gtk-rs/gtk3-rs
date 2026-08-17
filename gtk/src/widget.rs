@@ -2,13 +2,13 @@
 
 use gdk::{DragAction, Event, ModifierType};
 use glib::ffi::gboolean;
-use glib::signal::{connect_raw, SignalHandlerId};
+use glib::signal::{SignalHandlerId, connect_raw};
 use glib::translate::*;
 use std::mem::transmute;
 use std::ptr;
 
 use crate::prelude::*;
-use crate::{ffi, DestDefaults, Rectangle, TargetEntry, Widget};
+use crate::{DestDefaults, Rectangle, TargetEntry, Widget, ffi};
 
 pub struct TickCallbackId {
     id: u32,

@@ -1,10 +1,10 @@
 use gtk::gdk_pixbuf::Pixbuf;
 use gtk::prelude::*;
-use gtk::{gio, glib};
 use gtk::{
     ApplicationWindow, ButtonsType, CellRendererPixbuf, CellRendererText, DialogFlags,
     MessageDialog, MessageType, Orientation, TreeStore, TreeView, TreeViewColumn, WindowPosition,
 };
+use gtk::{gio, glib};
 
 fn append_text_column(tree: &TreeView) {
     let column = TreeViewColumn::new();

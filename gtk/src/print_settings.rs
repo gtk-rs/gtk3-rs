@@ -3,7 +3,7 @@
 use glib::translate::*;
 
 use crate::PrintSettings;
-use crate::{ffi, PageRange};
+use crate::{PageRange, ffi};
 
 impl PrintSettings {
     #[doc(alias = "gtk_print_settings_set_page_ranges")]

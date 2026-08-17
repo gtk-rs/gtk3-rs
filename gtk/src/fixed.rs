@@ -1,7 +1,7 @@
 // Take a look at the license at the top of the repository in the LICENSE file.
 
 use crate::Widget;
-use crate::{ffi, Fixed};
+use crate::{Fixed, ffi};
 use glib::object::IsA;
 use glib::translate::*;
 

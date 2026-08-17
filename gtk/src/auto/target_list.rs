@@ -2,7 +2,7 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use crate::{ffi, TextBuffer};
+use crate::{TextBuffer, ffi};
 use glib::{prelude::*, translate::*};
 
 glib::wrapper! {
@@ -75,11 +75,7 @@ impl TargetList {
                 target.to_glib_none().0,
                 info.as_mut_ptr(),
             ));
-            if ret {
-                Some(info.assume_init())
-            } else {
-                None
-            }
+            if ret { Some(info.assume_init()) } else { None }
         }
     }
 

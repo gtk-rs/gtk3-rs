@@ -6,8 +6,8 @@
 #[cfg_attr(docsrs, doc(cfg(feature = "v3_24")))]
 use crate::FontChooserLevel;
 use crate::{
-    ffi, Align, Application, Bin, Buildable, Container, Dialog, FontChooser, ResizeMode, Widget,
-    Window, WindowPosition, WindowType,
+    Align, Application, Bin, Buildable, Container, Dialog, FontChooser, ResizeMode, Widget, Window,
+    WindowPosition, WindowType, ffi,
 };
 use glib::{prelude::*, translate::*};
 

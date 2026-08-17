@@ -3,8 +3,8 @@
 // DO NOT EDIT
 
 use crate::{
-    ffi, Align, Application, Bin, Buildable, Container, Dialog, FileChooser, FileChooserAction,
-    FileFilter, ResizeMode, Widget, Window, WindowPosition, WindowType,
+    Align, Application, Bin, Buildable, Container, Dialog, FileChooser, FileChooserAction,
+    FileFilter, ResizeMode, Widget, Window, WindowPosition, WindowType, ffi,
 };
 use glib::prelude::*;
 

@@ -1,4 +1,4 @@
-use futures::{channel::mpsc, StreamExt};
+use futures::{StreamExt, channel::mpsc};
 use gtk::glib;
 use gtk::prelude::*;
 use gtk::{ApplicationWindow, Label};

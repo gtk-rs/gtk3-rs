@@ -1,7 +1,7 @@
 // Take a look at the license at the top of the repository in the LICENSE file.
 
 use crate::AccelGroup;
-use crate::{ffi, AccelFlags};
+use crate::{AccelFlags, ffi};
 use glib::object::{Cast, IsA};
 use glib::translate::*;
 use glib::value::ToValue;

@@ -1,8 +1,8 @@
 // Take a look at the license at the top of the repository in the LICENSE file.
 
 use crate::ffi;
-use glib::translate::*;
 use glib::GString;
+use glib::translate::*;
 
 #[derive(Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct EventSetting(crate::Event);

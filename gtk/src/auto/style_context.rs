@@ -3,13 +3,13 @@
 // DO NOT EDIT
 
 use crate::{
-    ffi, Border, CssSection, JunctionSides, StateFlags, StyleContextPrintFlags, StyleProvider,
-    TextDirection, WidgetPath,
+    Border, CssSection, JunctionSides, StateFlags, StyleContextPrintFlags, StyleProvider,
+    TextDirection, WidgetPath, ffi,
 };
 use glib::{
     object::ObjectType as _,
     prelude::*,
-    signal::{connect_raw, SignalHandlerId},
+    signal::{SignalHandlerId, connect_raw},
     translate::*,
 };
 use std::boxed::Box as Box_;
@@ -362,11 +362,7 @@ pub trait StyleContextExt: IsA<StyleContext> + 'static {
                 color_name.to_glib_none().0,
                 color.to_glib_none_mut().0,
             ));
-            if ret {
-                Some(color)
-            } else {
-                None
-            }
+            if ret { Some(color) } else { None }
         }
     }
 
