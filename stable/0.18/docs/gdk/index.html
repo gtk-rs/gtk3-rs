@@ -1,0 +1,296 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Rust GDK 3 bindings"><title>gdk - Rust</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2"href="../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../static.files/rustdoc-0c87338a.css"><meta name="rustdoc-vars" data-root-path="../" data-static-root-path="../static.files/" data-current-crate="gdk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.100.0-nightly (34baba539 2026-08-16)" data-channel="nightly" data-search-js="search-cf4fc35e.js" data-stringdex-js="stringdex-b5109af9.js" data-settings-js="settings-170eb4bf.js" ><script src="../static.files/storage-41dd4d93.js"></script><script defer src="../crates.js"></script><script defer src="../static.files/main-417ebf0a.js"></script><noscript><link rel="stylesheet" href="../static.files/noscript-9f56287d.css"></noscript><link rel="alternate icon" type="image/png" href="../static.files/favicon-32x32-eab170b8.png"><link rel="icon" type="image/svg+xml" href="../static.files/favicon-044be391.svg"></head><body class="rustdoc mod crate"><a class="skip-main-content" href="#main-content">Skip to main content</a><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
+
+    function checkDocsLatestStable() {
+        function popup(msg, url) { return `
+            <style scoped="scoped">
+                .popup {
+                    max-width: 16em;
+                    background-color: #fff;
+                    position: fixed;
+                    z-index: 1;
+                    margin-left: auto;
+                    bottom: 1em;
+                    right: 1em;
+                    border-radius: 5px;
+                    box-shadow: 1px 1px 4px #777;
+                }
+
+                .popup a.version {
+                    color: #e57300;
+                    padding: 0.6em 1em;
+                    display: block;
+                }
+                .popup a.version:hover {
+                    color: #b25900;
+                }
+
+                .popup a.close {
+                    color: white;
+                    background: grey;
+                    border-radius: 99px;
+                    display: inline-block;
+                    width: 19px;
+                    line-height: 19px;
+                    font-weight: bold;
+                    text-align: center;
+                    margin: 0.6em;
+                    float: right;
+                }
+                .popup a.close:hover {
+                    background: black;
+                }
+            </style>
+            <section class="popup" id="gir_docs_popup">
+                <a class="close" href="#" onclick="document.getElementById('gir_docs_popup').remove(); return false">×</a>
+                <a class="version" href="https://gtk-rs.org/gtk3-rs/stable/latest/docs">
+                    ⚠ ${msg}
+                </a>
+            </section>
+        ` };
+
+        if ("0.18" == "master") {
+            document.body.insertAdjacentHTML(
+                'beforeend',
+                popup("This is the development version. Go to latest stable version.", "stable/latest")
+            );
+        } else {
+            fetch('https://gtk-rs.org/gtk3-rs/LATEST_RELEASE_BRANCH')
+                .then(response => response.text())
+                .then(latest_branch => {
+                    if (latest_branch.trim() != "0.18") {
+                        document.body.insertAdjacentHTML(
+                            'beforeend',
+                            popup("This version is outdated. Go to latest version.", "stable/latest")
+                        );
+                    }
+                });
+        }
+    }
+</script>
+
+
+<rustdoc-topbar><h2><a href="#">Crate gdk</a></h2></rustdoc-topbar><nav class="sidebar"><div class="sidebar-crate"><h2><a href="../gdk/index.html">gdk</a><span class="version">0.18.1</span></h2></div><div class="sidebar-elems"><ul class="block"><li><a id="all-types" href="all.html">All Items</a></li></ul><section id="rustdoc-toc"><h3><a href="#">Sections</a></h3><ul class="block top-toc"><li><a href="#rust-gdk-3-bindings" title="Rust GDK 3 bindings">Rust GDK 3 bindings</a><ul><li><a href="#minimum-supported-rust-version" title="Minimum supported Rust version">Minimum supported Rust version</a></li><li><a href="#documentation" title="Documentation">Documentation</a></li><li><a href="#using" title="Using">Using</a></li><li><a href="#license" title="License">License</a></li></ul></li></ul><h3><a href="#reexports">Crate Items</a></h3><ul class="block"><li><a href="#reexports" title="Re-exports">Re-exports</a></li><li><a href="#modules" title="Modules">Modules</a></li><li><a href="#structs" title="Structs">Structs</a></li><li><a href="#enums" title="Enums">Enums</a></li><li><a href="#constants" title="Constants">Constants</a></li><li><a href="#traits" title="Traits">Traits</a></li><li><a href="#functions" title="Functions">Functions</a></li><li><a href="#types" title="Type Aliases">Type Aliases</a></li></ul></section><div id="rustdoc-modnav"></div></div></nav><div class="sidebar-resizer" title="Drag to resize sidebar"></div><main><div class="width-limiter"><section id="main-content" class="content" tabindex="-1"><div class="main-heading"><h1>Crate <span>gdk</span>&nbsp;<button id="copy-path" title="Copy item path to clipboard">Copy item path</button></h1><rustdoc-toolbar></rustdoc-toolbar><span class="sub-heading"><a class="src" href="../src/gdk/lib.rs.html#3-161">Source</a> </span></div><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><h2 id="rust-gdk-3-bindings"><a class="doc-anchor" href="#rust-gdk-3-bindings">§</a>Rust GDK 3 bindings</h2>
+<p>Project site is <a href="https://gtk-rs.org/">here</a>.</p>
+<p><strong>Rust</strong> bindings and wrappers for <a href="https://developer.gnome.org/gdk3/">GDK 3</a>,
+part of <a href="https://github.com/gtk-rs/gtk3-rs">gtk3-rs</a>.</p>
+<p>GDK <strong>3.22</strong> is the lowest supported version for the underlying library.</p>
+<h3 id="minimum-supported-rust-version"><a class="doc-anchor" href="#minimum-supported-rust-version">§</a>Minimum supported Rust version</h3>
+<p>Currently, the minimum supported Rust version is <code>1.70.0</code>.</p>
+<h3 id="documentation"><a class="doc-anchor" href="#documentation">§</a>Documentation</h3>
+<ul>
+<li><a href="https://gtk-rs.org/gtk3-rs/stable/latest/docs/gdk/">Rust API - Stable</a></li>
+<li><a href="https://gtk-rs.org/gtk3-rs/git/docs/gdk">Rust API - Development</a></li>
+<li><a href="https://developer.gnome.org/gdk3/stable/">C API</a></li>
+<li><a href="https://www.gtk.org/docs/installations/">GTK Installation instructions</a></li>
+</ul>
+<h3 id="using"><a class="doc-anchor" href="#using">§</a>Using</h3>
+<p>We recommend using <a href="https://crates.io/keywords/gtk-rs">crates from crates.io</a>,
+as <a href="https://gtk-rs.org/#using">demonstrated here</a>.</p>
+<p>If you want to track the bleeding edge, use the git dependency instead:</p>
+<div class="example-wrap"><pre class="language-toml"><code>[dependencies]
+gdk = { git = &quot;https://github.com/gtk-rs/gtk3-rs.git&quot;, package = &quot;gdk&quot; }</code></pre></div>
+<p>Avoid mixing versioned and git crates like this:</p>
+<div class="example-wrap"><pre class="language-toml"><code># This will not compile
+[dependencies]
+gdk = &quot;0.13&quot;
+gdk = { git = &quot;https://github.com/gtk-rs/gtk3-rs.git&quot;, package = &quot;gdk&quot; }</code></pre></div><h4 id="see-also"><a class="doc-anchor" href="#see-also">§</a>See Also</h4>
+<ul>
+<li><a href="https://crates.io/crates/glib">glib</a></li>
+<li><a href="https://crates.io/crates/cairo-rs">cairo-rs</a></li>
+<li><a href="https://crates.io/crates/gdk-pixbuf">gdk-pixbuf</a></li>
+<li><a href="https://crates.io/crates/gio">gio</a></li>
+<li><a href="https://crates.io/crates/pango">pango</a></li>
+</ul>
+<h3 id="license"><a class="doc-anchor" href="#license">§</a>License</h3>
+<p><strong>gdk</strong> is available under the MIT License, please refer to it.</p>
+</div></details><h2 id="reexports" class="section-header">Re-exports<a href="#reexports" class="anchor">§</a></h2><dl class="item-table reexports"><dt id="reexport.cairo"><code>pub use <a class="mod" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/cairo/index.html" title="mod cairo">cairo</a>;</code></dt><dt id="reexport.ffi"><code>pub use <a class="mod" href="../gdk_sys/index.html" title="mod gdk_sys">ffi</a>;</code></dt><dt id="reexport.gdk_pixbuf"><code>pub use <a class="mod" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/gdk_pixbuf/index.html" title="mod gdk_pixbuf">gdk_pixbuf</a>;</code></dt><dt id="reexport.gio"><code>pub use <a class="mod" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/gio/index.html" title="mod gio">gio</a>;</code></dt><dt id="reexport.glib"><code>pub use <a class="mod" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/index.html" title="mod glib">glib</a>;</code></dt><dt id="reexport.pango"><code>pub use <a class="mod" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/pango/index.html" title="mod pango">pango</a>;</code></dt></dl><h2 id="modules" class="section-header">Modules<a href="#modules" class="anchor">§</a></h2><dl class="item-table"><dt><a class="mod" href="keys/index.html" title="mod gdk::keys">keys</a></dt><dt><a class="mod" href="prelude/index.html" title="mod gdk::prelude">prelude</a></dt><dd>Traits intended for blanket imports.</dd></dl><h2 id="structs" class="section-header">Structs<a href="#structs" class="anchor">§</a></h2><dl class="item-table"><dt><a class="struct" href="struct.AnchorHints.html" title="struct gdk::AnchorHints">Anchor<wbr>Hints</a></dt><dd>Positioning hints for aligning a window relative to a rectangle.</dd><dt><a class="struct" href="struct.AppLaunchContext.html" title="struct gdk::AppLaunchContext">AppLaunch<wbr>Context</a></dt><dd>GdkAppLaunchContext is an implementation of <a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/gio/auto/app_launch_context/struct.AppLaunchContext.html" title="struct gio::auto::app_launch_context::AppLaunchContext"><code>gio::AppLaunchContext</code></a> that
+handles launching an application in a graphical context. It provides
+startup notification and allows to launch applications on a specific
+screen or workspace.</dd><dt><a class="struct" href="struct.Atom.html" title="struct gdk::Atom">Atom</a></dt><dd>An opaque type representing a string as an index into a table
+of strings on the X server.</dd><dt><a class="struct" href="struct.AxisFlags.html" title="struct gdk::AxisFlags">Axis<wbr>Flags</a></dt><dd>Flags describing the current capabilities of a device/tool.</dd><dt><a class="struct" href="struct.Color.html" title="struct gdk::Color">Color</a></dt><dt><a class="struct" href="struct.Cursor.html" title="struct gdk::Cursor">Cursor</a></dt><dd>A <a href="struct.Cursor.html" title="struct gdk::Cursor"><code>Cursor</code></a> represents a cursor. Its contents are private.</dd><dt><a class="struct" href="struct.Device.html" title="struct gdk::Device">Device</a></dt><dd>The <a href="struct.Device.html" title="struct gdk::Device"><code>Device</code></a> object represents a single input device, such
+as a keyboard, a mouse, a touchpad, etc.</dd><dt><a class="struct" href="struct.DeviceManager.html" title="struct gdk::DeviceManager">Device<wbr>Manager</a></dt><dd>In addition to a single pointer and keyboard for user interface input,
+GDK contains support for a variety of input devices, including graphics
+tablets, touchscreens and multiple pointers/keyboards interacting
+simultaneously with the user interface. Such input devices often have
+additional features, such as sub-pixel positioning information and
+additional device-dependent information.</dd><dt><a class="struct" href="struct.DevicePad.html" title="struct gdk::DevicePad">Device<wbr>Pad</a></dt><dd><a href="struct.DevicePad.html" title="struct gdk::DevicePad"><code>DevicePad</code></a> is an interface implemented by devices of type
+<a href="enum.InputSource.html#variant.TabletPad" title="variant gdk::InputSource::TabletPad"><code>InputSource::TabletPad</code></a>, it allows querying the features provided
+by the pad device.</dd><dt><a class="struct" href="struct.DeviceTool.html" title="struct gdk::DeviceTool">Device<wbr>Tool</a></dt><dd>Properties</dd><dt><a class="struct" href="struct.Display.html" title="struct gdk::Display">Display</a></dt><dd><a href="struct.Display.html" title="struct gdk::Display"><code>Display</code></a> objects purpose are two fold:</dd><dt><a class="struct" href="struct.DisplayManager.html" title="struct gdk::DisplayManager">Display<wbr>Manager</a></dt><dd>The purpose of the <a href="struct.DisplayManager.html" title="struct gdk::DisplayManager"><code>DisplayManager</code></a> singleton object is to offer
+notification when displays appear or disappear or the default display
+changes.</dd><dt><a class="struct" href="struct.DragAction.html" title="struct gdk::DragAction">Drag<wbr>Action</a></dt><dd>Used in <a href="struct.DragContext.html" title="struct gdk::DragContext"><code>DragContext</code></a> to indicate what the destination
+should do with the dropped data.</dd><dt><a class="struct" href="struct.DragContext.html" title="struct gdk::DragContext">Drag<wbr>Context</a></dt><dd>Signals</dd><dt><a class="struct" href="struct.DrawingContext.html" title="struct gdk::DrawingContext">Drawing<wbr>Context</a></dt><dd><a href="struct.DrawingContext.html" title="struct gdk::DrawingContext"><code>DrawingContext</code></a> is an object that represents the current drawing
+state of a <a href="struct.Window.html" title="struct gdk::Window"><code>Window</code></a>.</dd><dt><a class="struct" href="struct.Event.html" title="struct gdk::Event">Event</a></dt><dd>A generic GDK event.</dd><dt><a class="struct" href="struct.EventButton.html" title="struct gdk::EventButton">Event<wbr>Button</a></dt><dd>Used for button press and button release events. The
+<code>type</code> field will be one of <a href="enum.EventType.html#variant.ButtonPress" title="variant gdk::EventType::ButtonPress"><code>EventType::ButtonPress</code></a>,
+[<code>EventType::_2buttonPress</code>][crate::EventType::_2buttonPress], [<code>EventType::_3buttonPress</code>][crate::EventType::_3buttonPress] or <a href="enum.EventType.html#variant.ButtonRelease" title="variant gdk::EventType::ButtonRelease"><code>EventType::ButtonRelease</code></a>,</dd><dt><a class="struct" href="struct.EventConfigure.html" title="struct gdk::EventConfigure">Event<wbr>Configure</a></dt><dd>Generated when a window size or position has changed.</dd><dt><a class="struct" href="struct.EventCrossing.html" title="struct gdk::EventCrossing">Event<wbr>Crossing</a></dt><dd>Generated when the pointer enters or leaves a window.</dd><dt><a class="struct" href="struct.EventDND.html" title="struct gdk::EventDND">EventDND</a></dt><dd>Generated during DND operations.</dd><dt><a class="struct" href="struct.EventExpose.html" title="struct gdk::EventExpose">Event<wbr>Expose</a></dt><dd>Generated when all or part of a window becomes visible and needs to be
+redrawn.</dd><dt><a class="struct" href="struct.EventFocus.html" title="struct gdk::EventFocus">Event<wbr>Focus</a></dt><dd>Describes a change of keyboard focus.</dd><dt><a class="struct" href="struct.EventGrabBroken.html" title="struct gdk::EventGrabBroken">Event<wbr>Grab<wbr>Broken</a></dt><dd>Generated when a pointer or keyboard grab is broken. On X11, this happens
+when the grab window becomes unviewable (i.e. it or one of its ancestors
+is unmapped), or if the same application grabs the pointer or keyboard
+again. Note that implicit grabs (which are initiated by button presses)
+can also cause <a href="struct.EventGrabBroken.html" title="struct gdk::EventGrabBroken"><code>EventGrabBroken</code></a> events.</dd><dt><a class="struct" href="struct.EventKey.html" title="struct gdk::EventKey">Event<wbr>Key</a></dt><dd>Describes a key press or key release event.</dd><dt><a class="struct" href="struct.EventMask.html" title="struct gdk::EventMask">Event<wbr>Mask</a></dt><dd>A set of bit-flags to indicate which events a window is to receive.
+Most of these masks map onto one or more of the <a href="enum.EventType.html" title="enum gdk::EventType"><code>EventType</code></a> event types
+above.</dd><dt><a class="struct" href="struct.EventMotion.html" title="struct gdk::EventMotion">Event<wbr>Motion</a></dt><dd>Generated when the pointer moves.</dd><dt><a class="struct" href="struct.EventOwnerChange.html" title="struct gdk::EventOwnerChange">Event<wbr>Owner<wbr>Change</a></dt><dd>Generated when the owner of a selection changes. On X11, this
+information is only available if the X server supports the XFIXES
+extension.</dd><dt><a class="struct" href="struct.EventPadAxis.html" title="struct gdk::EventPadAxis">Event<wbr>PadAxis</a></dt><dd>Generated during <a href="enum.InputSource.html#variant.TabletPad" title="variant gdk::InputSource::TabletPad"><code>InputSource::TabletPad</code></a> interaction with tactile sensors.</dd><dt><a class="struct" href="struct.EventPadButton.html" title="struct gdk::EventPadButton">Event<wbr>PadButton</a></dt><dd>Generated during <a href="enum.InputSource.html#variant.TabletPad" title="variant gdk::InputSource::TabletPad"><code>InputSource::TabletPad</code></a> button presses and releases.</dd><dt><a class="struct" href="struct.EventPadGroupMode.html" title="struct gdk::EventPadGroupMode">Event<wbr>PadGroup<wbr>Mode</a></dt><dd>Generated during <a href="enum.InputSource.html#variant.TabletPad" title="variant gdk::InputSource::TabletPad"><code>InputSource::TabletPad</code></a> mode switches in a group.</dd><dt><a class="struct" href="struct.EventProperty.html" title="struct gdk::EventProperty">Event<wbr>Property</a></dt><dd>Describes a property change on a window.</dd><dt><a class="struct" href="struct.EventProximity.html" title="struct gdk::EventProximity">Event<wbr>Proximity</a></dt><dd>Proximity events are generated when using GDK’s wrapper for the
+XInput extension. The XInput extension is an add-on for standard X
+that allows you to use nonstandard devices such as graphics tablets.
+A proximity event indicates that the stylus has moved in or out of
+contact with the tablet, or perhaps that the user’s finger has moved
+in or out of contact with a touch screen.</dd><dt><a class="struct" href="struct.EventScroll.html" title="struct gdk::EventScroll">Event<wbr>Scroll</a></dt><dd>Generated from button presses for the buttons 4 to 7. Wheel mice are
+usually configured to generate button press events for buttons 4 and 5
+when the wheel is turned.</dd><dt><a class="struct" href="struct.EventSelection.html" title="struct gdk::EventSelection">Event<wbr>Selection</a></dt><dd>Generated when a selection is requested or ownership of a selection
+is taken over by another client application.</dd><dt><a class="struct" href="struct.EventSequence.html" title="struct gdk::EventSequence">Event<wbr>Sequence</a></dt><dt><a class="struct" href="struct.EventSetting.html" title="struct gdk::EventSetting">Event<wbr>Setting</a></dt><dd>Generated when a setting is modified.</dd><dt><a class="struct" href="struct.EventTouch.html" title="struct gdk::EventTouch">Event<wbr>Touch</a></dt><dd>Used for touch events.
+<code>type</code> field will be one of <a href="enum.EventType.html#variant.TouchBegin" title="variant gdk::EventType::TouchBegin"><code>EventType::TouchBegin</code></a>, <a href="enum.EventType.html#variant.TouchUpdate" title="variant gdk::EventType::TouchUpdate"><code>EventType::TouchUpdate</code></a>,
+<a href="enum.EventType.html#variant.TouchEnd" title="variant gdk::EventType::TouchEnd"><code>EventType::TouchEnd</code></a> or <a href="enum.EventType.html#variant.TouchCancel" title="variant gdk::EventType::TouchCancel"><code>EventType::TouchCancel</code></a>.</dd><dt><a class="struct" href="struct.EventTouchpadPinch.html" title="struct gdk::EventTouchpadPinch">Event<wbr>Touchpad<wbr>Pinch</a></dt><dd>Generated during touchpad swipe gestures.</dd><dt><a class="struct" href="struct.EventTouchpadSwipe.html" title="struct gdk::EventTouchpadSwipe">Event<wbr>Touchpad<wbr>Swipe</a></dt><dd>Generated during touchpad swipe gestures.</dd><dt><a class="struct" href="struct.EventVisibility.html" title="struct gdk::EventVisibility">Event<wbr>Visibility</a></dt><dt><a class="struct" href="struct.EventWindowState.html" title="struct gdk::EventWindowState">Event<wbr>Window<wbr>State</a></dt><dd>Generated when the state of a toplevel window changes.</dd><dt><a class="struct" href="struct.FrameClock.html" title="struct gdk::FrameClock">Frame<wbr>Clock</a></dt><dd>A <a href="struct.FrameClock.html" title="struct gdk::FrameClock"><code>FrameClock</code></a> tells the application when to update and repaint a
+window. This may be synced to the vertical refresh rate of the
+monitor, for example. Even when the frame clock uses a simple timer
+rather than a hardware-based vertical sync, the frame clock helps
+because it ensures everything paints at the same time (reducing the
+total number of frames). The frame clock can also automatically
+stop painting when it knows the frames will not be visible, or
+scale back animation framerates.</dd><dt><a class="struct" href="struct.FrameClockPhase.html" title="struct gdk::FrameClockPhase">Frame<wbr>Clock<wbr>Phase</a></dt><dd><a href="struct.FrameClockPhase.html" title="struct gdk::FrameClockPhase"><code>FrameClockPhase</code></a> is used to represent the different paint clock
+phases that can be requested. The elements of the enumeration
+correspond to the signals of <a href="struct.FrameClock.html" title="struct gdk::FrameClock"><code>FrameClock</code></a>.</dd><dt><a class="struct" href="struct.FrameTimings.html" title="struct gdk::FrameTimings">Frame<wbr>Timings</a></dt><dd>A <a href="struct.FrameTimings.html" title="struct gdk::FrameTimings"><code>FrameTimings</code></a> object holds timing information for a single frame
+of the application’s displays. To retrieve <a href="struct.FrameTimings.html" title="struct gdk::FrameTimings"><code>FrameTimings</code></a> objects,
+use <a href="struct.FrameClock.html#method.timings" title="method gdk::FrameClock::timings"><code>FrameClock::timings()</code></a> or <a href="struct.FrameClock.html#method.current_timings" title="method gdk::FrameClock::current_timings"><code>FrameClock::current_timings()</code></a>.
+The information in <a href="struct.FrameTimings.html" title="struct gdk::FrameTimings"><code>FrameTimings</code></a> is useful for precise synchronization
+of video with the event or audio streams, and for measuring
+quality metrics for the application’s display, such as latency and jitter.</dd><dt><a class="struct" href="struct.GLContext.html" title="struct gdk::GLContext">GLContext</a></dt><dd><a href="struct.GLContext.html" title="struct gdk::GLContext"><code>GLContext</code></a> is an object representing the platform-specific
+OpenGL drawing context.</dd><dt><a class="struct" href="struct.GRange.html" title="struct gdk::GRange">GRange</a></dt><dt><a class="struct" href="struct.Geometry.html" title="struct gdk::Geometry">Geometry</a></dt><dd>The <a href="struct.Geometry.html" title="struct gdk::Geometry"><code>Geometry</code></a> struct gives the window manager information about
+a window’s geometry constraints. Normally you would set these on
+the GTK+ level using <code>gtk_window_set_geometry_hints()</code>. <code>GtkWindow</code>
+then sets the hints on the <a href="struct.Window.html" title="struct gdk::Window"><code>Window</code></a> it creates.</dd><dt><a class="struct" href="struct.Keymap.html" title="struct gdk::Keymap">Keymap</a></dt><dd>A <a href="struct.Keymap.html" title="struct gdk::Keymap"><code>Keymap</code></a> defines the translation from keyboard state
+(including a hardware key, a modifier mask, and active keyboard group)
+to a keyval. This translation has two phases. The first phase is
+to determine the effective keyboard group and level for the keyboard
+state; the second phase is to look up the keycode/group/level triplet
+in the keymap and see what keyval it corresponds to.</dd><dt><a class="struct" href="struct.KeymapKey.html" title="struct gdk::KeymapKey">Keymap<wbr>Key</a></dt><dd>A <a href="struct.KeymapKey.html" title="struct gdk::KeymapKey"><code>KeymapKey</code></a> is a hardware key that can be mapped to a keyval.</dd><dt><a class="struct" href="struct.ModifierType.html" title="struct gdk::ModifierType">Modifier<wbr>Type</a></dt><dd>A set of bit-flags to indicate the state of modifier keys and mouse buttons
+in various event types. Typical modifier keys are Shift, Control, Meta,
+Super, Hyper, Alt, Compose, Apple, CapsLock or ShiftLock.</dd><dt><a class="struct" href="struct.Monitor.html" title="struct gdk::Monitor">Monitor</a></dt><dd>GdkMonitor objects represent the individual outputs that are
+associated with a <a href="struct.Display.html" title="struct gdk::Display"><code>Display</code></a>. GdkDisplay has APIs to enumerate
+monitors with <a href="struct.Display.html#method.n_monitors" title="method gdk::Display::n_monitors"><code>Display::n_monitors()</code></a> and <a href="struct.Display.html#method.monitor" title="method gdk::Display::monitor"><code>Display::monitor()</code></a>, and
+to find particular monitors with <a href="struct.Display.html#method.primary_monitor" title="method gdk::Display::primary_monitor"><code>Display::primary_monitor()</code></a> or
+<a href="struct.Display.html#method.monitor_at_window" title="method gdk::Display::monitor_at_window"><code>Display::monitor_at_window()</code></a>.</dd><dt><a class="struct" href="struct.RGBA.html" title="struct gdk::RGBA">RGBA</a></dt><dd>A <a href="struct.RGBA.html" title="struct gdk::RGBA"><code>RGBA</code></a> is used to represent a (possibly translucent)
+color, in a way that is compatible with cairo’s notion of color.</dd><dt><a class="struct" href="struct.Rectangle.html" title="struct gdk::Rectangle">Rectangle</a></dt><dd>Defines the position and size of a rectangle. It is identical to
+<code>cairo_rectangle_int_t</code>.</dd><dt><a class="struct" href="struct.Screen.html" title="struct gdk::Screen">Screen</a></dt><dd><a href="struct.Screen.html" title="struct gdk::Screen"><code>Screen</code></a> objects are the GDK representation of the screen on
+which windows can be displayed and on which the pointer moves.
+X originally identified screens with physical screens, but
+nowadays it is more common to have a single <a href="struct.Screen.html" title="struct gdk::Screen"><code>Screen</code></a> which
+combines several physical monitors (see <code>gdk_screen_get_n_monitors()</code>).</dd><dt><a class="struct" href="struct.Seat.html" title="struct gdk::Seat">Seat</a></dt><dd>The <a href="struct.Seat.html" title="struct gdk::Seat"><code>Seat</code></a> object represents a collection of input devices
+that belong to a user.</dd><dt><a class="struct" href="struct.SeatCapabilities.html" title="struct gdk::SeatCapabilities">Seat<wbr>Capabilities</a></dt><dd>Flags describing the seat capabilities.</dd><dt><a class="struct" href="struct.TimeCoord.html" title="struct gdk::TimeCoord">Time<wbr>Coord</a></dt><dd>A <a href="struct.TimeCoord.html" title="struct gdk::TimeCoord"><code>TimeCoord</code></a> stores a single event in a motion history.</dd><dt><a class="struct" href="struct.Visual.html" title="struct gdk::Visual">Visual</a></dt><dd>A <a href="struct.Visual.html" title="struct gdk::Visual"><code>Visual</code></a> contains information about
+a particular visual.</dd><dt><a class="struct" href="struct.WMDecoration.html" title="struct gdk::WMDecoration">WMDecoration</a></dt><dd>These are hints originally defined by the Motif toolkit.
+The window manager can use them when determining how to decorate
+the window. The hint must be set before mapping the window.</dd><dt><a class="struct" href="struct.WMFunction.html" title="struct gdk::WMFunction">WMFunction</a></dt><dd>These are hints originally defined by the Motif toolkit. The window manager
+can use them when determining the functions to offer for the window. The
+hint must be set before mapping the window.</dd><dt><a class="struct" href="struct.Window.html" title="struct gdk::Window">Window</a></dt><dd>This is an Abstract Base Class, you cannot instantiate it.</dd><dt><a class="struct" href="struct.WindowAttr.html" title="struct gdk::WindowAttr">Window<wbr>Attr</a></dt><dt><a class="struct" href="struct.WindowHints.html" title="struct gdk::WindowHints">Window<wbr>Hints</a></dt><dd>Used to indicate which fields of a <a href="struct.Geometry.html" title="struct gdk::Geometry"><code>Geometry</code></a> struct should be paid
+attention to. Also, the presence/absence of <a href="struct.WindowHints.html#associatedconstant.POS" title="associated constant gdk::WindowHints::POS"><code>POS</code></a>,
+<a href="struct.WindowHints.html#associatedconstant.USER_POS" title="associated constant gdk::WindowHints::USER_POS"><code>USER_POS</code></a>, and <a href="struct.WindowHints.html#associatedconstant.USER_SIZE" title="associated constant gdk::WindowHints::USER_SIZE"><code>USER_SIZE</code></a> is significant, though they don’t
+directly refer to <a href="struct.Geometry.html" title="struct gdk::Geometry"><code>Geometry</code></a> fields. <a href="struct.WindowHints.html#associatedconstant.USER_POS" title="associated constant gdk::WindowHints::USER_POS"><code>USER_POS</code></a> will be set
+automatically by <code>GtkWindow</code> if you call <code>gtk_window_move()</code>.
+<a href="struct.WindowHints.html#associatedconstant.USER_POS" title="associated constant gdk::WindowHints::USER_POS"><code>USER_POS</code></a> and <a href="struct.WindowHints.html#associatedconstant.USER_SIZE" title="associated constant gdk::WindowHints::USER_SIZE"><code>USER_SIZE</code></a> should be set if the user
+specified a size/position using a –geometry command-line argument;
+<code>gtk_window_parse_geometry()</code> automatically sets these flags.</dd><dt><a class="struct" href="struct.WindowState.html" title="struct gdk::WindowState">Window<wbr>State</a></dt><dd>Specifies the state of a toplevel window.</dd></dl><h2 id="enums" class="section-header">Enums<a href="#enums" class="anchor">§</a></h2><dl class="item-table"><dt><a class="enum" href="enum.AxisUse.html" title="enum gdk::AxisUse">AxisUse</a></dt><dd>An enumeration describing the way in which a device
+axis (valuator) maps onto the predefined valuator
+types that GTK+ understands.</dd><dt><a class="enum" href="enum.Backend.html" title="enum gdk::Backend">Backend</a></dt><dt><a class="enum" href="enum.ByteOrder.html" title="enum gdk::ByteOrder">Byte<wbr>Order</a></dt><dd>A set of values describing the possible byte-orders
+for storing pixel values in memory.</dd><dt><a class="enum" href="enum.ChangeData.html" title="enum gdk::ChangeData">Change<wbr>Data</a></dt><dt><a class="enum" href="enum.CrossingMode.html" title="enum gdk::CrossingMode">Crossing<wbr>Mode</a></dt><dd>Specifies the crossing mode for <a href="struct.EventCrossing.html" title="struct gdk::EventCrossing"><code>EventCrossing</code></a>.</dd><dt><a class="enum" href="enum.CursorType.html" title="enum gdk::CursorType">Cursor<wbr>Type</a></dt><dd>Predefined cursors.</dd><dt><a class="enum" href="enum.DevicePadFeature.html" title="enum gdk::DevicePadFeature">Device<wbr>PadFeature</a></dt><dd>A pad feature.</dd><dt><a class="enum" href="enum.DeviceToolType.html" title="enum gdk::DeviceToolType">Device<wbr>Tool<wbr>Type</a></dt><dd>Indicates the specific type of tool being used being a tablet. Such as an
+airbrush, pencil, etc.</dd><dt><a class="enum" href="enum.DeviceType.html" title="enum gdk::DeviceType">Device<wbr>Type</a></dt><dd>Indicates the device type. See [above][GdkDeviceManager.description]
+for more information about the meaning of these device types.</dd><dt><a class="enum" href="enum.DragCancelReason.html" title="enum gdk::DragCancelReason">Drag<wbr>Cancel<wbr>Reason</a></dt><dd>Used in <a href="struct.DragContext.html" title="struct gdk::DragContext"><code>DragContext</code></a> to the reason of a cancelled DND operation.</dd><dt><a class="enum" href="enum.DragProtocol.html" title="enum gdk::DragProtocol">Drag<wbr>Protocol</a></dt><dd>Used in <a href="struct.DragContext.html" title="struct gdk::DragContext"><code>DragContext</code></a> to indicate the protocol according to
+which DND is done.</dd><dt><a class="enum" href="enum.EventType.html" title="enum gdk::EventType">Event<wbr>Type</a></dt><dd>Specifies the type of the event.</dd><dt><a class="enum" href="enum.FullscreenMode.html" title="enum gdk::FullscreenMode">Fullscreen<wbr>Mode</a></dt><dd>Indicates which monitor (in a multi-head setup) a window should span over
+when in fullscreen mode.</dd><dt><a class="enum" href="enum.GLError.html" title="enum gdk::GLError">GLError</a></dt><dd>Error enumeration for <a href="struct.GLContext.html" title="struct gdk::GLContext"><code>GLContext</code></a>.</dd><dt><a class="enum" href="enum.GrabOwnership.html" title="enum gdk::GrabOwnership">Grab<wbr>Ownership</a></dt><dd>Defines how device grabs interact with other devices.</dd><dt><a class="enum" href="enum.GrabStatus.html" title="enum gdk::GrabStatus">Grab<wbr>Status</a></dt><dd>Returned by <code>gdk_device_grab()</code>, <code>gdk_pointer_grab()</code> and <code>gdk_keyboard_grab()</code> to
+indicate success or the reason for the failure of the grab attempt.</dd><dt><a class="enum" href="enum.Gravity.html" title="enum gdk::Gravity">Gravity</a></dt><dd>Defines the reference point of a window and the meaning of coordinates
+passed to <code>gtk_window_move()</code>. See <code>gtk_window_move()</code> and the “implementation
+notes” section of the
+<a href="http://www.freedesktop.org/Standards/wm-spec">Extended Window Manager Hints</a>
+specification for more details.</dd><dt><a class="enum" href="enum.InputMode.html" title="enum gdk::InputMode">Input<wbr>Mode</a></dt><dd>An enumeration that describes the mode of an input device.</dd><dt><a class="enum" href="enum.InputSource.html" title="enum gdk::InputSource">Input<wbr>Source</a></dt><dd>An enumeration describing the type of an input device in general terms.</dd><dt><a class="enum" href="enum.ModifierIntent.html" title="enum gdk::ModifierIntent">Modifier<wbr>Intent</a></dt><dd>This enum is used with <a href="struct.Keymap.html#method.modifier_mask" title="method gdk::Keymap::modifier_mask"><code>Keymap::modifier_mask()</code></a>
+in order to determine what modifiers the
+currently used windowing system backend uses for particular
+purposes. For example, on X11/Windows, the Control key is used for
+invoking menu shortcuts (accelerators), whereas on Apple computers
+it’s the Command key (which correspond to <a href="struct.ModifierType.html#associatedconstant.CONTROL_MASK" title="associated constant gdk::ModifierType::CONTROL_MASK"><code>ModifierType::CONTROL_MASK</code></a> and
+<a href="struct.ModifierType.html#associatedconstant.MOD2_MASK" title="associated constant gdk::ModifierType::MOD2_MASK"><code>ModifierType::MOD2_MASK</code></a>, respectively).</dd><dt><a class="enum" href="enum.NotifyType.html" title="enum gdk::NotifyType">Notify<wbr>Type</a></dt><dd>Specifies the kind of crossing for <a href="struct.EventCrossing.html" title="struct gdk::EventCrossing"><code>EventCrossing</code></a>.</dd><dt><a class="enum" href="enum.OwnerChange.html" title="enum gdk::OwnerChange">Owner<wbr>Change</a></dt><dd>Specifies why a selection ownership was changed.</dd><dt><a class="enum" href="enum.PropMode.html" title="enum gdk::PropMode">Prop<wbr>Mode</a></dt><dd>Describes how existing data is combined with new data when
+using <code>gdk_property_change()</code>.</dd><dt><a class="enum" href="enum.PropertyState.html" title="enum gdk::PropertyState">Property<wbr>State</a></dt><dd>Specifies the type of a property change for a <a href="struct.EventProperty.html" title="struct gdk::EventProperty"><code>EventProperty</code></a>.</dd><dt><a class="enum" href="enum.ScrollDirection.html" title="enum gdk::ScrollDirection">Scroll<wbr>Direction</a></dt><dd>Specifies the direction for <a href="struct.EventScroll.html" title="struct gdk::EventScroll"><code>EventScroll</code></a>.</dd><dt><a class="enum" href="enum.SettingAction.html" title="enum gdk::SettingAction">Setting<wbr>Action</a></dt><dd>Specifies the kind of modification applied to a setting in a
+<a href="struct.EventSetting.html" title="struct gdk::EventSetting"><code>EventSetting</code></a>.</dd><dt><a class="enum" href="enum.SubpixelLayout.html" title="enum gdk::SubpixelLayout">Subpixel<wbr>Layout</a></dt><dd>This enumeration describes how the red, green and blue components
+of physical pixels on an output device are laid out.</dd><dt><a class="enum" href="enum.VisibilityState.html" title="enum gdk::VisibilityState">Visibility<wbr>State</a></dt><dd>Specifies the visiblity status of a window for a <a href="struct.EventVisibility.html" title="struct gdk::EventVisibility"><code>EventVisibility</code></a>.</dd><dt><a class="enum" href="enum.VisualType.html" title="enum gdk::VisualType">Visual<wbr>Type</a></dt><dd>A set of values that describe the manner in which the pixel values
+for a visual are converted into RGB values for display.</dd><dt><a class="enum" href="enum.WindowEdge.html" title="enum gdk::WindowEdge">Window<wbr>Edge</a></dt><dd>Determines a window edge or corner.</dd><dt><a class="enum" href="enum.WindowType.html" title="enum gdk::WindowType">Window<wbr>Type</a></dt><dd>Describes the kind of window.</dd><dt><a class="enum" href="enum.WindowTypeHint.html" title="enum gdk::WindowTypeHint">Window<wbr>Type<wbr>Hint</a></dt><dd>These are hints for the window manager that indicate what type of function
+the window has. The window manager can use this when determining decoration
+and behaviour of the window. The hint must be set before mapping the window.</dd><dt><a class="enum" href="enum.WindowWindowClass.html" title="enum gdk::WindowWindowClass">Window<wbr>Window<wbr>Class</a></dt><dd><a href="enum.WindowWindowClass.html#variant.InputOutput" title="variant gdk::WindowWindowClass::InputOutput"><code>InputOutput</code></a> windows are the standard kind of window you might expect.
+Such windows receive events and are also displayed on screen.
+<a href="enum.WindowWindowClass.html#variant.InputOnly" title="variant gdk::WindowWindowClass::InputOnly"><code>InputOnly</code></a> windows are invisible; they are usually placed above other
+windows in order to trap or filter the events. You can’t draw on
+<a href="enum.WindowWindowClass.html#variant.InputOnly" title="variant gdk::WindowWindowClass::InputOnly"><code>InputOnly</code></a> windows.</dd></dl><h2 id="constants" class="section-header">Constants<a href="#constants" class="anchor">§</a></h2><dl class="item-table"><dt><a class="constant" href="constant.ATOM_NONE.html" title="constant gdk::ATOM_NONE">ATOM_<wbr>NONE</a></dt><dt><a class="constant" href="constant.BUTTON_MIDDLE.html" title="constant gdk::BUTTON_MIDDLE">BUTTON_<wbr>MIDDLE</a></dt><dd>The middle button.
+The middle button.</dd><dt><a class="constant" href="constant.BUTTON_PRIMARY.html" title="constant gdk::BUTTON_PRIMARY">BUTTON_<wbr>PRIMARY</a></dt><dd>The primary button. This is typically the left mouse button, or the right button in a left-handed setup.
+The primary button. This is typically the left mouse button, or the
+right button in a left-handed setup.</dd><dt><a class="constant" href="constant.BUTTON_SECONDARY.html" title="constant gdk::BUTTON_SECONDARY">BUTTON_<wbr>SECONDARY</a></dt><dd>The secondary button. This is typically the right mouse button, or the left button in a left-handed setup.
+The secondary button. This is typically the right mouse button, or the
+left button in a left-handed setup.</dd><dt><a class="constant" href="constant.EVENT_PROPAGATE.html" title="constant gdk::EVENT_PROPAGATE">EVENT_<wbr>PROPAGATE</a></dt><dd>Use this macro as the return value for continuing the propagation of
+an event handler.</dd><dt><a class="constant" href="constant.EVENT_STOP.html" title="constant gdk::EVENT_STOP">EVENT_<wbr>STOP</a></dt><dd>Use this macro as the return value for stopping the propagation of
+an event handler.</dd><dt><a class="constant" href="constant.SELECTION_CLIPBOARD.html" title="constant gdk::SELECTION_CLIPBOARD">SELECTION_<wbr>CLIPBOARD</a></dt><dt><a class="constant" href="constant.SELECTION_PRIMARY.html" title="constant gdk::SELECTION_PRIMARY">SELECTION_<wbr>PRIMARY</a></dt><dt><a class="constant" href="constant.SELECTION_SECONDARY.html" title="constant gdk::SELECTION_SECONDARY">SELECTION_<wbr>SECONDARY</a></dt><dt><a class="constant" href="constant.SELECTION_TYPE_ATOM.html" title="constant gdk::SELECTION_TYPE_ATOM">SELECTION_<wbr>TYPE_<wbr>ATOM</a></dt><dt><a class="constant" href="constant.SELECTION_TYPE_BITMAP.html" title="constant gdk::SELECTION_TYPE_BITMAP">SELECTION_<wbr>TYPE_<wbr>BITMAP</a></dt><dt><a class="constant" href="constant.SELECTION_TYPE_COLORMAP.html" title="constant gdk::SELECTION_TYPE_COLORMAP">SELECTION_<wbr>TYPE_<wbr>COLORMAP</a></dt><dt><a class="constant" href="constant.SELECTION_TYPE_DRAWABLE.html" title="constant gdk::SELECTION_TYPE_DRAWABLE">SELECTION_<wbr>TYPE_<wbr>DRAWABLE</a></dt><dt><a class="constant" href="constant.SELECTION_TYPE_INTEGER.html" title="constant gdk::SELECTION_TYPE_INTEGER">SELECTION_<wbr>TYPE_<wbr>INTEGER</a></dt><dt><a class="constant" href="constant.SELECTION_TYPE_PIXMAP.html" title="constant gdk::SELECTION_TYPE_PIXMAP">SELECTION_<wbr>TYPE_<wbr>PIXMAP</a></dt><dt><a class="constant" href="constant.SELECTION_TYPE_STRING.html" title="constant gdk::SELECTION_TYPE_STRING">SELECTION_<wbr>TYPE_<wbr>STRING</a></dt><dt><a class="constant" href="constant.SELECTION_TYPE_WINDOW.html" title="constant gdk::SELECTION_TYPE_WINDOW">SELECTION_<wbr>TYPE_<wbr>WINDOW</a></dt><dt><a class="constant" href="constant.TARGET_BITMAP.html" title="constant gdk::TARGET_BITMAP">TARGET_<wbr>BITMAP</a></dt><dt><a class="constant" href="constant.TARGET_COLORMAP.html" title="constant gdk::TARGET_COLORMAP">TARGET_<wbr>COLORMAP</a></dt><dt><a class="constant" href="constant.TARGET_DRAWABLE.html" title="constant gdk::TARGET_DRAWABLE">TARGET_<wbr>DRAWABLE</a></dt><dt><a class="constant" href="constant.TARGET_PIXMAP.html" title="constant gdk::TARGET_PIXMAP">TARGET_<wbr>PIXMAP</a></dt><dt><a class="constant" href="constant.TARGET_STRING.html" title="constant gdk::TARGET_STRING">TARGET_<wbr>STRING</a></dt></dl><h2 id="traits" class="section-header">Traits<a href="#traits" class="anchor">§</a></h2><dl class="item-table"><dt><a class="trait" href="trait.FromEvent.html" title="trait gdk::FromEvent">From<wbr>Event</a></dt><dd>A helper trait implemented by all event subtypes.</dd></dl><h2 id="functions" class="section-header">Functions<a href="#functions" class="anchor">§</a></h2><dl class="item-table"><dt><a class="fn" href="fn.beep.html" title="fn gdk::beep">beep</a></dt><dd>Emits a short beep on the default display.</dd><dt><a class="fn" href="fn.display_arg_name.html" title="fn gdk::display_arg_name">display_<wbr>arg_<wbr>name</a></dt><dd>Gets the display name specified in the command line arguments passed
+to <code>gdk_init()</code> or <code>gdk_parse_args()</code>, if any.</dd><dt><a class="fn" href="fn.error_trap_pop.html" title="fn gdk::error_trap_pop">error_<wbr>trap_<wbr>pop</a></dt><dd>Removes an error trap pushed with <a href="fn.error_trap_push.html" title="fn gdk::error_trap_push"><code>error_trap_push()</code></a>.
+May block until an error has been definitively received
+or not received from the X server. <a href="fn.error_trap_pop_ignored.html" title="fn gdk::error_trap_pop_ignored"><code>error_trap_pop_ignored()</code></a>
+is preferred if you don’t need to know whether an error
+occurred, because it never has to block. If you don’t
+need the return value of <a href="fn.error_trap_pop.html" title="fn gdk::error_trap_pop"><code>error_trap_pop()</code></a>, use
+<a href="fn.error_trap_pop_ignored.html" title="fn gdk::error_trap_pop_ignored"><code>error_trap_pop_ignored()</code></a>.</dd><dt><a class="fn" href="fn.error_trap_pop_ignored.html" title="fn gdk::error_trap_pop_ignored">error_<wbr>trap_<wbr>pop_<wbr>ignored</a></dt><dd>Removes an error trap pushed with <a href="fn.error_trap_push.html" title="fn gdk::error_trap_push"><code>error_trap_push()</code></a>, but
+without bothering to wait and see whether an error occurred. If an
+error arrives later asynchronously that was triggered while the
+trap was pushed, that error will be ignored.</dd><dt><a class="fn" href="fn.error_trap_push.html" title="fn gdk::error_trap_push">error_<wbr>trap_<wbr>push</a></dt><dd>This function allows X errors to be trapped instead of the normal
+behavior of exiting the application. It should only be used if it
+is not possible to avoid the X error in any other way. Errors are
+ignored on all <a href="struct.Display.html" title="struct gdk::Display"><code>Display</code></a> currently known to the
+<a href="struct.DisplayManager.html" title="struct gdk::DisplayManager"><code>DisplayManager</code></a>. If you don’t care which error happens and just
+want to ignore everything, pop with <a href="fn.error_trap_pop_ignored.html" title="fn gdk::error_trap_pop_ignored"><code>error_trap_pop_ignored()</code></a>.
+If you need the error code, use <a href="fn.error_trap_pop.html" title="fn gdk::error_trap_pop"><code>error_trap_pop()</code></a> which may have
+to block and wait for the error to arrive from the X server.</dd><dt><a class="fn" href="fn.events_get_angle.html" title="fn gdk::events_get_angle">events_<wbr>get_<wbr>angle</a></dt><dd>If both events contain X/Y information, this function will return <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="primitive bool"><code>true</code></a>
+and return in <code>angle</code> the relative angle from <code>event1</code> to <code>event2</code>. The rotation
+direction for positive angles is from the positive X axis towards the positive
+Y axis.</dd><dt><a class="fn" href="fn.events_get_center.html" title="fn gdk::events_get_center">events_<wbr>get_<wbr>center</a></dt><dd>If both events contain X/Y information, the center of both coordinates
+will be returned in <code>x</code> and <code>y</code>.</dd><dt><a class="fn" href="fn.events_get_distance.html" title="fn gdk::events_get_distance">events_<wbr>get_<wbr>distance</a></dt><dd>If both events have X/Y information, the distance between both coordinates
+(as in a straight line going from <code>event1</code> to <code>event2</code>) will be returned.</dd><dt><a class="fn" href="fn.events_pending.html" title="fn gdk::events_pending">events_<wbr>pending</a></dt><dd>Checks if any events are ready to be processed for any display.</dd><dt><a class="fn" href="fn.flush.html" title="fn gdk::flush">flush</a></dt><dd>Flushes the output buffers of all display connections and waits
+until all requests have been processed.
+This is rarely needed by applications.</dd><dt><a class="fn" href="fn.init.html" title="fn gdk::init">init</a></dt><dt><a class="fn" href="fn.notify_startup_complete.html" title="fn gdk::notify_startup_complete">notify_<wbr>startup_<wbr>complete</a></dt><dd>Indicates to the GUI environment that the application has finished
+loading. If the applications opens windows, this function is
+normally called after opening the application’s initial set of
+windows.</dd><dt><a class="fn" href="fn.notify_startup_complete_with_id.html" title="fn gdk::notify_startup_complete_with_id">notify_<wbr>startup_<wbr>complete_<wbr>with_<wbr>id</a></dt><dd>Indicates to the GUI environment that the application has
+finished loading, using a given identifier.</dd><dt><a class="fn" href="fn.pango_context_get.html" title="fn gdk::pango_context_get">pango_<wbr>context_<wbr>get</a></dt><dd>Creates a <a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/pango/auto/context/struct.Context.html" title="struct pango::auto::context::Context"><code>pango::Context</code></a> for the default GDK screen.</dd><dt><a class="fn" href="fn.pango_context_get_for_display.html" title="fn gdk::pango_context_get_for_display">pango_<wbr>context_<wbr>get_<wbr>for_<wbr>display</a></dt><dd>Creates a <a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/pango/auto/context/struct.Context.html" title="struct pango::auto::context::Context"><code>pango::Context</code></a> for <code>display</code>.</dd><dt><a class="fn" href="fn.pango_context_get_for_screen.html" title="fn gdk::pango_context_get_for_screen">pango_<wbr>context_<wbr>get_<wbr>for_<wbr>screen</a></dt><dd>Creates a <a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/pango/auto/context/struct.Context.html" title="struct pango::auto::context::Context"><code>pango::Context</code></a> for <code>screen</code>.</dd><dt><a class="fn" href="fn.pango_layout_get_clip_region.html" title="fn gdk::pango_layout_get_clip_region">pango_<wbr>layout_<wbr>get_<wbr>clip_<wbr>region</a></dt><dt><a class="fn" href="fn.pango_layout_line_get_clip_region.html" title="fn gdk::pango_layout_line_get_clip_region">pango_<wbr>layout_<wbr>line_<wbr>get_<wbr>clip_<wbr>region</a></dt><dd>Obtains a clip region which contains the areas where the given
+ranges of text would be drawn. <code>x_origin</code> and <code>y_origin</code> are the top left
+position of the layout. <code>index_ranges</code>
+should contain ranges of bytes in the layout’s text. The clip
+region will include space to the left or right of the line (to the
+layout bounding box) if you have indexes above or below the indexes
+contained inside the line. This is to draw the selection all the way
+to the side of the layout. However, the clip region is in line coordinates,
+not layout coordinates.</dd><dt><a class="fn" href="fn.pixbuf_get_from_surface.html" title="fn gdk::pixbuf_get_from_surface">pixbuf_<wbr>get_<wbr>from_<wbr>surface</a></dt><dd>Transfers image data from a <a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/cairo/surface/struct.Surface.html" title="struct cairo::surface::Surface"><code>cairo::Surface</code></a> and converts it to an RGB(A)
+representation inside a <a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/gdk_pixbuf/auto/pixbuf/struct.Pixbuf.html" title="struct gdk_pixbuf::auto::pixbuf::Pixbuf"><code>gdk_pixbuf::Pixbuf</code></a>. This allows you to efficiently read
+individual pixels from cairo surfaces. For <code>GdkWindows</code>, use
+<code>gdk_pixbuf_get_from_window()</code> instead.</dd><dt><a class="fn" href="fn.program_class.html" title="fn gdk::program_class">program_<wbr>class</a></dt><dd>Gets the program class. Unless the program class has explicitly
+been set with <a href="fn.set_program_class.html" title="fn gdk::set_program_class"><code>set_program_class()</code></a> or with the <code>--class</code>
+commandline option, the default value is the program name (determined
+with <code>g_get_prgname()</code>) with the first character converted to uppercase.</dd><dt><a class="fn" href="fn.property_change.html" title="fn gdk::property_change">property_<wbr>change</a></dt><dt><a class="fn" href="fn.property_delete.html" title="fn gdk::property_delete">property_<wbr>delete</a></dt><dd>Deletes a property from a window.</dd><dt><a class="fn" href="fn.property_get.html" title="fn gdk::property_get">property_<wbr>get</a></dt><dd>Retrieves a portion of the contents of a property. If the
+property does not exist, then the function returns <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="primitive bool"><code>false</code></a>,
+and <code>GDK_NONE</code> will be stored in <code>actual_property_type</code>.</dd><dt><a class="fn" href="fn.selection_convert.html" title="fn gdk::selection_convert">selection_<wbr>convert</a></dt><dd>Retrieves the contents of a selection in a given
+form.</dd><dt><a class="fn" href="fn.selection_owner_get.html" title="fn gdk::selection_owner_get">selection_<wbr>owner_<wbr>get</a></dt><dd>Determines the owner of the given selection.</dd><dt><a class="fn" href="fn.selection_owner_get_for_display.html" title="fn gdk::selection_owner_get_for_display">selection_<wbr>owner_<wbr>get_<wbr>for_<wbr>display</a></dt><dd>Determine the owner of the given selection.</dd><dt><a class="fn" href="fn.selection_owner_set.html" title="fn gdk::selection_owner_set">selection_<wbr>owner_<wbr>set</a></dt><dd>Sets the owner of the given selection.</dd><dt><a class="fn" href="fn.selection_owner_set_for_display.html" title="fn gdk::selection_owner_set_for_display">selection_<wbr>owner_<wbr>set_<wbr>for_<wbr>display</a></dt><dd>Sets the <a href="struct.Window.html" title="struct gdk::Window"><code>Window</code></a> <code>owner</code> as the current owner of the selection <code>selection</code>.</dd><dt><a class="fn" href="fn.selection_send_notify.html" title="fn gdk::selection_send_notify">selection_<wbr>send_<wbr>notify</a></dt><dd>Sends a response to SelectionRequest event.</dd><dt><a class="fn" href="fn.selection_send_notify_for_display.html" title="fn gdk::selection_send_notify_for_display">selection_<wbr>send_<wbr>notify_<wbr>for_<wbr>display</a></dt><dd>Send a response to SelectionRequest event.</dd><dt><a class="fn" href="fn.set_allowed_backends.html" title="fn gdk::set_allowed_backends">set_<wbr>allowed_<wbr>backends</a></dt><dd>Sets a list of backends that GDK should try to use.</dd><dt><a class="fn" href="fn.set_double_click_time.html" title="fn gdk::set_double_click_time">set_<wbr>double_<wbr>click_<wbr>time</a></dt><dd>Set the double click time for the default display. See
+<a href="struct.Display.html#method.set_double_click_time" title="method gdk::Display::set_double_click_time"><code>Display::set_double_click_time()</code></a>.
+See also <a href="struct.Display.html#method.set_double_click_distance" title="method gdk::Display::set_double_click_distance"><code>Display::set_double_click_distance()</code></a>.
+Applications should not set this, it is a
+global user-configured setting.</dd><dt><a class="fn" href="fn.set_initialized.html" title="fn gdk::set_initialized">set_<wbr>initialized</a><sup title="unsafe function">⚠</sup></dt><dd>Informs this crate that GDK has been initialized and the current thread is the main one.</dd><dt><a class="fn" href="fn.set_program_class.html" title="fn gdk::set_program_class">set_<wbr>program_<wbr>class</a></dt><dd>Sets the program class. The X11 backend uses the program class to set
+the class name part of the <code>WM_CLASS</code> property on
+toplevel windows; see the ICCCM.</dd><dt><a class="fn" href="fn.set_show_events.html" title="fn gdk::set_show_events">set_<wbr>show_<wbr>events</a></dt><dd>Sets whether a trace of received events is output.
+Note that GTK+ must be compiled with debugging (that is,
+configured using the <code>--enable-debug</code> option)
+to use this option.</dd><dt><a class="fn" href="fn.setting_get.html" title="fn gdk::setting_get">setting_<wbr>get</a></dt><dt><a class="fn" href="fn.shows_events.html" title="fn gdk::shows_events">shows_<wbr>events</a></dt><dd>Gets whether event debugging output is enabled.</dd><dt><a class="fn" href="fn.synthesize_window_state.html" title="fn gdk::synthesize_window_state">synthesize_<wbr>window_<wbr>state</a></dt><dt><a class="fn" href="fn.test_render_sync.html" title="fn gdk::test_render_sync">test_<wbr>render_<wbr>sync</a></dt><dd>Retrieves a pixel from <code>window</code> to force the windowing
+system to carry out any pending rendering commands.</dd><dt><a class="fn" href="fn.test_simulate_button.html" title="fn gdk::test_simulate_button">test_<wbr>simulate_<wbr>button</a></dt><dd>This function is intended to be used in GTK+ test programs.
+It will warp the mouse pointer to the given (<code>x</code>,<code>y</code>) coordinates
+within <code>window</code> and simulate a button press or release event.
+Because the mouse pointer needs to be warped to the target
+location, use of this function outside of test programs that
+run in their own virtual windowing system (e.g. Xvfb) is not
+recommended.</dd><dt><a class="fn" href="fn.test_simulate_key.html" title="fn gdk::test_simulate_key">test_<wbr>simulate_<wbr>key</a></dt><dd>This function is intended to be used in GTK+ test programs.
+If (<code>x</code>,<code>y</code>) are &gt; (-1,-1), it will warp the mouse pointer to
+the given (<code>x</code>,<code>y</code>) coordinates within <code>window</code> and simulate a
+key press or release event.</dd><dt><a class="fn" href="fn.text_property_to_utf8_list_for_display.html" title="fn gdk::text_property_to_utf8_list_for_display">text_<wbr>property_<wbr>to_<wbr>utf8_<wbr>list_<wbr>for_<wbr>display</a></dt><dd>Converts a text property in the given encoding to
+a list of UTF-8 strings.</dd><dt><a class="fn" href="fn.utf8_to_string_target.html" title="fn gdk::utf8_to_string_target">utf8_<wbr>to_<wbr>string_<wbr>target</a></dt><dd>Converts an UTF-8 string into the best possible representation
+as a STRING. The representation of characters not in STRING
+is not specified; it may be as pseudo-escape sequences
+\x{ABCD}, or it may be in some other form of approximation.</dd></dl><h2 id="types" class="section-header">Type Aliases<a href="#types" class="anchor">§</a></h2><dl class="item-table"><dt><a class="type" href="type.key.html" title="type gdk::key">key</a></dt></dl></section></div></main></body></html>

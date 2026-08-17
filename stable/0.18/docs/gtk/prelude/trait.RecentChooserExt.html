@@ -1,0 +1,335 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Trait containing all `struct@RecentChooser` methods."><title>RecentChooserExt in gtk::prelude - Rust</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2"href="../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../static.files/rustdoc-0c87338a.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.100.0-nightly (34baba539 2026-08-16)" data-channel="nightly" data-search-js="search-cf4fc35e.js" data-stringdex-js="stringdex-b5109af9.js" data-settings-js="settings-170eb4bf.js" ><script src="../../static.files/storage-41dd4d93.js"></script><script defer src="sidebar-items.js"></script><script defer src="../../static.files/main-417ebf0a.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-9f56287d.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-eab170b8.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-044be391.svg"></head><body class="rustdoc trait"><a class="skip-main-content" href="#main-content">Skip to main content</a><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
+
+    function checkDocsLatestStable() {
+        function popup(msg, url) { return `
+            <style scoped="scoped">
+                .popup {
+                    max-width: 16em;
+                    background-color: #fff;
+                    position: fixed;
+                    z-index: 1;
+                    margin-left: auto;
+                    bottom: 1em;
+                    right: 1em;
+                    border-radius: 5px;
+                    box-shadow: 1px 1px 4px #777;
+                }
+
+                .popup a.version {
+                    color: #e57300;
+                    padding: 0.6em 1em;
+                    display: block;
+                }
+                .popup a.version:hover {
+                    color: #b25900;
+                }
+
+                .popup a.close {
+                    color: white;
+                    background: grey;
+                    border-radius: 99px;
+                    display: inline-block;
+                    width: 19px;
+                    line-height: 19px;
+                    font-weight: bold;
+                    text-align: center;
+                    margin: 0.6em;
+                    float: right;
+                }
+                .popup a.close:hover {
+                    background: black;
+                }
+            </style>
+            <section class="popup" id="gir_docs_popup">
+                <a class="close" href="#" onclick="document.getElementById('gir_docs_popup').remove(); return false">×</a>
+                <a class="version" href="https://gtk-rs.org/gtk3-rs/stable/latest/docs">
+                    ⚠ ${msg}
+                </a>
+            </section>
+        ` };
+
+        if ("0.18" == "master") {
+            document.body.insertAdjacentHTML(
+                'beforeend',
+                popup("This is the development version. Go to latest stable version.", "stable/latest")
+            );
+        } else {
+            fetch('https://gtk-rs.org/gtk3-rs/LATEST_RELEASE_BRANCH')
+                .then(response => response.text())
+                .then(latest_branch => {
+                    if (latest_branch.trim() != "0.18") {
+                        document.body.insertAdjacentHTML(
+                            'beforeend',
+                            popup("This version is outdated. Go to latest version.", "stable/latest")
+                        );
+                    }
+                });
+        }
+    }
+</script>
+
+
+<rustdoc-topbar><h2><a href="#">RecentChooserExt</a></h2></rustdoc-topbar><nav class="sidebar"><div class="sidebar-crate"><h2><a href="../../gtk/index.html">gtk</a><span class="version">0.18.1</span></h2></div><div class="sidebar-elems"><section id="rustdoc-toc"><h2 class="location"><a href="#">Recent<wbr>Chooser<wbr>Ext</a></h2><h3><a href="#">Sections</a></h3><ul class="block top-toc"><li><a href="#implementors-1" title="Implementors">Implementors</a></li></ul><h3><a href="#provided-methods">Provided Methods</a></h3><ul class="block"><li><a href="#method.add_filter" title="add_filter">add_filter</a></li><li><a href="#method.connect_filter_notify" title="connect_filter_notify">connect_filter_notify</a></li><li><a href="#method.connect_item_activated" title="connect_item_activated">connect_item_activated</a></li><li><a href="#method.connect_limit_notify" title="connect_limit_notify">connect_limit_notify</a></li><li><a href="#method.connect_local_only_notify" title="connect_local_only_notify">connect_local_only_notify</a></li><li><a href="#method.connect_select_multiple_notify" title="connect_select_multiple_notify">connect_select_multiple_notify</a></li><li><a href="#method.connect_selection_changed" title="connect_selection_changed">connect_selection_changed</a></li><li><a href="#method.connect_show_icons_notify" title="connect_show_icons_notify">connect_show_icons_notify</a></li><li><a href="#method.connect_show_not_found_notify" title="connect_show_not_found_notify">connect_show_not_found_notify</a></li><li><a href="#method.connect_show_private_notify" title="connect_show_private_notify">connect_show_private_notify</a></li><li><a href="#method.connect_show_tips_notify" title="connect_show_tips_notify">connect_show_tips_notify</a></li><li><a href="#method.connect_sort_type_notify" title="connect_sort_type_notify">connect_sort_type_notify</a></li><li><a href="#method.current_item" title="current_item">current_item</a></li><li><a href="#method.current_uri" title="current_uri">current_uri</a></li><li><a href="#method.filter" title="filter">filter</a></li><li><a href="#method.is_local_only" title="is_local_only">is_local_only</a></li><li><a href="#method.items" title="items">items</a></li><li><a href="#method.limit" title="limit">limit</a></li><li><a href="#method.list_filters" title="list_filters">list_filters</a></li><li><a href="#method.remove_filter" title="remove_filter">remove_filter</a></li><li><a href="#method.select_all" title="select_all">select_all</a></li><li><a href="#method.select_uri" title="select_uri">select_uri</a></li><li><a href="#method.selects_multiple" title="selects_multiple">selects_multiple</a></li><li><a href="#method.set_current_uri" title="set_current_uri">set_current_uri</a></li><li><a href="#method.set_filter" title="set_filter">set_filter</a></li><li><a href="#method.set_limit" title="set_limit">set_limit</a></li><li><a href="#method.set_local_only" title="set_local_only">set_local_only</a></li><li><a href="#method.set_select_multiple" title="set_select_multiple">set_select_multiple</a></li><li><a href="#method.set_show_icons" title="set_show_icons">set_show_icons</a></li><li><a href="#method.set_show_not_found" title="set_show_not_found">set_show_not_found</a></li><li><a href="#method.set_show_private" title="set_show_private">set_show_private</a></li><li><a href="#method.set_show_tips" title="set_show_tips">set_show_tips</a></li><li><a href="#method.set_sort_func" title="set_sort_func">set_sort_func</a></li><li><a href="#method.set_sort_type" title="set_sort_type">set_sort_type</a></li><li><a href="#method.shows_icons" title="shows_icons">shows_icons</a></li><li><a href="#method.shows_not_found" title="shows_not_found">shows_not_found</a></li><li><a href="#method.shows_private" title="shows_private">shows_private</a></li><li><a href="#method.shows_tips" title="shows_tips">shows_tips</a></li><li><a href="#method.sort_type" title="sort_type">sort_type</a></li><li><a href="#method.unselect_all" title="unselect_all">unselect_all</a></li><li><a href="#method.unselect_uri" title="unselect_uri">unselect_uri</a></li><li><a href="#method.uris" title="uris">uris</a></li></ul><h3><a href="#dyn-compatibility">Dyn Compatibility</a></h3><h3><a href="#implementors">Implementors</a></h3></section><div id="rustdoc-modnav"><h2><a href="index.html">In gtk::<wbr>prelude</a></h2></div></div></nav><div class="sidebar-resizer" title="Drag to resize sidebar"></div><main><div class="width-limiter"><section id="main-content" class="content" tabindex="-1"><div class="main-heading"><div class="rustdoc-breadcrumbs"><a href="../index.html">gtk</a>::<wbr><a href="index.html">prelude</a></div><h1>Trait <span class="trait">Recent<wbr>Chooser<wbr>Ext</span>&nbsp;<button id="copy-path" title="Copy item path to clipboard">Copy item path</button></h1><rustdoc-toolbar></rustdoc-toolbar><span class="sub-heading"><a class="src" href="../../src/gtk/auto/recent_chooser.rs.html#134-937">Source</a> </span></div><pre class="rust item-decl"><code>pub trait RecentChooserExt:
+    <a class="trait" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.RecentChooser.html" title="struct gtk::RecentChooser">RecentChooser</a>&gt;
+    + Sealed
+    + 'static {
+<details class="toggle type-contents-toggle"><summary class="hideme"><span>Show 42 methods</span></summary>    // Provided methods
+    fn <a href="#method.add_filter" class="fn">add_filter</a>(&amp;self, filter: &amp;<a class="struct" href="../struct.RecentFilter.html" title="struct gtk::RecentFilter">RecentFilter</a>) { ... }
+<span class="item-spacer"></span>    fn <a href="#method.current_item" class="fn">current_item</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../struct.RecentInfo.html" title="struct gtk::RecentInfo">RecentInfo</a>&gt; { ... }
+<span class="item-spacer"></span>    fn <a href="#method.current_uri" class="fn">current_uri</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/gstring/struct.GString.html" title="struct glib::gstring::GString">GString</a>&gt; { ... }
+<span class="item-spacer"></span>    fn <a href="#method.filter" class="fn">filter</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../struct.RecentFilter.html" title="struct gtk::RecentFilter">RecentFilter</a>&gt; { ... }
+<span class="item-spacer"></span>    fn <a href="#method.items" class="fn">items</a>(&amp;self) -&gt; <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html" title="struct alloc::vec::Vec">Vec</a>&lt;<a class="struct" href="../struct.RecentInfo.html" title="struct gtk::RecentInfo">RecentInfo</a>&gt; { ... }
+<span class="item-spacer"></span>    fn <a href="#method.limit" class="fn">limit</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.is_local_only" class="fn">is_local_only</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.selects_multiple" class="fn">selects_multiple</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.shows_icons" class="fn">shows_icons</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.shows_not_found" class="fn">shows_not_found</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.shows_private" class="fn">shows_private</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.shows_tips" class="fn">shows_tips</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.sort_type" class="fn">sort_type</a>(&amp;self) -&gt; <a class="enum" href="../enum.RecentSortType.html" title="enum gtk::RecentSortType">RecentSortType</a> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.uris" class="fn">uris</a>(&amp;self) -&gt; <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html" title="struct alloc::vec::Vec">Vec</a>&lt;<a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/gstring/struct.GString.html" title="struct glib::gstring::GString">GString</a>&gt; { ... }
+<span class="item-spacer"></span>    fn <a href="#method.list_filters" class="fn">list_filters</a>(&amp;self) -&gt; <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html" title="struct alloc::vec::Vec">Vec</a>&lt;<a class="struct" href="../struct.RecentFilter.html" title="struct gtk::RecentFilter">RecentFilter</a>&gt; { ... }
+<span class="item-spacer"></span>    fn <a href="#method.remove_filter" class="fn">remove_filter</a>(&amp;self, filter: &amp;<a class="struct" href="../struct.RecentFilter.html" title="struct gtk::RecentFilter">RecentFilter</a>) { ... }
+<span class="item-spacer"></span>    fn <a href="#method.select_all" class="fn">select_all</a>(&amp;self) { ... }
+<span class="item-spacer"></span>    fn <a href="#method.select_uri" class="fn">select_uri</a>(&amp;self, uri: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.unit.html">()</a>, <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/error/struct.Error.html" title="struct glib::error::Error">Error</a>&gt; { ... }
+<span class="item-spacer"></span>    fn <a href="#method.set_current_uri" class="fn">set_current_uri</a>(&amp;self, uri: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.unit.html">()</a>, <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/error/struct.Error.html" title="struct glib::error::Error">Error</a>&gt; { ... }
+<span class="item-spacer"></span>    fn <a href="#method.set_filter" class="fn">set_filter</a>(&amp;self, filter: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;&amp;<a class="struct" href="../struct.RecentFilter.html" title="struct gtk::RecentFilter">RecentFilter</a>&gt;) { ... }
+<span class="item-spacer"></span>    fn <a href="#method.set_limit" class="fn">set_limit</a>(&amp;self, limit: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) { ... }
+<span class="item-spacer"></span>    fn <a href="#method.set_local_only" class="fn">set_local_only</a>(&amp;self, local_only: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) { ... }
+<span class="item-spacer"></span>    fn <a href="#method.set_select_multiple" class="fn">set_select_multiple</a>(&amp;self, select_multiple: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) { ... }
+<span class="item-spacer"></span>    fn <a href="#method.set_show_icons" class="fn">set_show_icons</a>(&amp;self, show_icons: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) { ... }
+<span class="item-spacer"></span>    fn <a href="#method.set_show_not_found" class="fn">set_show_not_found</a>(&amp;self, show_not_found: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) { ... }
+<span class="item-spacer"></span>    fn <a href="#method.set_show_private" class="fn">set_show_private</a>(&amp;self, show_private: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) { ... }
+<span class="item-spacer"></span>    fn <a href="#method.set_show_tips" class="fn">set_show_tips</a>(&amp;self, show_tips: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) { ... }
+<span class="item-spacer"></span>    fn <a href="#method.set_sort_func" class="fn">set_sort_func</a>&lt;P: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;<a class="struct" href="../struct.RecentInfo.html" title="struct gtk::RecentInfo">RecentInfo</a>, &amp;<a class="struct" href="../struct.RecentInfo.html" title="struct gtk::RecentInfo">RecentInfo</a>) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a> + 'static&gt;(
+        &amp;self,
+        sort_func: P,
+    ) { ... }
+<span class="item-spacer"></span>    fn <a href="#method.set_sort_type" class="fn">set_sort_type</a>(&amp;self, sort_type: <a class="enum" href="../enum.RecentSortType.html" title="enum gtk::RecentSortType">RecentSortType</a>) { ... }
+<span class="item-spacer"></span>    fn <a href="#method.unselect_all" class="fn">unselect_all</a>(&amp;self) { ... }
+<span class="item-spacer"></span>    fn <a href="#method.unselect_uri" class="fn">unselect_uri</a>(&amp;self, uri: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) { ... }
+<span class="item-spacer"></span>    fn <a href="#method.connect_item_activated" class="fn">connect_item_activated</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;Self) + 'static&gt;(
+        &amp;self,
+        f: F,
+    ) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.connect_selection_changed" class="fn">connect_selection_changed</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;Self) + 'static&gt;(
+        &amp;self,
+        f: F,
+    ) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.connect_filter_notify" class="fn">connect_filter_notify</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;Self) + 'static&gt;(
+        &amp;self,
+        f: F,
+    ) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.connect_limit_notify" class="fn">connect_limit_notify</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;Self) + 'static&gt;(
+        &amp;self,
+        f: F,
+    ) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.connect_local_only_notify" class="fn">connect_local_only_notify</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;Self) + 'static&gt;(
+        &amp;self,
+        f: F,
+    ) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.connect_select_multiple_notify" class="fn">connect_select_multiple_notify</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;Self) + 'static&gt;(
+        &amp;self,
+        f: F,
+    ) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.connect_show_icons_notify" class="fn">connect_show_icons_notify</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;Self) + 'static&gt;(
+        &amp;self,
+        f: F,
+    ) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.connect_show_not_found_notify" class="fn">connect_show_not_found_notify</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;Self) + 'static&gt;(
+        &amp;self,
+        f: F,
+    ) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.connect_show_private_notify" class="fn">connect_show_private_notify</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;Self) + 'static&gt;(
+        &amp;self,
+        f: F,
+    ) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.connect_show_tips_notify" class="fn">connect_show_tips_notify</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;Self) + 'static&gt;(
+        &amp;self,
+        f: F,
+    ) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.connect_sort_type_notify" class="fn">connect_sort_type_notify</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;Self) + 'static&gt;(
+        &amp;self,
+        f: F,
+    ) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a> { ... }
+</details>}</code></pre><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>Trait containing all <a href="../struct.RecentChooser.html" title="struct gtk::RecentChooser"><code>RecentChooser</code></a> methods.</p>
+<h2 id="implementors-1"><a class="doc-anchor" href="#implementors-1">§</a>Implementors</h2>
+<p><a href="../struct.RecentChooserDialog.html" title="struct gtk::RecentChooserDialog"><code>RecentChooserDialog</code></a>, <a href="../struct.RecentChooserMenu.html" title="struct gtk::RecentChooserMenu"><code>RecentChooserMenu</code></a>, <a href="../struct.RecentChooserWidget.html" title="struct gtk::RecentChooserWidget"><code>RecentChooserWidget</code></a>, <a href="../struct.RecentChooser.html" title="struct gtk::RecentChooser"><code>RecentChooser</code></a></p>
+</div></details><h2 id="provided-methods" class="section-header">Provided Methods<a href="#provided-methods" class="anchor">§</a></h2><div class="methods"><details class="toggle method-toggle" open><summary><section id="method.add_filter" class="method"><a class="src rightside" href="../../src/gtk/auto/recent_chooser.rs.html#142-149">Source</a><h4 class="code-header">fn <a href="#method.add_filter" class="fn">add_filter</a>(&amp;self, filter: &amp;<a class="struct" href="../struct.RecentFilter.html" title="struct gtk::RecentFilter">RecentFilter</a>)</h4></section></summary><div class="docblock"><p>Adds <code>filter</code> to the list of <a href="../struct.RecentFilter.html" title="struct gtk::RecentFilter"><code>RecentFilter</code></a> objects held by <code>self</code>.</p>
+<p>If no previous filter objects were defined, this function will call
+<a href="trait.RecentChooserExt.html#method.set_filter" title="method gtk::prelude::RecentChooserExt::set_filter"><code>set_filter()</code></a>.</p>
+<h6 id="filter"><a class="doc-anchor" href="#filter">§</a><code>filter</code></h6>
+<p>a <a href="../struct.RecentFilter.html" title="struct gtk::RecentFilter"><code>RecentFilter</code></a></p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.current_item" class="method"><a class="src rightside" href="../../src/gtk/auto/recent_chooser.rs.html#159-165">Source</a><h4 class="code-header">fn <a href="#method.current_item" class="fn">current_item</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../struct.RecentInfo.html" title="struct gtk::RecentInfo">RecentInfo</a>&gt;</h4></section></summary><div class="docblock"><p>Gets the <a href="../struct.RecentInfo.html" title="struct gtk::RecentInfo"><code>RecentInfo</code></a> currently selected by <code>self</code>.</p>
+<h5 id="returns"><a class="doc-anchor" href="#returns">§</a>Returns</h5>
+<p>a <a href="../struct.RecentInfo.html" title="struct gtk::RecentInfo"><code>RecentInfo</code></a>. Use <code>gtk_recent_info_unref()</code> when
+when you have finished using it.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.current_uri" class="method"><a class="src rightside" href="../../src/gtk/auto/recent_chooser.rs.html#174-180">Source</a><h4 class="code-header">fn <a href="#method.current_uri" class="fn">current_uri</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/gstring/struct.GString.html" title="struct glib::gstring::GString">GString</a>&gt;</h4></section></summary><div class="docblock"><p>Gets the URI currently selected by <code>self</code>.</p>
+<h5 id="returns-1"><a class="doc-anchor" href="#returns-1">§</a>Returns</h5>
+<p>a newly allocated string holding a URI.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.filter" class="method"><a class="src rightside" href="../../src/gtk/auto/recent_chooser.rs.html#190-196">Source</a><h4 class="code-header">fn <a href="#method.filter" class="fn">filter</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../struct.RecentFilter.html" title="struct gtk::RecentFilter">RecentFilter</a>&gt;</h4></section></summary><div class="docblock"><p>Gets the <a href="../struct.RecentFilter.html" title="struct gtk::RecentFilter"><code>RecentFilter</code></a> object currently used by <code>self</code> to affect
+the display of the recently used resources.</p>
+<h5 id="returns-2"><a class="doc-anchor" href="#returns-2">§</a>Returns</h5>
+<p>a <a href="../struct.RecentFilter.html" title="struct gtk::RecentFilter"><code>RecentFilter</code></a> object.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.items" class="method"><a class="src rightside" href="../../src/gtk/auto/recent_chooser.rs.html#211-217">Source</a><h4 class="code-header">fn <a href="#method.items" class="fn">items</a>(&amp;self) -&gt; <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html" title="struct alloc::vec::Vec">Vec</a>&lt;<a class="struct" href="../struct.RecentInfo.html" title="struct gtk::RecentInfo">RecentInfo</a>&gt;</h4></section></summary><div class="docblock"><p>Gets the list of recently used resources in form of <a href="../struct.RecentInfo.html" title="struct gtk::RecentInfo"><code>RecentInfo</code></a> objects.</p>
+<p>The return value of this function is affected by the “sort-type” and
+“limit” properties of <code>self</code>.</p>
+<h5 id="returns-3"><a class="doc-anchor" href="#returns-3">§</a>Returns</h5>
+<p>A newly allocated
+list of <a href="../struct.RecentInfo.html" title="struct gtk::RecentInfo"><code>RecentInfo</code></a> objects. You should
+use <code>gtk_recent_info_unref()</code> on every item of the list, and then free
+the list itself using <code>g_list_free()</code>.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.limit" class="method"><a class="src rightside" href="../../src/gtk/auto/recent_chooser.rs.html#228-230">Source</a><h4 class="code-header">fn <a href="#method.limit" class="fn">limit</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a></h4></section></summary><div class="docblock"><p>Gets the number of items returned by <a href="trait.RecentChooserExt.html#method.items" title="method gtk::prelude::RecentChooserExt::items"><code>items()</code></a>
+and <a href="trait.RecentChooserExt.html#method.uris" title="method gtk::prelude::RecentChooserExt::uris"><code>uris()</code></a>.</p>
+<h5 id="returns-4"><a class="doc-anchor" href="#returns-4">§</a>Returns</h5>
+<p>A positive integer, or -1 meaning that all items are
+returned.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.is_local_only" class="method"><a class="src rightside" href="../../src/gtk/auto/recent_chooser.rs.html#240-246">Source</a><h4 class="code-header">fn <a href="#method.is_local_only" class="fn">is_local_only</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></h4></section></summary><div class="docblock"><p>Gets whether only local resources should be shown in the recently used
+resources selector. See <a href="trait.RecentChooserExt.html#method.set_local_only" title="method gtk::prelude::RecentChooserExt::set_local_only"><code>set_local_only()</code></a></p>
+<h5 id="returns-5"><a class="doc-anchor" href="#returns-5">§</a>Returns</h5>
+<p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="primitive bool"><code>true</code></a> if only local resources should be shown.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.selects_multiple" class="method"><a class="src rightside" href="../../src/gtk/auto/recent_chooser.rs.html#255-261">Source</a><h4 class="code-header">fn <a href="#method.selects_multiple" class="fn">selects_multiple</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></h4></section></summary><div class="docblock"><p>Gets whether <code>self</code> can select multiple items.</p>
+<h5 id="returns-6"><a class="doc-anchor" href="#returns-6">§</a>Returns</h5>
+<p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="primitive bool"><code>true</code></a> if <code>self</code> can select more than one item.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.shows_icons" class="method"><a class="src rightside" href="../../src/gtk/auto/recent_chooser.rs.html#270-276">Source</a><h4 class="code-header">fn <a href="#method.shows_icons" class="fn">shows_icons</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></h4></section></summary><div class="docblock"><p>Retrieves whether <code>self</code> should show an icon near the resource.</p>
+<h5 id="returns-7"><a class="doc-anchor" href="#returns-7">§</a>Returns</h5>
+<p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="primitive bool"><code>true</code></a> if the icons should be displayed, <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="primitive bool"><code>false</code></a> otherwise.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.shows_not_found" class="method"><a class="src rightside" href="../../src/gtk/auto/recent_chooser.rs.html#287-293">Source</a><h4 class="code-header">fn <a href="#method.shows_not_found" class="fn">shows_not_found</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></h4></section></summary><div class="docblock"><p>Retrieves whether <code>self</code> should show the recently used resources that
+were not found.</p>
+<h5 id="returns-8"><a class="doc-anchor" href="#returns-8">§</a>Returns</h5>
+<p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="primitive bool"><code>true</code></a> if the resources not found should be displayed, and
+<a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="primitive bool"><code>false</code></a> otheriwse.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.shows_private" class="method"><a class="src rightside" href="../../src/gtk/auto/recent_chooser.rs.html#304-310">Source</a><h4 class="code-header">fn <a href="#method.shows_private" class="fn">shows_private</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></h4></section></summary><div class="docblock"><p>Returns whether <code>self</code> should display recently used resources
+registered as private.</p>
+<h5 id="returns-9"><a class="doc-anchor" href="#returns-9">§</a>Returns</h5>
+<p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="primitive bool"><code>true</code></a> if the recent chooser should show private items,
+<a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="primitive bool"><code>false</code></a> otherwise.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.shows_tips" class="method"><a class="src rightside" href="../../src/gtk/auto/recent_chooser.rs.html#321-327">Source</a><h4 class="code-header">fn <a href="#method.shows_tips" class="fn">shows_tips</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></h4></section></summary><div class="docblock"><p>Gets whether <code>self</code> should display tooltips containing the full path
+of a recently user resource.</p>
+<h5 id="returns-10"><a class="doc-anchor" href="#returns-10">§</a>Returns</h5>
+<p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="primitive bool"><code>true</code></a> if the recent chooser should show tooltips,
+<a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="primitive bool"><code>false</code></a> otherwise.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.sort_type" class="method"><a class="src rightside" href="../../src/gtk/auto/recent_chooser.rs.html#336-342">Source</a><h4 class="code-header">fn <a href="#method.sort_type" class="fn">sort_type</a>(&amp;self) -&gt; <a class="enum" href="../enum.RecentSortType.html" title="enum gtk::RecentSortType">RecentSortType</a></h4></section></summary><div class="docblock"><p>Gets the value set by <a href="trait.RecentChooserExt.html#method.set_sort_type" title="method gtk::prelude::RecentChooserExt::set_sort_type"><code>set_sort_type()</code></a>.</p>
+<h5 id="returns-11"><a class="doc-anchor" href="#returns-11">§</a>Returns</h5>
+<p>the sorting order of the <code>self</code>.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.uris" class="method"><a class="src rightside" href="../../src/gtk/auto/recent_chooser.rs.html#358-370">Source</a><h4 class="code-header">fn <a href="#method.uris" class="fn">uris</a>(&amp;self) -&gt; <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html" title="struct alloc::vec::Vec">Vec</a>&lt;<a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/gstring/struct.GString.html" title="struct glib::gstring::GString">GString</a>&gt;</h4></section></summary><div class="docblock"><p>Gets the URI of the recently used resources.</p>
+<p>The return value of this function is affected by the “sort-type” and “limit”
+properties of <code>self</code>.</p>
+<p>Since the returned array is <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="variant core::option::Option::None"><code>None</code></a> terminated, <code>length</code> may be <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="variant core::option::Option::None"><code>None</code></a>.</p>
+<h5 id="returns-12"><a class="doc-anchor" href="#returns-12">§</a>Returns</h5>
+<p>A newly allocated, <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="variant core::option::Option::None"><code>None</code></a>-terminated array of strings. Use
+<code>g_strfreev()</code> to free it.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.list_filters" class="method"><a class="src rightside" href="../../src/gtk/auto/recent_chooser.rs.html#380-386">Source</a><h4 class="code-header">fn <a href="#method.list_filters" class="fn">list_filters</a>(&amp;self) -&gt; <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html" title="struct alloc::vec::Vec">Vec</a>&lt;<a class="struct" href="../struct.RecentFilter.html" title="struct gtk::RecentFilter">RecentFilter</a>&gt;</h4></section></summary><div class="docblock"><p>Gets the <a href="../struct.RecentFilter.html" title="struct gtk::RecentFilter"><code>RecentFilter</code></a> objects held by <code>self</code>.</p>
+<h5 id="returns-13"><a class="doc-anchor" href="#returns-13">§</a>Returns</h5>
+<p>A singly linked list
+of <a href="../struct.RecentFilter.html" title="struct gtk::RecentFilter"><code>RecentFilter</code></a> objects. You
+should just free the returned list using <code>g_slist_free()</code>.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.remove_filter" class="method"><a class="src rightside" href="../../src/gtk/auto/recent_chooser.rs.html#392-399">Source</a><h4 class="code-header">fn <a href="#method.remove_filter" class="fn">remove_filter</a>(&amp;self, filter: &amp;<a class="struct" href="../struct.RecentFilter.html" title="struct gtk::RecentFilter">RecentFilter</a>)</h4></section></summary><div class="docblock"><p>Removes <code>filter</code> from the list of <a href="../struct.RecentFilter.html" title="struct gtk::RecentFilter"><code>RecentFilter</code></a> objects held by <code>self</code>.</p>
+<h6 id="filter-1"><a class="doc-anchor" href="#filter-1">§</a><code>filter</code></h6>
+<p>a <a href="../struct.RecentFilter.html" title="struct gtk::RecentFilter"><code>RecentFilter</code></a></p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.select_all" class="method"><a class="src rightside" href="../../src/gtk/auto/recent_chooser.rs.html#404-408">Source</a><h4 class="code-header">fn <a href="#method.select_all" class="fn">select_all</a>(&amp;self)</h4></section></summary><div class="docblock"><p>Selects all the items inside <code>self</code>, if the <code>self</code> supports
+multiple selection.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.select_uri" class="method"><a class="src rightside" href="../../src/gtk/auto/recent_chooser.rs.html#418-433">Source</a><h4 class="code-header">fn <a href="#method.select_uri" class="fn">select_uri</a>(&amp;self, uri: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.unit.html">()</a>, <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/error/struct.Error.html" title="struct glib::error::Error">Error</a>&gt;</h4></section></summary><div class="docblock"><p>Selects <code>uri</code> inside <code>self</code>.</p>
+<h6 id="uri"><a class="doc-anchor" href="#uri">§</a><code>uri</code></h6>
+<p>a URI</p>
+<h5 id="returns-14"><a class="doc-anchor" href="#returns-14">§</a>Returns</h5>
+<p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="primitive bool"><code>true</code></a> if <code>uri</code> was found.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.set_current_uri" class="method"><a class="src rightside" href="../../src/gtk/auto/recent_chooser.rs.html#443-458">Source</a><h4 class="code-header">fn <a href="#method.set_current_uri" class="fn">set_current_uri</a>(&amp;self, uri: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.unit.html">()</a>, <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/error/struct.Error.html" title="struct glib::error::Error">Error</a>&gt;</h4></section></summary><div class="docblock"><p>Sets <code>uri</code> as the current URI for <code>self</code>.</p>
+<h6 id="uri-1"><a class="doc-anchor" href="#uri-1">§</a><code>uri</code></h6>
+<p>a URI</p>
+<h5 id="returns-15"><a class="doc-anchor" href="#returns-15">§</a>Returns</h5>
+<p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="primitive bool"><code>true</code></a> if the URI was found.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.set_filter" class="method"><a class="src rightside" href="../../src/gtk/auto/recent_chooser.rs.html#465-472">Source</a><h4 class="code-header">fn <a href="#method.set_filter" class="fn">set_filter</a>(&amp;self, filter: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;&amp;<a class="struct" href="../struct.RecentFilter.html" title="struct gtk::RecentFilter">RecentFilter</a>&gt;)</h4></section></summary><div class="docblock"><p>Sets <code>filter</code> as the current <a href="../struct.RecentFilter.html" title="struct gtk::RecentFilter"><code>RecentFilter</code></a> object used by <code>self</code>
+to affect the displayed recently used resources.</p>
+<h6 id="filter-2"><a class="doc-anchor" href="#filter-2">§</a><code>filter</code></h6>
+<p>a <a href="../struct.RecentFilter.html" title="struct gtk::RecentFilter"><code>RecentFilter</code></a></p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.set_limit" class="method"><a class="src rightside" href="../../src/gtk/auto/recent_chooser.rs.html#479-483">Source</a><h4 class="code-header">fn <a href="#method.set_limit" class="fn">set_limit</a>(&amp;self, limit: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>)</h4></section></summary><div class="docblock"><p>Sets the number of items that should be returned by
+<a href="trait.RecentChooserExt.html#method.items" title="method gtk::prelude::RecentChooserExt::items"><code>items()</code></a> and <a href="trait.RecentChooserExt.html#method.uris" title="method gtk::prelude::RecentChooserExt::uris"><code>uris()</code></a>.</p>
+<h6 id="limit"><a class="doc-anchor" href="#limit">§</a><code>limit</code></h6>
+<p>a positive integer, or -1 for all items</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.set_local_only" class="method"><a class="src rightside" href="../../src/gtk/auto/recent_chooser.rs.html#492-499">Source</a><h4 class="code-header">fn <a href="#method.set_local_only" class="fn">set_local_only</a>(&amp;self, local_only: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>)</h4></section></summary><div class="docblock"><p>Sets whether only local resources, that is resources using the file:// URI
+scheme, should be shown in the recently used resources selector. If
+<code>local_only</code> is <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="primitive bool"><code>true</code></a> (the default) then the shown resources are guaranteed
+to be accessible through the operating system native file system.</p>
+<h6 id="local_only"><a class="doc-anchor" href="#local_only">§</a><code>local_only</code></h6>
+<p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="primitive bool"><code>true</code></a> if only local files can be shown</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.set_select_multiple" class="method"><a class="src rightside" href="../../src/gtk/auto/recent_chooser.rs.html#505-512">Source</a><h4 class="code-header">fn <a href="#method.set_select_multiple" class="fn">set_select_multiple</a>(&amp;self, select_multiple: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>)</h4></section></summary><div class="docblock"><p>Sets whether <code>self</code> can select multiple items.</p>
+<h6 id="select_multiple"><a class="doc-anchor" href="#select_multiple">§</a><code>select_multiple</code></h6>
+<p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="primitive bool"><code>true</code></a> if <code>self</code> can select more than one item</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.set_show_icons" class="method"><a class="src rightside" href="../../src/gtk/auto/recent_chooser.rs.html#519-526">Source</a><h4 class="code-header">fn <a href="#method.set_show_icons" class="fn">set_show_icons</a>(&amp;self, show_icons: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>)</h4></section></summary><div class="docblock"><p>Sets whether <code>self</code> should show an icon near the resource when
+displaying it.</p>
+<h6 id="show_icons"><a class="doc-anchor" href="#show_icons">§</a><code>show_icons</code></h6>
+<p>whether to show an icon near the resource</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.set_show_not_found" class="method"><a class="src rightside" href="../../src/gtk/auto/recent_chooser.rs.html#533-540">Source</a><h4 class="code-header">fn <a href="#method.set_show_not_found" class="fn">set_show_not_found</a>(&amp;self, show_not_found: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>)</h4></section></summary><div class="docblock"><p>Sets whether <code>self</code> should display the recently used resources that
+it didn’t find. This only applies to local resources.</p>
+<h6 id="show_not_found"><a class="doc-anchor" href="#show_not_found">§</a><code>show_not_found</code></h6>
+<p>whether to show the local items we didn’t find</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.set_show_private" class="method"><a class="src rightside" href="../../src/gtk/auto/recent_chooser.rs.html#546-553">Source</a><h4 class="code-header">fn <a href="#method.set_show_private" class="fn">set_show_private</a>(&amp;self, show_private: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>)</h4></section></summary><div class="docblock"><p>Whether to show recently used resources marked registered as private.</p>
+<h6 id="show_private"><a class="doc-anchor" href="#show_private">§</a><code>show_private</code></h6>
+<p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="primitive bool"><code>true</code></a> to show private items, <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="primitive bool"><code>false</code></a> otherwise</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.set_show_tips" class="method"><a class="src rightside" href="../../src/gtk/auto/recent_chooser.rs.html#560-567">Source</a><h4 class="code-header">fn <a href="#method.set_show_tips" class="fn">set_show_tips</a>(&amp;self, show_tips: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>)</h4></section></summary><div class="docblock"><p>Sets whether to show a tooltips containing the full path of each
+recently used resource in a <a href="../struct.RecentChooser.html" title="struct gtk::RecentChooser"><code>RecentChooser</code></a> widget.</p>
+<h6 id="show_tips"><a class="doc-anchor" href="#show_tips">§</a><code>show_tips</code></h6>
+<p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="primitive bool"><code>true</code></a> if tooltips should be shown</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.set_sort_func" class="method"><a class="src rightside" href="../../src/gtk/auto/recent_chooser.rs.html#584-612">Source</a><h4 class="code-header">fn <a href="#method.set_sort_func" class="fn">set_sort_func</a>&lt;P: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;<a class="struct" href="../struct.RecentInfo.html" title="struct gtk::RecentInfo">RecentInfo</a>, &amp;<a class="struct" href="../struct.RecentInfo.html" title="struct gtk::RecentInfo">RecentInfo</a>) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a> + 'static&gt;(
+    &amp;self,
+    sort_func: P,
+)</h4></section></summary><div class="docblock"><p>Sets the comparison function used when sorting to be <code>sort_func</code>. If
+the <code>self</code> has the sort type set to <a href="../enum.RecentSortType.html#variant.Custom" title="variant gtk::RecentSortType::Custom"><code>RecentSortType::Custom</code></a> then
+the chooser will sort using this function.</p>
+<p>To the comparison function will be passed two <a href="../struct.RecentInfo.html" title="struct gtk::RecentInfo"><code>RecentInfo</code></a> structs and
+<code>sort_data</code>; <code>sort_func</code> should return a positive integer if the first
+item comes before the second, zero if the two items are equal and
+a negative integer if the first item comes after the second.</p>
+<h6 id="sort_func"><a class="doc-anchor" href="#sort_func">§</a><code>sort_func</code></h6>
+<p>the comparison function</p>
+<h6 id="sort_data"><a class="doc-anchor" href="#sort_data">§</a><code>sort_data</code></h6>
+<p>user data to pass to <code>sort_func</code>, or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="variant core::option::Option::None"><code>None</code></a></p>
+<h6 id="data_destroy"><a class="doc-anchor" href="#data_destroy">§</a><code>data_destroy</code></h6>
+<p>destroy notifier for <code>sort_data</code>, or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="variant core::option::Option::None"><code>None</code></a></p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.set_sort_type" class="method"><a class="src rightside" href="../../src/gtk/auto/recent_chooser.rs.html#619-626">Source</a><h4 class="code-header">fn <a href="#method.set_sort_type" class="fn">set_sort_type</a>(&amp;self, sort_type: <a class="enum" href="../enum.RecentSortType.html" title="enum gtk::RecentSortType">RecentSortType</a>)</h4></section></summary><div class="docblock"><p>Changes the sorting order of the recently used resources list displayed by
+<code>self</code>.</p>
+<h6 id="sort_type"><a class="doc-anchor" href="#sort_type">§</a><code>sort_type</code></h6>
+<p>sort order that the chooser should use</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.unselect_all" class="method"><a class="src rightside" href="../../src/gtk/auto/recent_chooser.rs.html#630-634">Source</a><h4 class="code-header">fn <a href="#method.unselect_all" class="fn">unselect_all</a>(&amp;self)</h4></section></summary><div class="docblock"><p>Unselects all the items inside <code>self</code>.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.unselect_uri" class="method"><a class="src rightside" href="../../src/gtk/auto/recent_chooser.rs.html#640-647">Source</a><h4 class="code-header">fn <a href="#method.unselect_uri" class="fn">unselect_uri</a>(&amp;self, uri: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>)</h4></section></summary><div class="docblock"><p>Unselects <code>uri</code> inside <code>self</code>.</p>
+<h6 id="uri-2"><a class="doc-anchor" href="#uri-2">§</a><code>uri</code></h6>
+<p>a URI</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.connect_item_activated" class="method"><a class="src rightside" href="../../src/gtk/auto/recent_chooser.rs.html#654-676">Source</a><h4 class="code-header">fn <a href="#method.connect_item_activated" class="fn">connect_item_activated</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;Self) + 'static&gt;(
+    &amp;self,
+    f: F,
+) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></h4></section></summary><div class="docblock"><p>This signal is emitted when the user “activates” a recent item
+in the recent chooser. This can happen by double-clicking on an item
+in the recently used resources list, or by pressing
+<code>Enter</code>.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.connect_selection_changed" class="method"><a class="src rightside" href="../../src/gtk/auto/recent_chooser.rs.html#683-705">Source</a><h4 class="code-header">fn <a href="#method.connect_selection_changed" class="fn">connect_selection_changed</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;Self) + 'static&gt;(
+    &amp;self,
+    f: F,
+) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></h4></section></summary><div class="docblock"><p>This signal is emitted when there is a change in the set of
+selected recently used resources. This can happen when a user
+modifies the selection with the mouse or the keyboard, or when
+explicitly calling functions to change the selection.</p>
+</div></details><section id="method.connect_filter_notify" class="method"><a class="src rightside" href="../../src/gtk/auto/recent_chooser.rs.html#708-731">Source</a><h4 class="code-header">fn <a href="#method.connect_filter_notify" class="fn">connect_filter_notify</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;Self) + 'static&gt;(&amp;self, f: F) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></h4></section><section id="method.connect_limit_notify" class="method"><a class="src rightside" href="../../src/gtk/auto/recent_chooser.rs.html#734-754">Source</a><h4 class="code-header">fn <a href="#method.connect_limit_notify" class="fn">connect_limit_notify</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;Self) + 'static&gt;(&amp;self, f: F) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></h4></section><section id="method.connect_local_only_notify" class="method"><a class="src rightside" href="../../src/gtk/auto/recent_chooser.rs.html#757-780">Source</a><h4 class="code-header">fn <a href="#method.connect_local_only_notify" class="fn">connect_local_only_notify</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;Self) + 'static&gt;(
+    &amp;self,
+    f: F,
+) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></h4></section><section id="method.connect_select_multiple_notify" class="method"><a class="src rightside" href="../../src/gtk/auto/recent_chooser.rs.html#783-806">Source</a><h4 class="code-header">fn <a href="#method.connect_select_multiple_notify" class="fn">connect_select_multiple_notify</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;Self) + 'static&gt;(
+    &amp;self,
+    f: F,
+) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></h4></section><section id="method.connect_show_icons_notify" class="method"><a class="src rightside" href="../../src/gtk/auto/recent_chooser.rs.html#809-832">Source</a><h4 class="code-header">fn <a href="#method.connect_show_icons_notify" class="fn">connect_show_icons_notify</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;Self) + 'static&gt;(
+    &amp;self,
+    f: F,
+) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></h4></section><section id="method.connect_show_not_found_notify" class="method"><a class="src rightside" href="../../src/gtk/auto/recent_chooser.rs.html#835-858">Source</a><h4 class="code-header">fn <a href="#method.connect_show_not_found_notify" class="fn">connect_show_not_found_notify</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;Self) + 'static&gt;(
+    &amp;self,
+    f: F,
+) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></h4></section><section id="method.connect_show_private_notify" class="method"><a class="src rightside" href="../../src/gtk/auto/recent_chooser.rs.html#861-884">Source</a><h4 class="code-header">fn <a href="#method.connect_show_private_notify" class="fn">connect_show_private_notify</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;Self) + 'static&gt;(
+    &amp;self,
+    f: F,
+) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></h4></section><section id="method.connect_show_tips_notify" class="method"><a class="src rightside" href="../../src/gtk/auto/recent_chooser.rs.html#887-910">Source</a><h4 class="code-header">fn <a href="#method.connect_show_tips_notify" class="fn">connect_show_tips_notify</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;Self) + 'static&gt;(
+    &amp;self,
+    f: F,
+) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></h4></section><section id="method.connect_sort_type_notify" class="method"><a class="src rightside" href="../../src/gtk/auto/recent_chooser.rs.html#913-936">Source</a><h4 class="code-header">fn <a href="#method.connect_sort_type_notify" class="fn">connect_sort_type_notify</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;Self) + 'static&gt;(
+    &amp;self,
+    f: F,
+) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></h4></section></div><h2 id="dyn-compatibility" class="section-header">Dyn Compatibility<a href="#dyn-compatibility" class="anchor">§</a></h2><div class="dyn-compatibility-info"><p>This trait is <b>not</b> <a href="https://doc.rust-lang.org/nightly/reference/items/traits.html#dyn-compatibility">dyn compatible</a>.</p><p><i>In older versions of Rust, dyn compatibility was called "object safety".</i></p></div><h2 id="implementors" class="section-header">Implementors<a href="#implementors" class="anchor">§</a></h2><div id="implementors-list"><div class="negative-marker"></div><section id="impl-RecentChooserExt-for-O" class="impl"><a class="src rightside" href="../../src/gtk/auto/recent_chooser.rs.html#939">Source</a><a href="#impl-RecentChooserExt-for-O" class="anchor">§</a><h3 class="code-header">impl&lt;O: <a class="trait" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.RecentChooser.html" title="struct gtk::RecentChooser">RecentChooser</a>&gt;&gt; <a class="trait" href="trait.RecentChooserExt.html" title="trait gtk::prelude::RecentChooserExt">RecentChooserExt</a> for O</h3></section></div><script src="../../trait.impl/gtk/auto/recent_chooser/trait.RecentChooserExt.js" async></script></section></div></main></body></html>

@@ -1,0 +1,207 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Trait containing all `struct@TreeSelection` methods."><title>TreeSelectionExt in gtk::prelude - Rust</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2"href="../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../static.files/rustdoc-0c87338a.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.100.0-nightly (34baba539 2026-08-16)" data-channel="nightly" data-search-js="search-cf4fc35e.js" data-stringdex-js="stringdex-b5109af9.js" data-settings-js="settings-170eb4bf.js" ><script src="../../static.files/storage-41dd4d93.js"></script><script defer src="sidebar-items.js"></script><script defer src="../../static.files/main-417ebf0a.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-9f56287d.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-eab170b8.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-044be391.svg"></head><body class="rustdoc trait"><a class="skip-main-content" href="#main-content">Skip to main content</a><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
+
+    function checkDocsLatestStable() {
+        function popup(msg, url) { return `
+            <style scoped="scoped">
+                .popup {
+                    max-width: 16em;
+                    background-color: #fff;
+                    position: fixed;
+                    z-index: 1;
+                    margin-left: auto;
+                    bottom: 1em;
+                    right: 1em;
+                    border-radius: 5px;
+                    box-shadow: 1px 1px 4px #777;
+                }
+
+                .popup a.version {
+                    color: #e57300;
+                    padding: 0.6em 1em;
+                    display: block;
+                }
+                .popup a.version:hover {
+                    color: #b25900;
+                }
+
+                .popup a.close {
+                    color: white;
+                    background: grey;
+                    border-radius: 99px;
+                    display: inline-block;
+                    width: 19px;
+                    line-height: 19px;
+                    font-weight: bold;
+                    text-align: center;
+                    margin: 0.6em;
+                    float: right;
+                }
+                .popup a.close:hover {
+                    background: black;
+                }
+            </style>
+            <section class="popup" id="gir_docs_popup">
+                <a class="close" href="#" onclick="document.getElementById('gir_docs_popup').remove(); return false">×</a>
+                <a class="version" href="https://gtk-rs.org/gtk3-rs/stable/latest/docs">
+                    ⚠ ${msg}
+                </a>
+            </section>
+        ` };
+
+        if ("0.18" == "master") {
+            document.body.insertAdjacentHTML(
+                'beforeend',
+                popup("This is the development version. Go to latest stable version.", "stable/latest")
+            );
+        } else {
+            fetch('https://gtk-rs.org/gtk3-rs/LATEST_RELEASE_BRANCH')
+                .then(response => response.text())
+                .then(latest_branch => {
+                    if (latest_branch.trim() != "0.18") {
+                        document.body.insertAdjacentHTML(
+                            'beforeend',
+                            popup("This version is outdated. Go to latest version.", "stable/latest")
+                        );
+                    }
+                });
+        }
+    }
+</script>
+
+
+<rustdoc-topbar><h2><a href="#">TreeSelectionExt</a></h2></rustdoc-topbar><nav class="sidebar"><div class="sidebar-crate"><h2><a href="../../gtk/index.html">gtk</a><span class="version">0.18.1</span></h2></div><div class="sidebar-elems"><section id="rustdoc-toc"><h2 class="location"><a href="#">Tree<wbr>Selection<wbr>Ext</a></h2><h3><a href="#">Sections</a></h3><ul class="block top-toc"><li><a href="#implementors-1" title="Implementors">Implementors</a></li></ul><h3><a href="#provided-methods">Provided Methods</a></h3><ul class="block"><li><a href="#method.connect_changed" title="connect_changed">connect_changed</a></li><li><a href="#method.connect_mode_notify" title="connect_mode_notify">connect_mode_notify</a></li><li><a href="#method.count_selected_rows" title="count_selected_rows">count_selected_rows</a></li><li><a href="#method.iter_is_selected" title="iter_is_selected">iter_is_selected</a></li><li><a href="#method.mode" title="mode">mode</a></li><li><a href="#method.path_is_selected" title="path_is_selected">path_is_selected</a></li><li><a href="#method.select_all" title="select_all">select_all</a></li><li><a href="#method.select_iter" title="select_iter">select_iter</a></li><li><a href="#method.select_path" title="select_path">select_path</a></li><li><a href="#method.select_range" title="select_range">select_range</a></li><li><a href="#method.selected" title="selected">selected</a></li><li><a href="#method.selected_foreach" title="selected_foreach">selected_foreach</a></li><li><a href="#method.selected_rows" title="selected_rows">selected_rows</a></li><li><a href="#method.set_mode" title="set_mode">set_mode</a></li><li><a href="#method.set_select_function" title="set_select_function">set_select_function</a></li><li><a href="#method.tree_view" title="tree_view">tree_view</a></li><li><a href="#method.unselect_all" title="unselect_all">unselect_all</a></li><li><a href="#method.unselect_iter" title="unselect_iter">unselect_iter</a></li><li><a href="#method.unselect_path" title="unselect_path">unselect_path</a></li><li><a href="#method.unselect_range" title="unselect_range">unselect_range</a></li></ul><h3><a href="#dyn-compatibility">Dyn Compatibility</a></h3><h3><a href="#implementors">Implementors</a></h3></section><div id="rustdoc-modnav"><h2><a href="index.html">In gtk::<wbr>prelude</a></h2></div></div></nav><div class="sidebar-resizer" title="Drag to resize sidebar"></div><main><div class="width-limiter"><section id="main-content" class="content" tabindex="-1"><div class="main-heading"><div class="rustdoc-breadcrumbs"><a href="../index.html">gtk</a>::<wbr><a href="index.html">prelude</a></div><h1>Trait <span class="trait">Tree<wbr>Selection<wbr>Ext</span>&nbsp;<button id="copy-path" title="Copy item path to clipboard">Copy item path</button></h1><rustdoc-toolbar></rustdoc-toolbar><span class="sub-heading"><a class="src" href="../../src/gtk/auto/tree_selection.rs.html#83-504">Source</a> </span></div><pre class="rust item-decl"><code>pub trait TreeSelectionExt:
+    <a class="trait" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.TreeSelection.html" title="struct gtk::TreeSelection">TreeSelection</a>&gt;
+    + Sealed
+    + 'static {
+<details class="toggle type-contents-toggle"><summary class="hideme"><span>Show 20 methods</span></summary>    // Provided methods
+    fn <a href="#method.count_selected_rows" class="fn">count_selected_rows</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.mode" class="fn">mode</a>(&amp;self) -&gt; <a class="enum" href="../enum.SelectionMode.html" title="enum gtk::SelectionMode">SelectionMode</a> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.selected" class="fn">selected</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;(<a class="struct" href="../struct.TreeModel.html" title="struct gtk::TreeModel">TreeModel</a>, <a class="struct" href="../struct.TreeIter.html" title="struct gtk::TreeIter">TreeIter</a>)&gt; { ... }
+<span class="item-spacer"></span>    fn <a href="#method.selected_rows" class="fn">selected_rows</a>(&amp;self) -&gt; (<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html" title="struct alloc::vec::Vec">Vec</a>&lt;<a class="struct" href="../struct.TreePath.html" title="struct gtk::TreePath">TreePath</a>&gt;, <a class="struct" href="../struct.TreeModel.html" title="struct gtk::TreeModel">TreeModel</a>) { ... }
+<span class="item-spacer"></span>    fn <a href="#method.tree_view" class="fn">tree_view</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../struct.TreeView.html" title="struct gtk::TreeView">TreeView</a>&gt; { ... }
+<span class="item-spacer"></span>    fn <a href="#method.iter_is_selected" class="fn">iter_is_selected</a>(&amp;self, iter: &amp;<a class="struct" href="../struct.TreeIter.html" title="struct gtk::TreeIter">TreeIter</a>) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.path_is_selected" class="fn">path_is_selected</a>(&amp;self, path: &amp;<a class="struct" href="../struct.TreePath.html" title="struct gtk::TreePath">TreePath</a>) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.select_all" class="fn">select_all</a>(&amp;self) { ... }
+<span class="item-spacer"></span>    fn <a href="#method.select_iter" class="fn">select_iter</a>(&amp;self, iter: &amp;<a class="struct" href="../struct.TreeIter.html" title="struct gtk::TreeIter">TreeIter</a>) { ... }
+<span class="item-spacer"></span>    fn <a href="#method.select_path" class="fn">select_path</a>(&amp;self, path: &amp;<a class="struct" href="../struct.TreePath.html" title="struct gtk::TreePath">TreePath</a>) { ... }
+<span class="item-spacer"></span>    fn <a href="#method.select_range" class="fn">select_range</a>(&amp;self, start_path: &amp;<a class="struct" href="../struct.TreePath.html" title="struct gtk::TreePath">TreePath</a>, end_path: &amp;<a class="struct" href="../struct.TreePath.html" title="struct gtk::TreePath">TreePath</a>) { ... }
+<span class="item-spacer"></span>    fn <a href="#method.selected_foreach" class="fn">selected_foreach</a>&lt;P: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.FnMut.html" title="trait core::ops::function::FnMut">FnMut</a>(&amp;<a class="struct" href="../struct.TreeModel.html" title="struct gtk::TreeModel">TreeModel</a>, &amp;<a class="struct" href="../struct.TreePath.html" title="struct gtk::TreePath">TreePath</a>, &amp;<a class="struct" href="../struct.TreeIter.html" title="struct gtk::TreeIter">TreeIter</a>)&gt;(
+        &amp;self,
+        func: P,
+    ) { ... }
+<span class="item-spacer"></span>    fn <a href="#method.set_mode" class="fn">set_mode</a>(&amp;self, type_: <a class="enum" href="../enum.SelectionMode.html" title="enum gtk::SelectionMode">SelectionMode</a>) { ... }
+<span class="item-spacer"></span>    fn <a href="#method.set_select_function" class="fn">set_select_function</a>(
+        &amp;self,
+        func: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html" title="struct alloc::boxed::Box">Box_</a>&lt;dyn <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;<a class="struct" href="../struct.TreeSelection.html" title="struct gtk::TreeSelection">TreeSelection</a>, &amp;<a class="struct" href="../struct.TreeModel.html" title="struct gtk::TreeModel">TreeModel</a>, &amp;<a class="struct" href="../struct.TreePath.html" title="struct gtk::TreePath">TreePath</a>, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> + 'static&gt;&gt;,
+    ) { ... }
+<span class="item-spacer"></span>    fn <a href="#method.unselect_all" class="fn">unselect_all</a>(&amp;self) { ... }
+<span class="item-spacer"></span>    fn <a href="#method.unselect_iter" class="fn">unselect_iter</a>(&amp;self, iter: &amp;<a class="struct" href="../struct.TreeIter.html" title="struct gtk::TreeIter">TreeIter</a>) { ... }
+<span class="item-spacer"></span>    fn <a href="#method.unselect_path" class="fn">unselect_path</a>(&amp;self, path: &amp;<a class="struct" href="../struct.TreePath.html" title="struct gtk::TreePath">TreePath</a>) { ... }
+<span class="item-spacer"></span>    fn <a href="#method.unselect_range" class="fn">unselect_range</a>(&amp;self, start_path: &amp;<a class="struct" href="../struct.TreePath.html" title="struct gtk::TreePath">TreePath</a>, end_path: &amp;<a class="struct" href="../struct.TreePath.html" title="struct gtk::TreePath">TreePath</a>) { ... }
+<span class="item-spacer"></span>    fn <a href="#method.connect_changed" class="fn">connect_changed</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;Self) + 'static&gt;(&amp;self, f: F) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.connect_mode_notify" class="fn">connect_mode_notify</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;Self) + 'static&gt;(
+        &amp;self,
+        f: F,
+    ) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a> { ... }
+</details>}</code></pre><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>Trait containing all <a href="../struct.TreeSelection.html" title="struct gtk::TreeSelection"><code>TreeSelection</code></a> methods.</p>
+<h2 id="implementors-1"><a class="doc-anchor" href="#implementors-1">§</a>Implementors</h2>
+<p><a href="../struct.TreeSelection.html" title="struct gtk::TreeSelection"><code>TreeSelection</code></a></p>
+</div></details><h2 id="provided-methods" class="section-header">Provided Methods<a href="#provided-methods" class="anchor">§</a></h2><div class="methods"><details class="toggle method-toggle" open><summary><section id="method.count_selected_rows" class="method"><a class="src rightside" href="../../src/gtk/auto/tree_selection.rs.html#90-92">Source</a><h4 class="code-header">fn <a href="#method.count_selected_rows" class="fn">count_selected_rows</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a></h4></section></summary><div class="docblock"><p>Returns the number of rows that have been selected in <code>tree</code>.</p>
+<h5 id="returns"><a class="doc-anchor" href="#returns">§</a>Returns</h5>
+<p>The number of rows selected.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.mode" class="method"><a class="src rightside" href="../../src/gtk/auto/tree_selection.rs.html#102-108">Source</a><h4 class="code-header">fn <a href="#method.mode" class="fn">mode</a>(&amp;self) -&gt; <a class="enum" href="../enum.SelectionMode.html" title="enum gtk::SelectionMode">SelectionMode</a></h4></section></summary><div class="docblock"><p>Gets the selection mode for <code>self</code>. See
+<a href="trait.TreeSelectionExt.html#method.set_mode" title="method gtk::prelude::TreeSelectionExt::set_mode"><code>set_mode()</code></a>.</p>
+<h5 id="returns-1"><a class="doc-anchor" href="#returns-1">§</a>Returns</h5>
+<p>the current selection mode</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.selected" class="method"><a class="src rightside" href="../../src/gtk/auto/tree_selection.rs.html#138-153">Source</a><h4 class="code-header">fn <a href="#method.selected" class="fn">selected</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;(<a class="struct" href="../struct.TreeModel.html" title="struct gtk::TreeModel">TreeModel</a>, <a class="struct" href="../struct.TreeIter.html" title="struct gtk::TreeIter">TreeIter</a>)&gt;</h4></section></summary><div class="docblock"><p>Sets <code>iter</code> to the currently selected node, if <code>self</code> is set to
+<a href="../enum.SelectionMode.html#variant.Single" title="variant gtk::SelectionMode::Single"><code>SelectionMode::Single</code></a> or <a href="../enum.SelectionMode.html#variant.Browse" title="variant gtk::SelectionMode::Browse"><code>SelectionMode::Browse</code></a>.</p>
+<p>The <code>iter</code> argument may be <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="variant core::option::Option::None"><code>None</code></a> if you just want to test if <code>self</code>
+has any selected nodes.</p>
+<p>The <code>model</code> argument is filled with the current model as a convenience.</p>
+<p>This function will not work with <a href="../enum.SelectionMode.html#variant.Multiple" title="variant gtk::SelectionMode::Multiple"><code>SelectionMode::Multiple</code></a>. See
+<a href="trait.TreeSelectionExt.html#method.selected_rows" title="method gtk::prelude::TreeSelectionExt::selected_rows"><code>selected_rows()</code></a> instead.</p>
+<h5 id="returns-2"><a class="doc-anchor" href="#returns-2">§</a>Returns</h5>
+<p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="primitive bool"><code>true</code></a>, if there is a selected node.</p>
+<h6 id="model"><a class="doc-anchor" href="#model">§</a><code>model</code></h6>
+<p>the model</p>
+<h6 id="iter"><a class="doc-anchor" href="#iter">§</a><code>iter</code></h6>
+<p>the iterator for the selected row</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.selected_rows" class="method"><a class="src rightside" href="../../src/gtk/auto/tree_selection.rs.html#181-191">Source</a><h4 class="code-header">fn <a href="#method.selected_rows" class="fn">selected_rows</a>(&amp;self) -&gt; (<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html" title="struct alloc::vec::Vec">Vec</a>&lt;<a class="struct" href="../struct.TreePath.html" title="struct gtk::TreePath">TreePath</a>&gt;, <a class="struct" href="../struct.TreeModel.html" title="struct gtk::TreeModel">TreeModel</a>)</h4></section></summary><div class="docblock"><p>Creates a list of path of all selected rows.</p>
+<p>Additionally, if you are planning on modifying the model after calling
+this function, you may want to convert the returned list into a list
+of <code>GtkTreeRowReferences</code>.</p>
+<p>To do this, you can use <a href="../struct.TreeRowReference.html#method.new" title="associated function gtk::TreeRowReference::new"><code>TreeRowReference::new()</code></a>.</p>
+<p>To free the return value, use:</p>
+<p><strong>⚠️ The following code is in C ⚠️</strong></p>
+<div class="example-wrap"><pre class="language-C"><code>g_list_free_full (list, (GDestroyNotify) gtk_tree_path_free);</code></pre></div><h5 id="returns-3"><a class="doc-anchor" href="#returns-3">§</a>Returns</h5>
+<p>the selected paths</p>
+<h6 id="model-1"><a class="doc-anchor" href="#model-1">§</a><code>model</code></h6>
+<p>A pointer to set to the <a href="../struct.TreeModel.html" title="struct gtk::TreeModel"><code>TreeModel</code></a>, or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="variant core::option::Option::None"><code>None</code></a>.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.tree_view" class="method"><a class="src rightside" href="../../src/gtk/auto/tree_selection.rs.html#200-206">Source</a><h4 class="code-header">fn <a href="#method.tree_view" class="fn">tree_view</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../struct.TreeView.html" title="struct gtk::TreeView">TreeView</a>&gt;</h4></section></summary><div class="docblock"><p>Returns the tree view associated with <code>self</code>.</p>
+<h5 id="returns-4"><a class="doc-anchor" href="#returns-4">§</a>Returns</h5>
+<p>A <a href="../struct.TreeView.html" title="struct gtk::TreeView"><code>TreeView</code></a></p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.iter_is_selected" class="method"><a class="src rightside" href="../../src/gtk/auto/tree_selection.rs.html#222-229">Source</a><h4 class="code-header">fn <a href="#method.iter_is_selected" class="fn">iter_is_selected</a>(&amp;self, iter: &amp;<a class="struct" href="../struct.TreeIter.html" title="struct gtk::TreeIter">TreeIter</a>) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></h4></section></summary><div class="docblock"><p>Returns <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="primitive bool"><code>true</code></a> if the row at <code>iter</code> is currently selected.</p>
+<h6 id="iter-1"><a class="doc-anchor" href="#iter-1">§</a><code>iter</code></h6>
+<p>A valid <a href="../struct.TreeIter.html" title="struct gtk::TreeIter"><code>TreeIter</code></a></p>
+<h5 id="returns-5"><a class="doc-anchor" href="#returns-5">§</a>Returns</h5>
+<p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="primitive bool"><code>true</code></a>, if <code>iter</code> is selected</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.path_is_selected" class="method"><a class="src rightside" href="../../src/gtk/auto/tree_selection.rs.html#240-247">Source</a><h4 class="code-header">fn <a href="#method.path_is_selected" class="fn">path_is_selected</a>(&amp;self, path: &amp;<a class="struct" href="../struct.TreePath.html" title="struct gtk::TreePath">TreePath</a>) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></h4></section></summary><div class="docblock"><p>Returns <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="primitive bool"><code>true</code></a> if the row pointed to by <code>path</code> is currently selected. If <code>path</code>
+does not point to a valid location, <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="primitive bool"><code>false</code></a> is returned</p>
+<h6 id="path"><a class="doc-anchor" href="#path">§</a><code>path</code></h6>
+<p>A <a href="../struct.TreePath.html" title="struct gtk::TreePath"><code>TreePath</code></a> to check selection on.</p>
+<h5 id="returns-6"><a class="doc-anchor" href="#returns-6">§</a>Returns</h5>
+<p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="primitive bool"><code>true</code></a> if <code>path</code> is selected.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.select_all" class="method"><a class="src rightside" href="../../src/gtk/auto/tree_selection.rs.html#252-256">Source</a><h4 class="code-header">fn <a href="#method.select_all" class="fn">select_all</a>(&amp;self)</h4></section></summary><div class="docblock"><p>Selects all the nodes. <code>self</code> must be set to <a href="../enum.SelectionMode.html#variant.Multiple" title="variant gtk::SelectionMode::Multiple"><code>SelectionMode::Multiple</code></a>
+mode.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.select_iter" class="method"><a class="src rightside" href="../../src/gtk/auto/tree_selection.rs.html#262-269">Source</a><h4 class="code-header">fn <a href="#method.select_iter" class="fn">select_iter</a>(&amp;self, iter: &amp;<a class="struct" href="../struct.TreeIter.html" title="struct gtk::TreeIter">TreeIter</a>)</h4></section></summary><div class="docblock"><p>Selects the specified iterator.</p>
+<h6 id="iter-2"><a class="doc-anchor" href="#iter-2">§</a><code>iter</code></h6>
+<p>The <a href="../struct.TreeIter.html" title="struct gtk::TreeIter"><code>TreeIter</code></a> to be selected.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.select_path" class="method"><a class="src rightside" href="../../src/gtk/auto/tree_selection.rs.html#275-282">Source</a><h4 class="code-header">fn <a href="#method.select_path" class="fn">select_path</a>(&amp;self, path: &amp;<a class="struct" href="../struct.TreePath.html" title="struct gtk::TreePath">TreePath</a>)</h4></section></summary><div class="docblock"><p>Select the row at <code>path</code>.</p>
+<h6 id="path-1"><a class="doc-anchor" href="#path-1">§</a><code>path</code></h6>
+<p>The <a href="../struct.TreePath.html" title="struct gtk::TreePath"><code>TreePath</code></a> to be selected.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.select_range" class="method"><a class="src rightside" href="../../src/gtk/auto/tree_selection.rs.html#291-299">Source</a><h4 class="code-header">fn <a href="#method.select_range" class="fn">select_range</a>(&amp;self, start_path: &amp;<a class="struct" href="../struct.TreePath.html" title="struct gtk::TreePath">TreePath</a>, end_path: &amp;<a class="struct" href="../struct.TreePath.html" title="struct gtk::TreePath">TreePath</a>)</h4></section></summary><div class="docblock"><p>Selects a range of nodes, determined by <code>start_path</code> and <code>end_path</code> inclusive.
+<code>self</code> must be set to <a href="../enum.SelectionMode.html#variant.Multiple" title="variant gtk::SelectionMode::Multiple"><code>SelectionMode::Multiple</code></a> mode.</p>
+<h6 id="start_path"><a class="doc-anchor" href="#start_path">§</a><code>start_path</code></h6>
+<p>The initial node of the range.</p>
+<h6 id="end_path"><a class="doc-anchor" href="#end_path">§</a><code>end_path</code></h6>
+<p>The final node of the range.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.selected_foreach" class="method"><a class="src rightside" href="../../src/gtk/auto/tree_selection.rs.html#307-330">Source</a><h4 class="code-header">fn <a href="#method.selected_foreach" class="fn">selected_foreach</a>&lt;P: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.FnMut.html" title="trait core::ops::function::FnMut">FnMut</a>(&amp;<a class="struct" href="../struct.TreeModel.html" title="struct gtk::TreeModel">TreeModel</a>, &amp;<a class="struct" href="../struct.TreePath.html" title="struct gtk::TreePath">TreePath</a>, &amp;<a class="struct" href="../struct.TreeIter.html" title="struct gtk::TreeIter">TreeIter</a>)&gt;(&amp;self, func: P)</h4></section></summary><div class="docblock"><p>Calls a function for each selected node. Note that you cannot modify
+the tree or selection from within this function. As a result,
+<a href="trait.TreeSelectionExt.html#method.selected_rows" title="method gtk::prelude::TreeSelectionExt::selected_rows"><code>selected_rows()</code></a> might be more useful.</p>
+<h6 id="func"><a class="doc-anchor" href="#func">§</a><code>func</code></h6>
+<p>The function to call for each selected node.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.set_mode" class="method"><a class="src rightside" href="../../src/gtk/auto/tree_selection.rs.html#338-342">Source</a><h4 class="code-header">fn <a href="#method.set_mode" class="fn">set_mode</a>(&amp;self, type_: <a class="enum" href="../enum.SelectionMode.html" title="enum gtk::SelectionMode">SelectionMode</a>)</h4></section></summary><div class="docblock"><p>Sets the selection mode of the <code>self</code>. If the previous type was
+<a href="../enum.SelectionMode.html#variant.Multiple" title="variant gtk::SelectionMode::Multiple"><code>SelectionMode::Multiple</code></a>, then the anchor is kept selected, if it was
+previously selected.</p>
+<h6 id="type_"><a class="doc-anchor" href="#type_">§</a><code>type_</code></h6>
+<p>The selection mode</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.set_select_function" class="method"><a class="src rightside" href="../../src/gtk/auto/tree_selection.rs.html#353-403">Source</a><h4 class="code-header">fn <a href="#method.set_select_function" class="fn">set_select_function</a>(
+    &amp;self,
+    func: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html" title="struct alloc::boxed::Box">Box_</a>&lt;dyn <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;<a class="struct" href="../struct.TreeSelection.html" title="struct gtk::TreeSelection">TreeSelection</a>, &amp;<a class="struct" href="../struct.TreeModel.html" title="struct gtk::TreeModel">TreeModel</a>, &amp;<a class="struct" href="../struct.TreePath.html" title="struct gtk::TreePath">TreePath</a>, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> + 'static&gt;&gt;,
+)</h4></section></summary><div class="docblock"><p>Sets the selection function.</p>
+<p>If set, this function is called before any node is selected or unselected,
+giving some control over which nodes are selected. The select function
+should return <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="primitive bool"><code>true</code></a> if the state of the node may be toggled, and <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="primitive bool"><code>false</code></a>
+if the state of the node should be left unchanged.</p>
+<h6 id="func-1"><a class="doc-anchor" href="#func-1">§</a><code>func</code></h6>
+<p>The selection function. May be <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="variant core::option::Option::None"><code>None</code></a></p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.unselect_all" class="method"><a class="src rightside" href="../../src/gtk/auto/tree_selection.rs.html#407-411">Source</a><h4 class="code-header">fn <a href="#method.unselect_all" class="fn">unselect_all</a>(&amp;self)</h4></section></summary><div class="docblock"><p>Unselects all the nodes.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.unselect_iter" class="method"><a class="src rightside" href="../../src/gtk/auto/tree_selection.rs.html#417-424">Source</a><h4 class="code-header">fn <a href="#method.unselect_iter" class="fn">unselect_iter</a>(&amp;self, iter: &amp;<a class="struct" href="../struct.TreeIter.html" title="struct gtk::TreeIter">TreeIter</a>)</h4></section></summary><div class="docblock"><p>Unselects the specified iterator.</p>
+<h6 id="iter-3"><a class="doc-anchor" href="#iter-3">§</a><code>iter</code></h6>
+<p>The <a href="../struct.TreeIter.html" title="struct gtk::TreeIter"><code>TreeIter</code></a> to be unselected.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.unselect_path" class="method"><a class="src rightside" href="../../src/gtk/auto/tree_selection.rs.html#430-437">Source</a><h4 class="code-header">fn <a href="#method.unselect_path" class="fn">unselect_path</a>(&amp;self, path: &amp;<a class="struct" href="../struct.TreePath.html" title="struct gtk::TreePath">TreePath</a>)</h4></section></summary><div class="docblock"><p>Unselects the row at <code>path</code>.</p>
+<h6 id="path-2"><a class="doc-anchor" href="#path-2">§</a><code>path</code></h6>
+<p>The <a href="../struct.TreePath.html" title="struct gtk::TreePath"><code>TreePath</code></a> to be unselected.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.unselect_range" class="method"><a class="src rightside" href="../../src/gtk/auto/tree_selection.rs.html#446-454">Source</a><h4 class="code-header">fn <a href="#method.unselect_range" class="fn">unselect_range</a>(&amp;self, start_path: &amp;<a class="struct" href="../struct.TreePath.html" title="struct gtk::TreePath">TreePath</a>, end_path: &amp;<a class="struct" href="../struct.TreePath.html" title="struct gtk::TreePath">TreePath</a>)</h4></section></summary><div class="docblock"><p>Unselects a range of nodes, determined by <code>start_path</code> and <code>end_path</code>
+inclusive.</p>
+<h6 id="start_path-1"><a class="doc-anchor" href="#start_path-1">§</a><code>start_path</code></h6>
+<p>The initial node of the range.</p>
+<h6 id="end_path-1"><a class="doc-anchor" href="#end_path-1">§</a><code>end_path</code></h6>
+<p>The initial node of the range.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.connect_changed" class="method"><a class="src rightside" href="../../src/gtk/auto/tree_selection.rs.html#461-480">Source</a><h4 class="code-header">fn <a href="#method.connect_changed" class="fn">connect_changed</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;Self) + 'static&gt;(&amp;self, f: F) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></h4></section></summary><div class="docblock"><p>Emitted whenever the selection has (possibly) changed. Please note that
+this signal is mostly a hint. It may only be emitted once when a range
+of rows are selected, and it may occasionally be emitted when nothing
+has happened.</p>
+</div></details><section id="method.connect_mode_notify" class="method"><a class="src rightside" href="../../src/gtk/auto/tree_selection.rs.html#483-503">Source</a><h4 class="code-header">fn <a href="#method.connect_mode_notify" class="fn">connect_mode_notify</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;Self) + 'static&gt;(&amp;self, f: F) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></h4></section></div><h2 id="dyn-compatibility" class="section-header">Dyn Compatibility<a href="#dyn-compatibility" class="anchor">§</a></h2><div class="dyn-compatibility-info"><p>This trait is <b>not</b> <a href="https://doc.rust-lang.org/nightly/reference/items/traits.html#dyn-compatibility">dyn compatible</a>.</p><p><i>In older versions of Rust, dyn compatibility was called "object safety".</i></p></div><h2 id="implementors" class="section-header">Implementors<a href="#implementors" class="anchor">§</a></h2><div id="implementors-list"><div class="negative-marker"></div><section id="impl-TreeSelectionExt-for-O" class="impl"><a class="src rightside" href="../../src/gtk/auto/tree_selection.rs.html#506">Source</a><a href="#impl-TreeSelectionExt-for-O" class="anchor">§</a><h3 class="code-header">impl&lt;O: <a class="trait" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.TreeSelection.html" title="struct gtk::TreeSelection">TreeSelection</a>&gt;&gt; <a class="trait" href="trait.TreeSelectionExt.html" title="trait gtk::prelude::TreeSelectionExt">TreeSelectionExt</a> for O</h3></section></div><script src="../../trait.impl/gtk/auto/tree_selection/trait.TreeSelectionExt.js" async></script></section></div></main></body></html>

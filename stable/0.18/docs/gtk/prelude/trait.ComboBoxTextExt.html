@@ -1,0 +1,146 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Trait containing all `struct@ComboBoxText` methods."><title>ComboBoxTextExt in gtk::prelude - Rust</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2"href="../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../static.files/rustdoc-0c87338a.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.100.0-nightly (34baba539 2026-08-16)" data-channel="nightly" data-search-js="search-cf4fc35e.js" data-stringdex-js="stringdex-b5109af9.js" data-settings-js="settings-170eb4bf.js" ><script src="../../static.files/storage-41dd4d93.js"></script><script defer src="sidebar-items.js"></script><script defer src="../../static.files/main-417ebf0a.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-9f56287d.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-eab170b8.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-044be391.svg"></head><body class="rustdoc trait"><a class="skip-main-content" href="#main-content">Skip to main content</a><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
+
+    function checkDocsLatestStable() {
+        function popup(msg, url) { return `
+            <style scoped="scoped">
+                .popup {
+                    max-width: 16em;
+                    background-color: #fff;
+                    position: fixed;
+                    z-index: 1;
+                    margin-left: auto;
+                    bottom: 1em;
+                    right: 1em;
+                    border-radius: 5px;
+                    box-shadow: 1px 1px 4px #777;
+                }
+
+                .popup a.version {
+                    color: #e57300;
+                    padding: 0.6em 1em;
+                    display: block;
+                }
+                .popup a.version:hover {
+                    color: #b25900;
+                }
+
+                .popup a.close {
+                    color: white;
+                    background: grey;
+                    border-radius: 99px;
+                    display: inline-block;
+                    width: 19px;
+                    line-height: 19px;
+                    font-weight: bold;
+                    text-align: center;
+                    margin: 0.6em;
+                    float: right;
+                }
+                .popup a.close:hover {
+                    background: black;
+                }
+            </style>
+            <section class="popup" id="gir_docs_popup">
+                <a class="close" href="#" onclick="document.getElementById('gir_docs_popup').remove(); return false">×</a>
+                <a class="version" href="https://gtk-rs.org/gtk3-rs/stable/latest/docs">
+                    ⚠ ${msg}
+                </a>
+            </section>
+        ` };
+
+        if ("0.18" == "master") {
+            document.body.insertAdjacentHTML(
+                'beforeend',
+                popup("This is the development version. Go to latest stable version.", "stable/latest")
+            );
+        } else {
+            fetch('https://gtk-rs.org/gtk3-rs/LATEST_RELEASE_BRANCH')
+                .then(response => response.text())
+                .then(latest_branch => {
+                    if (latest_branch.trim() != "0.18") {
+                        document.body.insertAdjacentHTML(
+                            'beforeend',
+                            popup("This version is outdated. Go to latest version.", "stable/latest")
+                        );
+                    }
+                });
+        }
+    }
+</script>
+
+
+<rustdoc-topbar><h2><a href="#">ComboBoxTextExt</a></h2></rustdoc-topbar><nav class="sidebar"><div class="sidebar-crate"><h2><a href="../../gtk/index.html">gtk</a><span class="version">0.18.1</span></h2></div><div class="sidebar-elems"><section id="rustdoc-toc"><h2 class="location"><a href="#">Combo<wbr>BoxText<wbr>Ext</a></h2><h3><a href="#">Sections</a></h3><ul class="block top-toc"><li><a href="#implementors-1" title="Implementors">Implementors</a></li></ul><h3><a href="#provided-methods">Provided Methods</a></h3><ul class="block"><li><a href="#method.active_text" title="active_text">active_text</a></li><li><a href="#method.append" title="append">append</a></li><li><a href="#method.append_text" title="append_text">append_text</a></li><li><a href="#method.insert" title="insert">insert</a></li><li><a href="#method.insert_text" title="insert_text">insert_text</a></li><li><a href="#method.prepend" title="prepend">prepend</a></li><li><a href="#method.prepend_text" title="prepend_text">prepend_text</a></li><li><a href="#method.remove" title="remove">remove</a></li><li><a href="#method.remove_all" title="remove_all">remove_all</a></li></ul><h3><a href="#dyn-compatibility">Dyn Compatibility</a></h3><h3><a href="#implementors">Implementors</a></h3></section><div id="rustdoc-modnav"><h2><a href="index.html">In gtk::<wbr>prelude</a></h2></div></div></nav><div class="sidebar-resizer" title="Drag to resize sidebar"></div><main><div class="width-limiter"><section id="main-content" class="content" tabindex="-1"><div class="main-heading"><div class="rustdoc-breadcrumbs"><a href="../index.html">gtk</a>::<wbr><a href="index.html">prelude</a></div><h1>Trait <span class="trait">Combo<wbr>BoxText<wbr>Ext</span>&nbsp;<button id="copy-path" title="Copy item path to clipboard">Copy item path</button></h1><rustdoc-toolbar></rustdoc-toolbar><span class="sub-heading"><a class="src" href="../../src/gtk/auto/combo_box_text.rs.html#575-728">Source</a> </span></div><pre class="rust item-decl"><code>pub trait ComboBoxTextExt:
+    <a class="trait" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.ComboBoxText.html" title="struct gtk::ComboBoxText">ComboBoxText</a>&gt;
+    + Sealed
+    + 'static {
+    // Provided methods
+    fn <a href="#method.append" class="fn">append</a>(&amp;self, id: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;&amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>&gt;, text: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) { ... }
+<span class="item-spacer"></span>    fn <a href="#method.append_text" class="fn">append_text</a>(&amp;self, text: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) { ... }
+<span class="item-spacer"></span>    fn <a href="#method.active_text" class="fn">active_text</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/gstring/struct.GString.html" title="struct glib::gstring::GString">GString</a>&gt; { ... }
+<span class="item-spacer"></span>    fn <a href="#method.insert" class="fn">insert</a>(&amp;self, position: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, id: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;&amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>&gt;, text: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) { ... }
+<span class="item-spacer"></span>    fn <a href="#method.insert_text" class="fn">insert_text</a>(&amp;self, position: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, text: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) { ... }
+<span class="item-spacer"></span>    fn <a href="#method.prepend" class="fn">prepend</a>(&amp;self, id: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;&amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>&gt;, text: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) { ... }
+<span class="item-spacer"></span>    fn <a href="#method.prepend_text" class="fn">prepend_text</a>(&amp;self, text: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) { ... }
+<span class="item-spacer"></span>    fn <a href="#method.remove" class="fn">remove</a>(&amp;self, position: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) { ... }
+<span class="item-spacer"></span>    fn <a href="#method.remove_all" class="fn">remove_all</a>(&amp;self) { ... }
+}</code></pre><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>Trait containing all <a href="../struct.ComboBoxText.html" title="struct gtk::ComboBoxText"><code>ComboBoxText</code></a> methods.</p>
+<h2 id="implementors-1"><a class="doc-anchor" href="#implementors-1">§</a>Implementors</h2>
+<p><a href="../struct.ComboBoxText.html" title="struct gtk::ComboBoxText"><code>ComboBoxText</code></a></p>
+</div></details><h2 id="provided-methods" class="section-header">Provided Methods<a href="#provided-methods" class="anchor">§</a></h2><div class="methods"><details class="toggle method-toggle" open><summary><section id="method.append" class="method"><a class="src rightside" href="../../src/gtk/auto/combo_box_text.rs.html#586-594">Source</a><h4 class="code-header">fn <a href="#method.append" class="fn">append</a>(&amp;self, id: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;&amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>&gt;, text: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>)</h4></section></summary><div class="docblock"><p>Appends <code>text</code> to the list of strings stored in <code>self</code>.
+If <code>id</code> is non-<a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="variant core::option::Option::None"><code>None</code></a> then it is used as the ID of the row.</p>
+<p>This is the same as calling <a href="trait.ComboBoxTextExt.html#method.insert" title="method gtk::prelude::ComboBoxTextExt::insert"><code>insert()</code></a> with a
+position of -1.</p>
+<h6 id="id"><a class="doc-anchor" href="#id">§</a><code>id</code></h6>
+<p>a string ID for this value, or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="variant core::option::Option::None"><code>None</code></a></p>
+<h6 id="text"><a class="doc-anchor" href="#text">§</a><code>text</code></h6>
+<p>A string</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.append_text" class="method"><a class="src rightside" href="../../src/gtk/auto/combo_box_text.rs.html#603-610">Source</a><h4 class="code-header">fn <a href="#method.append_text" class="fn">append_text</a>(&amp;self, text: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>)</h4></section></summary><div class="docblock"><p>Appends <code>text</code> to the list of strings stored in <code>self</code>.</p>
+<p>This is the same as calling <a href="trait.ComboBoxTextExt.html#method.insert_text" title="method gtk::prelude::ComboBoxTextExt::insert_text"><code>insert_text()</code></a> with a
+position of -1.</p>
+<h6 id="text-1"><a class="doc-anchor" href="#text-1">§</a><code>text</code></h6>
+<p>A string</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.active_text" class="method"><a class="src rightside" href="../../src/gtk/auto/combo_box_text.rs.html#623-629">Source</a><h4 class="code-header">fn <a href="#method.active_text" class="fn">active_text</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/gstring/struct.GString.html" title="struct glib::gstring::GString">GString</a>&gt;</h4></section></summary><div class="docblock"><p>Returns the currently active string in <code>self</code>, or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="variant core::option::Option::None"><code>None</code></a>
+if none is selected. If <code>self</code> contains an entry, this
+function will return its contents (which will not necessarily
+be an item from the list).</p>
+<h5 id="returns"><a class="doc-anchor" href="#returns">§</a>Returns</h5>
+<p>a newly allocated string containing the
+currently active text. Must be freed with <code>g_free()</code>.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.insert" class="method"><a class="src rightside" href="../../src/gtk/auto/combo_box_text.rs.html#643-652">Source</a><h4 class="code-header">fn <a href="#method.insert" class="fn">insert</a>(&amp;self, position: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, id: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;&amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>&gt;, text: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>)</h4></section></summary><div class="docblock"><p>Inserts <code>text</code> at <code>position</code> in the list of strings stored in <code>self</code>.
+If <code>id</code> is non-<a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="variant core::option::Option::None"><code>None</code></a> then it is used as the ID of the row. See
+<a href="../struct.ComboBox.html#id-column" title="struct gtk::ComboBox"><code>id-column</code></a>.</p>
+<p>If <code>position</code> is negative then <code>text</code> is appended.</p>
+<h6 id="position"><a class="doc-anchor" href="#position">§</a><code>position</code></h6>
+<p>An index to insert <code>text</code></p>
+<h6 id="id-1"><a class="doc-anchor" href="#id-1">§</a><code>id</code></h6>
+<p>a string ID for this value, or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="variant core::option::Option::None"><code>None</code></a></p>
+<h6 id="text-2"><a class="doc-anchor" href="#text-2">§</a><code>text</code></h6>
+<p>A string to display</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.insert_text" class="method"><a class="src rightside" href="../../src/gtk/auto/combo_box_text.rs.html#665-673">Source</a><h4 class="code-header">fn <a href="#method.insert_text" class="fn">insert_text</a>(&amp;self, position: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, text: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>)</h4></section></summary><div class="docblock"><p>Inserts <code>text</code> at <code>position</code> in the list of strings stored in <code>self</code>.</p>
+<p>If <code>position</code> is negative then <code>text</code> is appended.</p>
+<p>This is the same as calling <a href="trait.ComboBoxTextExt.html#method.insert" title="method gtk::prelude::ComboBoxTextExt::insert"><code>insert()</code></a> with a <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="variant core::option::Option::None"><code>None</code></a>
+ID string.</p>
+<h6 id="position-1"><a class="doc-anchor" href="#position-1">§</a><code>position</code></h6>
+<p>An index to insert <code>text</code></p>
+<h6 id="text-3"><a class="doc-anchor" href="#text-3">§</a><code>text</code></h6>
+<p>A string</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.prepend" class="method"><a class="src rightside" href="../../src/gtk/auto/combo_box_text.rs.html#685-693">Source</a><h4 class="code-header">fn <a href="#method.prepend" class="fn">prepend</a>(&amp;self, id: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;&amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>&gt;, text: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>)</h4></section></summary><div class="docblock"><p>Prepends <code>text</code> to the list of strings stored in <code>self</code>.
+If <code>id</code> is non-<a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="variant core::option::Option::None"><code>None</code></a> then it is used as the ID of the row.</p>
+<p>This is the same as calling <a href="trait.ComboBoxTextExt.html#method.insert" title="method gtk::prelude::ComboBoxTextExt::insert"><code>insert()</code></a> with a
+position of 0.</p>
+<h6 id="id-2"><a class="doc-anchor" href="#id-2">§</a><code>id</code></h6>
+<p>a string ID for this value, or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="variant core::option::Option::None"><code>None</code></a></p>
+<h6 id="text-4"><a class="doc-anchor" href="#text-4">§</a><code>text</code></h6>
+<p>a string</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.prepend_text" class="method"><a class="src rightside" href="../../src/gtk/auto/combo_box_text.rs.html#702-709">Source</a><h4 class="code-header">fn <a href="#method.prepend_text" class="fn">prepend_text</a>(&amp;self, text: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>)</h4></section></summary><div class="docblock"><p>Prepends <code>text</code> to the list of strings stored in <code>self</code>.</p>
+<p>This is the same as calling <a href="trait.ComboBoxTextExt.html#method.insert_text" title="method gtk::prelude::ComboBoxTextExt::insert_text"><code>insert_text()</code></a> with a
+position of 0.</p>
+<h6 id="text-5"><a class="doc-anchor" href="#text-5">§</a><code>text</code></h6>
+<p>A string</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.remove" class="method"><a class="src rightside" href="../../src/gtk/auto/combo_box_text.rs.html#715-719">Source</a><h4 class="code-header">fn <a href="#method.remove" class="fn">remove</a>(&amp;self, position: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>)</h4></section></summary><div class="docblock"><p>Removes the string at <code>position</code> from <code>self</code>.</p>
+<h6 id="position-2"><a class="doc-anchor" href="#position-2">§</a><code>position</code></h6>
+<p>Index of the item to remove</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.remove_all" class="method"><a class="src rightside" href="../../src/gtk/auto/combo_box_text.rs.html#723-727">Source</a><h4 class="code-header">fn <a href="#method.remove_all" class="fn">remove_all</a>(&amp;self)</h4></section></summary><div class="docblock"><p>Removes all the text entries from the combo box.</p>
+</div></details></div><h2 id="dyn-compatibility" class="section-header">Dyn Compatibility<a href="#dyn-compatibility" class="anchor">§</a></h2><div class="dyn-compatibility-info"><p>This trait is <b>not</b> <a href="https://doc.rust-lang.org/nightly/reference/items/traits.html#dyn-compatibility">dyn compatible</a>.</p><p><i>In older versions of Rust, dyn compatibility was called "object safety".</i></p></div><h2 id="implementors" class="section-header">Implementors<a href="#implementors" class="anchor">§</a></h2><div id="implementors-list"><div class="negative-marker"></div><section id="impl-ComboBoxTextExt-for-O" class="impl"><a class="src rightside" href="../../src/gtk/auto/combo_box_text.rs.html#730">Source</a><a href="#impl-ComboBoxTextExt-for-O" class="anchor">§</a><h3 class="code-header">impl&lt;O: <a class="trait" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.ComboBoxText.html" title="struct gtk::ComboBoxText">ComboBoxText</a>&gt;&gt; <a class="trait" href="trait.ComboBoxTextExt.html" title="trait gtk::prelude::ComboBoxTextExt">ComboBoxTextExt</a> for O</h3></section></div><script src="../../trait.impl/gtk/auto/combo_box_text/trait.ComboBoxTextExt.js" async></script></section></div></main></body></html>

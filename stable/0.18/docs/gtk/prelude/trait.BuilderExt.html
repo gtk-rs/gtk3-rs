@@ -1,0 +1,188 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Trait containing all `struct@Builder` methods."><title>BuilderExt in gtk::prelude - Rust</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2"href="../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../static.files/rustdoc-0c87338a.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.100.0-nightly (34baba539 2026-08-16)" data-channel="nightly" data-search-js="search-cf4fc35e.js" data-stringdex-js="stringdex-b5109af9.js" data-settings-js="settings-170eb4bf.js" ><script src="../../static.files/storage-41dd4d93.js"></script><script defer src="sidebar-items.js"></script><script defer src="../../static.files/main-417ebf0a.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-9f56287d.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-eab170b8.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-044be391.svg"></head><body class="rustdoc trait"><a class="skip-main-content" href="#main-content">Skip to main content</a><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
+
+    function checkDocsLatestStable() {
+        function popup(msg, url) { return `
+            <style scoped="scoped">
+                .popup {
+                    max-width: 16em;
+                    background-color: #fff;
+                    position: fixed;
+                    z-index: 1;
+                    margin-left: auto;
+                    bottom: 1em;
+                    right: 1em;
+                    border-radius: 5px;
+                    box-shadow: 1px 1px 4px #777;
+                }
+
+                .popup a.version {
+                    color: #e57300;
+                    padding: 0.6em 1em;
+                    display: block;
+                }
+                .popup a.version:hover {
+                    color: #b25900;
+                }
+
+                .popup a.close {
+                    color: white;
+                    background: grey;
+                    border-radius: 99px;
+                    display: inline-block;
+                    width: 19px;
+                    line-height: 19px;
+                    font-weight: bold;
+                    text-align: center;
+                    margin: 0.6em;
+                    float: right;
+                }
+                .popup a.close:hover {
+                    background: black;
+                }
+            </style>
+            <section class="popup" id="gir_docs_popup">
+                <a class="close" href="#" onclick="document.getElementById('gir_docs_popup').remove(); return false">×</a>
+                <a class="version" href="https://gtk-rs.org/gtk3-rs/stable/latest/docs">
+                    ⚠ ${msg}
+                </a>
+            </section>
+        ` };
+
+        if ("0.18" == "master") {
+            document.body.insertAdjacentHTML(
+                'beforeend',
+                popup("This is the development version. Go to latest stable version.", "stable/latest")
+            );
+        } else {
+            fetch('https://gtk-rs.org/gtk3-rs/LATEST_RELEASE_BRANCH')
+                .then(response => response.text())
+                .then(latest_branch => {
+                    if (latest_branch.trim() != "0.18") {
+                        document.body.insertAdjacentHTML(
+                            'beforeend',
+                            popup("This version is outdated. Go to latest version.", "stable/latest")
+                        );
+                    }
+                });
+        }
+    }
+</script>
+
+
+<rustdoc-topbar><h2><a href="#">BuilderExt</a></h2></rustdoc-topbar><nav class="sidebar"><div class="sidebar-crate"><h2><a href="../../gtk/index.html">gtk</a><span class="version">0.18.1</span></h2></div><div class="sidebar-elems"><section id="rustdoc-toc"><h2 class="location"><a href="#">Builder<wbr>Ext</a></h2><h3><a href="#">Sections</a></h3><ul class="block top-toc"><li><a href="#implementors-1" title="Implementors">Implementors</a></li></ul><h3><a href="#provided-methods">Provided Methods</a></h3><ul class="block"><li><a href="#method.application" title="application">application</a></li><li><a href="#method.connect_translation_domain_notify" title="connect_translation_domain_notify">connect_translation_domain_notify</a></li><li><a href="#method.expose_object" title="expose_object">expose_object</a></li><li><a href="#method.objects" title="objects">objects</a></li><li><a href="#method.set_application" title="set_application">set_application</a></li><li><a href="#method.set_translation_domain" title="set_translation_domain">set_translation_domain</a></li><li><a href="#method.translation_domain" title="translation_domain">translation_domain</a></li><li><a href="#method.type_from_name" title="type_from_name">type_from_name</a></li><li><a href="#method.value_from_string" title="value_from_string">value_from_string</a></li><li><a href="#method.value_from_string_type" title="value_from_string_type">value_from_string_type</a></li></ul><h3><a href="#dyn-compatibility">Dyn Compatibility</a></h3><h3><a href="#implementors">Implementors</a></h3></section><div id="rustdoc-modnav"><h2><a href="index.html">In gtk::<wbr>prelude</a></h2></div></div></nav><div class="sidebar-resizer" title="Drag to resize sidebar"></div><main><div class="width-limiter"><section id="main-content" class="content" tabindex="-1"><div class="main-heading"><div class="rustdoc-breadcrumbs"><a href="../index.html">gtk</a>::<wbr><a href="index.html">prelude</a></div><h1>Trait <span class="trait">Builder<wbr>Ext</span>&nbsp;<button id="copy-path" title="Copy item path to clipboard">Copy item path</button></h1><rustdoc-toolbar></rustdoc-toolbar><span class="sub-heading"><a class="src" href="../../src/gtk/auto/builder.rs.html#314-576">Source</a> </span></div><pre class="rust item-decl"><code>pub trait BuilderExt:
+    <a class="trait" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.Builder.html" title="struct gtk::Builder">Builder</a>&gt;
+    + Sealed
+    + 'static {
+    // Provided methods
+    fn <a href="#method.expose_object" class="fn">expose_object</a>(&amp;self, name: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>, object: &amp;impl <a class="trait" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/object/struct.Object.html" title="struct glib::object::Object">Object</a>&gt;) { ... }
+<span class="item-spacer"></span>    fn <a href="#method.application" class="fn">application</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../struct.Application.html" title="struct gtk::Application">Application</a>&gt; { ... }
+<span class="item-spacer"></span>    fn <a href="#method.objects" class="fn">objects</a>(&amp;self) -&gt; <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html" title="struct alloc::vec::Vec">Vec</a>&lt;<a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/object/struct.Object.html" title="struct glib::object::Object">Object</a>&gt; { ... }
+<span class="item-spacer"></span>    fn <a href="#method.translation_domain" class="fn">translation_domain</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/gstring/struct.GString.html" title="struct glib::gstring::GString">GString</a>&gt; { ... }
+<span class="item-spacer"></span>    fn <a href="#method.type_from_name" class="fn">type_from_name</a>(&amp;self, type_name: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/types/struct.Type.html" title="struct glib::types::Type">Type</a> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.set_application" class="fn">set_application</a>(&amp;self, application: &amp;impl <a class="trait" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.Application.html" title="struct gtk::Application">Application</a>&gt;) { ... }
+<span class="item-spacer"></span>    fn <a href="#method.set_translation_domain" class="fn">set_translation_domain</a>(&amp;self, domain: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;&amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>&gt;) { ... }
+<span class="item-spacer"></span>    fn <a href="#method.value_from_string" class="fn">value_from_string</a>(
+        &amp;self,
+        pspec: impl <a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html" title="trait core::convert::AsRef">AsRef</a>&lt;<a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/param_spec/struct.ParamSpec.html" title="struct glib::param_spec::ParamSpec">ParamSpec</a>&gt;,
+        string: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>,
+    ) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;<a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/value/struct.Value.html" title="struct glib::value::Value">Value</a>, <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/error/struct.Error.html" title="struct glib::error::Error">Error</a>&gt; { ... }
+<span class="item-spacer"></span>    fn <a href="#method.value_from_string_type" class="fn">value_from_string_type</a>(
+        &amp;self,
+        type_: <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/types/struct.Type.html" title="struct glib::types::Type">Type</a>,
+        string: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>,
+    ) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;<a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/value/struct.Value.html" title="struct glib::value::Value">Value</a>, <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/error/struct.Error.html" title="struct glib::error::Error">Error</a>&gt; { ... }
+<span class="item-spacer"></span>    fn <a href="#method.connect_translation_domain_notify" class="fn">connect_translation_domain_notify</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;Self) + 'static&gt;(
+        &amp;self,
+        f: F,
+    ) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a> { ... }
+}</code></pre><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>Trait containing all <a href="../struct.Builder.html" title="struct gtk::Builder"><code>Builder</code></a> methods.</p>
+<h2 id="implementors-1"><a class="doc-anchor" href="#implementors-1">§</a>Implementors</h2>
+<p><a href="../struct.Builder.html" title="struct gtk::Builder"><code>Builder</code></a></p>
+</div></details><h2 id="provided-methods" class="section-header">Provided Methods<a href="#provided-methods" class="anchor">§</a></h2><div class="methods"><details class="toggle method-toggle" open><summary><section id="method.expose_object" class="method"><a class="src rightside" href="../../src/gtk/auto/builder.rs.html#337-345">Source</a><h4 class="code-header">fn <a href="#method.expose_object" class="fn">expose_object</a>(&amp;self, name: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>, object: &amp;impl <a class="trait" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/object/struct.Object.html" title="struct glib::object::Object">Object</a>&gt;)</h4></section></summary><div class="docblock"><p>Add <code>object</code> to the <code>self</code> object pool so it can be referenced just like any
+other object built by builder.</p>
+<h6 id="name"><a class="doc-anchor" href="#name">§</a><code>name</code></h6>
+<p>the name of the object exposed to the builder</p>
+<h6 id="object"><a class="doc-anchor" href="#object">§</a><code>object</code></h6>
+<p>the object to expose</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.application" class="method"><a class="src rightside" href="../../src/gtk/auto/builder.rs.html#362-368">Source</a><h4 class="code-header">fn <a href="#method.application" class="fn">application</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../struct.Application.html" title="struct gtk::Application">Application</a>&gt;</h4></section></summary><div class="docblock"><p>Gets the <a href="../struct.Application.html" title="struct gtk::Application"><code>Application</code></a> associated with the builder.</p>
+<p>The <a href="../struct.Application.html" title="struct gtk::Application"><code>Application</code></a> is used for creating action proxies as requested
+from XML that the builder is loading.</p>
+<p>By default, the builder uses the default application: the one from
+<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/gio/auto/application/struct.Application.html#method.default" title="associated function gio::auto::application::Application::default"><code>gio::Application::default()</code></a>. If you want to use another application
+for constructing proxies, use <a href="trait.BuilderExt.html#method.set_application" title="method gtk::prelude::BuilderExt::set_application"><code>set_application()</code></a>.</p>
+<h5 id="returns"><a class="doc-anchor" href="#returns">§</a>Returns</h5>
+<p>the application being used by the builder,
+or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="variant core::option::Option::None"><code>None</code></a></p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.objects" class="method"><a class="src rightside" href="../../src/gtk/auto/builder.rs.html#381-387">Source</a><h4 class="code-header">fn <a href="#method.objects" class="fn">objects</a>(&amp;self) -&gt; <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html" title="struct alloc::vec::Vec">Vec</a>&lt;<a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/object/struct.Object.html" title="struct glib::object::Object">Object</a>&gt;</h4></section></summary><div class="docblock"><p>Gets all objects that have been constructed by <code>self</code>. Note that
+this function does not increment the reference counts of the returned
+objects.</p>
+<h5 id="returns-1"><a class="doc-anchor" href="#returns-1">§</a>Returns</h5>
+<p>a newly-allocated <code>GSList</code> containing all the objects
+constructed by the <a href="../struct.Builder.html" title="struct gtk::Builder"><code>Builder</code></a> instance. It should be freed by
+<code>g_slist_free()</code></p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.translation_domain" class="method"><a class="src rightside" href="../../src/gtk/auto/builder.rs.html#397-403">Source</a><h4 class="code-header">fn <a href="#method.translation_domain" class="fn">translation_domain</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/gstring/struct.GString.html" title="struct glib::gstring::GString">GString</a>&gt;</h4></section></summary><div class="docblock"><p>Gets the translation domain of <code>self</code>.</p>
+<h5 id="returns-2"><a class="doc-anchor" href="#returns-2">§</a>Returns</h5>
+<p>the translation domain. This string is owned
+by the builder object and must not be modified or freed.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.type_from_name" class="method"><a class="src rightside" href="../../src/gtk/auto/builder.rs.html#417-424">Source</a><h4 class="code-header">fn <a href="#method.type_from_name" class="fn">type_from_name</a>(&amp;self, type_name: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/types/struct.Type.html" title="struct glib::types::Type">Type</a></h4></section></summary><div class="docblock"><p>Looks up a type by name, using the virtual function that
+<a href="../struct.Builder.html" title="struct gtk::Builder"><code>Builder</code></a> has for that purpose. This is mainly used when
+implementing the <a href="../struct.Buildable.html" title="struct gtk::Buildable"><code>Buildable</code></a> interface on a type.</p>
+<h6 id="type_name"><a class="doc-anchor" href="#type_name">§</a><code>type_name</code></h6>
+<p>type name to lookup</p>
+<h5 id="returns-3"><a class="doc-anchor" href="#returns-3">§</a>Returns</h5>
+<p>the <code>GType</code> found for <code>type_name</code> or <code>G_TYPE_INVALID</code>
+if no type was found</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.set_application" class="method"><a class="src rightside" href="../../src/gtk/auto/builder.rs.html#438-445">Source</a><h4 class="code-header">fn <a href="#method.set_application" class="fn">set_application</a>(&amp;self, application: &amp;impl <a class="trait" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.Application.html" title="struct gtk::Application">Application</a>&gt;)</h4></section></summary><div class="docblock"><p>Sets the application associated with <code>self</code>.</p>
+<p>You only need this function if there is more than one <a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/gio/auto/application/struct.Application.html" title="struct gio::auto::application::Application"><code>gio::Application</code></a>
+in your process. <code>application</code> cannot be <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="variant core::option::Option::None"><code>None</code></a>.</p>
+<h6 id="application"><a class="doc-anchor" href="#application">§</a><code>application</code></h6>
+<p>a <a href="../struct.Application.html" title="struct gtk::Application"><code>Application</code></a></p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.set_translation_domain" class="method"><a class="src rightside" href="../../src/gtk/auto/builder.rs.html#452-459">Source</a><h4 class="code-header">fn <a href="#method.set_translation_domain" class="fn">set_translation_domain</a>(&amp;self, domain: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;&amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>&gt;)</h4></section></summary><div class="docblock"><p>Sets the translation domain of <code>self</code>.
+See <a href="../struct.Builder.html#translation-domain" title="struct gtk::Builder"><code>translation-domain</code></a>.</p>
+<h6 id="domain"><a class="doc-anchor" href="#domain">§</a><code>domain</code></h6>
+<p>the translation domain or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="variant core::option::Option::None"><code>None</code></a></p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.value_from_string" class="method"><a class="src rightside" href="../../src/gtk/auto/builder.rs.html#484-506">Source</a><h4 class="code-header">fn <a href="#method.value_from_string" class="fn">value_from_string</a>(
+    &amp;self,
+    pspec: impl <a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html" title="trait core::convert::AsRef">AsRef</a>&lt;<a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/param_spec/struct.ParamSpec.html" title="struct glib::param_spec::ParamSpec">ParamSpec</a>&gt;,
+    string: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>,
+) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;<a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/value/struct.Value.html" title="struct glib::value::Value">Value</a>, <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/error/struct.Error.html" title="struct glib::error::Error">Error</a>&gt;</h4></section></summary><div class="docblock"><p>This function demarshals a value from a string. This function
+calls [<code>glib::Value::init()</code>][crate::glib::Value::init()] on the <code>value</code> argument, so it need not be
+initialised beforehand.</p>
+<p>This function can handle char, uchar, boolean, int, uint, long,
+ulong, enum, flags, float, double, string, <code>GdkColor</code>, <a href="../../gdk/auto/rgba/struct.RGBA.html" title="struct gdk::auto::rgba::RGBA"><code>gdk::RGBA</code></a> and
+<a href="../struct.Adjustment.html" title="struct gtk::Adjustment"><code>Adjustment</code></a> type values. Support for <a href="../struct.Widget.html" title="struct gtk::Widget"><code>Widget</code></a> type values is
+still to come.</p>
+<p>Upon errors <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="primitive bool"><code>false</code></a> will be returned and <code>error</code> will be assigned a
+<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/error/struct.Error.html" title="struct glib::error::Error"><code>glib::Error</code></a> from the <code>GTK_BUILDER_ERROR</code> domain.</p>
+<h6 id="pspec"><a class="doc-anchor" href="#pspec">§</a><code>pspec</code></h6>
+<p>the <a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/param_spec/struct.ParamSpec.html" title="struct glib::param_spec::ParamSpec"><code>glib::ParamSpec</code></a> for the property</p>
+<h6 id="string"><a class="doc-anchor" href="#string">§</a><code>string</code></h6>
+<p>the string representation of the value</p>
+<h5 id="returns-4"><a class="doc-anchor" href="#returns-4">§</a>Returns</h5>
+<p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="primitive bool"><code>true</code></a> on success</p>
+<h6 id="value"><a class="doc-anchor" href="#value">§</a><code>value</code></h6>
+<p>the <a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/value/struct.Value.html" title="struct glib::value::Value"><code>glib::Value</code></a> to store the result in</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.value_from_string_type" class="method"><a class="src rightside" href="../../src/gtk/auto/builder.rs.html#527-549">Source</a><h4 class="code-header">fn <a href="#method.value_from_string_type" class="fn">value_from_string_type</a>(
+    &amp;self,
+    type_: <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/types/struct.Type.html" title="struct glib::types::Type">Type</a>,
+    string: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>,
+) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;<a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/value/struct.Value.html" title="struct glib::value::Value">Value</a>, <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/error/struct.Error.html" title="struct glib::error::Error">Error</a>&gt;</h4></section></summary><div class="docblock"><p>Like <a href="trait.BuilderExt.html#method.value_from_string" title="method gtk::prelude::BuilderExt::value_from_string"><code>value_from_string()</code></a>, this function demarshals
+a value from a string, but takes a <code>GType</code> instead of <a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/param_spec/struct.ParamSpec.html" title="struct glib::param_spec::ParamSpec"><code>glib::ParamSpec</code></a>.
+This function calls [<code>glib::Value::init()</code>][crate::glib::Value::init()] on the <code>value</code> argument, so it
+need not be initialised beforehand.</p>
+<p>Upon errors <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="primitive bool"><code>false</code></a> will be returned and <code>error</code> will be assigned a
+<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/error/struct.Error.html" title="struct glib::error::Error"><code>glib::Error</code></a> from the <code>GTK_BUILDER_ERROR</code> domain.</p>
+<h6 id="type_"><a class="doc-anchor" href="#type_">§</a><code>type_</code></h6>
+<p>the <code>GType</code> of the value</p>
+<h6 id="string-1"><a class="doc-anchor" href="#string-1">§</a><code>string</code></h6>
+<p>the string representation of the value</p>
+<h5 id="returns-5"><a class="doc-anchor" href="#returns-5">§</a>Returns</h5>
+<p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="primitive bool"><code>true</code></a> on success</p>
+<h6 id="value-1"><a class="doc-anchor" href="#value-1">§</a><code>value</code></h6>
+<p>the <a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/value/struct.Value.html" title="struct glib::value::Value"><code>glib::Value</code></a> to store the result in</p>
+</div></details><section id="method.connect_translation_domain_notify" class="method"><a class="src rightside" href="../../src/gtk/auto/builder.rs.html#552-575">Source</a><h4 class="code-header">fn <a href="#method.connect_translation_domain_notify" class="fn">connect_translation_domain_notify</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;Self) + 'static&gt;(
+    &amp;self,
+    f: F,
+) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></h4></section></div><h2 id="dyn-compatibility" class="section-header">Dyn Compatibility<a href="#dyn-compatibility" class="anchor">§</a></h2><div class="dyn-compatibility-info"><p>This trait is <b>not</b> <a href="https://doc.rust-lang.org/nightly/reference/items/traits.html#dyn-compatibility">dyn compatible</a>.</p><p><i>In older versions of Rust, dyn compatibility was called "object safety".</i></p></div><h2 id="implementors" class="section-header">Implementors<a href="#implementors" class="anchor">§</a></h2><div id="implementors-list"><div class="negative-marker"></div><section id="impl-BuilderExt-for-O" class="impl"><a class="src rightside" href="../../src/gtk/auto/builder.rs.html#578">Source</a><a href="#impl-BuilderExt-for-O" class="anchor">§</a><h3 class="code-header">impl&lt;O: <a class="trait" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.Builder.html" title="struct gtk::Builder">Builder</a>&gt;&gt; <a class="trait" href="trait.BuilderExt.html" title="trait gtk::prelude::BuilderExt">BuilderExt</a> for O</h3></section></div><script src="../../trait.impl/gtk/auto/builder/trait.BuilderExt.js" async></script></section></div></main></body></html>

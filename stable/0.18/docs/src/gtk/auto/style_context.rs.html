@@ -1,0 +1,1147 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/style_context.rs`."><title>style_context.rs - source</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2"href="../../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../../static.files/rustdoc-0c87338a.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.100.0-nightly (34baba539 2026-08-16)" data-channel="nightly" data-search-js="search-cf4fc35e.js" data-stringdex-js="stringdex-b5109af9.js" data-settings-js="settings-170eb4bf.js" ><script src="../../../static.files/storage-41dd4d93.js"></script><script defer src="../../../static.files/src-script-813739b1.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-417ebf0a.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-9f56287d.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-eab170b8.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-044be391.svg"></head><body class="rustdoc src"><a class="skip-main-content" href="#main-content">Skip to main content</a><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
+
+    function checkDocsLatestStable() {
+        function popup(msg, url) { return `
+            <style scoped="scoped">
+                .popup {
+                    max-width: 16em;
+                    background-color: #fff;
+                    position: fixed;
+                    z-index: 1;
+                    margin-left: auto;
+                    bottom: 1em;
+                    right: 1em;
+                    border-radius: 5px;
+                    box-shadow: 1px 1px 4px #777;
+                }
+
+                .popup a.version {
+                    color: #e57300;
+                    padding: 0.6em 1em;
+                    display: block;
+                }
+                .popup a.version:hover {
+                    color: #b25900;
+                }
+
+                .popup a.close {
+                    color: white;
+                    background: grey;
+                    border-radius: 99px;
+                    display: inline-block;
+                    width: 19px;
+                    line-height: 19px;
+                    font-weight: bold;
+                    text-align: center;
+                    margin: 0.6em;
+                    float: right;
+                }
+                .popup a.close:hover {
+                    background: black;
+                }
+            </style>
+            <section class="popup" id="gir_docs_popup">
+                <a class="close" href="#" onclick="document.getElementById('gir_docs_popup').remove(); return false">×</a>
+                <a class="version" href="https://gtk-rs.org/gtk3-rs/stable/latest/docs">
+                    ⚠ ${msg}
+                </a>
+            </section>
+        ` };
+
+        if ("0.18" == "master") {
+            document.body.insertAdjacentHTML(
+                'beforeend',
+                popup("This is the development version. Go to latest stable version.", "stable/latest")
+            );
+        } else {
+            fetch('https://gtk-rs.org/gtk3-rs/LATEST_RELEASE_BRANCH')
+                .then(response => response.text())
+                .then(latest_branch => {
+                    if (latest_branch.trim() != "0.18") {
+                        document.body.insertAdjacentHTML(
+                            'beforeend',
+                            popup("This version is outdated. Go to latest version.", "stable/latest")
+                        );
+                    }
+                });
+        }
+    }
+</script>
+
+
+<nav class="sidebar"><div class="src-sidebar-title"><h2>Files</h2></div></nav><div class="sidebar-resizer" title="Drag to resize sidebar"></div><main><section id="main-content" class="content" tabindex="-1"><div class="main-heading"><h1><div class="sub-heading">gtk/auto/</div>style_context.rs</h1><rustdoc-toolbar></rustdoc-toolbar></div><div class="example-wrap digits-4"><pre class="rust"><code><a href=#1 id=1 data-nosnippet>1</a><span class="comment">// This file was generated by gir (https://github.com/gtk-rs/gir)
+<a href=#2 id=2 data-nosnippet>2</a>// from gir-files (https://github.com/gtk-rs/gir-files)
+<a href=#3 id=3 data-nosnippet>3</a>// DO NOT EDIT
+<a href=#4 id=4 data-nosnippet>4</a>
+<a href=#5 id=5 data-nosnippet>5</a></span><span class="kw">use crate</span>::{
+<a href=#6 id=6 data-nosnippet>6</a>    <a href="../border.rs.html#7-18">Border</a>, <a href="css_section.rs.html#8-20">CssSection</a>, <a href="flags.rs.html#1255-1288">JunctionSides</a>, <a href="flags.rs.html#1702-1752">StateFlags</a>, <a href="flags.rs.html#1834-1851">StyleContextPrintFlags</a>, <a href="style_provider.rs.html#9-22">StyleProvider</a>,
+<a href=#7 id=7 data-nosnippet>7</a>    <a href="enums.rs.html#9893-9905">TextDirection</a>, <a href="widget_path.rs.html#9-73">WidgetPath</a>,
+<a href=#8 id=8 data-nosnippet>8</a>};
+<a href=#9 id=9 data-nosnippet>9</a><span class="kw">use </span>glib::{
+<a href=#10 id=10 data-nosnippet>10</a>    <a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/prelude/index.html">prelude</a>::<span class="kw-2">*</span>,
+<a href=#11 id=11 data-nosnippet>11</a>    signal::{<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/fn.connect_raw.html">connect_raw</a>, <a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/struct.SignalHandlerId.html">SignalHandlerId</a>},
+<a href=#12 id=12 data-nosnippet>12</a>    <a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/translate/index.html">translate</a>::<span class="kw-2">*</span>,
+<a href=#13 id=13 data-nosnippet>13</a>};
+<a href=#14 id=14 data-nosnippet>14</a><span class="kw">use </span>std::{<a href="https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html">boxed::Box</a> <span class="kw">as </span>Box_, <a href="https://doc.rust-lang.org/nightly/alloc/fmt/index.html">fmt</a>, <a href="https://doc.rust-lang.org/nightly/core/intrinsics/fn.transmute.html">mem::transmute</a>};
+<a href=#15 id=15 data-nosnippet>15</a>
+<a href=#16 id=16 data-nosnippet>16</a><a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/macro.wrapper.html">glib::wrapper!</a> {
+<a href=#17 id=17 data-nosnippet>17</a>    <span class="doccomment">/// [`StyleContext`][crate::StyleContext] is an object that stores styling information affecting
+<a href=#18 id=18 data-nosnippet>18</a>    /// a widget defined by [`WidgetPath`][crate::WidgetPath].
+<a href=#19 id=19 data-nosnippet>19</a>    ///
+<a href=#20 id=20 data-nosnippet>20</a>    /// In order to construct the final style information, [`StyleContext`][crate::StyleContext]
+<a href=#21 id=21 data-nosnippet>21</a>    /// queries information from all attached `GtkStyleProviders`. Style providers
+<a href=#22 id=22 data-nosnippet>22</a>    /// can be either attached explicitly to the context through
+<a href=#23 id=23 data-nosnippet>23</a>    /// [`StyleContextExt::add_provider()`][crate::prelude::StyleContextExt::add_provider()], or to the screen through
+<a href=#24 id=24 data-nosnippet>24</a>    /// [`add_provider_for_screen()`][Self::add_provider_for_screen()]. The resulting style is a
+<a href=#25 id=25 data-nosnippet>25</a>    /// combination of all providers’ information in priority order.
+<a href=#26 id=26 data-nosnippet>26</a>    ///
+<a href=#27 id=27 data-nosnippet>27</a>    /// For GTK+ widgets, any [`StyleContext`][crate::StyleContext] returned by
+<a href=#28 id=28 data-nosnippet>28</a>    /// [`WidgetExt::style_context()`][crate::prelude::WidgetExt::style_context()] will already have a [`WidgetPath`][crate::WidgetPath], a
+<a href=#29 id=29 data-nosnippet>29</a>    /// [`gdk::Screen`][crate::gdk::Screen] and RTL/LTR information set. The style context will also be
+<a href=#30 id=30 data-nosnippet>30</a>    /// updated automatically if any of these settings change on the widget.
+<a href=#31 id=31 data-nosnippet>31</a>    ///
+<a href=#32 id=32 data-nosnippet>32</a>    /// If you are using the theming layer standalone, you will need to set a
+<a href=#33 id=33 data-nosnippet>33</a>    /// widget path and a screen yourself to the created style context through
+<a href=#34 id=34 data-nosnippet>34</a>    /// [`StyleContextExt::set_path()`][crate::prelude::StyleContextExt::set_path()] and possibly [`StyleContextExt::set_screen()`][crate::prelude::StyleContextExt::set_screen()]. See
+<a href=#35 id=35 data-nosnippet>35</a>    /// the “Foreign drawing“ example in gtk3-demo.
+<a href=#36 id=36 data-nosnippet>36</a>    ///
+<a href=#37 id=37 data-nosnippet>37</a>    /// # Style Classes # {`gtkstylecontext`-classes}
+<a href=#38 id=38 data-nosnippet>38</a>    ///
+<a href=#39 id=39 data-nosnippet>39</a>    /// Widgets can add style classes to their context, which can be used to associate
+<a href=#40 id=40 data-nosnippet>40</a>    /// different styles by class. The documentation for individual widgets lists
+<a href=#41 id=41 data-nosnippet>41</a>    /// which style classes it uses itself, and which style classes may be added by
+<a href=#42 id=42 data-nosnippet>42</a>    /// applications to affect their appearance.
+<a href=#43 id=43 data-nosnippet>43</a>    ///
+<a href=#44 id=44 data-nosnippet>44</a>    /// GTK+ defines macros for a number of style classes.
+<a href=#45 id=45 data-nosnippet>45</a>    ///
+<a href=#46 id=46 data-nosnippet>46</a>    /// # Style Regions
+<a href=#47 id=47 data-nosnippet>47</a>    ///
+<a href=#48 id=48 data-nosnippet>48</a>    /// Widgets can also add regions with flags to their context. This feature is
+<a href=#49 id=49 data-nosnippet>49</a>    /// deprecated and will be removed in a future GTK+ update. Please use style
+<a href=#50 id=50 data-nosnippet>50</a>    /// classes instead.
+<a href=#51 id=51 data-nosnippet>51</a>    ///
+<a href=#52 id=52 data-nosnippet>52</a>    /// GTK+ defines macros for a number of style regions.
+<a href=#53 id=53 data-nosnippet>53</a>    ///
+<a href=#54 id=54 data-nosnippet>54</a>    /// # Custom styling in UI libraries and applications
+<a href=#55 id=55 data-nosnippet>55</a>    ///
+<a href=#56 id=56 data-nosnippet>56</a>    /// If you are developing a library with custom `GtkWidgets` that
+<a href=#57 id=57 data-nosnippet>57</a>    /// render differently than standard components, you may need to add a
+<a href=#58 id=58 data-nosnippet>58</a>    /// [`StyleProvider`][crate::StyleProvider] yourself with the `GTK_STYLE_PROVIDER_PRIORITY_FALLBACK`
+<a href=#59 id=59 data-nosnippet>59</a>    /// priority, either a [`CssProvider`][crate::CssProvider] or a custom object implementing the
+<a href=#60 id=60 data-nosnippet>60</a>    /// [`StyleProvider`][crate::StyleProvider] interface. This way themes may still attempt
+<a href=#61 id=61 data-nosnippet>61</a>    /// to style your UI elements in a different way if needed so.
+<a href=#62 id=62 data-nosnippet>62</a>    ///
+<a href=#63 id=63 data-nosnippet>63</a>    /// If you are using custom styling on an applications, you probably want then
+<a href=#64 id=64 data-nosnippet>64</a>    /// to make your style information prevail to the theme’s, so you must use
+<a href=#65 id=65 data-nosnippet>65</a>    /// a [`StyleProvider`][crate::StyleProvider] with the `GTK_STYLE_PROVIDER_PRIORITY_APPLICATION`
+<a href=#66 id=66 data-nosnippet>66</a>    /// priority, keep in mind that the user settings in
+<a href=#67 id=67 data-nosnippet>67</a>    /// `XDG_CONFIG_HOME/gtk-3.0/gtk.css` will
+<a href=#68 id=68 data-nosnippet>68</a>    /// still take precedence over your changes, as it uses the
+<a href=#69 id=69 data-nosnippet>69</a>    /// `GTK_STYLE_PROVIDER_PRIORITY_USER` priority.
+<a href=#70 id=70 data-nosnippet>70</a>    ///
+<a href=#71 id=71 data-nosnippet>71</a>    /// ## Properties
+<a href=#72 id=72 data-nosnippet>72</a>    ///
+<a href=#73 id=73 data-nosnippet>73</a>    ///
+<a href=#74 id=74 data-nosnippet>74</a>    /// #### `direction`
+<a href=#75 id=75 data-nosnippet>75</a>    ///  Readable | Writeable
+<a href=#76 id=76 data-nosnippet>76</a>    ///
+<a href=#77 id=77 data-nosnippet>77</a>    ///
+<a href=#78 id=78 data-nosnippet>78</a>    /// #### `paint-clock`
+<a href=#79 id=79 data-nosnippet>79</a>    ///  Readable | Writeable
+<a href=#80 id=80 data-nosnippet>80</a>    ///
+<a href=#81 id=81 data-nosnippet>81</a>    ///
+<a href=#82 id=82 data-nosnippet>82</a>    /// #### `parent`
+<a href=#83 id=83 data-nosnippet>83</a>    ///  Sets or gets the style context’s parent. See [`StyleContextExt::set_parent()`][crate::prelude::StyleContextExt::set_parent()]
+<a href=#84 id=84 data-nosnippet>84</a>    /// for details.
+<a href=#85 id=85 data-nosnippet>85</a>    ///
+<a href=#86 id=86 data-nosnippet>86</a>    /// Readable | Writeable
+<a href=#87 id=87 data-nosnippet>87</a>    ///
+<a href=#88 id=88 data-nosnippet>88</a>    ///
+<a href=#89 id=89 data-nosnippet>89</a>    /// #### `screen`
+<a href=#90 id=90 data-nosnippet>90</a>    ///  Readable | Writeable
+<a href=#91 id=91 data-nosnippet>91</a>    ///
+<a href=#92 id=92 data-nosnippet>92</a>    /// ## Signals
+<a href=#93 id=93 data-nosnippet>93</a>    ///
+<a href=#94 id=94 data-nosnippet>94</a>    ///
+<a href=#95 id=95 data-nosnippet>95</a>    /// #### `changed`
+<a href=#96 id=96 data-nosnippet>96</a>    ///  The ::changed signal is emitted when there is a change in the
+<a href=#97 id=97 data-nosnippet>97</a>    /// [`StyleContext`][crate::StyleContext].
+<a href=#98 id=98 data-nosnippet>98</a>    ///
+<a href=#99 id=99 data-nosnippet>99</a>    /// For a [`StyleContext`][crate::StyleContext] returned by [`WidgetExt::style_context()`][crate::prelude::WidgetExt::style_context()], the
+<a href=#100 id=100 data-nosnippet>100</a>    /// [`style-updated`][struct@crate::Widget#style-updated] signal/vfunc might be more convenient to use.
+<a href=#101 id=101 data-nosnippet>101</a>    ///
+<a href=#102 id=102 data-nosnippet>102</a>    /// This signal is useful when using the theming layer standalone.
+<a href=#103 id=103 data-nosnippet>103</a>    ///
+<a href=#104 id=104 data-nosnippet>104</a>    ///
+<a href=#105 id=105 data-nosnippet>105</a>    ///
+<a href=#106 id=106 data-nosnippet>106</a>    /// # Implements
+<a href=#107 id=107 data-nosnippet>107</a>    ///
+<a href=#108 id=108 data-nosnippet>108</a>    /// [`StyleContextExt`][trait@crate::prelude::StyleContextExt], [`trait@glib::ObjectExt`], [`StyleContextExtManual`][trait@crate::prelude::StyleContextExtManual]
+<a href=#109 id=109 data-nosnippet>109</a>    </span><span class="attr">#[doc(alias = <span class="string">"GtkStyleContext"</span>)]
+<a href=#110 id=110 data-nosnippet>110</a>    </span><span class="kw">pub struct </span><a href="../../../gtk/struct.StyleContext.html">StyleContext</a>(Object&lt;ffi::<a href="../../../gtk_sys/struct.GtkStyleContext.html">GtkStyleContext</a>, ffi::<a href="../../../gtk_sys/struct.GtkStyleContextClass.html">GtkStyleContextClass</a>&gt;);
+<a href=#111 id=111 data-nosnippet>111</a>
+<a href=#112 id=112 data-nosnippet>112</a>    <span class="kw">match fn </span>{
+<a href=#113 id=113 data-nosnippet>113</a>        type_ =&gt; || ffi::gtk_style_context_get_type(),
+<a href=#114 id=114 data-nosnippet>114</a>    }
+<a href=#115 id=115 data-nosnippet>115</a>}
+<a href=#116 id=116 data-nosnippet>116</a>
+<a href=#117 id=117 data-nosnippet>117</a><span class="kw">impl </span><a href="#16-115">StyleContext</a> {
+<a href=#118 id=118 data-nosnippet>118</a>    <span class="kw">pub const </span>NONE: <a class="prelude-ty" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html">Option</a>&lt;<span class="kw-2">&amp;</span><span class="lifetime">'static </span><a href="#16-115">StyleContext</a>&gt; = <a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None">None</a>;
+<a href=#119 id=119 data-nosnippet>119</a>
+<a href=#120 id=120 data-nosnippet>120</a>    <span class="doccomment">/// Creates a standalone [`StyleContext`][crate::StyleContext], this style context
+<a href=#121 id=121 data-nosnippet>121</a>    /// won’t be attached to any widget, so you may want
+<a href=#122 id=122 data-nosnippet>122</a>    /// to call [`StyleContextExt::set_path()`][crate::prelude::StyleContextExt::set_path()] yourself.
+<a href=#123 id=123 data-nosnippet>123</a>    ///
+<a href=#124 id=124 data-nosnippet>124</a>    /// This function is only useful when using the theming layer
+<a href=#125 id=125 data-nosnippet>125</a>    /// separated from GTK+, if you are using [`StyleContext`][crate::StyleContext] to
+<a href=#126 id=126 data-nosnippet>126</a>    /// theme `GtkWidgets`, use [`WidgetExt::style_context()`][crate::prelude::WidgetExt::style_context()]
+<a href=#127 id=127 data-nosnippet>127</a>    /// in order to get a style context ready to theme the widget.
+<a href=#128 id=128 data-nosnippet>128</a>    ///
+<a href=#129 id=129 data-nosnippet>129</a>    /// # Returns
+<a href=#130 id=130 data-nosnippet>130</a>    ///
+<a href=#131 id=131 data-nosnippet>131</a>    /// A newly created [`StyleContext`][crate::StyleContext].
+<a href=#132 id=132 data-nosnippet>132</a>    </span><span class="attr">#[doc(alias = <span class="string">"gtk_style_context_new"</span>)]
+<a href=#133 id=133 data-nosnippet>133</a>    </span><span class="kw">pub fn </span>new() -&gt; <a href="#16-115">StyleContext</a> {
+<a href=#134 id=134 data-nosnippet>134</a>        <a href="../rt.rs.html#19-29">assert_initialized_main_thread!</a>();
+<a href=#135 id=135 data-nosnippet>135</a>        <span class="kw">unsafe </span>{ <a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/translate/fn.from_glib_full.html">from_glib_full</a>(ffi::<a href="../../../gtk_sys/fn.gtk_style_context_new.html">gtk_style_context_new</a>()) }
+<a href=#136 id=136 data-nosnippet>136</a>    }
+<a href=#137 id=137 data-nosnippet>137</a>
+<a href=#138 id=138 data-nosnippet>138</a>    <span class="comment">// rustdoc-stripper-ignore-next
+<a href=#139 id=139 data-nosnippet>139</a>    </span><span class="doccomment">/// Creates a new builder-pattern struct instance to construct [`StyleContext`] objects.
+<a href=#140 id=140 data-nosnippet>140</a>    ///
+<a href=#141 id=141 data-nosnippet>141</a>    /// This method returns an instance of [`StyleContextBuilder`](crate::builders::StyleContextBuilder) which can be used to create [`StyleContext`] objects.
+<a href=#142 id=142 data-nosnippet>142</a>    </span><span class="kw">pub fn </span>builder() -&gt; <a href="#225-227">StyleContextBuilder</a> {
+<a href=#143 id=143 data-nosnippet>143</a>        <a href="#225-227">StyleContextBuilder</a>::<a href="#230-234">new</a>()
+<a href=#144 id=144 data-nosnippet>144</a>    }
+<a href=#145 id=145 data-nosnippet>145</a>
+<a href=#146 id=146 data-nosnippet>146</a>    <span class="doccomment">/// Adds a global style provider to `screen`, which will be used
+<a href=#147 id=147 data-nosnippet>147</a>    /// in style construction for all `GtkStyleContexts` under `screen`.
+<a href=#148 id=148 data-nosnippet>148</a>    ///
+<a href=#149 id=149 data-nosnippet>149</a>    /// GTK+ uses this to make styling information from [`Settings`][crate::Settings]
+<a href=#150 id=150 data-nosnippet>150</a>    /// available.
+<a href=#151 id=151 data-nosnippet>151</a>    ///
+<a href=#152 id=152 data-nosnippet>152</a>    /// Note: If both priorities are the same, A [`StyleProvider`][crate::StyleProvider]
+<a href=#153 id=153 data-nosnippet>153</a>    /// added through [`StyleContextExt::add_provider()`][crate::prelude::StyleContextExt::add_provider()] takes precedence
+<a href=#154 id=154 data-nosnippet>154</a>    /// over another added through this function.
+<a href=#155 id=155 data-nosnippet>155</a>    /// ## `screen`
+<a href=#156 id=156 data-nosnippet>156</a>    /// a [`gdk::Screen`][crate::gdk::Screen]
+<a href=#157 id=157 data-nosnippet>157</a>    /// ## `provider`
+<a href=#158 id=158 data-nosnippet>158</a>    /// a [`StyleProvider`][crate::StyleProvider]
+<a href=#159 id=159 data-nosnippet>159</a>    /// ## `priority`
+<a href=#160 id=160 data-nosnippet>160</a>    /// the priority of the style provider. The lower
+<a href=#161 id=161 data-nosnippet>161</a>    ///  it is, the earlier it will be used in the style
+<a href=#162 id=162 data-nosnippet>162</a>    ///  construction. Typically this will be in the range
+<a href=#163 id=163 data-nosnippet>163</a>    ///  between `GTK_STYLE_PROVIDER_PRIORITY_FALLBACK` and
+<a href=#164 id=164 data-nosnippet>164</a>    ///  `GTK_STYLE_PROVIDER_PRIORITY_USER`
+<a href=#165 id=165 data-nosnippet>165</a>    </span><span class="attr">#[doc(alias = <span class="string">"gtk_style_context_add_provider_for_screen"</span>)]
+<a href=#166 id=166 data-nosnippet>166</a>    </span><span class="kw">pub fn </span>add_provider_for_screen(
+<a href=#167 id=167 data-nosnippet>167</a>        screen: <span class="kw-2">&amp;</span>gdk::<a href="../../../gdk/auto/screen/struct.Screen.html">Screen</a>,
+<a href=#168 id=168 data-nosnippet>168</a>        provider: <span class="kw-2">&amp;</span><span class="kw">impl </span><a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/object/trait.IsA.html">IsA</a>&lt;<a href="style_provider.rs.html#9-22">StyleProvider</a>&gt;,
+<a href=#169 id=169 data-nosnippet>169</a>        priority: <a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>,
+<a href=#170 id=170 data-nosnippet>170</a>    ) {
+<a href=#171 id=171 data-nosnippet>171</a>        <span class="macro">skip_assert_initialized!</span>();
+<a href=#172 id=172 data-nosnippet>172</a>        <span class="kw">unsafe </span>{
+<a href=#173 id=173 data-nosnippet>173</a>            ffi::<a href="../../../gtk_sys/fn.gtk_style_context_add_provider_for_screen.html">gtk_style_context_add_provider_for_screen</a>(
+<a href=#174 id=174 data-nosnippet>174</a>                <a href="#167">screen</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
+<a href=#175 id=175 data-nosnippet>175</a>                <a href="#168">provider</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
+<a href=#176 id=176 data-nosnippet>176</a>                <a href="#169">priority</a>,
+<a href=#177 id=177 data-nosnippet>177</a>            );
+<a href=#178 id=178 data-nosnippet>178</a>        }
+<a href=#179 id=179 data-nosnippet>179</a>    }
+<a href=#180 id=180 data-nosnippet>180</a>
+<a href=#181 id=181 data-nosnippet>181</a>    <span class="doccomment">/// Removes `provider` from the global style providers list in `screen`.
+<a href=#182 id=182 data-nosnippet>182</a>    /// ## `screen`
+<a href=#183 id=183 data-nosnippet>183</a>    /// a [`gdk::Screen`][crate::gdk::Screen]
+<a href=#184 id=184 data-nosnippet>184</a>    /// ## `provider`
+<a href=#185 id=185 data-nosnippet>185</a>    /// a [`StyleProvider`][crate::StyleProvider]
+<a href=#186 id=186 data-nosnippet>186</a>    </span><span class="attr">#[doc(alias = <span class="string">"gtk_style_context_remove_provider_for_screen"</span>)]
+<a href=#187 id=187 data-nosnippet>187</a>    </span><span class="kw">pub fn </span>remove_provider_for_screen(screen: <span class="kw-2">&amp;</span>gdk::<a href="../../../gdk/auto/screen/struct.Screen.html">Screen</a>, provider: <span class="kw-2">&amp;</span><span class="kw">impl </span><a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/object/trait.IsA.html">IsA</a>&lt;<a href="style_provider.rs.html#9-22">StyleProvider</a>&gt;) {
+<a href=#188 id=188 data-nosnippet>188</a>        <span class="macro">skip_assert_initialized!</span>();
+<a href=#189 id=189 data-nosnippet>189</a>        <span class="kw">unsafe </span>{
+<a href=#190 id=190 data-nosnippet>190</a>            ffi::<a href="../../../gtk_sys/fn.gtk_style_context_remove_provider_for_screen.html">gtk_style_context_remove_provider_for_screen</a>(
+<a href=#191 id=191 data-nosnippet>191</a>                <a href="#187">screen</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
+<a href=#192 id=192 data-nosnippet>192</a>                <a href="#187">provider</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
+<a href=#193 id=193 data-nosnippet>193</a>            );
+<a href=#194 id=194 data-nosnippet>194</a>        }
+<a href=#195 id=195 data-nosnippet>195</a>    }
+<a href=#196 id=196 data-nosnippet>196</a>
+<a href=#197 id=197 data-nosnippet>197</a>    <span class="doccomment">/// This function recomputes the styles for all widgets under a particular
+<a href=#198 id=198 data-nosnippet>198</a>    /// [`gdk::Screen`][crate::gdk::Screen]. This is useful when some global parameter has changed that
+<a href=#199 id=199 data-nosnippet>199</a>    /// affects the appearance of all widgets, because when a widget gets a new
+<a href=#200 id=200 data-nosnippet>200</a>    /// style, it will both redraw and recompute any cached information about
+<a href=#201 id=201 data-nosnippet>201</a>    /// its appearance. As an example, it is used when the color scheme changes
+<a href=#202 id=202 data-nosnippet>202</a>    /// in the related [`Settings`][crate::Settings] object.
+<a href=#203 id=203 data-nosnippet>203</a>    /// ## `screen`
+<a href=#204 id=204 data-nosnippet>204</a>    /// a [`gdk::Screen`][crate::gdk::Screen]
+<a href=#205 id=205 data-nosnippet>205</a>    </span><span class="attr">#[doc(alias = <span class="string">"gtk_style_context_reset_widgets"</span>)]
+<a href=#206 id=206 data-nosnippet>206</a>    </span><span class="kw">pub fn </span>reset_widgets(screen: <span class="kw-2">&amp;</span>gdk::<a href="../../../gdk/auto/screen/struct.Screen.html">Screen</a>) {
+<a href=#207 id=207 data-nosnippet>207</a>        <a href="../rt.rs.html#19-29">assert_initialized_main_thread!</a>();
+<a href=#208 id=208 data-nosnippet>208</a>        <span class="kw">unsafe </span>{
+<a href=#209 id=209 data-nosnippet>209</a>            ffi::<a href="../../../gtk_sys/fn.gtk_style_context_reset_widgets.html">gtk_style_context_reset_widgets</a>(<a href="#206">screen</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>);
+<a href=#210 id=210 data-nosnippet>210</a>        }
+<a href=#211 id=211 data-nosnippet>211</a>    }
+<a href=#212 id=212 data-nosnippet>212</a>}
+<a href=#213 id=213 data-nosnippet>213</a>
+<a href=#214 id=214 data-nosnippet>214</a><span class="kw">impl </span><a href="https://doc.rust-lang.org/nightly/core/default/trait.Default.html">Default</a> <span class="kw">for </span><a href="#16-115">StyleContext</a> {
+<a href=#215 id=215 data-nosnippet>215</a>    <span class="kw">fn </span>default() -&gt; <span class="self">Self </span>{
+<a href=#216 id=216 data-nosnippet>216</a>        <span class="self">Self</span>::<a href="#133-136">new</a>()
+<a href=#217 id=217 data-nosnippet>217</a>    }
+<a href=#218 id=218 data-nosnippet>218</a>}
+<a href=#219 id=219 data-nosnippet>219</a>
+<a href=#220 id=220 data-nosnippet>220</a><span class="comment">// rustdoc-stripper-ignore-next
+<a href=#221 id=221 data-nosnippet>221</a></span><span class="doccomment">/// A [builder-pattern] type to construct [`StyleContext`] objects.
+<a href=#222 id=222 data-nosnippet>222</a>///
+<a href=#223 id=223 data-nosnippet>223</a>/// [builder-pattern]: https://doc.rust-lang.org/1.0.0/style/ownership/builders.html
+<a href=#224 id=224 data-nosnippet>224</a></span><span class="attr">#[must_use = <span class="string">"The builder must be built to be used"</span>]
+<a href=#225 id=225 data-nosnippet>225</a></span><span class="kw">pub struct </span><a href="../../../gtk/builders/struct.StyleContextBuilder.html">StyleContextBuilder</a> {
+<a href=#226 id=226 data-nosnippet>226</a>    builder: glib::object::<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/object/struct.ObjectBuilder.html">ObjectBuilder</a>&lt;<span class="lifetime">'static</span>, <a href="#16-115">StyleContext</a>&gt;,
+<a href=#227 id=227 data-nosnippet>227</a>}
+<a href=#228 id=228 data-nosnippet>228</a>
+<a href=#229 id=229 data-nosnippet>229</a><span class="kw">impl </span><a href="#225-227">StyleContextBuilder</a> {
+<a href=#230 id=230 data-nosnippet>230</a>    <span class="kw">fn </span>new() -&gt; <span class="self">Self </span>{
+<a href=#231 id=231 data-nosnippet>231</a>        <span class="self">Self </span>{
+<a href=#232 id=232 data-nosnippet>232</a>            builder: glib::object::<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/object/struct.Object.html">Object</a>::<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/object/struct.Object.html#method.builder">builder</a>(),
+<a href=#233 id=233 data-nosnippet>233</a>        }
+<a href=#234 id=234 data-nosnippet>234</a>    }
+<a href=#235 id=235 data-nosnippet>235</a>
+<a href=#236 id=236 data-nosnippet>236</a>    <span class="kw">pub fn </span>direction(<span class="self">self</span>, direction: <a href="enums.rs.html#9893-9905">TextDirection</a>) -&gt; <span class="self">Self </span>{
+<a href=#237 id=237 data-nosnippet>237</a>        <span class="self">Self </span>{
+<a href=#238 id=238 data-nosnippet>238</a>            builder: <a class="self" href="#236">self</a>.builder.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/object/struct.ObjectBuilder.html#method.property">property</a>(<span class="string">"direction"</span>, <a href="#236">direction</a>),
+<a href=#239 id=239 data-nosnippet>239</a>        }
+<a href=#240 id=240 data-nosnippet>240</a>    }
+<a href=#241 id=241 data-nosnippet>241</a>
+<a href=#242 id=242 data-nosnippet>242</a>    <span class="kw">pub fn </span>paint_clock(<span class="self">self</span>, paint_clock: <span class="kw-2">&amp;</span>gdk::<a href="../../../gdk/auto/frame_clock/struct.FrameClock.html">FrameClock</a>) -&gt; <span class="self">Self </span>{
+<a href=#243 id=243 data-nosnippet>243</a>        <span class="self">Self </span>{
+<a href=#244 id=244 data-nosnippet>244</a>            builder: <a class="self" href="#242">self</a>.builder.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/object/struct.ObjectBuilder.html#method.property">property</a>(<span class="string">"paint-clock"</span>, <a href="#242">paint_clock</a>.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone">clone</a>()),
+<a href=#245 id=245 data-nosnippet>245</a>        }
+<a href=#246 id=246 data-nosnippet>246</a>    }
+<a href=#247 id=247 data-nosnippet>247</a>
+<a href=#248 id=248 data-nosnippet>248</a>    <span class="doccomment">/// Sets or gets the style context’s parent. See [`StyleContextExt::set_parent()`][crate::prelude::StyleContextExt::set_parent()]
+<a href=#249 id=249 data-nosnippet>249</a>    /// for details.
+<a href=#250 id=250 data-nosnippet>250</a>    </span><span class="kw">pub fn </span>parent(<span class="self">self</span>, parent: <span class="kw-2">&amp;</span><span class="kw">impl </span><a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/object/trait.IsA.html">IsA</a>&lt;<a href="#16-115">StyleContext</a>&gt;) -&gt; <span class="self">Self </span>{
+<a href=#251 id=251 data-nosnippet>251</a>        <span class="self">Self </span>{
+<a href=#252 id=252 data-nosnippet>252</a>            builder: <a class="self" href="#250">self</a>.builder.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/object/struct.ObjectBuilder.html#method.property">property</a>(<span class="string">"parent"</span>, <a href="#250">parent</a>.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone">clone</a>().<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/object/trait.Cast.html#method.upcast">upcast</a>()),
+<a href=#253 id=253 data-nosnippet>253</a>        }
+<a href=#254 id=254 data-nosnippet>254</a>    }
+<a href=#255 id=255 data-nosnippet>255</a>
+<a href=#256 id=256 data-nosnippet>256</a>    <span class="kw">pub fn </span>screen(<span class="self">self</span>, screen: <span class="kw-2">&amp;</span>gdk::<a href="../../../gdk/auto/screen/struct.Screen.html">Screen</a>) -&gt; <span class="self">Self </span>{
+<a href=#257 id=257 data-nosnippet>257</a>        <span class="self">Self </span>{
+<a href=#258 id=258 data-nosnippet>258</a>            builder: <a class="self" href="#256">self</a>.builder.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/object/struct.ObjectBuilder.html#method.property">property</a>(<span class="string">"screen"</span>, <a href="#256">screen</a>.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone">clone</a>()),
+<a href=#259 id=259 data-nosnippet>259</a>        }
+<a href=#260 id=260 data-nosnippet>260</a>    }
+<a href=#261 id=261 data-nosnippet>261</a>
+<a href=#262 id=262 data-nosnippet>262</a>    <span class="comment">// rustdoc-stripper-ignore-next
+<a href=#263 id=263 data-nosnippet>263</a>    </span><span class="doccomment">/// Build the [`StyleContext`].
+<a href=#264 id=264 data-nosnippet>264</a>    </span><span class="attr">#[must_use = <span class="string">"Building the object from the builder is usually expensive and is not expected to have side effects"</span>]
+<a href=#265 id=265 data-nosnippet>265</a>    </span><span class="kw">pub fn </span>build(<span class="self">self</span>) -&gt; <a href="#16-115">StyleContext</a> {
+<a href=#266 id=266 data-nosnippet>266</a>        <a class="self" href="#265">self</a>.builder.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/object/struct.ObjectBuilder.html#method.build">build</a>()
+<a href=#267 id=267 data-nosnippet>267</a>    }
+<a href=#268 id=268 data-nosnippet>268</a>}
+<a href=#269 id=269 data-nosnippet>269</a>
+<a href=#270 id=270 data-nosnippet>270</a><span class="kw">mod </span>sealed {
+<a href=#271 id=271 data-nosnippet>271</a>    <span class="kw">pub trait </span>Sealed {}
+<a href=#272 id=272 data-nosnippet>272</a>    <span class="kw">impl</span>&lt;T: <a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/object/trait.IsA.html"><span class="kw">super</span>::IsA</a>&lt;<span class="kw">super</span>::<a href="#16-115">StyleContext</a>&gt;&gt; <a href="#271">Sealed</a> <span class="kw">for </span>T {}
+<a href=#273 id=273 data-nosnippet>273</a>}
+<a href=#274 id=274 data-nosnippet>274</a>
+<a href=#275 id=275 data-nosnippet>275</a><span class="doccomment">/// Trait containing all [`struct@StyleContext`] methods.
+<a href=#276 id=276 data-nosnippet>276</a>///
+<a href=#277 id=277 data-nosnippet>277</a>/// # Implementors
+<a href=#278 id=278 data-nosnippet>278</a>///
+<a href=#279 id=279 data-nosnippet>279</a>/// [`StyleContext`][struct@crate::StyleContext]
+<a href=#280 id=280 data-nosnippet>280</a></span><span class="kw">pub trait </span><a href="../../../gtk/prelude/trait.StyleContextExt.html">StyleContextExt</a>: <a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/object/trait.IsA.html">IsA</a>&lt;<a href="#16-115">StyleContext</a>&gt; + <a href="#271">sealed::Sealed</a> + <span class="lifetime">'static </span>{
+<a href=#281 id=281 data-nosnippet>281</a>    <span class="doccomment">/// Adds a style class to `self`, so posterior calls to
+<a href=#282 id=282 data-nosnippet>282</a>    /// `gtk_style_context_get()` or any of the gtk_render_*()
+<a href=#283 id=283 data-nosnippet>283</a>    /// functions will make use of this new class for styling.
+<a href=#284 id=284 data-nosnippet>284</a>    ///
+<a href=#285 id=285 data-nosnippet>285</a>    /// In the CSS file format, a [`Entry`][crate::Entry] defining a “search”
+<a href=#286 id=286 data-nosnippet>286</a>    /// class, would be matched by:
+<a href=#287 id=287 data-nosnippet>287</a>    ///
+<a href=#288 id=288 data-nosnippet>288</a>    ///
+<a href=#289 id=289 data-nosnippet>289</a>    ///
+<a href=#290 id=290 data-nosnippet>290</a>    /// **⚠️ The following code is in CSS ⚠️**
+<a href=#291 id=291 data-nosnippet>291</a>    ///
+<a href=#292 id=292 data-nosnippet>292</a>    /// ```CSS
+<a href=#293 id=293 data-nosnippet>293</a>    /// entry.search { ... }
+<a href=#294 id=294 data-nosnippet>294</a>    /// ```
+<a href=#295 id=295 data-nosnippet>295</a>    ///
+<a href=#296 id=296 data-nosnippet>296</a>    /// While any widget defining a “search” class would be
+<a href=#297 id=297 data-nosnippet>297</a>    /// matched by:
+<a href=#298 id=298 data-nosnippet>298</a>    ///
+<a href=#299 id=299 data-nosnippet>299</a>    ///
+<a href=#300 id=300 data-nosnippet>300</a>    /// **⚠️ The following code is in CSS ⚠️**
+<a href=#301 id=301 data-nosnippet>301</a>    ///
+<a href=#302 id=302 data-nosnippet>302</a>    /// ```CSS
+<a href=#303 id=303 data-nosnippet>303</a>    /// .search { ... }
+<a href=#304 id=304 data-nosnippet>304</a>    /// ```
+<a href=#305 id=305 data-nosnippet>305</a>    /// ## `class_name`
+<a href=#306 id=306 data-nosnippet>306</a>    /// class name to use in styling
+<a href=#307 id=307 data-nosnippet>307</a>    </span><span class="attr">#[doc(alias = <span class="string">"gtk_style_context_add_class"</span>)]
+<a href=#308 id=308 data-nosnippet>308</a>    </span><span class="kw">fn </span>add_class(<span class="kw-2">&amp;</span><span class="self">self</span>, class_name: <span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) {
+<a href=#309 id=309 data-nosnippet>309</a>        <span class="kw">unsafe </span>{
+<a href=#310 id=310 data-nosnippet>310</a>            ffi::<a href="../../../gtk_sys/fn.gtk_style_context_add_class.html">gtk_style_context_add_class</a>(
+<a href=#311 id=311 data-nosnippet>311</a>                <a class="self" href="#308">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
+<a href=#312 id=312 data-nosnippet>312</a>                <a href="#308">class_name</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
+<a href=#313 id=313 data-nosnippet>313</a>            );
+<a href=#314 id=314 data-nosnippet>314</a>        }
+<a href=#315 id=315 data-nosnippet>315</a>    }
+<a href=#316 id=316 data-nosnippet>316</a>
+<a href=#317 id=317 data-nosnippet>317</a>    <span class="doccomment">/// Adds a style provider to `self`, to be used in style construction.
+<a href=#318 id=318 data-nosnippet>318</a>    /// Note that a style provider added by this function only affects
+<a href=#319 id=319 data-nosnippet>319</a>    /// the style of the widget to which `self` belongs. If you want
+<a href=#320 id=320 data-nosnippet>320</a>    /// to affect the style of all widgets, use
+<a href=#321 id=321 data-nosnippet>321</a>    /// [`StyleContext::add_provider_for_screen()`][crate::StyleContext::add_provider_for_screen()].
+<a href=#322 id=322 data-nosnippet>322</a>    ///
+<a href=#323 id=323 data-nosnippet>323</a>    /// Note: If both priorities are the same, a [`StyleProvider`][crate::StyleProvider]
+<a href=#324 id=324 data-nosnippet>324</a>    /// added through this function takes precedence over another added
+<a href=#325 id=325 data-nosnippet>325</a>    /// through [`StyleContext::add_provider_for_screen()`][crate::StyleContext::add_provider_for_screen()].
+<a href=#326 id=326 data-nosnippet>326</a>    /// ## `provider`
+<a href=#327 id=327 data-nosnippet>327</a>    /// a [`StyleProvider`][crate::StyleProvider]
+<a href=#328 id=328 data-nosnippet>328</a>    /// ## `priority`
+<a href=#329 id=329 data-nosnippet>329</a>    /// the priority of the style provider. The lower
+<a href=#330 id=330 data-nosnippet>330</a>    ///  it is, the earlier it will be used in the style
+<a href=#331 id=331 data-nosnippet>331</a>    ///  construction. Typically this will be in the range
+<a href=#332 id=332 data-nosnippet>332</a>    ///  between `GTK_STYLE_PROVIDER_PRIORITY_FALLBACK` and
+<a href=#333 id=333 data-nosnippet>333</a>    ///  `GTK_STYLE_PROVIDER_PRIORITY_USER`
+<a href=#334 id=334 data-nosnippet>334</a>    </span><span class="attr">#[doc(alias = <span class="string">"gtk_style_context_add_provider"</span>)]
+<a href=#335 id=335 data-nosnippet>335</a>    </span><span class="kw">fn </span>add_provider(<span class="kw-2">&amp;</span><span class="self">self</span>, provider: <span class="kw-2">&amp;</span><span class="kw">impl </span><a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/object/trait.IsA.html">IsA</a>&lt;<a href="style_provider.rs.html#9-22">StyleProvider</a>&gt;, priority: <a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>) {
+<a href=#336 id=336 data-nosnippet>336</a>        <span class="kw">unsafe </span>{
+<a href=#337 id=337 data-nosnippet>337</a>            ffi::<a href="../../../gtk_sys/fn.gtk_style_context_add_provider.html">gtk_style_context_add_provider</a>(
+<a href=#338 id=338 data-nosnippet>338</a>                <a class="self" href="#335">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
+<a href=#339 id=339 data-nosnippet>339</a>                <a href="#335">provider</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
+<a href=#340 id=340 data-nosnippet>340</a>                <a href="#335">priority</a>,
+<a href=#341 id=341 data-nosnippet>341</a>            );
+<a href=#342 id=342 data-nosnippet>342</a>        }
+<a href=#343 id=343 data-nosnippet>343</a>    }
+<a href=#344 id=344 data-nosnippet>344</a>
+<a href=#345 id=345 data-nosnippet>345</a>    <span class="doccomment">/// Gets the border for a given state as a [`Border`][crate::Border].
+<a href=#346 id=346 data-nosnippet>346</a>    ///
+<a href=#347 id=347 data-nosnippet>347</a>    /// See [`style_property_for_state()`][Self::style_property_for_state()] and
+<a href=#348 id=348 data-nosnippet>348</a>    /// [`STYLE_PROPERTY_BORDER_WIDTH`][crate::STYLE_PROPERTY_BORDER_WIDTH] for details.
+<a href=#349 id=349 data-nosnippet>349</a>    /// ## `state`
+<a href=#350 id=350 data-nosnippet>350</a>    /// state to retrieve the border for
+<a href=#351 id=351 data-nosnippet>351</a>    ///
+<a href=#352 id=352 data-nosnippet>352</a>    /// # Returns
+<a href=#353 id=353 data-nosnippet>353</a>    ///
+<a href=#354 id=354 data-nosnippet>354</a>    ///
+<a href=#355 id=355 data-nosnippet>355</a>    /// ## `border`
+<a href=#356 id=356 data-nosnippet>356</a>    /// return value for the border settings
+<a href=#357 id=357 data-nosnippet>357</a>    </span><span class="attr">#[doc(alias = <span class="string">"gtk_style_context_get_border"</span>)]
+<a href=#358 id=358 data-nosnippet>358</a>    #[doc(alias = <span class="string">"get_border"</span>)]
+<a href=#359 id=359 data-nosnippet>359</a>    </span><span class="kw">fn </span>border(<span class="kw-2">&amp;</span><span class="self">self</span>, state: <a href="flags.rs.html#1702-1752">StateFlags</a>) -&gt; <a href="../border.rs.html#7-18">Border</a> {
+<a href=#360 id=360 data-nosnippet>360</a>        <span class="kw">unsafe </span>{
+<a href=#361 id=361 data-nosnippet>361</a>            <span class="kw">let </span><span class="kw-2">mut </span>border = <a href="../border.rs.html#7-18">Border</a>::<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/translate/trait.Uninitialized.html#tymethod.uninitialized">uninitialized</a>();
+<a href=#362 id=362 data-nosnippet>362</a>            ffi::<a href="../../../gtk_sys/fn.gtk_style_context_get_border.html">gtk_style_context_get_border</a>(
+<a href=#363 id=363 data-nosnippet>363</a>                <a class="self" href="#359">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
+<a href=#364 id=364 data-nosnippet>364</a>                <a href="#359">state</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/translate/trait.IntoGlib.html#tymethod.into_glib">into_glib</a>(),
+<a href=#365 id=365 data-nosnippet>365</a>                <a href="#361">border</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/translate/trait.ToGlibPtrMut.html#tymethod.to_glib_none_mut">to_glib_none_mut</a>().<span class="number">0</span>,
+<a href=#366 id=366 data-nosnippet>366</a>            );
+<a href=#367 id=367 data-nosnippet>367</a>            <a href="#361">border</a>
+<a href=#368 id=368 data-nosnippet>368</a>        }
+<a href=#369 id=369 data-nosnippet>369</a>    }
+<a href=#370 id=370 data-nosnippet>370</a>
+<a href=#371 id=371 data-nosnippet>371</a>    <span class="doccomment">/// Gets the foreground color for a given state.
+<a href=#372 id=372 data-nosnippet>372</a>    ///
+<a href=#373 id=373 data-nosnippet>373</a>    /// See [`style_property_for_state()`][Self::style_property_for_state()] and
+<a href=#374 id=374 data-nosnippet>374</a>    /// [`STYLE_PROPERTY_COLOR`][crate::STYLE_PROPERTY_COLOR] for details.
+<a href=#375 id=375 data-nosnippet>375</a>    /// ## `state`
+<a href=#376 id=376 data-nosnippet>376</a>    /// state to retrieve the color for
+<a href=#377 id=377 data-nosnippet>377</a>    ///
+<a href=#378 id=378 data-nosnippet>378</a>    /// # Returns
+<a href=#379 id=379 data-nosnippet>379</a>    ///
+<a href=#380 id=380 data-nosnippet>380</a>    ///
+<a href=#381 id=381 data-nosnippet>381</a>    /// ## `color`
+<a href=#382 id=382 data-nosnippet>382</a>    /// return value for the foreground color
+<a href=#383 id=383 data-nosnippet>383</a>    </span><span class="attr">#[doc(alias = <span class="string">"gtk_style_context_get_color"</span>)]
+<a href=#384 id=384 data-nosnippet>384</a>    #[doc(alias = <span class="string">"get_color"</span>)]
+<a href=#385 id=385 data-nosnippet>385</a>    </span><span class="kw">fn </span>color(<span class="kw-2">&amp;</span><span class="self">self</span>, state: <a href="flags.rs.html#1702-1752">StateFlags</a>) -&gt; gdk::<a href="../../../gdk/auto/rgba/struct.RGBA.html">RGBA</a> {
+<a href=#386 id=386 data-nosnippet>386</a>        <span class="kw">unsafe </span>{
+<a href=#387 id=387 data-nosnippet>387</a>            <span class="kw">let </span><span class="kw-2">mut </span>color = gdk::<a href="../../../gdk/auto/rgba/struct.RGBA.html">RGBA</a>::<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/translate/trait.Uninitialized.html#tymethod.uninitialized">uninitialized</a>();
+<a href=#388 id=388 data-nosnippet>388</a>            ffi::<a href="../../../gtk_sys/fn.gtk_style_context_get_color.html">gtk_style_context_get_color</a>(
+<a href=#389 id=389 data-nosnippet>389</a>                <a class="self" href="#385">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
+<a href=#390 id=390 data-nosnippet>390</a>                <a href="#385">state</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/translate/trait.IntoGlib.html#tymethod.into_glib">into_glib</a>(),
+<a href=#391 id=391 data-nosnippet>391</a>                <a href="#387">color</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/translate/trait.ToGlibPtrMut.html#tymethod.to_glib_none_mut">to_glib_none_mut</a>().<span class="number">0</span>,
+<a href=#392 id=392 data-nosnippet>392</a>            );
+<a href=#393 id=393 data-nosnippet>393</a>            <a href="#387">color</a>
+<a href=#394 id=394 data-nosnippet>394</a>        }
+<a href=#395 id=395 data-nosnippet>395</a>    }
+<a href=#396 id=396 data-nosnippet>396</a>
+<a href=#397 id=397 data-nosnippet>397</a>    <span class="doccomment">/// Returns the [`gdk::FrameClock`][crate::gdk::FrameClock] to which `self` is attached.
+<a href=#398 id=398 data-nosnippet>398</a>    ///
+<a href=#399 id=399 data-nosnippet>399</a>    /// # Returns
+<a href=#400 id=400 data-nosnippet>400</a>    ///
+<a href=#401 id=401 data-nosnippet>401</a>    /// a [`gdk::FrameClock`][crate::gdk::FrameClock], or [`None`]
+<a href=#402 id=402 data-nosnippet>402</a>    ///  if `self` does not have an attached frame clock.
+<a href=#403 id=403 data-nosnippet>403</a>    </span><span class="attr">#[doc(alias = <span class="string">"gtk_style_context_get_frame_clock"</span>)]
+<a href=#404 id=404 data-nosnippet>404</a>    #[doc(alias = <span class="string">"get_frame_clock"</span>)]
+<a href=#405 id=405 data-nosnippet>405</a>    </span><span class="kw">fn </span>frame_clock(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a class="prelude-ty" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html">Option</a>&lt;gdk::<a href="../../../gdk/auto/frame_clock/struct.FrameClock.html">FrameClock</a>&gt; {
+<a href=#406 id=406 data-nosnippet>406</a>        <span class="kw">unsafe </span>{
+<a href=#407 id=407 data-nosnippet>407</a>            <a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/translate/fn.from_glib_none.html">from_glib_none</a>(ffi::<a href="../../../gtk_sys/fn.gtk_style_context_get_frame_clock.html">gtk_style_context_get_frame_clock</a>(
+<a href=#408 id=408 data-nosnippet>408</a>                <a class="self" href="#405">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
+<a href=#409 id=409 data-nosnippet>409</a>            ))
+<a href=#410 id=410 data-nosnippet>410</a>        }
+<a href=#411 id=411 data-nosnippet>411</a>    }
+<a href=#412 id=412 data-nosnippet>412</a>
+<a href=#413 id=413 data-nosnippet>413</a>    <span class="doccomment">/// Returns the sides where rendered elements connect visually with others.
+<a href=#414 id=414 data-nosnippet>414</a>    ///
+<a href=#415 id=415 data-nosnippet>415</a>    /// # Returns
+<a href=#416 id=416 data-nosnippet>416</a>    ///
+<a href=#417 id=417 data-nosnippet>417</a>    /// the junction sides
+<a href=#418 id=418 data-nosnippet>418</a>    </span><span class="attr">#[doc(alias = <span class="string">"gtk_style_context_get_junction_sides"</span>)]
+<a href=#419 id=419 data-nosnippet>419</a>    #[doc(alias = <span class="string">"get_junction_sides"</span>)]
+<a href=#420 id=420 data-nosnippet>420</a>    </span><span class="kw">fn </span>junction_sides(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="flags.rs.html#1255-1288">JunctionSides</a> {
+<a href=#421 id=421 data-nosnippet>421</a>        <span class="kw">unsafe </span>{
+<a href=#422 id=422 data-nosnippet>422</a>            <a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/translate/fn.from_glib.html">from_glib</a>(ffi::<a href="../../../gtk_sys/fn.gtk_style_context_get_junction_sides.html">gtk_style_context_get_junction_sides</a>(
+<a href=#423 id=423 data-nosnippet>423</a>                <a class="self" href="#420">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
+<a href=#424 id=424 data-nosnippet>424</a>            ))
+<a href=#425 id=425 data-nosnippet>425</a>        }
+<a href=#426 id=426 data-nosnippet>426</a>    }
+<a href=#427 id=427 data-nosnippet>427</a>
+<a href=#428 id=428 data-nosnippet>428</a>    <span class="doccomment">/// Gets the margin for a given state as a [`Border`][crate::Border].
+<a href=#429 id=429 data-nosnippet>429</a>    /// See `gtk_style_property_get()` and [`STYLE_PROPERTY_MARGIN`][crate::STYLE_PROPERTY_MARGIN]
+<a href=#430 id=430 data-nosnippet>430</a>    /// for details.
+<a href=#431 id=431 data-nosnippet>431</a>    /// ## `state`
+<a href=#432 id=432 data-nosnippet>432</a>    /// state to retrieve the border for
+<a href=#433 id=433 data-nosnippet>433</a>    ///
+<a href=#434 id=434 data-nosnippet>434</a>    /// # Returns
+<a href=#435 id=435 data-nosnippet>435</a>    ///
+<a href=#436 id=436 data-nosnippet>436</a>    ///
+<a href=#437 id=437 data-nosnippet>437</a>    /// ## `margin`
+<a href=#438 id=438 data-nosnippet>438</a>    /// return value for the margin settings
+<a href=#439 id=439 data-nosnippet>439</a>    </span><span class="attr">#[doc(alias = <span class="string">"gtk_style_context_get_margin"</span>)]
+<a href=#440 id=440 data-nosnippet>440</a>    #[doc(alias = <span class="string">"get_margin"</span>)]
+<a href=#441 id=441 data-nosnippet>441</a>    </span><span class="kw">fn </span>margin(<span class="kw-2">&amp;</span><span class="self">self</span>, state: <a href="flags.rs.html#1702-1752">StateFlags</a>) -&gt; <a href="../border.rs.html#7-18">Border</a> {
+<a href=#442 id=442 data-nosnippet>442</a>        <span class="kw">unsafe </span>{
+<a href=#443 id=443 data-nosnippet>443</a>            <span class="kw">let </span><span class="kw-2">mut </span>margin = <a href="../border.rs.html#7-18">Border</a>::<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/translate/trait.Uninitialized.html#tymethod.uninitialized">uninitialized</a>();
+<a href=#444 id=444 data-nosnippet>444</a>            ffi::<a href="../../../gtk_sys/fn.gtk_style_context_get_margin.html">gtk_style_context_get_margin</a>(
+<a href=#445 id=445 data-nosnippet>445</a>                <a class="self" href="#441">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
+<a href=#446 id=446 data-nosnippet>446</a>                <a href="#441">state</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/translate/trait.IntoGlib.html#tymethod.into_glib">into_glib</a>(),
+<a href=#447 id=447 data-nosnippet>447</a>                <a href="#443">margin</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/translate/trait.ToGlibPtrMut.html#tymethod.to_glib_none_mut">to_glib_none_mut</a>().<span class="number">0</span>,
+<a href=#448 id=448 data-nosnippet>448</a>            );
+<a href=#449 id=449 data-nosnippet>449</a>            <a href="#443">margin</a>
+<a href=#450 id=450 data-nosnippet>450</a>        }
+<a href=#451 id=451 data-nosnippet>451</a>    }
+<a href=#452 id=452 data-nosnippet>452</a>
+<a href=#453 id=453 data-nosnippet>453</a>    <span class="doccomment">/// Gets the padding for a given state as a [`Border`][crate::Border].
+<a href=#454 id=454 data-nosnippet>454</a>    /// See `gtk_style_context_get()` and [`STYLE_PROPERTY_PADDING`][crate::STYLE_PROPERTY_PADDING]
+<a href=#455 id=455 data-nosnippet>455</a>    /// for details.
+<a href=#456 id=456 data-nosnippet>456</a>    /// ## `state`
+<a href=#457 id=457 data-nosnippet>457</a>    /// state to retrieve the padding for
+<a href=#458 id=458 data-nosnippet>458</a>    ///
+<a href=#459 id=459 data-nosnippet>459</a>    /// # Returns
+<a href=#460 id=460 data-nosnippet>460</a>    ///
+<a href=#461 id=461 data-nosnippet>461</a>    ///
+<a href=#462 id=462 data-nosnippet>462</a>    /// ## `padding`
+<a href=#463 id=463 data-nosnippet>463</a>    /// return value for the padding settings
+<a href=#464 id=464 data-nosnippet>464</a>    </span><span class="attr">#[doc(alias = <span class="string">"gtk_style_context_get_padding"</span>)]
+<a href=#465 id=465 data-nosnippet>465</a>    #[doc(alias = <span class="string">"get_padding"</span>)]
+<a href=#466 id=466 data-nosnippet>466</a>    </span><span class="kw">fn </span>padding(<span class="kw-2">&amp;</span><span class="self">self</span>, state: <a href="flags.rs.html#1702-1752">StateFlags</a>) -&gt; <a href="../border.rs.html#7-18">Border</a> {
+<a href=#467 id=467 data-nosnippet>467</a>        <span class="kw">unsafe </span>{
+<a href=#468 id=468 data-nosnippet>468</a>            <span class="kw">let </span><span class="kw-2">mut </span>padding = <a href="../border.rs.html#7-18">Border</a>::<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/translate/trait.Uninitialized.html#tymethod.uninitialized">uninitialized</a>();
+<a href=#469 id=469 data-nosnippet>469</a>            ffi::<a href="../../../gtk_sys/fn.gtk_style_context_get_padding.html">gtk_style_context_get_padding</a>(
+<a href=#470 id=470 data-nosnippet>470</a>                <a class="self" href="#466">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
+<a href=#471 id=471 data-nosnippet>471</a>                <a href="#466">state</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/translate/trait.IntoGlib.html#tymethod.into_glib">into_glib</a>(),
+<a href=#472 id=472 data-nosnippet>472</a>                <a href="#468">padding</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/translate/trait.ToGlibPtrMut.html#tymethod.to_glib_none_mut">to_glib_none_mut</a>().<span class="number">0</span>,
+<a href=#473 id=473 data-nosnippet>473</a>            );
+<a href=#474 id=474 data-nosnippet>474</a>            <a href="#468">padding</a>
+<a href=#475 id=475 data-nosnippet>475</a>        }
+<a href=#476 id=476 data-nosnippet>476</a>    }
+<a href=#477 id=477 data-nosnippet>477</a>
+<a href=#478 id=478 data-nosnippet>478</a>    <span class="doccomment">/// Gets the parent context set via [`set_parent()`][Self::set_parent()].
+<a href=#479 id=479 data-nosnippet>479</a>    /// See that function for details.
+<a href=#480 id=480 data-nosnippet>480</a>    ///
+<a href=#481 id=481 data-nosnippet>481</a>    /// # Returns
+<a href=#482 id=482 data-nosnippet>482</a>    ///
+<a href=#483 id=483 data-nosnippet>483</a>    /// the parent context or [`None`]
+<a href=#484 id=484 data-nosnippet>484</a>    </span><span class="attr">#[doc(alias = <span class="string">"gtk_style_context_get_parent"</span>)]
+<a href=#485 id=485 data-nosnippet>485</a>    #[doc(alias = <span class="string">"get_parent"</span>)]
+<a href=#486 id=486 data-nosnippet>486</a>    #[must_use]
+<a href=#487 id=487 data-nosnippet>487</a>    </span><span class="kw">fn </span>parent(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a class="prelude-ty" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html">Option</a>&lt;<a href="#16-115">StyleContext</a>&gt; {
+<a href=#488 id=488 data-nosnippet>488</a>        <span class="kw">unsafe </span>{
+<a href=#489 id=489 data-nosnippet>489</a>            <a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/translate/fn.from_glib_none.html">from_glib_none</a>(ffi::<a href="../../../gtk_sys/fn.gtk_style_context_get_parent.html">gtk_style_context_get_parent</a>(
+<a href=#490 id=490 data-nosnippet>490</a>                <a class="self" href="#487">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
+<a href=#491 id=491 data-nosnippet>491</a>            ))
+<a href=#492 id=492 data-nosnippet>492</a>        }
+<a href=#493 id=493 data-nosnippet>493</a>    }
+<a href=#494 id=494 data-nosnippet>494</a>
+<a href=#495 id=495 data-nosnippet>495</a>    <span class="doccomment">/// Returns the widget path used for style matching.
+<a href=#496 id=496 data-nosnippet>496</a>    ///
+<a href=#497 id=497 data-nosnippet>497</a>    /// # Returns
+<a href=#498 id=498 data-nosnippet>498</a>    ///
+<a href=#499 id=499 data-nosnippet>499</a>    /// A [`WidgetPath`][crate::WidgetPath]
+<a href=#500 id=500 data-nosnippet>500</a>    </span><span class="attr">#[doc(alias = <span class="string">"gtk_style_context_get_path"</span>)]
+<a href=#501 id=501 data-nosnippet>501</a>    #[doc(alias = <span class="string">"get_path"</span>)]
+<a href=#502 id=502 data-nosnippet>502</a>    </span><span class="kw">fn </span>path(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a class="prelude-ty" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html">Option</a>&lt;<a href="widget_path.rs.html#9-73">WidgetPath</a>&gt; {
+<a href=#503 id=503 data-nosnippet>503</a>        <span class="kw">unsafe </span>{
+<a href=#504 id=504 data-nosnippet>504</a>            <a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/translate/fn.from_glib_none.html">from_glib_none</a>(ffi::<a href="../../../gtk_sys/fn.gtk_style_context_get_path.html">gtk_style_context_get_path</a>(
+<a href=#505 id=505 data-nosnippet>505</a>                <a class="self" href="#502">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
+<a href=#506 id=506 data-nosnippet>506</a>            ))
+<a href=#507 id=507 data-nosnippet>507</a>        }
+<a href=#508 id=508 data-nosnippet>508</a>    }
+<a href=#509 id=509 data-nosnippet>509</a>
+<a href=#510 id=510 data-nosnippet>510</a>    <span class="doccomment">/// Gets a style property from `self` for the given state.
+<a href=#511 id=511 data-nosnippet>511</a>    ///
+<a href=#512 id=512 data-nosnippet>512</a>    /// Note that not all CSS properties that are supported by GTK+ can be
+<a href=#513 id=513 data-nosnippet>513</a>    /// retrieved in this way, since they may not be representable as [`glib::Value`][crate::glib::Value].
+<a href=#514 id=514 data-nosnippet>514</a>    /// GTK+ defines macros for a number of properties that can be used
+<a href=#515 id=515 data-nosnippet>515</a>    /// with this function.
+<a href=#516 id=516 data-nosnippet>516</a>    ///
+<a href=#517 id=517 data-nosnippet>517</a>    /// Note that passing a state other than the current state of `self`
+<a href=#518 id=518 data-nosnippet>518</a>    /// is not recommended unless the style context has been saved with
+<a href=#519 id=519 data-nosnippet>519</a>    /// [`save()`][Self::save()].
+<a href=#520 id=520 data-nosnippet>520</a>    ///
+<a href=#521 id=521 data-nosnippet>521</a>    /// When `value` is no longer needed, [`glib::Value::unset()`][crate::glib::Value::unset()] must be called
+<a href=#522 id=522 data-nosnippet>522</a>    /// to free any allocated memory.
+<a href=#523 id=523 data-nosnippet>523</a>    /// ## `property`
+<a href=#524 id=524 data-nosnippet>524</a>    /// style property name
+<a href=#525 id=525 data-nosnippet>525</a>    /// ## `state`
+<a href=#526 id=526 data-nosnippet>526</a>    /// state to retrieve the property value for
+<a href=#527 id=527 data-nosnippet>527</a>    ///
+<a href=#528 id=528 data-nosnippet>528</a>    /// # Returns
+<a href=#529 id=529 data-nosnippet>529</a>    ///
+<a href=#530 id=530 data-nosnippet>530</a>    ///
+<a href=#531 id=531 data-nosnippet>531</a>    /// ## `value`
+<a href=#532 id=532 data-nosnippet>532</a>    /// return location for the style property value
+<a href=#533 id=533 data-nosnippet>533</a>    </span><span class="attr">#[doc(alias = <span class="string">"gtk_style_context_get_property"</span>)]
+<a href=#534 id=534 data-nosnippet>534</a>    #[doc(alias = <span class="string">"get_property"</span>)]
+<a href=#535 id=535 data-nosnippet>535</a>    </span><span class="kw">fn </span>style_property_for_state(<span class="kw-2">&amp;</span><span class="self">self</span>, property: <span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>, state: <a href="flags.rs.html#1702-1752">StateFlags</a>) -&gt; glib::<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/value/struct.Value.html">Value</a> {
+<a href=#536 id=536 data-nosnippet>536</a>        <span class="kw">unsafe </span>{
+<a href=#537 id=537 data-nosnippet>537</a>            <span class="kw">let </span><span class="kw-2">mut </span>value = glib::<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/value/struct.Value.html">Value</a>::<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/translate/trait.Uninitialized.html#tymethod.uninitialized">uninitialized</a>();
+<a href=#538 id=538 data-nosnippet>538</a>            ffi::<a href="../../../gtk_sys/fn.gtk_style_context_get_property.html">gtk_style_context_get_property</a>(
+<a href=#539 id=539 data-nosnippet>539</a>                <a class="self" href="#535">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
+<a href=#540 id=540 data-nosnippet>540</a>                <a href="#535">property</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
+<a href=#541 id=541 data-nosnippet>541</a>                <a href="#535">state</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/translate/trait.IntoGlib.html#tymethod.into_glib">into_glib</a>(),
+<a href=#542 id=542 data-nosnippet>542</a>                <a href="#537">value</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/translate/trait.ToGlibPtrMut.html#tymethod.to_glib_none_mut">to_glib_none_mut</a>().<span class="number">0</span>,
+<a href=#543 id=543 data-nosnippet>543</a>            );
+<a href=#544 id=544 data-nosnippet>544</a>            <a href="#537">value</a>
+<a href=#545 id=545 data-nosnippet>545</a>        }
+<a href=#546 id=546 data-nosnippet>546</a>    }
+<a href=#547 id=547 data-nosnippet>547</a>
+<a href=#548 id=548 data-nosnippet>548</a>    <span class="doccomment">/// Returns the scale used for assets.
+<a href=#549 id=549 data-nosnippet>549</a>    ///
+<a href=#550 id=550 data-nosnippet>550</a>    /// # Returns
+<a href=#551 id=551 data-nosnippet>551</a>    ///
+<a href=#552 id=552 data-nosnippet>552</a>    /// the scale
+<a href=#553 id=553 data-nosnippet>553</a>    </span><span class="attr">#[doc(alias = <span class="string">"gtk_style_context_get_scale"</span>)]
+<a href=#554 id=554 data-nosnippet>554</a>    #[doc(alias = <span class="string">"get_scale"</span>)]
+<a href=#555 id=555 data-nosnippet>555</a>    </span><span class="kw">fn </span>scale(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a> {
+<a href=#556 id=556 data-nosnippet>556</a>        <span class="kw">unsafe </span>{ ffi::<a href="../../../gtk_sys/fn.gtk_style_context_get_scale.html">gtk_style_context_get_scale</a>(<a class="self" href="#555">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>) }
+<a href=#557 id=557 data-nosnippet>557</a>    }
+<a href=#558 id=558 data-nosnippet>558</a>
+<a href=#559 id=559 data-nosnippet>559</a>    <span class="doccomment">/// Returns the [`gdk::Screen`][crate::gdk::Screen] to which `self` is attached.
+<a href=#560 id=560 data-nosnippet>560</a>    ///
+<a href=#561 id=561 data-nosnippet>561</a>    /// # Returns
+<a href=#562 id=562 data-nosnippet>562</a>    ///
+<a href=#563 id=563 data-nosnippet>563</a>    /// a [`gdk::Screen`][crate::gdk::Screen].
+<a href=#564 id=564 data-nosnippet>564</a>    </span><span class="attr">#[doc(alias = <span class="string">"gtk_style_context_get_screen"</span>)]
+<a href=#565 id=565 data-nosnippet>565</a>    #[doc(alias = <span class="string">"get_screen"</span>)]
+<a href=#566 id=566 data-nosnippet>566</a>    </span><span class="kw">fn </span>screen(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a class="prelude-ty" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html">Option</a>&lt;gdk::<a href="../../../gdk/auto/screen/struct.Screen.html">Screen</a>&gt; {
+<a href=#567 id=567 data-nosnippet>567</a>        <span class="kw">unsafe </span>{
+<a href=#568 id=568 data-nosnippet>568</a>            <a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/translate/fn.from_glib_none.html">from_glib_none</a>(ffi::<a href="../../../gtk_sys/fn.gtk_style_context_get_screen.html">gtk_style_context_get_screen</a>(
+<a href=#569 id=569 data-nosnippet>569</a>                <a class="self" href="#566">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
+<a href=#570 id=570 data-nosnippet>570</a>            ))
+<a href=#571 id=571 data-nosnippet>571</a>        }
+<a href=#572 id=572 data-nosnippet>572</a>    }
+<a href=#573 id=573 data-nosnippet>573</a>
+<a href=#574 id=574 data-nosnippet>574</a>    <span class="doccomment">/// Queries the location in the CSS where `property` was defined for the
+<a href=#575 id=575 data-nosnippet>575</a>    /// current `self`. Note that the state to be queried is taken from
+<a href=#576 id=576 data-nosnippet>576</a>    /// [`state()`][Self::state()].
+<a href=#577 id=577 data-nosnippet>577</a>    ///
+<a href=#578 id=578 data-nosnippet>578</a>    /// If the location is not available, [`None`] will be returned. The
+<a href=#579 id=579 data-nosnippet>579</a>    /// location might not be available for various reasons, such as the
+<a href=#580 id=580 data-nosnippet>580</a>    /// property being overridden, `property` not naming a supported CSS
+<a href=#581 id=581 data-nosnippet>581</a>    /// property or tracking of definitions being disabled for performance
+<a href=#582 id=582 data-nosnippet>582</a>    /// reasons.
+<a href=#583 id=583 data-nosnippet>583</a>    ///
+<a href=#584 id=584 data-nosnippet>584</a>    /// Shorthand CSS properties cannot be queried for a location and will
+<a href=#585 id=585 data-nosnippet>585</a>    /// always return [`None`].
+<a href=#586 id=586 data-nosnippet>586</a>    /// ## `property`
+<a href=#587 id=587 data-nosnippet>587</a>    /// style property name
+<a href=#588 id=588 data-nosnippet>588</a>    ///
+<a href=#589 id=589 data-nosnippet>589</a>    /// # Returns
+<a href=#590 id=590 data-nosnippet>590</a>    ///
+<a href=#591 id=591 data-nosnippet>591</a>    /// [`None`] or the section where a value
+<a href=#592 id=592 data-nosnippet>592</a>    /// for `property` was defined
+<a href=#593 id=593 data-nosnippet>593</a>    </span><span class="attr">#[doc(alias = <span class="string">"gtk_style_context_get_section"</span>)]
+<a href=#594 id=594 data-nosnippet>594</a>    #[doc(alias = <span class="string">"get_section"</span>)]
+<a href=#595 id=595 data-nosnippet>595</a>    </span><span class="kw">fn </span>section(<span class="kw-2">&amp;</span><span class="self">self</span>, property: <span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) -&gt; <a class="prelude-ty" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html">Option</a>&lt;<a href="css_section.rs.html#8-20">CssSection</a>&gt; {
+<a href=#596 id=596 data-nosnippet>596</a>        <span class="kw">unsafe </span>{
+<a href=#597 id=597 data-nosnippet>597</a>            <a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/translate/fn.from_glib_none.html">from_glib_none</a>(ffi::<a href="../../../gtk_sys/fn.gtk_style_context_get_section.html">gtk_style_context_get_section</a>(
+<a href=#598 id=598 data-nosnippet>598</a>                <a class="self" href="#595">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
+<a href=#599 id=599 data-nosnippet>599</a>                <a href="#595">property</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
+<a href=#600 id=600 data-nosnippet>600</a>            ))
+<a href=#601 id=601 data-nosnippet>601</a>        }
+<a href=#602 id=602 data-nosnippet>602</a>    }
+<a href=#603 id=603 data-nosnippet>603</a>
+<a href=#604 id=604 data-nosnippet>604</a>    <span class="doccomment">/// Returns the state used for style matching.
+<a href=#605 id=605 data-nosnippet>605</a>    ///
+<a href=#606 id=606 data-nosnippet>606</a>    /// This method should only be used to retrieve the [`StateFlags`][crate::StateFlags]
+<a href=#607 id=607 data-nosnippet>607</a>    /// to pass to [`StyleContext`][crate::StyleContext] methods, like [`padding()`][Self::padding()].
+<a href=#608 id=608 data-nosnippet>608</a>    /// If you need to retrieve the current state of a [`Widget`][crate::Widget], use
+<a href=#609 id=609 data-nosnippet>609</a>    /// [`WidgetExt::state_flags()`][crate::prelude::WidgetExt::state_flags()].
+<a href=#610 id=610 data-nosnippet>610</a>    ///
+<a href=#611 id=611 data-nosnippet>611</a>    /// # Returns
+<a href=#612 id=612 data-nosnippet>612</a>    ///
+<a href=#613 id=613 data-nosnippet>613</a>    /// the state flags
+<a href=#614 id=614 data-nosnippet>614</a>    </span><span class="attr">#[doc(alias = <span class="string">"gtk_style_context_get_state"</span>)]
+<a href=#615 id=615 data-nosnippet>615</a>    #[doc(alias = <span class="string">"get_state"</span>)]
+<a href=#616 id=616 data-nosnippet>616</a>    </span><span class="kw">fn </span>state(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="flags.rs.html#1702-1752">StateFlags</a> {
+<a href=#617 id=617 data-nosnippet>617</a>        <span class="kw">unsafe </span>{
+<a href=#618 id=618 data-nosnippet>618</a>            <a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/translate/fn.from_glib.html">from_glib</a>(ffi::<a href="../../../gtk_sys/fn.gtk_style_context_get_state.html">gtk_style_context_get_state</a>(
+<a href=#619 id=619 data-nosnippet>619</a>                <a class="self" href="#616">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
+<a href=#620 id=620 data-nosnippet>620</a>            ))
+<a href=#621 id=621 data-nosnippet>621</a>        }
+<a href=#622 id=622 data-nosnippet>622</a>    }
+<a href=#623 id=623 data-nosnippet>623</a>
+<a href=#624 id=624 data-nosnippet>624</a>    <span class="comment">//#[doc(alias = "gtk_style_context_get_style")]
+<a href=#625 id=625 data-nosnippet>625</a>    //#[doc(alias = "get_style")]
+<a href=#626 id=626 data-nosnippet>626</a>    //fn style(&amp;self, : /*Unknown conversion*//*Unimplemented*/Basic: VarArgs) {
+<a href=#627 id=627 data-nosnippet>627</a>    //    unsafe { TODO: call ffi:gtk_style_context_get_style() }
+<a href=#628 id=628 data-nosnippet>628</a>    //}
+<a href=#629 id=629 data-nosnippet>629</a>
+<a href=#630 id=630 data-nosnippet>630</a>    </span><span class="doccomment">/// Gets the value for a widget style property.
+<a href=#631 id=631 data-nosnippet>631</a>    ///
+<a href=#632 id=632 data-nosnippet>632</a>    /// When `value` is no longer needed, [`glib::Value::unset()`][crate::glib::Value::unset()] must be called
+<a href=#633 id=633 data-nosnippet>633</a>    /// to free any allocated memory.
+<a href=#634 id=634 data-nosnippet>634</a>    /// ## `property_name`
+<a href=#635 id=635 data-nosnippet>635</a>    /// the name of the widget style property
+<a href=#636 id=636 data-nosnippet>636</a>    ///
+<a href=#637 id=637 data-nosnippet>637</a>    /// # Returns
+<a href=#638 id=638 data-nosnippet>638</a>    ///
+<a href=#639 id=639 data-nosnippet>639</a>    ///
+<a href=#640 id=640 data-nosnippet>640</a>    /// ## `value`
+<a href=#641 id=641 data-nosnippet>641</a>    /// Return location for the property value
+<a href=#642 id=642 data-nosnippet>642</a>    </span><span class="attr">#[doc(alias = <span class="string">"gtk_style_context_get_style_property"</span>)]
+<a href=#643 id=643 data-nosnippet>643</a>    #[doc(alias = <span class="string">"get_style_property"</span>)]
+<a href=#644 id=644 data-nosnippet>644</a>    </span><span class="kw">fn </span>style_property(<span class="kw-2">&amp;</span><span class="self">self</span>, property_name: <span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) -&gt; glib::<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/value/struct.Value.html">Value</a> {
+<a href=#645 id=645 data-nosnippet>645</a>        <span class="kw">unsafe </span>{
+<a href=#646 id=646 data-nosnippet>646</a>            <span class="kw">let </span><span class="kw-2">mut </span>value = glib::<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/value/struct.Value.html">Value</a>::<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/translate/trait.Uninitialized.html#tymethod.uninitialized">uninitialized</a>();
+<a href=#647 id=647 data-nosnippet>647</a>            ffi::<a href="../../../gtk_sys/fn.gtk_style_context_get_style_property.html">gtk_style_context_get_style_property</a>(
+<a href=#648 id=648 data-nosnippet>648</a>                <a class="self" href="#644">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
+<a href=#649 id=649 data-nosnippet>649</a>                <a href="#644">property_name</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
+<a href=#650 id=650 data-nosnippet>650</a>                <a href="#646">value</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/translate/trait.ToGlibPtrMut.html#tymethod.to_glib_none_mut">to_glib_none_mut</a>().<span class="number">0</span>,
+<a href=#651 id=651 data-nosnippet>651</a>            );
+<a href=#652 id=652 data-nosnippet>652</a>            <a href="#646">value</a>
+<a href=#653 id=653 data-nosnippet>653</a>        }
+<a href=#654 id=654 data-nosnippet>654</a>    }
+<a href=#655 id=655 data-nosnippet>655</a>
+<a href=#656 id=656 data-nosnippet>656</a>    <span class="comment">//#[doc(alias = "gtk_style_context_get_style_valist")]
+<a href=#657 id=657 data-nosnippet>657</a>    //#[doc(alias = "get_style_valist")]
+<a href=#658 id=658 data-nosnippet>658</a>    //fn style_valist(&amp;self, args: /*Unknown conversion*//*Unimplemented*/Unsupported) {
+<a href=#659 id=659 data-nosnippet>659</a>    //    unsafe { TODO: call ffi:gtk_style_context_get_style_valist() }
+<a href=#660 id=660 data-nosnippet>660</a>    //}
+<a href=#661 id=661 data-nosnippet>661</a>
+<a href=#662 id=662 data-nosnippet>662</a>    //#[doc(alias = "gtk_style_context_get_valist")]
+<a href=#663 id=663 data-nosnippet>663</a>    //#[doc(alias = "get_valist")]
+<a href=#664 id=664 data-nosnippet>664</a>    //fn valist(&amp;self, state: StateFlags, args: /*Unknown conversion*//*Unimplemented*/Unsupported) {
+<a href=#665 id=665 data-nosnippet>665</a>    //    unsafe { TODO: call ffi:gtk_style_context_get_valist() }
+<a href=#666 id=666 data-nosnippet>666</a>    //}
+<a href=#667 id=667 data-nosnippet>667</a>
+<a href=#668 id=668 data-nosnippet>668</a>    </span><span class="doccomment">/// Returns [`true`] if `self` currently has defined the
+<a href=#669 id=669 data-nosnippet>669</a>    /// given class name.
+<a href=#670 id=670 data-nosnippet>670</a>    /// ## `class_name`
+<a href=#671 id=671 data-nosnippet>671</a>    /// a class name
+<a href=#672 id=672 data-nosnippet>672</a>    ///
+<a href=#673 id=673 data-nosnippet>673</a>    /// # Returns
+<a href=#674 id=674 data-nosnippet>674</a>    ///
+<a href=#675 id=675 data-nosnippet>675</a>    /// [`true`] if `self` has `class_name` defined
+<a href=#676 id=676 data-nosnippet>676</a>    </span><span class="attr">#[doc(alias = <span class="string">"gtk_style_context_has_class"</span>)]
+<a href=#677 id=677 data-nosnippet>677</a>    </span><span class="kw">fn </span>has_class(<span class="kw-2">&amp;</span><span class="self">self</span>, class_name: <span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> {
+<a href=#678 id=678 data-nosnippet>678</a>        <span class="kw">unsafe </span>{
+<a href=#679 id=679 data-nosnippet>679</a>            <a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/translate/fn.from_glib.html">from_glib</a>(ffi::<a href="../../../gtk_sys/fn.gtk_style_context_has_class.html">gtk_style_context_has_class</a>(
+<a href=#680 id=680 data-nosnippet>680</a>                <a class="self" href="#677">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
+<a href=#681 id=681 data-nosnippet>681</a>                <a href="#677">class_name</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
+<a href=#682 id=682 data-nosnippet>682</a>            ))
+<a href=#683 id=683 data-nosnippet>683</a>        }
+<a href=#684 id=684 data-nosnippet>684</a>    }
+<a href=#685 id=685 data-nosnippet>685</a>
+<a href=#686 id=686 data-nosnippet>686</a>    <span class="doccomment">/// Returns the list of classes currently defined in `self`.
+<a href=#687 id=687 data-nosnippet>687</a>    ///
+<a href=#688 id=688 data-nosnippet>688</a>    /// # Returns
+<a href=#689 id=689 data-nosnippet>689</a>    ///
+<a href=#690 id=690 data-nosnippet>690</a>    /// a `GList` of
+<a href=#691 id=691 data-nosnippet>691</a>    ///  strings with the currently defined classes. The contents
+<a href=#692 id=692 data-nosnippet>692</a>    ///  of the list are owned by GTK+, but you must free the list
+<a href=#693 id=693 data-nosnippet>693</a>    ///  itself with `g_list_free()` when you are done with it.
+<a href=#694 id=694 data-nosnippet>694</a>    </span><span class="attr">#[doc(alias = <span class="string">"gtk_style_context_list_classes"</span>)]
+<a href=#695 id=695 data-nosnippet>695</a>    </span><span class="kw">fn </span>list_classes(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html">Vec</a>&lt;glib::<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/gstring/struct.GString.html">GString</a>&gt; {
+<a href=#696 id=696 data-nosnippet>696</a>        <span class="kw">unsafe </span>{
+<a href=#697 id=697 data-nosnippet>697</a>            FromGlibPtrContainer::<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/translate/trait.FromGlibPtrContainer.html#tymethod.from_glib_container">from_glib_container</a>(ffi::<a href="../../../gtk_sys/fn.gtk_style_context_list_classes.html">gtk_style_context_list_classes</a>(
+<a href=#698 id=698 data-nosnippet>698</a>                <a class="self" href="#695">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
+<a href=#699 id=699 data-nosnippet>699</a>            ))
+<a href=#700 id=700 data-nosnippet>700</a>        }
+<a href=#701 id=701 data-nosnippet>701</a>    }
+<a href=#702 id=702 data-nosnippet>702</a>
+<a href=#703 id=703 data-nosnippet>703</a>    <span class="doccomment">/// Looks up and resolves a color name in the `self` color map.
+<a href=#704 id=704 data-nosnippet>704</a>    /// ## `color_name`
+<a href=#705 id=705 data-nosnippet>705</a>    /// color name to lookup
+<a href=#706 id=706 data-nosnippet>706</a>    ///
+<a href=#707 id=707 data-nosnippet>707</a>    /// # Returns
+<a href=#708 id=708 data-nosnippet>708</a>    ///
+<a href=#709 id=709 data-nosnippet>709</a>    /// [`true`] if `color_name` was found and resolved, [`false`] otherwise
+<a href=#710 id=710 data-nosnippet>710</a>    ///
+<a href=#711 id=711 data-nosnippet>711</a>    /// ## `color`
+<a href=#712 id=712 data-nosnippet>712</a>    /// Return location for the looked up color
+<a href=#713 id=713 data-nosnippet>713</a>    </span><span class="attr">#[doc(alias = <span class="string">"gtk_style_context_lookup_color"</span>)]
+<a href=#714 id=714 data-nosnippet>714</a>    </span><span class="kw">fn </span>lookup_color(<span class="kw-2">&amp;</span><span class="self">self</span>, color_name: <span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) -&gt; <a class="prelude-ty" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html">Option</a>&lt;gdk::<a href="../../../gdk/auto/rgba/struct.RGBA.html">RGBA</a>&gt; {
+<a href=#715 id=715 data-nosnippet>715</a>        <span class="kw">unsafe </span>{
+<a href=#716 id=716 data-nosnippet>716</a>            <span class="kw">let </span><span class="kw-2">mut </span>color = gdk::<a href="../../../gdk/auto/rgba/struct.RGBA.html">RGBA</a>::<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/translate/trait.Uninitialized.html#tymethod.uninitialized">uninitialized</a>();
+<a href=#717 id=717 data-nosnippet>717</a>            <span class="kw">let </span>ret = <a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/translate/fn.from_glib.html">from_glib</a>(ffi::<a href="../../../gtk_sys/fn.gtk_style_context_lookup_color.html">gtk_style_context_lookup_color</a>(
+<a href=#718 id=718 data-nosnippet>718</a>                <a class="self" href="#714">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
+<a href=#719 id=719 data-nosnippet>719</a>                <a href="#714">color_name</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
+<a href=#720 id=720 data-nosnippet>720</a>                <a href="#716">color</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/translate/trait.ToGlibPtrMut.html#tymethod.to_glib_none_mut">to_glib_none_mut</a>().<span class="number">0</span>,
+<a href=#721 id=721 data-nosnippet>721</a>            ));
+<a href=#722 id=722 data-nosnippet>722</a>            <span class="kw">if </span><a href="#717">ret</a> {
+<a href=#723 id=723 data-nosnippet>723</a>                <a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.Some">Some</a>(<a href="#716">color</a>)
+<a href=#724 id=724 data-nosnippet>724</a>            } <span class="kw">else </span>{
+<a href=#725 id=725 data-nosnippet>725</a>                <a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None">None</a>
+<a href=#726 id=726 data-nosnippet>726</a>            }
+<a href=#727 id=727 data-nosnippet>727</a>        }
+<a href=#728 id=728 data-nosnippet>728</a>    }
+<a href=#729 id=729 data-nosnippet>729</a>
+<a href=#730 id=730 data-nosnippet>730</a>    <span class="doccomment">/// Removes `class_name` from `self`.
+<a href=#731 id=731 data-nosnippet>731</a>    /// ## `class_name`
+<a href=#732 id=732 data-nosnippet>732</a>    /// class name to remove
+<a href=#733 id=733 data-nosnippet>733</a>    </span><span class="attr">#[doc(alias = <span class="string">"gtk_style_context_remove_class"</span>)]
+<a href=#734 id=734 data-nosnippet>734</a>    </span><span class="kw">fn </span>remove_class(<span class="kw-2">&amp;</span><span class="self">self</span>, class_name: <span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) {
+<a href=#735 id=735 data-nosnippet>735</a>        <span class="kw">unsafe </span>{
+<a href=#736 id=736 data-nosnippet>736</a>            ffi::<a href="../../../gtk_sys/fn.gtk_style_context_remove_class.html">gtk_style_context_remove_class</a>(
+<a href=#737 id=737 data-nosnippet>737</a>                <a class="self" href="#734">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
+<a href=#738 id=738 data-nosnippet>738</a>                <a href="#734">class_name</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
+<a href=#739 id=739 data-nosnippet>739</a>            );
+<a href=#740 id=740 data-nosnippet>740</a>        }
+<a href=#741 id=741 data-nosnippet>741</a>    }
+<a href=#742 id=742 data-nosnippet>742</a>
+<a href=#743 id=743 data-nosnippet>743</a>    <span class="doccomment">/// Removes `provider` from the style providers list in `self`.
+<a href=#744 id=744 data-nosnippet>744</a>    /// ## `provider`
+<a href=#745 id=745 data-nosnippet>745</a>    /// a [`StyleProvider`][crate::StyleProvider]
+<a href=#746 id=746 data-nosnippet>746</a>    </span><span class="attr">#[doc(alias = <span class="string">"gtk_style_context_remove_provider"</span>)]
+<a href=#747 id=747 data-nosnippet>747</a>    </span><span class="kw">fn </span>remove_provider(<span class="kw-2">&amp;</span><span class="self">self</span>, provider: <span class="kw-2">&amp;</span><span class="kw">impl </span><a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/object/trait.IsA.html">IsA</a>&lt;<a href="style_provider.rs.html#9-22">StyleProvider</a>&gt;) {
+<a href=#748 id=748 data-nosnippet>748</a>        <span class="kw">unsafe </span>{
+<a href=#749 id=749 data-nosnippet>749</a>            ffi::<a href="../../../gtk_sys/fn.gtk_style_context_remove_provider.html">gtk_style_context_remove_provider</a>(
+<a href=#750 id=750 data-nosnippet>750</a>                <a class="self" href="#747">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
+<a href=#751 id=751 data-nosnippet>751</a>                <a href="#747">provider</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
+<a href=#752 id=752 data-nosnippet>752</a>            );
+<a href=#753 id=753 data-nosnippet>753</a>        }
+<a href=#754 id=754 data-nosnippet>754</a>    }
+<a href=#755 id=755 data-nosnippet>755</a>
+<a href=#756 id=756 data-nosnippet>756</a>    <span class="doccomment">/// Restores `self` state to a previous stage.
+<a href=#757 id=757 data-nosnippet>757</a>    /// See [`save()`][Self::save()].
+<a href=#758 id=758 data-nosnippet>758</a>    </span><span class="attr">#[doc(alias = <span class="string">"gtk_style_context_restore"</span>)]
+<a href=#759 id=759 data-nosnippet>759</a>    </span><span class="kw">fn </span>restore(<span class="kw-2">&amp;</span><span class="self">self</span>) {
+<a href=#760 id=760 data-nosnippet>760</a>        <span class="kw">unsafe </span>{
+<a href=#761 id=761 data-nosnippet>761</a>            ffi::<a href="../../../gtk_sys/fn.gtk_style_context_restore.html">gtk_style_context_restore</a>(<a class="self" href="#759">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>);
+<a href=#762 id=762 data-nosnippet>762</a>        }
+<a href=#763 id=763 data-nosnippet>763</a>    }
+<a href=#764 id=764 data-nosnippet>764</a>
+<a href=#765 id=765 data-nosnippet>765</a>    <span class="doccomment">/// Saves the `self` state, so temporary modifications done through
+<a href=#766 id=766 data-nosnippet>766</a>    /// [`add_class()`][Self::add_class()], [`remove_class()`][Self::remove_class()],
+<a href=#767 id=767 data-nosnippet>767</a>    /// [`set_state()`][Self::set_state()], etc. can quickly be reverted
+<a href=#768 id=768 data-nosnippet>768</a>    /// in one go through [`restore()`][Self::restore()].
+<a href=#769 id=769 data-nosnippet>769</a>    ///
+<a href=#770 id=770 data-nosnippet>770</a>    /// The matching call to [`restore()`][Self::restore()] must be done
+<a href=#771 id=771 data-nosnippet>771</a>    /// before GTK returns to the main loop.
+<a href=#772 id=772 data-nosnippet>772</a>    </span><span class="attr">#[doc(alias = <span class="string">"gtk_style_context_save"</span>)]
+<a href=#773 id=773 data-nosnippet>773</a>    </span><span class="kw">fn </span>save(<span class="kw-2">&amp;</span><span class="self">self</span>) {
+<a href=#774 id=774 data-nosnippet>774</a>        <span class="kw">unsafe </span>{
+<a href=#775 id=775 data-nosnippet>775</a>            ffi::<a href="../../../gtk_sys/fn.gtk_style_context_save.html">gtk_style_context_save</a>(<a class="self" href="#773">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>);
+<a href=#776 id=776 data-nosnippet>776</a>        }
+<a href=#777 id=777 data-nosnippet>777</a>    }
+<a href=#778 id=778 data-nosnippet>778</a>
+<a href=#779 id=779 data-nosnippet>779</a>    <span class="doccomment">/// Attaches `self` to the given frame clock.
+<a href=#780 id=780 data-nosnippet>780</a>    ///
+<a href=#781 id=781 data-nosnippet>781</a>    /// The frame clock is used for the timing of animations.
+<a href=#782 id=782 data-nosnippet>782</a>    ///
+<a href=#783 id=783 data-nosnippet>783</a>    /// If you are using a [`StyleContext`][crate::StyleContext] returned from
+<a href=#784 id=784 data-nosnippet>784</a>    /// [`WidgetExt::style_context()`][crate::prelude::WidgetExt::style_context()], you do not need to
+<a href=#785 id=785 data-nosnippet>785</a>    /// call this yourself.
+<a href=#786 id=786 data-nosnippet>786</a>    /// ## `frame_clock`
+<a href=#787 id=787 data-nosnippet>787</a>    /// a [`gdk::FrameClock`][crate::gdk::FrameClock]
+<a href=#788 id=788 data-nosnippet>788</a>    </span><span class="attr">#[doc(alias = <span class="string">"gtk_style_context_set_frame_clock"</span>)]
+<a href=#789 id=789 data-nosnippet>789</a>    </span><span class="kw">fn </span>set_frame_clock(<span class="kw-2">&amp;</span><span class="self">self</span>, frame_clock: <span class="kw-2">&amp;</span>gdk::<a href="../../../gdk/auto/frame_clock/struct.FrameClock.html">FrameClock</a>) {
+<a href=#790 id=790 data-nosnippet>790</a>        <span class="kw">unsafe </span>{
+<a href=#791 id=791 data-nosnippet>791</a>            ffi::<a href="../../../gtk_sys/fn.gtk_style_context_set_frame_clock.html">gtk_style_context_set_frame_clock</a>(
+<a href=#792 id=792 data-nosnippet>792</a>                <a class="self" href="#789">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
+<a href=#793 id=793 data-nosnippet>793</a>                <a href="#789">frame_clock</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
+<a href=#794 id=794 data-nosnippet>794</a>            );
+<a href=#795 id=795 data-nosnippet>795</a>        }
+<a href=#796 id=796 data-nosnippet>796</a>    }
+<a href=#797 id=797 data-nosnippet>797</a>
+<a href=#798 id=798 data-nosnippet>798</a>    <span class="doccomment">/// Sets the sides where rendered elements (mostly through
+<a href=#799 id=799 data-nosnippet>799</a>    /// [`render_frame()`][crate::render_frame()]) will visually connect with other visual elements.
+<a href=#800 id=800 data-nosnippet>800</a>    ///
+<a href=#801 id=801 data-nosnippet>801</a>    /// This is merely a hint that may or may not be honored
+<a href=#802 id=802 data-nosnippet>802</a>    /// by themes.
+<a href=#803 id=803 data-nosnippet>803</a>    ///
+<a href=#804 id=804 data-nosnippet>804</a>    /// Container widgets are expected to set junction hints as appropriate
+<a href=#805 id=805 data-nosnippet>805</a>    /// for their children, so it should not normally be necessary to call
+<a href=#806 id=806 data-nosnippet>806</a>    /// this function manually.
+<a href=#807 id=807 data-nosnippet>807</a>    /// ## `sides`
+<a href=#808 id=808 data-nosnippet>808</a>    /// sides where rendered elements are visually connected to
+<a href=#809 id=809 data-nosnippet>809</a>    ///  other elements
+<a href=#810 id=810 data-nosnippet>810</a>    </span><span class="attr">#[doc(alias = <span class="string">"gtk_style_context_set_junction_sides"</span>)]
+<a href=#811 id=811 data-nosnippet>811</a>    </span><span class="kw">fn </span>set_junction_sides(<span class="kw-2">&amp;</span><span class="self">self</span>, sides: <a href="flags.rs.html#1255-1288">JunctionSides</a>) {
+<a href=#812 id=812 data-nosnippet>812</a>        <span class="kw">unsafe </span>{
+<a href=#813 id=813 data-nosnippet>813</a>            ffi::<a href="../../../gtk_sys/fn.gtk_style_context_set_junction_sides.html">gtk_style_context_set_junction_sides</a>(
+<a href=#814 id=814 data-nosnippet>814</a>                <a class="self" href="#811">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
+<a href=#815 id=815 data-nosnippet>815</a>                <a href="#811">sides</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/translate/trait.IntoGlib.html#tymethod.into_glib">into_glib</a>(),
+<a href=#816 id=816 data-nosnippet>816</a>            );
+<a href=#817 id=817 data-nosnippet>817</a>        }
+<a href=#818 id=818 data-nosnippet>818</a>    }
+<a href=#819 id=819 data-nosnippet>819</a>
+<a href=#820 id=820 data-nosnippet>820</a>    <span class="doccomment">/// Sets the parent style context for `self`. The parent style
+<a href=#821 id=821 data-nosnippet>821</a>    /// context is used to implement
+<a href=#822 id=822 data-nosnippet>822</a>    /// [inheritance](http://www.w3.org/TR/css3-cascade/`inheritance`)
+<a href=#823 id=823 data-nosnippet>823</a>    /// of properties.
+<a href=#824 id=824 data-nosnippet>824</a>    ///
+<a href=#825 id=825 data-nosnippet>825</a>    /// If you are using a [`StyleContext`][crate::StyleContext] returned from
+<a href=#826 id=826 data-nosnippet>826</a>    /// [`WidgetExt::style_context()`][crate::prelude::WidgetExt::style_context()], the parent will be set for you.
+<a href=#827 id=827 data-nosnippet>827</a>    /// ## `parent`
+<a href=#828 id=828 data-nosnippet>828</a>    /// the new parent or [`None`]
+<a href=#829 id=829 data-nosnippet>829</a>    </span><span class="attr">#[doc(alias = <span class="string">"gtk_style_context_set_parent"</span>)]
+<a href=#830 id=830 data-nosnippet>830</a>    </span><span class="kw">fn </span>set_parent(<span class="kw-2">&amp;</span><span class="self">self</span>, parent: <a class="prelude-ty" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html">Option</a>&lt;<span class="kw-2">&amp;</span><span class="kw">impl </span><a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/object/trait.IsA.html">IsA</a>&lt;<a href="#16-115">StyleContext</a>&gt;&gt;) {
+<a href=#831 id=831 data-nosnippet>831</a>        <span class="kw">unsafe </span>{
+<a href=#832 id=832 data-nosnippet>832</a>            ffi::<a href="../../../gtk_sys/fn.gtk_style_context_set_parent.html">gtk_style_context_set_parent</a>(
+<a href=#833 id=833 data-nosnippet>833</a>                <a class="self" href="#830">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
+<a href=#834 id=834 data-nosnippet>834</a>                <a href="#830">parent</a>.<a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#method.map">map</a>(|p| <a href="#834">p</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>()).<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
+<a href=#835 id=835 data-nosnippet>835</a>            );
+<a href=#836 id=836 data-nosnippet>836</a>        }
+<a href=#837 id=837 data-nosnippet>837</a>    }
+<a href=#838 id=838 data-nosnippet>838</a>
+<a href=#839 id=839 data-nosnippet>839</a>    <span class="doccomment">/// Sets the [`WidgetPath`][crate::WidgetPath] used for style matching. As a
+<a href=#840 id=840 data-nosnippet>840</a>    /// consequence, the style will be regenerated to match
+<a href=#841 id=841 data-nosnippet>841</a>    /// the new given path.
+<a href=#842 id=842 data-nosnippet>842</a>    ///
+<a href=#843 id=843 data-nosnippet>843</a>    /// If you are using a [`StyleContext`][crate::StyleContext] returned from
+<a href=#844 id=844 data-nosnippet>844</a>    /// [`WidgetExt::style_context()`][crate::prelude::WidgetExt::style_context()], you do not need to call
+<a href=#845 id=845 data-nosnippet>845</a>    /// this yourself.
+<a href=#846 id=846 data-nosnippet>846</a>    /// ## `path`
+<a href=#847 id=847 data-nosnippet>847</a>    /// a [`WidgetPath`][crate::WidgetPath]
+<a href=#848 id=848 data-nosnippet>848</a>    </span><span class="attr">#[doc(alias = <span class="string">"gtk_style_context_set_path"</span>)]
+<a href=#849 id=849 data-nosnippet>849</a>    </span><span class="kw">fn </span>set_path(<span class="kw-2">&amp;</span><span class="self">self</span>, path: <span class="kw-2">&amp;</span><a href="widget_path.rs.html#9-73">WidgetPath</a>) {
+<a href=#850 id=850 data-nosnippet>850</a>        <span class="kw">unsafe </span>{
+<a href=#851 id=851 data-nosnippet>851</a>            ffi::<a href="../../../gtk_sys/fn.gtk_style_context_set_path.html">gtk_style_context_set_path</a>(<a class="self" href="#849">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>, <a href="#849">path</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>);
+<a href=#852 id=852 data-nosnippet>852</a>        }
+<a href=#853 id=853 data-nosnippet>853</a>    }
+<a href=#854 id=854 data-nosnippet>854</a>
+<a href=#855 id=855 data-nosnippet>855</a>    <span class="doccomment">/// Sets the scale to use when getting image assets for the style.
+<a href=#856 id=856 data-nosnippet>856</a>    /// ## `scale`
+<a href=#857 id=857 data-nosnippet>857</a>    /// scale
+<a href=#858 id=858 data-nosnippet>858</a>    </span><span class="attr">#[doc(alias = <span class="string">"gtk_style_context_set_scale"</span>)]
+<a href=#859 id=859 data-nosnippet>859</a>    </span><span class="kw">fn </span>set_scale(<span class="kw-2">&amp;</span><span class="self">self</span>, scale: <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) {
+<a href=#860 id=860 data-nosnippet>860</a>        <span class="kw">unsafe </span>{
+<a href=#861 id=861 data-nosnippet>861</a>            ffi::<a href="../../../gtk_sys/fn.gtk_style_context_set_scale.html">gtk_style_context_set_scale</a>(<a class="self" href="#859">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>, <a href="#859">scale</a>);
+<a href=#862 id=862 data-nosnippet>862</a>        }
+<a href=#863 id=863 data-nosnippet>863</a>    }
+<a href=#864 id=864 data-nosnippet>864</a>
+<a href=#865 id=865 data-nosnippet>865</a>    <span class="doccomment">/// Attaches `self` to the given screen.
+<a href=#866 id=866 data-nosnippet>866</a>    ///
+<a href=#867 id=867 data-nosnippet>867</a>    /// The screen is used to add style information from “global” style
+<a href=#868 id=868 data-nosnippet>868</a>    /// providers, such as the screen’s [`Settings`][crate::Settings] instance.
+<a href=#869 id=869 data-nosnippet>869</a>    ///
+<a href=#870 id=870 data-nosnippet>870</a>    /// If you are using a [`StyleContext`][crate::StyleContext] returned from
+<a href=#871 id=871 data-nosnippet>871</a>    /// [`WidgetExt::style_context()`][crate::prelude::WidgetExt::style_context()], you do not need to
+<a href=#872 id=872 data-nosnippet>872</a>    /// call this yourself.
+<a href=#873 id=873 data-nosnippet>873</a>    /// ## `screen`
+<a href=#874 id=874 data-nosnippet>874</a>    /// a [`gdk::Screen`][crate::gdk::Screen]
+<a href=#875 id=875 data-nosnippet>875</a>    </span><span class="attr">#[doc(alias = <span class="string">"gtk_style_context_set_screen"</span>)]
+<a href=#876 id=876 data-nosnippet>876</a>    </span><span class="kw">fn </span>set_screen(<span class="kw-2">&amp;</span><span class="self">self</span>, screen: <span class="kw-2">&amp;</span>gdk::<a href="../../../gdk/auto/screen/struct.Screen.html">Screen</a>) {
+<a href=#877 id=877 data-nosnippet>877</a>        <span class="kw">unsafe </span>{
+<a href=#878 id=878 data-nosnippet>878</a>            ffi::<a href="../../../gtk_sys/fn.gtk_style_context_set_screen.html">gtk_style_context_set_screen</a>(
+<a href=#879 id=879 data-nosnippet>879</a>                <a class="self" href="#876">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
+<a href=#880 id=880 data-nosnippet>880</a>                <a href="#876">screen</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
+<a href=#881 id=881 data-nosnippet>881</a>            );
+<a href=#882 id=882 data-nosnippet>882</a>        }
+<a href=#883 id=883 data-nosnippet>883</a>    }
+<a href=#884 id=884 data-nosnippet>884</a>
+<a href=#885 id=885 data-nosnippet>885</a>    <span class="doccomment">/// Sets the state to be used for style matching.
+<a href=#886 id=886 data-nosnippet>886</a>    /// ## `flags`
+<a href=#887 id=887 data-nosnippet>887</a>    /// state to represent
+<a href=#888 id=888 data-nosnippet>888</a>    </span><span class="attr">#[doc(alias = <span class="string">"gtk_style_context_set_state"</span>)]
+<a href=#889 id=889 data-nosnippet>889</a>    </span><span class="kw">fn </span>set_state(<span class="kw-2">&amp;</span><span class="self">self</span>, flags: <a href="flags.rs.html#1702-1752">StateFlags</a>) {
+<a href=#890 id=890 data-nosnippet>890</a>        <span class="kw">unsafe </span>{
+<a href=#891 id=891 data-nosnippet>891</a>            ffi::<a href="../../../gtk_sys/fn.gtk_style_context_set_state.html">gtk_style_context_set_state</a>(<a class="self" href="#889">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>, <a href="#889">flags</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/translate/trait.IntoGlib.html#tymethod.into_glib">into_glib</a>());
+<a href=#892 id=892 data-nosnippet>892</a>        }
+<a href=#893 id=893 data-nosnippet>893</a>    }
+<a href=#894 id=894 data-nosnippet>894</a>
+<a href=#895 id=895 data-nosnippet>895</a>    <span class="doccomment">/// Converts the style context into a string representation.
+<a href=#896 id=896 data-nosnippet>896</a>    ///
+<a href=#897 id=897 data-nosnippet>897</a>    /// The string representation always includes information about
+<a href=#898 id=898 data-nosnippet>898</a>    /// the name, state, id, visibility and style classes of the CSS
+<a href=#899 id=899 data-nosnippet>899</a>    /// node that is backing `self`. Depending on the flags, more
+<a href=#900 id=900 data-nosnippet>900</a>    /// information may be included.
+<a href=#901 id=901 data-nosnippet>901</a>    ///
+<a href=#902 id=902 data-nosnippet>902</a>    /// This function is intended for testing and debugging of the
+<a href=#903 id=903 data-nosnippet>903</a>    /// CSS implementation in GTK+. There are no guarantees about
+<a href=#904 id=904 data-nosnippet>904</a>    /// the format of the returned string, it may change.
+<a href=#905 id=905 data-nosnippet>905</a>    /// ## `flags`
+<a href=#906 id=906 data-nosnippet>906</a>    /// Flags that determine what to print
+<a href=#907 id=907 data-nosnippet>907</a>    ///
+<a href=#908 id=908 data-nosnippet>908</a>    /// # Returns
+<a href=#909 id=909 data-nosnippet>909</a>    ///
+<a href=#910 id=910 data-nosnippet>910</a>    /// a newly allocated string representing `self`
+<a href=#911 id=911 data-nosnippet>911</a>    </span><span class="attr">#[doc(alias = <span class="string">"gtk_style_context_to_string"</span>)]
+<a href=#912 id=912 data-nosnippet>912</a>    </span><span class="kw">fn </span>to_string(<span class="kw-2">&amp;</span><span class="self">self</span>, flags: <a href="flags.rs.html#1834-1851">StyleContextPrintFlags</a>) -&gt; <a class="prelude-ty" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html">Option</a>&lt;glib::<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/gstring/struct.GString.html">GString</a>&gt; {
+<a href=#913 id=913 data-nosnippet>913</a>        <span class="kw">unsafe </span>{
+<a href=#914 id=914 data-nosnippet>914</a>            <a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/translate/fn.from_glib_full.html">from_glib_full</a>(ffi::<a href="../../../gtk_sys/fn.gtk_style_context_to_string.html">gtk_style_context_to_string</a>(
+<a href=#915 id=915 data-nosnippet>915</a>                <a class="self" href="#912">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
+<a href=#916 id=916 data-nosnippet>916</a>                <a href="#912">flags</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/translate/trait.IntoGlib.html#tymethod.into_glib">into_glib</a>(),
+<a href=#917 id=917 data-nosnippet>917</a>            ))
+<a href=#918 id=918 data-nosnippet>918</a>        }
+<a href=#919 id=919 data-nosnippet>919</a>    }
+<a href=#920 id=920 data-nosnippet>920</a>
+<a href=#921 id=921 data-nosnippet>921</a>    <span class="kw">fn </span>direction(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="enums.rs.html#9893-9905">TextDirection</a> {
+<a href=#922 id=922 data-nosnippet>922</a>        ObjectExt::<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/object/trait.ObjectExt.html#tymethod.property">property</a>(<a class="self" href="#921">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>(), <span class="string">"direction"</span>)
+<a href=#923 id=923 data-nosnippet>923</a>    }
+<a href=#924 id=924 data-nosnippet>924</a>
+<a href=#925 id=925 data-nosnippet>925</a>    <span class="kw">fn </span>set_direction(<span class="kw-2">&amp;</span><span class="self">self</span>, direction: <a href="enums.rs.html#9893-9905">TextDirection</a>) {
+<a href=#926 id=926 data-nosnippet>926</a>        ObjectExt::<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/object/trait.ObjectExt.html#tymethod.set_property">set_property</a>(<a class="self" href="#925">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>(), <span class="string">"direction"</span>, <a href="#925">direction</a>)
+<a href=#927 id=927 data-nosnippet>927</a>    }
+<a href=#928 id=928 data-nosnippet>928</a>
+<a href=#929 id=929 data-nosnippet>929</a>    <span class="attr">#[doc(alias = <span class="string">"paint-clock"</span>)]
+<a href=#930 id=930 data-nosnippet>930</a>    </span><span class="kw">fn </span>paint_clock(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a class="prelude-ty" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html">Option</a>&lt;gdk::<a href="../../../gdk/auto/frame_clock/struct.FrameClock.html">FrameClock</a>&gt; {
+<a href=#931 id=931 data-nosnippet>931</a>        ObjectExt::<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/object/trait.ObjectExt.html#tymethod.property">property</a>(<a class="self" href="#930">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>(), <span class="string">"paint-clock"</span>)
+<a href=#932 id=932 data-nosnippet>932</a>    }
+<a href=#933 id=933 data-nosnippet>933</a>
+<a href=#934 id=934 data-nosnippet>934</a>    <span class="attr">#[doc(alias = <span class="string">"paint-clock"</span>)]
+<a href=#935 id=935 data-nosnippet>935</a>    </span><span class="kw">fn </span>set_paint_clock(<span class="kw-2">&amp;</span><span class="self">self</span>, paint_clock: <a class="prelude-ty" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html">Option</a>&lt;<span class="kw-2">&amp;</span>gdk::<a href="../../../gdk/auto/frame_clock/struct.FrameClock.html">FrameClock</a>&gt;) {
+<a href=#936 id=936 data-nosnippet>936</a>        ObjectExt::<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/object/trait.ObjectExt.html#tymethod.set_property">set_property</a>(<a class="self" href="#935">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>(), <span class="string">"paint-clock"</span>, <a href="#935">paint_clock</a>)
+<a href=#937 id=937 data-nosnippet>937</a>    }
+<a href=#938 id=938 data-nosnippet>938</a>
+<a href=#939 id=939 data-nosnippet>939</a>    <span class="doccomment">/// The ::changed signal is emitted when there is a change in the
+<a href=#940 id=940 data-nosnippet>940</a>    /// [`StyleContext`][crate::StyleContext].
+<a href=#941 id=941 data-nosnippet>941</a>    ///
+<a href=#942 id=942 data-nosnippet>942</a>    /// For a [`StyleContext`][crate::StyleContext] returned by [`WidgetExt::style_context()`][crate::prelude::WidgetExt::style_context()], the
+<a href=#943 id=943 data-nosnippet>943</a>    /// [`style-updated`][struct@crate::Widget#style-updated] signal/vfunc might be more convenient to use.
+<a href=#944 id=944 data-nosnippet>944</a>    ///
+<a href=#945 id=945 data-nosnippet>945</a>    /// This signal is useful when using the theming layer standalone.
+<a href=#946 id=946 data-nosnippet>946</a>    </span><span class="attr">#[doc(alias = <span class="string">"changed"</span>)]
+<a href=#947 id=947 data-nosnippet>947</a>    </span><span class="kw">fn </span>connect_changed&lt;F: <a href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html">Fn</a>(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">'static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/struct.SignalHandlerId.html">SignalHandlerId</a> {
+<a href=#948 id=948 data-nosnippet>948</a>        <span class="kw">unsafe extern </span><span class="string">"C" </span><span class="kw">fn </span>changed_trampoline&lt;P: <a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/object/trait.IsA.html">IsA</a>&lt;<a href="#16-115">StyleContext</a>&gt;, F: <a href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html">Fn</a>(<span class="kw-2">&amp;</span>P) + <span class="lifetime">'static</span>&gt;(
+<a href=#949 id=949 data-nosnippet>949</a>            this: <span class="kw-2">*mut </span>ffi::<a href="../../../gtk_sys/struct.GtkStyleContext.html">GtkStyleContext</a>,
+<a href=#950 id=950 data-nosnippet>950</a>            f: glib::ffi::gpointer,
+<a href=#951 id=951 data-nosnippet>951</a>        ) {
+<a href=#952 id=952 data-nosnippet>952</a>            <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(<a href="#950">f</a> <span class="kw">as </span><span class="kw-2">*const </span>F);
+<a href=#953 id=953 data-nosnippet>953</a>            <a href="#952">f</a>(<a href="#16-115">StyleContext</a>::<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/translate/trait.FromGlibPtrBorrow.html#method.from_glib_borrow">from_glib_borrow</a>(<a href="#949">this</a>).<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/object/trait.Cast.html#method.unsafe_cast_ref">unsafe_cast_ref</a>())
+<a href=#954 id=954 data-nosnippet>954</a>        }
+<a href=#955 id=955 data-nosnippet>955</a>        <span class="kw">unsafe </span>{
+<a href=#956 id=956 data-nosnippet>956</a>            <span class="kw">let </span>f: <a href="https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html">Box_</a>&lt;F&gt; = <a href="https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html">Box_</a>::<a href="https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html#method.new">new</a>(<a href="#947">f</a>);
+<a href=#957 id=957 data-nosnippet>957</a>            <a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/fn.connect_raw.html">connect_raw</a>(
+<a href=#958 id=958 data-nosnippet>958</a>                <a class="self" href="#947">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/object/trait.ObjectType.html#tymethod.as_ptr">as_ptr</a>() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
+<a href=#959 id=959 data-nosnippet>959</a>                <span class="string">b"changed\0"</span>.<a href="https://doc.rust-lang.org/nightly/core/primitive.slice.html#method.as_ptr">as_ptr</a>() <span class="kw">as </span><span class="kw-2">*const </span><span class="kw">_</span>,
+<a href=#960 id=960 data-nosnippet>960</a>                <a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.Some">Some</a>(<a href="https://doc.rust-lang.org/nightly/core/intrinsics/fn.transmute.html">transmute</a>::&lt;<span class="kw">_</span>, <span class="kw">unsafe extern </span><span class="string">"C" </span><span class="kw">fn</span>()&gt;(
+<a href=#961 id=961 data-nosnippet>961</a>                    <a href="#948-954">changed_trampoline</a>::&lt;<span class="self">Self</span>, F&gt; <span class="kw">as </span><span class="kw-2">*const </span>(),
+<a href=#962 id=962 data-nosnippet>962</a>                )),
+<a href=#963 id=963 data-nosnippet>963</a>                <a href="https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html">Box_</a>::<a href="https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html#method.into_raw">into_raw</a>(<a href="#956">f</a>),
+<a href=#964 id=964 data-nosnippet>964</a>            )
+<a href=#965 id=965 data-nosnippet>965</a>        }
+<a href=#966 id=966 data-nosnippet>966</a>    }
+<a href=#967 id=967 data-nosnippet>967</a>
+<a href=#968 id=968 data-nosnippet>968</a>    <span class="attr">#[doc(alias = <span class="string">"direction"</span>)]
+<a href=#969 id=969 data-nosnippet>969</a>    </span><span class="kw">fn </span>connect_direction_notify&lt;F: <a href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html">Fn</a>(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">'static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/struct.SignalHandlerId.html">SignalHandlerId</a> {
+<a href=#970 id=970 data-nosnippet>970</a>        <span class="kw">unsafe extern </span><span class="string">"C" </span><span class="kw">fn </span>notify_direction_trampoline&lt;
+<a href=#971 id=971 data-nosnippet>971</a>            P: <a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/object/trait.IsA.html">IsA</a>&lt;<a href="#16-115">StyleContext</a>&gt;,
+<a href=#972 id=972 data-nosnippet>972</a>            F: <a href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html">Fn</a>(<span class="kw-2">&amp;</span>P) + <span class="lifetime">'static</span>,
+<a href=#973 id=973 data-nosnippet>973</a>        &gt;(
+<a href=#974 id=974 data-nosnippet>974</a>            this: <span class="kw-2">*mut </span>ffi::<a href="../../../gtk_sys/struct.GtkStyleContext.html">GtkStyleContext</a>,
+<a href=#975 id=975 data-nosnippet>975</a>            _param_spec: glib::ffi::gpointer,
+<a href=#976 id=976 data-nosnippet>976</a>            f: glib::ffi::gpointer,
+<a href=#977 id=977 data-nosnippet>977</a>        ) {
+<a href=#978 id=978 data-nosnippet>978</a>            <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(<a href="#976">f</a> <span class="kw">as </span><span class="kw-2">*const </span>F);
+<a href=#979 id=979 data-nosnippet>979</a>            <a href="#978">f</a>(<a href="#16-115">StyleContext</a>::<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/translate/trait.FromGlibPtrBorrow.html#method.from_glib_borrow">from_glib_borrow</a>(<a href="#974">this</a>).<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/object/trait.Cast.html#method.unsafe_cast_ref">unsafe_cast_ref</a>())
+<a href=#980 id=980 data-nosnippet>980</a>        }
+<a href=#981 id=981 data-nosnippet>981</a>        <span class="kw">unsafe </span>{
+<a href=#982 id=982 data-nosnippet>982</a>            <span class="kw">let </span>f: <a href="https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html">Box_</a>&lt;F&gt; = <a href="https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html">Box_</a>::<a href="https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html#method.new">new</a>(<a href="#969">f</a>);
+<a href=#983 id=983 data-nosnippet>983</a>            <a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/fn.connect_raw.html">connect_raw</a>(
+<a href=#984 id=984 data-nosnippet>984</a>                <a class="self" href="#969">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/object/trait.ObjectType.html#tymethod.as_ptr">as_ptr</a>() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
+<a href=#985 id=985 data-nosnippet>985</a>                <span class="string">b"notify::direction\0"</span>.<a href="https://doc.rust-lang.org/nightly/core/primitive.slice.html#method.as_ptr">as_ptr</a>() <span class="kw">as </span><span class="kw-2">*const </span><span class="kw">_</span>,
+<a href=#986 id=986 data-nosnippet>986</a>                <a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.Some">Some</a>(<a href="https://doc.rust-lang.org/nightly/core/intrinsics/fn.transmute.html">transmute</a>::&lt;<span class="kw">_</span>, <span class="kw">unsafe extern </span><span class="string">"C" </span><span class="kw">fn</span>()&gt;(
+<a href=#987 id=987 data-nosnippet>987</a>                    <a href="#970-980">notify_direction_trampoline</a>::&lt;<span class="self">Self</span>, F&gt; <span class="kw">as </span><span class="kw-2">*const </span>(),
+<a href=#988 id=988 data-nosnippet>988</a>                )),
+<a href=#989 id=989 data-nosnippet>989</a>                <a href="https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html">Box_</a>::<a href="https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html#method.into_raw">into_raw</a>(<a href="#982">f</a>),
+<a href=#990 id=990 data-nosnippet>990</a>            )
+<a href=#991 id=991 data-nosnippet>991</a>        }
+<a href=#992 id=992 data-nosnippet>992</a>    }
+<a href=#993 id=993 data-nosnippet>993</a>
+<a href=#994 id=994 data-nosnippet>994</a>    <span class="attr">#[doc(alias = <span class="string">"paint-clock"</span>)]
+<a href=#995 id=995 data-nosnippet>995</a>    </span><span class="kw">fn </span>connect_paint_clock_notify&lt;F: <a href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html">Fn</a>(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">'static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/struct.SignalHandlerId.html">SignalHandlerId</a> {
+<a href=#996 id=996 data-nosnippet>996</a>        <span class="kw">unsafe extern </span><span class="string">"C" </span><span class="kw">fn </span>notify_paint_clock_trampoline&lt;
+<a href=#997 id=997 data-nosnippet>997</a>            P: <a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/object/trait.IsA.html">IsA</a>&lt;<a href="#16-115">StyleContext</a>&gt;,
+<a href=#998 id=998 data-nosnippet>998</a>            F: <a href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html">Fn</a>(<span class="kw-2">&amp;</span>P) + <span class="lifetime">'static</span>,
+<a href=#999 id=999 data-nosnippet>999</a>        &gt;(
+<a href=#1000 id=1000 data-nosnippet>1000</a>            this: <span class="kw-2">*mut </span>ffi::<a href="../../../gtk_sys/struct.GtkStyleContext.html">GtkStyleContext</a>,
+<a href=#1001 id=1001 data-nosnippet>1001</a>            _param_spec: glib::ffi::gpointer,
+<a href=#1002 id=1002 data-nosnippet>1002</a>            f: glib::ffi::gpointer,
+<a href=#1003 id=1003 data-nosnippet>1003</a>        ) {
+<a href=#1004 id=1004 data-nosnippet>1004</a>            <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(<a href="#1002">f</a> <span class="kw">as </span><span class="kw-2">*const </span>F);
+<a href=#1005 id=1005 data-nosnippet>1005</a>            <a href="#1004">f</a>(<a href="#16-115">StyleContext</a>::<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/translate/trait.FromGlibPtrBorrow.html#method.from_glib_borrow">from_glib_borrow</a>(<a href="#1000">this</a>).<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/object/trait.Cast.html#method.unsafe_cast_ref">unsafe_cast_ref</a>())
+<a href=#1006 id=1006 data-nosnippet>1006</a>        }
+<a href=#1007 id=1007 data-nosnippet>1007</a>        <span class="kw">unsafe </span>{
+<a href=#1008 id=1008 data-nosnippet>1008</a>            <span class="kw">let </span>f: <a href="https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html">Box_</a>&lt;F&gt; = <a href="https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html">Box_</a>::<a href="https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html#method.new">new</a>(<a href="#995">f</a>);
+<a href=#1009 id=1009 data-nosnippet>1009</a>            <a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/fn.connect_raw.html">connect_raw</a>(
+<a href=#1010 id=1010 data-nosnippet>1010</a>                <a class="self" href="#995">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/object/trait.ObjectType.html#tymethod.as_ptr">as_ptr</a>() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
+<a href=#1011 id=1011 data-nosnippet>1011</a>                <span class="string">b"notify::paint-clock\0"</span>.<a href="https://doc.rust-lang.org/nightly/core/primitive.slice.html#method.as_ptr">as_ptr</a>() <span class="kw">as </span><span class="kw-2">*const </span><span class="kw">_</span>,
+<a href=#1012 id=1012 data-nosnippet>1012</a>                <a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.Some">Some</a>(<a href="https://doc.rust-lang.org/nightly/core/intrinsics/fn.transmute.html">transmute</a>::&lt;<span class="kw">_</span>, <span class="kw">unsafe extern </span><span class="string">"C" </span><span class="kw">fn</span>()&gt;(
+<a href=#1013 id=1013 data-nosnippet>1013</a>                    <a href="#996-1006">notify_paint_clock_trampoline</a>::&lt;<span class="self">Self</span>, F&gt; <span class="kw">as </span><span class="kw-2">*const </span>(),
+<a href=#1014 id=1014 data-nosnippet>1014</a>                )),
+<a href=#1015 id=1015 data-nosnippet>1015</a>                <a href="https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html">Box_</a>::<a href="https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html#method.into_raw">into_raw</a>(<a href="#1008">f</a>),
+<a href=#1016 id=1016 data-nosnippet>1016</a>            )
+<a href=#1017 id=1017 data-nosnippet>1017</a>        }
+<a href=#1018 id=1018 data-nosnippet>1018</a>    }
+<a href=#1019 id=1019 data-nosnippet>1019</a>
+<a href=#1020 id=1020 data-nosnippet>1020</a>    <span class="attr">#[doc(alias = <span class="string">"parent"</span>)]
+<a href=#1021 id=1021 data-nosnippet>1021</a>    </span><span class="kw">fn </span>connect_parent_notify&lt;F: <a href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html">Fn</a>(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">'static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/struct.SignalHandlerId.html">SignalHandlerId</a> {
+<a href=#1022 id=1022 data-nosnippet>1022</a>        <span class="kw">unsafe extern </span><span class="string">"C" </span><span class="kw">fn </span>notify_parent_trampoline&lt;P: <a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/object/trait.IsA.html">IsA</a>&lt;<a href="#16-115">StyleContext</a>&gt;, F: <a href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html">Fn</a>(<span class="kw-2">&amp;</span>P) + <span class="lifetime">'static</span>&gt;(
+<a href=#1023 id=1023 data-nosnippet>1023</a>            this: <span class="kw-2">*mut </span>ffi::<a href="../../../gtk_sys/struct.GtkStyleContext.html">GtkStyleContext</a>,
+<a href=#1024 id=1024 data-nosnippet>1024</a>            _param_spec: glib::ffi::gpointer,
+<a href=#1025 id=1025 data-nosnippet>1025</a>            f: glib::ffi::gpointer,
+<a href=#1026 id=1026 data-nosnippet>1026</a>        ) {
+<a href=#1027 id=1027 data-nosnippet>1027</a>            <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(<a href="#1025">f</a> <span class="kw">as </span><span class="kw-2">*const </span>F);
+<a href=#1028 id=1028 data-nosnippet>1028</a>            <a href="#1027">f</a>(<a href="#16-115">StyleContext</a>::<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/translate/trait.FromGlibPtrBorrow.html#method.from_glib_borrow">from_glib_borrow</a>(<a href="#1023">this</a>).<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/object/trait.Cast.html#method.unsafe_cast_ref">unsafe_cast_ref</a>())
+<a href=#1029 id=1029 data-nosnippet>1029</a>        }
+<a href=#1030 id=1030 data-nosnippet>1030</a>        <span class="kw">unsafe </span>{
+<a href=#1031 id=1031 data-nosnippet>1031</a>            <span class="kw">let </span>f: <a href="https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html">Box_</a>&lt;F&gt; = <a href="https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html">Box_</a>::<a href="https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html#method.new">new</a>(<a href="#1021">f</a>);
+<a href=#1032 id=1032 data-nosnippet>1032</a>            <a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/fn.connect_raw.html">connect_raw</a>(
+<a href=#1033 id=1033 data-nosnippet>1033</a>                <a class="self" href="#1021">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/object/trait.ObjectType.html#tymethod.as_ptr">as_ptr</a>() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
+<a href=#1034 id=1034 data-nosnippet>1034</a>                <span class="string">b"notify::parent\0"</span>.<a href="https://doc.rust-lang.org/nightly/core/primitive.slice.html#method.as_ptr">as_ptr</a>() <span class="kw">as </span><span class="kw-2">*const </span><span class="kw">_</span>,
+<a href=#1035 id=1035 data-nosnippet>1035</a>                <a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.Some">Some</a>(<a href="https://doc.rust-lang.org/nightly/core/intrinsics/fn.transmute.html">transmute</a>::&lt;<span class="kw">_</span>, <span class="kw">unsafe extern </span><span class="string">"C" </span><span class="kw">fn</span>()&gt;(
+<a href=#1036 id=1036 data-nosnippet>1036</a>                    <a href="#1022-1029">notify_parent_trampoline</a>::&lt;<span class="self">Self</span>, F&gt; <span class="kw">as </span><span class="kw-2">*const </span>(),
+<a href=#1037 id=1037 data-nosnippet>1037</a>                )),
+<a href=#1038 id=1038 data-nosnippet>1038</a>                <a href="https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html">Box_</a>::<a href="https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html#method.into_raw">into_raw</a>(<a href="#1031">f</a>),
+<a href=#1039 id=1039 data-nosnippet>1039</a>            )
+<a href=#1040 id=1040 data-nosnippet>1040</a>        }
+<a href=#1041 id=1041 data-nosnippet>1041</a>    }
+<a href=#1042 id=1042 data-nosnippet>1042</a>
+<a href=#1043 id=1043 data-nosnippet>1043</a>    <span class="attr">#[doc(alias = <span class="string">"screen"</span>)]
+<a href=#1044 id=1044 data-nosnippet>1044</a>    </span><span class="kw">fn </span>connect_screen_notify&lt;F: <a href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html">Fn</a>(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">'static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/struct.SignalHandlerId.html">SignalHandlerId</a> {
+<a href=#1045 id=1045 data-nosnippet>1045</a>        <span class="kw">unsafe extern </span><span class="string">"C" </span><span class="kw">fn </span>notify_screen_trampoline&lt;P: <a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/object/trait.IsA.html">IsA</a>&lt;<a href="#16-115">StyleContext</a>&gt;, F: <a href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html">Fn</a>(<span class="kw-2">&amp;</span>P) + <span class="lifetime">'static</span>&gt;(
+<a href=#1046 id=1046 data-nosnippet>1046</a>            this: <span class="kw-2">*mut </span>ffi::<a href="../../../gtk_sys/struct.GtkStyleContext.html">GtkStyleContext</a>,
+<a href=#1047 id=1047 data-nosnippet>1047</a>            _param_spec: glib::ffi::gpointer,
+<a href=#1048 id=1048 data-nosnippet>1048</a>            f: glib::ffi::gpointer,
+<a href=#1049 id=1049 data-nosnippet>1049</a>        ) {
+<a href=#1050 id=1050 data-nosnippet>1050</a>            <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(<a href="#1048">f</a> <span class="kw">as </span><span class="kw-2">*const </span>F);
+<a href=#1051 id=1051 data-nosnippet>1051</a>            <a href="#1050">f</a>(<a href="#16-115">StyleContext</a>::<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/translate/trait.FromGlibPtrBorrow.html#method.from_glib_borrow">from_glib_borrow</a>(<a href="#1046">this</a>).<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/object/trait.Cast.html#method.unsafe_cast_ref">unsafe_cast_ref</a>())
+<a href=#1052 id=1052 data-nosnippet>1052</a>        }
+<a href=#1053 id=1053 data-nosnippet>1053</a>        <span class="kw">unsafe </span>{
+<a href=#1054 id=1054 data-nosnippet>1054</a>            <span class="kw">let </span>f: <a href="https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html">Box_</a>&lt;F&gt; = <a href="https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html">Box_</a>::<a href="https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html#method.new">new</a>(<a href="#1044">f</a>);
+<a href=#1055 id=1055 data-nosnippet>1055</a>            <a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/fn.connect_raw.html">connect_raw</a>(
+<a href=#1056 id=1056 data-nosnippet>1056</a>                <a class="self" href="#1044">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/object/trait.ObjectType.html#tymethod.as_ptr">as_ptr</a>() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
+<a href=#1057 id=1057 data-nosnippet>1057</a>                <span class="string">b"notify::screen\0"</span>.<a href="https://doc.rust-lang.org/nightly/core/primitive.slice.html#method.as_ptr">as_ptr</a>() <span class="kw">as </span><span class="kw-2">*const </span><span class="kw">_</span>,
+<a href=#1058 id=1058 data-nosnippet>1058</a>                <a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.Some">Some</a>(<a href="https://doc.rust-lang.org/nightly/core/intrinsics/fn.transmute.html">transmute</a>::&lt;<span class="kw">_</span>, <span class="kw">unsafe extern </span><span class="string">"C" </span><span class="kw">fn</span>()&gt;(
+<a href=#1059 id=1059 data-nosnippet>1059</a>                    <a href="#1045-1052">notify_screen_trampoline</a>::&lt;<span class="self">Self</span>, F&gt; <span class="kw">as </span><span class="kw-2">*const </span>(),
+<a href=#1060 id=1060 data-nosnippet>1060</a>                )),
+<a href=#1061 id=1061 data-nosnippet>1061</a>                <a href="https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html">Box_</a>::<a href="https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html#method.into_raw">into_raw</a>(<a href="#1054">f</a>),
+<a href=#1062 id=1062 data-nosnippet>1062</a>            )
+<a href=#1063 id=1063 data-nosnippet>1063</a>        }
+<a href=#1064 id=1064 data-nosnippet>1064</a>    }
+<a href=#1065 id=1065 data-nosnippet>1065</a>}
+<a href=#1066 id=1066 data-nosnippet>1066</a>
+<a href=#1067 id=1067 data-nosnippet>1067</a><span class="kw">impl</span>&lt;O: <a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/object/trait.IsA.html">IsA</a>&lt;<a href="#16-115">StyleContext</a>&gt;&gt; <a href="#280-1065">StyleContextExt</a> <span class="kw">for </span>O {}
+<a href=#1068 id=1068 data-nosnippet>1068</a>
+<a href=#1069 id=1069 data-nosnippet>1069</a><span class="kw">impl </span><a href="https://doc.rust-lang.org/nightly/core/fmt/trait.Display.html">fmt::Display</a> <span class="kw">for </span><a href="#16-115">StyleContext</a> {
+<a href=#1070 id=1070 data-nosnippet>1070</a>    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::<a href="https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html">Formatter</a>) -&gt; fmt::<a href="https://doc.rust-lang.org/nightly/core/fmt/type.Result.html">Result</a> {
+<a href=#1071 id=1071 data-nosnippet>1071</a>        <a href="#1070">f</a>.<a href="https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html#method.write_str">write_str</a>(<span class="string">"StyleContext"</span>)
+<a href=#1072 id=1072 data-nosnippet>1072</a>    }
+<a href=#1073 id=1073 data-nosnippet>1073</a>}
+</code></pre></div></section></main></body></html>

@@ -1,0 +1,9 @@
+(function() {
+    const implementors = Object.fromEntries([["gdk",[["impl <a class=\"trait\" href=\"https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/translate/trait.FromGlibPtrArrayContainerAsVec.html\" title=\"trait glib::translate::FromGlibPtrArrayContainerAsVec\">FromGlibPtrArrayContainerAsVec</a>&lt;<a class=\"primitive\" href=\"https://doc.rust-lang.org/nightly/std/primitive.pointer.html\">*mut </a><a class=\"struct\" href=\"gdk_sys/struct._GdkAtom.html\" title=\"struct gdk_sys::_GdkAtom\">_GdkAtom</a>, <a class=\"primitive\" href=\"https://doc.rust-lang.org/nightly/std/primitive.pointer.html\">*mut </a><a class=\"primitive\" href=\"https://doc.rust-lang.org/nightly/std/primitive.pointer.html\">*mut </a><a class=\"struct\" href=\"gdk_sys/struct._GdkAtom.html\" title=\"struct gdk_sys::_GdkAtom\">_GdkAtom</a>&gt; for <a class=\"struct\" href=\"gdk/struct.Atom.html\" title=\"struct gdk::Atom\">Atom</a>",0]]]]);
+    if (window.register_implementors) {
+        window.register_implementors(implementors);
+    } else {
+        window.pending_implementors = implementors;
+    }
+})()
+//{"start":59,"fragment_lengths":[868]}

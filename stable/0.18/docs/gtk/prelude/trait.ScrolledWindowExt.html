@@ -1,0 +1,447 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Trait containing all `struct@ScrolledWindow` methods."><title>ScrolledWindowExt in gtk::prelude - Rust</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2"href="../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../static.files/rustdoc-0c87338a.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.100.0-nightly (34baba539 2026-08-16)" data-channel="nightly" data-search-js="search-cf4fc35e.js" data-stringdex-js="stringdex-b5109af9.js" data-settings-js="settings-170eb4bf.js" ><script src="../../static.files/storage-41dd4d93.js"></script><script defer src="sidebar-items.js"></script><script defer src="../../static.files/main-417ebf0a.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-9f56287d.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-eab170b8.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-044be391.svg"></head><body class="rustdoc trait"><a class="skip-main-content" href="#main-content">Skip to main content</a><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
+
+    function checkDocsLatestStable() {
+        function popup(msg, url) { return `
+            <style scoped="scoped">
+                .popup {
+                    max-width: 16em;
+                    background-color: #fff;
+                    position: fixed;
+                    z-index: 1;
+                    margin-left: auto;
+                    bottom: 1em;
+                    right: 1em;
+                    border-radius: 5px;
+                    box-shadow: 1px 1px 4px #777;
+                }
+
+                .popup a.version {
+                    color: #e57300;
+                    padding: 0.6em 1em;
+                    display: block;
+                }
+                .popup a.version:hover {
+                    color: #b25900;
+                }
+
+                .popup a.close {
+                    color: white;
+                    background: grey;
+                    border-radius: 99px;
+                    display: inline-block;
+                    width: 19px;
+                    line-height: 19px;
+                    font-weight: bold;
+                    text-align: center;
+                    margin: 0.6em;
+                    float: right;
+                }
+                .popup a.close:hover {
+                    background: black;
+                }
+            </style>
+            <section class="popup" id="gir_docs_popup">
+                <a class="close" href="#" onclick="document.getElementById('gir_docs_popup').remove(); return false">×</a>
+                <a class="version" href="https://gtk-rs.org/gtk3-rs/stable/latest/docs">
+                    ⚠ ${msg}
+                </a>
+            </section>
+        ` };
+
+        if ("0.18" == "master") {
+            document.body.insertAdjacentHTML(
+                'beforeend',
+                popup("This is the development version. Go to latest stable version.", "stable/latest")
+            );
+        } else {
+            fetch('https://gtk-rs.org/gtk3-rs/LATEST_RELEASE_BRANCH')
+                .then(response => response.text())
+                .then(latest_branch => {
+                    if (latest_branch.trim() != "0.18") {
+                        document.body.insertAdjacentHTML(
+                            'beforeend',
+                            popup("This version is outdated. Go to latest version.", "stable/latest")
+                        );
+                    }
+                });
+        }
+    }
+</script>
+
+
+<rustdoc-topbar><h2><a href="#">ScrolledWindowExt</a></h2></rustdoc-topbar><nav class="sidebar"><div class="sidebar-crate"><h2><a href="../../gtk/index.html">gtk</a><span class="version">0.18.1</span></h2></div><div class="sidebar-elems"><section id="rustdoc-toc"><h2 class="location"><a href="#">Scrolled<wbr>Window<wbr>Ext</a></h2><h3><a href="#">Sections</a></h3><ul class="block top-toc"><li><a href="#implementors-1" title="Implementors">Implementors</a></li></ul><h3><a href="#provided-methods">Provided Methods</a></h3><ul class="block"><li><a href="#method.connect_edge_overshot" title="connect_edge_overshot">connect_edge_overshot</a></li><li><a href="#method.connect_edge_reached" title="connect_edge_reached">connect_edge_reached</a></li><li><a href="#method.connect_hadjustment_notify" title="connect_hadjustment_notify">connect_hadjustment_notify</a></li><li><a href="#method.connect_hscrollbar_policy_notify" title="connect_hscrollbar_policy_notify">connect_hscrollbar_policy_notify</a></li><li><a href="#method.connect_kinetic_scrolling_notify" title="connect_kinetic_scrolling_notify">connect_kinetic_scrolling_notify</a></li><li><a href="#method.connect_max_content_height_notify" title="connect_max_content_height_notify">connect_max_content_height_notify</a></li><li><a href="#method.connect_max_content_width_notify" title="connect_max_content_width_notify">connect_max_content_width_notify</a></li><li><a href="#method.connect_min_content_height_notify" title="connect_min_content_height_notify">connect_min_content_height_notify</a></li><li><a href="#method.connect_min_content_width_notify" title="connect_min_content_width_notify">connect_min_content_width_notify</a></li><li><a href="#method.connect_move_focus_out" title="connect_move_focus_out">connect_move_focus_out</a></li><li><a href="#method.connect_overlay_scrolling_notify" title="connect_overlay_scrolling_notify">connect_overlay_scrolling_notify</a></li><li><a href="#method.connect_propagate_natural_height_notify" title="connect_propagate_natural_height_notify">connect_propagate_natural_height_notify</a></li><li><a href="#method.connect_propagate_natural_width_notify" title="connect_propagate_natural_width_notify">connect_propagate_natural_width_notify</a></li><li><a href="#method.connect_scroll_child" title="connect_scroll_child">connect_scroll_child</a></li><li><a href="#method.connect_shadow_type_notify" title="connect_shadow_type_notify">connect_shadow_type_notify</a></li><li><a href="#method.connect_vadjustment_notify" title="connect_vadjustment_notify">connect_vadjustment_notify</a></li><li><a href="#method.connect_vscrollbar_policy_notify" title="connect_vscrollbar_policy_notify">connect_vscrollbar_policy_notify</a></li><li><a href="#method.connect_window_placement_notify" title="connect_window_placement_notify">connect_window_placement_notify</a></li><li><a href="#method.emit_move_focus_out" title="emit_move_focus_out">emit_move_focus_out</a></li><li><a href="#method.emit_scroll_child" title="emit_scroll_child">emit_scroll_child</a></li><li><a href="#method.hadjustment" title="hadjustment">hadjustment</a></li><li><a href="#method.hscrollbar" title="hscrollbar">hscrollbar</a></li><li><a href="#method.hscrollbar_policy" title="hscrollbar_policy">hscrollbar_policy</a></li><li><a href="#method.is_capture_button_press" title="is_capture_button_press">is_capture_button_press</a></li><li><a href="#method.is_kinetic_scrolling" title="is_kinetic_scrolling">is_kinetic_scrolling</a></li><li><a href="#method.is_overlay_scrolling" title="is_overlay_scrolling">is_overlay_scrolling</a></li><li><a href="#method.max_content_height" title="max_content_height">max_content_height</a></li><li><a href="#method.max_content_width" title="max_content_width">max_content_width</a></li><li><a href="#method.min_content_height" title="min_content_height">min_content_height</a></li><li><a href="#method.min_content_width" title="min_content_width">min_content_width</a></li><li><a href="#method.placement" title="placement">placement</a></li><li><a href="#method.policy" title="policy">policy</a></li><li><a href="#method.propagates_natural_height" title="propagates_natural_height">propagates_natural_height</a></li><li><a href="#method.propagates_natural_width" title="propagates_natural_width">propagates_natural_width</a></li><li><a href="#method.set_capture_button_press" title="set_capture_button_press">set_capture_button_press</a></li><li><a href="#method.set_hadjustment" title="set_hadjustment">set_hadjustment</a></li><li><a href="#method.set_hscrollbar_policy" title="set_hscrollbar_policy">set_hscrollbar_policy</a></li><li><a href="#method.set_kinetic_scrolling" title="set_kinetic_scrolling">set_kinetic_scrolling</a></li><li><a href="#method.set_max_content_height" title="set_max_content_height">set_max_content_height</a></li><li><a href="#method.set_max_content_width" title="set_max_content_width">set_max_content_width</a></li><li><a href="#method.set_min_content_height" title="set_min_content_height">set_min_content_height</a></li><li><a href="#method.set_min_content_width" title="set_min_content_width">set_min_content_width</a></li><li><a href="#method.set_overlay_scrolling" title="set_overlay_scrolling">set_overlay_scrolling</a></li><li><a href="#method.set_placement" title="set_placement">set_placement</a></li><li><a href="#method.set_policy" title="set_policy">set_policy</a></li><li><a href="#method.set_propagate_natural_height" title="set_propagate_natural_height">set_propagate_natural_height</a></li><li><a href="#method.set_propagate_natural_width" title="set_propagate_natural_width">set_propagate_natural_width</a></li><li><a href="#method.set_shadow_type" title="set_shadow_type">set_shadow_type</a></li><li><a href="#method.set_vadjustment" title="set_vadjustment">set_vadjustment</a></li><li><a href="#method.set_vscrollbar_policy" title="set_vscrollbar_policy">set_vscrollbar_policy</a></li><li><a href="#method.set_window_placement" title="set_window_placement">set_window_placement</a></li><li><a href="#method.shadow_type" title="shadow_type">shadow_type</a></li><li><a href="#method.unset_placement" title="unset_placement">unset_placement</a></li><li><a href="#method.vadjustment" title="vadjustment">vadjustment</a></li><li><a href="#method.vscrollbar" title="vscrollbar">vscrollbar</a></li><li><a href="#method.vscrollbar_policy" title="vscrollbar_policy">vscrollbar_policy</a></li><li><a href="#method.window_placement" title="window_placement">window_placement</a></li></ul><h3><a href="#dyn-compatibility">Dyn Compatibility</a></h3><h3><a href="#implementors">Implementors</a></h3></section><div id="rustdoc-modnav"><h2><a href="index.html">In gtk::<wbr>prelude</a></h2></div></div></nav><div class="sidebar-resizer" title="Drag to resize sidebar"></div><main><div class="width-limiter"><section id="main-content" class="content" tabindex="-1"><div class="main-heading"><div class="rustdoc-breadcrumbs"><a href="../index.html">gtk</a>::<wbr><a href="index.html">prelude</a></div><h1>Trait <span class="trait">Scrolled<wbr>Window<wbr>Ext</span>&nbsp;<button id="copy-path" title="Copy item path to clipboard">Copy item path</button></h1><rustdoc-toolbar></rustdoc-toolbar><span class="sub-heading"><a class="src" href="../../src/gtk/auto/scrolled_window.rs.html#1849-2912">Source</a> </span></div><pre class="rust item-decl"><code>pub trait ScrolledWindowExt:
+    <a class="trait" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.ScrolledWindow.html" title="struct gtk::ScrolledWindow">ScrolledWindow</a>&gt;
+    + Sealed
+    + 'static {
+<details class="toggle type-contents-toggle"><summary class="hideme"><span>Show 57 methods</span></summary>    // Provided methods
+    fn <a href="#method.is_capture_button_press" class="fn">is_capture_button_press</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.hadjustment" class="fn">hadjustment</a>(&amp;self) -&gt; <a class="struct" href="../struct.Adjustment.html" title="struct gtk::Adjustment">Adjustment</a> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.hscrollbar" class="fn">hscrollbar</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../struct.Widget.html" title="struct gtk::Widget">Widget</a>&gt; { ... }
+<span class="item-spacer"></span>    fn <a href="#method.is_kinetic_scrolling" class="fn">is_kinetic_scrolling</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.max_content_height" class="fn">max_content_height</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.max_content_width" class="fn">max_content_width</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.min_content_height" class="fn">min_content_height</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.min_content_width" class="fn">min_content_width</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.is_overlay_scrolling" class="fn">is_overlay_scrolling</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.placement" class="fn">placement</a>(&amp;self) -&gt; <a class="enum" href="../enum.CornerType.html" title="enum gtk::CornerType">CornerType</a> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.policy" class="fn">policy</a>(&amp;self) -&gt; (<a class="enum" href="../enum.PolicyType.html" title="enum gtk::PolicyType">PolicyType</a>, <a class="enum" href="../enum.PolicyType.html" title="enum gtk::PolicyType">PolicyType</a>) { ... }
+<span class="item-spacer"></span>    fn <a href="#method.propagates_natural_height" class="fn">propagates_natural_height</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.propagates_natural_width" class="fn">propagates_natural_width</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.shadow_type" class="fn">shadow_type</a>(&amp;self) -&gt; <a class="enum" href="../enum.ShadowType.html" title="enum gtk::ShadowType">ShadowType</a> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.vadjustment" class="fn">vadjustment</a>(&amp;self) -&gt; <a class="struct" href="../struct.Adjustment.html" title="struct gtk::Adjustment">Adjustment</a> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.vscrollbar" class="fn">vscrollbar</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../struct.Widget.html" title="struct gtk::Widget">Widget</a>&gt; { ... }
+<span class="item-spacer"></span>    fn <a href="#method.set_capture_button_press" class="fn">set_capture_button_press</a>(&amp;self, capture_button_press: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) { ... }
+<span class="item-spacer"></span>    fn <a href="#method.set_hadjustment" class="fn">set_hadjustment</a>(&amp;self, hadjustment: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;&amp;impl <a class="trait" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.Adjustment.html" title="struct gtk::Adjustment">Adjustment</a>&gt;&gt;) { ... }
+<span class="item-spacer"></span>    fn <a href="#method.set_kinetic_scrolling" class="fn">set_kinetic_scrolling</a>(&amp;self, kinetic_scrolling: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) { ... }
+<span class="item-spacer"></span>    fn <a href="#method.set_max_content_height" class="fn">set_max_content_height</a>(&amp;self, height: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) { ... }
+<span class="item-spacer"></span>    fn <a href="#method.set_max_content_width" class="fn">set_max_content_width</a>(&amp;self, width: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) { ... }
+<span class="item-spacer"></span>    fn <a href="#method.set_min_content_height" class="fn">set_min_content_height</a>(&amp;self, height: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) { ... }
+<span class="item-spacer"></span>    fn <a href="#method.set_min_content_width" class="fn">set_min_content_width</a>(&amp;self, width: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) { ... }
+<span class="item-spacer"></span>    fn <a href="#method.set_overlay_scrolling" class="fn">set_overlay_scrolling</a>(&amp;self, overlay_scrolling: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) { ... }
+<span class="item-spacer"></span>    fn <a href="#method.set_placement" class="fn">set_placement</a>(&amp;self, window_placement: <a class="enum" href="../enum.CornerType.html" title="enum gtk::CornerType">CornerType</a>) { ... }
+<span class="item-spacer"></span>    fn <a href="#method.set_policy" class="fn">set_policy</a>(
+        &amp;self,
+        hscrollbar_policy: <a class="enum" href="../enum.PolicyType.html" title="enum gtk::PolicyType">PolicyType</a>,
+        vscrollbar_policy: <a class="enum" href="../enum.PolicyType.html" title="enum gtk::PolicyType">PolicyType</a>,
+    ) { ... }
+<span class="item-spacer"></span>    fn <a href="#method.set_propagate_natural_height" class="fn">set_propagate_natural_height</a>(&amp;self, propagate: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) { ... }
+<span class="item-spacer"></span>    fn <a href="#method.set_propagate_natural_width" class="fn">set_propagate_natural_width</a>(&amp;self, propagate: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) { ... }
+<span class="item-spacer"></span>    fn <a href="#method.set_shadow_type" class="fn">set_shadow_type</a>(&amp;self, type_: <a class="enum" href="../enum.ShadowType.html" title="enum gtk::ShadowType">ShadowType</a>) { ... }
+<span class="item-spacer"></span>    fn <a href="#method.set_vadjustment" class="fn">set_vadjustment</a>(&amp;self, vadjustment: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;&amp;impl <a class="trait" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.Adjustment.html" title="struct gtk::Adjustment">Adjustment</a>&gt;&gt;) { ... }
+<span class="item-spacer"></span>    fn <a href="#method.unset_placement" class="fn">unset_placement</a>(&amp;self) { ... }
+<span class="item-spacer"></span>    fn <a href="#method.hscrollbar_policy" class="fn">hscrollbar_policy</a>(&amp;self) -&gt; <a class="enum" href="../enum.PolicyType.html" title="enum gtk::PolicyType">PolicyType</a> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.set_hscrollbar_policy" class="fn">set_hscrollbar_policy</a>(&amp;self, hscrollbar_policy: <a class="enum" href="../enum.PolicyType.html" title="enum gtk::PolicyType">PolicyType</a>) { ... }
+<span class="item-spacer"></span>    fn <a href="#method.vscrollbar_policy" class="fn">vscrollbar_policy</a>(&amp;self) -&gt; <a class="enum" href="../enum.PolicyType.html" title="enum gtk::PolicyType">PolicyType</a> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.set_vscrollbar_policy" class="fn">set_vscrollbar_policy</a>(&amp;self, vscrollbar_policy: <a class="enum" href="../enum.PolicyType.html" title="enum gtk::PolicyType">PolicyType</a>) { ... }
+<span class="item-spacer"></span>    fn <a href="#method.window_placement" class="fn">window_placement</a>(&amp;self) -&gt; <a class="enum" href="../enum.CornerType.html" title="enum gtk::CornerType">CornerType</a> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.set_window_placement" class="fn">set_window_placement</a>(&amp;self, window_placement: <a class="enum" href="../enum.CornerType.html" title="enum gtk::CornerType">CornerType</a>) { ... }
+<span class="item-spacer"></span>    fn <a href="#method.connect_edge_overshot" class="fn">connect_edge_overshot</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;Self, <a class="enum" href="../enum.PositionType.html" title="enum gtk::PositionType">PositionType</a>) + 'static&gt;(
+        &amp;self,
+        f: F,
+    ) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.connect_edge_reached" class="fn">connect_edge_reached</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;Self, <a class="enum" href="../enum.PositionType.html" title="enum gtk::PositionType">PositionType</a>) + 'static&gt;(
+        &amp;self,
+        f: F,
+    ) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.connect_move_focus_out" class="fn">connect_move_focus_out</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;Self, <a class="enum" href="../enum.DirectionType.html" title="enum gtk::DirectionType">DirectionType</a>) + 'static&gt;(
+        &amp;self,
+        f: F,
+    ) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.emit_move_focus_out" class="fn">emit_move_focus_out</a>(&amp;self, direction_type: <a class="enum" href="../enum.DirectionType.html" title="enum gtk::DirectionType">DirectionType</a>) { ... }
+<span class="item-spacer"></span>    fn <a href="#method.connect_scroll_child" class="fn">connect_scroll_child</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;Self, <a class="enum" href="../enum.ScrollType.html" title="enum gtk::ScrollType">ScrollType</a>, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> + 'static&gt;(
+        &amp;self,
+        f: F,
+    ) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.emit_scroll_child" class="fn">emit_scroll_child</a>(&amp;self, scroll: <a class="enum" href="../enum.ScrollType.html" title="enum gtk::ScrollType">ScrollType</a>, horizontal: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.connect_hadjustment_notify" class="fn">connect_hadjustment_notify</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;Self) + 'static&gt;(
+        &amp;self,
+        f: F,
+    ) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.connect_hscrollbar_policy_notify" class="fn">connect_hscrollbar_policy_notify</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;Self) + 'static&gt;(
+        &amp;self,
+        f: F,
+    ) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.connect_kinetic_scrolling_notify" class="fn">connect_kinetic_scrolling_notify</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;Self) + 'static&gt;(
+        &amp;self,
+        f: F,
+    ) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.connect_max_content_height_notify" class="fn">connect_max_content_height_notify</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;Self) + 'static&gt;(
+        &amp;self,
+        f: F,
+    ) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.connect_max_content_width_notify" class="fn">connect_max_content_width_notify</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;Self) + 'static&gt;(
+        &amp;self,
+        f: F,
+    ) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.connect_min_content_height_notify" class="fn">connect_min_content_height_notify</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;Self) + 'static&gt;(
+        &amp;self,
+        f: F,
+    ) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.connect_min_content_width_notify" class="fn">connect_min_content_width_notify</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;Self) + 'static&gt;(
+        &amp;self,
+        f: F,
+    ) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.connect_overlay_scrolling_notify" class="fn">connect_overlay_scrolling_notify</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;Self) + 'static&gt;(
+        &amp;self,
+        f: F,
+    ) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.connect_propagate_natural_height_notify" class="fn">connect_propagate_natural_height_notify</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;Self) + 'static&gt;(
+        &amp;self,
+        f: F,
+    ) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.connect_propagate_natural_width_notify" class="fn">connect_propagate_natural_width_notify</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;Self) + 'static&gt;(
+        &amp;self,
+        f: F,
+    ) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.connect_shadow_type_notify" class="fn">connect_shadow_type_notify</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;Self) + 'static&gt;(
+        &amp;self,
+        f: F,
+    ) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.connect_vadjustment_notify" class="fn">connect_vadjustment_notify</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;Self) + 'static&gt;(
+        &amp;self,
+        f: F,
+    ) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.connect_vscrollbar_policy_notify" class="fn">connect_vscrollbar_policy_notify</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;Self) + 'static&gt;(
+        &amp;self,
+        f: F,
+    ) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.connect_window_placement_notify" class="fn">connect_window_placement_notify</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;Self) + 'static&gt;(
+        &amp;self,
+        f: F,
+    ) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a> { ... }
+</details>}</code></pre><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>Trait containing all <a href="../struct.ScrolledWindow.html" title="struct gtk::ScrolledWindow"><code>ScrolledWindow</code></a> methods.</p>
+<h2 id="implementors-1"><a class="doc-anchor" href="#implementors-1">§</a>Implementors</h2>
+<p><a href="../struct.PlacesSidebar.html" title="struct gtk::PlacesSidebar"><code>PlacesSidebar</code></a>, <a href="../struct.ScrolledWindow.html" title="struct gtk::ScrolledWindow"><code>ScrolledWindow</code></a></p>
+</div></details><h2 id="provided-methods" class="section-header">Provided Methods<a href="#provided-methods" class="anchor">§</a></h2><div class="methods"><details class="toggle method-toggle" open><summary><section id="method.is_capture_button_press" class="method"><a class="src rightside" href="../../src/gtk/auto/scrolled_window.rs.html#1858-1864">Source</a><h4 class="code-header">fn <a href="#method.is_capture_button_press" class="fn">is_capture_button_press</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></h4></section></summary><div class="docblock"><p>Return whether button presses are captured during kinetic
+scrolling. See <a href="trait.ScrolledWindowExt.html#method.set_capture_button_press" title="method gtk::prelude::ScrolledWindowExt::set_capture_button_press"><code>set_capture_button_press()</code></a>.</p>
+<h5 id="returns"><a class="doc-anchor" href="#returns">§</a>Returns</h5>
+<p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="primitive bool"><code>true</code></a> if button presses are captured during kinetic scrolling</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.hadjustment" class="method"><a class="src rightside" href="../../src/gtk/auto/scrolled_window.rs.html#1875-1881">Source</a><h4 class="code-header">fn <a href="#method.hadjustment" class="fn">hadjustment</a>(&amp;self) -&gt; <a class="struct" href="../struct.Adjustment.html" title="struct gtk::Adjustment">Adjustment</a></h4></section></summary><div class="docblock"><p>Returns the horizontal scrollbar’s adjustment, used to connect the
+horizontal scrollbar to the child widget’s horizontal scroll
+functionality.</p>
+<h5 id="returns-1"><a class="doc-anchor" href="#returns-1">§</a>Returns</h5>
+<p>the horizontal <a href="../struct.Adjustment.html" title="struct gtk::Adjustment"><code>Adjustment</code></a></p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.hscrollbar" class="method"><a class="src rightside" href="../../src/gtk/auto/scrolled_window.rs.html#1890-1896">Source</a><h4 class="code-header">fn <a href="#method.hscrollbar" class="fn">hscrollbar</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../struct.Widget.html" title="struct gtk::Widget">Widget</a>&gt;</h4></section></summary><div class="docblock"><p>Returns the horizontal scrollbar of <code>self</code>.</p>
+<h5 id="returns-2"><a class="doc-anchor" href="#returns-2">§</a>Returns</h5>
+<p>the horizontal scrollbar of the scrolled window.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.is_kinetic_scrolling" class="method"><a class="src rightside" href="../../src/gtk/auto/scrolled_window.rs.html#1905-1911">Source</a><h4 class="code-header">fn <a href="#method.is_kinetic_scrolling" class="fn">is_kinetic_scrolling</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></h4></section></summary><div class="docblock"><p>Returns the specified kinetic scrolling behavior.</p>
+<h5 id="returns-3"><a class="doc-anchor" href="#returns-3">§</a>Returns</h5>
+<p>the scrolling behavior flags.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.max_content_height" class="method"><a class="src rightside" href="../../src/gtk/auto/scrolled_window.rs.html#1920-1922">Source</a><h4 class="code-header">fn <a href="#method.max_content_height" class="fn">max_content_height</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a></h4></section></summary><div class="docblock"><p>Returns the maximum content height set.</p>
+<h5 id="returns-4"><a class="doc-anchor" href="#returns-4">§</a>Returns</h5>
+<p>the maximum content height, or -1</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.max_content_width" class="method"><a class="src rightside" href="../../src/gtk/auto/scrolled_window.rs.html#1931-1933">Source</a><h4 class="code-header">fn <a href="#method.max_content_width" class="fn">max_content_width</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a></h4></section></summary><div class="docblock"><p>Returns the maximum content width set.</p>
+<h5 id="returns-5"><a class="doc-anchor" href="#returns-5">§</a>Returns</h5>
+<p>the maximum content width, or -1</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.min_content_height" class="method"><a class="src rightside" href="../../src/gtk/auto/scrolled_window.rs.html#1942-1944">Source</a><h4 class="code-header">fn <a href="#method.min_content_height" class="fn">min_content_height</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a></h4></section></summary><div class="docblock"><p>Gets the minimal content height of <code>self</code>, or -1 if not set.</p>
+<h5 id="returns-6"><a class="doc-anchor" href="#returns-6">§</a>Returns</h5>
+<p>the minimal content height</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.min_content_width" class="method"><a class="src rightside" href="../../src/gtk/auto/scrolled_window.rs.html#1953-1955">Source</a><h4 class="code-header">fn <a href="#method.min_content_width" class="fn">min_content_width</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a></h4></section></summary><div class="docblock"><p>Gets the minimum content width of <code>self</code>, or -1 if not set.</p>
+<h5 id="returns-7"><a class="doc-anchor" href="#returns-7">§</a>Returns</h5>
+<p>the minimum content width</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.is_overlay_scrolling" class="method"><a class="src rightside" href="../../src/gtk/auto/scrolled_window.rs.html#1964-1970">Source</a><h4 class="code-header">fn <a href="#method.is_overlay_scrolling" class="fn">is_overlay_scrolling</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></h4></section></summary><div class="docblock"><p>Returns whether overlay scrolling is enabled for this scrolled window.</p>
+<h5 id="returns-8"><a class="doc-anchor" href="#returns-8">§</a>Returns</h5>
+<p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="primitive bool"><code>true</code></a> if overlay scrolling is enabled</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.placement" class="method"><a class="src rightside" href="../../src/gtk/auto/scrolled_window.rs.html#1983-1989">Source</a><h4 class="code-header">fn <a href="#method.placement" class="fn">placement</a>(&amp;self) -&gt; <a class="enum" href="../enum.CornerType.html" title="enum gtk::CornerType">CornerType</a></h4></section></summary><div class="docblock"><p>Gets the placement of the contents with respect to the scrollbars
+for the scrolled window. See <a href="trait.ScrolledWindowExt.html#method.set_placement" title="method gtk::prelude::ScrolledWindowExt::set_placement"><code>set_placement()</code></a>.</p>
+<h5 id="returns-9"><a class="doc-anchor" href="#returns-9">§</a>Returns</h5>
+<p>the current placement value.</p>
+<p>See also <a href="trait.ScrolledWindowExt.html#method.set_placement" title="method gtk::prelude::ScrolledWindowExt::set_placement"><code>set_placement()</code></a> and
+<a href="trait.ScrolledWindowExt.html#method.unset_placement" title="method gtk::prelude::ScrolledWindowExt::unset_placement"><code>unset_placement()</code></a>.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.policy" class="method"><a class="src rightside" href="../../src/gtk/auto/scrolled_window.rs.html#2006-2020">Source</a><h4 class="code-header">fn <a href="#method.policy" class="fn">policy</a>(&amp;self) -&gt; (<a class="enum" href="../enum.PolicyType.html" title="enum gtk::PolicyType">PolicyType</a>, <a class="enum" href="../enum.PolicyType.html" title="enum gtk::PolicyType">PolicyType</a>)</h4></section></summary><div class="docblock"><p>Retrieves the current policy values for the horizontal and vertical
+scrollbars. See <a href="trait.ScrolledWindowExt.html#method.set_policy" title="method gtk::prelude::ScrolledWindowExt::set_policy"><code>set_policy()</code></a>.</p>
+<h5 id="returns-10"><a class="doc-anchor" href="#returns-10">§</a>Returns</h5><h6 id="hscrollbar_policy"><a class="doc-anchor" href="#hscrollbar_policy">§</a><code>hscrollbar_policy</code></h6>
+<p>location to store the policy
+for the horizontal scrollbar, or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="variant core::option::Option::None"><code>None</code></a></p>
+<h6 id="vscrollbar_policy"><a class="doc-anchor" href="#vscrollbar_policy">§</a><code>vscrollbar_policy</code></h6>
+<p>location to store the policy
+for the vertical scrollbar, or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="variant core::option::Option::None"><code>None</code></a></p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.propagates_natural_height" class="method"><a class="src rightside" href="../../src/gtk/auto/scrolled_window.rs.html#2030-2036">Source</a><h4 class="code-header">fn <a href="#method.propagates_natural_height" class="fn">propagates_natural_height</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></h4></section></summary><div class="docblock"><p>Reports whether the natural height of the child will be calculated and propagated
+through the scrolled window’s requested natural height.</p>
+<h5 id="returns-11"><a class="doc-anchor" href="#returns-11">§</a>Returns</h5>
+<p>whether natural height propagation is enabled.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.propagates_natural_width" class="method"><a class="src rightside" href="../../src/gtk/auto/scrolled_window.rs.html#2046-2052">Source</a><h4 class="code-header">fn <a href="#method.propagates_natural_width" class="fn">propagates_natural_width</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></h4></section></summary><div class="docblock"><p>Reports whether the natural width of the child will be calculated and propagated
+through the scrolled window’s requested natural width.</p>
+<h5 id="returns-12"><a class="doc-anchor" href="#returns-12">§</a>Returns</h5>
+<p>whether natural width propagation is enabled.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.shadow_type" class="method"><a class="src rightside" href="../../src/gtk/auto/scrolled_window.rs.html#2062-2068">Source</a><h4 class="code-header">fn <a href="#method.shadow_type" class="fn">shadow_type</a>(&amp;self) -&gt; <a class="enum" href="../enum.ShadowType.html" title="enum gtk::ShadowType">ShadowType</a></h4></section></summary><div class="docblock"><p>Gets the shadow type of the scrolled window. See
+<a href="trait.ScrolledWindowExt.html#method.set_shadow_type" title="method gtk::prelude::ScrolledWindowExt::set_shadow_type"><code>set_shadow_type()</code></a>.</p>
+<h5 id="returns-13"><a class="doc-anchor" href="#returns-13">§</a>Returns</h5>
+<p>the current shadow type</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.vadjustment" class="method"><a class="src rightside" href="../../src/gtk/auto/scrolled_window.rs.html#2078-2084">Source</a><h4 class="code-header">fn <a href="#method.vadjustment" class="fn">vadjustment</a>(&amp;self) -&gt; <a class="struct" href="../struct.Adjustment.html" title="struct gtk::Adjustment">Adjustment</a></h4></section></summary><div class="docblock"><p>Returns the vertical scrollbar’s adjustment, used to connect the
+vertical scrollbar to the child widget’s vertical scroll functionality.</p>
+<h5 id="returns-14"><a class="doc-anchor" href="#returns-14">§</a>Returns</h5>
+<p>the vertical <a href="../struct.Adjustment.html" title="struct gtk::Adjustment"><code>Adjustment</code></a></p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.vscrollbar" class="method"><a class="src rightside" href="../../src/gtk/auto/scrolled_window.rs.html#2093-2099">Source</a><h4 class="code-header">fn <a href="#method.vscrollbar" class="fn">vscrollbar</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../struct.Widget.html" title="struct gtk::Widget">Widget</a>&gt;</h4></section></summary><div class="docblock"><p>Returns the vertical scrollbar of <code>self</code>.</p>
+<h5 id="returns-15"><a class="doc-anchor" href="#returns-15">§</a>Returns</h5>
+<p>the vertical scrollbar of the scrolled window.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.set_capture_button_press" class="method"><a class="src rightside" href="../../src/gtk/auto/scrolled_window.rs.html#2115-2122">Source</a><h4 class="code-header">fn <a href="#method.set_capture_button_press" class="fn">set_capture_button_press</a>(&amp;self, capture_button_press: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>)</h4></section></summary><div class="docblock"><p>Changes the behaviour of <code>self</code> with regard to the initial
+event that possibly starts kinetic scrolling. When <code>capture_button_press</code>
+is set to <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="primitive bool"><code>true</code></a>, the event is captured by the scrolled window, and
+then later replayed if it is meant to go to the child widget.</p>
+<p>This should be enabled if any child widgets perform non-reversible
+actions on <a href="../struct.Widget.html#button-press-event" title="struct gtk::Widget"><code>button-press-event</code></a>. If they don’t, and handle
+additionally handle <a href="../struct.Widget.html#grab-broken-event" title="struct gtk::Widget"><code>grab-broken-event</code></a>, it might be better
+to set <code>capture_button_press</code> to <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="primitive bool"><code>false</code></a>.</p>
+<p>This setting only has an effect if kinetic scrolling is enabled.</p>
+<h6 id="capture_button_press"><a class="doc-anchor" href="#capture_button_press">§</a><code>capture_button_press</code></h6>
+<p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="primitive bool"><code>true</code></a> to capture button presses</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.set_hadjustment" class="method"><a class="src rightside" href="../../src/gtk/auto/scrolled_window.rs.html#2128-2135">Source</a><h4 class="code-header">fn <a href="#method.set_hadjustment" class="fn">set_hadjustment</a>(&amp;self, hadjustment: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;&amp;impl <a class="trait" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.Adjustment.html" title="struct gtk::Adjustment">Adjustment</a>&gt;&gt;)</h4></section></summary><div class="docblock"><p>Sets the <a href="../struct.Adjustment.html" title="struct gtk::Adjustment"><code>Adjustment</code></a> for the horizontal scrollbar.</p>
+<h6 id="hadjustment"><a class="doc-anchor" href="#hadjustment">§</a><code>hadjustment</code></h6>
+<p>the <a href="../struct.Adjustment.html" title="struct gtk::Adjustment"><code>Adjustment</code></a> to use, or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="variant core::option::Option::None"><code>None</code></a> to create a new one</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.set_kinetic_scrolling" class="method"><a class="src rightside" href="../../src/gtk/auto/scrolled_window.rs.html#2143-2150">Source</a><h4 class="code-header">fn <a href="#method.set_kinetic_scrolling" class="fn">set_kinetic_scrolling</a>(&amp;self, kinetic_scrolling: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>)</h4></section></summary><div class="docblock"><p>Turns kinetic scrolling on or off.
+Kinetic scrolling only applies to devices with source
+<code>GDK_SOURCE_TOUCHSCREEN</code>.</p>
+<h6 id="kinetic_scrolling"><a class="doc-anchor" href="#kinetic_scrolling">§</a><code>kinetic_scrolling</code></h6>
+<p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="primitive bool"><code>true</code></a> to enable kinetic scrolling</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.set_max_content_height" class="method"><a class="src rightside" href="../../src/gtk/auto/scrolled_window.rs.html#2161-2165">Source</a><h4 class="code-header">fn <a href="#method.set_max_content_height" class="fn">set_max_content_height</a>(&amp;self, height: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>)</h4></section></summary><div class="docblock"><p>Sets the maximum height that <code>self</code> should keep visible. The
+<code>self</code> will grow up to this height before it starts scrolling
+the content.</p>
+<p>It is a programming error to set the maximum content height to a value
+smaller than <a href="../struct.ScrolledWindow.html#min-content-height" title="struct gtk::ScrolledWindow"><code>min-content-height</code></a>.</p>
+<h6 id="height"><a class="doc-anchor" href="#height">§</a><code>height</code></h6>
+<p>the maximum content height</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.set_max_content_width" class="method"><a class="src rightside" href="../../src/gtk/auto/scrolled_window.rs.html#2176-2180">Source</a><h4 class="code-header">fn <a href="#method.set_max_content_width" class="fn">set_max_content_width</a>(&amp;self, width: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>)</h4></section></summary><div class="docblock"><p>Sets the maximum width that <code>self</code> should keep visible. The
+<code>self</code> will grow up to this width before it starts scrolling
+the content.</p>
+<p>It is a programming error to set the maximum content width to a value
+smaller than <a href="../struct.ScrolledWindow.html#min-content-width" title="struct gtk::ScrolledWindow"><code>min-content-width</code></a>.</p>
+<h6 id="width"><a class="doc-anchor" href="#width">§</a><code>width</code></h6>
+<p>the maximum content width</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.set_min_content_height" class="method"><a class="src rightside" href="../../src/gtk/auto/scrolled_window.rs.html#2191-2195">Source</a><h4 class="code-header">fn <a href="#method.set_min_content_height" class="fn">set_min_content_height</a>(&amp;self, height: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>)</h4></section></summary><div class="docblock"><p>Sets the minimum height that <code>self</code> should keep visible.
+Note that this can and (usually will) be smaller than the minimum
+size of the content.</p>
+<p>It is a programming error to set the minimum content height to a
+value greater than <a href="../struct.ScrolledWindow.html#max-content-height" title="struct gtk::ScrolledWindow"><code>max-content-height</code></a>.</p>
+<h6 id="height-1"><a class="doc-anchor" href="#height-1">§</a><code>height</code></h6>
+<p>the minimal content height</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.set_min_content_width" class="method"><a class="src rightside" href="../../src/gtk/auto/scrolled_window.rs.html#2206-2210">Source</a><h4 class="code-header">fn <a href="#method.set_min_content_width" class="fn">set_min_content_width</a>(&amp;self, width: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>)</h4></section></summary><div class="docblock"><p>Sets the minimum width that <code>self</code> should keep visible.
+Note that this can and (usually will) be smaller than the minimum
+size of the content.</p>
+<p>It is a programming error to set the minimum content width to a
+value greater than <a href="../struct.ScrolledWindow.html#max-content-width" title="struct gtk::ScrolledWindow"><code>max-content-width</code></a>.</p>
+<h6 id="width-1"><a class="doc-anchor" href="#width-1">§</a><code>width</code></h6>
+<p>the minimal content width</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.set_overlay_scrolling" class="method"><a class="src rightside" href="../../src/gtk/auto/scrolled_window.rs.html#2216-2223">Source</a><h4 class="code-header">fn <a href="#method.set_overlay_scrolling" class="fn">set_overlay_scrolling</a>(&amp;self, overlay_scrolling: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>)</h4></section></summary><div class="docblock"><p>Enables or disables overlay scrolling for this scrolled window.</p>
+<h6 id="overlay_scrolling"><a class="doc-anchor" href="#overlay_scrolling">§</a><code>overlay_scrolling</code></h6>
+<p>whether to enable overlay scrolling</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.set_placement" class="method"><a class="src rightside" href="../../src/gtk/auto/scrolled_window.rs.html#2238-2245">Source</a><h4 class="code-header">fn <a href="#method.set_placement" class="fn">set_placement</a>(&amp;self, window_placement: <a class="enum" href="../enum.CornerType.html" title="enum gtk::CornerType">CornerType</a>)</h4></section></summary><div class="docblock"><p>Sets the placement of the contents with respect to the scrollbars
+for the scrolled window.</p>
+<p>The default is <a href="../enum.CornerType.html#variant.TopLeft" title="variant gtk::CornerType::TopLeft"><code>CornerType::TopLeft</code></a>, meaning the child is
+in the top left, with the scrollbars underneath and to the right.
+Other values in <a href="../enum.CornerType.html" title="enum gtk::CornerType"><code>CornerType</code></a> are <a href="../enum.CornerType.html#variant.TopRight" title="variant gtk::CornerType::TopRight"><code>CornerType::TopRight</code></a>,
+<a href="../enum.CornerType.html#variant.BottomLeft" title="variant gtk::CornerType::BottomLeft"><code>CornerType::BottomLeft</code></a>, and <a href="../enum.CornerType.html#variant.BottomRight" title="variant gtk::CornerType::BottomRight"><code>CornerType::BottomRight</code></a>.</p>
+<p>See also <a href="trait.ScrolledWindowExt.html#method.placement" title="method gtk::prelude::ScrolledWindowExt::placement"><code>placement()</code></a> and
+<a href="trait.ScrolledWindowExt.html#method.unset_placement" title="method gtk::prelude::ScrolledWindowExt::unset_placement"><code>unset_placement()</code></a>.</p>
+<h6 id="window_placement"><a class="doc-anchor" href="#window_placement">§</a><code>window_placement</code></h6>
+<p>position of the child window</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.set_policy" class="method"><a class="src rightside" href="../../src/gtk/auto/scrolled_window.rs.html#2260-2268">Source</a><h4 class="code-header">fn <a href="#method.set_policy" class="fn">set_policy</a>(
+    &amp;self,
+    hscrollbar_policy: <a class="enum" href="../enum.PolicyType.html" title="enum gtk::PolicyType">PolicyType</a>,
+    vscrollbar_policy: <a class="enum" href="../enum.PolicyType.html" title="enum gtk::PolicyType">PolicyType</a>,
+)</h4></section></summary><div class="docblock"><p>Sets the scrollbar policy for the horizontal and vertical scrollbars.</p>
+<p>The policy determines when the scrollbar should appear; it is a value
+from the <a href="../enum.PolicyType.html" title="enum gtk::PolicyType"><code>PolicyType</code></a> enumeration. If <a href="../enum.PolicyType.html#variant.Always" title="variant gtk::PolicyType::Always"><code>PolicyType::Always</code></a>, the
+scrollbar is always present; if <a href="../enum.PolicyType.html#variant.Never" title="variant gtk::PolicyType::Never"><code>PolicyType::Never</code></a>, the scrollbar is
+never present; if <a href="../enum.PolicyType.html#variant.Automatic" title="variant gtk::PolicyType::Automatic"><code>PolicyType::Automatic</code></a>, the scrollbar is present only
+if needed (that is, if the slider part of the bar would be smaller
+than the trough — the display is larger than the page size).</p>
+<h6 id="hscrollbar_policy-1"><a class="doc-anchor" href="#hscrollbar_policy-1">§</a><code>hscrollbar_policy</code></h6>
+<p>policy for horizontal bar</p>
+<h6 id="vscrollbar_policy-1"><a class="doc-anchor" href="#vscrollbar_policy-1">§</a><code>vscrollbar_policy</code></h6>
+<p>policy for vertical bar</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.set_propagate_natural_height" class="method"><a class="src rightside" href="../../src/gtk/auto/scrolled_window.rs.html#2275-2282">Source</a><h4 class="code-header">fn <a href="#method.set_propagate_natural_height" class="fn">set_propagate_natural_height</a>(&amp;self, propagate: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>)</h4></section></summary><div class="docblock"><p>Sets whether the natural height of the child should be calculated and propagated
+through the scrolled window’s requested natural height.</p>
+<h6 id="propagate"><a class="doc-anchor" href="#propagate">§</a><code>propagate</code></h6>
+<p>whether to propagate natural height</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.set_propagate_natural_width" class="method"><a class="src rightside" href="../../src/gtk/auto/scrolled_window.rs.html#2289-2296">Source</a><h4 class="code-header">fn <a href="#method.set_propagate_natural_width" class="fn">set_propagate_natural_width</a>(&amp;self, propagate: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>)</h4></section></summary><div class="docblock"><p>Sets whether the natural width of the child should be calculated and propagated
+through the scrolled window’s requested natural width.</p>
+<h6 id="propagate-1"><a class="doc-anchor" href="#propagate-1">§</a><code>propagate</code></h6>
+<p>whether to propagate natural width</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.set_shadow_type" class="method"><a class="src rightside" href="../../src/gtk/auto/scrolled_window.rs.html#2303-2310">Source</a><h4 class="code-header">fn <a href="#method.set_shadow_type" class="fn">set_shadow_type</a>(&amp;self, type_: <a class="enum" href="../enum.ShadowType.html" title="enum gtk::ShadowType">ShadowType</a>)</h4></section></summary><div class="docblock"><p>Changes the type of shadow drawn around the contents of
+<code>self</code>.</p>
+<h6 id="type_"><a class="doc-anchor" href="#type_">§</a><code>type_</code></h6>
+<p>kind of shadow to draw around scrolled window contents</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.set_vadjustment" class="method"><a class="src rightside" href="../../src/gtk/auto/scrolled_window.rs.html#2316-2323">Source</a><h4 class="code-header">fn <a href="#method.set_vadjustment" class="fn">set_vadjustment</a>(&amp;self, vadjustment: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;&amp;impl <a class="trait" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.Adjustment.html" title="struct gtk::Adjustment">Adjustment</a>&gt;&gt;)</h4></section></summary><div class="docblock"><p>Sets the <a href="../struct.Adjustment.html" title="struct gtk::Adjustment"><code>Adjustment</code></a> for the vertical scrollbar.</p>
+<h6 id="vadjustment"><a class="doc-anchor" href="#vadjustment">§</a><code>vadjustment</code></h6>
+<p>the <a href="../struct.Adjustment.html" title="struct gtk::Adjustment"><code>Adjustment</code></a> to use, or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="variant core::option::Option::None"><code>None</code></a> to create a new one</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.unset_placement" class="method"><a class="src rightside" href="../../src/gtk/auto/scrolled_window.rs.html#2332-2336">Source</a><h4 class="code-header">fn <a href="#method.unset_placement" class="fn">unset_placement</a>(&amp;self)</h4></section></summary><div class="docblock"><p>Unsets the placement of the contents with respect to the scrollbars
+for the scrolled window. If no window placement is set for a scrolled
+window, it defaults to <a href="../enum.CornerType.html#variant.TopLeft" title="variant gtk::CornerType::TopLeft"><code>CornerType::TopLeft</code></a>.</p>
+<p>See also <a href="trait.ScrolledWindowExt.html#method.set_placement" title="method gtk::prelude::ScrolledWindowExt::set_placement"><code>set_placement()</code></a> and
+<a href="trait.ScrolledWindowExt.html#method.placement" title="method gtk::prelude::ScrolledWindowExt::placement"><code>placement()</code></a>.</p>
+</div></details><section id="method.hscrollbar_policy" class="method"><a class="src rightside" href="../../src/gtk/auto/scrolled_window.rs.html#2339-2341">Source</a><h4 class="code-header">fn <a href="#method.hscrollbar_policy" class="fn">hscrollbar_policy</a>(&amp;self) -&gt; <a class="enum" href="../enum.PolicyType.html" title="enum gtk::PolicyType">PolicyType</a></h4></section><section id="method.set_hscrollbar_policy" class="method"><a class="src rightside" href="../../src/gtk/auto/scrolled_window.rs.html#2344-2346">Source</a><h4 class="code-header">fn <a href="#method.set_hscrollbar_policy" class="fn">set_hscrollbar_policy</a>(&amp;self, hscrollbar_policy: <a class="enum" href="../enum.PolicyType.html" title="enum gtk::PolicyType">PolicyType</a>)</h4></section><section id="method.vscrollbar_policy" class="method"><a class="src rightside" href="../../src/gtk/auto/scrolled_window.rs.html#2349-2351">Source</a><h4 class="code-header">fn <a href="#method.vscrollbar_policy" class="fn">vscrollbar_policy</a>(&amp;self) -&gt; <a class="enum" href="../enum.PolicyType.html" title="enum gtk::PolicyType">PolicyType</a></h4></section><section id="method.set_vscrollbar_policy" class="method"><a class="src rightside" href="../../src/gtk/auto/scrolled_window.rs.html#2354-2356">Source</a><h4 class="code-header">fn <a href="#method.set_vscrollbar_policy" class="fn">set_vscrollbar_policy</a>(&amp;self, vscrollbar_policy: <a class="enum" href="../enum.PolicyType.html" title="enum gtk::PolicyType">PolicyType</a>)</h4></section><section id="method.window_placement" class="method"><a class="src rightside" href="../../src/gtk/auto/scrolled_window.rs.html#2359-2361">Source</a><h4 class="code-header">fn <a href="#method.window_placement" class="fn">window_placement</a>(&amp;self) -&gt; <a class="enum" href="../enum.CornerType.html" title="enum gtk::CornerType">CornerType</a></h4></section><section id="method.set_window_placement" class="method"><a class="src rightside" href="../../src/gtk/auto/scrolled_window.rs.html#2364-2366">Source</a><h4 class="code-header">fn <a href="#method.set_window_placement" class="fn">set_window_placement</a>(&amp;self, window_placement: <a class="enum" href="../enum.CornerType.html" title="enum gtk::CornerType">CornerType</a>)</h4></section><details class="toggle method-toggle" open><summary><section id="method.connect_edge_overshot" class="method"><a class="src rightside" href="../../src/gtk/auto/scrolled_window.rs.html#2380-2406">Source</a><h4 class="code-header">fn <a href="#method.connect_edge_overshot" class="fn">connect_edge_overshot</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;Self, <a class="enum" href="../enum.PositionType.html" title="enum gtk::PositionType">PositionType</a>) + 'static&gt;(
+    &amp;self,
+    f: F,
+) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></h4></section></summary><div class="docblock"><p>The ::edge-overshot signal is emitted whenever user initiated scrolling
+makes the scrolled window firmly surpass (i.e. with some edge resistance)
+the lower or upper limits defined by the adjustment in that orientation.</p>
+<p>A similar behavior without edge resistance is provided by the
+<a href="../struct.ScrolledWindow.html#edge-reached" title="struct gtk::ScrolledWindow"><code>edge-reached</code></a> signal.</p>
+<p>Note: The <code>pos</code> argument is LTR/RTL aware, so callers should be aware too
+if intending to provide behavior on horizontal edges.</p>
+<h6 id="pos"><a class="doc-anchor" href="#pos">§</a><code>pos</code></h6>
+<p>edge side that was hit</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.connect_edge_reached" class="method"><a class="src rightside" href="../../src/gtk/auto/scrolled_window.rs.html#2420-2446">Source</a><h4 class="code-header">fn <a href="#method.connect_edge_reached" class="fn">connect_edge_reached</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;Self, <a class="enum" href="../enum.PositionType.html" title="enum gtk::PositionType">PositionType</a>) + 'static&gt;(
+    &amp;self,
+    f: F,
+) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></h4></section></summary><div class="docblock"><p>The ::edge-reached signal is emitted whenever user-initiated scrolling
+makes the scrolled window exactly reach the lower or upper limits
+defined by the adjustment in that orientation.</p>
+<p>A similar behavior with edge resistance is provided by the
+<a href="../struct.ScrolledWindow.html#edge-overshot" title="struct gtk::ScrolledWindow"><code>edge-overshot</code></a> signal.</p>
+<p>Note: The <code>pos</code> argument is LTR/RTL aware, so callers should be aware too
+if intending to provide behavior on horizontal edges.</p>
+<h6 id="pos-1"><a class="doc-anchor" href="#pos-1">§</a><code>pos</code></h6>
+<p>edge side that was reached</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.connect_move_focus_out" class="method"><a class="src rightside" href="../../src/gtk/auto/scrolled_window.rs.html#2459-2488">Source</a><h4 class="code-header">fn <a href="#method.connect_move_focus_out" class="fn">connect_move_focus_out</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;Self, <a class="enum" href="../enum.DirectionType.html" title="enum gtk::DirectionType">DirectionType</a>) + 'static&gt;(
+    &amp;self,
+    f: F,
+) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></h4></section></summary><div class="docblock"><p>The ::move-focus-out signal is a
+[keybinding signal][GtkBindingSignal] which gets
+emitted when focus is moved away from the scrolled window by a
+keybinding. The <a href="../struct.Widget.html#move-focus" title="struct gtk::Widget"><code>move-focus</code></a> signal is emitted with
+<code>direction_type</code> on this scrolled window’s toplevel parent in the
+container hierarchy. The default bindings for this signal are
+<code>Ctrl + Tab</code> to move forward and <code>Ctrl + Shift + Tab</code> to move backward.</p>
+<h6 id="direction_type"><a class="doc-anchor" href="#direction_type">§</a><code>direction_type</code></h6>
+<p>either <a href="../enum.DirectionType.html#variant.TabForward" title="variant gtk::DirectionType::TabForward"><code>DirectionType::TabForward</code></a> or
+<a href="../enum.DirectionType.html#variant.TabBackward" title="variant gtk::DirectionType::TabBackward"><code>DirectionType::TabBackward</code></a></p>
+</div></details><section id="method.emit_move_focus_out" class="method"><a class="src rightside" href="../../src/gtk/auto/scrolled_window.rs.html#2490-2492">Source</a><h4 class="code-header">fn <a href="#method.emit_move_focus_out" class="fn">emit_move_focus_out</a>(&amp;self, direction_type: <a class="enum" href="../enum.DirectionType.html" title="enum gtk::DirectionType">DirectionType</a>)</h4></section><details class="toggle method-toggle" open><summary><section id="method.connect_scroll_child" class="method"><a class="src rightside" href="../../src/gtk/auto/scrolled_window.rs.html#2505-2537">Source</a><h4 class="code-header">fn <a href="#method.connect_scroll_child" class="fn">connect_scroll_child</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;Self, <a class="enum" href="../enum.ScrollType.html" title="enum gtk::ScrollType">ScrollType</a>, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> + 'static&gt;(
+    &amp;self,
+    f: F,
+) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></h4></section></summary><div class="docblock"><p>The ::scroll-child signal is a
+[keybinding signal][GtkBindingSignal]
+which gets emitted when a keybinding that scrolls is pressed.
+The horizontal or vertical adjustment is updated which triggers a
+signal that the scrolled window’s child may listen to and scroll itself.</p>
+<h6 id="scroll"><a class="doc-anchor" href="#scroll">§</a><code>scroll</code></h6>
+<p>a <a href="../enum.ScrollType.html" title="enum gtk::ScrollType"><code>ScrollType</code></a> describing how much to scroll</p>
+<h6 id="horizontal"><a class="doc-anchor" href="#horizontal">§</a><code>horizontal</code></h6>
+<p>whether the keybinding scrolls the child
+horizontally or not</p>
+</div></details><section id="method.emit_scroll_child" class="method"><a class="src rightside" href="../../src/gtk/auto/scrolled_window.rs.html#2539-2541">Source</a><h4 class="code-header">fn <a href="#method.emit_scroll_child" class="fn">emit_scroll_child</a>(&amp;self, scroll: <a class="enum" href="../enum.ScrollType.html" title="enum gtk::ScrollType">ScrollType</a>, horizontal: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></h4></section><section id="method.connect_hadjustment_notify" class="method"><a class="src rightside" href="../../src/gtk/auto/scrolled_window.rs.html#2544-2567">Source</a><h4 class="code-header">fn <a href="#method.connect_hadjustment_notify" class="fn">connect_hadjustment_notify</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;Self) + 'static&gt;(
+    &amp;self,
+    f: F,
+) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></h4></section><section id="method.connect_hscrollbar_policy_notify" class="method"><a class="src rightside" href="../../src/gtk/auto/scrolled_window.rs.html#2570-2593">Source</a><h4 class="code-header">fn <a href="#method.connect_hscrollbar_policy_notify" class="fn">connect_hscrollbar_policy_notify</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;Self) + 'static&gt;(
+    &amp;self,
+    f: F,
+) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></h4></section><section id="method.connect_kinetic_scrolling_notify" class="method"><a class="src rightside" href="../../src/gtk/auto/scrolled_window.rs.html#2596-2619">Source</a><h4 class="code-header">fn <a href="#method.connect_kinetic_scrolling_notify" class="fn">connect_kinetic_scrolling_notify</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;Self) + 'static&gt;(
+    &amp;self,
+    f: F,
+) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></h4></section><section id="method.connect_max_content_height_notify" class="method"><a class="src rightside" href="../../src/gtk/auto/scrolled_window.rs.html#2622-2645">Source</a><h4 class="code-header">fn <a href="#method.connect_max_content_height_notify" class="fn">connect_max_content_height_notify</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;Self) + 'static&gt;(
+    &amp;self,
+    f: F,
+) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></h4></section><section id="method.connect_max_content_width_notify" class="method"><a class="src rightside" href="../../src/gtk/auto/scrolled_window.rs.html#2648-2671">Source</a><h4 class="code-header">fn <a href="#method.connect_max_content_width_notify" class="fn">connect_max_content_width_notify</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;Self) + 'static&gt;(
+    &amp;self,
+    f: F,
+) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></h4></section><section id="method.connect_min_content_height_notify" class="method"><a class="src rightside" href="../../src/gtk/auto/scrolled_window.rs.html#2674-2697">Source</a><h4 class="code-header">fn <a href="#method.connect_min_content_height_notify" class="fn">connect_min_content_height_notify</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;Self) + 'static&gt;(
+    &amp;self,
+    f: F,
+) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></h4></section><section id="method.connect_min_content_width_notify" class="method"><a class="src rightside" href="../../src/gtk/auto/scrolled_window.rs.html#2700-2723">Source</a><h4 class="code-header">fn <a href="#method.connect_min_content_width_notify" class="fn">connect_min_content_width_notify</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;Self) + 'static&gt;(
+    &amp;self,
+    f: F,
+) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></h4></section><section id="method.connect_overlay_scrolling_notify" class="method"><a class="src rightside" href="../../src/gtk/auto/scrolled_window.rs.html#2726-2749">Source</a><h4 class="code-header">fn <a href="#method.connect_overlay_scrolling_notify" class="fn">connect_overlay_scrolling_notify</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;Self) + 'static&gt;(
+    &amp;self,
+    f: F,
+) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></h4></section><section id="method.connect_propagate_natural_height_notify" class="method"><a class="src rightside" href="../../src/gtk/auto/scrolled_window.rs.html#2752-2778">Source</a><h4 class="code-header">fn <a href="#method.connect_propagate_natural_height_notify" class="fn">connect_propagate_natural_height_notify</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;Self) + 'static&gt;(
+    &amp;self,
+    f: F,
+) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></h4></section><section id="method.connect_propagate_natural_width_notify" class="method"><a class="src rightside" href="../../src/gtk/auto/scrolled_window.rs.html#2781-2807">Source</a><h4 class="code-header">fn <a href="#method.connect_propagate_natural_width_notify" class="fn">connect_propagate_natural_width_notify</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;Self) + 'static&gt;(
+    &amp;self,
+    f: F,
+) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></h4></section><section id="method.connect_shadow_type_notify" class="method"><a class="src rightside" href="../../src/gtk/auto/scrolled_window.rs.html#2810-2833">Source</a><h4 class="code-header">fn <a href="#method.connect_shadow_type_notify" class="fn">connect_shadow_type_notify</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;Self) + 'static&gt;(
+    &amp;self,
+    f: F,
+) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></h4></section><section id="method.connect_vadjustment_notify" class="method"><a class="src rightside" href="../../src/gtk/auto/scrolled_window.rs.html#2836-2859">Source</a><h4 class="code-header">fn <a href="#method.connect_vadjustment_notify" class="fn">connect_vadjustment_notify</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;Self) + 'static&gt;(
+    &amp;self,
+    f: F,
+) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></h4></section><section id="method.connect_vscrollbar_policy_notify" class="method"><a class="src rightside" href="../../src/gtk/auto/scrolled_window.rs.html#2862-2885">Source</a><h4 class="code-header">fn <a href="#method.connect_vscrollbar_policy_notify" class="fn">connect_vscrollbar_policy_notify</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;Self) + 'static&gt;(
+    &amp;self,
+    f: F,
+) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></h4></section><section id="method.connect_window_placement_notify" class="method"><a class="src rightside" href="../../src/gtk/auto/scrolled_window.rs.html#2888-2911">Source</a><h4 class="code-header">fn <a href="#method.connect_window_placement_notify" class="fn">connect_window_placement_notify</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;Self) + 'static&gt;(
+    &amp;self,
+    f: F,
+) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></h4></section></div><h2 id="dyn-compatibility" class="section-header">Dyn Compatibility<a href="#dyn-compatibility" class="anchor">§</a></h2><div class="dyn-compatibility-info"><p>This trait is <b>not</b> <a href="https://doc.rust-lang.org/nightly/reference/items/traits.html#dyn-compatibility">dyn compatible</a>.</p><p><i>In older versions of Rust, dyn compatibility was called "object safety".</i></p></div><h2 id="implementors" class="section-header">Implementors<a href="#implementors" class="anchor">§</a></h2><div id="implementors-list"><div class="negative-marker"></div><section id="impl-ScrolledWindowExt-for-O" class="impl"><a class="src rightside" href="../../src/gtk/auto/scrolled_window.rs.html#2914">Source</a><a href="#impl-ScrolledWindowExt-for-O" class="anchor">§</a><h3 class="code-header">impl&lt;O: <a class="trait" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.ScrolledWindow.html" title="struct gtk::ScrolledWindow">ScrolledWindow</a>&gt;&gt; <a class="trait" href="trait.ScrolledWindowExt.html" title="trait gtk::prelude::ScrolledWindowExt">ScrolledWindowExt</a> for O</h3></section></div><script src="../../trait.impl/gtk/auto/scrolled_window/trait.ScrolledWindowExt.js" async></script></section></div></main></body></html>

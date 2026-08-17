@@ -1,0 +1,452 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Trait containing all `struct@FlowBox` methods."><title>FlowBoxExt in gtk::prelude - Rust</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2"href="../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../static.files/rustdoc-0c87338a.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.100.0-nightly (34baba539 2026-08-16)" data-channel="nightly" data-search-js="search-cf4fc35e.js" data-stringdex-js="stringdex-b5109af9.js" data-settings-js="settings-170eb4bf.js" ><script src="../../static.files/storage-41dd4d93.js"></script><script defer src="sidebar-items.js"></script><script defer src="../../static.files/main-417ebf0a.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-9f56287d.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-eab170b8.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-044be391.svg"></head><body class="rustdoc trait"><a class="skip-main-content" href="#main-content">Skip to main content</a><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
+
+    function checkDocsLatestStable() {
+        function popup(msg, url) { return `
+            <style scoped="scoped">
+                .popup {
+                    max-width: 16em;
+                    background-color: #fff;
+                    position: fixed;
+                    z-index: 1;
+                    margin-left: auto;
+                    bottom: 1em;
+                    right: 1em;
+                    border-radius: 5px;
+                    box-shadow: 1px 1px 4px #777;
+                }
+
+                .popup a.version {
+                    color: #e57300;
+                    padding: 0.6em 1em;
+                    display: block;
+                }
+                .popup a.version:hover {
+                    color: #b25900;
+                }
+
+                .popup a.close {
+                    color: white;
+                    background: grey;
+                    border-radius: 99px;
+                    display: inline-block;
+                    width: 19px;
+                    line-height: 19px;
+                    font-weight: bold;
+                    text-align: center;
+                    margin: 0.6em;
+                    float: right;
+                }
+                .popup a.close:hover {
+                    background: black;
+                }
+            </style>
+            <section class="popup" id="gir_docs_popup">
+                <a class="close" href="#" onclick="document.getElementById('gir_docs_popup').remove(); return false">×</a>
+                <a class="version" href="https://gtk-rs.org/gtk3-rs/stable/latest/docs">
+                    ⚠ ${msg}
+                </a>
+            </section>
+        ` };
+
+        if ("0.18" == "master") {
+            document.body.insertAdjacentHTML(
+                'beforeend',
+                popup("This is the development version. Go to latest stable version.", "stable/latest")
+            );
+        } else {
+            fetch('https://gtk-rs.org/gtk3-rs/LATEST_RELEASE_BRANCH')
+                .then(response => response.text())
+                .then(latest_branch => {
+                    if (latest_branch.trim() != "0.18") {
+                        document.body.insertAdjacentHTML(
+                            'beforeend',
+                            popup("This version is outdated. Go to latest version.", "stable/latest")
+                        );
+                    }
+                });
+        }
+    }
+</script>
+
+
+<rustdoc-topbar><h2><a href="#">FlowBoxExt</a></h2></rustdoc-topbar><nav class="sidebar"><div class="sidebar-crate"><h2><a href="../../gtk/index.html">gtk</a><span class="version">0.18.1</span></h2></div><div class="sidebar-elems"><section id="rustdoc-toc"><h2 class="location"><a href="#">Flow<wbr>BoxExt</a></h2><h3><a href="#">Sections</a></h3><ul class="block top-toc"><li><a href="#implementors-1" title="Implementors">Implementors</a></li></ul><h3><a href="#provided-methods">Provided Methods</a></h3><ul class="block"><li><a href="#method.activates_on_single_click" title="activates_on_single_click">activates_on_single_click</a></li><li><a href="#method.bind_model" title="bind_model">bind_model</a></li><li><a href="#method.child_at_index" title="child_at_index">child_at_index</a></li><li><a href="#method.child_at_pos" title="child_at_pos">child_at_pos</a></li><li><a href="#method.column_spacing" title="column_spacing">column_spacing</a></li><li><a href="#method.connect_activate_cursor_child" title="connect_activate_cursor_child">connect_activate_cursor_child</a></li><li><a href="#method.connect_activate_on_single_click_notify" title="connect_activate_on_single_click_notify">connect_activate_on_single_click_notify</a></li><li><a href="#method.connect_child_activated" title="connect_child_activated">connect_child_activated</a></li><li><a href="#method.connect_column_spacing_notify" title="connect_column_spacing_notify">connect_column_spacing_notify</a></li><li><a href="#method.connect_homogeneous_notify" title="connect_homogeneous_notify">connect_homogeneous_notify</a></li><li><a href="#method.connect_max_children_per_line_notify" title="connect_max_children_per_line_notify">connect_max_children_per_line_notify</a></li><li><a href="#method.connect_min_children_per_line_notify" title="connect_min_children_per_line_notify">connect_min_children_per_line_notify</a></li><li><a href="#method.connect_move_cursor" title="connect_move_cursor">connect_move_cursor</a></li><li><a href="#method.connect_row_spacing_notify" title="connect_row_spacing_notify">connect_row_spacing_notify</a></li><li><a href="#method.connect_select_all" title="connect_select_all">connect_select_all</a></li><li><a href="#method.connect_selected_children_changed" title="connect_selected_children_changed">connect_selected_children_changed</a></li><li><a href="#method.connect_selection_mode_notify" title="connect_selection_mode_notify">connect_selection_mode_notify</a></li><li><a href="#method.connect_toggle_cursor_child" title="connect_toggle_cursor_child">connect_toggle_cursor_child</a></li><li><a href="#method.connect_unselect_all" title="connect_unselect_all">connect_unselect_all</a></li><li><a href="#method.emit_activate_cursor_child" title="emit_activate_cursor_child">emit_activate_cursor_child</a></li><li><a href="#method.emit_move_cursor" title="emit_move_cursor">emit_move_cursor</a></li><li><a href="#method.emit_select_all" title="emit_select_all">emit_select_all</a></li><li><a href="#method.emit_toggle_cursor_child" title="emit_toggle_cursor_child">emit_toggle_cursor_child</a></li><li><a href="#method.emit_unselect_all" title="emit_unselect_all">emit_unselect_all</a></li><li><a href="#method.insert" title="insert">insert</a></li><li><a href="#method.invalidate_filter" title="invalidate_filter">invalidate_filter</a></li><li><a href="#method.invalidate_sort" title="invalidate_sort">invalidate_sort</a></li><li><a href="#method.is_homogeneous" title="is_homogeneous">is_homogeneous</a></li><li><a href="#method.max_children_per_line" title="max_children_per_line">max_children_per_line</a></li><li><a href="#method.min_children_per_line" title="min_children_per_line">min_children_per_line</a></li><li><a href="#method.row_spacing" title="row_spacing">row_spacing</a></li><li><a href="#method.select_all" title="select_all">select_all</a></li><li><a href="#method.select_child" title="select_child">select_child</a></li><li><a href="#method.selected_children" title="selected_children">selected_children</a></li><li><a href="#method.selected_foreach" title="selected_foreach">selected_foreach</a></li><li><a href="#method.selection_mode" title="selection_mode">selection_mode</a></li><li><a href="#method.set_activate_on_single_click" title="set_activate_on_single_click">set_activate_on_single_click</a></li><li><a href="#method.set_column_spacing" title="set_column_spacing">set_column_spacing</a></li><li><a href="#method.set_filter_func" title="set_filter_func">set_filter_func</a></li><li><a href="#method.set_hadjustment" title="set_hadjustment">set_hadjustment</a></li><li><a href="#method.set_homogeneous" title="set_homogeneous">set_homogeneous</a></li><li><a href="#method.set_max_children_per_line" title="set_max_children_per_line">set_max_children_per_line</a></li><li><a href="#method.set_min_children_per_line" title="set_min_children_per_line">set_min_children_per_line</a></li><li><a href="#method.set_row_spacing" title="set_row_spacing">set_row_spacing</a></li><li><a href="#method.set_selection_mode" title="set_selection_mode">set_selection_mode</a></li><li><a href="#method.set_sort_func" title="set_sort_func">set_sort_func</a></li><li><a href="#method.set_vadjustment" title="set_vadjustment">set_vadjustment</a></li><li><a href="#method.unselect_all" title="unselect_all">unselect_all</a></li><li><a href="#method.unselect_child" title="unselect_child">unselect_child</a></li></ul><h3><a href="#dyn-compatibility">Dyn Compatibility</a></h3><h3><a href="#implementors">Implementors</a></h3></section><div id="rustdoc-modnav"><h2><a href="index.html">In gtk::<wbr>prelude</a></h2></div></div></nav><div class="sidebar-resizer" title="Drag to resize sidebar"></div><main><div class="width-limiter"><section id="main-content" class="content" tabindex="-1"><div class="main-heading"><div class="rustdoc-breadcrumbs"><a href="../index.html">gtk</a>::<wbr><a href="index.html">prelude</a></div><h1>Trait <span class="trait">Flow<wbr>BoxExt</span>&nbsp;<button id="copy-path" title="Copy item path to clipboard">Copy item path</button></h1><rustdoc-toolbar></rustdoc-toolbar><span class="sub-heading"><a class="src" href="../../src/gtk/auto/flow_box.rs.html#1728-2751">Source</a> </span></div><pre class="rust item-decl"><code>pub trait FlowBoxExt:
+    <a class="trait" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.FlowBox.html" title="struct gtk::FlowBox">FlowBox</a>&gt;
+    + Sealed
+    + 'static {
+<details class="toggle type-contents-toggle"><summary class="hideme"><span>Show 49 methods</span></summary>    // Provided methods
+    fn <a href="#method.bind_model" class="fn">bind_model</a>&lt;P: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;<a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/object/struct.Object.html" title="struct glib::object::Object">Object</a>) -&gt; <a class="struct" href="../struct.Widget.html" title="struct gtk::Widget">Widget</a> + 'static&gt;(
+        &amp;self,
+        model: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;&amp;impl <a class="trait" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/gio/auto/list_model/struct.ListModel.html" title="struct gio::auto::list_model::ListModel">ListModel</a>&gt;&gt;,
+        create_widget_func: P,
+    ) { ... }
+<span class="item-spacer"></span>    fn <a href="#method.activates_on_single_click" class="fn">activates_on_single_click</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.child_at_index" class="fn">child_at_index</a>(&amp;self, idx: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../struct.FlowBoxChild.html" title="struct gtk::FlowBoxChild">FlowBoxChild</a>&gt; { ... }
+<span class="item-spacer"></span>    fn <a href="#method.child_at_pos" class="fn">child_at_pos</a>(&amp;self, x: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, y: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../struct.FlowBoxChild.html" title="struct gtk::FlowBoxChild">FlowBoxChild</a>&gt; { ... }
+<span class="item-spacer"></span>    fn <a href="#method.column_spacing" class="fn">column_spacing</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.is_homogeneous" class="fn">is_homogeneous</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.max_children_per_line" class="fn">max_children_per_line</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.min_children_per_line" class="fn">min_children_per_line</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.row_spacing" class="fn">row_spacing</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.selected_children" class="fn">selected_children</a>(&amp;self) -&gt; <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html" title="struct alloc::vec::Vec">Vec</a>&lt;<a class="struct" href="../struct.FlowBoxChild.html" title="struct gtk::FlowBoxChild">FlowBoxChild</a>&gt; { ... }
+<span class="item-spacer"></span>    fn <a href="#method.selection_mode" class="fn">selection_mode</a>(&amp;self) -&gt; <a class="enum" href="../enum.SelectionMode.html" title="enum gtk::SelectionMode">SelectionMode</a> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.insert" class="fn">insert</a>(&amp;self, widget: &amp;impl <a class="trait" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.Widget.html" title="struct gtk::Widget">Widget</a>&gt;, position: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) { ... }
+<span class="item-spacer"></span>    fn <a href="#method.invalidate_filter" class="fn">invalidate_filter</a>(&amp;self) { ... }
+<span class="item-spacer"></span>    fn <a href="#method.invalidate_sort" class="fn">invalidate_sort</a>(&amp;self) { ... }
+<span class="item-spacer"></span>    fn <a href="#method.select_all" class="fn">select_all</a>(&amp;self) { ... }
+<span class="item-spacer"></span>    fn <a href="#method.select_child" class="fn">select_child</a>(&amp;self, child: &amp;impl <a class="trait" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.FlowBoxChild.html" title="struct gtk::FlowBoxChild">FlowBoxChild</a>&gt;) { ... }
+<span class="item-spacer"></span>    fn <a href="#method.selected_foreach" class="fn">selected_foreach</a>&lt;P: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.FnMut.html" title="trait core::ops::function::FnMut">FnMut</a>(&amp;<a class="struct" href="../struct.FlowBox.html" title="struct gtk::FlowBox">FlowBox</a>, &amp;<a class="struct" href="../struct.FlowBoxChild.html" title="struct gtk::FlowBoxChild">FlowBoxChild</a>)&gt;(&amp;self, func: P) { ... }
+<span class="item-spacer"></span>    fn <a href="#method.set_activate_on_single_click" class="fn">set_activate_on_single_click</a>(&amp;self, single: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) { ... }
+<span class="item-spacer"></span>    fn <a href="#method.set_column_spacing" class="fn">set_column_spacing</a>(&amp;self, spacing: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>) { ... }
+<span class="item-spacer"></span>    fn <a href="#method.set_filter_func" class="fn">set_filter_func</a>(
+        &amp;self,
+        filter_func: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html" title="struct alloc::boxed::Box">Box_</a>&lt;dyn <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;<a class="struct" href="../struct.FlowBoxChild.html" title="struct gtk::FlowBoxChild">FlowBoxChild</a>) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> + 'static&gt;&gt;,
+    ) { ... }
+<span class="item-spacer"></span>    fn <a href="#method.set_hadjustment" class="fn">set_hadjustment</a>(&amp;self, adjustment: &amp;impl <a class="trait" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.Adjustment.html" title="struct gtk::Adjustment">Adjustment</a>&gt;) { ... }
+<span class="item-spacer"></span>    fn <a href="#method.set_homogeneous" class="fn">set_homogeneous</a>(&amp;self, homogeneous: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) { ... }
+<span class="item-spacer"></span>    fn <a href="#method.set_max_children_per_line" class="fn">set_max_children_per_line</a>(&amp;self, n_children: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>) { ... }
+<span class="item-spacer"></span>    fn <a href="#method.set_min_children_per_line" class="fn">set_min_children_per_line</a>(&amp;self, n_children: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>) { ... }
+<span class="item-spacer"></span>    fn <a href="#method.set_row_spacing" class="fn">set_row_spacing</a>(&amp;self, spacing: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>) { ... }
+<span class="item-spacer"></span>    fn <a href="#method.set_selection_mode" class="fn">set_selection_mode</a>(&amp;self, mode: <a class="enum" href="../enum.SelectionMode.html" title="enum gtk::SelectionMode">SelectionMode</a>) { ... }
+<span class="item-spacer"></span>    fn <a href="#method.set_sort_func" class="fn">set_sort_func</a>(
+        &amp;self,
+        sort_func: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html" title="struct alloc::boxed::Box">Box_</a>&lt;dyn <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;<a class="struct" href="../struct.FlowBoxChild.html" title="struct gtk::FlowBoxChild">FlowBoxChild</a>, &amp;<a class="struct" href="../struct.FlowBoxChild.html" title="struct gtk::FlowBoxChild">FlowBoxChild</a>) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a> + 'static&gt;&gt;,
+    ) { ... }
+<span class="item-spacer"></span>    fn <a href="#method.set_vadjustment" class="fn">set_vadjustment</a>(&amp;self, adjustment: &amp;impl <a class="trait" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.Adjustment.html" title="struct gtk::Adjustment">Adjustment</a>&gt;) { ... }
+<span class="item-spacer"></span>    fn <a href="#method.unselect_all" class="fn">unselect_all</a>(&amp;self) { ... }
+<span class="item-spacer"></span>    fn <a href="#method.unselect_child" class="fn">unselect_child</a>(&amp;self, child: &amp;impl <a class="trait" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.FlowBoxChild.html" title="struct gtk::FlowBoxChild">FlowBoxChild</a>&gt;) { ... }
+<span class="item-spacer"></span>    fn <a href="#method.connect_activate_cursor_child" class="fn">connect_activate_cursor_child</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;Self) + 'static&gt;(
+        &amp;self,
+        f: F,
+    ) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.emit_activate_cursor_child" class="fn">emit_activate_cursor_child</a>(&amp;self) { ... }
+<span class="item-spacer"></span>    fn <a href="#method.connect_child_activated" class="fn">connect_child_activated</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;Self, &amp;<a class="struct" href="../struct.FlowBoxChild.html" title="struct gtk::FlowBoxChild">FlowBoxChild</a>) + 'static&gt;(
+        &amp;self,
+        f: F,
+    ) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.connect_move_cursor" class="fn">connect_move_cursor</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;Self, <a class="enum" href="../enum.MovementStep.html" title="enum gtk::MovementStep">MovementStep</a>, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> + 'static&gt;(
+        &amp;self,
+        f: F,
+    ) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.emit_move_cursor" class="fn">emit_move_cursor</a>(&amp;self, step: <a class="enum" href="../enum.MovementStep.html" title="enum gtk::MovementStep">MovementStep</a>, count: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.connect_select_all" class="fn">connect_select_all</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;Self) + 'static&gt;(
+        &amp;self,
+        f: F,
+    ) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.emit_select_all" class="fn">emit_select_all</a>(&amp;self) { ... }
+<span class="item-spacer"></span>    fn <a href="#method.connect_selected_children_changed" class="fn">connect_selected_children_changed</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;Self) + 'static&gt;(
+        &amp;self,
+        f: F,
+    ) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.connect_toggle_cursor_child" class="fn">connect_toggle_cursor_child</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;Self) + 'static&gt;(
+        &amp;self,
+        f: F,
+    ) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.emit_toggle_cursor_child" class="fn">emit_toggle_cursor_child</a>(&amp;self) { ... }
+<span class="item-spacer"></span>    fn <a href="#method.connect_unselect_all" class="fn">connect_unselect_all</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;Self) + 'static&gt;(
+        &amp;self,
+        f: F,
+    ) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.emit_unselect_all" class="fn">emit_unselect_all</a>(&amp;self) { ... }
+<span class="item-spacer"></span>    fn <a href="#method.connect_activate_on_single_click_notify" class="fn">connect_activate_on_single_click_notify</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;Self) + 'static&gt;(
+        &amp;self,
+        f: F,
+    ) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.connect_column_spacing_notify" class="fn">connect_column_spacing_notify</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;Self) + 'static&gt;(
+        &amp;self,
+        f: F,
+    ) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.connect_homogeneous_notify" class="fn">connect_homogeneous_notify</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;Self) + 'static&gt;(
+        &amp;self,
+        f: F,
+    ) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.connect_max_children_per_line_notify" class="fn">connect_max_children_per_line_notify</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;Self) + 'static&gt;(
+        &amp;self,
+        f: F,
+    ) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.connect_min_children_per_line_notify" class="fn">connect_min_children_per_line_notify</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;Self) + 'static&gt;(
+        &amp;self,
+        f: F,
+    ) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.connect_row_spacing_notify" class="fn">connect_row_spacing_notify</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;Self) + 'static&gt;(
+        &amp;self,
+        f: F,
+    ) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.connect_selection_mode_notify" class="fn">connect_selection_mode_notify</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;Self) + 'static&gt;(
+        &amp;self,
+        f: F,
+    ) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a> { ... }
+</details>}</code></pre><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>Trait containing all <a href="../struct.FlowBox.html" title="struct gtk::FlowBox"><code>FlowBox</code></a> methods.</p>
+<h2 id="implementors-1"><a class="doc-anchor" href="#implementors-1">§</a>Implementors</h2>
+<p><a href="../struct.FlowBox.html" title="struct gtk::FlowBox"><code>FlowBox</code></a></p>
+</div></details><h2 id="provided-methods" class="section-header">Provided Methods<a href="#provided-methods" class="anchor">§</a></h2><div class="methods"><details class="toggle method-toggle" open><summary><section id="method.bind_model" class="method"><a class="src rightside" href="../../src/gtk/auto/flow_box.rs.html#1750-1781">Source</a><h4 class="code-header">fn <a href="#method.bind_model" class="fn">bind_model</a>&lt;P: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;<a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/object/struct.Object.html" title="struct glib::object::Object">Object</a>) -&gt; <a class="struct" href="../struct.Widget.html" title="struct gtk::Widget">Widget</a> + 'static&gt;(
+    &amp;self,
+    model: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;&amp;impl <a class="trait" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/gio/auto/list_model/struct.ListModel.html" title="struct gio::auto::list_model::ListModel">ListModel</a>&gt;&gt;,
+    create_widget_func: P,
+)</h4></section></summary><div class="docblock"><p>Binds <code>model</code> to <code>self</code>.</p>
+<p>If <code>self</code> was already bound to a model, that previous binding is
+destroyed.</p>
+<p>The contents of <code>self</code> are cleared and then filled with widgets that
+represent items from <code>model</code>. <code>self</code> is updated whenever <code>model</code> changes.
+If <code>model</code> is <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="variant core::option::Option::None"><code>None</code></a>, <code>self</code> is left empty.</p>
+<p>It is undefined to add or remove widgets directly (for example, with
+<a href="trait.FlowBoxExt.html#method.insert" title="method gtk::prelude::FlowBoxExt::insert"><code>insert()</code></a> or <a href="trait.ContainerExt.html#method.add" title="method gtk::prelude::ContainerExt::add"><code>ContainerExt::add()</code></a>) while <code>self</code> is bound to a
+model.</p>
+<p>Note that using a model is incompatible with the filtering and sorting
+functionality in GtkFlowBox. When using a model, filtering and sorting
+should be implemented by the model.</p>
+<h6 id="model"><a class="doc-anchor" href="#model">§</a><code>model</code></h6>
+<p>the <a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/gio/auto/list_model/struct.ListModel.html" title="struct gio::auto::list_model::ListModel"><code>gio::ListModel</code></a> to be bound to <code>self</code></p>
+<h6 id="create_widget_func"><a class="doc-anchor" href="#create_widget_func">§</a><code>create_widget_func</code></h6>
+<p>a function that creates widgets for items</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.activates_on_single_click" class="method"><a class="src rightside" href="../../src/gtk/auto/flow_box.rs.html#1791-1797">Source</a><h4 class="code-header">fn <a href="#method.activates_on_single_click" class="fn">activates_on_single_click</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></h4></section></summary><div class="docblock"><p>Returns whether children activate on single clicks.</p>
+<h5 id="returns"><a class="doc-anchor" href="#returns">§</a>Returns</h5>
+<p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="primitive bool"><code>true</code></a> if children are activated on single click,
+<a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="primitive bool"><code>false</code></a> otherwise</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.child_at_index" class="method"><a class="src rightside" href="../../src/gtk/auto/flow_box.rs.html#1810-1817">Source</a><h4 class="code-header">fn <a href="#method.child_at_index" class="fn">child_at_index</a>(&amp;self, idx: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../struct.FlowBoxChild.html" title="struct gtk::FlowBoxChild">FlowBoxChild</a>&gt;</h4></section></summary><div class="docblock"><p>Gets the nth child in the <code>self</code>.</p>
+<h6 id="idx"><a class="doc-anchor" href="#idx">§</a><code>idx</code></h6>
+<p>the position of the child</p>
+<h5 id="returns-1"><a class="doc-anchor" href="#returns-1">§</a>Returns</h5>
+<p>the child widget, which will
+always be a <a href="../struct.FlowBoxChild.html" title="struct gtk::FlowBoxChild"><code>FlowBoxChild</code></a> or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="variant core::option::Option::None"><code>None</code></a> in case no child widget
+with the given index exists.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.child_at_pos" class="method"><a class="src rightside" href="../../src/gtk/auto/flow_box.rs.html#1832-1840">Source</a><h4 class="code-header">fn <a href="#method.child_at_pos" class="fn">child_at_pos</a>(&amp;self, x: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, y: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../struct.FlowBoxChild.html" title="struct gtk::FlowBoxChild">FlowBoxChild</a>&gt;</h4></section></summary><div class="docblock"><p>Gets the child in the (<code>x</code>, <code>y</code>) position.</p>
+<h6 id="x"><a class="doc-anchor" href="#x">§</a><code>x</code></h6>
+<p>the x coordinate of the child</p>
+<h6 id="y"><a class="doc-anchor" href="#y">§</a><code>y</code></h6>
+<p>the y coordinate of the child</p>
+<h5 id="returns-2"><a class="doc-anchor" href="#returns-2">§</a>Returns</h5>
+<p>the child widget, which will
+always be a <a href="../struct.FlowBoxChild.html" title="struct gtk::FlowBoxChild"><code>FlowBoxChild</code></a> or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="variant core::option::Option::None"><code>None</code></a> in case no child widget
+exists for the given x and y coordinates.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.column_spacing" class="method"><a class="src rightside" href="../../src/gtk/auto/flow_box.rs.html#1849-1851">Source</a><h4 class="code-header">fn <a href="#method.column_spacing" class="fn">column_spacing</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a></h4></section></summary><div class="docblock"><p>Gets the horizontal spacing.</p>
+<h5 id="returns-3"><a class="doc-anchor" href="#returns-3">§</a>Returns</h5>
+<p>the horizontal spacing</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.is_homogeneous" class="method"><a class="src rightside" href="../../src/gtk/auto/flow_box.rs.html#1861-1867">Source</a><h4 class="code-header">fn <a href="#method.is_homogeneous" class="fn">is_homogeneous</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></h4></section></summary><div class="docblock"><p>Returns whether the box is homogeneous (all children are the
+same size). See <a href="trait.BoxExt.html#method.set_homogeneous" title="method gtk::prelude::BoxExt::set_homogeneous"><code>BoxExt::set_homogeneous()</code></a>.</p>
+<h5 id="returns-4"><a class="doc-anchor" href="#returns-4">§</a>Returns</h5>
+<p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="primitive bool"><code>true</code></a> if the box is homogeneous.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.max_children_per_line" class="method"><a class="src rightside" href="../../src/gtk/auto/flow_box.rs.html#1876-1878">Source</a><h4 class="code-header">fn <a href="#method.max_children_per_line" class="fn">max_children_per_line</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a></h4></section></summary><div class="docblock"><p>Gets the maximum number of children per line.</p>
+<h5 id="returns-5"><a class="doc-anchor" href="#returns-5">§</a>Returns</h5>
+<p>the maximum number of children per line</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.min_children_per_line" class="method"><a class="src rightside" href="../../src/gtk/auto/flow_box.rs.html#1887-1889">Source</a><h4 class="code-header">fn <a href="#method.min_children_per_line" class="fn">min_children_per_line</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a></h4></section></summary><div class="docblock"><p>Gets the minimum number of children per line.</p>
+<h5 id="returns-6"><a class="doc-anchor" href="#returns-6">§</a>Returns</h5>
+<p>the minimum number of children per line</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.row_spacing" class="method"><a class="src rightside" href="../../src/gtk/auto/flow_box.rs.html#1898-1900">Source</a><h4 class="code-header">fn <a href="#method.row_spacing" class="fn">row_spacing</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a></h4></section></summary><div class="docblock"><p>Gets the vertical spacing.</p>
+<h5 id="returns-7"><a class="doc-anchor" href="#returns-7">§</a>Returns</h5>
+<p>the vertical spacing</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.selected_children" class="method"><a class="src rightside" href="../../src/gtk/auto/flow_box.rs.html#1911-1917">Source</a><h4 class="code-header">fn <a href="#method.selected_children" class="fn">selected_children</a>(&amp;self) -&gt; <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html" title="struct alloc::vec::Vec">Vec</a>&lt;<a class="struct" href="../struct.FlowBoxChild.html" title="struct gtk::FlowBoxChild">FlowBoxChild</a>&gt;</h4></section></summary><div class="docblock"><p>Creates a list of all selected children.</p>
+<h5 id="returns-8"><a class="doc-anchor" href="#returns-8">§</a>Returns</h5>
+<p>A <code>GList</code> containing the <a href="../struct.Widget.html" title="struct gtk::Widget"><code>Widget</code></a> for each selected child.
+Free with <code>g_list_free()</code> when done.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.selection_mode" class="method"><a class="src rightside" href="../../src/gtk/auto/flow_box.rs.html#1926-1932">Source</a><h4 class="code-header">fn <a href="#method.selection_mode" class="fn">selection_mode</a>(&amp;self) -&gt; <a class="enum" href="../enum.SelectionMode.html" title="enum gtk::SelectionMode">SelectionMode</a></h4></section></summary><div class="docblock"><p>Gets the selection mode of <code>self</code>.</p>
+<h5 id="returns-9"><a class="doc-anchor" href="#returns-9">§</a>Returns</h5>
+<p>the <a href="../enum.SelectionMode.html" title="enum gtk::SelectionMode"><code>SelectionMode</code></a></p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.insert" class="method"><a class="src rightside" href="../../src/gtk/auto/flow_box.rs.html#1947-1955">Source</a><h4 class="code-header">fn <a href="#method.insert" class="fn">insert</a>(&amp;self, widget: &amp;impl <a class="trait" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.Widget.html" title="struct gtk::Widget">Widget</a>&gt;, position: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>)</h4></section></summary><div class="docblock"><p>Inserts the <code>widget</code> into <code>self</code> at <code>position</code>.</p>
+<p>If a sort function is set, the widget will actually be inserted
+at the calculated position and this function has the same effect
+as <a href="trait.ContainerExt.html#method.add" title="method gtk::prelude::ContainerExt::add"><code>ContainerExt::add()</code></a>.</p>
+<p>If <code>position</code> is -1, or larger than the total number of children
+in the <code>self</code>, then the <code>widget</code> will be appended to the end.</p>
+<h6 id="widget"><a class="doc-anchor" href="#widget">§</a><code>widget</code></h6>
+<p>the <a href="../struct.Widget.html" title="struct gtk::Widget"><code>Widget</code></a> to add</p>
+<h6 id="position"><a class="doc-anchor" href="#position">§</a><code>position</code></h6>
+<p>the position to insert <code>child</code> in</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.invalidate_filter" class="method"><a class="src rightside" href="../../src/gtk/auto/flow_box.rs.html#1965-1969">Source</a><h4 class="code-header">fn <a href="#method.invalidate_filter" class="fn">invalidate_filter</a>(&amp;self)</h4></section></summary><div class="docblock"><p>Updates the filtering for all children.</p>
+<p>Call this function when the result of the filter
+function on the <code>self</code> is changed due ot an external
+factor. For instance, this would be used if the
+filter function just looked for a specific search
+term, and the entry with the string has changed.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.invalidate_sort" class="method"><a class="src rightside" href="../../src/gtk/auto/flow_box.rs.html#1976-1980">Source</a><h4 class="code-header">fn <a href="#method.invalidate_sort" class="fn">invalidate_sort</a>(&amp;self)</h4></section></summary><div class="docblock"><p>Updates the sorting for all children.</p>
+<p>Call this when the result of the sort function on
+<code>self</code> is changed due to an external factor.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.select_all" class="method"><a class="src rightside" href="../../src/gtk/auto/flow_box.rs.html#1985-1989">Source</a><h4 class="code-header">fn <a href="#method.select_all" class="fn">select_all</a>(&amp;self)</h4></section></summary><div class="docblock"><p>Select all children of <code>self</code>, if the selection
+mode allows it.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.select_child" class="method"><a class="src rightside" href="../../src/gtk/auto/flow_box.rs.html#1996-2003">Source</a><h4 class="code-header">fn <a href="#method.select_child" class="fn">select_child</a>(&amp;self, child: &amp;impl <a class="trait" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.FlowBoxChild.html" title="struct gtk::FlowBoxChild">FlowBoxChild</a>&gt;)</h4></section></summary><div class="docblock"><p>Selects a single child of <code>self</code>, if the selection
+mode allows it.</p>
+<h6 id="child"><a class="doc-anchor" href="#child">§</a><code>child</code></h6>
+<p>a child of <code>self</code></p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.selected_foreach" class="method"><a class="src rightside" href="../../src/gtk/auto/flow_box.rs.html#2012-2033">Source</a><h4 class="code-header">fn <a href="#method.selected_foreach" class="fn">selected_foreach</a>&lt;P: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.FnMut.html" title="trait core::ops::function::FnMut">FnMut</a>(&amp;<a class="struct" href="../struct.FlowBox.html" title="struct gtk::FlowBox">FlowBox</a>, &amp;<a class="struct" href="../struct.FlowBoxChild.html" title="struct gtk::FlowBoxChild">FlowBoxChild</a>)&gt;(&amp;self, func: P)</h4></section></summary><div class="docblock"><p>Calls a function for each selected child.</p>
+<p>Note that the selection cannot be modified from within
+this function.</p>
+<h6 id="func"><a class="doc-anchor" href="#func">§</a><code>func</code></h6>
+<p>the function to call for each selected child</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.set_activate_on_single_click" class="method"><a class="src rightside" href="../../src/gtk/auto/flow_box.rs.html#2040-2047">Source</a><h4 class="code-header">fn <a href="#method.set_activate_on_single_click" class="fn">set_activate_on_single_click</a>(&amp;self, single: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>)</h4></section></summary><div class="docblock"><p>If <code>single</code> is <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="primitive bool"><code>true</code></a>, children will be activated when you click
+on them, otherwise you need to double-click.</p>
+<h6 id="single"><a class="doc-anchor" href="#single">§</a><code>single</code></h6>
+<p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="primitive bool"><code>true</code></a> to emit child-activated on a single click</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.set_column_spacing" class="method"><a class="src rightside" href="../../src/gtk/auto/flow_box.rs.html#2054-2058">Source</a><h4 class="code-header">fn <a href="#method.set_column_spacing" class="fn">set_column_spacing</a>(&amp;self, spacing: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>)</h4></section></summary><div class="docblock"><p>Sets the horizontal space to add between children.
+See the <a href="../struct.FlowBox.html#column-spacing" title="struct gtk::FlowBox"><code>column-spacing</code></a> property.</p>
+<h6 id="spacing"><a class="doc-anchor" href="#spacing">§</a><code>spacing</code></h6>
+<p>the spacing to use</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.set_filter_func" class="method"><a class="src rightside" href="../../src/gtk/auto/flow_box.rs.html#2075-2112">Source</a><h4 class="code-header">fn <a href="#method.set_filter_func" class="fn">set_filter_func</a>(
+    &amp;self,
+    filter_func: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html" title="struct alloc::boxed::Box">Box_</a>&lt;dyn <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;<a class="struct" href="../struct.FlowBoxChild.html" title="struct gtk::FlowBoxChild">FlowBoxChild</a>) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> + 'static&gt;&gt;,
+)</h4></section></summary><div class="docblock"><p>By setting a filter function on the <code>self</code> one can decide dynamically
+which of the children to show. For instance, to implement a search
+function that only shows the children matching the search terms.</p>
+<p>The <code>filter_func</code> will be called for each child after the call, and
+it will continue to be called each time a child changes (via
+<a href="trait.FlowBoxChildExt.html#method.changed" title="method gtk::prelude::FlowBoxChildExt::changed"><code>FlowBoxChildExt::changed()</code></a>) or when <a href="trait.FlowBoxExt.html#method.invalidate_filter" title="method gtk::prelude::FlowBoxExt::invalidate_filter"><code>invalidate_filter()</code></a>
+is called.</p>
+<p>Note that using a filter function is incompatible with using a model
+(see <a href="trait.FlowBoxExt.html#method.bind_model" title="method gtk::prelude::FlowBoxExt::bind_model"><code>bind_model()</code></a>).</p>
+<h6 id="filter_func"><a class="doc-anchor" href="#filter_func">§</a><code>filter_func</code></h6>
+<p>callback that
+lets you filter which children to show</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.set_hadjustment" class="method"><a class="src rightside" href="../../src/gtk/auto/flow_box.rs.html#2128-2135">Source</a><h4 class="code-header">fn <a href="#method.set_hadjustment" class="fn">set_hadjustment</a>(&amp;self, adjustment: &amp;impl <a class="trait" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.Adjustment.html" title="struct gtk::Adjustment">Adjustment</a>&gt;)</h4></section></summary><div class="docblock"><p>Hooks up an adjustment to focus handling in <code>self</code>.
+The adjustment is also used for autoscrolling during
+rubberband selection. See <a href="trait.ScrolledWindowExt.html#method.hadjustment" title="method gtk::prelude::ScrolledWindowExt::hadjustment"><code>ScrolledWindowExt::hadjustment()</code></a>
+for a typical way of obtaining the adjustment, and
+<a href="trait.FlowBoxExt.html#method.set_vadjustment" title="method gtk::prelude::FlowBoxExt::set_vadjustment"><code>set_vadjustment()</code></a>for setting the vertical
+adjustment.</p>
+<p>The adjustments have to be in pixel units and in the same
+coordinate system as the allocation for immediate children
+of the box.</p>
+<h6 id="adjustment"><a class="doc-anchor" href="#adjustment">§</a><code>adjustment</code></h6>
+<p>an adjustment which should be adjusted
+when the focus is moved among the descendents of <code>container</code></p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.set_homogeneous" class="method"><a class="src rightside" href="../../src/gtk/auto/flow_box.rs.html#2144-2151">Source</a><h4 class="code-header">fn <a href="#method.set_homogeneous" class="fn">set_homogeneous</a>(&amp;self, homogeneous: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>)</h4></section></summary><div class="docblock"><p>Sets the <a href="../struct.FlowBox.html#homogeneous" title="struct gtk::FlowBox"><code>homogeneous</code></a> property of <code>self</code>, controlling
+whether or not all children of <code>self</code> are given equal space
+in the box.</p>
+<h6 id="homogeneous"><a class="doc-anchor" href="#homogeneous">§</a><code>homogeneous</code></h6>
+<p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="primitive bool"><code>true</code></a> to create equal allotments,
+<a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="primitive bool"><code>false</code></a> for variable allotments</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.set_max_children_per_line" class="method"><a class="src rightside" href="../../src/gtk/auto/flow_box.rs.html#2162-2166">Source</a><h4 class="code-header">fn <a href="#method.set_max_children_per_line" class="fn">set_max_children_per_line</a>(&amp;self, n_children: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>)</h4></section></summary><div class="docblock"><p>Sets the maximum number of children to request and
+allocate space for in <code>self</code>’s orientation.</p>
+<p>Setting the maximum number of children per line
+limits the overall natural size request to be no more
+than <code>n_children</code> children long in the given orientation.</p>
+<h6 id="n_children"><a class="doc-anchor" href="#n_children">§</a><code>n_children</code></h6>
+<p>the maximum number of children per line</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.set_min_children_per_line" class="method"><a class="src rightside" href="../../src/gtk/auto/flow_box.rs.html#2173-2177">Source</a><h4 class="code-header">fn <a href="#method.set_min_children_per_line" class="fn">set_min_children_per_line</a>(&amp;self, n_children: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>)</h4></section></summary><div class="docblock"><p>Sets the minimum number of children to line up
+in <code>self</code>’s orientation before flowing.</p>
+<h6 id="n_children-1"><a class="doc-anchor" href="#n_children-1">§</a><code>n_children</code></h6>
+<p>the minimum number of children per line</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.set_row_spacing" class="method"><a class="src rightside" href="../../src/gtk/auto/flow_box.rs.html#2184-2188">Source</a><h4 class="code-header">fn <a href="#method.set_row_spacing" class="fn">set_row_spacing</a>(&amp;self, spacing: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>)</h4></section></summary><div class="docblock"><p>Sets the vertical space to add between children.
+See the <a href="../struct.FlowBox.html#row-spacing" title="struct gtk::FlowBox"><code>row-spacing</code></a> property.</p>
+<h6 id="spacing-1"><a class="doc-anchor" href="#spacing-1">§</a><code>spacing</code></h6>
+<p>the spacing to use</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.set_selection_mode" class="method"><a class="src rightside" href="../../src/gtk/auto/flow_box.rs.html#2195-2199">Source</a><h4 class="code-header">fn <a href="#method.set_selection_mode" class="fn">set_selection_mode</a>(&amp;self, mode: <a class="enum" href="../enum.SelectionMode.html" title="enum gtk::SelectionMode">SelectionMode</a>)</h4></section></summary><div class="docblock"><p>Sets how selection works in <code>self</code>.
+See <a href="../enum.SelectionMode.html" title="enum gtk::SelectionMode"><code>SelectionMode</code></a> for details.</p>
+<h6 id="mode"><a class="doc-anchor" href="#mode">§</a><code>mode</code></h6>
+<p>the new selection mode</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.set_sort_func" class="method"><a class="src rightside" href="../../src/gtk/auto/flow_box.rs.html#2215-2259">Source</a><h4 class="code-header">fn <a href="#method.set_sort_func" class="fn">set_sort_func</a>(
+    &amp;self,
+    sort_func: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html" title="struct alloc::boxed::Box">Box_</a>&lt;dyn <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;<a class="struct" href="../struct.FlowBoxChild.html" title="struct gtk::FlowBoxChild">FlowBoxChild</a>, &amp;<a class="struct" href="../struct.FlowBoxChild.html" title="struct gtk::FlowBoxChild">FlowBoxChild</a>) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a> + 'static&gt;&gt;,
+)</h4></section></summary><div class="docblock"><p>By setting a sort function on the <code>self</code>, one can dynamically
+reorder the children of the box, based on the contents of
+the children.</p>
+<p>The <code>sort_func</code> will be called for each child after the call,
+and will continue to be called each time a child changes (via
+<a href="trait.FlowBoxChildExt.html#method.changed" title="method gtk::prelude::FlowBoxChildExt::changed"><code>FlowBoxChildExt::changed()</code></a>) and when <a href="trait.FlowBoxExt.html#method.invalidate_sort" title="method gtk::prelude::FlowBoxExt::invalidate_sort"><code>invalidate_sort()</code></a>
+is called.</p>
+<p>Note that using a sort function is incompatible with using a model
+(see <a href="trait.FlowBoxExt.html#method.bind_model" title="method gtk::prelude::FlowBoxExt::bind_model"><code>bind_model()</code></a>).</p>
+<h6 id="sort_func"><a class="doc-anchor" href="#sort_func">§</a><code>sort_func</code></h6>
+<p>the sort function</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.set_vadjustment" class="method"><a class="src rightside" href="../../src/gtk/auto/flow_box.rs.html#2275-2282">Source</a><h4 class="code-header">fn <a href="#method.set_vadjustment" class="fn">set_vadjustment</a>(&amp;self, adjustment: &amp;impl <a class="trait" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.Adjustment.html" title="struct gtk::Adjustment">Adjustment</a>&gt;)</h4></section></summary><div class="docblock"><p>Hooks up an adjustment to focus handling in <code>self</code>.
+The adjustment is also used for autoscrolling during
+rubberband selection. See <a href="trait.ScrolledWindowExt.html#method.vadjustment" title="method gtk::prelude::ScrolledWindowExt::vadjustment"><code>ScrolledWindowExt::vadjustment()</code></a>
+for a typical way of obtaining the adjustment, and
+<a href="trait.FlowBoxExt.html#method.set_hadjustment" title="method gtk::prelude::FlowBoxExt::set_hadjustment"><code>set_hadjustment()</code></a>for setting the horizontal
+adjustment.</p>
+<p>The adjustments have to be in pixel units and in the same
+coordinate system as the allocation for immediate children
+of the box.</p>
+<h6 id="adjustment-1"><a class="doc-anchor" href="#adjustment-1">§</a><code>adjustment</code></h6>
+<p>an adjustment which should be adjusted
+when the focus is moved among the descendents of <code>container</code></p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.unselect_all" class="method"><a class="src rightside" href="../../src/gtk/auto/flow_box.rs.html#2287-2291">Source</a><h4 class="code-header">fn <a href="#method.unselect_all" class="fn">unselect_all</a>(&amp;self)</h4></section></summary><div class="docblock"><p>Unselect all children of <code>self</code>, if the selection
+mode allows it.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.unselect_child" class="method"><a class="src rightside" href="../../src/gtk/auto/flow_box.rs.html#2298-2305">Source</a><h4 class="code-header">fn <a href="#method.unselect_child" class="fn">unselect_child</a>(&amp;self, child: &amp;impl <a class="trait" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.FlowBoxChild.html" title="struct gtk::FlowBoxChild">FlowBoxChild</a>&gt;)</h4></section></summary><div class="docblock"><p>Unselects a single child of <code>self</code>, if the selection
+mode allows it.</p>
+<h6 id="child-1"><a class="doc-anchor" href="#child-1">§</a><code>child</code></h6>
+<p>a child of <code>self</code></p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.connect_activate_cursor_child" class="method"><a class="src rightside" href="../../src/gtk/auto/flow_box.rs.html#2311-2333">Source</a><h4 class="code-header">fn <a href="#method.connect_activate_cursor_child" class="fn">connect_activate_cursor_child</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;Self) + 'static&gt;(
+    &amp;self,
+    f: F,
+) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></h4></section></summary><div class="docblock"><p>The ::activate-cursor-child signal is a
+[keybinding signal][GtkBindingSignal]
+which gets emitted when the user activates the <code>box_</code>.</p>
+</div></details><section id="method.emit_activate_cursor_child" class="method"><a class="src rightside" href="../../src/gtk/auto/flow_box.rs.html#2335-2337">Source</a><h4 class="code-header">fn <a href="#method.emit_activate_cursor_child" class="fn">emit_activate_cursor_child</a>(&amp;self)</h4></section><details class="toggle method-toggle" open><summary><section id="method.connect_child_activated" class="method"><a class="src rightside" href="../../src/gtk/auto/flow_box.rs.html#2344-2373">Source</a><h4 class="code-header">fn <a href="#method.connect_child_activated" class="fn">connect_child_activated</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;Self, &amp;<a class="struct" href="../struct.FlowBoxChild.html" title="struct gtk::FlowBoxChild">FlowBoxChild</a>) + 'static&gt;(
+    &amp;self,
+    f: F,
+) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></h4></section></summary><div class="docblock"><p>The ::child-activated signal is emitted when a child has been
+activated by the user.</p>
+<h6 id="child-2"><a class="doc-anchor" href="#child-2">§</a><code>child</code></h6>
+<p>the child that is activated</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.connect_move_cursor" class="method"><a class="src rightside" href="../../src/gtk/auto/flow_box.rs.html#2400-2432">Source</a><h4 class="code-header">fn <a href="#method.connect_move_cursor" class="fn">connect_move_cursor</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;Self, <a class="enum" href="../enum.MovementStep.html" title="enum gtk::MovementStep">MovementStep</a>, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> + 'static&gt;(
+    &amp;self,
+    f: F,
+) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></h4></section></summary><div class="docblock"><p>The ::move-cursor signal is a
+[keybinding signal][GtkBindingSignal]
+which gets emitted when the user initiates a cursor movement.</p>
+<p>Applications should not connect to it, but may emit it with
+<code>g_signal_emit_by_name()</code> if they need to control the cursor
+programmatically.</p>
+<p>The default bindings for this signal come in two variants,
+the variant with the Shift modifier extends the selection,
+the variant without the Shift modifer does not.
+There are too many key combinations to list them all here.</p>
+<ul>
+<li>Arrow keys move by individual children</li>
+<li>Home/End keys move to the ends of the box</li>
+<li>PageUp/PageDown keys move vertically by pages</li>
+</ul>
+<h6 id="step"><a class="doc-anchor" href="#step">§</a><code>step</code></h6>
+<p>the granularity fo the move, as a <a href="../enum.MovementStep.html" title="enum gtk::MovementStep"><code>MovementStep</code></a></p>
+<h6 id="count"><a class="doc-anchor" href="#count">§</a><code>count</code></h6>
+<p>the number of <code>step</code> units to move</p>
+<h5 id="returns-10"><a class="doc-anchor" href="#returns-10">§</a>Returns</h5>
+<p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="primitive bool"><code>true</code></a> to stop other handlers from being invoked for the event.
+<a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="primitive bool"><code>false</code></a> to propagate the event further.</p>
+</div></details><section id="method.emit_move_cursor" class="method"><a class="src rightside" href="../../src/gtk/auto/flow_box.rs.html#2434-2436">Source</a><h4 class="code-header">fn <a href="#method.emit_move_cursor" class="fn">emit_move_cursor</a>(&amp;self, step: <a class="enum" href="../enum.MovementStep.html" title="enum gtk::MovementStep">MovementStep</a>, count: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></h4></section><details class="toggle method-toggle" open><summary><section id="method.connect_select_all" class="method"><a class="src rightside" href="../../src/gtk/auto/flow_box.rs.html#2445-2464">Source</a><h4 class="code-header">fn <a href="#method.connect_select_all" class="fn">connect_select_all</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;Self) + 'static&gt;(&amp;self, f: F) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></h4></section></summary><div class="docblock"><p>The ::select-all signal is a
+[keybinding signal][GtkBindingSignal]
+which gets emitted to select all children of the box, if
+the selection mode permits it.</p>
+<p>The default bindings for this signal is Ctrl-a.</p>
+</div></details><section id="method.emit_select_all" class="method"><a class="src rightside" href="../../src/gtk/auto/flow_box.rs.html#2466-2468">Source</a><h4 class="code-header">fn <a href="#method.emit_select_all" class="fn">emit_select_all</a>(&amp;self)</h4></section><details class="toggle method-toggle" open><summary><section id="method.connect_selected_children_changed" class="method"><a class="src rightside" href="../../src/gtk/auto/flow_box.rs.html#2477-2499">Source</a><h4 class="code-header">fn <a href="#method.connect_selected_children_changed" class="fn">connect_selected_children_changed</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;Self) + 'static&gt;(
+    &amp;self,
+    f: F,
+) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></h4></section></summary><div class="docblock"><p>The ::selected-children-changed signal is emitted when the
+set of selected children changes.</p>
+<p>Use <a href="trait.FlowBoxExt.html#method.selected_foreach" title="method gtk::prelude::FlowBoxExt::selected_foreach"><code>selected_foreach()</code></a> or
+<a href="trait.FlowBoxExt.html#method.selected_children" title="method gtk::prelude::FlowBoxExt::selected_children"><code>selected_children()</code></a> to obtain the
+selected children.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.connect_toggle_cursor_child" class="method"><a class="src rightside" href="../../src/gtk/auto/flow_box.rs.html#2507-2529">Source</a><h4 class="code-header">fn <a href="#method.connect_toggle_cursor_child" class="fn">connect_toggle_cursor_child</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;Self) + 'static&gt;(
+    &amp;self,
+    f: F,
+) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></h4></section></summary><div class="docblock"><p>The ::toggle-cursor-child signal is a
+[keybinding signal][GtkBindingSignal]
+which toggles the selection of the child that has the focus.</p>
+<p>The default binding for this signal is Ctrl-Space.</p>
+</div></details><section id="method.emit_toggle_cursor_child" class="method"><a class="src rightside" href="../../src/gtk/auto/flow_box.rs.html#2531-2533">Source</a><h4 class="code-header">fn <a href="#method.emit_toggle_cursor_child" class="fn">emit_toggle_cursor_child</a>(&amp;self)</h4></section><details class="toggle method-toggle" open><summary><section id="method.connect_unselect_all" class="method"><a class="src rightside" href="../../src/gtk/auto/flow_box.rs.html#2542-2561">Source</a><h4 class="code-header">fn <a href="#method.connect_unselect_all" class="fn">connect_unselect_all</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;Self) + 'static&gt;(&amp;self, f: F) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></h4></section></summary><div class="docblock"><p>The ::unselect-all signal is a
+[keybinding signal][GtkBindingSignal]
+which gets emitted to unselect all children of the box, if
+the selection mode permits it.</p>
+<p>The default bindings for this signal is Ctrl-Shift-a.</p>
+</div></details><section id="method.emit_unselect_all" class="method"><a class="src rightside" href="../../src/gtk/auto/flow_box.rs.html#2563-2565">Source</a><h4 class="code-header">fn <a href="#method.emit_unselect_all" class="fn">emit_unselect_all</a>(&amp;self)</h4></section><section id="method.connect_activate_on_single_click_notify" class="method"><a class="src rightside" href="../../src/gtk/auto/flow_box.rs.html#2568-2594">Source</a><h4 class="code-header">fn <a href="#method.connect_activate_on_single_click_notify" class="fn">connect_activate_on_single_click_notify</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;Self) + 'static&gt;(
+    &amp;self,
+    f: F,
+) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></h4></section><section id="method.connect_column_spacing_notify" class="method"><a class="src rightside" href="../../src/gtk/auto/flow_box.rs.html#2597-2620">Source</a><h4 class="code-header">fn <a href="#method.connect_column_spacing_notify" class="fn">connect_column_spacing_notify</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;Self) + 'static&gt;(
+    &amp;self,
+    f: F,
+) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></h4></section><section id="method.connect_homogeneous_notify" class="method"><a class="src rightside" href="../../src/gtk/auto/flow_box.rs.html#2623-2643">Source</a><h4 class="code-header">fn <a href="#method.connect_homogeneous_notify" class="fn">connect_homogeneous_notify</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;Self) + 'static&gt;(
+    &amp;self,
+    f: F,
+) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></h4></section><section id="method.connect_max_children_per_line_notify" class="method"><a class="src rightside" href="../../src/gtk/auto/flow_box.rs.html#2646-2672">Source</a><h4 class="code-header">fn <a href="#method.connect_max_children_per_line_notify" class="fn">connect_max_children_per_line_notify</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;Self) + 'static&gt;(
+    &amp;self,
+    f: F,
+) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></h4></section><section id="method.connect_min_children_per_line_notify" class="method"><a class="src rightside" href="../../src/gtk/auto/flow_box.rs.html#2675-2701">Source</a><h4 class="code-header">fn <a href="#method.connect_min_children_per_line_notify" class="fn">connect_min_children_per_line_notify</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;Self) + 'static&gt;(
+    &amp;self,
+    f: F,
+) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></h4></section><section id="method.connect_row_spacing_notify" class="method"><a class="src rightside" href="../../src/gtk/auto/flow_box.rs.html#2704-2724">Source</a><h4 class="code-header">fn <a href="#method.connect_row_spacing_notify" class="fn">connect_row_spacing_notify</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;Self) + 'static&gt;(
+    &amp;self,
+    f: F,
+) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></h4></section><section id="method.connect_selection_mode_notify" class="method"><a class="src rightside" href="../../src/gtk/auto/flow_box.rs.html#2727-2750">Source</a><h4 class="code-header">fn <a href="#method.connect_selection_mode_notify" class="fn">connect_selection_mode_notify</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;Self) + 'static&gt;(
+    &amp;self,
+    f: F,
+) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></h4></section></div><h2 id="dyn-compatibility" class="section-header">Dyn Compatibility<a href="#dyn-compatibility" class="anchor">§</a></h2><div class="dyn-compatibility-info"><p>This trait is <b>not</b> <a href="https://doc.rust-lang.org/nightly/reference/items/traits.html#dyn-compatibility">dyn compatible</a>.</p><p><i>In older versions of Rust, dyn compatibility was called "object safety".</i></p></div><h2 id="implementors" class="section-header">Implementors<a href="#implementors" class="anchor">§</a></h2><div id="implementors-list"><div class="negative-marker"></div><section id="impl-FlowBoxExt-for-O" class="impl"><a class="src rightside" href="../../src/gtk/auto/flow_box.rs.html#2753">Source</a><a href="#impl-FlowBoxExt-for-O" class="anchor">§</a><h3 class="code-header">impl&lt;O: <a class="trait" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.FlowBox.html" title="struct gtk::FlowBox">FlowBox</a>&gt;&gt; <a class="trait" href="trait.FlowBoxExt.html" title="trait gtk::prelude::FlowBoxExt">FlowBoxExt</a> for O</h3></section></div><script src="../../trait.impl/gtk/auto/flow_box/trait.FlowBoxExt.js" async></script></section></div></main></body></html>
