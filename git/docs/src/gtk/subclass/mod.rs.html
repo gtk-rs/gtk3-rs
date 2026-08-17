@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/subclass/mod.rs`."><title>mod.rs - source</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2"href="../../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../../static.files/rustdoc-0c87338a.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.100.0-nightly (67854e511 2026-08-15)" data-channel="nightly" data-search-js="search-cf4fc35e.js" data-stringdex-js="stringdex-b5109af9.js" data-settings-js="settings-170eb4bf.js" ><script src="../../../static.files/storage-41dd4d93.js"></script><script defer src="../../../static.files/src-script-813739b1.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-417ebf0a.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-9f56287d.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-eab170b8.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-044be391.svg"></head><body class="rustdoc src"><a class="skip-main-content" href="#main-content">Skip to main content</a><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/subclass/mod.rs`."><title>mod.rs - source</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2"href="../../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../../static.files/rustdoc-0c87338a.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.100.0-nightly (34baba539 2026-08-16)" data-channel="nightly" data-search-js="search-cf4fc35e.js" data-stringdex-js="stringdex-b5109af9.js" data-settings-js="settings-170eb4bf.js" ><script src="../../../static.files/storage-41dd4d93.js"></script><script defer src="../../../static.files/src-script-813739b1.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-417ebf0a.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-9f56287d.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-eab170b8.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-044be391.svg"></head><body class="rustdoc src"><a class="skip-main-content" href="#main-content">Skip to main content</a><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
 
@@ -73,41 +73,41 @@
 
 <nav class="sidebar"><div class="src-sidebar-title"><h2>Files</h2></div></nav><div class="sidebar-resizer" title="Drag to resize sidebar"></div><main><section id="main-content" class="content" tabindex="-1"><div class="main-heading"><h1><div class="sub-heading">gtk/subclass/</div>mod.rs</h1><rustdoc-toolbar></rustdoc-toolbar></div><div class="example-wrap digits-2"><pre class="rust"><code><a href=#1 id=1 data-nosnippet>1</a><span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.
 <a href=#2 id=2 data-nosnippet>2</a>
-<a href=#3 id=3 data-nosnippet>3</a></span><span class="kw">pub mod </span><a href="application.rs.html#3-122">application</a>;
+<a href=#3 id=3 data-nosnippet>3</a></span><span class="kw">pub mod </span><a href="application.rs.html#3-128">application</a>;
 <a href=#4 id=4 data-nosnippet>4</a><span class="kw">pub mod </span><a href="application_window.rs.html#3-18">application_window</a>;
 <a href=#5 id=5 data-nosnippet>5</a><span class="kw">pub mod </span><a href="bin.rs.html#3-18">bin</a>;
 <a href=#6 id=6 data-nosnippet>6</a><span class="kw">pub mod </span><a href="box_.rs.html#3-18">box_</a>;
-<a href=#7 id=7 data-nosnippet>7</a><span class="kw">pub mod </span><a href="button.rs.html#3-78">button</a>;
-<a href=#8 id=8 data-nosnippet>8</a><span class="kw">pub mod </span><a href="cell_renderer.rs.html#3-699">cell_renderer</a>;
-<a href=#9 id=9 data-nosnippet>9</a><span class="kw">pub mod </span><a href="cell_renderer_accel.rs.html#3-117">cell_renderer_accel</a>;
+<a href=#7 id=7 data-nosnippet>7</a><span class="kw">pub mod </span><a href="button.rs.html#3-82">button</a>;
+<a href=#8 id=8 data-nosnippet>8</a><span class="kw">pub mod </span><a href="cell_renderer.rs.html#3-721">cell_renderer</a>;
+<a href=#9 id=9 data-nosnippet>9</a><span class="kw">pub mod </span><a href="cell_renderer_accel.rs.html#3-121">cell_renderer_accel</a>;
 <a href=#10 id=10 data-nosnippet>10</a><span class="kw">pub mod </span><a href="cell_renderer_combo.rs.html#3-18">cell_renderer_combo</a>;
 <a href=#11 id=11 data-nosnippet>11</a><span class="kw">pub mod </span><a href="cell_renderer_pixbuf.rs.html#3-19">cell_renderer_pixbuf</a>;
 <a href=#12 id=12 data-nosnippet>12</a><span class="kw">pub mod </span><a href="cell_renderer_progress.rs.html#3-19">cell_renderer_progress</a>;
 <a href=#13 id=13 data-nosnippet>13</a><span class="kw">pub mod </span><a href="cell_renderer_spin.rs.html#3-18">cell_renderer_spin</a>;
 <a href=#14 id=14 data-nosnippet>14</a><span class="kw">pub mod </span><a href="cell_renderer_spinner.rs.html#3-19">cell_renderer_spinner</a>;
-<a href=#15 id=15 data-nosnippet>15</a><span class="kw">pub mod </span><a href="cell_renderer_text.rs.html#3-70">cell_renderer_text</a>;
-<a href=#16 id=16 data-nosnippet>16</a><span class="kw">pub mod </span><a href="cell_renderer_toggle.rs.html#3-65">cell_renderer_toggle</a>;
-<a href=#17 id=17 data-nosnippet>17</a><span class="kw">pub mod </span><a href="container.rs.html#3-330">container</a>;
-<a href=#18 id=18 data-nosnippet>18</a><span class="kw">pub mod </span><a href="dialog.rs.html#3-88">dialog</a>;
+<a href=#15 id=15 data-nosnippet>15</a><span class="kw">pub mod </span><a href="cell_renderer_text.rs.html#3-72">cell_renderer_text</a>;
+<a href=#16 id=16 data-nosnippet>16</a><span class="kw">pub mod </span><a href="cell_renderer_toggle.rs.html#3-67">cell_renderer_toggle</a>;
+<a href=#17 id=17 data-nosnippet>17</a><span class="kw">pub mod </span><a href="container.rs.html#3-344">container</a>;
+<a href=#18 id=18 data-nosnippet>18</a><span class="kw">pub mod </span><a href="dialog.rs.html#3-92">dialog</a>;
 <a href=#19 id=19 data-nosnippet>19</a><span class="kw">pub mod </span><a href="drawing_area.rs.html#3-18">drawing_area</a>;
-<a href=#20 id=20 data-nosnippet>20</a><span class="kw">pub mod </span><a href="entry.rs.html#3-88">entry</a>;
+<a href=#20 id=20 data-nosnippet>20</a><span class="kw">pub mod </span><a href="entry.rs.html#3-92">entry</a>;
 <a href=#21 id=21 data-nosnippet>21</a><span class="kw">pub mod </span><a href="event_box.rs.html#3-19">event_box</a>;
 <a href=#22 id=22 data-nosnippet>22</a><span class="kw">pub mod </span><a href="fixed.rs.html#3-19">fixed</a>;
 <a href=#23 id=23 data-nosnippet>23</a><span class="kw">pub mod </span><a href="header_bar.rs.html#3-19">header_bar</a>;
-<a href=#24 id=24 data-nosnippet>24</a><span class="kw">pub mod </span><a href="icon_view.rs.html#3-225">icon_view</a>;
-<a href=#25 id=25 data-nosnippet>25</a><span class="kw">pub mod </span><a href="list_box.rs.html#3-235">list_box</a>;
-<a href=#26 id=26 data-nosnippet>26</a><span class="kw">pub mod </span><a href="list_box_row.rs.html#3-54">list_box_row</a>;
+<a href=#24 id=24 data-nosnippet>24</a><span class="kw">pub mod </span><a href="icon_view.rs.html#3-241">icon_view</a>;
+<a href=#25 id=25 data-nosnippet>25</a><span class="kw">pub mod </span><a href="list_box.rs.html#3-251">list_box</a>;
+<a href=#26 id=26 data-nosnippet>26</a><span class="kw">pub mod </span><a href="list_box_row.rs.html#3-56">list_box_row</a>;
 <a href=#27 id=27 data-nosnippet>27</a><span class="kw">pub mod </span><a href="menu_button.rs.html#3-23">menu_button</a>;
 <a href=#28 id=28 data-nosnippet>28</a><span class="attr">#[cfg(gdk_backend = <span class="string">"x11"</span>)]
-<a href=#29 id=29 data-nosnippet>29</a></span><span class="kw">pub mod </span><a href="plug.rs.html#3-54">plug</a>;
-<a href=#30 id=30 data-nosnippet>30</a><span class="kw">pub mod </span><a href="scrolled_window.rs.html#3-103">scrolled_window</a>;
+<a href=#29 id=29 data-nosnippet>29</a></span><span class="kw">pub mod </span><a href="plug.rs.html#3-56">plug</a>;
+<a href=#30 id=30 data-nosnippet>30</a><span class="kw">pub mod </span><a href="scrolled_window.rs.html#3-107">scrolled_window</a>;
 <a href=#31 id=31 data-nosnippet>31</a><span class="attr">#[cfg(gdk_backend = <span class="string">"x11"</span>)]
-<a href=#32 id=32 data-nosnippet>32</a></span><span class="kw">pub mod </span><a href="socket.rs.html#3-84">socket</a>;
+<a href=#32 id=32 data-nosnippet>32</a></span><span class="kw">pub mod </span><a href="socket.rs.html#3-88">socket</a>;
 <a href=#33 id=33 data-nosnippet>33</a><span class="kw">pub mod </span><a href="stack.rs.html#3-19">stack</a>;
-<a href=#34 id=34 data-nosnippet>34</a><span class="kw">pub mod </span><a href="toggle_button.rs.html#3-56">toggle_button</a>;
+<a href=#34 id=34 data-nosnippet>34</a><span class="kw">pub mod </span><a href="toggle_button.rs.html#3-58">toggle_button</a>;
 <a href=#35 id=35 data-nosnippet>35</a><span class="kw">pub mod </span><a href="tree_view.rs.html#3-19">tree_view</a>;
-<a href=#36 id=36 data-nosnippet>36</a><span class="kw">pub mod </span><a href="widget.rs.html#3-1756">widget</a>;
-<a href=#37 id=37 data-nosnippet>37</a><span class="kw">pub mod </span><a href="window.rs.html#3-171">window</a>;
+<a href=#36 id=36 data-nosnippet>36</a><span class="kw">pub mod </span><a href="widget.rs.html#3-1840">widget</a>;
+<a href=#37 id=37 data-nosnippet>37</a><span class="kw">pub mod </span><a href="window.rs.html#3-181">window</a>;
 <a href=#38 id=38 data-nosnippet>38</a>
 <a href=#39 id=39 data-nosnippet>39</a><span class="kw">pub mod </span><a href="../../../gtk/subclass/prelude/index.html">prelude</a> {
 <a href=#40 id=40 data-nosnippet>40</a>    <span class="attr">#[doc(hidden)]
@@ -127,7 +127,7 @@
 <a href=#54 id=54 data-nosnippet>54</a>    <span class="kw">pub use </span><a href="cell_renderer_spinner.rs.html#9"><span class="kw">super</span>::cell_renderer_spinner::CellRendererSpinnerImpl</a>;
 <a href=#55 id=55 data-nosnippet>55</a>    <span class="kw">pub use </span><span class="kw">super</span>::cell_renderer_text::{<a href="cell_renderer_text.rs.html#13-17">CellRendererTextImpl</a>, <a href="cell_renderer_text.rs.html#24-41">CellRendererTextImplExt</a>};
 <a href=#56 id=56 data-nosnippet>56</a>    <span class="kw">pub use </span><span class="kw">super</span>::cell_renderer_toggle::{<a href="cell_renderer_toggle.rs.html#13-17">CellRendererToggleImpl</a>, <a href="cell_renderer_toggle.rs.html#24-40">CellRendererToggleImplExt</a>};
-<a href=#57 id=57 data-nosnippet>57</a>    <span class="kw">pub use </span><span class="kw">super</span>::container::{<a href="container.rs.html#320-328">ContainerClassSubclassExt</a>, <a href="container.rs.html#14-108">ContainerImpl</a>, <a href="container.rs.html#115-203">ContainerImplExt</a>};
+<a href=#57 id=57 data-nosnippet>57</a>    <span class="kw">pub use </span><span class="kw">super</span>::container::{<a href="container.rs.html#334-342">ContainerClassSubclassExt</a>, <a href="container.rs.html#14-108">ContainerImpl</a>, <a href="container.rs.html#115-203">ContainerImplExt</a>};
 <a href=#58 id=58 data-nosnippet>58</a>    <span class="kw">pub use </span><span class="kw">super</span>::dialog::{<a href="dialog.rs.html#13-28">DialogImpl</a>, <a href="dialog.rs.html#35-57">DialogImplExt</a>};
 <a href=#59 id=59 data-nosnippet>59</a>    <span class="kw">pub use </span><a href="drawing_area.rs.html#8"><span class="kw">super</span>::drawing_area::DrawingAreaImpl</a>;
 <a href=#60 id=60 data-nosnippet>60</a>    <span class="kw">pub use </span><span class="kw">super</span>::entry::{<a href="entry.rs.html#11-25">EntryImpl</a>, <a href="entry.rs.html#32-54">EntryImplExt</a>};
@@ -147,7 +147,7 @@
 <a href=#74 id=74 data-nosnippet>74</a>    <span class="kw">pub use </span><a href="toggle_button.rs.html#10-17"><span class="kw">super</span>::toggle_button::ToggleButtonImpl</a>;
 <a href=#75 id=75 data-nosnippet>75</a>    <span class="kw">pub use </span><a href="tree_view.rs.html#9"><span class="kw">super</span>::tree_view::TreeViewImpl</a>;
 <a href=#76 id=76 data-nosnippet>76</a>    <span class="kw">pub use </span><span class="kw">super</span>::widget::{
-<a href=#77 id=77 data-nosnippet>77</a>        <a href="widget.rs.html#1754-1756">CompositeTemplate</a>, <a href="widget.rs.html#1701-1706">TemplateChild</a>, <a href="widget.rs.html#1620-1695">WidgetClassSubclassExt</a>, <a href="widget.rs.html#20-432">WidgetImpl</a>, <a href="widget.rs.html#439-1055">WidgetImplExt</a>,
+<a href=#77 id=77 data-nosnippet>77</a>        <a href="widget.rs.html#1838-1840">CompositeTemplate</a>, <a href="widget.rs.html#1785-1790">TemplateChild</a>, <a href="widget.rs.html#1702-1779">WidgetClassSubclassExt</a>, <a href="widget.rs.html#20-432">WidgetImpl</a>, <a href="widget.rs.html#439-1055">WidgetImplExt</a>,
 <a href=#78 id=78 data-nosnippet>78</a>    };
 <a href=#79 id=79 data-nosnippet>79</a>    <span class="kw">pub use </span><span class="kw">super</span>::window::{<a href="window.rs.html#14-48">WindowImpl</a>, <a href="window.rs.html#55-109">WindowImplExt</a>};
 <a href=#80 id=80 data-nosnippet>80</a>}
