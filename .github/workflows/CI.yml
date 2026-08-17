@@ -49,10 +49,9 @@ jobs:
           - { name: "gtk", features: "v3_24_9", test_sys: false }
     steps:
       - uses: actions/checkout@v7
-      - uses: actions-rs/toolchain@v1
+      - uses: dtolnay/rust-toolchain@v1
         with:
           toolchain: ${{ matrix.rust }}
-          override: true
       - uses: actions/checkout@v7
         with:
           repository: gtk-rs/checker
@@ -122,10 +121,9 @@ jobs:
           - "1.92"
     steps:
       - uses: actions/checkout@v7
-      - uses: actions-rs/toolchain@v1
+      - uses: dtolnay/rust-toolchain@v1
         with:
           toolchain: ${{ matrix.rust }}
-          override: true
       # gtk3-macros
       - name: "gtk3-macros: tests"
         run: xvfb-run --auto-servernum cargo test --manifest-path gtk3-macros/Cargo.toml
@@ -142,16 +140,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
-      - uses: actions-rs/toolchain@v1
+      - uses: dtolnay/rust-toolchain@v1
         with:
-          profile: minimal
           toolchain: stable
-          override: true
           components: rustfmt
-      - uses: actions-rs/cargo@v1
-        with:
-          command: fmt
-          args: --all -- --check
+      - run: cargo fmt --all -- --check
 
   generator:
     name: regen check
@@ -161,11 +154,9 @@ jobs:
         with:
           submodules: recursive
           set-safe-directory: true
-      - uses: actions-rs/toolchain@v1
+      - uses: dtolnay/rust-toolchain@v1
         with:
-          profile: minimal
           toolchain: stable
-          override: true
       - run: git submodule update --checkout
       - run: python3 generator.py
       - run: git diff --exit-code
