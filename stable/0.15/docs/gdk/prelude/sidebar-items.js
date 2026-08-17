@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"trait":["DevicePadExt","DisplayExtManual","GdkContextExt","GdkPixbufExt","GdkSurfaceExt","WindowExtManual"]};

@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":["X11DeviceManagerXI2Builder","X11DeviceXI2Builder"]};
