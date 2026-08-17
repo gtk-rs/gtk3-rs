@@ -62,3 +62,22 @@ gdkx11-sys = { path = "gdkx11/sys", version = "0.19.0" }
 gtk = { path = "gtk", version = "0.19.0" }
 gtk-sys = { path = "gtk/sys", version = "0.19.0" }
 gtk3-macros = { path = "gtk3-macros", version = "0.19.0" }
+
+async-channel = "2.0.0"
+chrono = "0.4"
+field-offset = "0.3"
+futures = "0.3"
+futures-channel = "0.3"
+futures-util = "0.3"
+gir-format-check = "^0.1"
+libc = "0.2"
+pkg-config = "0.3.7"
+proc-macro-crate = "3.5"
+proc-macro-error = "1.0"
+proc-macro2 = "1.0"
+quote = "1.0"
+syn = { version = "2.0", features = ["full"] }
+system-deps = "8"
+wayland-backend = { version = "0.3.0", features = ["client_system"] }
+wayland-client = "0.31"
+x11 = "2.18"

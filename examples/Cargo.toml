@@ -6,10 +6,10 @@ edition.workspace = true
 publish = false
 
 [dependencies]
-async-channel = "2.0.0"
-chrono = "0.4"
-futures = "0.3"
-futures-util = "0.3"
+async-channel.workspace = true
+chrono.workspace = true
+futures.workspace = true
+futures-util.workspace = true
 glib.workspace = true
 gtk.workspace = true
 

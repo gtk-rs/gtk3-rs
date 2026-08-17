@@ -32,8 +32,8 @@ gdk-pixbuf.workspace = true
 gdk-sys.workspace = true
 gio.workspace = true
 glib.workspace = true
-libc = "0.2"
+libc.workspace = true
 pango.workspace = true
 
 [dev-dependencies]
-gir-format-check = "^0.1"
+gir-format-check.workspace = true

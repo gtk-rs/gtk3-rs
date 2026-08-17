@@ -24,9 +24,9 @@ rustdoc-args = ["--cfg", "docsrs", "--generate-link-to-definition"]
 gdk.workspace = true
 gdkwayland-sys.workspace = true
 glib.workspace = true
-libc = "0.2"
-wayland-backend = { version = "0.3.0", features = ["client_system"] }
-wayland-client = "0.31"
+libc.workspace = true
+wayland-backend.workspace = true
+wayland-client.workspace = true
 
 [dev-dependencies]
-gir-format-check = "^0.1"
+gir-format-check.workspace = true
