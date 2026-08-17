@@ -10,7 +10,7 @@ name: docs
 
 jobs:
   docs:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     name: build
     container:
       image: ghcr.io/gtk-rs/gtk3-rs/gtk3:latest
