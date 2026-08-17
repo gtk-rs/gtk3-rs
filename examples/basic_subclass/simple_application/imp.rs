@@ -27,12 +27,12 @@ impl ObjectImpl for SimpleApplication {}
 impl ApplicationImpl for SimpleApplication {
     /// `gio::Application::activate` is what gets called when the
     /// application is launched by the desktop environment and
-    /// aksed to present itself.
+    /// asked to present itself.
     fn activate(&self) {
         let window = self
             .window
             .get()
-            .expect("Should always be initiliazed in gio_application_startup");
+            .expect("Should always be initialized in gio_application_startup");
         window.show_all();
         window.present();
     }

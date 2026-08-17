@@ -25,7 +25,7 @@ impl ObjectSubclass for SimpleWindow {
 }
 
 impl ObjectImpl for SimpleWindow {
-    // Here we are overriding the glib::Objcet::contructed
+    // Here we are overriding the glib::Objcet::constructed
     // method. Its what gets called when we create our Object
     // and where we can initialize things.
     fn constructed(&self) {

@@ -173,7 +173,7 @@ fn create_model() -> gtk::ListStore {
             fixed: false,
             number: 6112,
             severity: "Normal".to_string(),
-            description: "netscape-like collapsable toolbars".to_string(),
+            description: "netscape-like collapsible toolbars".to_string(),
         },
         Data {
             fixed: false,
