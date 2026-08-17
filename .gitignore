@@ -1,6 +1,7 @@
 **test/bin/
 **target/
 **doc/
+/checker/
 configure.in
 config.log
 config.status
