@@ -137,7 +137,7 @@ fn parse_field_attr_args(attr: &Attribute) -> Result<Vec<FieldAttributeArg>, Err
             return Err(Error::new(
                 meta.span(),
                 "invalid attribute argument type, expected `name = value` list or nothing",
-            ))
+            ));
         }
     }
 
@@ -189,10 +189,10 @@ pub fn parse_fields(fields: &Fields) -> Result<Vec<AttributedField>, Error> {
     let mut attributed_fields = Vec::new();
 
     for field in fields {
-        if !field.attrs.is_empty() {
-            if let Some(attributed_field) = parse_field(field)? {
-                attributed_fields.push(attributed_field)
-            }
+        if !field.attrs.is_empty()
+            && let Some(attributed_field) = parse_field(field)?
+        {
+            attributed_fields.push(attributed_field)
         }
     }
 

@@ -40,14 +40,16 @@ pub trait GtkMenuExtManual: IsA<Menu> + sealed::Sealed + 'static {
         ) where
             T: IsA<Menu>,
         {
-            let mut f: Box<Option<F>> = Box::from_raw(f as *mut _);
-            let f = f.take().expect("No callback");
-            *push_in = f(
-                &Menu::from_glib_none(this).unsafe_cast(),
-                x.as_mut().unwrap(),
-                y.as_mut().unwrap(),
-            )
-            .into_glib();
+            unsafe {
+                let mut f: Box<Option<F>> = Box::from_raw(f as *mut _);
+                let f = f.take().expect("No callback");
+                *push_in = f(
+                    &Menu::from_glib_none(this).unsafe_cast(),
+                    x.as_mut().unwrap(),
+                    y.as_mut().unwrap(),
+                )
+                .into_glib();
+            }
         }
         unsafe {
             let f: Box_<Option<F>> = Box_::new(Some(f));

@@ -14,7 +14,7 @@ glib::wrapper! {
 }
 
 macro_rules! to_u16 {
-    ($e:expr) => (
+    ($e:expr_2021) => (
         {
             let x = $e;
             assert!(x as usize <= u16::MAX as usize,

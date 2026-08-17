@@ -158,23 +158,25 @@ pub trait BuilderExtManual: IsA<Builder> + sealed::Sealed + 'static {
             flags: glib::gobject_ffi::GConnectFlags,
             user_data: glib::ffi::gpointer,
         ) {
-            assert!(connect_object.is_null(), "Connect object is not supported");
-            assert!(
-                flags & glib::gobject_ffi::G_CONNECT_SWAPPED == 0,
-                "Swapped signal handler is not supported"
-            );
+            unsafe {
+                assert!(connect_object.is_null(), "Connect object is not supported");
+                assert!(
+                    flags & glib::gobject_ffi::G_CONNECT_SWAPPED == 0,
+                    "Swapped signal handler is not supported"
+                );
 
-            let builder = from_glib_borrow(builder);
-            let object: Borrowed<glib::Object> = from_glib_borrow(object);
-            let signal_name: Borrowed<GString> = from_glib_borrow(signal_name);
-            let handler_name: Borrowed<GString> = from_glib_borrow(handler_name);
-            let callback: *mut P = user_data as *const _ as usize as *mut P;
-            let func = (*callback)(&builder, handler_name.as_str());
-            object.connect_unsafe(
-                signal_name.as_str(),
-                flags & glib::gobject_ffi::G_CONNECT_AFTER != 0,
-                move |args| func(args),
-            );
+                let builder = from_glib_borrow(builder);
+                let object: Borrowed<glib::Object> = from_glib_borrow(object);
+                let signal_name: Borrowed<GString> = from_glib_borrow(signal_name);
+                let handler_name: Borrowed<GString> = from_glib_borrow(handler_name);
+                let callback: *mut P = user_data as *const _ as usize as *mut P;
+                let func = (*callback)(&builder, handler_name.as_str());
+                object.connect_unsafe(
+                    signal_name.as_str(),
+                    flags & glib::gobject_ffi::G_CONNECT_AFTER != 0,
+                    move |args| func(args),
+                );
+            }
         }
         let func = Some(func_func::<P> as _);
         let super_callback0: &P = &func_data;

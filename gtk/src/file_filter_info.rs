@@ -121,22 +121,26 @@ impl Drop for FileFilterInfo {
 #[doc(hidden)]
 impl FromGlibPtrNone<*const ffi::GtkFileFilterInfo> for FileFilterInfo {
     unsafe fn from_glib_none(ptr: *const ffi::GtkFileFilterInfo) -> Self {
-        assert!(!ptr.is_null());
-        Self(ffi::GtkFileFilterInfo {
-            contains: (*ptr).contains,
-            filename: glib::ffi::g_strdup((*ptr).filename),
-            uri: glib::ffi::g_strdup((*ptr).uri),
-            display_name: glib::ffi::g_strdup((*ptr).display_name),
-            mime_type: glib::ffi::g_strdup((*ptr).mime_type),
-        })
+        unsafe {
+            assert!(!ptr.is_null());
+            Self(ffi::GtkFileFilterInfo {
+                contains: (*ptr).contains,
+                filename: glib::ffi::g_strdup((*ptr).filename),
+                uri: glib::ffi::g_strdup((*ptr).uri),
+                display_name: glib::ffi::g_strdup((*ptr).display_name),
+                mime_type: glib::ffi::g_strdup((*ptr).mime_type),
+            })
+        }
     }
 }
 
 #[doc(hidden)]
 impl FromGlibPtrBorrow<*const ffi::GtkFileFilterInfo> for FileFilterInfo {
     unsafe fn from_glib_borrow(ptr: *const ffi::GtkFileFilterInfo) -> Borrowed<Self> {
-        assert!(!ptr.is_null());
-        Borrowed::new(FileFilterInfo(*ptr))
+        unsafe {
+            assert!(!ptr.is_null());
+            Borrowed::new(FileFilterInfo(*ptr))
+        }
     }
 }
 

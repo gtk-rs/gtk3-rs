@@ -21,18 +21,22 @@ impl Clipboard {
             info: c_uint,
             user_data: gpointer,
         ) {
-            let f: &F = &*(user_data as *const F);
-            f(
-                &from_glib_borrow(clipboard),
-                &from_glib_borrow(selection_data),
-                info,
-            );
+            unsafe {
+                let f: &F = &*(user_data as *const F);
+                f(
+                    &from_glib_borrow(clipboard),
+                    &from_glib_borrow(selection_data),
+                    info,
+                );
+            }
         }
         unsafe extern "C" fn cleanup<F: Fn(&Clipboard, &SelectionData, u32) + 'static>(
             _clipboard: *mut ffi::GtkClipboard,
             user_data: gpointer,
         ) {
-            let _ = Box_::<F>::from_raw(user_data as *mut _);
+            unsafe {
+                let _ = Box_::<F>::from_raw(user_data as *mut _);
+            }
         }
         let stashed_targets: Vec<_> = targets.iter().map(|e| e.to_glib_none()).collect();
         let mut t = Vec::with_capacity(stashed_targets.len());
@@ -75,10 +79,12 @@ impl Clipboard {
             uris: *mut *mut c_char,
             data: glib::ffi::gpointer,
         ) {
-            let clipboard = from_glib_borrow(clipboard);
-            let uris: Vec<glib::GString> = FromGlibPtrContainer::from_glib_none(uris);
-            let callback: Box_<P> = Box_::from_raw(data as *mut _);
-            (*callback)(&clipboard, &uris);
+            unsafe {
+                let clipboard = from_glib_borrow(clipboard);
+                let uris: Vec<glib::GString> = FromGlibPtrContainer::from_glib_none(uris);
+                let callback: Box_<P> = Box_::from_raw(data as *mut _);
+                (*callback)(&clipboard, &uris);
+            }
         }
         let callback = Some(callback_func::<P> as _);
         let super_callback0: Box_<P> = callback_data;

@@ -77,10 +77,12 @@ impl<'a> ToGlibPtrMut<'a, *mut ffi::GtkTargetEntry> for TargetEntry {
 #[doc(hidden)]
 impl FromGlibPtrNone<*const ffi::GtkTargetEntry> for TargetEntry {
     unsafe fn from_glib_none(ptr: *const ffi::GtkTargetEntry) -> Self {
-        Self {
-            target: CStr::from_ptr((*ptr).target).to_string_lossy().into_owned(),
-            flags: TargetFlags::from_bits((*ptr).flags).unwrap(),
-            info: (*ptr).info,
+        unsafe {
+            Self {
+                target: CStr::from_ptr((*ptr).target).to_string_lossy().into_owned(),
+                flags: TargetFlags::from_bits((*ptr).flags).unwrap(),
+                info: (*ptr).info,
+            }
         }
     }
 }
@@ -88,10 +90,12 @@ impl FromGlibPtrNone<*const ffi::GtkTargetEntry> for TargetEntry {
 #[doc(hidden)]
 impl FromGlibPtrNone<*mut ffi::GtkTargetEntry> for TargetEntry {
     unsafe fn from_glib_none(ptr: *mut ffi::GtkTargetEntry) -> Self {
-        Self {
-            target: CStr::from_ptr((*ptr).target).to_string_lossy().into_owned(),
-            flags: TargetFlags::from_bits((*ptr).flags).unwrap(),
-            info: (*ptr).info,
+        unsafe {
+            Self {
+                target: CStr::from_ptr((*ptr).target).to_string_lossy().into_owned(),
+                flags: TargetFlags::from_bits((*ptr).flags).unwrap(),
+                info: (*ptr).info,
+            }
         }
     }
 }
@@ -100,13 +104,15 @@ impl FromGlibPtrNone<*mut ffi::GtkTargetEntry> for TargetEntry {
 impl FromGlibPtrFull<*mut ffi::GtkTargetEntry> for TargetEntry {
     #[inline]
     unsafe fn from_glib_full(ptr: *mut ffi::GtkTargetEntry) -> Self {
-        let target_entry = Self {
-            target: CStr::from_ptr((*ptr).target).to_string_lossy().into_owned(),
-            flags: TargetFlags::from_bits((*ptr).flags).unwrap(),
-            info: (*ptr).info,
-        };
-        ffi::gtk_target_entry_free(ptr);
-        target_entry
+        unsafe {
+            let target_entry = Self {
+                target: CStr::from_ptr((*ptr).target).to_string_lossy().into_owned(),
+                flags: TargetFlags::from_bits((*ptr).flags).unwrap(),
+                info: (*ptr).info,
+            };
+            ffi::gtk_target_entry_free(ptr);
+            target_entry
+        }
     }
 }
 

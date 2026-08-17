@@ -62,7 +62,7 @@ unsafe impl glib::translate::TransparentPtrType for Atom {}
 impl Uninitialized for Atom {
     #[inline]
     unsafe fn uninitialized() -> Self {
-        mem::zeroed()
+        unsafe { mem::zeroed() }
     }
 }
 
@@ -191,48 +191,54 @@ impl FromGlibPtrFull<ffi::GdkAtom> for Atom {
 
 impl FromGlibContainerAsVec<ffi::GdkAtom, *mut ffi::GdkAtom> for Atom {
     unsafe fn from_glib_none_num_as_vec(ptr: *mut ffi::GdkAtom, num: usize) -> Vec<Self> {
-        if num == 0 || ptr.is_null() {
-            return Vec::new();
-        }
+        unsafe {
+            if num == 0 || ptr.is_null() {
+                return Vec::new();
+            }
 
-        let mut res = Vec::with_capacity(num);
-        for i in 0..num {
-            res.push(from_glib_none(ptr::read(ptr.add(i))));
+            let mut res = Vec::with_capacity(num);
+            for i in 0..num {
+                res.push(from_glib_none(ptr::read(ptr.add(i))));
+            }
+            res
         }
-        res
     }
 
     unsafe fn from_glib_container_num_as_vec(ptr: *mut ffi::GdkAtom, num: usize) -> Vec<Self> {
-        let res = FromGlibContainerAsVec::from_glib_none_num_as_vec(ptr, num);
-        glib::ffi::g_free(ptr as *mut _);
-        res
+        unsafe {
+            let res = FromGlibContainerAsVec::from_glib_none_num_as_vec(ptr, num);
+            glib::ffi::g_free(ptr as *mut _);
+            res
+        }
     }
 
     unsafe fn from_glib_full_num_as_vec(ptr: *mut ffi::GdkAtom, num: usize) -> Vec<Self> {
-        if num == 0 || ptr.is_null() {
-            return Vec::new();
-        }
+        unsafe {
+            if num == 0 || ptr.is_null() {
+                return Vec::new();
+            }
 
-        let mut res = Vec::with_capacity(num);
-        for i in 0..num {
-            res.push(from_glib_full(ptr::read(ptr.add(i))));
+            let mut res = Vec::with_capacity(num);
+            for i in 0..num {
+                res.push(from_glib_full(ptr::read(ptr.add(i))));
+            }
+            glib::ffi::g_free(ptr as *mut _);
+            res
         }
-        glib::ffi::g_free(ptr as *mut _);
-        res
     }
 }
 
 impl FromGlibPtrArrayContainerAsVec<ffi::GdkAtom, *mut ffi::GdkAtom> for Atom {
     unsafe fn from_glib_none_as_vec(ptr: *mut ffi::GdkAtom) -> Vec<Self> {
-        FromGlibContainerAsVec::from_glib_none_num_as_vec(ptr, c_ptr_array_len(ptr))
+        unsafe { FromGlibContainerAsVec::from_glib_none_num_as_vec(ptr, c_ptr_array_len(ptr)) }
     }
 
     unsafe fn from_glib_container_as_vec(ptr: *mut ffi::GdkAtom) -> Vec<Self> {
-        FromGlibContainerAsVec::from_glib_container_num_as_vec(ptr, c_ptr_array_len(ptr))
+        unsafe { FromGlibContainerAsVec::from_glib_container_num_as_vec(ptr, c_ptr_array_len(ptr)) }
     }
 
     unsafe fn from_glib_full_as_vec(ptr: *mut ffi::GdkAtom) -> Vec<Self> {
-        FromGlibContainerAsVec::from_glib_full_num_as_vec(ptr, c_ptr_array_len(ptr))
+        unsafe { FromGlibContainerAsVec::from_glib_full_num_as_vec(ptr, c_ptr_array_len(ptr)) }
     }
 }
 

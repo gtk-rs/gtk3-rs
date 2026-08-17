@@ -60,18 +60,22 @@ impl Event {
             event: *mut ffi::GdkEvent,
             ptr: glib::ffi::gpointer,
         ) {
-            if !ptr.is_null() {
-                let f: &F = &*(ptr as *mut _);
-                let mut event = from_glib_none(event);
-                f(&mut event)
+            unsafe {
+                if !ptr.is_null() {
+                    let f: &F = &*(ptr as *mut _);
+                    let mut event = from_glib_none(event);
+                    f(&mut event)
+                }
             }
         }
         unsafe extern "C" fn event_handler_destroy<F: Fn(&mut Event) + 'static>(
             ptr: glib::ffi::gpointer,
         ) {
-            if !ptr.is_null() {
-                // convert back to Box and free
-                let _boxed: Box<F> = Box::from_raw(ptr as *mut _);
+            unsafe {
+                if !ptr.is_null() {
+                    // convert back to Box and free
+                    let _boxed: Box<F> = Box::from_raw(ptr as *mut _);
+                }
             }
         }
         if let Some(handler) = handler {
@@ -446,10 +450,12 @@ macro_rules! event_wrapper {
         impl FromGlibPtrNone<*mut $crate::ffi::$ffi_name> for $name {
             #[inline]
             unsafe fn from_glib_none(ptr: *mut $crate::ffi::$ffi_name) -> Self {
-                <$name as crate::event::FromEvent>::from(from_glib_none(
-                    ptr as *mut $crate::ffi::GdkEvent,
-                ))
-                .unwrap()
+                unsafe {
+                    <$name as crate::event::FromEvent>::from(from_glib_none(
+                        ptr as *mut $crate::ffi::GdkEvent,
+                    ))
+                    .unwrap()
+                }
             }
         }
 
@@ -458,24 +464,28 @@ macro_rules! event_wrapper {
             unsafe fn from_glib_borrow(
                 ptr: *mut $crate::ffi::$ffi_name,
             ) -> glib::translate::Borrowed<Self> {
-                glib::translate::Borrowed::new(
-                    <$name as crate::event::FromEvent>::from(
-                        crate::Event::from_glib_borrow(ptr as *mut $crate::ffi::GdkEvent)
-                            .into_inner(),
+                unsafe {
+                    glib::translate::Borrowed::new(
+                        <$name as crate::event::FromEvent>::from(
+                            crate::Event::from_glib_borrow(ptr as *mut $crate::ffi::GdkEvent)
+                                .into_inner(),
+                        )
+                        .map_err(std::mem::forget)
+                        .unwrap(),
                     )
-                    .map_err(std::mem::forget)
-                    .unwrap(),
-                )
+                }
             }
         }
 
         impl FromGlibPtrFull<*mut $crate::ffi::$ffi_name> for $name {
             #[inline]
             unsafe fn from_glib_full(ptr: *mut $crate::ffi::$ffi_name) -> Self {
-                <$name as crate::event::FromEvent>::from(from_glib_full(
-                    ptr as *mut $crate::ffi::GdkEvent,
-                ))
-                .unwrap()
+                unsafe {
+                    <$name as crate::event::FromEvent>::from(from_glib_full(
+                        ptr as *mut $crate::ffi::GdkEvent,
+                    ))
+                    .unwrap()
+                }
             }
         }
 

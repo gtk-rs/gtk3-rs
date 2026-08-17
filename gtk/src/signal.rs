@@ -87,7 +87,9 @@ mod editable {
     where
         T: IsA<Editable>,
     {
-        f(Editable::from_glib_borrow(this).unsafe_cast_ref());
+        unsafe {
+            f(Editable::from_glib_borrow(this).unsafe_cast_ref());
+        }
     }
 
     unsafe extern "C" fn delete_trampoline<T, F: Fn(&T, i32, i32) + 'static>(
@@ -98,11 +100,13 @@ mod editable {
     ) where
         T: IsA<Editable>,
     {
-        f(
-            Editable::from_glib_borrow(this).unsafe_cast_ref(),
-            start_pos,
-            end_pos,
-        );
+        unsafe {
+            f(
+                Editable::from_glib_borrow(this).unsafe_cast_ref(),
+                start_pos,
+                end_pos,
+            );
+        }
     }
 
     unsafe extern "C" fn insert_trampoline<T, F: Fn(&T, &str, &mut i32) + 'static>(
@@ -114,20 +118,22 @@ mod editable {
     ) where
         T: IsA<Editable>,
     {
-        let buf = if new_text_length == 0 {
-            &[]
-        } else if new_text_length != -1 {
-            slice::from_raw_parts(new_text as *mut c_uchar, new_text_length as usize)
-        } else {
-            CStr::from_ptr(new_text).to_bytes()
-        };
-        let string = str::from_utf8(buf).unwrap();
-        f(
-            Editable::from_glib_borrow(this).unsafe_cast_ref(),
-            string,
-            // To cast a mutable pointer into a mutable reference.
-            &mut *position,
-        );
+        unsafe {
+            let buf = if new_text_length == 0 {
+                &[]
+            } else if new_text_length != -1 {
+                slice::from_raw_parts(new_text as *mut c_uchar, new_text_length as usize)
+            } else {
+                CStr::from_ptr(new_text).to_bytes()
+            };
+            let string = str::from_utf8(buf).unwrap();
+            f(
+                Editable::from_glib_borrow(this).unsafe_cast_ref(),
+                string,
+                // To cast a mutable pointer into a mutable reference.
+                &mut *position,
+            );
+        }
     }
 }
 
@@ -257,10 +263,12 @@ mod spin_button {
     ) where
         T: IsA<SpinButton>,
     {
-        f(
-            SpinButton::from_glib_borrow(this).unsafe_cast_ref(),
-            from_glib(scroll),
-        )
+        unsafe {
+            f(
+                SpinButton::from_glib_borrow(this).unsafe_cast_ref(),
+                from_glib(scroll),
+            )
+        }
     }
 
     unsafe extern "C" fn input_trampoline<T, F: Fn(&T) -> Option<Result<f64, ()>> + 'static>(
@@ -271,13 +279,15 @@ mod spin_button {
     where
         T: IsA<SpinButton>,
     {
-        match f(SpinButton::from_glib_borrow(this).unsafe_cast_ref()) {
-            Some(Ok(v)) => {
-                *new_value = v;
-                GTRUE
+        unsafe {
+            match f(SpinButton::from_glib_borrow(this).unsafe_cast_ref()) {
+                Some(Ok(v)) => {
+                    *new_value = v;
+                    GTRUE
+                }
+                Some(Err(_)) => GTK_INPUT_ERROR,
+                None => GFALSE,
             }
-            Some(Err(_)) => GTK_INPUT_ERROR,
-            None => GFALSE,
         }
     }
 
@@ -288,14 +298,14 @@ mod spin_button {
     where
         T: IsA<SpinButton>,
     {
-        f(SpinButton::from_glib_borrow(this).unsafe_cast_ref()).into_glib()
+        unsafe { f(SpinButton::from_glib_borrow(this).unsafe_cast_ref()).into_glib() }
     }
 
     unsafe extern "C" fn trampoline<T, F: Fn(&T) + 'static>(this: *mut GtkSpinButton, f: &F)
     where
         T: IsA<SpinButton>,
     {
-        f(SpinButton::from_glib_borrow(this).unsafe_cast_ref())
+        unsafe { f(SpinButton::from_glib_borrow(this).unsafe_cast_ref()) }
     }
 }
 
@@ -351,17 +361,19 @@ mod overlay {
     where
         T: IsA<Overlay>,
     {
-        let f: &F = &*(f as *const F);
-        match f(
-            Overlay::from_glib_borrow(this).unsafe_cast_ref(),
-            &from_glib_borrow(widget),
-        ) {
-            Some(rect) => {
-                ptr::write(allocation, ptr::read(rect.to_glib_none().0));
-                true
+        unsafe {
+            let f: &F = &*(f as *const F);
+            match f(
+                Overlay::from_glib_borrow(this).unsafe_cast_ref(),
+                &from_glib_borrow(widget),
+            ) {
+                Some(rect) => {
+                    ptr::write(allocation, ptr::read(rect.to_glib_none().0));
+                    true
+                }
+                None => false,
             }
-            None => false,
+            .into_glib()
         }
-        .into_glib()
     }
 }

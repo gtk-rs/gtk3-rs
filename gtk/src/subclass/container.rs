@@ -162,60 +162,72 @@ unsafe extern "C" fn container_add<T: ContainerImpl>(
     ptr: *mut ffi::GtkContainer,
     wdgtptr: *mut ffi::GtkWidget,
 ) {
-    let instance = &*(ptr as *mut T::Instance);
-    let imp = instance.imp();
-    let widget: Borrowed<Widget> = from_glib_borrow(wdgtptr);
+    unsafe {
+        let instance = &*(ptr as *mut T::Instance);
+        let imp = instance.imp();
+        let widget: Borrowed<Widget> = from_glib_borrow(wdgtptr);
 
-    imp.add(&widget)
+        imp.add(&widget)
+    }
 }
 
 unsafe extern "C" fn container_remove<T: ContainerImpl>(
     ptr: *mut ffi::GtkContainer,
     wdgtptr: *mut ffi::GtkWidget,
 ) {
-    let instance = &*(ptr as *mut T::Instance);
-    let imp = instance.imp();
-    let widget: Borrowed<Widget> = from_glib_borrow(wdgtptr);
+    unsafe {
+        let instance = &*(ptr as *mut T::Instance);
+        let imp = instance.imp();
+        let widget: Borrowed<Widget> = from_glib_borrow(wdgtptr);
 
-    imp.remove(&widget)
+        imp.remove(&widget)
+    }
 }
 
 unsafe extern "C" fn container_check_resize<T: ContainerImpl>(ptr: *mut ffi::GtkContainer) {
-    let instance = &*(ptr as *mut T::Instance);
-    let imp = instance.imp();
+    unsafe {
+        let instance = &*(ptr as *mut T::Instance);
+        let imp = instance.imp();
 
-    imp.check_resize()
+        imp.check_resize()
+    }
 }
 
 unsafe extern "C" fn container_set_focus_child<T: ContainerImpl>(
     ptr: *mut ffi::GtkContainer,
     wdgtptr: *mut ffi::GtkWidget,
 ) {
-    let instance = &*(ptr as *mut T::Instance);
-    let imp = instance.imp();
-    let widget: Borrowed<Option<Widget>> = from_glib_borrow(wdgtptr);
+    unsafe {
+        let instance = &*(ptr as *mut T::Instance);
+        let imp = instance.imp();
+        let widget: Borrowed<Option<Widget>> = from_glib_borrow(wdgtptr);
 
-    imp.set_focus_child(widget.as_ref().as_ref())
+        imp.set_focus_child(widget.as_ref().as_ref())
+    }
 }
 
 unsafe extern "C" fn container_child_type<T: ContainerImpl>(
     ptr: *mut ffi::GtkContainer,
 ) -> glib::ffi::GType {
-    let instance = &*(ptr as *mut T::Instance);
-    let imp = instance.imp();
+    unsafe {
+        let instance = &*(ptr as *mut T::Instance);
+        let imp = instance.imp();
 
-    imp.child_type().into_glib()
+        imp.child_type().into_glib()
+    }
 }
 
 unsafe extern "C" fn container_get_path_for_child<T: ContainerImpl>(
     ptr: *mut ffi::GtkContainer,
     wdgtptr: *mut ffi::GtkWidget,
 ) -> *mut ffi::GtkWidgetPath {
-    let instance = &*(ptr as *mut T::Instance);
-    let imp = instance.imp();
-    let widget: Borrowed<Widget> = from_glib_borrow(wdgtptr);
+    unsafe {
+        let instance = &*(ptr as *mut T::Instance);
+        let imp = instance.imp();
+        let widget: Borrowed<Widget> = from_glib_borrow(wdgtptr);
 
-    imp.path_for_child(&widget).to_glib_none().0
+        imp.path_for_child(&widget).to_glib_none().0
+    }
 }
 
 unsafe extern "C" fn container_forall<T>(
@@ -226,14 +238,16 @@ unsafe extern "C" fn container_forall<T>(
 ) where
     T: ObjectSubclass + ContainerImpl,
 {
-    let instance = &*(ptr as *mut T::Instance);
-    let imp = instance.imp();
-    let callback = Callback {
-        callback,
-        user_data,
-    };
+    unsafe {
+        let instance = &*(ptr as *mut T::Instance);
+        let imp = instance.imp();
+        let callback = Callback {
+            callback,
+            user_data,
+        };
 
-    imp.forall(from_glib(include_internals), &callback)
+        imp.forall(from_glib(include_internals), &callback)
+    }
 }
 
 #[derive(Debug)]

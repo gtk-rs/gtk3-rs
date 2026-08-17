@@ -79,20 +79,24 @@ pub trait TreeSortableExtManual: IsA<TreeSortable> + sealed::Sealed + 'static {
             iter2: *mut GtkTreeIter,
             f: gpointer,
         ) -> i32 {
-            let f: &F = &*(f as *const F);
-            f(
-                &TreeModel::from_glib_borrow(this),
-                &from_glib_borrow(iter),
-                &from_glib_borrow(iter2),
-            )
-            .into_glib()
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(
+                    &TreeModel::from_glib_borrow(this),
+                    &from_glib_borrow(iter),
+                    &from_glib_borrow(iter2),
+                )
+                .into_glib()
+            }
         }
         unsafe extern "C" fn destroy_closure<
             F: Fn(&TreeModel, &TreeIter, &TreeIter) -> Ordering,
         >(
             ptr: gpointer,
         ) {
-            let _ = Box::<F>::from_raw(ptr as *mut _);
+            unsafe {
+                let _ = Box::<F>::from_raw(ptr as *mut _);
+            }
         }
         unsafe {
             ffi::gtk_tree_sortable_set_default_sort_func(
@@ -114,20 +118,24 @@ pub trait TreeSortableExtManual: IsA<TreeSortable> + sealed::Sealed + 'static {
             iter2: *mut GtkTreeIter,
             f: gpointer,
         ) -> i32 {
-            let f: &F = &*(f as *const F);
-            f(
-                &TreeModel::from_glib_borrow(this),
-                &from_glib_borrow(iter),
-                &from_glib_borrow(iter2),
-            )
-            .into_glib()
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(
+                    &TreeModel::from_glib_borrow(this),
+                    &from_glib_borrow(iter),
+                    &from_glib_borrow(iter2),
+                )
+                .into_glib()
+            }
         }
         unsafe extern "C" fn destroy_closure<
             F: Fn(&TreeModel, &TreeIter, &TreeIter) -> Ordering,
         >(
             ptr: gpointer,
         ) {
-            let _ = Box::<F>::from_raw(ptr as *mut _);
+            unsafe {
+                let _ = Box::<F>::from_raw(ptr as *mut _);
+            }
         }
         unsafe {
             ffi::gtk_tree_sortable_set_sort_func(

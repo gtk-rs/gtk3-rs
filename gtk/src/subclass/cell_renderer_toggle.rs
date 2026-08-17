@@ -58,8 +58,10 @@ unsafe extern "C" fn cell_renderer_toggle_toggled<T: CellRendererToggleImpl>(
     ptr: *mut ffi::GtkCellRendererToggle,
     path: *const c_char,
 ) {
-    let instance = &*(ptr as *mut T::Instance);
-    let imp = instance.imp();
+    unsafe {
+        let instance = &*(ptr as *mut T::Instance);
+        let imp = instance.imp();
 
-    imp.toggled(&GString::from_glib_borrow(path))
+        imp.toggled(&GString::from_glib_borrow(path))
+    }
 }

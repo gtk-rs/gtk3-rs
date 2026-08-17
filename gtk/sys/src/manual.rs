@@ -10,7 +10,7 @@ pub mod xlib {
 // GtkContainerClass
 //=========================================================================
 
-extern "C" {
+unsafe extern "C" {
     pub fn gtk_container_class_find_child_property(
         cclass: *const gobject::GObjectClass,
         property_name: *const libc::c_char,

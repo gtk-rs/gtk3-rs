@@ -81,26 +81,28 @@ pub fn is_initialized_main_thread() -> bool {
 /// 2. You did 1 on the thread with which you are calling this function
 /// 3. You ensure that this thread is the main thread for the process.
 pub unsafe fn set_initialized() {
-    skip_assert_initialized!();
-    if is_initialized_main_thread() {
-        return;
-    } else if is_initialized() {
-        panic!("Attempted to initialize GTK from two different threads.");
-    }
+    unsafe {
+        skip_assert_initialized!();
+        if is_initialized_main_thread() {
+            return;
+        } else if is_initialized() {
+            panic!("Attempted to initialize GTK from two different threads.");
+        }
 
-    //  OS X has its own notion of the main thread and init must be called on that thread.
-    #[cfg(target_os = "macos")]
-    {
-        assert_eq!(
-            pthread_main_np(),
-            1,
-            "Attempted to initialize GTK on OSX from non-main thread"
-        );
-    }
+        //  OS X has its own notion of the main thread and init must be called on that thread.
+        #[cfg(target_os = "macos")]
+        {
+            assert_eq!(
+                pthread_main_np(),
+                1,
+                "Attempted to initialize GTK on OSX from non-main thread"
+            );
+        }
 
-    gdk::set_initialized();
-    INITIALIZED.store(true, Ordering::Release);
-    IS_MAIN_THREAD.with(|c| c.set(true));
+        gdk::set_initialized();
+        INITIALIZED.store(true, Ordering::Release);
+        IS_MAIN_THREAD.with(|c| c.set(true));
+    }
 }
 
 /// Tries to initialize GTK+.
