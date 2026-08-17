@@ -1,5 +1,6 @@
 // Take a look at the license at the top of the repository in the LICENSE file.
 
+use proc_macro2::{Span, TokenStream};
 use syn::spanned::Spanned;
 use syn::{Attribute, DeriveInput, Field, Fields, Ident, LitStr, Meta, Token};
 use syn::{
@@ -45,14 +46,26 @@ impl Parse for TemplateSource {
 
 #[derive(Debug)]
 pub enum ParseTemplateSourceError {
-    MissingAttribute,
+    MissingAttribute(Span),
     Parse(syn::Error),
+}
+
+impl ParseTemplateSourceError {
+    pub fn into_compile_error_with_message(self, message: &str) -> TokenStream {
+        match self {
+            err @ Self::MissingAttribute(span) => {
+                syn::Error::new(span, format!("{err}: {message}"))
+            }
+            Self::Parse(err) => syn::Error::new(err.span(), format!("{err}: {message}")),
+        }
+        .into_compile_error()
+    }
 }
 
 impl std::fmt::Display for ParseTemplateSourceError {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {
-            Self::MissingAttribute => write!(f, "Missing 'template' attribute"),
+            Self::MissingAttribute(_) => write!(f, "Missing 'template' attribute"),
             Self::Parse(err) => write!(f, "{}", err),
         }
     }
@@ -61,7 +74,7 @@ impl std::fmt::Display for ParseTemplateSourceError {
 impl std::error::Error for ParseTemplateSourceError {
     fn source(&self) -> Option<&(dyn std::error::Error + 'static)> {
         match self {
-            Self::MissingAttribute => None,
+            Self::MissingAttribute(_) => None,
             Self::Parse(err) => Some(err),
         }
     }
@@ -74,7 +87,7 @@ pub fn parse_template_source(
         .attrs
         .iter()
         .find(|a| a.path().is_ident("template"))
-        .ok_or(ParseTemplateSourceError::MissingAttribute)?
+        .ok_or(ParseTemplateSourceError::MissingAttribute(Span::call_site()))?
         .parse_args()
         .map_err(ParseTemplateSourceError::Parse)
 }

@@ -1,6 +1,6 @@
 // Take a look at the license at the top of the repository in the LICENSE file.
 
-use proc_macro_error::{abort, abort_call_site};
+use proc_macro2::Span;
 use proc_macro2::TokenStream;
 use quote::quote;
 use syn::Data;
@@ -29,7 +29,7 @@ fn gen_template_child_bindings(fields: &syn::Fields) -> TokenStream {
     let crate_ident = crate_ident_new();
     let attributed_fields = match parse_fields(fields) {
         Ok(fields) => fields,
-        Err(err) => abort!(err.span(), err.to_string()),
+        Err(err) => return err.into_compile_error(),
     };
 
     let recurse = attributed_fields.iter().map(|field| match field.attr.ty {
@@ -62,9 +62,8 @@ pub fn impl_composite_template(input: &syn::DeriveInput) -> TokenStream {
 
     let source = match parse_template_source(input) {
         Ok(v) => v,
-        Err(e) => abort_call_site!(
-            "{}: derive(CompositeTemplate) requires #[template(...)] to specify 'file', 'resource', or 'string'",
-            e
+        Err(e) => return e.into_compile_error_with_message(
+            "derive(CompositeTemplate) requires #[template(...)] to specify 'file', 'resource', or 'string'",
         ),
     };
 
@@ -72,7 +71,13 @@ pub fn impl_composite_template(input: &syn::DeriveInput) -> TokenStream {
 
     let fields = match input.data {
         Data::Struct(ref s) => &s.fields,
-        _ => abort_call_site!("derive(CompositeTemplate) only supports structs"),
+        _ => {
+            return syn::Error::new(
+                Span::call_site(),
+                "derive(CompositeTemplate) only supports structs",
+            )
+            .into_compile_error();
+        }
     };
 
     let template_children = gen_template_child_bindings(fields);
