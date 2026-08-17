@@ -73,7 +73,7 @@
 
 <nav class="sidebar"><div class="src-sidebar-title"><h2>Files</h2></div></nav><div class="sidebar-resizer" title="Drag to resize sidebar"></div><main><section id="main-content" class="content" tabindex="-1"><div class="main-heading"><h1><div class="sub-heading">atk/</div>editable_text.rs</h1><rustdoc-toolbar></rustdoc-toolbar></div><div class="example-wrap digits-2"><pre class="rust"><code><a href=#1 id=1 data-nosnippet>1</a><span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.
 <a href=#2 id=2 data-nosnippet>2</a>
-<a href=#3 id=3 data-nosnippet>3</a></span><span class="kw">use crate</span>::{<a href="auto/editable_text.rs.html#8-30">EditableText</a>, ffi};
+<a href=#3 id=3 data-nosnippet>3</a></span><span class="kw">use crate</span>::{<a href="auto/editable_text.rs.html#8-30">EditableText</a>, <a href="../../atk_sys/index.html">ffi</a>};
 <a href=#4 id=4 data-nosnippet>4</a><span class="kw">use </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.IsA.html">glib::object::IsA</a>;
 <a href=#5 id=5 data-nosnippet>5</a><span class="kw">use </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/index.html">glib::translate</a>::<span class="kw-2">*</span>;
 <a href=#6 id=6 data-nosnippet>6</a>
@@ -96,7 +96,7 @@
 <a href=#23 id=23 data-nosnippet>23</a>    </span><span class="kw">fn </span>insert_text(<span class="kw-2">&amp;</span><span class="self">self</span>, string: <span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>, <span class="kw-2">mut </span>position: <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a> {
 <a href=#24 id=24 data-nosnippet>24</a>        <span class="kw">let </span>length = <a href="#23">string</a>.<a href="https://doc.rust-lang.org/nightly/core/primitive.str.html#method.len">len</a>() <span class="kw">as </span><a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>;
 <a href=#25 id=25 data-nosnippet>25</a>        <span class="kw">unsafe </span>{
-<a href=#26 id=26 data-nosnippet>26</a>            ffi::atk_editable_text_insert_text(
+<a href=#26 id=26 data-nosnippet>26</a>            ffi::<a href="../../atk_sys/fn.atk_editable_text_insert_text.html">atk_editable_text_insert_text</a>(
 <a href=#27 id=27 data-nosnippet>27</a>                <a class="self" href="#23">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
 <a href=#28 id=28 data-nosnippet>28</a>                <a href="#23">string</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
 <a href=#29 id=29 data-nosnippet>29</a>                <a href="#24">length</a>,

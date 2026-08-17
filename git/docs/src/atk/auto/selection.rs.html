@@ -75,7 +75,7 @@
 <a href=#2 id=2 data-nosnippet>2</a>// from gir-files (https://github.com/gtk-rs/gir-files)
 <a href=#3 id=3 data-nosnippet>3</a>// DO NOT EDIT
 <a href=#4 id=4 data-nosnippet>4</a>
-<a href=#5 id=5 data-nosnippet>5</a></span><span class="kw">use crate</span>::{<a href="object.rs.html#14-211">Object</a>, ffi};
+<a href=#5 id=5 data-nosnippet>5</a></span><span class="kw">use crate</span>::{<a href="object.rs.html#14-211">Object</a>, <a href="../../../atk_sys/index.html">ffi</a>};
 <a href=#6 id=6 data-nosnippet>6</a><span class="kw">use </span>glib::{
 <a href=#7 id=7 data-nosnippet>7</a>    <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectType.html">object::ObjectType</a> <span class="kw">as _</span>,
 <a href=#8 id=8 data-nosnippet>8</a>    <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/prelude/index.html">prelude</a>::<span class="kw-2">*</span>,
@@ -111,7 +111,7 @@
 <a href=#38 id=38 data-nosnippet>38</a>    ///
 <a href=#39 id=39 data-nosnippet>39</a>    /// [`SelectionExt`][trait@crate::prelude::SelectionExt]
 <a href=#40 id=40 data-nosnippet>40</a>    </span><span class="attr">#[doc(alias = <span class="string">"AtkSelection"</span>)]
-<a href=#41 id=41 data-nosnippet>41</a>    </span><span class="kw">pub struct </span><a href="../../../atk/struct.Selection.html">Selection</a>(Interface&lt;ffi::AtkSelection, ffi::AtkSelectionIface&gt;);
+<a href=#41 id=41 data-nosnippet>41</a>    </span><span class="kw">pub struct </span><a href="../../../atk/struct.Selection.html">Selection</a>(Interface&lt;ffi::<a href="../../../atk_sys/struct.AtkSelection.html">AtkSelection</a>, ffi::<a href="../../../atk_sys/struct.AtkSelectionIface.html">AtkSelectionIface</a>&gt;);
 <a href=#42 id=42 data-nosnippet>42</a>
 <a href=#43 id=43 data-nosnippet>43</a>    <span class="kw">match fn </span>{
 <a href=#44 id=44 data-nosnippet>44</a>        type_ =&gt; || ffi::atk_selection_get_type(),
@@ -139,7 +139,7 @@
 <a href=#66 id=66 data-nosnippet>66</a>    </span><span class="attr">#[doc(alias = <span class="string">"atk_selection_add_selection"</span>)]
 <a href=#67 id=67 data-nosnippet>67</a>    </span><span class="kw">fn </span>add_selection(<span class="kw-2">&amp;</span><span class="self">self</span>, i: <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> {
 <a href=#68 id=68 data-nosnippet>68</a>        <span class="kw">unsafe </span>{
-<a href=#69 id=69 data-nosnippet>69</a>            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib.html">from_glib</a>(ffi::atk_selection_add_selection(
+<a href=#69 id=69 data-nosnippet>69</a>            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib.html">from_glib</a>(ffi::<a href="../../../atk_sys/fn.atk_selection_add_selection.html">atk_selection_add_selection</a>(
 <a href=#70 id=70 data-nosnippet>70</a>                <a class="self" href="#67">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
 <a href=#71 id=71 data-nosnippet>71</a>                <a href="#67">i</a>,
 <a href=#72 id=72 data-nosnippet>72</a>            ))
@@ -155,7 +155,7 @@
 <a href=#82 id=82 data-nosnippet>82</a>    </span><span class="attr">#[doc(alias = <span class="string">"atk_selection_clear_selection"</span>)]
 <a href=#83 id=83 data-nosnippet>83</a>    </span><span class="kw">fn </span>clear_selection(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> {
 <a href=#84 id=84 data-nosnippet>84</a>        <span class="kw">unsafe </span>{
-<a href=#85 id=85 data-nosnippet>85</a>            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib.html">from_glib</a>(ffi::atk_selection_clear_selection(
+<a href=#85 id=85 data-nosnippet>85</a>            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib.html">from_glib</a>(ffi::<a href="../../../atk_sys/fn.atk_selection_clear_selection.html">atk_selection_clear_selection</a>(
 <a href=#86 id=86 data-nosnippet>86</a>                <a class="self" href="#83">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
 <a href=#87 id=87 data-nosnippet>87</a>            ))
 <a href=#88 id=88 data-nosnippet>88</a>        }
@@ -174,7 +174,7 @@
 <a href=#101 id=101 data-nosnippet>101</a>    </span><span class="attr">#[doc(alias = <span class="string">"atk_selection_get_selection_count"</span>)]
 <a href=#102 id=102 data-nosnippet>102</a>    #[doc(alias = <span class="string">"get_selection_count"</span>)]
 <a href=#103 id=103 data-nosnippet>103</a>    </span><span class="kw">fn </span>selection_count(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a> {
-<a href=#104 id=104 data-nosnippet>104</a>        <span class="kw">unsafe </span>{ ffi::atk_selection_get_selection_count(<a class="self" href="#103">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>) }
+<a href=#104 id=104 data-nosnippet>104</a>        <span class="kw">unsafe </span>{ ffi::<a href="../../../atk_sys/fn.atk_selection_get_selection_count.html">atk_selection_get_selection_count</a>(<a class="self" href="#103">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>) }
 <a href=#105 id=105 data-nosnippet>105</a>    }
 <a href=#106 id=106 data-nosnippet>106</a>
 <a href=#107 id=107 data-nosnippet>107</a>    <span class="doccomment">/// Determines if the current child of this object is selected
@@ -192,7 +192,7 @@
 <a href=#119 id=119 data-nosnippet>119</a>    </span><span class="attr">#[doc(alias = <span class="string">"atk_selection_is_child_selected"</span>)]
 <a href=#120 id=120 data-nosnippet>120</a>    </span><span class="kw">fn </span>is_child_selected(<span class="kw-2">&amp;</span><span class="self">self</span>, i: <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> {
 <a href=#121 id=121 data-nosnippet>121</a>        <span class="kw">unsafe </span>{
-<a href=#122 id=122 data-nosnippet>122</a>            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib.html">from_glib</a>(ffi::atk_selection_is_child_selected(
+<a href=#122 id=122 data-nosnippet>122</a>            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib.html">from_glib</a>(ffi::<a href="../../../atk_sys/fn.atk_selection_is_child_selected.html">atk_selection_is_child_selected</a>(
 <a href=#123 id=123 data-nosnippet>123</a>                <a class="self" href="#120">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
 <a href=#124 id=124 data-nosnippet>124</a>                <a href="#120">i</a>,
 <a href=#125 id=125 data-nosnippet>125</a>            ))
@@ -217,7 +217,7 @@
 <a href=#144 id=144 data-nosnippet>144</a>    </span><span class="attr">#[doc(alias = <span class="string">"atk_selection_ref_selection"</span>)]
 <a href=#145 id=145 data-nosnippet>145</a>    </span><span class="kw">fn </span>ref_selection(<span class="kw-2">&amp;</span><span class="self">self</span>, i: <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) -&gt; <a class="prelude-ty" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html">Option</a>&lt;<a href="object.rs.html#14-211">Object</a>&gt; {
 <a href=#146 id=146 data-nosnippet>146</a>        <span class="kw">unsafe </span>{
-<a href=#147 id=147 data-nosnippet>147</a>            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib_full.html">from_glib_full</a>(ffi::atk_selection_ref_selection(
+<a href=#147 id=147 data-nosnippet>147</a>            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib_full.html">from_glib_full</a>(ffi::<a href="../../../atk_sys/fn.atk_selection_ref_selection.html">atk_selection_ref_selection</a>(
 <a href=#148 id=148 data-nosnippet>148</a>                <a class="self" href="#145">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
 <a href=#149 id=149 data-nosnippet>149</a>                <a href="#145">i</a>,
 <a href=#150 id=150 data-nosnippet>150</a>            ))
@@ -235,7 +235,7 @@
 <a href=#162 id=162 data-nosnippet>162</a>    </span><span class="attr">#[doc(alias = <span class="string">"atk_selection_remove_selection"</span>)]
 <a href=#163 id=163 data-nosnippet>163</a>    </span><span class="kw">fn </span>remove_selection(<span class="kw-2">&amp;</span><span class="self">self</span>, i: <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> {
 <a href=#164 id=164 data-nosnippet>164</a>        <span class="kw">unsafe </span>{
-<a href=#165 id=165 data-nosnippet>165</a>            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib.html">from_glib</a>(ffi::atk_selection_remove_selection(
+<a href=#165 id=165 data-nosnippet>165</a>            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib.html">from_glib</a>(ffi::<a href="../../../atk_sys/fn.atk_selection_remove_selection.html">atk_selection_remove_selection</a>(
 <a href=#166 id=166 data-nosnippet>166</a>                <a class="self" href="#163">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
 <a href=#167 id=167 data-nosnippet>167</a>                <a href="#163">i</a>,
 <a href=#168 id=168 data-nosnippet>168</a>            ))
@@ -251,7 +251,7 @@
 <a href=#178 id=178 data-nosnippet>178</a>    </span><span class="attr">#[doc(alias = <span class="string">"atk_selection_select_all_selection"</span>)]
 <a href=#179 id=179 data-nosnippet>179</a>    </span><span class="kw">fn </span>select_all_selection(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> {
 <a href=#180 id=180 data-nosnippet>180</a>        <span class="kw">unsafe </span>{
-<a href=#181 id=181 data-nosnippet>181</a>            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib.html">from_glib</a>(ffi::atk_selection_select_all_selection(
+<a href=#181 id=181 data-nosnippet>181</a>            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib.html">from_glib</a>(ffi::<a href="../../../atk_sys/fn.atk_selection_select_all_selection.html">atk_selection_select_all_selection</a>(
 <a href=#182 id=182 data-nosnippet>182</a>                <a class="self" href="#179">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
 <a href=#183 id=183 data-nosnippet>183</a>            ))
 <a href=#184 id=184 data-nosnippet>184</a>        }
@@ -265,7 +265,7 @@
 <a href=#192 id=192 data-nosnippet>192</a>            P: <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.IsA.html">IsA</a>&lt;<a href="#14-46">Selection</a>&gt;,
 <a href=#193 id=193 data-nosnippet>193</a>            F: <a href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html">Fn</a>(<span class="kw-2">&amp;</span>P) + <span class="lifetime">'static</span>,
 <a href=#194 id=194 data-nosnippet>194</a>        &gt;(
-<a href=#195 id=195 data-nosnippet>195</a>            this: <span class="kw-2">*mut </span>ffi::AtkSelection,
+<a href=#195 id=195 data-nosnippet>195</a>            this: <span class="kw-2">*mut </span>ffi::<a href="../../../atk_sys/struct.AtkSelection.html">AtkSelection</a>,
 <a href=#196 id=196 data-nosnippet>196</a>            f: glib::ffi::gpointer,
 <a href=#197 id=197 data-nosnippet>197</a>        ) {
 <a href=#198 id=198 data-nosnippet>198</a>            <span class="kw">unsafe </span>{

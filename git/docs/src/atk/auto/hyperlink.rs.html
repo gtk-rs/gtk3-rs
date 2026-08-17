@@ -75,7 +75,7 @@
 <a href=#2 id=2 data-nosnippet>2</a>// from gir-files (https://github.com/gtk-rs/gir-files)
 <a href=#3 id=3 data-nosnippet>3</a>// DO NOT EDIT
 <a href=#4 id=4 data-nosnippet>4</a>
-<a href=#5 id=5 data-nosnippet>5</a></span><span class="kw">use crate</span>::{<a href="action.rs.html#8-39">Action</a>, <a href="object.rs.html#14-211">Object</a>, ffi};
+<a href=#5 id=5 data-nosnippet>5</a></span><span class="kw">use crate</span>::{<a href="action.rs.html#8-39">Action</a>, <a href="object.rs.html#14-211">Object</a>, <a href="../../../atk_sys/index.html">ffi</a>};
 <a href=#6 id=6 data-nosnippet>6</a><span class="kw">use </span>glib::{
 <a href=#7 id=7 data-nosnippet>7</a>    <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectType.html">object::ObjectType</a> <span class="kw">as _</span>,
 <a href=#8 id=8 data-nosnippet>8</a>    <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/prelude/index.html">prelude</a>::<span class="kw-2">*</span>,
@@ -126,7 +126,7 @@
 <a href=#53 id=53 data-nosnippet>53</a>    ///
 <a href=#54 id=54 data-nosnippet>54</a>    /// [`HyperlinkExt`][trait@crate::prelude::HyperlinkExt], [`trait@glib::ObjectExt`], [`AtkActionExt`][trait@crate::prelude::AtkActionExt]
 <a href=#55 id=55 data-nosnippet>55</a>    </span><span class="attr">#[doc(alias = <span class="string">"AtkHyperlink"</span>)]
-<a href=#56 id=56 data-nosnippet>56</a>    </span><span class="kw">pub struct </span><a href="../../../atk/struct.Hyperlink.html">Hyperlink</a>(Object&lt;ffi::AtkHyperlink, ffi::AtkHyperlinkClass&gt;) @implements <a href="action.rs.html#8-39">Action</a>;
+<a href=#56 id=56 data-nosnippet>56</a>    </span><span class="kw">pub struct </span><a href="../../../atk/struct.Hyperlink.html">Hyperlink</a>(Object&lt;ffi::<a href="../../../atk_sys/struct.AtkHyperlink.html">AtkHyperlink</a>, ffi::<a href="../../../atk_sys/struct.AtkHyperlinkClass.html">AtkHyperlinkClass</a>&gt;) @implements <a href="action.rs.html#8-39">Action</a>;
 <a href=#57 id=57 data-nosnippet>57</a>
 <a href=#58 id=58 data-nosnippet>58</a>    <span class="kw">match fn </span>{
 <a href=#59 id=59 data-nosnippet>59</a>        type_ =&gt; || ffi::atk_hyperlink_get_type(),
@@ -152,7 +152,7 @@
 <a href=#79 id=79 data-nosnippet>79</a>    #[doc(alias = <span class="string">"get_end_index"</span>)]
 <a href=#80 id=80 data-nosnippet>80</a>    #[doc(alias = <span class="string">"end-index"</span>)]
 <a href=#81 id=81 data-nosnippet>81</a>    </span><span class="kw">fn </span>end_index(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a> {
-<a href=#82 id=82 data-nosnippet>82</a>        <span class="kw">unsafe </span>{ ffi::atk_hyperlink_get_end_index(<a class="self" href="#81">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>) }
+<a href=#82 id=82 data-nosnippet>82</a>        <span class="kw">unsafe </span>{ ffi::<a href="../../../atk_sys/fn.atk_hyperlink_get_end_index.html">atk_hyperlink_get_end_index</a>(<a class="self" href="#81">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>) }
 <a href=#83 id=83 data-nosnippet>83</a>    }
 <a href=#84 id=84 data-nosnippet>84</a>
 <a href=#85 id=85 data-nosnippet>85</a>    <span class="doccomment">/// Gets the number of anchors associated with this hyperlink.
@@ -163,7 +163,7 @@
 <a href=#90 id=90 data-nosnippet>90</a>    </span><span class="attr">#[doc(alias = <span class="string">"atk_hyperlink_get_n_anchors"</span>)]
 <a href=#91 id=91 data-nosnippet>91</a>    #[doc(alias = <span class="string">"get_n_anchors"</span>)]
 <a href=#92 id=92 data-nosnippet>92</a>    </span><span class="kw">fn </span>n_anchors(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a> {
-<a href=#93 id=93 data-nosnippet>93</a>        <span class="kw">unsafe </span>{ ffi::atk_hyperlink_get_n_anchors(<a class="self" href="#92">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>) }
+<a href=#93 id=93 data-nosnippet>93</a>        <span class="kw">unsafe </span>{ ffi::<a href="../../../atk_sys/fn.atk_hyperlink_get_n_anchors.html">atk_hyperlink_get_n_anchors</a>(<a class="self" href="#92">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>) }
 <a href=#94 id=94 data-nosnippet>94</a>    }
 <a href=#95 id=95 data-nosnippet>95</a>
 <a href=#96 id=96 data-nosnippet>96</a>    <span class="doccomment">/// Returns the item associated with this hyperlinks nth anchor.
@@ -183,7 +183,7 @@
 <a href=#110 id=110 data-nosnippet>110</a>    #[doc(alias = <span class="string">"get_object"</span>)]
 <a href=#111 id=111 data-nosnippet>111</a>    </span><span class="kw">fn </span>object(<span class="kw-2">&amp;</span><span class="self">self</span>, i: <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) -&gt; <a class="prelude-ty" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html">Option</a>&lt;<a href="object.rs.html#14-211">Object</a>&gt; {
 <a href=#112 id=112 data-nosnippet>112</a>        <span class="kw">unsafe </span>{
-<a href=#113 id=113 data-nosnippet>113</a>            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib_none.html">from_glib_none</a>(ffi::atk_hyperlink_get_object(
+<a href=#113 id=113 data-nosnippet>113</a>            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib_none.html">from_glib_none</a>(ffi::<a href="../../../atk_sys/fn.atk_hyperlink_get_object.html">atk_hyperlink_get_object</a>(
 <a href=#114 id=114 data-nosnippet>114</a>                <a class="self" href="#111">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
 <a href=#115 id=115 data-nosnippet>115</a>                <a href="#111">i</a>,
 <a href=#116 id=116 data-nosnippet>116</a>            ))
@@ -199,7 +199,7 @@
 <a href=#126 id=126 data-nosnippet>126</a>    #[doc(alias = <span class="string">"get_start_index"</span>)]
 <a href=#127 id=127 data-nosnippet>127</a>    #[doc(alias = <span class="string">"start-index"</span>)]
 <a href=#128 id=128 data-nosnippet>128</a>    </span><span class="kw">fn </span>start_index(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a> {
-<a href=#129 id=129 data-nosnippet>129</a>        <span class="kw">unsafe </span>{ ffi::atk_hyperlink_get_start_index(<a class="self" href="#128">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>) }
+<a href=#129 id=129 data-nosnippet>129</a>        <span class="kw">unsafe </span>{ ffi::<a href="../../../atk_sys/fn.atk_hyperlink_get_start_index.html">atk_hyperlink_get_start_index</a>(<a class="self" href="#128">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>) }
 <a href=#130 id=130 data-nosnippet>130</a>    }
 <a href=#131 id=131 data-nosnippet>131</a>
 <a href=#132 id=132 data-nosnippet>132</a>    <span class="doccomment">/// Get a the URI associated with the anchor specified
@@ -216,7 +216,7 @@
 <a href=#143 id=143 data-nosnippet>143</a>    #[doc(alias = <span class="string">"get_uri"</span>)]
 <a href=#144 id=144 data-nosnippet>144</a>    </span><span class="kw">fn </span>uri(<span class="kw-2">&amp;</span><span class="self">self</span>, i: <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) -&gt; <a class="prelude-ty" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html">Option</a>&lt;glib::<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/gstring/struct.GString.html">GString</a>&gt; {
 <a href=#145 id=145 data-nosnippet>145</a>        <span class="kw">unsafe </span>{
-<a href=#146 id=146 data-nosnippet>146</a>            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib_full.html">from_glib_full</a>(ffi::atk_hyperlink_get_uri(
+<a href=#146 id=146 data-nosnippet>146</a>            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib_full.html">from_glib_full</a>(ffi::<a href="../../../atk_sys/fn.atk_hyperlink_get_uri.html">atk_hyperlink_get_uri</a>(
 <a href=#147 id=147 data-nosnippet>147</a>                <a class="self" href="#144">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
 <a href=#148 id=148 data-nosnippet>148</a>                <a href="#144">i</a>,
 <a href=#149 id=149 data-nosnippet>149</a>            ))
@@ -231,7 +231,7 @@
 <a href=#158 id=158 data-nosnippet>158</a>    /// whether or not this link displays its content inline.
 <a href=#159 id=159 data-nosnippet>159</a>    </span><span class="attr">#[doc(alias = <span class="string">"atk_hyperlink_is_inline"</span>)]
 <a href=#160 id=160 data-nosnippet>160</a>    </span><span class="kw">fn </span>is_inline(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> {
-<a href=#161 id=161 data-nosnippet>161</a>        <span class="kw">unsafe </span>{ <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib.html">from_glib</a>(ffi::atk_hyperlink_is_inline(<a class="self" href="#160">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>)) }
+<a href=#161 id=161 data-nosnippet>161</a>        <span class="kw">unsafe </span>{ <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib.html">from_glib</a>(ffi::<a href="../../../atk_sys/fn.atk_hyperlink_is_inline.html">atk_hyperlink_is_inline</a>(<a class="self" href="#160">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>)) }
 <a href=#162 id=162 data-nosnippet>162</a>    }
 <a href=#163 id=163 data-nosnippet>163</a>
 <a href=#164 id=164 data-nosnippet>164</a>    <span class="doccomment">/// Since the document that a link is associated with may have changed
@@ -243,7 +243,7 @@
 <a href=#170 id=170 data-nosnippet>170</a>    /// whether or not this link is still valid
 <a href=#171 id=171 data-nosnippet>171</a>    </span><span class="attr">#[doc(alias = <span class="string">"atk_hyperlink_is_valid"</span>)]
 <a href=#172 id=172 data-nosnippet>172</a>    </span><span class="kw">fn </span>is_valid(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> {
-<a href=#173 id=173 data-nosnippet>173</a>        <span class="kw">unsafe </span>{ <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib.html">from_glib</a>(ffi::atk_hyperlink_is_valid(<a class="self" href="#172">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>)) }
+<a href=#173 id=173 data-nosnippet>173</a>        <span class="kw">unsafe </span>{ <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib.html">from_glib</a>(ffi::<a href="../../../atk_sys/fn.atk_hyperlink_is_valid.html">atk_hyperlink_is_valid</a>(<a class="self" href="#172">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>)) }
 <a href=#174 id=174 data-nosnippet>174</a>    }
 <a href=#175 id=175 data-nosnippet>175</a>
 <a href=#176 id=176 data-nosnippet>176</a>    <span class="attr">#[doc(alias = <span class="string">"number-of-anchors"</span>)]
@@ -255,7 +255,7 @@
 <a href=#182 id=182 data-nosnippet>182</a>    </span><span class="attr">#[doc(alias = <span class="string">"link-activated"</span>)]
 <a href=#183 id=183 data-nosnippet>183</a>    </span><span class="kw">fn </span>connect_link_activated&lt;F: <a href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html">Fn</a>(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">'static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/struct.SignalHandlerId.html">SignalHandlerId</a> {
 <a href=#184 id=184 data-nosnippet>184</a>        <span class="kw">unsafe extern </span><span class="string">"C" </span><span class="kw">fn </span>link_activated_trampoline&lt;P: <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.IsA.html">IsA</a>&lt;<a href="#14-61">Hyperlink</a>&gt;, F: <a href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html">Fn</a>(<span class="kw-2">&amp;</span>P) + <span class="lifetime">'static</span>&gt;(
-<a href=#185 id=185 data-nosnippet>185</a>            this: <span class="kw-2">*mut </span>ffi::AtkHyperlink,
+<a href=#185 id=185 data-nosnippet>185</a>            this: <span class="kw-2">*mut </span>ffi::<a href="../../../atk_sys/struct.AtkHyperlink.html">AtkHyperlink</a>,
 <a href=#186 id=186 data-nosnippet>186</a>            f: glib::ffi::gpointer,
 <a href=#187 id=187 data-nosnippet>187</a>        ) {
 <a href=#188 id=188 data-nosnippet>188</a>            <span class="kw">unsafe </span>{
@@ -279,7 +279,7 @@
 <a href=#206 id=206 data-nosnippet>206</a>    <span class="attr">#[doc(alias = <span class="string">"end-index"</span>)]
 <a href=#207 id=207 data-nosnippet>207</a>    </span><span class="kw">fn </span>connect_end_index_notify&lt;F: <a href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html">Fn</a>(<span class="kw-2">&amp;</span><span class="self">Self</span>) + <span class="lifetime">'static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/struct.SignalHandlerId.html">SignalHandlerId</a> {
 <a href=#208 id=208 data-nosnippet>208</a>        <span class="kw">unsafe extern </span><span class="string">"C" </span><span class="kw">fn </span>notify_end_index_trampoline&lt;P: <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.IsA.html">IsA</a>&lt;<a href="#14-61">Hyperlink</a>&gt;, F: <a href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html">Fn</a>(<span class="kw-2">&amp;</span>P) + <span class="lifetime">'static</span>&gt;(
-<a href=#209 id=209 data-nosnippet>209</a>            this: <span class="kw-2">*mut </span>ffi::AtkHyperlink,
+<a href=#209 id=209 data-nosnippet>209</a>            this: <span class="kw-2">*mut </span>ffi::<a href="../../../atk_sys/struct.AtkHyperlink.html">AtkHyperlink</a>,
 <a href=#210 id=210 data-nosnippet>210</a>            _param_spec: glib::ffi::gpointer,
 <a href=#211 id=211 data-nosnippet>211</a>            f: glib::ffi::gpointer,
 <a href=#212 id=212 data-nosnippet>212</a>        ) {
@@ -307,7 +307,7 @@
 <a href=#234 id=234 data-nosnippet>234</a>            P: <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.IsA.html">IsA</a>&lt;<a href="#14-61">Hyperlink</a>&gt;,
 <a href=#235 id=235 data-nosnippet>235</a>            F: <a href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html">Fn</a>(<span class="kw-2">&amp;</span>P) + <span class="lifetime">'static</span>,
 <a href=#236 id=236 data-nosnippet>236</a>        &gt;(
-<a href=#237 id=237 data-nosnippet>237</a>            this: <span class="kw-2">*mut </span>ffi::AtkHyperlink,
+<a href=#237 id=237 data-nosnippet>237</a>            this: <span class="kw-2">*mut </span>ffi::<a href="../../../atk_sys/struct.AtkHyperlink.html">AtkHyperlink</a>,
 <a href=#238 id=238 data-nosnippet>238</a>            _param_spec: glib::ffi::gpointer,
 <a href=#239 id=239 data-nosnippet>239</a>            f: glib::ffi::gpointer,
 <a href=#240 id=240 data-nosnippet>240</a>        ) {
@@ -335,7 +335,7 @@
 <a href=#262 id=262 data-nosnippet>262</a>            P: <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.IsA.html">IsA</a>&lt;<a href="#14-61">Hyperlink</a>&gt;,
 <a href=#263 id=263 data-nosnippet>263</a>            F: <a href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html">Fn</a>(<span class="kw-2">&amp;</span>P) + <span class="lifetime">'static</span>,
 <a href=#264 id=264 data-nosnippet>264</a>        &gt;(
-<a href=#265 id=265 data-nosnippet>265</a>            this: <span class="kw-2">*mut </span>ffi::AtkHyperlink,
+<a href=#265 id=265 data-nosnippet>265</a>            this: <span class="kw-2">*mut </span>ffi::<a href="../../../atk_sys/struct.AtkHyperlink.html">AtkHyperlink</a>,
 <a href=#266 id=266 data-nosnippet>266</a>            _param_spec: glib::ffi::gpointer,
 <a href=#267 id=267 data-nosnippet>267</a>            f: glib::ffi::gpointer,
 <a href=#268 id=268 data-nosnippet>268</a>        ) {

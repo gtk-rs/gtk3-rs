@@ -75,7 +75,7 @@
 <a href=#2 id=2 data-nosnippet>2</a>// from gir-files (https://github.com/gtk-rs/gir-files)
 <a href=#3 id=3 data-nosnippet>3</a>// DO NOT EDIT
 <a href=#4 id=4 data-nosnippet>4</a>
-<a href=#5 id=5 data-nosnippet>5</a></span><span class="kw">use </span><span class="kw">crate</span>::ffi;
+<a href=#5 id=5 data-nosnippet>5</a></span><span class="kw">use </span><a href="../../../atk_sys/index.html"><span class="kw">crate</span>::ffi</a>;
 <a href=#6 id=6 data-nosnippet>6</a><span class="kw">use </span>glib::{<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/prelude/index.html">prelude</a>::<span class="kw-2">*</span>, <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/index.html">translate</a>::<span class="kw-2">*</span>};
 <a href=#7 id=7 data-nosnippet>7</a>
 <a href=#8 id=8 data-nosnippet>8</a><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/macro.wrapper.html">glib::wrapper!</a> {
@@ -88,7 +88,7 @@
 <a href=#15 id=15 data-nosnippet>15</a>    ///
 <a href=#16 id=16 data-nosnippet>16</a>    /// [`AtkMiscExt`][trait@crate::prelude::AtkMiscExt], [`trait@glib::ObjectExt`]
 <a href=#17 id=17 data-nosnippet>17</a>    </span><span class="attr">#[doc(alias = <span class="string">"AtkMisc"</span>)]
-<a href=#18 id=18 data-nosnippet>18</a>    </span><span class="kw">pub struct </span><a href="../../../atk/struct.Misc.html">Misc</a>(Object&lt;ffi::AtkMisc, ffi::AtkMiscClass&gt;);
+<a href=#18 id=18 data-nosnippet>18</a>    </span><span class="kw">pub struct </span><a href="../../../atk/struct.Misc.html">Misc</a>(Object&lt;ffi::<a href="../../../atk_sys/struct.AtkMisc.html">AtkMisc</a>, ffi::<a href="../../../atk_sys/struct.AtkMiscClass.html">AtkMiscClass</a>&gt;);
 <a href=#19 id=19 data-nosnippet>19</a>
 <a href=#20 id=20 data-nosnippet>20</a>    <span class="kw">match fn </span>{
 <a href=#21 id=21 data-nosnippet>21</a>        type_ =&gt; || ffi::atk_misc_get_type(),
@@ -111,7 +111,7 @@
 <a href=#38 id=38 data-nosnippet>38</a>    #[doc(alias = <span class="string">"get_instance"</span>)]
 <a href=#39 id=39 data-nosnippet>39</a>    </span><span class="kw">pub fn </span>instance() -&gt; <a class="prelude-ty" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html">Option</a>&lt;<a href="#8-23">Misc</a>&gt; {
 <a href=#40 id=40 data-nosnippet>40</a>        <span class="macro">assert_initialized_main_thread!</span>();
-<a href=#41 id=41 data-nosnippet>41</a>        <span class="kw">unsafe </span>{ <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib_none.html">from_glib_none</a>(ffi::atk_misc_get_instance()) }
+<a href=#41 id=41 data-nosnippet>41</a>        <span class="kw">unsafe </span>{ <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib_none.html">from_glib_none</a>(ffi::<a href="../../../atk_sys/fn.atk_misc_get_instance.html">atk_misc_get_instance</a>()) }
 <a href=#42 id=42 data-nosnippet>42</a>    }
 <a href=#43 id=43 data-nosnippet>43</a>}
 <a href=#44 id=44 data-nosnippet>44</a>
@@ -132,7 +132,7 @@
 <a href=#59 id=59 data-nosnippet>59</a>    </span><span class="attr">#[doc(alias = <span class="string">"atk_misc_threads_enter"</span>)]
 <a href=#60 id=60 data-nosnippet>60</a>    </span><span class="kw">fn </span>threads_enter(<span class="kw-2">&amp;</span><span class="self">self</span>) {
 <a href=#61 id=61 data-nosnippet>61</a>        <span class="kw">unsafe </span>{
-<a href=#62 id=62 data-nosnippet>62</a>            ffi::atk_misc_threads_enter(<a class="self" href="#60">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>);
+<a href=#62 id=62 data-nosnippet>62</a>            ffi::<a href="../../../atk_sys/fn.atk_misc_threads_enter.html">atk_misc_threads_enter</a>(<a class="self" href="#60">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>);
 <a href=#63 id=63 data-nosnippet>63</a>        }
 <a href=#64 id=64 data-nosnippet>64</a>    }
 <a href=#65 id=65 data-nosnippet>65</a>
@@ -152,7 +152,7 @@
 <a href=#79 id=79 data-nosnippet>79</a>    </span><span class="attr">#[doc(alias = <span class="string">"atk_misc_threads_leave"</span>)]
 <a href=#80 id=80 data-nosnippet>80</a>    </span><span class="kw">fn </span>threads_leave(<span class="kw-2">&amp;</span><span class="self">self</span>) {
 <a href=#81 id=81 data-nosnippet>81</a>        <span class="kw">unsafe </span>{
-<a href=#82 id=82 data-nosnippet>82</a>            ffi::atk_misc_threads_leave(<a class="self" href="#80">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>);
+<a href=#82 id=82 data-nosnippet>82</a>            ffi::<a href="../../../atk_sys/fn.atk_misc_threads_leave.html">atk_misc_threads_leave</a>(<a class="self" href="#80">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>);
 <a href=#83 id=83 data-nosnippet>83</a>        }
 <a href=#84 id=84 data-nosnippet>84</a>    }
 <a href=#85 id=85 data-nosnippet>85</a>}

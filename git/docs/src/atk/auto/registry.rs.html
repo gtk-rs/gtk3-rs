@@ -75,7 +75,7 @@
 <a href=#2 id=2 data-nosnippet>2</a>// from gir-files (https://github.com/gtk-rs/gir-files)
 <a href=#3 id=3 data-nosnippet>3</a>// DO NOT EDIT
 <a href=#4 id=4 data-nosnippet>4</a>
-<a href=#5 id=5 data-nosnippet>5</a></span><span class="kw">use crate</span>::{<a href="object_factory.rs.html#8-27">ObjectFactory</a>, ffi};
+<a href=#5 id=5 data-nosnippet>5</a></span><span class="kw">use crate</span>::{<a href="object_factory.rs.html#8-27">ObjectFactory</a>, <a href="../../../atk_sys/index.html">ffi</a>};
 <a href=#6 id=6 data-nosnippet>6</a><span class="kw">use </span>glib::{<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/prelude/index.html">prelude</a>::<span class="kw-2">*</span>, <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/index.html">translate</a>::<span class="kw-2">*</span>};
 <a href=#7 id=7 data-nosnippet>7</a>
 <a href=#8 id=8 data-nosnippet>8</a><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/macro.wrapper.html">glib::wrapper!</a> {
@@ -94,7 +94,7 @@
 <a href=#21 id=21 data-nosnippet>21</a>    ///
 <a href=#22 id=22 data-nosnippet>22</a>    /// [`RegistryExt`][trait@crate::prelude::RegistryExt], [`trait@glib::ObjectExt`]
 <a href=#23 id=23 data-nosnippet>23</a>    </span><span class="attr">#[doc(alias = <span class="string">"AtkRegistry"</span>)]
-<a href=#24 id=24 data-nosnippet>24</a>    </span><span class="kw">pub struct </span><a href="../../../atk/struct.Registry.html">Registry</a>(Object&lt;ffi::AtkRegistry, ffi::AtkRegistryClass&gt;);
+<a href=#24 id=24 data-nosnippet>24</a>    </span><span class="kw">pub struct </span><a href="../../../atk/struct.Registry.html">Registry</a>(Object&lt;ffi::<a href="../../../atk_sys/struct.AtkRegistry.html">AtkRegistry</a>, ffi::<a href="../../../atk_sys/struct.AtkRegistryClass.html">AtkRegistryClass</a>&gt;);
 <a href=#25 id=25 data-nosnippet>25</a>
 <a href=#26 id=26 data-nosnippet>26</a>    <span class="kw">match fn </span>{
 <a href=#27 id=27 data-nosnippet>27</a>        type_ =&gt; || ffi::atk_registry_get_type(),
@@ -124,7 +124,7 @@
 <a href=#51 id=51 data-nosnippet>51</a>    #[doc(alias = <span class="string">"get_factory"</span>)]
 <a href=#52 id=52 data-nosnippet>52</a>    </span><span class="kw">fn </span>factory(<span class="kw-2">&amp;</span><span class="self">self</span>, type_: glib::types::<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/types/struct.Type.html">Type</a>) -&gt; <a class="prelude-ty" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html">Option</a>&lt;<a href="object_factory.rs.html#8-27">ObjectFactory</a>&gt; {
 <a href=#53 id=53 data-nosnippet>53</a>        <span class="kw">unsafe </span>{
-<a href=#54 id=54 data-nosnippet>54</a>            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib_none.html">from_glib_none</a>(ffi::atk_registry_get_factory(
+<a href=#54 id=54 data-nosnippet>54</a>            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib_none.html">from_glib_none</a>(ffi::<a href="../../../atk_sys/fn.atk_registry_get_factory.html">atk_registry_get_factory</a>(
 <a href=#55 id=55 data-nosnippet>55</a>                <a class="self" href="#52">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
 <a href=#56 id=56 data-nosnippet>56</a>                <a href="#52">type_</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.IntoGlib.html#tymethod.into_glib">into_glib</a>(),
 <a href=#57 id=57 data-nosnippet>57</a>            ))
@@ -144,7 +144,7 @@
 <a href=#71 id=71 data-nosnippet>71</a>    #[doc(alias = <span class="string">"get_factory_type"</span>)]
 <a href=#72 id=72 data-nosnippet>72</a>    </span><span class="kw">fn </span>factory_type(<span class="kw-2">&amp;</span><span class="self">self</span>, type_: glib::types::<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/types/struct.Type.html">Type</a>) -&gt; glib::types::<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/types/struct.Type.html">Type</a> {
 <a href=#73 id=73 data-nosnippet>73</a>        <span class="kw">unsafe </span>{
-<a href=#74 id=74 data-nosnippet>74</a>            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib.html">from_glib</a>(ffi::atk_registry_get_factory_type(
+<a href=#74 id=74 data-nosnippet>74</a>            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib.html">from_glib</a>(ffi::<a href="../../../atk_sys/fn.atk_registry_get_factory_type.html">atk_registry_get_factory_type</a>(
 <a href=#75 id=75 data-nosnippet>75</a>                <a class="self" href="#72">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
 <a href=#76 id=76 data-nosnippet>76</a>                <a href="#72">type_</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.IntoGlib.html#tymethod.into_glib">into_glib</a>(),
 <a href=#77 id=77 data-nosnippet>77</a>            ))
@@ -163,7 +163,7 @@
 <a href=#90 id=90 data-nosnippet>90</a>    </span><span class="attr">#[doc(alias = <span class="string">"atk_registry_set_factory_type"</span>)]
 <a href=#91 id=91 data-nosnippet>91</a>    </span><span class="kw">fn </span>set_factory_type(<span class="kw-2">&amp;</span><span class="self">self</span>, type_: glib::types::<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/types/struct.Type.html">Type</a>, factory_type: glib::types::<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/types/struct.Type.html">Type</a>) {
 <a href=#92 id=92 data-nosnippet>92</a>        <span class="kw">unsafe </span>{
-<a href=#93 id=93 data-nosnippet>93</a>            ffi::atk_registry_set_factory_type(
+<a href=#93 id=93 data-nosnippet>93</a>            ffi::<a href="../../../atk_sys/fn.atk_registry_set_factory_type.html">atk_registry_set_factory_type</a>(
 <a href=#94 id=94 data-nosnippet>94</a>                <a class="self" href="#91">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
 <a href=#95 id=95 data-nosnippet>95</a>                <a href="#91">type_</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.IntoGlib.html#tymethod.into_glib">into_glib</a>(),
 <a href=#96 id=96 data-nosnippet>96</a>                <a href="#91">factory_type</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.IntoGlib.html#tymethod.into_glib">into_glib</a>(),

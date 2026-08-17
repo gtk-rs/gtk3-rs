@@ -75,13 +75,13 @@
 <a href=#2 id=2 data-nosnippet>2</a>// from gir-files (https://github.com/gtk-rs/gir-files)
 <a href=#3 id=3 data-nosnippet>3</a>// DO NOT EDIT
 <a href=#4 id=4 data-nosnippet>4</a>
-<a href=#5 id=5 data-nosnippet>5</a></span><span class="kw">use </span><span class="kw">crate</span>::ffi;
+<a href=#5 id=5 data-nosnippet>5</a></span><span class="kw">use </span><a href="../../../atk_sys/index.html"><span class="kw">crate</span>::ffi</a>;
 <a href=#6 id=6 data-nosnippet>6</a>
 <a href=#7 id=7 data-nosnippet>7</a><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/macro.wrapper.html">glib::wrapper!</a> {
 <a href=#8 id=8 data-nosnippet>8</a>    <span class="doccomment">/// A data structure for holding a rectangle. Those coordinates are
 <a href=#9 id=9 data-nosnippet>9</a>    /// relative to the component top-level parent.
 <a href=#10 id=10 data-nosnippet>10</a>    </span><span class="attr">#[derive(<a href="https://doc.rust-lang.org/nightly/core/fmt/macros/derive.Debug.html">Debug</a>, <a href="https://doc.rust-lang.org/nightly/core/cmp/derive.PartialEq.html">PartialEq</a>, <a href="https://doc.rust-lang.org/nightly/core/cmp/derive.Eq.html">Eq</a>, <a href="https://doc.rust-lang.org/nightly/core/cmp/derive.PartialOrd.html">PartialOrd</a>, <a href="https://doc.rust-lang.org/nightly/core/cmp/derive.Ord.html">Ord</a>, <a href="https://doc.rust-lang.org/nightly/core/hash/macros/derive.Hash.html">Hash</a>)]
-<a href=#11 id=11 data-nosnippet>11</a>    </span><span class="kw">pub struct </span><a href="../../../atk/struct.Rectangle.html">Rectangle</a>(Boxed&lt;ffi::AtkRectangle&gt;);
+<a href=#11 id=11 data-nosnippet>11</a>    </span><span class="kw">pub struct </span><a href="../../../atk/struct.Rectangle.html">Rectangle</a>(Boxed&lt;ffi::<a href="../../../atk_sys/struct.AtkRectangle.html">AtkRectangle</a>&gt;);
 <a href=#12 id=12 data-nosnippet>12</a>
 <a href=#13 id=13 data-nosnippet>13</a>    <span class="kw">match fn </span>{
 <a href=#14 id=14 data-nosnippet>14</a>        copy =&gt; |ptr| glib::gobject_ffi::g_boxed_copy(ffi::atk_rectangle_get_type(), ptr <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>) <span class="kw">as </span><span class="kw-2">*mut </span>ffi::AtkRectangle,

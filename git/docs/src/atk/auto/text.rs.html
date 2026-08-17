@@ -79,7 +79,7 @@
 <a href=#6 id=6 data-nosnippet>6</a>#[cfg_attr(docsrs, doc(cfg(feature = <span class="string">"v2_32"</span>)))]
 <a href=#7 id=7 data-nosnippet>7</a></span><span class="kw">use </span><a href="enums.rs.html#1456-1488"><span class="kw">crate</span>::ScrollType</a>;
 <a href=#8 id=8 data-nosnippet>8</a><span class="kw">use crate</span>::{
-<a href=#9 id=9 data-nosnippet>9</a>    <a href="enums.rs.html#13-27">CoordType</a>, <a href="enums.rs.html#2263-2294">TextBoundary</a>, <a href="enums.rs.html#2394-2409">TextClipType</a>, <a href="enums.rs.html#2504-2531">TextGranularity</a>, <a href="text_range.rs.html#7-17">TextRange</a>, <a href="../text_rectangle.rs.html#10-15">TextRectangle</a>, ffi,
+<a href=#9 id=9 data-nosnippet>9</a>    <a href="enums.rs.html#13-27">CoordType</a>, <a href="enums.rs.html#2263-2294">TextBoundary</a>, <a href="enums.rs.html#2394-2409">TextClipType</a>, <a href="enums.rs.html#2504-2531">TextGranularity</a>, <a href="text_range.rs.html#7-17">TextRange</a>, <a href="../text_rectangle.rs.html#10-15">TextRectangle</a>, <a href="../../../atk_sys/index.html">ffi</a>,
 <a href=#10 id=10 data-nosnippet>10</a>};
 <a href=#11 id=11 data-nosnippet>11</a><span class="kw">use </span>glib::{
 <a href=#12 id=12 data-nosnippet>12</a>    <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectType.html">object::ObjectType</a> <span class="kw">as _</span>,
@@ -169,7 +169,7 @@
 <a href=#96 id=96 data-nosnippet>96</a>    ///
 <a href=#97 id=97 data-nosnippet>97</a>    /// [`TextExt`][trait@crate::prelude::TextExt]
 <a href=#98 id=98 data-nosnippet>98</a>    </span><span class="attr">#[doc(alias = <span class="string">"AtkText"</span>)]
-<a href=#99 id=99 data-nosnippet>99</a>    </span><span class="kw">pub struct </span><a href="../../../atk/struct.Text.html">Text</a>(Interface&lt;ffi::AtkText, ffi::AtkTextIface&gt;);
+<a href=#99 id=99 data-nosnippet>99</a>    </span><span class="kw">pub struct </span><a href="../../../atk/struct.Text.html">Text</a>(Interface&lt;ffi::<a href="../../../atk_sys/struct.AtkText.html">AtkText</a>, ffi::<a href="../../../atk_sys/struct.AtkTextIface.html">AtkTextIface</a>&gt;);
 <a href=#100 id=100 data-nosnippet>100</a>
 <a href=#101 id=101 data-nosnippet>101</a>    <span class="kw">match fn </span>{
 <a href=#102 id=102 data-nosnippet>102</a>        type_ =&gt; || ffi::atk_text_get_type(),
@@ -198,7 +198,7 @@
 <a href=#125 id=125 data-nosnippet>125</a>    </span><span class="attr">#[doc(alias = <span class="string">"atk_text_add_selection"</span>)]
 <a href=#126 id=126 data-nosnippet>126</a>    </span><span class="kw">fn </span>add_selection(<span class="kw-2">&amp;</span><span class="self">self</span>, start_offset: <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, end_offset: <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> {
 <a href=#127 id=127 data-nosnippet>127</a>        <span class="kw">unsafe </span>{
-<a href=#128 id=128 data-nosnippet>128</a>            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib.html">from_glib</a>(ffi::atk_text_add_selection(
+<a href=#128 id=128 data-nosnippet>128</a>            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib.html">from_glib</a>(ffi::<a href="../../../atk_sys/fn.atk_text_add_selection.html">atk_text_add_selection</a>(
 <a href=#129 id=129 data-nosnippet>129</a>                <a class="self" href="#126">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
 <a href=#130 id=130 data-nosnippet>130</a>                <a href="#126">start_offset</a>,
 <a href=#131 id=131 data-nosnippet>131</a>                <a href="#126">end_offset</a>,
@@ -230,7 +230,7 @@
 <a href=#157 id=157 data-nosnippet>157</a>        y_clip_type: <a href="enums.rs.html#2394-2409">TextClipType</a>,
 <a href=#158 id=158 data-nosnippet>158</a>    ) -&gt; <a href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html">Vec</a>&lt;<a href="text_range.rs.html#7-17">TextRange</a>&gt; {
 <a href=#159 id=159 data-nosnippet>159</a>        <span class="kw">unsafe </span>{
-<a href=#160 id=160 data-nosnippet>160</a>            FromGlibPtrContainer::<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.FromGlibPtrContainer.html#tymethod.from_glib_full">from_glib_full</a>(ffi::atk_text_get_bounded_ranges(
+<a href=#160 id=160 data-nosnippet>160</a>            FromGlibPtrContainer::<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.FromGlibPtrContainer.html#tymethod.from_glib_full">from_glib_full</a>(ffi::<a href="../../../atk_sys/fn.atk_text_get_bounded_ranges.html">atk_text_get_bounded_ranges</a>(
 <a href=#161 id=161 data-nosnippet>161</a>                <a class="self" href="#153">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
 <a href=#162 id=162 data-nosnippet>162</a>                <a href="#154">rect</a>.<a href="../text_rectangle.rs.html#30-32">to_glib_none_mut</a>().<span class="number">0</span>,
 <a href=#163 id=163 data-nosnippet>163</a>                <a href="#155">coord_type</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.IntoGlib.html#tymethod.into_glib">into_glib</a>(),
@@ -250,7 +250,7 @@
 <a href=#177 id=177 data-nosnippet>177</a>    </span><span class="attr">#[doc(alias = <span class="string">"atk_text_get_caret_offset"</span>)]
 <a href=#178 id=178 data-nosnippet>178</a>    #[doc(alias = <span class="string">"get_caret_offset"</span>)]
 <a href=#179 id=179 data-nosnippet>179</a>    </span><span class="kw">fn </span>caret_offset(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a> {
-<a href=#180 id=180 data-nosnippet>180</a>        <span class="kw">unsafe </span>{ ffi::atk_text_get_caret_offset(<a class="self" href="#179">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>) }
+<a href=#180 id=180 data-nosnippet>180</a>        <span class="kw">unsafe </span>{ ffi::<a href="../../../atk_sys/fn.atk_text_get_caret_offset.html">atk_text_get_caret_offset</a>(<a class="self" href="#179">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>) }
 <a href=#181 id=181 data-nosnippet>181</a>    }
 <a href=#182 id=182 data-nosnippet>182</a>
 <a href=#183 id=183 data-nosnippet>183</a>    <span class="doccomment">/// Gets the specified text.
@@ -264,7 +264,7 @@
 <a href=#191 id=191 data-nosnippet>191</a>    #[doc(alias = <span class="string">"get_character_at_offset"</span>)]
 <a href=#192 id=192 data-nosnippet>192</a>    </span><span class="kw">fn </span>character_at_offset(<span class="kw-2">&amp;</span><span class="self">self</span>, offset: <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.char.html">char</a> {
 <a href=#193 id=193 data-nosnippet>193</a>        <span class="kw">unsafe </span>{
-<a href=#194 id=194 data-nosnippet>194</a>            std::convert::TryFrom::<a href="https://doc.rust-lang.org/nightly/core/convert/trait.TryFrom.html#tymethod.try_from">try_from</a>(ffi::atk_text_get_character_at_offset(
+<a href=#194 id=194 data-nosnippet>194</a>            std::convert::TryFrom::<a href="https://doc.rust-lang.org/nightly/core/convert/trait.TryFrom.html#tymethod.try_from">try_from</a>(ffi::<a href="../../../atk_sys/fn.atk_text_get_character_at_offset.html">atk_text_get_character_at_offset</a>(
 <a href=#195 id=195 data-nosnippet>195</a>                <a class="self" href="#192">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
 <a href=#196 id=196 data-nosnippet>196</a>                <a href="#192">offset</a>,
 <a href=#197 id=197 data-nosnippet>197</a>            ))
@@ -280,7 +280,7 @@
 <a href=#207 id=207 data-nosnippet>207</a>    </span><span class="attr">#[doc(alias = <span class="string">"atk_text_get_character_count"</span>)]
 <a href=#208 id=208 data-nosnippet>208</a>    #[doc(alias = <span class="string">"get_character_count"</span>)]
 <a href=#209 id=209 data-nosnippet>209</a>    </span><span class="kw">fn </span>character_count(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a> {
-<a href=#210 id=210 data-nosnippet>210</a>        <span class="kw">unsafe </span>{ ffi::atk_text_get_character_count(<a class="self" href="#209">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>) }
+<a href=#210 id=210 data-nosnippet>210</a>        <span class="kw">unsafe </span>{ ffi::<a href="../../../atk_sys/fn.atk_text_get_character_count.html">atk_text_get_character_count</a>(<a class="self" href="#209">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>) }
 <a href=#211 id=211 data-nosnippet>211</a>    }
 <a href=#212 id=212 data-nosnippet>212</a>
 <a href=#213 id=213 data-nosnippet>213</a>    <span class="doccomment">/// If the extent can not be obtained (e.g. missing support), all of x, y, width,
@@ -315,7 +315,7 @@
 <a href=#242 id=242 data-nosnippet>242</a>            <span class="kw">let </span><span class="kw-2">mut </span>y = std::mem::<a href="https://doc.rust-lang.org/nightly/core/mem/maybe_uninit/union.MaybeUninit.html">MaybeUninit</a>::<a href="https://doc.rust-lang.org/nightly/core/mem/maybe_uninit/union.MaybeUninit.html#method.uninit">uninit</a>();
 <a href=#243 id=243 data-nosnippet>243</a>            <span class="kw">let </span><span class="kw-2">mut </span>width = std::mem::<a href="https://doc.rust-lang.org/nightly/core/mem/maybe_uninit/union.MaybeUninit.html">MaybeUninit</a>::<a href="https://doc.rust-lang.org/nightly/core/mem/maybe_uninit/union.MaybeUninit.html#method.uninit">uninit</a>();
 <a href=#244 id=244 data-nosnippet>244</a>            <span class="kw">let </span><span class="kw-2">mut </span>height = std::mem::<a href="https://doc.rust-lang.org/nightly/core/mem/maybe_uninit/union.MaybeUninit.html">MaybeUninit</a>::<a href="https://doc.rust-lang.org/nightly/core/mem/maybe_uninit/union.MaybeUninit.html#method.uninit">uninit</a>();
-<a href=#245 id=245 data-nosnippet>245</a>            ffi::atk_text_get_character_extents(
+<a href=#245 id=245 data-nosnippet>245</a>            ffi::<a href="../../../atk_sys/fn.atk_text_get_character_extents.html">atk_text_get_character_extents</a>(
 <a href=#246 id=246 data-nosnippet>246</a>                <a class="self" href="#239">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
 <a href=#247 id=247 data-nosnippet>247</a>                <a href="#239">offset</a>,
 <a href=#248 id=248 data-nosnippet>248</a>                <a href="#241">x</a>.<a href="https://doc.rust-lang.org/nightly/core/mem/maybe_uninit/union.MaybeUninit.html#method.as_mut_ptr">as_mut_ptr</a>(),
@@ -347,7 +347,7 @@
 <a href=#274 id=274 data-nosnippet>274</a>    </span><span class="attr">#[doc(alias = <span class="string">"atk_text_get_n_selections"</span>)]
 <a href=#275 id=275 data-nosnippet>275</a>    #[doc(alias = <span class="string">"get_n_selections"</span>)]
 <a href=#276 id=276 data-nosnippet>276</a>    </span><span class="kw">fn </span>n_selections(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a> {
-<a href=#277 id=277 data-nosnippet>277</a>        <span class="kw">unsafe </span>{ ffi::atk_text_get_n_selections(<a class="self" href="#276">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>) }
+<a href=#277 id=277 data-nosnippet>277</a>        <span class="kw">unsafe </span>{ ffi::<a href="../../../atk_sys/fn.atk_text_get_n_selections.html">atk_text_get_n_selections</a>(<a class="self" href="#276">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>) }
 <a href=#278 id=278 data-nosnippet>278</a>    }
 <a href=#279 id=279 data-nosnippet>279</a>
 <a href=#280 id=280 data-nosnippet>280</a>    <span class="doccomment">/// Gets the offset of the character located at coordinates `x` and `y`. `x` and `y`
@@ -369,7 +369,7 @@
 <a href=#296 id=296 data-nosnippet>296</a>    #[doc(alias = <span class="string">"get_offset_at_point"</span>)]
 <a href=#297 id=297 data-nosnippet>297</a>    </span><span class="kw">fn </span>offset_at_point(<span class="kw-2">&amp;</span><span class="self">self</span>, x: <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, y: <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, coords: <a href="enums.rs.html#13-27">CoordType</a>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a> {
 <a href=#298 id=298 data-nosnippet>298</a>        <span class="kw">unsafe </span>{
-<a href=#299 id=299 data-nosnippet>299</a>            ffi::atk_text_get_offset_at_point(
+<a href=#299 id=299 data-nosnippet>299</a>            ffi::<a href="../../../atk_sys/fn.atk_text_get_offset_at_point.html">atk_text_get_offset_at_point</a>(
 <a href=#300 id=300 data-nosnippet>300</a>                <a class="self" href="#297">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
 <a href=#301 id=301 data-nosnippet>301</a>                <a href="#297">x</a>,
 <a href=#302 id=302 data-nosnippet>302</a>                <a href="#297">y</a>,
@@ -406,7 +406,7 @@
 <a href=#333 id=333 data-nosnippet>333</a>    ) -&gt; <a href="../text_rectangle.rs.html#10-15">TextRectangle</a> {
 <a href=#334 id=334 data-nosnippet>334</a>        <span class="kw">unsafe </span>{
 <a href=#335 id=335 data-nosnippet>335</a>            <span class="kw">let </span><span class="kw-2">mut </span>rect = <a href="../text_rectangle.rs.html#10-15">TextRectangle</a>::<a href="../text_rectangle.rs.html#18-25">uninitialized</a>();
-<a href=#336 id=336 data-nosnippet>336</a>            ffi::atk_text_get_range_extents(
+<a href=#336 id=336 data-nosnippet>336</a>            ffi::<a href="../../../atk_sys/fn.atk_text_get_range_extents.html">atk_text_get_range_extents</a>(
 <a href=#337 id=337 data-nosnippet>337</a>                <a class="self" href="#329">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
 <a href=#338 id=338 data-nosnippet>338</a>                <a href="#330">start_offset</a>,
 <a href=#339 id=339 data-nosnippet>339</a>                <a href="#331">end_offset</a>,
@@ -448,7 +448,7 @@
 <a href=#375 id=375 data-nosnippet>375</a>        <span class="kw">unsafe </span>{
 <a href=#376 id=376 data-nosnippet>376</a>            <span class="kw">let </span><span class="kw-2">mut </span>start_offset = std::mem::<a href="https://doc.rust-lang.org/nightly/core/mem/maybe_uninit/union.MaybeUninit.html">MaybeUninit</a>::<a href="https://doc.rust-lang.org/nightly/core/mem/maybe_uninit/union.MaybeUninit.html#method.uninit">uninit</a>();
 <a href=#377 id=377 data-nosnippet>377</a>            <span class="kw">let </span><span class="kw-2">mut </span>end_offset = std::mem::<a href="https://doc.rust-lang.org/nightly/core/mem/maybe_uninit/union.MaybeUninit.html">MaybeUninit</a>::<a href="https://doc.rust-lang.org/nightly/core/mem/maybe_uninit/union.MaybeUninit.html#method.uninit">uninit</a>();
-<a href=#378 id=378 data-nosnippet>378</a>            <span class="kw">let </span>ret = <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib_full.html">from_glib_full</a>(ffi::atk_text_get_selection(
+<a href=#378 id=378 data-nosnippet>378</a>            <span class="kw">let </span>ret = <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib_full.html">from_glib_full</a>(ffi::<a href="../../../atk_sys/fn.atk_text_get_selection.html">atk_text_get_selection</a>(
 <a href=#379 id=379 data-nosnippet>379</a>                <a class="self" href="#374">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
 <a href=#380 id=380 data-nosnippet>380</a>                <a href="#374">selection_num</a>,
 <a href=#381 id=381 data-nosnippet>381</a>                <a href="#376">start_offset</a>.<a href="https://doc.rust-lang.org/nightly/core/mem/maybe_uninit/union.MaybeUninit.html#method.as_mut_ptr">as_mut_ptr</a>(),
@@ -517,7 +517,7 @@
 <a href=#444 id=444 data-nosnippet>444</a>        <span class="kw">unsafe </span>{
 <a href=#445 id=445 data-nosnippet>445</a>            <span class="kw">let </span><span class="kw-2">mut </span>start_offset = std::mem::<a href="https://doc.rust-lang.org/nightly/core/mem/maybe_uninit/union.MaybeUninit.html">MaybeUninit</a>::<a href="https://doc.rust-lang.org/nightly/core/mem/maybe_uninit/union.MaybeUninit.html#method.uninit">uninit</a>();
 <a href=#446 id=446 data-nosnippet>446</a>            <span class="kw">let </span><span class="kw-2">mut </span>end_offset = std::mem::<a href="https://doc.rust-lang.org/nightly/core/mem/maybe_uninit/union.MaybeUninit.html">MaybeUninit</a>::<a href="https://doc.rust-lang.org/nightly/core/mem/maybe_uninit/union.MaybeUninit.html#method.uninit">uninit</a>();
-<a href=#447 id=447 data-nosnippet>447</a>            <span class="kw">let </span>ret = <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib_full.html">from_glib_full</a>(ffi::atk_text_get_string_at_offset(
+<a href=#447 id=447 data-nosnippet>447</a>            <span class="kw">let </span>ret = <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib_full.html">from_glib_full</a>(ffi::<a href="../../../atk_sys/fn.atk_text_get_string_at_offset.html">atk_text_get_string_at_offset</a>(
 <a href=#448 id=448 data-nosnippet>448</a>                <a class="self" href="#440">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
 <a href=#449 id=449 data-nosnippet>449</a>                <a href="#441">offset</a>,
 <a href=#450 id=450 data-nosnippet>450</a>                <a href="#442">granularity</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.IntoGlib.html#tymethod.into_glib">into_glib</a>(),
@@ -543,7 +543,7 @@
 <a href=#470 id=470 data-nosnippet>470</a>    #[doc(alias = <span class="string">"get_text"</span>)]
 <a href=#471 id=471 data-nosnippet>471</a>    </span><span class="kw">fn </span>text(<span class="kw-2">&amp;</span><span class="self">self</span>, start_offset: <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, end_offset: <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) -&gt; <a class="prelude-ty" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html">Option</a>&lt;glib::<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/gstring/struct.GString.html">GString</a>&gt; {
 <a href=#472 id=472 data-nosnippet>472</a>        <span class="kw">unsafe </span>{
-<a href=#473 id=473 data-nosnippet>473</a>            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib_full.html">from_glib_full</a>(ffi::atk_text_get_text(
+<a href=#473 id=473 data-nosnippet>473</a>            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib_full.html">from_glib_full</a>(ffi::<a href="../../../atk_sys/fn.atk_text_get_text.html">atk_text_get_text</a>(
 <a href=#474 id=474 data-nosnippet>474</a>                <a class="self" href="#471">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
 <a href=#475 id=475 data-nosnippet>475</a>                <a href="#471">start_offset</a>,
 <a href=#476 id=476 data-nosnippet>476</a>                <a href="#471">end_offset</a>,
@@ -607,7 +607,7 @@
 <a href=#534 id=534 data-nosnippet>534</a>        <span class="kw">unsafe </span>{
 <a href=#535 id=535 data-nosnippet>535</a>            <span class="kw">let </span><span class="kw-2">mut </span>start_offset = std::mem::<a href="https://doc.rust-lang.org/nightly/core/mem/maybe_uninit/union.MaybeUninit.html">MaybeUninit</a>::<a href="https://doc.rust-lang.org/nightly/core/mem/maybe_uninit/union.MaybeUninit.html#method.uninit">uninit</a>();
 <a href=#536 id=536 data-nosnippet>536</a>            <span class="kw">let </span><span class="kw-2">mut </span>end_offset = std::mem::<a href="https://doc.rust-lang.org/nightly/core/mem/maybe_uninit/union.MaybeUninit.html">MaybeUninit</a>::<a href="https://doc.rust-lang.org/nightly/core/mem/maybe_uninit/union.MaybeUninit.html#method.uninit">uninit</a>();
-<a href=#537 id=537 data-nosnippet>537</a>            <span class="kw">let </span>ret = <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib_full.html">from_glib_full</a>(ffi::atk_text_get_text_at_offset(
+<a href=#537 id=537 data-nosnippet>537</a>            <span class="kw">let </span>ret = <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib_full.html">from_glib_full</a>(ffi::<a href="../../../atk_sys/fn.atk_text_get_text_at_offset.html">atk_text_get_text_at_offset</a>(
 <a href=#538 id=538 data-nosnippet>538</a>                <a class="self" href="#530">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
 <a href=#539 id=539 data-nosnippet>539</a>                <a href="#531">offset</a>,
 <a href=#540 id=540 data-nosnippet>540</a>                <a href="#532">boundary_type</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.IntoGlib.html#tymethod.into_glib">into_glib</a>(),
@@ -632,7 +632,7 @@
 <a href=#559 id=559 data-nosnippet>559</a>    </span><span class="attr">#[doc(alias = <span class="string">"atk_text_remove_selection"</span>)]
 <a href=#560 id=560 data-nosnippet>560</a>    </span><span class="kw">fn </span>remove_selection(<span class="kw-2">&amp;</span><span class="self">self</span>, selection_num: <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> {
 <a href=#561 id=561 data-nosnippet>561</a>        <span class="kw">unsafe </span>{
-<a href=#562 id=562 data-nosnippet>562</a>            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib.html">from_glib</a>(ffi::atk_text_remove_selection(
+<a href=#562 id=562 data-nosnippet>562</a>            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib.html">from_glib</a>(ffi::<a href="../../../atk_sys/fn.atk_text_remove_selection.html">atk_text_remove_selection</a>(
 <a href=#563 id=563 data-nosnippet>563</a>                <a class="self" href="#560">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
 <a href=#564 id=564 data-nosnippet>564</a>                <a href="#560">selection_num</a>,
 <a href=#565 id=565 data-nosnippet>565</a>            ))
@@ -655,7 +655,7 @@
 <a href=#582 id=582 data-nosnippet>582</a>    #[doc(alias = <span class="string">"atk_text_scroll_substring_to"</span>)]
 <a href=#583 id=583 data-nosnippet>583</a>    </span><span class="kw">fn </span>scroll_substring_to(<span class="kw-2">&amp;</span><span class="self">self</span>, start_offset: <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, end_offset: <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, type_: <a href="enums.rs.html#1456-1488">ScrollType</a>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> {
 <a href=#584 id=584 data-nosnippet>584</a>        <span class="kw">unsafe </span>{
-<a href=#585 id=585 data-nosnippet>585</a>            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib.html">from_glib</a>(ffi::atk_text_scroll_substring_to(
+<a href=#585 id=585 data-nosnippet>585</a>            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib.html">from_glib</a>(ffi::<a href="../../../atk_sys/fn.atk_text_scroll_substring_to.html">atk_text_scroll_substring_to</a>(
 <a href=#586 id=586 data-nosnippet>586</a>                <a class="self" href="#583">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
 <a href=#587 id=587 data-nosnippet>587</a>                <a href="#583">start_offset</a>,
 <a href=#588 id=588 data-nosnippet>588</a>                <a href="#583">end_offset</a>,
@@ -693,7 +693,7 @@
 <a href=#620 id=620 data-nosnippet>620</a>        y: <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>,
 <a href=#621 id=621 data-nosnippet>621</a>    ) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> {
 <a href=#622 id=622 data-nosnippet>622</a>        <span class="kw">unsafe </span>{
-<a href=#623 id=623 data-nosnippet>623</a>            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib.html">from_glib</a>(ffi::atk_text_scroll_substring_to_point(
+<a href=#623 id=623 data-nosnippet>623</a>            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib.html">from_glib</a>(ffi::<a href="../../../atk_sys/fn.atk_text_scroll_substring_to_point.html">atk_text_scroll_substring_to_point</a>(
 <a href=#624 id=624 data-nosnippet>624</a>                <a class="self" href="#615">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
 <a href=#625 id=625 data-nosnippet>625</a>                <a href="#616">start_offset</a>,
 <a href=#626 id=626 data-nosnippet>626</a>                <a href="#617">end_offset</a>,
@@ -730,7 +730,7 @@
 <a href=#657 id=657 data-nosnippet>657</a>    </span><span class="attr">#[doc(alias = <span class="string">"atk_text_set_caret_offset"</span>)]
 <a href=#658 id=658 data-nosnippet>658</a>    </span><span class="kw">fn </span>set_caret_offset(<span class="kw-2">&amp;</span><span class="self">self</span>, offset: <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> {
 <a href=#659 id=659 data-nosnippet>659</a>        <span class="kw">unsafe </span>{
-<a href=#660 id=660 data-nosnippet>660</a>            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib.html">from_glib</a>(ffi::atk_text_set_caret_offset(
+<a href=#660 id=660 data-nosnippet>660</a>            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib.html">from_glib</a>(ffi::<a href="../../../atk_sys/fn.atk_text_set_caret_offset.html">atk_text_set_caret_offset</a>(
 <a href=#661 id=661 data-nosnippet>661</a>                <a class="self" href="#658">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
 <a href=#662 id=662 data-nosnippet>662</a>                <a href="#658">offset</a>,
 <a href=#663 id=663 data-nosnippet>663</a>            ))
@@ -756,7 +756,7 @@
 <a href=#683 id=683 data-nosnippet>683</a>    </span><span class="attr">#[doc(alias = <span class="string">"atk_text_set_selection"</span>)]
 <a href=#684 id=684 data-nosnippet>684</a>    </span><span class="kw">fn </span>set_selection(<span class="kw-2">&amp;</span><span class="self">self</span>, selection_num: <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, start_offset: <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, end_offset: <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> {
 <a href=#685 id=685 data-nosnippet>685</a>        <span class="kw">unsafe </span>{
-<a href=#686 id=686 data-nosnippet>686</a>            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib.html">from_glib</a>(ffi::atk_text_set_selection(
+<a href=#686 id=686 data-nosnippet>686</a>            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib.html">from_glib</a>(ffi::<a href="../../../atk_sys/fn.atk_text_set_selection.html">atk_text_set_selection</a>(
 <a href=#687 id=687 data-nosnippet>687</a>                <a class="self" href="#684">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
 <a href=#688 id=688 data-nosnippet>688</a>                <a href="#684">selection_num</a>,
 <a href=#689 id=689 data-nosnippet>689</a>                <a href="#684">start_offset</a>,
@@ -774,7 +774,7 @@
 <a href=#701 id=701 data-nosnippet>701</a>            P: <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.IsA.html">IsA</a>&lt;<a href="#19-104">Text</a>&gt;,
 <a href=#702 id=702 data-nosnippet>702</a>            F: <a href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html">Fn</a>(<span class="kw-2">&amp;</span>P) + <span class="lifetime">'static</span>,
 <a href=#703 id=703 data-nosnippet>703</a>        &gt;(
-<a href=#704 id=704 data-nosnippet>704</a>            this: <span class="kw-2">*mut </span>ffi::AtkText,
+<a href=#704 id=704 data-nosnippet>704</a>            this: <span class="kw-2">*mut </span>ffi::<a href="../../../atk_sys/struct.AtkText.html">AtkText</a>,
 <a href=#705 id=705 data-nosnippet>705</a>            f: glib::ffi::gpointer,
 <a href=#706 id=706 data-nosnippet>706</a>        ) {
 <a href=#707 id=707 data-nosnippet>707</a>            <span class="kw">unsafe </span>{
@@ -803,7 +803,7 @@
 <a href=#730 id=730 data-nosnippet>730</a>    </span><span class="attr">#[doc(alias = <span class="string">"text-caret-moved"</span>)]
 <a href=#731 id=731 data-nosnippet>731</a>    </span><span class="kw">fn </span>connect_text_caret_moved&lt;F: <a href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html">Fn</a>(<span class="kw-2">&amp;</span><span class="self">Self</span>, <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) + <span class="lifetime">'static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/struct.SignalHandlerId.html">SignalHandlerId</a> {
 <a href=#732 id=732 data-nosnippet>732</a>        <span class="kw">unsafe extern </span><span class="string">"C" </span><span class="kw">fn </span>text_caret_moved_trampoline&lt;P: <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.IsA.html">IsA</a>&lt;<a href="#19-104">Text</a>&gt;, F: <a href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html">Fn</a>(<span class="kw-2">&amp;</span>P, <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) + <span class="lifetime">'static</span>&gt;(
-<a href=#733 id=733 data-nosnippet>733</a>            this: <span class="kw-2">*mut </span>ffi::AtkText,
+<a href=#733 id=733 data-nosnippet>733</a>            this: <span class="kw-2">*mut </span>ffi::<a href="../../../atk_sys/struct.AtkText.html">AtkText</a>,
 <a href=#734 id=734 data-nosnippet>734</a>            arg1: std::ffi::<a href="https://doc.rust-lang.org/nightly/core/ffi/primitives/type.c_int.html">c_int</a>,
 <a href=#735 id=735 data-nosnippet>735</a>            f: glib::ffi::gpointer,
 <a href=#736 id=736 data-nosnippet>736</a>        ) {
@@ -845,7 +845,7 @@
 <a href=#772 id=772 data-nosnippet>772</a>            P: <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.IsA.html">IsA</a>&lt;<a href="#19-104">Text</a>&gt;,
 <a href=#773 id=773 data-nosnippet>773</a>            F: <a href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html">Fn</a>(<span class="kw-2">&amp;</span>P, <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, <span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) + <span class="lifetime">'static</span>,
 <a href=#774 id=774 data-nosnippet>774</a>        &gt;(
-<a href=#775 id=775 data-nosnippet>775</a>            this: <span class="kw-2">*mut </span>ffi::AtkText,
+<a href=#775 id=775 data-nosnippet>775</a>            this: <span class="kw-2">*mut </span>ffi::<a href="../../../atk_sys/struct.AtkText.html">AtkText</a>,
 <a href=#776 id=776 data-nosnippet>776</a>            arg1: std::ffi::<a href="https://doc.rust-lang.org/nightly/core/ffi/primitives/type.c_int.html">c_int</a>,
 <a href=#777 id=777 data-nosnippet>777</a>            arg2: std::ffi::<a href="https://doc.rust-lang.org/nightly/core/ffi/primitives/type.c_int.html">c_int</a>,
 <a href=#778 id=778 data-nosnippet>778</a>            arg3: <span class="kw-2">*mut </span>std::ffi::<a href="https://doc.rust-lang.org/nightly/core/ffi/primitives/type.c_char.html">c_char</a>,
@@ -898,7 +898,7 @@
 <a href=#825 id=825 data-nosnippet>825</a>            P: <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.IsA.html">IsA</a>&lt;<a href="#19-104">Text</a>&gt;,
 <a href=#826 id=826 data-nosnippet>826</a>            F: <a href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html">Fn</a>(<span class="kw-2">&amp;</span>P, <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, <span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) + <span class="lifetime">'static</span>,
 <a href=#827 id=827 data-nosnippet>827</a>        &gt;(
-<a href=#828 id=828 data-nosnippet>828</a>            this: <span class="kw-2">*mut </span>ffi::AtkText,
+<a href=#828 id=828 data-nosnippet>828</a>            this: <span class="kw-2">*mut </span>ffi::<a href="../../../atk_sys/struct.AtkText.html">AtkText</a>,
 <a href=#829 id=829 data-nosnippet>829</a>            arg1: std::ffi::<a href="https://doc.rust-lang.org/nightly/core/ffi/primitives/type.c_int.html">c_int</a>,
 <a href=#830 id=830 data-nosnippet>830</a>            arg2: std::ffi::<a href="https://doc.rust-lang.org/nightly/core/ffi/primitives/type.c_int.html">c_int</a>,
 <a href=#831 id=831 data-nosnippet>831</a>            arg3: <span class="kw-2">*mut </span>std::ffi::<a href="https://doc.rust-lang.org/nightly/core/ffi/primitives/type.c_char.html">c_char</a>,
@@ -939,7 +939,7 @@
 <a href=#866 id=866 data-nosnippet>866</a>            P: <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.IsA.html">IsA</a>&lt;<a href="#19-104">Text</a>&gt;,
 <a href=#867 id=867 data-nosnippet>867</a>            F: <a href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html">Fn</a>(<span class="kw-2">&amp;</span>P) + <span class="lifetime">'static</span>,
 <a href=#868 id=868 data-nosnippet>868</a>        &gt;(
-<a href=#869 id=869 data-nosnippet>869</a>            this: <span class="kw-2">*mut </span>ffi::AtkText,
+<a href=#869 id=869 data-nosnippet>869</a>            this: <span class="kw-2">*mut </span>ffi::<a href="../../../atk_sys/struct.AtkText.html">AtkText</a>,
 <a href=#870 id=870 data-nosnippet>870</a>            f: glib::ffi::gpointer,
 <a href=#871 id=871 data-nosnippet>871</a>        ) {
 <a href=#872 id=872 data-nosnippet>872</a>            <span class="kw">unsafe </span>{
