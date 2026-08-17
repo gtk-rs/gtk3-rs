@@ -1,7 +1,25 @@
 on:
   push:
     branches: [master]
+    paths:
+      - "Cargo.lock"
+      - "Cargo.toml"
+      - ".github/workflows/windows.yml"
+      - "atk/**"
+      - "examples/**"
+      - "gdk/**"
+      - "gtk/**"
+      - "gtk3-macros/**"
   pull_request:
+    paths:
+      - "Cargo.lock"
+      - "Cargo.toml"
+      - ".github/workflows/windows.yml"
+      - "atk/**"
+      - "examples/**"
+      - "gdk/**"
+      - "gtk/**"
+      - "gtk3-macros/**"
   workflow_dispatch:
 
 name: Windows

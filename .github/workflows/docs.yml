@@ -1,7 +1,29 @@
 on:
   push:
     branches: [master]
+    paths:
+      - "Cargo.lock"
+      - "Cargo.toml"
+      - ".github/workflows/docs.yml"
+      - "atk/**"
+      - "gdk/**"
+      - "gdkwayland/**"
+      - "gdkx11/**"
+      - "gtk/**"
+      - "gtk3-macros/**"
+      - "**/README.md"
   pull_request:
+    paths:
+      - "Cargo.lock"
+      - "Cargo.toml"
+      - ".github/workflows/docs.yml"
+      - "atk/**"
+      - "gdk/**"
+      - "gdkwayland/**"
+      - "gdkx11/**"
+      - "gtk/**"
+      - "gtk3-macros/**"
+      - "**/README.md"
   workflow_dispatch:
   release:
     types: [published]
