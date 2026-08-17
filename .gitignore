@@ -9,5 +9,4 @@ config.status
 *.so
 *.o
 *.swp
-gtk/tests/*
 **~
