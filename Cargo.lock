@@ -25,7 +25,7 @@ dependencies = [
 
 [[package]]
 name = "atk"
-version = "0.19.0"
+version = "0.19.0-alpha"
 dependencies = [
  "atk-sys",
  "gir-format-check",
@@ -35,7 +35,7 @@ dependencies = [
 
 [[package]]
 name = "atk-sys"
-version = "0.19.0"
+version = "0.19.0-alpha"
 dependencies = [
  "glib-sys",
  "gobject-sys",
@@ -307,7 +307,7 @@ dependencies = [
 
 [[package]]
 name = "gdk"
-version = "0.19.0"
+version = "0.19.0-alpha"
 dependencies = [
  "cairo-rs",
  "gdk-pixbuf",
@@ -344,7 +344,7 @@ dependencies = [
 
 [[package]]
 name = "gdk-sys"
-version = "0.19.0"
+version = "0.19.0-alpha"
 dependencies = [
  "cairo-sys-rs",
  "gdk-pixbuf-sys",
@@ -361,7 +361,7 @@ dependencies = [
 
 [[package]]
 name = "gdkwayland"
-version = "0.19.0"
+version = "0.19.0-alpha"
 dependencies = [
  "gdk",
  "gdkwayland-sys",
@@ -374,7 +374,7 @@ dependencies = [
 
 [[package]]
 name = "gdkwayland-sys"
-version = "0.19.0"
+version = "0.19.0-alpha"
 dependencies = [
  "gdk-sys",
  "glib-sys",
@@ -386,7 +386,7 @@ dependencies = [
 
 [[package]]
 name = "gdkx11"
-version = "0.19.0"
+version = "0.19.0-alpha"
 dependencies = [
  "gdk",
  "gdkx11-sys",
@@ -399,7 +399,7 @@ dependencies = [
 
 [[package]]
 name = "gdkx11-sys"
-version = "0.19.0"
+version = "0.19.0-alpha"
 dependencies = [
  "cairo-sys-rs",
  "gdk-sys",
@@ -513,7 +513,7 @@ dependencies = [
 
 [[package]]
 name = "gtk"
-version = "0.19.0"
+version = "0.19.0-alpha"
 dependencies = [
  "atk",
  "cairo-rs",
@@ -533,7 +533,7 @@ dependencies = [
 
 [[package]]
 name = "gtk-rs-examples"
-version = "0.19.0"
+version = "0.19.0-alpha"
 dependencies = [
  "async-channel",
  "cairo-rs",
@@ -548,7 +548,7 @@ dependencies = [
 
 [[package]]
 name = "gtk-sys"
-version = "0.19.0"
+version = "0.19.0-alpha"
 dependencies = [
  "atk-sys",
  "cairo-sys-rs",
@@ -566,7 +566,7 @@ dependencies = [
 
 [[package]]
 name = "gtk3-macros"
-version = "0.19.0"
+version = "0.19.0-alpha"
 dependencies = [
  "gtk",
  "proc-macro-crate",
