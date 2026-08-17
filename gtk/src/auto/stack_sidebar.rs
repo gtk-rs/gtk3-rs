@@ -2,10 +2,10 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use crate::{ffi, Align, Bin, Buildable, Container, ResizeMode, Stack, Widget};
+use crate::{Align, Bin, Buildable, Container, ResizeMode, Stack, Widget, ffi};
 use glib::{
     prelude::*,
-    signal::{connect_raw, SignalHandlerId},
+    signal::{SignalHandlerId, connect_raw},
     translate::*,
 };
 use std::boxed::Box as Box_;

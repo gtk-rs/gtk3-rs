@@ -2,7 +2,7 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use crate::{ffi, TreeDragSource, TreeIter, TreeModel, TreePath};
+use crate::{TreeDragSource, TreeIter, TreeModel, TreePath, ffi};
 use glib::{prelude::*, translate::*};
 use std::boxed::Box as Box_;
 
@@ -36,11 +36,7 @@ pub trait TreeModelFilterExt: IsA<TreeModelFilter> + 'static {
                 filter_iter.to_glib_none_mut().0,
                 mut_override(child_iter.to_glib_none().0),
             ));
-            if ret {
-                Some(filter_iter)
-            } else {
-                None
-            }
+            if ret { Some(filter_iter) } else { None }
         }
     }
 

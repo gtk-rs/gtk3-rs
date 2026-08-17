@@ -1,9 +1,9 @@
 use gtk::prelude::*;
-use gtk::{gio, glib};
 use gtk::{
     AboutDialog, AccelFlags, AccelGroup, ApplicationWindow, CheckMenuItem, IconSize, Image, Label,
     Menu, MenuBar, MenuItem, WindowPosition,
 };
+use gtk::{gio, glib};
 
 fn main() {
     gio::resources_register_include!("compiled.gresource").unwrap();

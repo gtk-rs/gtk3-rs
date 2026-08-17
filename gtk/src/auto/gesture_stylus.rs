@@ -2,11 +2,11 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use crate::{ffi, EventController, Gesture, GestureSingle, Widget};
+use crate::{EventController, Gesture, GestureSingle, Widget, ffi};
 use glib::{
     object::ObjectType as _,
     prelude::*,
-    signal::{connect_raw, SignalHandlerId},
+    signal::{SignalHandlerId, connect_raw},
     translate::*,
 };
 use std::boxed::Box as Box_;
@@ -42,11 +42,7 @@ impl GestureStylus {
                 axis.into_glib(),
                 value.as_mut_ptr(),
             ));
-            if ret {
-                Some(value.assume_init())
-            } else {
-                None
-            }
+            if ret { Some(value.assume_init()) } else { None }
         }
     }
 

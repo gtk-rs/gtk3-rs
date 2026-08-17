@@ -3,8 +3,8 @@
 // DO NOT EDIT
 
 use crate::{
-    ffi, Align, BaselinePosition, Box, Buildable, Container, Orientable, Orientation,
-    RecentChooser, RecentFilter, RecentManager, RecentSortType, ResizeMode, Widget,
+    Align, BaselinePosition, Box, Buildable, Container, Orientable, Orientation, RecentChooser,
+    RecentFilter, RecentManager, RecentSortType, ResizeMode, Widget, ffi,
 };
 use glib::{prelude::*, translate::*};
 

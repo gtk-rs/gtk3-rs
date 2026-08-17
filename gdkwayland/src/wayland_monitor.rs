@@ -4,9 +4,9 @@ use crate::ffi;
 use gdk::prelude::*;
 use glib::translate::ToGlibPtr;
 
+use wayland_client::Proxy;
 use wayland_client::backend::ObjectId;
 use wayland_client::protocol::wl_output::WlOutput;
-use wayland_client::Proxy;
 
 glib::wrapper! {
     #[doc(alias = "GdkWaylandMonitor")]

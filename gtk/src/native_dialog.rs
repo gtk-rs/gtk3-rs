@@ -1,8 +1,8 @@
 // Take a look at the license at the top of the repository in the LICENSE file.
 
-use crate::prelude::*;
 use crate::NativeDialog;
 use crate::ResponseType;
+use crate::prelude::*;
 use std::cell::Cell;
 use std::future::Future;
 use std::pin::Pin;

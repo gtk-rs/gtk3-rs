@@ -1,6 +1,6 @@
 // Take a look at the license at the top of the repository in the LICENSE file.
 
-use crate::{ffi, Screen};
+use crate::{Screen, ffi};
 use glib::translate::*;
 
 impl Screen {
@@ -25,11 +25,7 @@ impl Screen {
                 value.to_glib_none_mut().0,
             ));
 
-            if done {
-                Some(value)
-            } else {
-                None
-            }
+            if done { Some(value) } else { None }
         }
     }
 }

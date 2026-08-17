@@ -2,11 +2,11 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use crate::{ffi, CellRenderer, CellRendererMode, CellRendererText, TreeIter, TreeModel, TreePath};
+use crate::{CellRenderer, CellRendererMode, CellRendererText, TreeIter, TreeModel, TreePath, ffi};
 use glib::{
     object::ObjectType as _,
     prelude::*,
-    signal::{connect_raw, SignalHandlerId},
+    signal::{SignalHandlerId, connect_raw},
     translate::*,
 };
 use std::boxed::Box as Box_;

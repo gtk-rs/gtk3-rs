@@ -4,7 +4,7 @@ use gdk_sys as gdk;
 use glib_sys as glib;
 
 use gdk::{GdkAtom, GdkDevicePadFeature};
-use glib::{gpointer, GType};
+use glib::{GType, gpointer};
 use libc::{c_char, c_int, c_uint};
 
 macro_rules! opaque {

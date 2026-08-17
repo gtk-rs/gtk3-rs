@@ -1,11 +1,11 @@
 // Take a look at the license at the top of the repository in the LICENSE file.
 
-use crate::prelude::*;
 use crate::DialogFlags;
 use crate::ResponseType;
 use crate::Widget;
 use crate::Window;
-use crate::{ffi, Dialog};
+use crate::prelude::*;
+use crate::{Dialog, ffi};
 use glib::translate::*;
 use std::cell::Cell;
 use std::future::Future;

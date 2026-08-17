@@ -1,9 +1,9 @@
 // Take a look at the license at the top of the repository in the LICENSE file.
 
 use crate::ffi;
-use glib::translate::{from_glib, FromGlib, IntoGlib, ToGlibPtr, ToGlibPtrMut};
+use glib::translate::{FromGlib, IntoGlib, ToGlibPtr, ToGlibPtrMut, from_glib};
 use glib::value::{FromValue, ToValue, ValueType};
-use glib::{types::StaticType, Type};
+use glib::{Type, types::StaticType};
 use std::fmt;
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]

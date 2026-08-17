@@ -3,15 +3,15 @@
 // DO NOT EDIT
 
 use crate::{
-    ffi, Adjustment, Align, Buildable, Container, DeleteType, InputHints, InputPurpose,
-    Justification, MovementStep, ResizeMode, ScrollStep, Scrollable, ScrollablePolicy,
-    TextAttributes, TextBuffer, TextChildAnchor, TextExtendSelection, TextIter, TextMark,
-    TextWindowType, Widget, WrapMode,
+    Adjustment, Align, Buildable, Container, DeleteType, InputHints, InputPurpose, Justification,
+    MovementStep, ResizeMode, ScrollStep, Scrollable, ScrollablePolicy, TextAttributes, TextBuffer,
+    TextChildAnchor, TextExtendSelection, TextIter, TextMark, TextWindowType, Widget, WrapMode,
+    ffi,
 };
 use glib::{
     object::ObjectType as _,
     prelude::*,
-    signal::{connect_raw, SignalHandlerId},
+    signal::{SignalHandlerId, connect_raw},
     translate::*,
 };
 use std::boxed::Box as Box_;
@@ -677,11 +677,7 @@ pub trait TextViewExt: IsA<TextView> + 'static {
                 x,
                 y,
             ));
-            if ret {
-                Some(iter)
-            } else {
-                None
-            }
+            if ret { Some(iter) } else { None }
         }
     }
 

@@ -2,11 +2,11 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use crate::{ffi, Buildable, Container, DirectionType, MenuDirectionType, MenuItem, Widget};
+use crate::{Buildable, Container, DirectionType, MenuDirectionType, MenuItem, Widget, ffi};
 use glib::{
     object::ObjectType as _,
     prelude::*,
-    signal::{connect_raw, SignalHandlerId},
+    signal::{SignalHandlerId, connect_raw},
     translate::*,
 };
 use std::boxed::Box as Box_;

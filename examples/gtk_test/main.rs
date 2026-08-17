@@ -1,10 +1,10 @@
 use gtk::prelude::*;
-use gtk::{gdk, gio, glib};
 use gtk::{
     AboutDialog, AppChooserDialog, ApplicationWindow, Builder, Button, Dialog, Entry,
     FileChooserAction, FileChooserDialog, FontChooserDialog, RecentChooserDialog, ResponseType,
     Scale, SpinButton, Spinner, Switch, Window,
 };
+use gtk::{gdk, gio, glib};
 
 fn main() {
     gio::resources_register_include!("compiled.gresource").unwrap();

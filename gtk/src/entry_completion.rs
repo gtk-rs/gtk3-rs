@@ -2,7 +2,7 @@
 
 use crate::EntryCompletion;
 use crate::Widget;
-use crate::{ffi, Entry};
+use crate::{Entry, ffi};
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::translate::*;

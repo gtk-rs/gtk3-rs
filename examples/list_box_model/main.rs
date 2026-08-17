@@ -2,9 +2,9 @@ mod model;
 pub mod row_data;
 
 use gtk::{
+    ResponseType,
     glib::{self, clone},
     prelude::*,
-    ResponseType,
 };
 use row_data::RowData;
 

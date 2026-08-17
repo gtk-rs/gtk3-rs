@@ -6,7 +6,7 @@ mod util;
 
 use proc_macro::TokenStream;
 use proc_macro_error::proc_macro_error;
-use syn::{parse_macro_input, DeriveInput};
+use syn::{DeriveInput, parse_macro_input};
 
 /// Derive macro for using a composite template in a widget.
 ///

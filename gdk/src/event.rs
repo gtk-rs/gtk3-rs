@@ -15,7 +15,7 @@ use crate::Screen;
 use crate::ScrollDirection;
 use crate::Seat;
 use crate::Window;
-use crate::{ffi, AxisUse};
+use crate::{AxisUse, ffi};
 
 glib::wrapper! {
     /// A generic GDK event.

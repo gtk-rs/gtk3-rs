@@ -3,13 +3,13 @@
 // DO NOT EDIT
 
 use crate::{
-    ffi, Adjustment, Align, Buildable, CellEditable, Container, Editable, Entry, EntryBuffer,
+    Adjustment, Align, Buildable, CellEditable, Container, Editable, Entry, EntryBuffer,
     EntryCompletion, InputHints, InputPurpose, Orientable, Orientation, SpinButtonUpdatePolicy,
-    SpinType, Widget,
+    SpinType, Widget, ffi,
 };
 use glib::{
     prelude::*,
-    signal::{connect_raw, SignalHandlerId},
+    signal::{SignalHandlerId, connect_raw},
     translate::*,
 };
 use std::boxed::Box as Box_;

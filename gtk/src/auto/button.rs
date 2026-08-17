@@ -3,13 +3,13 @@
 // DO NOT EDIT
 
 use crate::{
-    ffi, Actionable, Align, Bin, Buildable, Container, IconSize, PositionType, ReliefStyle,
-    ResizeMode, Widget,
+    Actionable, Align, Bin, Buildable, Container, IconSize, PositionType, ReliefStyle, ResizeMode,
+    Widget, ffi,
 };
 use glib::{
     object::ObjectType as _,
     prelude::*,
-    signal::{connect_raw, SignalHandlerId},
+    signal::{SignalHandlerId, connect_raw},
     translate::*,
 };
 use std::boxed::Box as Box_;

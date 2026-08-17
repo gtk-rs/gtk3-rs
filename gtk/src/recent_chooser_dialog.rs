@@ -3,7 +3,7 @@
 use crate::RecentManager;
 use crate::Widget;
 use crate::Window;
-use crate::{ffi, RecentChooserDialog};
+use crate::{RecentChooserDialog, ffi};
 use glib::object::{Cast, IsA};
 use glib::translate::*;
 use std::ptr;

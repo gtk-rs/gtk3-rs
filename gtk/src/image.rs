@@ -3,10 +3,10 @@
 use crate::Container;
 use crate::IconSize;
 use crate::Image;
-use crate::{ffi, Align};
+use crate::{Align, ffi};
 use glib::object::Cast;
 use glib::object::{IsA, ObjectExt};
-use glib::signal::{connect_raw, SignalHandlerId};
+use glib::signal::{SignalHandlerId, connect_raw};
 use glib::translate::*;
 use std::boxed::Box as Box_;
 use std::mem::transmute;

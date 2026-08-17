@@ -3,8 +3,8 @@
 // DO NOT EDIT
 
 use crate::{
-    ffi, Actionable, Align, Bin, Buildable, Container, RadioButton, ResizeMode, ToggleToolButton,
-    ToolButton, ToolItem, Widget,
+    Actionable, Align, Bin, Buildable, Container, RadioButton, ResizeMode, ToggleToolButton,
+    ToolButton, ToolItem, Widget, ffi,
 };
 use glib::{prelude::*, translate::*};
 

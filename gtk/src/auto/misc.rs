@@ -2,7 +2,7 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use crate::{ffi, Buildable, Widget};
+use crate::{Buildable, Widget, ffi};
 
 glib::wrapper! {
     #[doc(alias = "GtkMisc")]

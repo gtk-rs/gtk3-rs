@@ -6,7 +6,7 @@ use glib::object::Cast;
 use glib::translate::*;
 
 use super::window::WindowImpl;
-use crate::{ffi, Plug};
+use crate::{Plug, ffi};
 
 pub trait PlugImpl: PlugImplExt + WindowImpl {
     fn embedded(&self) {

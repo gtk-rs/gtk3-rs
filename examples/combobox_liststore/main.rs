@@ -1,6 +1,6 @@
 use glib::clone;
 use gtk::{
-    prelude::*, CellRendererText, CellRendererToggle, ComboBox, Entry, ListStore, TreeModel,
+    CellRendererText, CellRendererToggle, ComboBox, Entry, ListStore, TreeModel, prelude::*,
 };
 use std::{cell::RefCell, rc::Rc};
 

@@ -4,7 +4,7 @@ use crate::FileChooserDialog;
 use crate::ResponseType;
 use crate::Widget;
 use crate::Window;
-use crate::{ffi, FileChooserAction};
+use crate::{FileChooserAction, ffi};
 use glib::object::{Cast, IsA};
 use glib::translate::*;
 use libc::c_char;

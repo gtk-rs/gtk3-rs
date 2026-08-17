@@ -2,7 +2,7 @@
 
 use crate::ApplicationWindow;
 use crate::Widget;
-use crate::{ffi, Application};
+use crate::{Application, ffi};
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::translate::*;

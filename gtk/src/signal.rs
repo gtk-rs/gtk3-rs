@@ -18,11 +18,11 @@ pub trait EditableSignals: 'static {
 }
 
 mod editable {
-    use crate::ffi::GtkEditable;
     use crate::Editable;
+    use crate::ffi::GtkEditable;
     use glib::object::Cast;
     use glib::object::IsA;
-    use glib::signal::{connect_raw, SignalHandlerId};
+    use glib::signal::{SignalHandlerId, connect_raw};
     use glib::translate::*;
     use libc::{c_char, c_int, c_uchar};
     use std::ffi::CStr;
@@ -156,14 +156,14 @@ pub trait SpinButtonSignals: 'static {
 }
 
 mod spin_button {
-    use crate::ffi::{GtkScrollType, GtkSpinButton, GTK_INPUT_ERROR};
     use crate::ScrollType;
     use crate::SpinButton;
+    use crate::ffi::{GTK_INPUT_ERROR, GtkScrollType, GtkSpinButton};
     use glib::ffi::gboolean;
     use glib::ffi::{GFALSE, GTRUE};
     use glib::object::Cast;
     use glib::object::IsA;
-    use glib::signal::{connect_raw, SignalHandlerId};
+    use glib::signal::{SignalHandlerId, connect_raw};
     use glib::translate::*;
     use libc::{c_double, c_int};
     use std::boxed::Box as Box_;
@@ -316,15 +316,15 @@ pub trait OverlaySignals: 'static {
 }
 
 mod overlay {
-    use crate::ffi::{GtkOverlay, GtkWidget};
     use crate::Overlay;
     use crate::Widget;
-    use gdk::ffi::GdkRectangle;
+    use crate::ffi::{GtkOverlay, GtkWidget};
     use gdk::Rectangle;
+    use gdk::ffi::GdkRectangle;
     use glib::ffi::{gboolean, gpointer};
     use glib::object::Cast;
     use glib::object::IsA;
-    use glib::signal::{connect_raw, SignalHandlerId};
+    use glib::signal::{SignalHandlerId, connect_raw};
     use glib::translate::*;
     use std::mem::transmute;
     use std::ptr;

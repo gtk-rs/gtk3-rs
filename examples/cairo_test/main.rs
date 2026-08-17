@@ -1,7 +1,7 @@
 use std::f64::consts::PI;
 
-use gtk::prelude::*;
 use gtk::DrawingArea;
+use gtk::prelude::*;
 
 use gtk::cairo::{Context, FontSlant, FontWeight};
 

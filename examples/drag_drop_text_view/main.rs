@@ -1,6 +1,6 @@
 use gtk::prelude::*;
-use gtk::{gdk, gio};
 use gtk::{DestDefaults, TargetFlags};
+use gtk::{gdk, gio};
 
 fn main() {
     let application = gtk::Application::new(

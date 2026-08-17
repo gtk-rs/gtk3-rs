@@ -3,8 +3,8 @@
 // DO NOT EDIT
 
 use crate::{
-    ffi, Action, Component, Document, EditableText, Hypertext, Image, Object, Selection, Table,
-    TableCell, Text, Value, Window,
+    Action, Component, Document, EditableText, Hypertext, Image, Object, Selection, Table,
+    TableCell, Text, Value, Window, ffi,
 };
 use glib::{prelude::*, translate::*};
 

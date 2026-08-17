@@ -2,18 +2,19 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use crate::{
-    ffi, Cursor, Device, Display, DragProtocol, DrawingContext, Event, EventMask, FrameClock,
-    FullscreenMode, GLContext, Geometry, InputSource, ModifierType, Rectangle, Screen, Visual,
-    WMDecoration, WMFunction, WindowEdge, WindowHints, WindowState, WindowType, WindowTypeHint,
-};
 #[cfg(feature = "v3_24")]
 #[cfg_attr(docsrs, doc(cfg(feature = "v3_24")))]
 use crate::{AnchorHints, Gravity};
+use crate::{
+    Cursor, Device, Display, DragProtocol, DrawingContext, Event, EventMask, FrameClock,
+    FullscreenMode, GLContext, Geometry, InputSource, ModifierType, Rectangle, Screen, Visual,
+    WMDecoration, WMFunction, WindowEdge, WindowHints, WindowState, WindowType, WindowTypeHint,
+    ffi,
+};
 use glib::{
     object::ObjectType as _,
     prelude::*,
-    signal::{connect_raw, SignalHandlerId},
+    signal::{SignalHandlerId, connect_raw},
     translate::*,
 };
 use std::boxed::Box as Box_;

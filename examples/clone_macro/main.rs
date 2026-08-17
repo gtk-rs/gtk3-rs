@@ -2,7 +2,7 @@ use std::cell::RefCell;
 use std::rc::Rc;
 
 use gtk::glib;
-use gtk::{prelude::*, Application, ApplicationWindow, Button};
+use gtk::{Application, ApplicationWindow, Button, prelude::*};
 
 #[derive(Default)]
 struct State {

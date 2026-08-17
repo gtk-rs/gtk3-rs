@@ -3,13 +3,13 @@
 // DO NOT EDIT
 
 use crate::{
-    ffi, Atom, AxisFlags, AxisUse, DeviceManager, DeviceTool, DeviceType, Display, InputMode,
-    InputSource, ModifierType, Screen, Seat, Window,
+    Atom, AxisFlags, AxisUse, DeviceManager, DeviceTool, DeviceType, Display, InputMode,
+    InputSource, ModifierType, Screen, Seat, Window, ffi,
 };
 use glib::{
     object::ObjectType as _,
     prelude::*,
-    signal::{connect_raw, SignalHandlerId},
+    signal::{SignalHandlerId, connect_raw},
     translate::*,
 };
 use std::boxed::Box as Box_;

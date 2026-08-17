@@ -2,7 +2,7 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use crate::{ffi, Atom, Display, Event, EventType, ModifierType, Screen, Window, WindowState};
+use crate::{Atom, Display, Event, EventType, ModifierType, Screen, Window, WindowState, ffi};
 use glib::translate::*;
 
 #[doc(alias = "gdk_beep")]
@@ -45,11 +45,7 @@ pub fn events_get_angle(event1: &mut Event, event2: &mut Event) -> Option<f64> {
             event2.to_glib_none_mut().0,
             angle.as_mut_ptr(),
         ));
-        if ret {
-            Some(angle.assume_init())
-        } else {
-            None
-        }
+        if ret { Some(angle.assume_init()) } else { None }
     }
 }
 

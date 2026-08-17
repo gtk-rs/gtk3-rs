@@ -1,6 +1,6 @@
 // Take a look at the license at the top of the repository in the LICENSE file.
 
-use crate::{ffi, Table};
+use crate::{Table, ffi};
 use glib::object::IsA;
 use glib::translate::*;
 

@@ -18,18 +18,18 @@ use glib_sys as glib;
 use gobject_sys as gobject;
 use pango_sys as pango;
 
+#[allow(unused_imports)]
+use libc::{FILE, intptr_t, off_t, size_t, ssize_t, time_t, uintptr_t};
 #[cfg(unix)]
 #[allow(unused_imports)]
 use libc::{dev_t, gid_t, pid_t, socklen_t, uid_t};
-#[allow(unused_imports)]
-use libc::{intptr_t, off_t, size_t, ssize_t, time_t, uintptr_t, FILE};
 #[allow(unused_imports)]
 use std::ffi::{
     c_char, c_double, c_float, c_int, c_long, c_short, c_uchar, c_uint, c_ulong, c_ushort, c_void,
 };
 
 #[allow(unused_imports)]
-use glib::{gboolean, gconstpointer, gpointer, GType};
+use glib::{GType, gboolean, gconstpointer, gpointer};
 
 // Aliases
 pub type GdkXEvent = c_void;
@@ -4707,7 +4707,7 @@ unsafe extern "C" {
         device_manager: *mut GdkDeviceManager,
     ) -> *mut GdkDevice;
     pub fn gdk_device_manager_get_display(device_manager: *mut GdkDeviceManager)
-        -> *mut GdkDisplay;
+    -> *mut GdkDisplay;
     pub fn gdk_device_manager_list_devices(
         device_manager: *mut GdkDeviceManager,
         type_: GdkDeviceType,
@@ -4736,7 +4736,7 @@ unsafe extern "C" {
     ) -> gboolean;
     pub fn gdk_display_flush(display: *mut GdkDisplay);
     pub fn gdk_display_get_app_launch_context(display: *mut GdkDisplay)
-        -> *mut GdkAppLaunchContext;
+    -> *mut GdkAppLaunchContext;
     pub fn gdk_display_get_default_cursor_size(display: *mut GdkDisplay) -> c_uint;
     pub fn gdk_display_get_default_group(display: *mut GdkDisplay) -> *mut GdkWindow;
     pub fn gdk_display_get_default_screen(display: *mut GdkDisplay) -> *mut GdkScreen;
@@ -4749,7 +4749,7 @@ unsafe extern "C" {
         height: *mut c_uint,
     );
     pub fn gdk_display_get_monitor(display: *mut GdkDisplay, monitor_num: c_int)
-        -> *mut GdkMonitor;
+    -> *mut GdkMonitor;
     pub fn gdk_display_get_monitor_at_point(
         display: *mut GdkDisplay,
         x: c_int,
@@ -5024,7 +5024,7 @@ unsafe extern "C" {
         monitor_num: c_int,
     ) -> *mut c_char;
     pub fn gdk_screen_get_monitor_scale_factor(screen: *mut GdkScreen, monitor_num: c_int)
-        -> c_int;
+    -> c_int;
     pub fn gdk_screen_get_monitor_width_mm(screen: *mut GdkScreen, monitor_num: c_int) -> c_int;
     pub fn gdk_screen_get_monitor_workarea(
         screen: *mut GdkScreen,
@@ -5230,7 +5230,7 @@ unsafe extern "C" {
     pub fn gdk_window_geometry_changed(window: *mut GdkWindow);
     pub fn gdk_window_get_accept_focus(window: *mut GdkWindow) -> gboolean;
     pub fn gdk_window_get_background_pattern(window: *mut GdkWindow)
-        -> *mut cairo::cairo_pattern_t;
+    -> *mut cairo::cairo_pattern_t;
     pub fn gdk_window_get_children(window: *mut GdkWindow) -> *mut glib::GList;
     pub fn gdk_window_get_children_with_user_data(
         window: *mut GdkWindow,
@@ -5557,7 +5557,7 @@ unsafe extern "C" {
     pub fn gdk_disable_multidevice();
     pub fn gdk_drag_abort(context: *mut GdkDragContext, time_: u32);
     pub fn gdk_drag_begin(window: *mut GdkWindow, targets: *mut glib::GList)
-        -> *mut GdkDragContext;
+    -> *mut GdkDragContext;
     pub fn gdk_drag_begin_for_device(
         window: *mut GdkWindow,
         device: *mut GdkDevice,

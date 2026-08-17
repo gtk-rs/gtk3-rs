@@ -3,12 +3,12 @@
 // DO NOT EDIT
 
 use crate::{
-    ffi, Align, Bin, Buildable, Container, Popover, PopoverConstraint, PositionType, ResizeMode,
-    Widget,
+    Align, Bin, Buildable, Container, Popover, PopoverConstraint, PositionType, ResizeMode, Widget,
+    ffi,
 };
 use glib::{
     prelude::*,
-    signal::{connect_raw, SignalHandlerId},
+    signal::{SignalHandlerId, connect_raw},
     translate::*,
 };
 use std::boxed::Box as Box_;

@@ -2,10 +2,10 @@
 
 use crate::TreeIter;
 use crate::TreeModel;
-use crate::{ffi, ListStore};
+use crate::{ListStore, ffi};
 use glib::object::{Cast, IsA};
 use glib::translate::*;
-use glib::{value::ToValue, Type, Value};
+use glib::{Type, Value, value::ToValue};
 use libc::c_int;
 use std::ptr;
 

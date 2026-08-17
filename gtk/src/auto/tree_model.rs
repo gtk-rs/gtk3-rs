@@ -2,11 +2,11 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use crate::{ffi, TreeIter, TreeModelFlags, TreePath};
+use crate::{TreeIter, TreeModelFlags, TreePath, ffi};
 use glib::{
     object::ObjectType as _,
     prelude::*,
-    signal::{connect_raw, SignalHandlerId},
+    signal::{SignalHandlerId, connect_raw},
     translate::*,
 };
 use std::boxed::Box as Box_;
@@ -89,11 +89,7 @@ pub trait TreeModelExt: IsA<TreeModel> + 'static {
                 iter.to_glib_none_mut().0,
                 mut_override(path.to_glib_none().0),
             ));
-            if ret {
-                Some(iter)
-            } else {
-                None
-            }
+            if ret { Some(iter) } else { None }
         }
     }
 
@@ -106,11 +102,7 @@ pub trait TreeModelExt: IsA<TreeModel> + 'static {
                 self.as_ref().to_glib_none().0,
                 iter.to_glib_none_mut().0,
             ));
-            if ret {
-                Some(iter)
-            } else {
-                None
-            }
+            if ret { Some(iter) } else { None }
         }
     }
 
@@ -124,11 +116,7 @@ pub trait TreeModelExt: IsA<TreeModel> + 'static {
                 iter.to_glib_none_mut().0,
                 path_string.to_glib_none().0,
             ));
-            if ret {
-                Some(iter)
-            } else {
-                None
-            }
+            if ret { Some(iter) } else { None }
         }
     }
 
@@ -190,11 +178,7 @@ pub trait TreeModelExt: IsA<TreeModel> + 'static {
                 iter.to_glib_none_mut().0,
                 mut_override(parent.to_glib_none().0),
             ));
-            if ret {
-                Some(iter)
-            } else {
-                None
-            }
+            if ret { Some(iter) } else { None }
         }
     }
 
@@ -238,11 +222,7 @@ pub trait TreeModelExt: IsA<TreeModel> + 'static {
                 mut_override(parent.to_glib_none().0),
                 n,
             ));
-            if ret {
-                Some(iter)
-            } else {
-                None
-            }
+            if ret { Some(iter) } else { None }
         }
     }
 
@@ -255,11 +235,7 @@ pub trait TreeModelExt: IsA<TreeModel> + 'static {
                 iter.to_glib_none_mut().0,
                 mut_override(child.to_glib_none().0),
             ));
-            if ret {
-                Some(iter)
-            } else {
-                None
-            }
+            if ret { Some(iter) } else { None }
         }
     }
 

@@ -1,5 +1,5 @@
-use gtk::prelude::*;
 use gtk::AboutDialog;
+use gtk::prelude::*;
 use gtk::{gio, glib};
 
 fn main() {

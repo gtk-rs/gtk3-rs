@@ -1,6 +1,6 @@
 use gtk::prelude::*;
-use gtk::{cairo, gdk};
 use gtk::{ApplicationWindow, Button, Fixed};
+use gtk::{cairo, gdk};
 
 fn build_ui(application: &gtk::Application) {
     let window = ApplicationWindow::new(application);

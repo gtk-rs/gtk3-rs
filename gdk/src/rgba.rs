@@ -2,7 +2,7 @@
 
 use glib::translate::Uninitialized;
 
-use crate::{ffi, RGBA};
+use crate::{RGBA, ffi};
 use glib::translate::*;
 use std::fmt;
 use std::str::FromStr;

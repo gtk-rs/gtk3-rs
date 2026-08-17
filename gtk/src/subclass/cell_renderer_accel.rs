@@ -4,10 +4,10 @@ use libc::{c_char, c_uint};
 
 use glib::subclass::prelude::*;
 use glib::translate::*;
-use glib::{object::Cast, GString};
+use glib::{GString, object::Cast};
 
 use super::cell_renderer_text::CellRendererTextImpl;
-use crate::{ffi, CellRendererAccel};
+use crate::{CellRendererAccel, ffi};
 
 pub trait CellRendererAccelImpl: CellRendererAccelImplExt + CellRendererTextImpl {
     fn accel_edited(

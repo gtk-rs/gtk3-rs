@@ -1,7 +1,7 @@
 // Take a look at the license at the top of the repository in the LICENSE file.
 
-use proc_macro2::TokenStream;
 use proc_macro_error::{abort, abort_call_site};
+use proc_macro2::TokenStream;
 use quote::quote;
 use syn::Data;
 
