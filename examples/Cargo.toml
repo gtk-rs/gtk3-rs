@@ -1,8 +1,8 @@
 [package]
 name = "gtk-rs-examples"
-version = "0.0.1"
-authors = ["The gtk-rs Project Developers"]
-edition = "2021"
+version.workspace = true
+authors.workspace = true
+edition.workspace = true
 
 [dependencies]
 async-channel = "2.0.0"

@@ -1,16 +1,16 @@
 [package]
 name = "gtk-sys"
-version = "0.19.0"
+version.workspace = true
 links = "gtk-3"
 build = "build.rs"
-authors = ["The gtk-rs Project Developers"]
+authors.workspace = true
 description = "FFI bindings to libgtk-3"
-homepage = "https://gtk-rs.org/"
+homepage.workspace = true
 keywords = ["gtk", "ffi", "gtk-rs", "gnome"]
-license = "MIT"
-repository = "https://github.com/gtk-rs/gtk3-rs"
-edition = "2021"
-rust-version = "1.92"
+license.workspace = true
+repository.workspace = true
+edition.workspace = true
+rust-version.workspace = true
 
 [package.metadata.docs.rs]
 rustdoc-args = ["--cfg", "docsrs"]
