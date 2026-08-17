@@ -30,7 +30,7 @@ resolver = "2"
 
 [workspace.package]
 authors = ["The gtk-rs Project Developers"]
-edition = "2021"
+edition = "2024"
 homepage = "https://gtk-rs.org/"
 license = "MIT"
 repository = "https://github.com/gtk-rs/gtk3-rs"

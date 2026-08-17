@@ -84,6 +84,6 @@ use syn::{parse_macro_input, DeriveInput};
 #[proc_macro_error]
 pub fn composite_template_derive(input: TokenStream) -> TokenStream {
     let input = parse_macro_input!(input as DeriveInput);
-    let gen = composite_template_derive::impl_composite_template(&input);
-    gen.into()
+    let generated = composite_template_derive::impl_composite_template(&input);
+    generated.into()
 }

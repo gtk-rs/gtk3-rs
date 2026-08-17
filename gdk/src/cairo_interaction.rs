@@ -96,18 +96,20 @@ impl GdkContextExt for Context {
         width: i32,
         height: i32,
     ) {
-        skip_assert_initialized!();
-        ffi::gdk_cairo_draw_from_gl(
-            mut_override(self.to_glib_none().0),
-            window.as_ref().to_glib_none().0,
-            source,
-            source_type,
-            buffer_scale,
-            x,
-            y,
-            width,
-            height,
-        );
+        unsafe {
+            skip_assert_initialized!();
+            ffi::gdk_cairo_draw_from_gl(
+                mut_override(self.to_glib_none().0),
+                window.as_ref().to_glib_none().0,
+                source,
+                source_type,
+                buffer_scale,
+                x,
+                y,
+                width,
+                height,
+            );
+        }
     }
 
     fn clip_rectangle(&self) -> Option<Rectangle> {

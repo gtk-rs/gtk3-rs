@@ -103,11 +103,13 @@ pub trait WidgetExtManual: IsA<Widget> + sealed::Sealed + 'static {
         where
             T: IsA<Widget>,
         {
-            f(
-                Widget::from_glib_borrow(this).unsafe_cast_ref(),
-                &from_glib_borrow(event),
-            )
-            .into_glib()
+            unsafe {
+                f(
+                    Widget::from_glib_borrow(this).unsafe_cast_ref(),
+                    &from_glib_borrow(event),
+                )
+                .into_glib()
+            }
         }
         unsafe {
             let f: Box<F> = Box::new(f);
@@ -137,11 +139,13 @@ pub trait WidgetExtManual: IsA<Widget> + sealed::Sealed + 'static {
         where
             T: IsA<Widget>,
         {
-            f(
-                Widget::from_glib_borrow(this).unsafe_cast_ref(),
-                &from_glib_borrow(event),
-            )
-            .into_glib()
+            unsafe {
+                f(
+                    Widget::from_glib_borrow(this).unsafe_cast_ref(),
+                    &from_glib_borrow(event),
+                )
+                .into_glib()
+            }
         }
         unsafe {
             let f: Box<F> = Box::new(f);
@@ -171,11 +175,13 @@ pub trait WidgetExtManual: IsA<Widget> + sealed::Sealed + 'static {
             frame_clock: *mut gdk::ffi::GdkFrameClock,
             user_data: glib::ffi::gpointer,
         ) -> glib::ffi::gboolean {
-            let widget: Borrowed<Widget> = from_glib_borrow(widget);
-            let frame_clock = from_glib_borrow(frame_clock);
-            let callback: &P = &*(user_data as *mut _);
-            let res = (*callback)(widget.unsafe_cast_ref(), &frame_clock);
-            res.into_glib()
+            unsafe {
+                let widget: Borrowed<Widget> = from_glib_borrow(widget);
+                let frame_clock = from_glib_borrow(frame_clock);
+                let callback: &P = &*(user_data as *mut _);
+                let res = (*callback)(widget.unsafe_cast_ref(), &frame_clock);
+                res.into_glib()
+            }
         }
         let callback = Some(callback_func::<Self, P> as _);
 
@@ -185,7 +191,9 @@ pub trait WidgetExtManual: IsA<Widget> + sealed::Sealed + 'static {
         >(
             data: glib::ffi::gpointer,
         ) {
-            let _callback: Box<P> = Box::from_raw(data as *mut _);
+            unsafe {
+                let _callback: Box<P> = Box::from_raw(data as *mut _);
+            }
         }
         let destroy_call = Some(notify_func::<Self, P> as _);
 
@@ -233,7 +241,9 @@ pub trait WidgetExtManual: IsA<Widget> + sealed::Sealed + 'static {
     /// yourself unless you really mean to.
     #[doc(alias = "gtk_widget_destroy")]
     unsafe fn destroy(&self) {
-        ffi::gtk_widget_destroy(self.as_ref().to_glib_none().0);
+        unsafe {
+            ffi::gtk_widget_destroy(self.as_ref().to_glib_none().0);
+        }
     }
 
     #[doc(alias = "gtk_widget_hide_on_delete")]

@@ -68,17 +68,21 @@ unsafe impl<T: SocketImpl> IsSubclassable<T> for Socket {
 }
 
 unsafe extern "C" fn socket_plug_added<T: SocketImpl>(ptr: *mut ffi::GtkSocket) {
-    let instance = &*(ptr as *mut T::Instance);
-    let imp = instance.imp();
+    unsafe {
+        let instance = &*(ptr as *mut T::Instance);
+        let imp = instance.imp();
 
-    imp.plug_added()
+        imp.plug_added()
+    }
 }
 
 unsafe extern "C" fn socket_plug_removed<T: SocketImpl>(
     ptr: *mut ffi::GtkSocket,
 ) -> glib::ffi::gboolean {
-    let instance = &*(ptr as *mut T::Instance);
-    let imp = instance.imp();
+    unsafe {
+        let instance = &*(ptr as *mut T::Instance);
+        let imp = instance.imp();
 
-    imp.plug_removed().into_glib()
+        imp.plug_removed().into_glib()
+    }
 }

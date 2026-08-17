@@ -117,41 +117,51 @@ unsafe extern "C" fn window_set_focus<T: WindowImpl>(
     ptr: *mut ffi::GtkWindow,
     widgetptr: *mut ffi::GtkWidget,
 ) {
-    let instance = &*(ptr as *mut T::Instance);
-    let imp = instance.imp();
-    let widget: Borrowed<Option<Widget>> = from_glib_borrow(widgetptr);
+    unsafe {
+        let instance = &*(ptr as *mut T::Instance);
+        let imp = instance.imp();
+        let widget: Borrowed<Option<Widget>> = from_glib_borrow(widgetptr);
 
-    imp.set_focus(widget.as_ref().as_ref())
+        imp.set_focus(widget.as_ref().as_ref())
+    }
 }
 
 unsafe extern "C" fn window_activate_focus<T: WindowImpl>(ptr: *mut ffi::GtkWindow) {
-    let instance = &*(ptr as *mut T::Instance);
-    let imp = instance.imp();
+    unsafe {
+        let instance = &*(ptr as *mut T::Instance);
+        let imp = instance.imp();
 
-    imp.activate_focus()
+        imp.activate_focus()
+    }
 }
 
 unsafe extern "C" fn window_activate_default<T: WindowImpl>(ptr: *mut ffi::GtkWindow) {
-    let instance = &*(ptr as *mut T::Instance);
-    let imp = instance.imp();
+    unsafe {
+        let instance = &*(ptr as *mut T::Instance);
+        let imp = instance.imp();
 
-    imp.activate_default()
+        imp.activate_default()
+    }
 }
 
 unsafe extern "C" fn window_keys_changed<T: WindowImpl>(ptr: *mut ffi::GtkWindow) {
-    let instance = &*(ptr as *mut T::Instance);
-    let imp = instance.imp();
+    unsafe {
+        let instance = &*(ptr as *mut T::Instance);
+        let imp = instance.imp();
 
-    imp.keys_changed()
+        imp.keys_changed()
+    }
 }
 
 unsafe extern "C" fn window_enable_debugging<T: WindowImpl>(
     ptr: *mut ffi::GtkWindow,
     toggleptr: glib::ffi::gboolean,
 ) -> glib::ffi::gboolean {
-    let instance = &*(ptr as *mut T::Instance);
-    let imp = instance.imp();
-    let toggle: bool = from_glib(toggleptr);
+    unsafe {
+        let instance = &*(ptr as *mut T::Instance);
+        let imp = instance.imp();
+        let toggle: bool = from_glib(toggleptr);
 
-    imp.enable_debugging(toggle).into_glib()
+        imp.enable_debugging(toggle).into_glib()
+    }
 }

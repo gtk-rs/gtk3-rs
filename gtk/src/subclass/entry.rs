@@ -67,16 +67,20 @@ unsafe extern "C" fn entry_populate_popup<T: EntryImpl>(
     ptr: *mut ffi::GtkEntry,
     popupptr: *mut ffi::GtkWidget,
 ) {
-    let instance = &*(ptr as *mut T::Instance);
-    let imp = instance.imp();
-    let popup: Borrowed<Widget> = from_glib_borrow(popupptr);
+    unsafe {
+        let instance = &*(ptr as *mut T::Instance);
+        let imp = instance.imp();
+        let popup: Borrowed<Widget> = from_glib_borrow(popupptr);
 
-    imp.populate_popup(&popup)
+        imp.populate_popup(&popup)
+    }
 }
 
 unsafe extern "C" fn entry_activate<T: EntryImpl>(ptr: *mut ffi::GtkEntry) {
-    let instance = &*(ptr as *mut T::Instance);
-    let imp = instance.imp();
+    unsafe {
+        let instance = &*(ptr as *mut T::Instance);
+        let imp = instance.imp();
 
-    imp.activate()
+        imp.activate()
+    }
 }

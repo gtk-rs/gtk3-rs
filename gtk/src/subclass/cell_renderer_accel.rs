@@ -95,23 +95,27 @@ unsafe extern "C" fn cell_renderer_accel_edited<T: CellRendererAccelImpl>(
     accel_mods: gdk::ffi::GdkModifierType,
     hardware_keycode: c_uint,
 ) {
-    let instance = &*(ptr as *mut T::Instance);
-    let imp = instance.imp();
+    unsafe {
+        let instance = &*(ptr as *mut T::Instance);
+        let imp = instance.imp();
 
-    imp.accel_edited(
-        &GString::from_glib_borrow(path),
-        accel_key,
-        from_glib(accel_mods),
-        hardware_keycode,
-    )
+        imp.accel_edited(
+            &GString::from_glib_borrow(path),
+            accel_key,
+            from_glib(accel_mods),
+            hardware_keycode,
+        )
+    }
 }
 
 unsafe extern "C" fn cell_renderer_accel_cleared<T: CellRendererAccelImpl>(
     ptr: *mut ffi::GtkCellRendererAccel,
     path: *const c_char,
 ) {
-    let instance = &*(ptr as *mut T::Instance);
-    let imp = instance.imp();
+    unsafe {
+        let instance = &*(ptr as *mut T::Instance);
+        let imp = instance.imp();
 
-    imp.accel_cleared(&GString::from_glib_borrow(path))
+        imp.accel_cleared(&GString::from_glib_borrow(path))
+    }
 }

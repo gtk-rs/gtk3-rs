@@ -156,46 +156,58 @@ unsafe extern "C" fn icon_view_item_activated<T: IconViewImpl>(
     ptr: *mut ffi::GtkIconView,
     path: *mut ffi::GtkTreePath,
 ) {
-    let instance = &*(ptr as *mut T::Instance);
-    let imp = instance.imp();
-    let path = from_glib_borrow(path);
+    unsafe {
+        let instance = &*(ptr as *mut T::Instance);
+        let imp = instance.imp();
+        let path = from_glib_borrow(path);
 
-    imp.item_activated(&path)
+        imp.item_activated(&path)
+    }
 }
 
 unsafe extern "C" fn icon_view_selection_changed<T: IconViewImpl>(ptr: *mut ffi::GtkIconView) {
-    let instance = &*(ptr as *mut T::Instance);
-    let imp = instance.imp();
+    unsafe {
+        let instance = &*(ptr as *mut T::Instance);
+        let imp = instance.imp();
 
-    imp.selection_changed()
+        imp.selection_changed()
+    }
 }
 
 unsafe extern "C" fn icon_view_select_all<T: IconViewImpl>(ptr: *mut ffi::GtkIconView) {
-    let instance = &*(ptr as *mut T::Instance);
-    let imp = instance.imp();
+    unsafe {
+        let instance = &*(ptr as *mut T::Instance);
+        let imp = instance.imp();
 
-    imp.select_all()
+        imp.select_all()
+    }
 }
 
 unsafe extern "C" fn icon_view_unselect_all<T: IconViewImpl>(ptr: *mut ffi::GtkIconView) {
-    let instance = &*(ptr as *mut T::Instance);
-    let imp = instance.imp();
+    unsafe {
+        let instance = &*(ptr as *mut T::Instance);
+        let imp = instance.imp();
 
-    imp.unselect_all()
+        imp.unselect_all()
+    }
 }
 
 unsafe extern "C" fn icon_view_select_cursor_item<T: IconViewImpl>(ptr: *mut ffi::GtkIconView) {
-    let instance = &*(ptr as *mut T::Instance);
-    let imp = instance.imp();
+    unsafe {
+        let instance = &*(ptr as *mut T::Instance);
+        let imp = instance.imp();
 
-    imp.select_cursor_item()
+        imp.select_cursor_item()
+    }
 }
 
 unsafe extern "C" fn icon_view_toggle_cursor_item<T: IconViewImpl>(ptr: *mut ffi::GtkIconView) {
-    let instance = &*(ptr as *mut T::Instance);
-    let imp = instance.imp();
+    unsafe {
+        let instance = &*(ptr as *mut T::Instance);
+        let imp = instance.imp();
 
-    imp.toggle_cursor_item()
+        imp.toggle_cursor_item()
+    }
 }
 
 unsafe extern "C" fn icon_view_move_cursor<T: IconViewImpl>(
@@ -203,17 +215,21 @@ unsafe extern "C" fn icon_view_move_cursor<T: IconViewImpl>(
     step: ffi::GtkMovementStep,
     count: c_int,
 ) -> glib::ffi::gboolean {
-    let instance = &*(ptr as *mut T::Instance);
-    let imp = instance.imp();
+    unsafe {
+        let instance = &*(ptr as *mut T::Instance);
+        let imp = instance.imp();
 
-    imp.move_cursor(from_glib(step), count).into_glib()
+        imp.move_cursor(from_glib(step), count).into_glib()
+    }
 }
 
 unsafe extern "C" fn icon_view_activate_cursor_item<T: IconViewImpl>(
     ptr: *mut ffi::GtkIconView,
 ) -> glib::ffi::gboolean {
-    let instance = &*(ptr as *mut T::Instance);
-    let imp = instance.imp();
+    unsafe {
+        let instance = &*(ptr as *mut T::Instance);
+        let imp = instance.imp();
 
-    imp.activate_cursor_item().into_glib()
+        imp.activate_cursor_item().into_glib()
+    }
 }

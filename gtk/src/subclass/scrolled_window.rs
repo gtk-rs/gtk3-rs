@@ -78,11 +78,13 @@ unsafe extern "C" fn window_move_focus_out<T: ScrolledWindowImpl>(
     ptr: *mut ffi::GtkScrolledWindow,
     directiontypeptr: ffi::GtkDirectionType,
 ) {
-    let instance = &*(ptr as *mut T::Instance);
-    let imp = instance.imp();
-    let direction_type: DirectionType = from_glib(directiontypeptr);
+    unsafe {
+        let instance = &*(ptr as *mut T::Instance);
+        let imp = instance.imp();
+        let direction_type: DirectionType = from_glib(directiontypeptr);
 
-    imp.move_focus_out(direction_type)
+        imp.move_focus_out(direction_type)
+    }
 }
 
 unsafe extern "C" fn window_scroll_child<T: ScrolledWindowImpl>(
@@ -90,10 +92,12 @@ unsafe extern "C" fn window_scroll_child<T: ScrolledWindowImpl>(
     scrollptr: ffi::GtkScrollType,
     horizontalptr: glib::ffi::gboolean,
 ) -> glib::ffi::gboolean {
-    let instance = &*(ptr as *mut T::Instance);
-    let imp = instance.imp();
-    let scroll: ScrollType = from_glib(scrollptr);
-    let horizontal: bool = from_glib(horizontalptr);
+    unsafe {
+        let instance = &*(ptr as *mut T::Instance);
+        let imp = instance.imp();
+        let scroll: ScrollType = from_glib(scrollptr);
+        let horizontal: bool = from_glib(horizontalptr);
 
-    imp.scroll_child(scroll, horizontal).into_glib()
+        imp.scroll_child(scroll, horizontal).into_glib()
+    }
 }

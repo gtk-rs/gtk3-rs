@@ -34,19 +34,21 @@ pub trait TextBufferExtManual: IsA<TextBuffer> + sealed::Sealed + 'static {
         ) where
             P: IsA<TextBuffer>,
         {
-            let f: &F = &*(f as *const F);
-            let mut start_copy = from_glib_none(start);
-            let mut end_copy = from_glib_none(end);
+            unsafe {
+                let f: &F = &*(f as *const F);
+                let mut start_copy = from_glib_none(start);
+                let mut end_copy = from_glib_none(end);
 
-            f(
-                TextBuffer::from_glib_borrow(this).unsafe_cast_ref(),
-                &from_glib_borrow(tag),
-                &mut start_copy,
-                &mut end_copy,
-            );
+                f(
+                    TextBuffer::from_glib_borrow(this).unsafe_cast_ref(),
+                    &from_glib_borrow(tag),
+                    &mut start_copy,
+                    &mut end_copy,
+                );
 
-            *start = *start_copy.to_glib_none().0;
-            *end = *end_copy.to_glib_none().0;
+                *start = *start_copy.to_glib_none().0;
+                *end = *end_copy.to_glib_none().0;
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -76,18 +78,20 @@ pub trait TextBufferExtManual: IsA<TextBuffer> + sealed::Sealed + 'static {
         ) where
             P: IsA<TextBuffer>,
         {
-            let f: &F = &*(f as *const F);
-            let mut start_copy = from_glib_none(start);
-            let mut end_copy = from_glib_none(end);
+            unsafe {
+                let f: &F = &*(f as *const F);
+                let mut start_copy = from_glib_none(start);
+                let mut end_copy = from_glib_none(end);
 
-            f(
-                TextBuffer::from_glib_borrow(this).unsafe_cast_ref(),
-                &mut start_copy,
-                &mut end_copy,
-            );
+                f(
+                    TextBuffer::from_glib_borrow(this).unsafe_cast_ref(),
+                    &mut start_copy,
+                    &mut end_copy,
+                );
 
-            *start = *start_copy.to_glib_none().0;
-            *end = *end_copy.to_glib_none().0;
+                *start = *start_copy.to_glib_none().0;
+                *end = *end_copy.to_glib_none().0;
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -117,16 +121,18 @@ pub trait TextBufferExtManual: IsA<TextBuffer> + sealed::Sealed + 'static {
         ) where
             P: IsA<TextBuffer>,
         {
-            let f: &F = &*(f as *const F);
-            let mut location_copy = from_glib_none(location);
+            unsafe {
+                let f: &F = &*(f as *const F);
+                let mut location_copy = from_glib_none(location);
 
-            f(
-                TextBuffer::from_glib_borrow(this).unsafe_cast_ref(),
-                &mut location_copy,
-                &from_glib_borrow(anchor),
-            );
+                f(
+                    TextBuffer::from_glib_borrow(this).unsafe_cast_ref(),
+                    &mut location_copy,
+                    &from_glib_borrow(anchor),
+                );
 
-            *location = *location_copy.to_glib_none().0;
+                *location = *location_copy.to_glib_none().0;
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -156,16 +162,18 @@ pub trait TextBufferExtManual: IsA<TextBuffer> + sealed::Sealed + 'static {
         ) where
             P: IsA<TextBuffer>,
         {
-            let f: &F = &*(f as *const F);
-            let mut location_copy = from_glib_none(location);
+            unsafe {
+                let f: &F = &*(f as *const F);
+                let mut location_copy = from_glib_none(location);
 
-            f(
-                TextBuffer::from_glib_borrow(this).unsafe_cast_ref(),
-                &mut location_copy,
-                &from_glib_borrow(pixbuf),
-            );
+                f(
+                    TextBuffer::from_glib_borrow(this).unsafe_cast_ref(),
+                    &mut location_copy,
+                    &from_glib_borrow(pixbuf),
+                );
 
-            *location = *location_copy.to_glib_none().0;
+                *location = *location_copy.to_glib_none().0;
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -193,22 +201,24 @@ pub trait TextBufferExtManual: IsA<TextBuffer> + sealed::Sealed + 'static {
         ) where
             T: IsA<TextBuffer>,
         {
-            let f: &F = &*(f as *const F);
-            let mut location_copy = from_glib_none(location);
+            unsafe {
+                let f: &F = &*(f as *const F);
+                let mut location_copy = from_glib_none(location);
 
-            let text = if len <= 0 {
-                &[]
-            } else {
-                slice::from_raw_parts(text as *const u8, len as usize)
-            };
+                let text = if len <= 0 {
+                    &[]
+                } else {
+                    slice::from_raw_parts(text as *const u8, len as usize)
+                };
 
-            f(
-                TextBuffer::from_glib_borrow(this).unsafe_cast_ref(),
-                &mut location_copy,
-                str::from_utf8(text).unwrap(),
-            );
+                f(
+                    TextBuffer::from_glib_borrow(this).unsafe_cast_ref(),
+                    &mut location_copy,
+                    str::from_utf8(text).unwrap(),
+                );
 
-            *location = *location_copy.to_glib_none().0;
+                *location = *location_copy.to_glib_none().0;
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -239,19 +249,21 @@ pub trait TextBufferExtManual: IsA<TextBuffer> + sealed::Sealed + 'static {
         ) where
             P: IsA<TextBuffer>,
         {
-            let f: &F = &*(f as *const F);
-            let mut start_copy = from_glib_none(start);
-            let mut end_copy = from_glib_none(end);
+            unsafe {
+                let f: &F = &*(f as *const F);
+                let mut start_copy = from_glib_none(start);
+                let mut end_copy = from_glib_none(end);
 
-            f(
-                TextBuffer::from_glib_borrow(this).unsafe_cast_ref(),
-                &from_glib_borrow(tag),
-                &mut start_copy,
-                &mut end_copy,
-            );
+                f(
+                    TextBuffer::from_glib_borrow(this).unsafe_cast_ref(),
+                    &from_glib_borrow(tag),
+                    &mut start_copy,
+                    &mut end_copy,
+                );
 
-            *start = *start_copy.to_glib_none().0;
-            *end = *end_copy.to_glib_none().0;
+                *start = *start_copy.to_glib_none().0;
+                *end = *end_copy.to_glib_none().0;
+            }
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);

@@ -33,7 +33,7 @@ opaque!(GdkWaylandMonitor);
 opaque!(GdkWaylandWindow);
 opaque!(GdkWaylandSeat);
 
-extern "C" {
+unsafe extern "C" {
     //=========================================================================
     // GdkWaylandWindow
     //=========================================================================

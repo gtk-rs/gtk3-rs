@@ -43,15 +43,19 @@ impl WaylandWindow {
             handle: *const libc::c_char,
             user_data: glib::ffi::gpointer,
         ) {
-            let window = from_glib_borrow(window);
-            let handle: Borrowed<glib::GString> = from_glib_borrow(handle);
-            let callback = &*(user_data as *mut P);
-            (*callback)(&window, handle.as_str());
+            unsafe {
+                let window = from_glib_borrow(window);
+                let handle: Borrowed<glib::GString> = from_glib_borrow(handle);
+                let callback = &*(user_data as *mut P);
+                (*callback)(&window, handle.as_str());
+            }
         }
         unsafe extern "C" fn destroy_notify<P: Fn(&WaylandWindow, &str) + 'static>(
             data: glib::ffi::gpointer,
         ) {
-            let _ = Box::from_raw(data as *mut P);
+            unsafe {
+                let _ = Box::from_raw(data as *mut P);
+            }
         }
         unsafe {
             from_glib(ffi::gdk_wayland_window_export_handle(
