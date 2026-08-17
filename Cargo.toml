@@ -75,7 +75,7 @@ pkg-config = "0.3.7"
 proc-macro-crate = "3.5"
 proc-macro2 = "1.0"
 quote = "1.0"
-syn = { version = "2.0", features = ["full"] }
+syn = { version = "3.0", features = ["full"] }
 system-deps = "8"
 wayland-backend = { version = "0.3.0", features = ["client_system"] }
 wayland-client = "0.31"
