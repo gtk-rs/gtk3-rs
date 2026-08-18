@@ -1,7 +1,29 @@
 on:
   push:
     branches: [master]
+    paths:
+      - "Cargo.lock"
+      - "Cargo.toml"
+      - ".github/workflows/docs.yml"
+      - "atk/**"
+      - "gdk/**"
+      - "gdkwayland/**"
+      - "gdkx11/**"
+      - "gtk/**"
+      - "gtk3-macros/**"
+      - "**/README.md"
   pull_request:
+    paths:
+      - "Cargo.lock"
+      - "Cargo.toml"
+      - ".github/workflows/docs.yml"
+      - "atk/**"
+      - "gdk/**"
+      - "gdkwayland/**"
+      - "gdkx11/**"
+      - "gtk/**"
+      - "gtk3-macros/**"
+      - "**/README.md"
   workflow_dispatch:
   release:
     types: [published]
@@ -10,7 +32,7 @@ name: docs
 
 jobs:
   docs:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     name: build
     container:
       image: ghcr.io/gtk-rs/gtk3-rs/gtk3:latest
@@ -26,11 +48,9 @@ jobs:
         with:
           submodules: recursive
           set-safe-directory: true
-      - uses: actions-rs/toolchain@v1
+      - uses: dtolnay/rust-toolchain@v1
         with:
-          profile: minimal
           toolchain: nightly
-          override: true
           components: rustfmt
       - run: git submodule update --checkout
       - run: cargo install rustdoc-stripper
@@ -44,14 +64,12 @@ jobs:
         env:
           RUSTDOCFLAGS: >
             -Zunstable-options --generate-link-to-definition
-      - uses: actions-rs/cargo@v1
-        with:
-          command: doc
-          args: >
-            -p atk -p atk-sys -p gdk -p gdk-sys -p gdkx11 -p gdkx11-sys
-            -p gtk -p gtk3-macros -p gtk-sys -p gdkwayland -p gdkwayland-sys
-            --no-deps
-            --features "atk/v2_34,gdk/v3_24,gdkx11/v3_24,gdkwayland/v3_24,gtk/v3_24_9"
+      - run: >
+          cargo doc
+          -p atk -p atk-sys -p gdk -p gdk-sys -p gdkx11 -p gdkx11-sys
+          -p gtk -p gtk3-macros -p gtk-sys -p gdkwayland -p gdkwayland-sys
+          --no-deps
+          --features "atk/v2_34,gdk/v3_24,gdkx11/v3_24,gdkwayland/v3_24,gtk/v3_24_9"
       - run: echo "RELEASE=$(echo '${{ github.event.release.tag_name }}' | grep -Po '(\d+)\.(\d+)')" >> ${GITHUB_ENV}
       - run: echo "DEST=$(if [ "$GITHUB_EVENT_NAME" == "release" ]; then echo 'stable/${{ env.RELEASE }}'; else echo 'git'; fi)" >> ${GITHUB_ENV}
       - name: Grab gtk-rs LOGO

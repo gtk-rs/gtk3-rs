@@ -73,7 +73,7 @@ pub trait ContainerExtManual: IsA<Container> + sealed::Sealed + 'static {
             if !pspec.flags().contains(glib::ParamFlags::WRITABLE)
                 || !pspec.flags().contains(glib::ParamFlags::READWRITE)
             {
-                panic!("The Container property '{property_name}' is not writeable");
+                panic!("The Container property '{property_name}' is not writable");
             }
 
             assert!(

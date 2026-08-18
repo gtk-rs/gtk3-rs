@@ -1,0 +1,22 @@
+[files]
+extend-exclude = [
+    "auto",
+    "gdk/src/keys.rs",
+    "gdk/sys/src/lib.rs",
+    "gdk/sys/tests/abi.rs",
+    "gdk/sys/tests/constant.c",
+    "gir-files/**",
+    "gir/**",
+    "gtk/sys/src/lib.rs",
+    "**/**/versions.txt",
+]
+
+[default.extend-words]
+# Ignore false-positives
+gir = "gir"
+mak = "mak"
+anid = "anid"
+lamda = "lamda"
+inout = "inout"
+relm = "relm"
+consts = "consts"

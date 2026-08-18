@@ -1,7 +1,25 @@
 on:
   push:
     branches: [master]
+    paths:
+      - "Cargo.lock"
+      - "Cargo.toml"
+      - ".github/workflows/windows.yml"
+      - "atk/**"
+      - "examples/**"
+      - "gdk/**"
+      - "gtk/**"
+      - "gtk3-macros/**"
   pull_request:
+    paths:
+      - "Cargo.lock"
+      - "Cargo.toml"
+      - ".github/workflows/windows.yml"
+      - "atk/**"
+      - "examples/**"
+      - "gdk/**"
+      - "gtk/**"
+      - "gtk3-macros/**"
   workflow_dispatch:
 
 name: Windows
@@ -96,27 +114,17 @@ jobs:
 
       - uses: actions/checkout@v7
 
-      - uses: actions-rs/toolchain@v1
+      - uses: dtolnay/rust-toolchain@v1
         with:
           toolchain: stable
-          default: true
 
       - name: test
-        uses: actions-rs/cargo@v1
-        with:
-          command: test
-          args: --manifest-path ${{ matrix.conf.name }}/Cargo.toml ${{ matrix.conf.args }}
+        run: cargo test --manifest-path ${{ matrix.conf.name }}/Cargo.toml ${{ matrix.conf.args }}
         if: matrix.conf.test
 
       - name: test sys
-        uses: actions-rs/cargo@v1
-        with:
-          command: test
-          args: --manifest-path ${{ matrix.conf.name }}/sys/Cargo.toml ${{ matrix.conf.args }}
+        run: cargo test --manifest-path ${{ matrix.conf.name }}/sys/Cargo.toml ${{ matrix.conf.args }}
         if: matrix.conf.test-sys
 
       - name: build
-        uses: actions-rs/cargo@v1
-        with:
-          command: build
-          args: --manifest-path ${{ matrix.conf.name }}/Cargo.toml ${{ matrix.conf.args }}
+        run: cargo build --manifest-path ${{ matrix.conf.name }}/Cargo.toml ${{ matrix.conf.args }}
