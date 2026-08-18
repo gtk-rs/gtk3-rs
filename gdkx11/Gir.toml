@@ -100,8 +100,7 @@ name = "GdkX11.X11Display"
 status = "generate"
     [[object.function]]
     name = "get_xdisplay"
-    # manual, as xlib::Display doesn't implement glib traits
-    ignore = true
+    manual = true
     [[object.function]]
     name = "text_property_to_text_list"
     # manual, the annotations are wrong
@@ -112,13 +111,11 @@ name = "GdkX11.X11Screen"
 status = "generate"
     [[object.function]]
     name = "get_xscreen"
-    # manual, as xlib::Screen doesn't implement glib traits
-    ignore = true
+    manual = true
 
 [[object]]
 name = "GdkX11.X11Visual"
 status = "generate"
     [[object.function]]
     name = "get_xvisual"
-    # manual, as xlib::Visual doesn't implement glib traits
-    ignore = true
+    manual = true
