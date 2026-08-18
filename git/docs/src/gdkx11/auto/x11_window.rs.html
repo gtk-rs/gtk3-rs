@@ -77,7 +77,7 @@
 <a href=#4 id=4 data-nosnippet>4</a>
 <a href=#5 id=5 data-nosnippet>5</a></span><span class="kw">use crate</span>::{<a href="x11_display.rs.html#8-20">X11Display</a>, <a href="../../../gdk_x11_sys/index.html">ffi</a>};
 <a href=#6 id=6 data-nosnippet>6</a><span class="kw">use </span>glib::{<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/prelude/index.html">prelude</a>::<span class="kw-2">*</span>, <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/index.html">translate</a>::<span class="kw-2">*</span>};
-<a href=#7 id=7 data-nosnippet>7</a><span class="kw">use </span>x11::xlib;
+<a href=#7 id=7 data-nosnippet>7</a><span class="kw">use </span><a href="https://docs.rs/x11/latest/x11/xlib/index.html">x11::xlib</a>;
 <a href=#8 id=8 data-nosnippet>8</a>
 <a href=#9 id=9 data-nosnippet>9</a><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/macro.wrapper.html">glib::wrapper!</a> {
 <a href=#10 id=10 data-nosnippet>10</a>    <span class="doccomment">///
@@ -112,7 +112,7 @@
 <a href=#39 id=39 data-nosnippet>39</a>    ///  window, or [`None`] if the window has been destroyed. The wrapper
 <a href=#40 id=40 data-nosnippet>40</a>    ///  will be newly created, if one doesn’t exist already.
 <a href=#41 id=41 data-nosnippet>41</a>    </span><span class="attr">#[doc(alias = <span class="string">"gdk_x11_window_foreign_new_for_display"</span>)]
-<a href=#42 id=42 data-nosnippet>42</a>    </span><span class="kw">pub fn </span>foreign_new_for_display(display: <span class="kw-2">&amp;</span><a href="x11_display.rs.html#8-20">X11Display</a>, window: xlib::Window) -&gt; <a href="#9-21">X11Window</a> {
+<a href=#42 id=42 data-nosnippet>42</a>    </span><span class="kw">pub fn </span>foreign_new_for_display(display: <span class="kw-2">&amp;</span><a href="x11_display.rs.html#8-20">X11Display</a>, window: xlib::<a href="https://docs.rs/x11/latest/x11/xlib/type.Window.html">Window</a>) -&gt; <a href="#9-21">X11Window</a> {
 <a href=#43 id=43 data-nosnippet>43</a>        <span class="macro">skip_assert_initialized!</span>();
 <a href=#44 id=44 data-nosnippet>44</a>        <span class="kw">unsafe </span>{
 <a href=#45 id=45 data-nosnippet>45</a>            gdk::<a href="../../../gdk/auto/window/struct.Window.html">Window</a>::<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.FromGlibPtrFull.html#tymethod.from_glib_full">from_glib_full</a>(ffi::<a href="../../../gdk_x11_sys/fn.gdk_x11_window_foreign_new_for_display.html">gdk_x11_window_foreign_new_for_display</a>(
@@ -141,7 +141,7 @@
 <a href=#68 id=68 data-nosnippet>68</a>    /// the ID of `drawable`’s X resource.
 <a href=#69 id=69 data-nosnippet>69</a>    </span><span class="attr">#[doc(alias = <span class="string">"gdk_x11_window_get_xid"</span>)]
 <a href=#70 id=70 data-nosnippet>70</a>    #[doc(alias = <span class="string">"get_xid"</span>)]
-<a href=#71 id=71 data-nosnippet>71</a>    </span><span class="kw">pub fn </span>xid(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; xlib::Window {
+<a href=#71 id=71 data-nosnippet>71</a>    </span><span class="kw">pub fn </span>xid(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; xlib::<a href="https://docs.rs/x11/latest/x11/xlib/type.Window.html">Window</a> {
 <a href=#72 id=72 data-nosnippet>72</a>        <span class="kw">unsafe </span>{ ffi::<a href="../../../gdk_x11_sys/fn.gdk_x11_window_get_xid.html">gdk_x11_window_get_xid</a>(<a class="self" href="#71">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>) }
 <a href=#73 id=73 data-nosnippet>73</a>    }
 <a href=#74 id=74 data-nosnippet>74</a>
@@ -274,7 +274,7 @@
 <a href=#201 id=201 data-nosnippet>201</a>    /// the [`gdk::Window`][crate::gdk::Window] wrapper for the native
 <a href=#202 id=202 data-nosnippet>202</a>    ///  window, or [`None`] if there is none.
 <a href=#203 id=203 data-nosnippet>203</a>    </span><span class="attr">#[doc(alias = <span class="string">"gdk_x11_window_lookup_for_display"</span>)]
-<a href=#204 id=204 data-nosnippet>204</a>    </span><span class="kw">pub fn </span>lookup_for_display(display: <span class="kw-2">&amp;</span><a href="x11_display.rs.html#8-20">X11Display</a>, window: xlib::Window) -&gt; <a class="prelude-ty" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html">Option</a>&lt;<a href="#9-21">X11Window</a>&gt; {
+<a href=#204 id=204 data-nosnippet>204</a>    </span><span class="kw">pub fn </span>lookup_for_display(display: <span class="kw-2">&amp;</span><a href="x11_display.rs.html#8-20">X11Display</a>, window: xlib::<a href="https://docs.rs/x11/latest/x11/xlib/type.Window.html">Window</a>) -&gt; <a class="prelude-ty" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html">Option</a>&lt;<a href="#9-21">X11Window</a>&gt; {
 <a href=#205 id=205 data-nosnippet>205</a>        <span class="macro">skip_assert_initialized!</span>();
 <a href=#206 id=206 data-nosnippet>206</a>        <span class="kw">unsafe </span>{
 <a href=#207 id=207 data-nosnippet>207</a>            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib_none.html">from_glib_none</a>(ffi::<a href="../../../gdk_x11_sys/fn.gdk_x11_window_lookup_for_display.html">gdk_x11_window_lookup_for_display</a>(

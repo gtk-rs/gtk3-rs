@@ -77,9 +77,9 @@
 <a href=#4 id=4 data-nosnippet>4</a><span class="kw">use </span><a href="../../gdk/prelude/index.html">gdk::prelude</a>::<span class="kw-2">*</span>;
 <a href=#5 id=5 data-nosnippet>5</a><span class="kw">use </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html">glib::translate::ToGlibPtr</a>;
 <a href=#6 id=6 data-nosnippet>6</a>
-<a href=#7 id=7 data-nosnippet>7</a><span class="kw">use </span>wayland_client::Proxy;
+<a href=#7 id=7 data-nosnippet>7</a><span class="kw">use </span><a href="https://smithay.github.io/wayland-rs/wayland_client/trait.Proxy.html">wayland_client::Proxy</a>;
 <a href=#8 id=8 data-nosnippet>8</a><span class="kw">use </span>wayland_client::backend::ObjectId;
-<a href=#9 id=9 data-nosnippet>9</a><span class="kw">use </span>wayland_client::protocol::wl_output::WlOutput;
+<a href=#9 id=9 data-nosnippet>9</a><span class="kw">use </span><a href="https://smithay.github.io/wayland-rs/wayland_client/protocol/wl_output/struct.WlOutput.html">wayland_client::protocol::wl_output::WlOutput</a>;
 <a href=#10 id=10 data-nosnippet>10</a>
 <a href=#11 id=11 data-nosnippet>11</a><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/macro.wrapper.html">glib::wrapper!</a> {
 <a href=#12 id=12 data-nosnippet>12</a>    <span class="attr">#[doc(alias = <span class="string">"GdkWaylandMonitor"</span>)]
@@ -93,7 +93,7 @@
 <a href=#20 id=20 data-nosnippet>20</a><span class="kw">impl </span><a href="#11-18">WaylandMonitor</a> {
 <a href=#21 id=21 data-nosnippet>21</a>    <span class="attr">#[doc(alias = <span class="string">"gdk_wayland_monitor_get_wl_output"</span>)]
 <a href=#22 id=22 data-nosnippet>22</a>    #[doc(alias = <span class="string">"get_wl_output"</span>)]
-<a href=#23 id=23 data-nosnippet>23</a>    </span><span class="kw">pub fn </span>wl_output(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a class="prelude-ty" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html">Option</a>&lt;WlOutput&gt; {
+<a href=#23 id=23 data-nosnippet>23</a>    </span><span class="kw">pub fn </span>wl_output(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a class="prelude-ty" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html">Option</a>&lt;<a href="https://smithay.github.io/wayland-rs/wayland_client/protocol/wl_output/struct.WlOutput.html">WlOutput</a>&gt; {
 <a href=#24 id=24 data-nosnippet>24</a>        <span class="kw">unsafe </span>{
 <a href=#25 id=25 data-nosnippet>25</a>            <span class="kw">let </span>output_ptr = ffi::<a href="../../gdk_wayland_sys/fn.gdk_wayland_monitor_get_wl_output.html">gdk_wayland_monitor_get_wl_output</a>(<a class="self" href="#23">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>);
 <a href=#26 id=26 data-nosnippet>26</a>            <span class="kw">if </span><a href="#25">output_ptr</a>.<a href="https://doc.rust-lang.org/nightly/core/primitive.pointer.html#method.is_null">is_null</a>() {
@@ -101,9 +101,9 @@
 <a href=#28 id=28 data-nosnippet>28</a>            } <span class="kw">else </span>{
 <a href=#29 id=29 data-nosnippet>29</a>                <span class="kw">let </span>display = <span class="self">self</span>.display()<span class="question-mark">?</span>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.Cast.html#method.unsafe_cast">unsafe_cast</a>::&lt;<span class="kw">crate</span>::<a href="wayland_display.rs.html#16-23">WaylandDisplay</a>&gt;();
 <a href=#30 id=30 data-nosnippet>30</a>                <span class="kw">let </span>cnx = <a href="#29">display</a>.<a href="wayland_display.rs.html#95-114">connection</a>();
-<a href=#31 id=31 data-nosnippet>31</a>                <span class="kw">let </span>id = ObjectId::from_ptr(WlOutput::interface(), <a href="#25">output_ptr</a> <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>).<a href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#method.unwrap">unwrap</a>();
+<a href=#31 id=31 data-nosnippet>31</a>                <span class="kw">let </span>id = ObjectId::from_ptr(<a href="https://smithay.github.io/wayland-rs/wayland_client/protocol/wl_output/struct.WlOutput.html">WlOutput</a>::<a href="https://smithay.github.io/wayland-rs/wayland_client/trait.Proxy.html#tymethod.interface">interface</a>(), <a href="#25">output_ptr</a> <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>).<a href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#method.unwrap">unwrap</a>();
 <a href=#32 id=32 data-nosnippet>32</a>
-<a href=#33 id=33 data-nosnippet>33</a>                WlOutput::from_id(<span class="kw-2">&amp;</span><a href="#30">cnx</a>, <a href="#31">id</a>).<a href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#method.ok">ok</a>()
+<a href=#33 id=33 data-nosnippet>33</a>                <a href="https://smithay.github.io/wayland-rs/wayland_client/protocol/wl_output/struct.WlOutput.html">WlOutput</a>::<a href="https://smithay.github.io/wayland-rs/wayland_client/trait.Proxy.html#tymethod.from_id">from_id</a>(<span class="kw-2">&amp;</span><a href="#30">cnx</a>, <a href="#31">id</a>).<a href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#method.ok">ok</a>()
 <a href=#34 id=34 data-nosnippet>34</a>            }
 <a href=#35 id=35 data-nosnippet>35</a>        }
 <a href=#36 id=36 data-nosnippet>36</a>    }

@@ -77,7 +77,7 @@
 <a href=#4 id=4 data-nosnippet>4</a>
 <a href=#5 id=5 data-nosnippet>5</a></span><span class="kw">use </span><a href="../../../gdk_x11_sys/index.html"><span class="kw">crate</span>::ffi</a>;
 <a href=#6 id=6 data-nosnippet>6</a><span class="kw">use </span>glib::{<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/prelude/index.html">prelude</a>::<span class="kw-2">*</span>, <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/index.html">translate</a>::<span class="kw-2">*</span>};
-<a href=#7 id=7 data-nosnippet>7</a><span class="kw">use </span>x11::xlib;
+<a href=#7 id=7 data-nosnippet>7</a><span class="kw">use </span><a href="https://docs.rs/x11/latest/x11/xlib/index.html">x11::xlib</a>;
 <a href=#8 id=8 data-nosnippet>8</a>
 <a href=#9 id=9 data-nosnippet>9</a><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/macro.wrapper.html">glib::wrapper!</a> {
 <a href=#10 id=10 data-nosnippet>10</a>    <span class="doccomment">///
@@ -96,7 +96,7 @@
 <a href=#23 id=23 data-nosnippet>23</a><span class="kw">impl </span><a href="#9-21">X11Monitor</a> {
 <a href=#24 id=24 data-nosnippet>24</a>    <span class="attr">#[doc(alias = <span class="string">"gdk_x11_monitor_get_output"</span>)]
 <a href=#25 id=25 data-nosnippet>25</a>    #[doc(alias = <span class="string">"get_output"</span>)]
-<a href=#26 id=26 data-nosnippet>26</a>    </span><span class="kw">pub fn </span>output(monitor: <span class="kw-2">&amp;</span><span class="kw">impl </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.IsA.html">IsA</a>&lt;gdk::<a href="../../../gdk/auto/monitor/struct.Monitor.html">Monitor</a>&gt;) -&gt; xlib::XID {
+<a href=#26 id=26 data-nosnippet>26</a>    </span><span class="kw">pub fn </span>output(monitor: <span class="kw-2">&amp;</span><span class="kw">impl </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.IsA.html">IsA</a>&lt;gdk::<a href="../../../gdk/auto/monitor/struct.Monitor.html">Monitor</a>&gt;) -&gt; xlib::<a href="https://docs.rs/x11/latest/x11/xlib/type.XID.html">XID</a> {
 <a href=#27 id=27 data-nosnippet>27</a>        <a href="../rt.rs.html#12-22">assert_initialized_main_thread!</a>();
 <a href=#28 id=28 data-nosnippet>28</a>        <span class="kw">unsafe </span>{ ffi::<a href="../../../gdk_x11_sys/fn.gdk_x11_monitor_get_output.html">gdk_x11_monitor_get_output</a>(<a href="#26">monitor</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>) }
 <a href=#29 id=29 data-nosnippet>29</a>    }
