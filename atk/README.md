@@ -1,8 +1,8 @@
-# Rust ATK bindings 
+# Rust ATK bindings
 
 Project site is [here](https://gtk-rs.org/).
 
-__Rust__ bindings and wrappers for [ATK](https://developer.gnome.org/atk),
+__Rust__ bindings and wrappers for [ATK](https://docs.gtk.org/atk/),
 part of [gtk3-rs](https://github.com/gtk-rs/gtk3-rs).
 
 ATK __2.28__ is the lowest supported version for the underlying library.

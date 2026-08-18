@@ -1,10 +1,11 @@
-# gtk3-rs ![CI](https://github.com/gtk-rs/gtk3-rs/workflows/CI/badge.svg)
+# gtk3-rs ![CI](https://github.com/gtk-rs/gtk3-rs/actions/workflows/CI.yml/badge.svg) ![Docs](https://github.com/gtk-rs/gtk3-rs/actions/workflows/docs.yml/badge.svg)
 
 The `gtk-rs` organization aims to provide safe Rust binding over `GObject`-based libraries.
 You can find more about it on <https://gtk-rs.org>.
 
-This repository contains all the "core" crates of the gtk-rs organization. For more
-information about each crate, please refer to their `README.md` file in their directory.
+This repository contains bindings for version 3 of the GTK toolkit. For
+more information about each crate, please refer to their `README.md`
+file in their directory.
 
 ## Minimum supported Rust version
 
@@ -47,23 +48,27 @@ If you didn't do so yet, please check out all the submodules before via
 $ git submodule update --checkout
 ```
 
+The submodules do not update on their own, so you may need to pull the
+latest code on their `main` branches manually.
+
 ## Development
 
-This repository is mostly split into two branches: `master` and `crate`.
-`master` contains the not yet released code and is where new developments
-are happening. `crate` contains the last release source code and isn't supposed to
-be updated.
+The `master` branch contains unreleased code and is where new
+development happens.  The various release series (e.g. `0.18`, `0.17`,
+etc.) have their own branches as well.
 
 This repository is structured as follows:
 
 ```text
 - crate/
-   |
    |-- README.md
    |-- Gir.toml
    |-- Cargo.toml
    |-- src/
    |-- sys/
+        |-- Gir.toml
+        |-- Cargo.toml
+        |-- src/
 ```
 
 The `crate` is a "top" directory (so "atk" or "gdk" in here for example).
@@ -73,13 +78,18 @@ Each crate contains:
  * `Cargo.toml`: descriptor of the crate, used by `cargo` and `Rust`.
  * `Gir.toml`: configuration used by [gir] to generate most of the crates' code.
  * `src`: the source code of the crate.
- * `sys`: the 1:1 bindings of the C API.
+ * `sys`: another crate with the 1:1 bindings of the C API.
+
+Note that the `gdkwayland` and `gdkwayland-sys` crates are hand-written
+and don't use `gir` to generate them.
+
+The `gtk3-macros` crate is a proc-macro crate that the `gtk` crate
+depends on.
 
 The `gir` and `gir-files` top folders are not crates, but are git submodules
-which respectively contain the [gir] tool and the [gir files] used by the generator.
-
-When running `generator.py` the tool will automatically update these git
-submodules and run the [gir] tool on the [gir files] to regenerate the code.
+which respectively contain the [gir] tool and the [gir files] used by
+the generator.  See the "Regenerating" section above for more
+information.
 
 During development, it is useful to execute the generator with a different
 version of the [gir] tool or of the [gir files], for instance to test if
@@ -89,7 +99,7 @@ generator script, for instance, to run the generator on a local copy of the
 gir files:
 
 ```bash
-$ python3 generator.py --gir-files-directory ../gir-files/
+$ python3 generator.py --gir-files-directories ../gir-files/
 ```
 
 See `python3 generator.py --help` for more details.
