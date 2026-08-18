@@ -3,7 +3,12 @@
 // DO NOT EDIT
 
 use crate::{SelectionData, TextBuffer, ffi};
-use glib::{prelude::*, translate::*};
+use glib::{
+    object::ObjectType as _,
+    prelude::*,
+    signal::{SignalHandlerId, connect_raw},
+    translate::*,
+};
 use std::boxed::Box as Box_;
 
 glib::wrapper! {
@@ -333,8 +338,33 @@ impl Clipboard {
         }
     }
 
-    //#[doc(alias = "owner-change")]
-    //pub fn connect_owner_change<Unsupported or ignored types>(&self, f: F) -> SignalHandlerId {
-    //    Ignored event: Gdk.EventOwnerChange
-    //}
+    #[doc(alias = "owner-change")]
+    pub fn connect_owner_change<F: Fn(&Self, &gdk::EventOwnerChange) + 'static>(
+        &self,
+        f: F,
+    ) -> SignalHandlerId {
+        unsafe extern "C" fn owner_change_trampoline<
+            F: Fn(&Clipboard, &gdk::EventOwnerChange) + 'static,
+        >(
+            this: *mut ffi::GtkClipboard,
+            event: *mut gdk::ffi::GdkEventOwnerChange,
+            f: glib::ffi::gpointer,
+        ) {
+            unsafe {
+                let f: &F = &*(f as *const F);
+                f(&from_glib_borrow(this), &from_glib_borrow(event))
+            }
+        }
+        unsafe {
+            let f: Box_<F> = Box_::new(f);
+            connect_raw(
+                self.as_ptr() as *mut _,
+                c"owner-change".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
+                    owner_change_trampoline::<F> as *const (),
+                )),
+                Box_::into_raw(f),
+            )
+        }
+    }
 }

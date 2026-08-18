@@ -199,6 +199,7 @@ manual = [
     "Gdk.EventKey",
     "Gdk.EventMask",
     "Gdk.EventMotion",
+    "Gdk.EventOwnerChange",
     "Gdk.EventProperty",
     "Gdk.EventProximity",
     "Gdk.EventScroll",
