@@ -49,36 +49,10 @@ jobs:
           - { name: "gtk", features: "v3_24_30", test_sys: false }  # a11y headers are missing some symbols
     steps:
       - uses: actions/checkout@v7
-      - run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
       - uses: dtolnay/rust-toolchain@v1
         with:
           toolchain: ${{ matrix.rust }}
-      - uses: actions/checkout@v7
-        with:
-          repository: gtk-rs/checker
-          ref: main
-          path: checker
-        if: matrix.rust == 'nightly'
       # nightly
-      # files checks
-      - run: cargo build --release
-        working-directory: checker
-        if: matrix.rust == 'nightly'
-      - run: cargo run --release -- ../${{matrix.conf.name}}
-        working-directory: checker
-        if: matrix.rust == 'nightly' && matrix.conf.name != 'gdkwayland'
-      - run: cargo run --release -- --no-license ../${{matrix.conf.name}}/sys
-        working-directory: checker
-        if: matrix.rust == 'nightly' && matrix.conf.name != 'gdkwayland'
-      - run: ./check_init_asserts ../${{matrix.conf.name}}
-        working-directory: checker
-        if: matrix.rust == 'nightly' && matrix.conf.name != 'gdkwayland'
-      - name: Check doc aliases
-        run: |
-          python3 doc_aliases.py ../${{matrix.conf.name}}
-          cd .. && git diff --exit-code
-        working-directory: checker
-        if: matrix.rust == 'nightly'
       # tests run
       - name: tests nightly
         run: xvfb-run --auto-servernum cargo test --manifest-path ${{ matrix.conf.name }}/Cargo.toml --features "${{ matrix.conf.features }}"
@@ -135,6 +109,45 @@ jobs:
         run: cargo build --manifest-path examples/Cargo.toml --bins --examples --all-features
 
       - uses: bcomnes/cleanup-xvfb@v1
+
+  checker:
+    name: gtk-rs checker
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        # gdkwayland has no Gir.toml, so the gir-derived checks do not apply.
+        crate:
+          - { name: "atk", has_gir: true }
+          - { name: "gdk", has_gir: true }
+          - { name: "gdkx11", has_gir: true }
+          - { name: "gdkwayland", has_gir: false }
+          - { name: "gtk", has_gir: true }
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/checkout@v7
+        with:
+          repository: gtk-rs/checker
+          ref: main
+          path: checker
+      - uses: dtolnay/rust-toolchain@v1
+        with:
+          toolchain: stable
+      - run: cargo build --release
+        working-directory: checker
+      - run: cargo run --release -- ../${{ matrix.crate.name }}
+        working-directory: checker
+        if: matrix.crate.has_gir
+      - run: cargo run --release -- --no-license ../${{ matrix.crate.name }}/sys
+        working-directory: checker
+        if: matrix.crate.has_gir
+      - run: ./check_init_asserts ../${{ matrix.crate.name }}
+        working-directory: checker
+        if: matrix.crate.has_gir
+      - name: Check doc aliases
+        run: |
+          python3 doc_aliases.py ../${{ matrix.crate.name }}
+          cd .. && git diff --exit-code
+        working-directory: checker
 
   fmt:
     name: rust fmt
