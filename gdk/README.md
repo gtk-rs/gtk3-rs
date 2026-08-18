@@ -2,7 +2,7 @@
 
 Project site is [here](https://gtk-rs.org/).
 
-__Rust__ bindings and wrappers for [GDK 3](https://developer.gnome.org/gdk3/),
+__Rust__ bindings and wrappers for [GDK 3](https://docs.gtk.org/gdk3/),
 part of [gtk3-rs](https://github.com/gtk-rs/gtk3-rs).
 
 GDK __3.22__ is the lowest supported version for the underlying library.
@@ -15,7 +15,7 @@ Currently, the minimum supported Rust version is `1.92.0`.
 
  * [Rust API - Stable](https://gtk-rs.org/gtk3-rs/stable/latest/docs/gdk/)
  * [Rust API - Development](https://gtk-rs.org/gtk3-rs/git/docs/gdk)
- * [C API](https://developer.gnome.org/gdk3/stable/)
+ * [C API](https://docs.gtk.org/gdk3/)
  * [GTK Installation instructions](https://www.gtk.org/docs/installations/)
 
 ## Using
