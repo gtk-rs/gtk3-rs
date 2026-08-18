@@ -153,7 +153,7 @@
 <a href=#80 id=80 data-nosnippet>80</a>            <span class="kw">if </span>!<a href="#76">pspec</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/param_spec/struct.ParamSpec.html#method.flags">flags</a>().contains(glib::<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/gobject/flags/struct.ParamFlags.html">ParamFlags</a>::WRITABLE)
 <a href=#81 id=81 data-nosnippet>81</a>                || !<a href="#76">pspec</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/param_spec/struct.ParamSpec.html#method.flags">flags</a>().contains(glib::<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/gobject/flags/struct.ParamFlags.html">ParamFlags</a>::READWRITE)
 <a href=#82 id=82 data-nosnippet>82</a>            {
-<a href=#83 id=83 data-nosnippet>83</a>                <a href="https://doc.rust-lang.org/nightly/std/macro.panic.html">panic!</a>(<span class="string">"The Container property '{property_name}' is not writeable"</span>);
+<a href=#83 id=83 data-nosnippet>83</a>                <a href="https://doc.rust-lang.org/nightly/std/macro.panic.html">panic!</a>(<span class="string">"The Container property '{property_name}' is not writable"</span>);
 <a href=#84 id=84 data-nosnippet>84</a>            }
 <a href=#85 id=85 data-nosnippet>85</a>
 <a href=#86 id=86 data-nosnippet>86</a>            <a href="https://doc.rust-lang.org/nightly/core/macro.assert.html">assert!</a>(
