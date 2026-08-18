@@ -38,11 +38,13 @@ jobs:
       image: ghcr.io/gtk-rs/gtk3-rs/gtk3:latest
     env:
       RELEASES: |
-        0.17=0.17
-        0.16=0.16
-        0.15=0.15
-        0.14=0.14
-      RUSTFLAGS: --cfg docsrs
+        0.18=0.18
+      RUSTDOCFLAGS: >
+        --extern-html-root-url=wayland_client=https://smithay.github.io/wayland-rs/
+        --extern-html-root-url=x11=https://docs.rs/x11/latest/
+        --cfg docsrs
+        -Zunstable-options --generate-link-to-definition
+      DOCS_RS: 1
     steps:
       - uses: actions/checkout@v7
         with:
@@ -61,9 +63,6 @@ jobs:
           apt-get update
           apt-get install -y python3-requests
       - run: echo "RUSTDOCFLAGS=$(eval python3 ./gir-rustdoc/gir-rustdoc.py --pages-url 'https://gtk-rs.org/gtk3-rs/' --default-branch 'master' pre-docs | xargs)" >> ${GITHUB_ENV}
-        env:
-          RUSTDOCFLAGS: >
-            -Zunstable-options --generate-link-to-definition
       - run: >
           cargo doc
           -p atk -p atk-sys -p gdk -p gdk-sys -p gdkx11 -p gdkx11-sys

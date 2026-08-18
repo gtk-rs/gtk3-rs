@@ -1,15 +1,13 @@
-#[cfg(not(docsrs))]
 use std::io;
-#[cfg(not(docsrs))]
 use std::io::prelude::*;
-#[cfg(not(docsrs))]
 use std::process;
 
-#[cfg(docsrs)]
-fn main() {} // prevent linking libraries to avoid documentation failure
-
-#[cfg(not(docsrs))]
 fn main() {
+    if std::env::var("DOCS_RS").is_ok() {
+        // prevent linking libraries to avoid documentation failure
+        return;
+    }
+
     if let Err(s) = system_deps::Config::new().probe() {
         let _ = writeln!(io::stderr(), "{s}");
         process::exit(1);
@@ -20,7 +18,6 @@ fn main() {
     check_features();
 }
 
-#[cfg(not(docsrs))]
 fn check_features() {
     const PKG_CONFIG_PACKAGE: &str = "gdk-3.0";
 
