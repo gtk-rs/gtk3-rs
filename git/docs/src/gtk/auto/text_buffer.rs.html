@@ -76,7 +76,7 @@
 <a href=#3 id=3 data-nosnippet>3</a>// DO NOT EDIT
 <a href=#4 id=4 data-nosnippet>4</a>
 <a href=#5 id=5 data-nosnippet>5</a></span><span class="kw">use crate</span>::{
-<a href=#6 id=6 data-nosnippet>6</a>    <a href="clipboard.rs.html#9-87">Clipboard</a>, <a href="target_list.rs.html#8-20">TargetList</a>, <a href="text_child_anchor.rs.html#8-22">TextChildAnchor</a>, <a href="text_iter.rs.html#8-21">TextIter</a>, <a href="text_mark.rs.html#8-64">TextMark</a>, <a href="text_tag.rs.html#14-408">TextTag</a>, <a href="text_tag_table.rs.html#14-41">TextTagTable</a>, <a href="../../../gtk_sys/index.html">ffi</a>,
+<a href=#6 id=6 data-nosnippet>6</a>    <a href="clipboard.rs.html#14-92">Clipboard</a>, <a href="target_list.rs.html#8-20">TargetList</a>, <a href="text_child_anchor.rs.html#8-22">TextChildAnchor</a>, <a href="text_iter.rs.html#8-21">TextIter</a>, <a href="text_mark.rs.html#8-64">TextMark</a>, <a href="text_tag.rs.html#14-408">TextTag</a>, <a href="text_tag_table.rs.html#14-41">TextTagTable</a>, <a href="../../../gtk_sys/index.html">ffi</a>,
 <a href=#7 id=7 data-nosnippet>7</a>};
 <a href=#8 id=8 data-nosnippet>8</a><span class="kw">use </span>glib::{
 <a href=#9 id=9 data-nosnippet>9</a>    <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectType.html">object::ObjectType</a> <span class="kw">as _</span>,
@@ -423,7 +423,7 @@
 <a href=#350 id=350 data-nosnippet>350</a>    /// ## `clipboard`
 <a href=#351 id=351 data-nosnippet>351</a>    /// a [`Clipboard`][crate::Clipboard]
 <a href=#352 id=352 data-nosnippet>352</a>    </span><span class="attr">#[doc(alias = <span class="string">"gtk_text_buffer_add_selection_clipboard"</span>)]
-<a href=#353 id=353 data-nosnippet>353</a>    </span><span class="kw">fn </span>add_selection_clipboard(<span class="kw-2">&amp;</span><span class="self">self</span>, clipboard: <span class="kw-2">&amp;</span><a href="clipboard.rs.html#9-87">Clipboard</a>) {
+<a href=#353 id=353 data-nosnippet>353</a>    </span><span class="kw">fn </span>add_selection_clipboard(<span class="kw-2">&amp;</span><span class="self">self</span>, clipboard: <span class="kw-2">&amp;</span><a href="clipboard.rs.html#14-92">Clipboard</a>) {
 <a href=#354 id=354 data-nosnippet>354</a>        <span class="kw">unsafe </span>{
 <a href=#355 id=355 data-nosnippet>355</a>            ffi::<a href="../../../gtk_sys/fn.gtk_text_buffer_add_selection_clipboard.html">gtk_text_buffer_add_selection_clipboard</a>(
 <a href=#356 id=356 data-nosnippet>356</a>                <a class="self" href="#353">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
@@ -533,7 +533,7 @@
 <a href=#460 id=460 data-nosnippet>460</a>    /// ## `clipboard`
 <a href=#461 id=461 data-nosnippet>461</a>    /// the [`Clipboard`][crate::Clipboard] object to copy to
 <a href=#462 id=462 data-nosnippet>462</a>    </span><span class="attr">#[doc(alias = <span class="string">"gtk_text_buffer_copy_clipboard"</span>)]
-<a href=#463 id=463 data-nosnippet>463</a>    </span><span class="kw">fn </span>copy_clipboard(<span class="kw-2">&amp;</span><span class="self">self</span>, clipboard: <span class="kw-2">&amp;</span><a href="clipboard.rs.html#9-87">Clipboard</a>) {
+<a href=#463 id=463 data-nosnippet>463</a>    </span><span class="kw">fn </span>copy_clipboard(<span class="kw-2">&amp;</span><span class="self">self</span>, clipboard: <span class="kw-2">&amp;</span><a href="clipboard.rs.html#14-92">Clipboard</a>) {
 <a href=#464 id=464 data-nosnippet>464</a>        <span class="kw">unsafe </span>{
 <a href=#465 id=465 data-nosnippet>465</a>            ffi::<a href="../../../gtk_sys/fn.gtk_text_buffer_copy_clipboard.html">gtk_text_buffer_copy_clipboard</a>(
 <a href=#466 id=466 data-nosnippet>466</a>                <a class="self" href="#463">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
@@ -614,7 +614,7 @@
 <a href=#541 id=541 data-nosnippet>541</a>    /// ## `default_editable`
 <a href=#542 id=542 data-nosnippet>542</a>    /// default editability of the buffer
 <a href=#543 id=543 data-nosnippet>543</a>    </span><span class="attr">#[doc(alias = <span class="string">"gtk_text_buffer_cut_clipboard"</span>)]
-<a href=#544 id=544 data-nosnippet>544</a>    </span><span class="kw">fn </span>cut_clipboard(<span class="kw-2">&amp;</span><span class="self">self</span>, clipboard: <span class="kw-2">&amp;</span><a href="clipboard.rs.html#9-87">Clipboard</a>, default_editable: <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) {
+<a href=#544 id=544 data-nosnippet>544</a>    </span><span class="kw">fn </span>cut_clipboard(<span class="kw-2">&amp;</span><span class="self">self</span>, clipboard: <span class="kw-2">&amp;</span><a href="clipboard.rs.html#14-92">Clipboard</a>, default_editable: <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) {
 <a href=#545 id=545 data-nosnippet>545</a>        <span class="kw">unsafe </span>{
 <a href=#546 id=546 data-nosnippet>546</a>            ffi::<a href="../../../gtk_sys/fn.gtk_text_buffer_cut_clipboard.html">gtk_text_buffer_cut_clipboard</a>(
 <a href=#547 id=547 data-nosnippet>547</a>                <a class="self" href="#544">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
@@ -1704,7 +1704,7 @@
 <a href=#1631 id=1631 data-nosnippet>1631</a>    </span><span class="attr">#[doc(alias = <span class="string">"gtk_text_buffer_paste_clipboard"</span>)]
 <a href=#1632 id=1632 data-nosnippet>1632</a>    </span><span class="kw">fn </span>paste_clipboard(
 <a href=#1633 id=1633 data-nosnippet>1633</a>        <span class="kw-2">&amp;</span><span class="self">self</span>,
-<a href=#1634 id=1634 data-nosnippet>1634</a>        clipboard: <span class="kw-2">&amp;</span><a href="clipboard.rs.html#9-87">Clipboard</a>,
+<a href=#1634 id=1634 data-nosnippet>1634</a>        clipboard: <span class="kw-2">&amp;</span><a href="clipboard.rs.html#14-92">Clipboard</a>,
 <a href=#1635 id=1635 data-nosnippet>1635</a>        override_location: <a class="prelude-ty" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html">Option</a>&lt;<span class="kw-2">&amp;</span><a href="text_iter.rs.html#8-21">TextIter</a>&gt;,
 <a href=#1636 id=1636 data-nosnippet>1636</a>        default_editable: <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>,
 <a href=#1637 id=1637 data-nosnippet>1637</a>    ) {
@@ -1817,7 +1817,7 @@
 <a href=#1744 id=1744 data-nosnippet>1744</a>    /// a [`Clipboard`][crate::Clipboard] added to `self` by
 <a href=#1745 id=1745 data-nosnippet>1745</a>    ///  [`add_selection_clipboard()`][Self::add_selection_clipboard()]
 <a href=#1746 id=1746 data-nosnippet>1746</a>    </span><span class="attr">#[doc(alias = <span class="string">"gtk_text_buffer_remove_selection_clipboard"</span>)]
-<a href=#1747 id=1747 data-nosnippet>1747</a>    </span><span class="kw">fn </span>remove_selection_clipboard(<span class="kw-2">&amp;</span><span class="self">self</span>, clipboard: <span class="kw-2">&amp;</span><a href="clipboard.rs.html#9-87">Clipboard</a>) {
+<a href=#1747 id=1747 data-nosnippet>1747</a>    </span><span class="kw">fn </span>remove_selection_clipboard(<span class="kw-2">&amp;</span><span class="self">self</span>, clipboard: <span class="kw-2">&amp;</span><a href="clipboard.rs.html#14-92">Clipboard</a>) {
 <a href=#1748 id=1748 data-nosnippet>1748</a>        <span class="kw">unsafe </span>{
 <a href=#1749 id=1749 data-nosnippet>1749</a>            ffi::<a href="../../../gtk_sys/fn.gtk_text_buffer_remove_selection_clipboard.html">gtk_text_buffer_remove_selection_clipboard</a>(
 <a href=#1750 id=1750 data-nosnippet>1750</a>                <a class="self" href="#1747">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
@@ -2224,10 +2224,10 @@
 <a href=#2151 id=2151 data-nosnippet>2151</a>    /// ## `clipboard`
 <a href=#2152 id=2152 data-nosnippet>2152</a>    /// the [`Clipboard`][crate::Clipboard] pasted from
 <a href=#2153 id=2153 data-nosnippet>2153</a>    </span><span class="attr">#[doc(alias = <span class="string">"paste-done"</span>)]
-<a href=#2154 id=2154 data-nosnippet>2154</a>    </span><span class="kw">fn </span>connect_paste_done&lt;F: <a href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html">Fn</a>(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span><a href="clipboard.rs.html#9-87">Clipboard</a>) + <span class="lifetime">'static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/struct.SignalHandlerId.html">SignalHandlerId</a> {
+<a href=#2154 id=2154 data-nosnippet>2154</a>    </span><span class="kw">fn </span>connect_paste_done&lt;F: <a href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html">Fn</a>(<span class="kw-2">&amp;</span><span class="self">Self</span>, <span class="kw-2">&amp;</span><a href="clipboard.rs.html#14-92">Clipboard</a>) + <span class="lifetime">'static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/struct.SignalHandlerId.html">SignalHandlerId</a> {
 <a href=#2155 id=2155 data-nosnippet>2155</a>        <span class="kw">unsafe extern </span><span class="string">"C" </span><span class="kw">fn </span>paste_done_trampoline&lt;
 <a href=#2156 id=2156 data-nosnippet>2156</a>            P: <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.IsA.html">IsA</a>&lt;<a href="#16-242">TextBuffer</a>&gt;,
-<a href=#2157 id=2157 data-nosnippet>2157</a>            F: <a href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html">Fn</a>(<span class="kw-2">&amp;</span>P, <span class="kw-2">&amp;</span><a href="clipboard.rs.html#9-87">Clipboard</a>) + <span class="lifetime">'static</span>,
+<a href=#2157 id=2157 data-nosnippet>2157</a>            F: <a href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html">Fn</a>(<span class="kw-2">&amp;</span>P, <span class="kw-2">&amp;</span><a href="clipboard.rs.html#14-92">Clipboard</a>) + <span class="lifetime">'static</span>,
 <a href=#2158 id=2158 data-nosnippet>2158</a>        &gt;(
 <a href=#2159 id=2159 data-nosnippet>2159</a>            this: <span class="kw-2">*mut </span>ffi::<a href="../../../gtk_sys/struct.GtkTextBuffer.html">GtkTextBuffer</a>,
 <a href=#2160 id=2160 data-nosnippet>2160</a>            clipboard: <span class="kw-2">*mut </span>ffi::<a href="../../../gtk_sys/struct.GtkClipboard.html">GtkClipboard</a>,
