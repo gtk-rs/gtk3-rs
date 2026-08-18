@@ -6,22 +6,45 @@ on:
       - "master"
     paths:
       - "Dockerfile"
+      - ".github/workflows/image.yml"
   pull_request:
     paths:
       - "Dockerfile"
+      - ".github/workflows/image.yml"
   workflow_dispatch:
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}/gtk3
 
 jobs:
   docker:
+    permissions:
+      contents: read
+      packages: write
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
-      - name: Push to GitHub Packages
-        uses: docker/build-push-action@v1
+
+      - name: Log in to the Container registry
+        uses: docker/login-action@v4
         with:
-          push: ${{ github.event_name != 'pull_request' }}
+          registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-          registry: ghcr.io
-          repository: ${{ github.repository }}/gtk3
-          tags: latest
+
+      - name: Extract metadata (tags, labels) for Docker
+        id: meta
+        uses: docker/metadata-action@v6
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          tags: |
+            type=raw,value=latest,enable=${{ github.ref == format('refs/heads/{0}', 'master') }}
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v7
+        with:
+          push: ${{ github.event_name != 'pull_request' }}
+          context: .
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
