@@ -1,0 +1,548 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `atk/src/auto/value.rs`."><title>value.rs - source</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2"href="../../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../../static.files/rustdoc-0c87338a.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="atk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.100.0-nightly (34baba539 2026-08-16)" data-channel="nightly" data-search-js="search-cf4fc35e.js" data-stringdex-js="stringdex-b5109af9.js" data-settings-js="settings-170eb4bf.js" ><script src="../../../static.files/storage-41dd4d93.js"></script><script defer src="../../../static.files/src-script-813739b1.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-417ebf0a.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-9f56287d.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-eab170b8.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-044be391.svg"></head><body class="rustdoc src"><a class="skip-main-content" href="#main-content">Skip to main content</a><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
+
+    function checkDocsLatestStable() {
+        function popup(msg, url) { return `
+            <style scoped="scoped">
+                .popup {
+                    max-width: 16em;
+                    background-color: #fff;
+                    position: fixed;
+                    z-index: 1;
+                    margin-left: auto;
+                    bottom: 1em;
+                    right: 1em;
+                    border-radius: 5px;
+                    box-shadow: 1px 1px 4px #777;
+                }
+
+                .popup a.version {
+                    color: #e57300;
+                    padding: 0.6em 1em;
+                    display: block;
+                }
+                .popup a.version:hover {
+                    color: #b25900;
+                }
+
+                .popup a.close {
+                    color: white;
+                    background: grey;
+                    border-radius: 99px;
+                    display: inline-block;
+                    width: 19px;
+                    line-height: 19px;
+                    font-weight: bold;
+                    text-align: center;
+                    margin: 0.6em;
+                    float: right;
+                }
+                .popup a.close:hover {
+                    background: black;
+                }
+            </style>
+            <section class="popup" id="gir_docs_popup">
+                <a class="close" href="#" onclick="document.getElementById('gir_docs_popup').remove(); return false">×</a>
+                <a class="version" href="https://gtk-rs.org/gtk3-rs/stable/latest/docs">
+                    ⚠ ${msg}
+                </a>
+            </section>
+        ` };
+
+        if ("0.18" == "master") {
+            document.body.insertAdjacentHTML(
+                'beforeend',
+                popup("This is the development version. Go to latest stable version.", "stable/latest")
+            );
+        } else {
+            fetch('https://gtk-rs.org/gtk3-rs/LATEST_RELEASE_BRANCH')
+                .then(response => response.text())
+                .then(latest_branch => {
+                    if (latest_branch.trim() != "0.18") {
+                        document.body.insertAdjacentHTML(
+                            'beforeend',
+                            popup("This version is outdated. Go to latest version.", "stable/latest")
+                        );
+                    }
+                });
+        }
+    }
+</script>
+
+
+<nav class="sidebar"><div class="src-sidebar-title"><h2>Files</h2></div></nav><div class="sidebar-resizer" title="Drag to resize sidebar"></div><main><section id="main-content" class="content" tabindex="-1"><div class="main-heading"><h1><div class="sub-heading">atk/auto/</div>value.rs</h1><rustdoc-toolbar></rustdoc-toolbar></div><div class="example-wrap digits-3"><pre class="rust"><code><a href=#1 id=1 data-nosnippet>1</a><span class="comment">// This file was generated by gir (https://github.com/gtk-rs/gir)
+<a href=#2 id=2 data-nosnippet>2</a>// from gir-files (https://github.com/gtk-rs/gir-files)
+<a href=#3 id=3 data-nosnippet>3</a>// DO NOT EDIT
+<a href=#4 id=4 data-nosnippet>4</a>
+<a href=#5 id=5 data-nosnippet>5</a></span><span class="kw">use </span><a href="range.rs.html#7-23"><span class="kw">crate</span>::Range</a>;
+<a href=#6 id=6 data-nosnippet>6</a><span class="kw">use </span>glib::{
+<a href=#7 id=7 data-nosnippet>7</a>    <a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/prelude/index.html">prelude</a>::<span class="kw-2">*</span>,
+<a href=#8 id=8 data-nosnippet>8</a>    signal::{<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/fn.connect_raw.html">connect_raw</a>, <a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/struct.SignalHandlerId.html">SignalHandlerId</a>},
+<a href=#9 id=9 data-nosnippet>9</a>    <a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/translate/index.html">translate</a>::<span class="kw-2">*</span>,
+<a href=#10 id=10 data-nosnippet>10</a>};
+<a href=#11 id=11 data-nosnippet>11</a><span class="kw">use </span>std::{<a href="https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html">boxed::Box</a> <span class="kw">as </span>Box_, <a href="https://doc.rust-lang.org/nightly/alloc/fmt/index.html">fmt</a>, <a href="https://doc.rust-lang.org/nightly/core/mem/index.html">mem</a>, <a href="https://doc.rust-lang.org/nightly/core/intrinsics/fn.transmute.html">mem::transmute</a>, <a href="https://doc.rust-lang.org/nightly/core/ptr/index.html">ptr</a>};
+<a href=#12 id=12 data-nosnippet>12</a>
+<a href=#13 id=13 data-nosnippet>13</a><a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/macro.wrapper.html">glib::wrapper!</a> {
+<a href=#14 id=14 data-nosnippet>14</a>    <span class="doccomment">/// The ATK interface implemented by valuators and components which display or select a value from a bounded range of values.
+<a href=#15 id=15 data-nosnippet>15</a>    ///
+<a href=#16 id=16 data-nosnippet>16</a>    /// [`Value`][crate::Value] should be implemented for components which either display
+<a href=#17 id=17 data-nosnippet>17</a>    /// a value from a bounded range, or which allow the user to specify a
+<a href=#18 id=18 data-nosnippet>18</a>    /// value from a bounded range, or both. For instance, most sliders and
+<a href=#19 id=19 data-nosnippet>19</a>    /// range controls, as well as dials, should have [`Object`][crate::Object]
+<a href=#20 id=20 data-nosnippet>20</a>    /// representations which implement [`Value`][crate::Value] on the component's
+<a href=#21 id=21 data-nosnippet>21</a>    /// behalf. `AtKValues` may be read-only, in which case attempts to
+<a href=#22 id=22 data-nosnippet>22</a>    /// alter the value return would fail.
+<a href=#23 id=23 data-nosnippet>23</a>    ///
+<a href=#24 id=24 data-nosnippet>24</a>    /// &lt;refsect1 id="current-value-text"&gt;
+<a href=#25 id=25 data-nosnippet>25</a>    /// `&lt;title&gt;`On the subject of current value text`&lt;/title&gt;`
+<a href=#26 id=26 data-nosnippet>26</a>    /// `&lt;para&gt;`
+<a href=#27 id=27 data-nosnippet>27</a>    /// In addition to providing the current value, implementors can
+<a href=#28 id=28 data-nosnippet>28</a>    /// optionally provide an end-user-consumable textual description
+<a href=#29 id=29 data-nosnippet>29</a>    /// associated with this value. This description should be included
+<a href=#30 id=30 data-nosnippet>30</a>    /// when the numeric value fails to convey the full, on-screen
+<a href=#31 id=31 data-nosnippet>31</a>    /// representation seen by users.
+<a href=#32 id=32 data-nosnippet>32</a>    /// `&lt;/para&gt;`
+<a href=#33 id=33 data-nosnippet>33</a>    ///
+<a href=#34 id=34 data-nosnippet>34</a>    /// `&lt;example&gt;`
+<a href=#35 id=35 data-nosnippet>35</a>    /// `&lt;title&gt;`Password strength`&lt;/title&gt;`
+<a href=#36 id=36 data-nosnippet>36</a>    /// A password strength meter whose value changes as the user types
+<a href=#37 id=37 data-nosnippet>37</a>    /// their new password. Red is used for values less than 4.0, yellow
+<a href=#38 id=38 data-nosnippet>38</a>    /// for values between 4.0 and 7.0, and green for values greater than
+<a href=#39 id=39 data-nosnippet>39</a>    /// 7.0. In this instance, value text should be provided by the
+<a href=#40 id=40 data-nosnippet>40</a>    /// implementor. Appropriate value text would be "weak", "acceptable,"
+<a href=#41 id=41 data-nosnippet>41</a>    /// and "strong" respectively.
+<a href=#42 id=42 data-nosnippet>42</a>    /// `&lt;/example&gt;`
+<a href=#43 id=43 data-nosnippet>43</a>    ///
+<a href=#44 id=44 data-nosnippet>44</a>    /// A level bar whose value changes to reflect the battery charge. The
+<a href=#45 id=45 data-nosnippet>45</a>    /// color remains the same regardless of the charge and there is no
+<a href=#46 id=46 data-nosnippet>46</a>    /// on-screen text reflecting the fullness of the battery. In this
+<a href=#47 id=47 data-nosnippet>47</a>    /// case, because the position within the bar is the only indication
+<a href=#48 id=48 data-nosnippet>48</a>    /// the user has of the current charge, value text should not be
+<a href=#49 id=49 data-nosnippet>49</a>    /// provided by the implementor.
+<a href=#50 id=50 data-nosnippet>50</a>    ///
+<a href=#51 id=51 data-nosnippet>51</a>    /// &lt;refsect2 id="implementor-notes"&gt;
+<a href=#52 id=52 data-nosnippet>52</a>    /// `&lt;title&gt;`Implementor Notes`&lt;/title&gt;`
+<a href=#53 id=53 data-nosnippet>53</a>    /// `&lt;para&gt;`
+<a href=#54 id=54 data-nosnippet>54</a>    /// Implementors should bear in mind that assistive technologies will
+<a href=#55 id=55 data-nosnippet>55</a>    /// likely prefer the value text provided over the numeric value when
+<a href=#56 id=56 data-nosnippet>56</a>    /// presenting a widget's value. As a result, strings not intended for
+<a href=#57 id=57 data-nosnippet>57</a>    /// end users should not be exposed in the value text, and strings
+<a href=#58 id=58 data-nosnippet>58</a>    /// which are exposed should be localized. In the case of widgets which
+<a href=#59 id=59 data-nosnippet>59</a>    /// display value text on screen, for instance through a separate label
+<a href=#60 id=60 data-nosnippet>60</a>    /// in close proximity to the value-displaying widget, it is still
+<a href=#61 id=61 data-nosnippet>61</a>    /// expected that implementors will expose the value text using the
+<a href=#62 id=62 data-nosnippet>62</a>    /// above API.
+<a href=#63 id=63 data-nosnippet>63</a>    /// `&lt;/para&gt;`
+<a href=#64 id=64 data-nosnippet>64</a>    ///
+<a href=#65 id=65 data-nosnippet>65</a>    /// `&lt;para&gt;`
+<a href=#66 id=66 data-nosnippet>66</a>    /// [`Value`][crate::Value] should NOT be implemented for widgets whose displayed
+<a href=#67 id=67 data-nosnippet>67</a>    /// value is not reflective of a meaningful amount. For instance, a
+<a href=#68 id=68 data-nosnippet>68</a>    /// progress pulse indicator whose value alternates between 0.0 and 1.0
+<a href=#69 id=69 data-nosnippet>69</a>    /// to indicate that some process is still taking place should not
+<a href=#70 id=70 data-nosnippet>70</a>    /// implement [`Value`][crate::Value] because the current value does not reflect
+<a href=#71 id=71 data-nosnippet>71</a>    /// progress towards completion.
+<a href=#72 id=72 data-nosnippet>72</a>    /// `&lt;/para&gt;`
+<a href=#73 id=73 data-nosnippet>73</a>    /// `&lt;/refsect2&gt;`
+<a href=#74 id=74 data-nosnippet>74</a>    /// `&lt;/refsect1&gt;`
+<a href=#75 id=75 data-nosnippet>75</a>    ///
+<a href=#76 id=76 data-nosnippet>76</a>    /// &lt;refsect1 id="ranges"&gt;
+<a href=#77 id=77 data-nosnippet>77</a>    /// `&lt;title&gt;`On the subject of ranges`&lt;/title&gt;`
+<a href=#78 id=78 data-nosnippet>78</a>    /// `&lt;para&gt;`
+<a href=#79 id=79 data-nosnippet>79</a>    /// In addition to providing the minimum and maximum values,
+<a href=#80 id=80 data-nosnippet>80</a>    /// implementors can optionally provide details about subranges
+<a href=#81 id=81 data-nosnippet>81</a>    /// associated with the widget. These details should be provided by the
+<a href=#82 id=82 data-nosnippet>82</a>    /// implementor when both of the following are communicated visually to
+<a href=#83 id=83 data-nosnippet>83</a>    /// the end user:
+<a href=#84 id=84 data-nosnippet>84</a>    /// `&lt;/para&gt;`
+<a href=#85 id=85 data-nosnippet>85</a>    /// `&lt;itemizedlist&gt;`
+<a href=#86 id=86 data-nosnippet>86</a>    ///  `&lt;listitem&gt;`The existence of distinct ranges such as "weak",
+<a href=#87 id=87 data-nosnippet>87</a>    ///  "acceptable", and "strong" indicated by color, bar tick marks,
+<a href=#88 id=88 data-nosnippet>88</a>    ///  and/or on-screen text.`&lt;/listitem&gt;`
+<a href=#89 id=89 data-nosnippet>89</a>    ///  `&lt;listitem&gt;`Where the current value stands within a given subrange,
+<a href=#90 id=90 data-nosnippet>90</a>    ///  for instance illustrating progression from very "weak" towards
+<a href=#91 id=91 data-nosnippet>91</a>    ///  nearly "acceptable" through changes in shade and/or position on
+<a href=#92 id=92 data-nosnippet>92</a>    ///  the bar within the "weak" subrange.`&lt;/listitem&gt;`
+<a href=#93 id=93 data-nosnippet>93</a>    /// `&lt;/itemizedlist&gt;`
+<a href=#94 id=94 data-nosnippet>94</a>    /// `&lt;para&gt;`
+<a href=#95 id=95 data-nosnippet>95</a>    /// If both of the above do not apply to the widget, it should be
+<a href=#96 id=96 data-nosnippet>96</a>    /// sufficient to expose the numeric value, along with the value text
+<a href=#97 id=97 data-nosnippet>97</a>    /// if appropriate, to make the widget accessible.
+<a href=#98 id=98 data-nosnippet>98</a>    /// `&lt;/para&gt;`
+<a href=#99 id=99 data-nosnippet>99</a>    ///
+<a href=#100 id=100 data-nosnippet>100</a>    /// &lt;refsect2 id="ranges-implementor-notes"&gt;
+<a href=#101 id=101 data-nosnippet>101</a>    /// `&lt;title&gt;`Implementor Notes`&lt;/title&gt;`
+<a href=#102 id=102 data-nosnippet>102</a>    /// `&lt;para&gt;`
+<a href=#103 id=103 data-nosnippet>103</a>    /// If providing subrange details is deemed necessary, all possible
+<a href=#104 id=104 data-nosnippet>104</a>    /// values of the widget are expected to fall within one of the
+<a href=#105 id=105 data-nosnippet>105</a>    /// subranges defined by the implementor.
+<a href=#106 id=106 data-nosnippet>106</a>    /// `&lt;/para&gt;`
+<a href=#107 id=107 data-nosnippet>107</a>    /// `&lt;/refsect2&gt;`
+<a href=#108 id=108 data-nosnippet>108</a>    /// `&lt;/refsect1&gt;`
+<a href=#109 id=109 data-nosnippet>109</a>    ///
+<a href=#110 id=110 data-nosnippet>110</a>    /// &lt;refsect1 id="localization"&gt;
+<a href=#111 id=111 data-nosnippet>111</a>    /// `&lt;title&gt;`On the subject of localization of end-user-consumable text
+<a href=#112 id=112 data-nosnippet>112</a>    /// values`&lt;/title&gt;`
+<a href=#113 id=113 data-nosnippet>113</a>    /// `&lt;para&gt;`
+<a href=#114 id=114 data-nosnippet>114</a>    /// Because value text and subrange descriptors are human-consumable,
+<a href=#115 id=115 data-nosnippet>115</a>    /// implementors are expected to provide localized strings which can be
+<a href=#116 id=116 data-nosnippet>116</a>    /// directly presented to end users via their assistive technology. In
+<a href=#117 id=117 data-nosnippet>117</a>    /// order to simplify this for implementors, implementors can use
+<a href=#118 id=118 data-nosnippet>118</a>    /// [`ValueType::localized_name()`][crate::ValueType::localized_name()] with the following
+<a href=#119 id=119 data-nosnippet>119</a>    /// already-localized constants for commonly-needed values can be used:
+<a href=#120 id=120 data-nosnippet>120</a>    /// `&lt;/para&gt;`
+<a href=#121 id=121 data-nosnippet>121</a>    ///
+<a href=#122 id=122 data-nosnippet>122</a>    /// `&lt;itemizedlist&gt;`
+<a href=#123 id=123 data-nosnippet>123</a>    ///  `&lt;listitem&gt;`ATK_VALUE_VERY_WEAK`&lt;/listitem&gt;`
+<a href=#124 id=124 data-nosnippet>124</a>    ///  `&lt;listitem&gt;`ATK_VALUE_WEAK`&lt;/listitem&gt;`
+<a href=#125 id=125 data-nosnippet>125</a>    ///  `&lt;listitem&gt;`ATK_VALUE_ACCEPTABLE`&lt;/listitem&gt;`
+<a href=#126 id=126 data-nosnippet>126</a>    ///  `&lt;listitem&gt;`ATK_VALUE_STRONG`&lt;/listitem&gt;`
+<a href=#127 id=127 data-nosnippet>127</a>    ///  `&lt;listitem&gt;`ATK_VALUE_VERY_STRONG`&lt;/listitem&gt;`
+<a href=#128 id=128 data-nosnippet>128</a>    ///  `&lt;listitem&gt;`ATK_VALUE_VERY_LOW`&lt;/listitem&gt;`
+<a href=#129 id=129 data-nosnippet>129</a>    ///  `&lt;listitem&gt;`ATK_VALUE_LOW`&lt;/listitem&gt;`
+<a href=#130 id=130 data-nosnippet>130</a>    ///  `&lt;listitem&gt;`ATK_VALUE_MEDIUM`&lt;/listitem&gt;`
+<a href=#131 id=131 data-nosnippet>131</a>    ///  `&lt;listitem&gt;`ATK_VALUE_HIGH`&lt;/listitem&gt;`
+<a href=#132 id=132 data-nosnippet>132</a>    ///  `&lt;listitem&gt;`ATK_VALUE_VERY_HIGH`&lt;/listitem&gt;`
+<a href=#133 id=133 data-nosnippet>133</a>    ///  `&lt;listitem&gt;`ATK_VALUE_VERY_BAD`&lt;/listitem&gt;`
+<a href=#134 id=134 data-nosnippet>134</a>    ///  `&lt;listitem&gt;`ATK_VALUE_BAD`&lt;/listitem&gt;`
+<a href=#135 id=135 data-nosnippet>135</a>    ///  `&lt;listitem&gt;`ATK_VALUE_GOOD`&lt;/listitem&gt;`
+<a href=#136 id=136 data-nosnippet>136</a>    ///  `&lt;listitem&gt;`ATK_VALUE_VERY_GOOD`&lt;/listitem&gt;`
+<a href=#137 id=137 data-nosnippet>137</a>    ///  `&lt;listitem&gt;`ATK_VALUE_BEST`&lt;/listitem&gt;`
+<a href=#138 id=138 data-nosnippet>138</a>    ///  `&lt;listitem&gt;`ATK_VALUE_SUBSUBOPTIMAL`&lt;/listitem&gt;`
+<a href=#139 id=139 data-nosnippet>139</a>    ///  `&lt;listitem&gt;`ATK_VALUE_SUBOPTIMAL`&lt;/listitem&gt;`
+<a href=#140 id=140 data-nosnippet>140</a>    ///  `&lt;listitem&gt;`ATK_VALUE_OPTIMAL`&lt;/listitem&gt;`
+<a href=#141 id=141 data-nosnippet>141</a>    /// `&lt;/itemizedlist&gt;`
+<a href=#142 id=142 data-nosnippet>142</a>    /// `&lt;para&gt;`
+<a href=#143 id=143 data-nosnippet>143</a>    /// Proposals for additional constants, along with their use cases,
+<a href=#144 id=144 data-nosnippet>144</a>    /// should be submitted to the GNOME Accessibility Team.
+<a href=#145 id=145 data-nosnippet>145</a>    /// `&lt;/para&gt;`
+<a href=#146 id=146 data-nosnippet>146</a>    /// `&lt;/refsect1&gt;`
+<a href=#147 id=147 data-nosnippet>147</a>    ///
+<a href=#148 id=148 data-nosnippet>148</a>    /// &lt;refsect1 id="changes"&gt;
+<a href=#149 id=149 data-nosnippet>149</a>    /// `&lt;title&gt;`On the subject of changes`&lt;/title&gt;`
+<a href=#150 id=150 data-nosnippet>150</a>    /// `&lt;para&gt;`
+<a href=#151 id=151 data-nosnippet>151</a>    /// Note that if there is a textual description associated with the new
+<a href=#152 id=152 data-nosnippet>152</a>    /// numeric value, that description should be included regardless of
+<a href=#153 id=153 data-nosnippet>153</a>    /// whether or not it has also changed.
+<a href=#154 id=154 data-nosnippet>154</a>    /// `&lt;/para&gt;`
+<a href=#155 id=155 data-nosnippet>155</a>    /// `&lt;/refsect1&gt;`
+<a href=#156 id=156 data-nosnippet>156</a>    ///
+<a href=#157 id=157 data-nosnippet>157</a>    /// ## Signals
+<a href=#158 id=158 data-nosnippet>158</a>    ///
+<a href=#159 id=159 data-nosnippet>159</a>    ///
+<a href=#160 id=160 data-nosnippet>160</a>    /// #### `value-changed`
+<a href=#161 id=161 data-nosnippet>161</a>    ///  The 'value-changed' signal is emitted when the current value
+<a href=#162 id=162 data-nosnippet>162</a>    /// that represent the object changes. `value` is the numerical
+<a href=#163 id=163 data-nosnippet>163</a>    /// representation of this new value. `text` is the human
+<a href=#164 id=164 data-nosnippet>164</a>    /// readable text alternative of `value`, and can be NULL if it is
+<a href=#165 id=165 data-nosnippet>165</a>    /// not available. Note that if there is a textual description
+<a href=#166 id=166 data-nosnippet>166</a>    /// associated with the new numeric value, that description
+<a href=#167 id=167 data-nosnippet>167</a>    /// should be included regardless of whether or not it has also
+<a href=#168 id=168 data-nosnippet>168</a>    /// changed.
+<a href=#169 id=169 data-nosnippet>169</a>    ///
+<a href=#170 id=170 data-nosnippet>170</a>    /// Example: a password meter whose value changes as the user
+<a href=#171 id=171 data-nosnippet>171</a>    /// types their new password. Appropiate value text would be
+<a href=#172 id=172 data-nosnippet>172</a>    /// "weak", "acceptable" and "strong".
+<a href=#173 id=173 data-nosnippet>173</a>    ///
+<a href=#174 id=174 data-nosnippet>174</a>    ///
+<a href=#175 id=175 data-nosnippet>175</a>    ///
+<a href=#176 id=176 data-nosnippet>176</a>    /// # Implements
+<a href=#177 id=177 data-nosnippet>177</a>    ///
+<a href=#178 id=178 data-nosnippet>178</a>    /// [`ValueExt`][trait@crate::prelude::ValueExt]
+<a href=#179 id=179 data-nosnippet>179</a>    </span><span class="attr">#[doc(alias = <span class="string">"AtkValue"</span>)]
+<a href=#180 id=180 data-nosnippet>180</a>    </span><span class="kw">pub struct </span><a href="../../../atk/struct.Value.html">Value</a>(Interface&lt;ffi::<a href="../../../atk_sys/struct.AtkValue.html">AtkValue</a>, ffi::<a href="../../../atk_sys/struct.AtkValueIface.html">AtkValueIface</a>&gt;);
+<a href=#181 id=181 data-nosnippet>181</a>
+<a href=#182 id=182 data-nosnippet>182</a>    <span class="kw">match fn </span>{
+<a href=#183 id=183 data-nosnippet>183</a>        type_ =&gt; || ffi::atk_value_get_type(),
+<a href=#184 id=184 data-nosnippet>184</a>    }
+<a href=#185 id=185 data-nosnippet>185</a>}
+<a href=#186 id=186 data-nosnippet>186</a>
+<a href=#187 id=187 data-nosnippet>187</a><span class="kw">impl </span><a href="#13-185">Value</a> {
+<a href=#188 id=188 data-nosnippet>188</a>    <span class="kw">pub const </span>NONE: <a class="prelude-ty" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html">Option</a>&lt;<span class="kw-2">&amp;</span><span class="lifetime">'static </span><a href="#13-185">Value</a>&gt; = <a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None">None</a>;
+<a href=#189 id=189 data-nosnippet>189</a>}
+<a href=#190 id=190 data-nosnippet>190</a>
+<a href=#191 id=191 data-nosnippet>191</a><span class="kw">mod </span>sealed {
+<a href=#192 id=192 data-nosnippet>192</a>    <span class="kw">pub trait </span>Sealed {}
+<a href=#193 id=193 data-nosnippet>193</a>    <span class="kw">impl</span>&lt;T: <a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/object/trait.IsA.html"><span class="kw">super</span>::IsA</a>&lt;<span class="kw">super</span>::<a href="#13-185">Value</a>&gt;&gt; <a href="#192">Sealed</a> <span class="kw">for </span>T {}
+<a href=#194 id=194 data-nosnippet>194</a>}
+<a href=#195 id=195 data-nosnippet>195</a>
+<a href=#196 id=196 data-nosnippet>196</a><span class="doccomment">/// Trait containing all [`struct@Value`] methods.
+<a href=#197 id=197 data-nosnippet>197</a>///
+<a href=#198 id=198 data-nosnippet>198</a>/// # Implementors
+<a href=#199 id=199 data-nosnippet>199</a>///
+<a href=#200 id=200 data-nosnippet>200</a>/// [`NoOpObject`][struct@crate::NoOpObject], [`Value`][struct@crate::Value]
+<a href=#201 id=201 data-nosnippet>201</a></span><span class="kw">pub trait </span><a href="../../../atk/prelude/trait.ValueExt.html">ValueExt</a>: <a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/object/trait.IsA.html">IsA</a>&lt;<a href="#13-185">Value</a>&gt; + <a href="#192">sealed::Sealed</a> + <span class="lifetime">'static </span>{
+<a href=#202 id=202 data-nosnippet>202</a>    <span class="doccomment">/// Gets the value of this object.
+<a href=#203 id=203 data-nosnippet>203</a>    ///
+<a href=#204 id=204 data-nosnippet>204</a>    /// # Deprecated
+<a href=#205 id=205 data-nosnippet>205</a>    ///
+<a href=#206 id=206 data-nosnippet>206</a>    /// Since 2.12. Use [`value_and_text()`][Self::value_and_text()]
+<a href=#207 id=207 data-nosnippet>207</a>    /// instead.
+<a href=#208 id=208 data-nosnippet>208</a>    ///
+<a href=#209 id=209 data-nosnippet>209</a>    /// # Returns
+<a href=#210 id=210 data-nosnippet>210</a>    ///
+<a href=#211 id=211 data-nosnippet>211</a>    ///
+<a href=#212 id=212 data-nosnippet>212</a>    /// ## `value`
+<a href=#213 id=213 data-nosnippet>213</a>    /// a [`glib::Value`][crate::glib::Value] representing the current accessible value
+<a href=#214 id=214 data-nosnippet>214</a>    </span><span class="attr">#[doc(alias = <span class="string">"atk_value_get_current_value"</span>)]
+<a href=#215 id=215 data-nosnippet>215</a>    #[doc(alias = <span class="string">"get_current_value"</span>)]
+<a href=#216 id=216 data-nosnippet>216</a>    </span><span class="kw">fn </span>current_value(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; glib::<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/value/struct.Value.html">Value</a> {
+<a href=#217 id=217 data-nosnippet>217</a>        <span class="kw">unsafe </span>{
+<a href=#218 id=218 data-nosnippet>218</a>            <span class="kw">let </span><span class="kw-2">mut </span>value = glib::<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/value/struct.Value.html">Value</a>::<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/translate/trait.Uninitialized.html#tymethod.uninitialized">uninitialized</a>();
+<a href=#219 id=219 data-nosnippet>219</a>            ffi::<a href="../../../atk_sys/fn.atk_value_get_current_value.html">atk_value_get_current_value</a>(
+<a href=#220 id=220 data-nosnippet>220</a>                <a class="self" href="#216">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
+<a href=#221 id=221 data-nosnippet>221</a>                <a href="#218">value</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/translate/trait.ToGlibPtrMut.html#tymethod.to_glib_none_mut">to_glib_none_mut</a>().<span class="number">0</span>,
+<a href=#222 id=222 data-nosnippet>222</a>            );
+<a href=#223 id=223 data-nosnippet>223</a>            <a href="#218">value</a>
+<a href=#224 id=224 data-nosnippet>224</a>        }
+<a href=#225 id=225 data-nosnippet>225</a>    }
+<a href=#226 id=226 data-nosnippet>226</a>
+<a href=#227 id=227 data-nosnippet>227</a>    <span class="doccomment">/// Gets the minimum increment by which the value of this object may be
+<a href=#228 id=228 data-nosnippet>228</a>    /// changed. If zero, the minimum increment is undefined, which may
+<a href=#229 id=229 data-nosnippet>229</a>    /// mean that it is limited only by the floating point precision of the
+<a href=#230 id=230 data-nosnippet>230</a>    /// platform.
+<a href=#231 id=231 data-nosnippet>231</a>    ///
+<a href=#232 id=232 data-nosnippet>232</a>    /// # Returns
+<a href=#233 id=233 data-nosnippet>233</a>    ///
+<a href=#234 id=234 data-nosnippet>234</a>    /// the minimum increment by which the value of this
+<a href=#235 id=235 data-nosnippet>235</a>    /// object may be changed. zero if undefined.
+<a href=#236 id=236 data-nosnippet>236</a>    </span><span class="attr">#[doc(alias = <span class="string">"atk_value_get_increment"</span>)]
+<a href=#237 id=237 data-nosnippet>237</a>    #[doc(alias = <span class="string">"get_increment"</span>)]
+<a href=#238 id=238 data-nosnippet>238</a>    </span><span class="kw">fn </span>increment(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a> {
+<a href=#239 id=239 data-nosnippet>239</a>        <span class="kw">unsafe </span>{ ffi::<a href="../../../atk_sys/fn.atk_value_get_increment.html">atk_value_get_increment</a>(<a class="self" href="#238">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>) }
+<a href=#240 id=240 data-nosnippet>240</a>    }
+<a href=#241 id=241 data-nosnippet>241</a>
+<a href=#242 id=242 data-nosnippet>242</a>    <span class="doccomment">/// Gets the maximum value of this object.
+<a href=#243 id=243 data-nosnippet>243</a>    ///
+<a href=#244 id=244 data-nosnippet>244</a>    /// # Deprecated
+<a href=#245 id=245 data-nosnippet>245</a>    ///
+<a href=#246 id=246 data-nosnippet>246</a>    /// Since 2.12. Use [`range()`][Self::range()] instead.
+<a href=#247 id=247 data-nosnippet>247</a>    ///
+<a href=#248 id=248 data-nosnippet>248</a>    /// # Returns
+<a href=#249 id=249 data-nosnippet>249</a>    ///
+<a href=#250 id=250 data-nosnippet>250</a>    ///
+<a href=#251 id=251 data-nosnippet>251</a>    /// ## `value`
+<a href=#252 id=252 data-nosnippet>252</a>    /// a [`glib::Value`][crate::glib::Value] representing the maximum accessible value
+<a href=#253 id=253 data-nosnippet>253</a>    </span><span class="attr">#[doc(alias = <span class="string">"atk_value_get_maximum_value"</span>)]
+<a href=#254 id=254 data-nosnippet>254</a>    #[doc(alias = <span class="string">"get_maximum_value"</span>)]
+<a href=#255 id=255 data-nosnippet>255</a>    </span><span class="kw">fn </span>maximum_value(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; glib::<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/value/struct.Value.html">Value</a> {
+<a href=#256 id=256 data-nosnippet>256</a>        <span class="kw">unsafe </span>{
+<a href=#257 id=257 data-nosnippet>257</a>            <span class="kw">let </span><span class="kw-2">mut </span>value = glib::<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/value/struct.Value.html">Value</a>::<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/translate/trait.Uninitialized.html#tymethod.uninitialized">uninitialized</a>();
+<a href=#258 id=258 data-nosnippet>258</a>            ffi::<a href="../../../atk_sys/fn.atk_value_get_maximum_value.html">atk_value_get_maximum_value</a>(
+<a href=#259 id=259 data-nosnippet>259</a>                <a class="self" href="#255">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
+<a href=#260 id=260 data-nosnippet>260</a>                <a href="#257">value</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/translate/trait.ToGlibPtrMut.html#tymethod.to_glib_none_mut">to_glib_none_mut</a>().<span class="number">0</span>,
+<a href=#261 id=261 data-nosnippet>261</a>            );
+<a href=#262 id=262 data-nosnippet>262</a>            <a href="#257">value</a>
+<a href=#263 id=263 data-nosnippet>263</a>        }
+<a href=#264 id=264 data-nosnippet>264</a>    }
+<a href=#265 id=265 data-nosnippet>265</a>
+<a href=#266 id=266 data-nosnippet>266</a>    <span class="doccomment">/// Gets the minimum increment by which the value of this object may be changed. If zero,
+<a href=#267 id=267 data-nosnippet>267</a>    /// the minimum increment is undefined, which may mean that it is limited only by the
+<a href=#268 id=268 data-nosnippet>268</a>    /// floating point precision of the platform.
+<a href=#269 id=269 data-nosnippet>269</a>    ///
+<a href=#270 id=270 data-nosnippet>270</a>    /// # Deprecated
+<a href=#271 id=271 data-nosnippet>271</a>    ///
+<a href=#272 id=272 data-nosnippet>272</a>    /// Since 2.12. Use [`increment()`][Self::increment()] instead.
+<a href=#273 id=273 data-nosnippet>273</a>    ///
+<a href=#274 id=274 data-nosnippet>274</a>    /// # Returns
+<a href=#275 id=275 data-nosnippet>275</a>    ///
+<a href=#276 id=276 data-nosnippet>276</a>    ///
+<a href=#277 id=277 data-nosnippet>277</a>    /// ## `value`
+<a href=#278 id=278 data-nosnippet>278</a>    /// a [`glib::Value`][crate::glib::Value] representing the minimum increment by which the accessible value may be changed
+<a href=#279 id=279 data-nosnippet>279</a>    </span><span class="attr">#[doc(alias = <span class="string">"atk_value_get_minimum_increment"</span>)]
+<a href=#280 id=280 data-nosnippet>280</a>    #[doc(alias = <span class="string">"get_minimum_increment"</span>)]
+<a href=#281 id=281 data-nosnippet>281</a>    </span><span class="kw">fn </span>minimum_increment(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; glib::<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/value/struct.Value.html">Value</a> {
+<a href=#282 id=282 data-nosnippet>282</a>        <span class="kw">unsafe </span>{
+<a href=#283 id=283 data-nosnippet>283</a>            <span class="kw">let </span><span class="kw-2">mut </span>value = glib::<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/value/struct.Value.html">Value</a>::<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/translate/trait.Uninitialized.html#tymethod.uninitialized">uninitialized</a>();
+<a href=#284 id=284 data-nosnippet>284</a>            ffi::<a href="../../../atk_sys/fn.atk_value_get_minimum_increment.html">atk_value_get_minimum_increment</a>(
+<a href=#285 id=285 data-nosnippet>285</a>                <a class="self" href="#281">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
+<a href=#286 id=286 data-nosnippet>286</a>                <a href="#283">value</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/translate/trait.ToGlibPtrMut.html#tymethod.to_glib_none_mut">to_glib_none_mut</a>().<span class="number">0</span>,
+<a href=#287 id=287 data-nosnippet>287</a>            );
+<a href=#288 id=288 data-nosnippet>288</a>            <a href="#283">value</a>
+<a href=#289 id=289 data-nosnippet>289</a>        }
+<a href=#290 id=290 data-nosnippet>290</a>    }
+<a href=#291 id=291 data-nosnippet>291</a>
+<a href=#292 id=292 data-nosnippet>292</a>    <span class="doccomment">/// Gets the minimum value of this object.
+<a href=#293 id=293 data-nosnippet>293</a>    ///
+<a href=#294 id=294 data-nosnippet>294</a>    /// # Deprecated
+<a href=#295 id=295 data-nosnippet>295</a>    ///
+<a href=#296 id=296 data-nosnippet>296</a>    /// Since 2.12. Use [`range()`][Self::range()] instead.
+<a href=#297 id=297 data-nosnippet>297</a>    ///
+<a href=#298 id=298 data-nosnippet>298</a>    /// # Returns
+<a href=#299 id=299 data-nosnippet>299</a>    ///
+<a href=#300 id=300 data-nosnippet>300</a>    ///
+<a href=#301 id=301 data-nosnippet>301</a>    /// ## `value`
+<a href=#302 id=302 data-nosnippet>302</a>    /// a [`glib::Value`][crate::glib::Value] representing the minimum accessible value
+<a href=#303 id=303 data-nosnippet>303</a>    </span><span class="attr">#[doc(alias = <span class="string">"atk_value_get_minimum_value"</span>)]
+<a href=#304 id=304 data-nosnippet>304</a>    #[doc(alias = <span class="string">"get_minimum_value"</span>)]
+<a href=#305 id=305 data-nosnippet>305</a>    </span><span class="kw">fn </span>minimum_value(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; glib::<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/value/struct.Value.html">Value</a> {
+<a href=#306 id=306 data-nosnippet>306</a>        <span class="kw">unsafe </span>{
+<a href=#307 id=307 data-nosnippet>307</a>            <span class="kw">let </span><span class="kw-2">mut </span>value = glib::<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/value/struct.Value.html">Value</a>::<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/translate/trait.Uninitialized.html#tymethod.uninitialized">uninitialized</a>();
+<a href=#308 id=308 data-nosnippet>308</a>            ffi::<a href="../../../atk_sys/fn.atk_value_get_minimum_value.html">atk_value_get_minimum_value</a>(
+<a href=#309 id=309 data-nosnippet>309</a>                <a class="self" href="#305">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
+<a href=#310 id=310 data-nosnippet>310</a>                <a href="#307">value</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/translate/trait.ToGlibPtrMut.html#tymethod.to_glib_none_mut">to_glib_none_mut</a>().<span class="number">0</span>,
+<a href=#311 id=311 data-nosnippet>311</a>            );
+<a href=#312 id=312 data-nosnippet>312</a>            <a href="#307">value</a>
+<a href=#313 id=313 data-nosnippet>313</a>        }
+<a href=#314 id=314 data-nosnippet>314</a>    }
+<a href=#315 id=315 data-nosnippet>315</a>
+<a href=#316 id=316 data-nosnippet>316</a>    <span class="doccomment">/// Gets the range of this object.
+<a href=#317 id=317 data-nosnippet>317</a>    ///
+<a href=#318 id=318 data-nosnippet>318</a>    /// # Returns
+<a href=#319 id=319 data-nosnippet>319</a>    ///
+<a href=#320 id=320 data-nosnippet>320</a>    /// a newly allocated [`Range`][crate::Range]
+<a href=#321 id=321 data-nosnippet>321</a>    /// that represents the minimum, maximum and descriptor (if available)
+<a href=#322 id=322 data-nosnippet>322</a>    /// of `self`. NULL if that range is not defined.
+<a href=#323 id=323 data-nosnippet>323</a>    </span><span class="attr">#[doc(alias = <span class="string">"atk_value_get_range"</span>)]
+<a href=#324 id=324 data-nosnippet>324</a>    #[doc(alias = <span class="string">"get_range"</span>)]
+<a href=#325 id=325 data-nosnippet>325</a>    </span><span class="kw">fn </span>range(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a class="prelude-ty" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html">Option</a>&lt;<a href="range.rs.html#7-23">Range</a>&gt; {
+<a href=#326 id=326 data-nosnippet>326</a>        <span class="kw">unsafe </span>{ <a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/translate/fn.from_glib_full.html">from_glib_full</a>(ffi::<a href="../../../atk_sys/fn.atk_value_get_range.html">atk_value_get_range</a>(<a class="self" href="#325">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>)) }
+<a href=#327 id=327 data-nosnippet>327</a>    }
+<a href=#328 id=328 data-nosnippet>328</a>
+<a href=#329 id=329 data-nosnippet>329</a>    <span class="doccomment">/// Gets the list of subranges defined for this object. See [`Value`][crate::Value]
+<a href=#330 id=330 data-nosnippet>330</a>    /// introduction for examples of subranges and when to expose them.
+<a href=#331 id=331 data-nosnippet>331</a>    ///
+<a href=#332 id=332 data-nosnippet>332</a>    /// # Returns
+<a href=#333 id=333 data-nosnippet>333</a>    ///
+<a href=#334 id=334 data-nosnippet>334</a>    /// an `GSList` of
+<a href=#335 id=335 data-nosnippet>335</a>    /// [`Range`][crate::Range] which each of the subranges defined for this object. Free
+<a href=#336 id=336 data-nosnippet>336</a>    /// the returns list with `g_slist_free()`.
+<a href=#337 id=337 data-nosnippet>337</a>    </span><span class="attr">#[doc(alias = <span class="string">"atk_value_get_sub_ranges"</span>)]
+<a href=#338 id=338 data-nosnippet>338</a>    #[doc(alias = <span class="string">"get_sub_ranges"</span>)]
+<a href=#339 id=339 data-nosnippet>339</a>    </span><span class="kw">fn </span>sub_ranges(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html">Vec</a>&lt;<a href="range.rs.html#7-23">Range</a>&gt; {
+<a href=#340 id=340 data-nosnippet>340</a>        <span class="kw">unsafe </span>{
+<a href=#341 id=341 data-nosnippet>341</a>            FromGlibPtrContainer::<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/translate/trait.FromGlibPtrContainer.html#tymethod.from_glib_full">from_glib_full</a>(ffi::<a href="../../../atk_sys/fn.atk_value_get_sub_ranges.html">atk_value_get_sub_ranges</a>(
+<a href=#342 id=342 data-nosnippet>342</a>                <a class="self" href="#339">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
+<a href=#343 id=343 data-nosnippet>343</a>            ))
+<a href=#344 id=344 data-nosnippet>344</a>        }
+<a href=#345 id=345 data-nosnippet>345</a>    }
+<a href=#346 id=346 data-nosnippet>346</a>
+<a href=#347 id=347 data-nosnippet>347</a>    <span class="doccomment">/// Gets the current value and the human readable text alternative of
+<a href=#348 id=348 data-nosnippet>348</a>    /// `self`. `text` is a newly created string, that must be freed by the
+<a href=#349 id=349 data-nosnippet>349</a>    /// caller. Can be NULL if no descriptor is available.
+<a href=#350 id=350 data-nosnippet>350</a>    ///
+<a href=#351 id=351 data-nosnippet>351</a>    /// # Returns
+<a href=#352 id=352 data-nosnippet>352</a>    ///
+<a href=#353 id=353 data-nosnippet>353</a>    ///
+<a href=#354 id=354 data-nosnippet>354</a>    /// ## `value`
+<a href=#355 id=355 data-nosnippet>355</a>    /// address of `gdouble` to put the current value of `self`
+<a href=#356 id=356 data-nosnippet>356</a>    ///
+<a href=#357 id=357 data-nosnippet>357</a>    /// ## `text`
+<a href=#358 id=358 data-nosnippet>358</a>    /// address of `gchar` to put the human
+<a href=#359 id=359 data-nosnippet>359</a>    /// readable text alternative for `value`
+<a href=#360 id=360 data-nosnippet>360</a>    </span><span class="attr">#[doc(alias = <span class="string">"atk_value_get_value_and_text"</span>)]
+<a href=#361 id=361 data-nosnippet>361</a>    #[doc(alias = <span class="string">"get_value_and_text"</span>)]
+<a href=#362 id=362 data-nosnippet>362</a>    </span><span class="kw">fn </span>value_and_text(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; (<a href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>, glib::<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/gstring/struct.GString.html">GString</a>) {
+<a href=#363 id=363 data-nosnippet>363</a>        <span class="kw">unsafe </span>{
+<a href=#364 id=364 data-nosnippet>364</a>            <span class="kw">let </span><span class="kw-2">mut </span>value = mem::<a href="https://doc.rust-lang.org/nightly/core/mem/maybe_uninit/union.MaybeUninit.html">MaybeUninit</a>::<a href="https://doc.rust-lang.org/nightly/core/mem/maybe_uninit/union.MaybeUninit.html#method.uninit">uninit</a>();
+<a href=#365 id=365 data-nosnippet>365</a>            <span class="kw">let </span><span class="kw-2">mut </span>text = ptr::<a href="https://doc.rust-lang.org/nightly/core/ptr/fn.null_mut.html">null_mut</a>();
+<a href=#366 id=366 data-nosnippet>366</a>            ffi::<a href="../../../atk_sys/fn.atk_value_get_value_and_text.html">atk_value_get_value_and_text</a>(
+<a href=#367 id=367 data-nosnippet>367</a>                <a class="self" href="#362">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
+<a href=#368 id=368 data-nosnippet>368</a>                <a href="#364">value</a>.<a href="https://doc.rust-lang.org/nightly/core/mem/maybe_uninit/union.MaybeUninit.html#method.as_mut_ptr">as_mut_ptr</a>(),
+<a href=#369 id=369 data-nosnippet>369</a>                <span class="kw-2">&amp;mut </span><a href="#365">text</a>,
+<a href=#370 id=370 data-nosnippet>370</a>            );
+<a href=#371 id=371 data-nosnippet>371</a>            (<a href="#364">value</a>.<a href="https://doc.rust-lang.org/nightly/core/mem/maybe_uninit/union.MaybeUninit.html#method.assume_init">assume_init</a>(), <a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/translate/fn.from_glib_full.html">from_glib_full</a>(<a href="#365">text</a>))
+<a href=#372 id=372 data-nosnippet>372</a>        }
+<a href=#373 id=373 data-nosnippet>373</a>    }
+<a href=#374 id=374 data-nosnippet>374</a>
+<a href=#375 id=375 data-nosnippet>375</a>    <span class="doccomment">/// Sets the value of this object.
+<a href=#376 id=376 data-nosnippet>376</a>    ///
+<a href=#377 id=377 data-nosnippet>377</a>    /// # Deprecated
+<a href=#378 id=378 data-nosnippet>378</a>    ///
+<a href=#379 id=379 data-nosnippet>379</a>    /// Since 2.12. Use [`set_value()`][Self::set_value()] instead.
+<a href=#380 id=380 data-nosnippet>380</a>    /// ## `value`
+<a href=#381 id=381 data-nosnippet>381</a>    /// a [`glib::Value`][crate::glib::Value] which is the desired new accessible value.
+<a href=#382 id=382 data-nosnippet>382</a>    ///
+<a href=#383 id=383 data-nosnippet>383</a>    /// # Returns
+<a href=#384 id=384 data-nosnippet>384</a>    ///
+<a href=#385 id=385 data-nosnippet>385</a>    /// [`true`] if new value is successfully set, [`false`] otherwise.
+<a href=#386 id=386 data-nosnippet>386</a>    </span><span class="attr">#[doc(alias = <span class="string">"atk_value_set_current_value"</span>)]
+<a href=#387 id=387 data-nosnippet>387</a>    </span><span class="kw">fn </span>set_current_value(<span class="kw-2">&amp;</span><span class="self">self</span>, value: <span class="kw-2">&amp;</span>glib::<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/value/struct.Value.html">Value</a>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> {
+<a href=#388 id=388 data-nosnippet>388</a>        <span class="kw">unsafe </span>{
+<a href=#389 id=389 data-nosnippet>389</a>            <a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/translate/fn.from_glib.html">from_glib</a>(ffi::<a href="../../../atk_sys/fn.atk_value_set_current_value.html">atk_value_set_current_value</a>(
+<a href=#390 id=390 data-nosnippet>390</a>                <a class="self" href="#387">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
+<a href=#391 id=391 data-nosnippet>391</a>                <a href="#387">value</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
+<a href=#392 id=392 data-nosnippet>392</a>            ))
+<a href=#393 id=393 data-nosnippet>393</a>        }
+<a href=#394 id=394 data-nosnippet>394</a>    }
+<a href=#395 id=395 data-nosnippet>395</a>
+<a href=#396 id=396 data-nosnippet>396</a>    <span class="doccomment">/// Sets the value of this object.
+<a href=#397 id=397 data-nosnippet>397</a>    ///
+<a href=#398 id=398 data-nosnippet>398</a>    /// This method is intended to provide a way to change the value of the
+<a href=#399 id=399 data-nosnippet>399</a>    /// object. In any case, it is possible that the value can't be
+<a href=#400 id=400 data-nosnippet>400</a>    /// modified (ie: a read-only component). If the value changes due this
+<a href=#401 id=401 data-nosnippet>401</a>    /// call, it is possible that the text could change, and will trigger
+<a href=#402 id=402 data-nosnippet>402</a>    /// an [`value-changed`][struct@crate::Value#value-changed] signal emission.
+<a href=#403 id=403 data-nosnippet>403</a>    ///
+<a href=#404 id=404 data-nosnippet>404</a>    /// Note for implementors: the deprecated [`set_current_value()`][Self::set_current_value()]
+<a href=#405 id=405 data-nosnippet>405</a>    /// method returned TRUE or FALSE depending if the value was assigned
+<a href=#406 id=406 data-nosnippet>406</a>    /// or not. In the practice several implementors were not able to
+<a href=#407 id=407 data-nosnippet>407</a>    /// decide it, and returned TRUE in any case. For that reason it is not
+<a href=#408 id=408 data-nosnippet>408</a>    /// required anymore to return if the value was properly assigned or
+<a href=#409 id=409 data-nosnippet>409</a>    /// not.
+<a href=#410 id=410 data-nosnippet>410</a>    /// ## `new_value`
+<a href=#411 id=411 data-nosnippet>411</a>    /// a double which is the desired new accessible value.
+<a href=#412 id=412 data-nosnippet>412</a>    </span><span class="attr">#[doc(alias = <span class="string">"atk_value_set_value"</span>)]
+<a href=#413 id=413 data-nosnippet>413</a>    </span><span class="kw">fn </span>set_value(<span class="kw-2">&amp;</span><span class="self">self</span>, new_value: <a href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>) {
+<a href=#414 id=414 data-nosnippet>414</a>        <span class="kw">unsafe </span>{
+<a href=#415 id=415 data-nosnippet>415</a>            ffi::<a href="../../../atk_sys/fn.atk_value_set_value.html">atk_value_set_value</a>(<a class="self" href="#413">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>, <a href="#413">new_value</a>);
+<a href=#416 id=416 data-nosnippet>416</a>        }
+<a href=#417 id=417 data-nosnippet>417</a>    }
+<a href=#418 id=418 data-nosnippet>418</a>
+<a href=#419 id=419 data-nosnippet>419</a>    <span class="doccomment">/// The 'value-changed' signal is emitted when the current value
+<a href=#420 id=420 data-nosnippet>420</a>    /// that represent the object changes. `value` is the numerical
+<a href=#421 id=421 data-nosnippet>421</a>    /// representation of this new value. `text` is the human
+<a href=#422 id=422 data-nosnippet>422</a>    /// readable text alternative of `value`, and can be NULL if it is
+<a href=#423 id=423 data-nosnippet>423</a>    /// not available. Note that if there is a textual description
+<a href=#424 id=424 data-nosnippet>424</a>    /// associated with the new numeric value, that description
+<a href=#425 id=425 data-nosnippet>425</a>    /// should be included regardless of whether or not it has also
+<a href=#426 id=426 data-nosnippet>426</a>    /// changed.
+<a href=#427 id=427 data-nosnippet>427</a>    ///
+<a href=#428 id=428 data-nosnippet>428</a>    /// Example: a password meter whose value changes as the user
+<a href=#429 id=429 data-nosnippet>429</a>    /// types their new password. Appropiate value text would be
+<a href=#430 id=430 data-nosnippet>430</a>    /// "weak", "acceptable" and "strong".
+<a href=#431 id=431 data-nosnippet>431</a>    /// ## `value`
+<a href=#432 id=432 data-nosnippet>432</a>    /// the new value in a numerical form.
+<a href=#433 id=433 data-nosnippet>433</a>    /// ## `text`
+<a href=#434 id=434 data-nosnippet>434</a>    /// human readable text alternative (also called
+<a href=#435 id=435 data-nosnippet>435</a>    /// description) of this object. NULL if not available.
+<a href=#436 id=436 data-nosnippet>436</a>    </span><span class="attr">#[doc(alias = <span class="string">"value-changed"</span>)]
+<a href=#437 id=437 data-nosnippet>437</a>    </span><span class="kw">fn </span>connect_value_changed&lt;F: <a href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html">Fn</a>(<span class="kw-2">&amp;</span><span class="self">Self</span>, <a href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>, <span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) + <span class="lifetime">'static</span>&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; <a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/struct.SignalHandlerId.html">SignalHandlerId</a> {
+<a href=#438 id=438 data-nosnippet>438</a>        <span class="kw">unsafe extern </span><span class="string">"C" </span><span class="kw">fn </span>value_changed_trampoline&lt;
+<a href=#439 id=439 data-nosnippet>439</a>            P: <a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/object/trait.IsA.html">IsA</a>&lt;<a href="#13-185">Value</a>&gt;,
+<a href=#440 id=440 data-nosnippet>440</a>            F: <a href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html">Fn</a>(<span class="kw-2">&amp;</span>P, <a href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>, <span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) + <span class="lifetime">'static</span>,
+<a href=#441 id=441 data-nosnippet>441</a>        &gt;(
+<a href=#442 id=442 data-nosnippet>442</a>            this: <span class="kw-2">*mut </span>ffi::<a href="../../../atk_sys/struct.AtkValue.html">AtkValue</a>,
+<a href=#443 id=443 data-nosnippet>443</a>            value: libc::<a href="https://doc.rust-lang.org/nightly/core/ffi/primitives/type.c_double.html">c_double</a>,
+<a href=#444 id=444 data-nosnippet>444</a>            text: <span class="kw-2">*mut </span>libc::<a href="https://doc.rust-lang.org/nightly/core/ffi/primitives/type.c_char.html">c_char</a>,
+<a href=#445 id=445 data-nosnippet>445</a>            f: glib::ffi::gpointer,
+<a href=#446 id=446 data-nosnippet>446</a>        ) {
+<a href=#447 id=447 data-nosnippet>447</a>            <span class="kw">let </span>f: <span class="kw-2">&amp;</span>F = <span class="kw-2">&amp;*</span>(<a href="#445">f</a> <span class="kw">as </span><span class="kw-2">*const </span>F);
+<a href=#448 id=448 data-nosnippet>448</a>            <a href="#447">f</a>(
+<a href=#449 id=449 data-nosnippet>449</a>                <a href="#13-185">Value</a>::<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/translate/trait.FromGlibPtrBorrow.html#method.from_glib_borrow">from_glib_borrow</a>(<a href="#442">this</a>).<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/object/trait.Cast.html#method.unsafe_cast_ref">unsafe_cast_ref</a>(),
+<a href=#450 id=450 data-nosnippet>450</a>                <a href="#443">value</a>,
+<a href=#451 id=451 data-nosnippet>451</a>                <span class="kw-2">&amp;</span>glib::<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/gstring/struct.GString.html">GString</a>::<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/translate/trait.FromGlibPtrBorrow.html#method.from_glib_borrow">from_glib_borrow</a>(<a href="#444">text</a>),
+<a href=#452 id=452 data-nosnippet>452</a>            )
+<a href=#453 id=453 data-nosnippet>453</a>        }
+<a href=#454 id=454 data-nosnippet>454</a>        <span class="kw">unsafe </span>{
+<a href=#455 id=455 data-nosnippet>455</a>            <span class="kw">let </span>f: <a href="https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html">Box_</a>&lt;F&gt; = <a href="https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html">Box_</a>::<a href="https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html#method.new">new</a>(<a href="#437">f</a>);
+<a href=#456 id=456 data-nosnippet>456</a>            <a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/fn.connect_raw.html">connect_raw</a>(
+<a href=#457 id=457 data-nosnippet>457</a>                <a class="self" href="#437">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/object/trait.ObjectType.html#tymethod.as_ptr">as_ptr</a>() <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
+<a href=#458 id=458 data-nosnippet>458</a>                <span class="string">b"value-changed\0"</span>.<a href="https://doc.rust-lang.org/nightly/core/primitive.slice.html#method.as_ptr">as_ptr</a>() <span class="kw">as </span><span class="kw-2">*const </span><span class="kw">_</span>,
+<a href=#459 id=459 data-nosnippet>459</a>                <a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.Some">Some</a>(<a href="https://doc.rust-lang.org/nightly/core/intrinsics/fn.transmute.html">transmute</a>::&lt;<span class="kw">_</span>, <span class="kw">unsafe extern </span><span class="string">"C" </span><span class="kw">fn</span>()&gt;(
+<a href=#460 id=460 data-nosnippet>460</a>                    <a href="#438-453">value_changed_trampoline</a>::&lt;<span class="self">Self</span>, F&gt; <span class="kw">as </span><span class="kw-2">*const </span>(),
+<a href=#461 id=461 data-nosnippet>461</a>                )),
+<a href=#462 id=462 data-nosnippet>462</a>                <a href="https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html">Box_</a>::<a href="https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html#method.into_raw">into_raw</a>(<a href="#455">f</a>),
+<a href=#463 id=463 data-nosnippet>463</a>            )
+<a href=#464 id=464 data-nosnippet>464</a>        }
+<a href=#465 id=465 data-nosnippet>465</a>    }
+<a href=#466 id=466 data-nosnippet>466</a>}
+<a href=#467 id=467 data-nosnippet>467</a>
+<a href=#468 id=468 data-nosnippet>468</a><span class="kw">impl</span>&lt;O: <a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/object/trait.IsA.html">IsA</a>&lt;<a href="#13-185">Value</a>&gt;&gt; <a href="#201-466">ValueExt</a> <span class="kw">for </span>O {}
+<a href=#469 id=469 data-nosnippet>469</a>
+<a href=#470 id=470 data-nosnippet>470</a><span class="kw">impl </span><a href="https://doc.rust-lang.org/nightly/core/fmt/trait.Display.html">fmt::Display</a> <span class="kw">for </span><a href="#13-185">Value</a> {
+<a href=#471 id=471 data-nosnippet>471</a>    <span class="kw">fn </span>fmt(<span class="kw-2">&amp;</span><span class="self">self</span>, f: <span class="kw-2">&amp;mut </span>fmt::<a href="https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html">Formatter</a>) -&gt; fmt::<a href="https://doc.rust-lang.org/nightly/core/fmt/type.Result.html">Result</a> {
+<a href=#472 id=472 data-nosnippet>472</a>        <a href="#471">f</a>.<a href="https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html#method.write_str">write_str</a>(<span class="string">"Value"</span>)
+<a href=#473 id=473 data-nosnippet>473</a>    }
+<a href=#474 id=474 data-nosnippet>474</a>}
+</code></pre></div></section></main></body></html>

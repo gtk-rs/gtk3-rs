@@ -1,0 +1,110 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Trait containing all `struct@EditableText` methods."><title>EditableTextExt in atk::prelude - Rust</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2"href="../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../static.files/rustdoc-0c87338a.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="atk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.100.0-nightly (34baba539 2026-08-16)" data-channel="nightly" data-search-js="search-cf4fc35e.js" data-stringdex-js="stringdex-b5109af9.js" data-settings-js="settings-170eb4bf.js" ><script src="../../static.files/storage-41dd4d93.js"></script><script defer src="sidebar-items.js"></script><script defer src="../../static.files/main-417ebf0a.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-9f56287d.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-eab170b8.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-044be391.svg"></head><body class="rustdoc trait"><a class="skip-main-content" href="#main-content">Skip to main content</a><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
+
+    function checkDocsLatestStable() {
+        function popup(msg, url) { return `
+            <style scoped="scoped">
+                .popup {
+                    max-width: 16em;
+                    background-color: #fff;
+                    position: fixed;
+                    z-index: 1;
+                    margin-left: auto;
+                    bottom: 1em;
+                    right: 1em;
+                    border-radius: 5px;
+                    box-shadow: 1px 1px 4px #777;
+                }
+
+                .popup a.version {
+                    color: #e57300;
+                    padding: 0.6em 1em;
+                    display: block;
+                }
+                .popup a.version:hover {
+                    color: #b25900;
+                }
+
+                .popup a.close {
+                    color: white;
+                    background: grey;
+                    border-radius: 99px;
+                    display: inline-block;
+                    width: 19px;
+                    line-height: 19px;
+                    font-weight: bold;
+                    text-align: center;
+                    margin: 0.6em;
+                    float: right;
+                }
+                .popup a.close:hover {
+                    background: black;
+                }
+            </style>
+            <section class="popup" id="gir_docs_popup">
+                <a class="close" href="#" onclick="document.getElementById('gir_docs_popup').remove(); return false">×</a>
+                <a class="version" href="https://gtk-rs.org/gtk3-rs/stable/latest/docs">
+                    ⚠ ${msg}
+                </a>
+            </section>
+        ` };
+
+        if ("0.18" == "master") {
+            document.body.insertAdjacentHTML(
+                'beforeend',
+                popup("This is the development version. Go to latest stable version.", "stable/latest")
+            );
+        } else {
+            fetch('https://gtk-rs.org/gtk3-rs/LATEST_RELEASE_BRANCH')
+                .then(response => response.text())
+                .then(latest_branch => {
+                    if (latest_branch.trim() != "0.18") {
+                        document.body.insertAdjacentHTML(
+                            'beforeend',
+                            popup("This version is outdated. Go to latest version.", "stable/latest")
+                        );
+                    }
+                });
+        }
+    }
+</script>
+
+
+<rustdoc-topbar><h2><a href="#">EditableTextExt</a></h2></rustdoc-topbar><nav class="sidebar"><div class="sidebar-crate"><h2><a href="../../atk/index.html">atk</a><span class="version">0.18.1</span></h2></div><div class="sidebar-elems"><section id="rustdoc-toc"><h2 class="location"><a href="#">Editable<wbr>Text<wbr>Ext</a></h2><h3><a href="#">Sections</a></h3><ul class="block top-toc"><li><a href="#implementors-1" title="Implementors">Implementors</a></li></ul><h3><a href="#provided-methods">Provided Methods</a></h3><ul class="block"><li><a href="#method.copy_text" title="copy_text">copy_text</a></li><li><a href="#method.cut_text" title="cut_text">cut_text</a></li><li><a href="#method.delete_text" title="delete_text">delete_text</a></li><li><a href="#method.paste_text" title="paste_text">paste_text</a></li><li><a href="#method.set_text_contents" title="set_text_contents">set_text_contents</a></li></ul><h3><a href="#dyn-compatibility">Dyn Compatibility</a></h3><h3><a href="#implementors">Implementors</a></h3></section><div id="rustdoc-modnav"><h2><a href="index.html">In atk::<wbr>prelude</a></h2></div></div></nav><div class="sidebar-resizer" title="Drag to resize sidebar"></div><main><div class="width-limiter"><section id="main-content" class="content" tabindex="-1"><div class="main-heading"><div class="rustdoc-breadcrumbs"><a href="../index.html">atk</a>::<wbr><a href="index.html">prelude</a></div><h1>Trait <span class="trait">Editable<wbr>Text<wbr>Ext</span>&nbsp;<button id="copy-path" title="Copy item path to clipboard">Copy item path</button></h1><rustdoc-toolbar></rustdoc-toolbar><span class="sub-heading"><a class="src" href="../../src/atk/auto/editable_text.rs.html#46-112">Source</a> </span></div><pre class="rust item-decl"><code>pub trait EditableTextExt:
+    <a class="trait" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.EditableText.html" title="struct atk::EditableText">EditableText</a>&gt;
+    + Sealed
+    + 'static {
+    // Provided methods
+    fn <a href="#method.copy_text" class="fn">copy_text</a>(&amp;self, start_pos: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, end_pos: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) { ... }
+<span class="item-spacer"></span>    fn <a href="#method.cut_text" class="fn">cut_text</a>(&amp;self, start_pos: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, end_pos: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) { ... }
+<span class="item-spacer"></span>    fn <a href="#method.delete_text" class="fn">delete_text</a>(&amp;self, start_pos: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, end_pos: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) { ... }
+<span class="item-spacer"></span>    fn <a href="#method.paste_text" class="fn">paste_text</a>(&amp;self, position: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) { ... }
+<span class="item-spacer"></span>    fn <a href="#method.set_text_contents" class="fn">set_text_contents</a>(&amp;self, string: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) { ... }
+}</code></pre><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>Trait containing all <a href="../struct.EditableText.html" title="struct atk::EditableText"><code>EditableText</code></a> methods.</p>
+<h2 id="implementors-1"><a class="doc-anchor" href="#implementors-1">§</a>Implementors</h2>
+<p><a href="../struct.EditableText.html" title="struct atk::EditableText"><code>EditableText</code></a>, <a href="../struct.NoOpObject.html" title="struct atk::NoOpObject"><code>NoOpObject</code></a></p>
+</div></details><h2 id="provided-methods" class="section-header">Provided Methods<a href="#provided-methods" class="anchor">§</a></h2><div class="methods"><details class="toggle method-toggle" open><summary><section id="method.copy_text" class="method"><a class="src rightside" href="../../src/atk/auto/editable_text.rs.html#54-58">Source</a><h4 class="code-header">fn <a href="#method.copy_text" class="fn">copy_text</a>(&amp;self, start_pos: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, end_pos: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>)</h4></section></summary><div class="docblock"><p>Copy text from <code>start_pos</code> up to, but not including <code>end_pos</code>
+to the clipboard.</p>
+<h6 id="start_pos"><a class="doc-anchor" href="#start_pos">§</a><code>start_pos</code></h6>
+<p>start position</p>
+<h6 id="end_pos"><a class="doc-anchor" href="#end_pos">§</a><code>end_pos</code></h6>
+<p>end position</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.cut_text" class="method"><a class="src rightside" href="../../src/atk/auto/editable_text.rs.html#67-71">Source</a><h4 class="code-header">fn <a href="#method.cut_text" class="fn">cut_text</a>(&amp;self, start_pos: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, end_pos: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>)</h4></section></summary><div class="docblock"><p>Copy text from <code>start_pos</code> up to, but not including <code>end_pos</code>
+to the clipboard and then delete from the widget.</p>
+<h6 id="start_pos-1"><a class="doc-anchor" href="#start_pos-1">§</a><code>start_pos</code></h6>
+<p>start position</p>
+<h6 id="end_pos-1"><a class="doc-anchor" href="#end_pos-1">§</a><code>end_pos</code></h6>
+<p>end position</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.delete_text" class="method"><a class="src rightside" href="../../src/atk/auto/editable_text.rs.html#79-83">Source</a><h4 class="code-header">fn <a href="#method.delete_text" class="fn">delete_text</a>(&amp;self, start_pos: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, end_pos: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>)</h4></section></summary><div class="docblock"><p>Delete text <code>start_pos</code> up to, but not including <code>end_pos</code>.</p>
+<h6 id="start_pos-2"><a class="doc-anchor" href="#start_pos-2">§</a><code>start_pos</code></h6>
+<p>start position</p>
+<h6 id="end_pos-2"><a class="doc-anchor" href="#end_pos-2">§</a><code>end_pos</code></h6>
+<p>end position</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.paste_text" class="method"><a class="src rightside" href="../../src/atk/auto/editable_text.rs.html#89-93">Source</a><h4 class="code-header">fn <a href="#method.paste_text" class="fn">paste_text</a>(&amp;self, position: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>)</h4></section></summary><div class="docblock"><p>Paste text from clipboard to specified <code>position</code>.</p>
+<h6 id="position"><a class="doc-anchor" href="#position">§</a><code>position</code></h6>
+<p>position to paste</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.set_text_contents" class="method"><a class="src rightside" href="../../src/atk/auto/editable_text.rs.html#104-111">Source</a><h4 class="code-header">fn <a href="#method.set_text_contents" class="fn">set_text_contents</a>(&amp;self, string: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>)</h4></section></summary><div class="docblock"><p>Set text contents of <code>self</code>.</p>
+<h6 id="string"><a class="doc-anchor" href="#string">§</a><code>string</code></h6>
+<p>string to set for text contents of <code>self</code></p>
+</div></details></div><h2 id="dyn-compatibility" class="section-header">Dyn Compatibility<a href="#dyn-compatibility" class="anchor">§</a></h2><div class="dyn-compatibility-info"><p>This trait is <b>not</b> <a href="https://doc.rust-lang.org/nightly/reference/items/traits.html#dyn-compatibility">dyn compatible</a>.</p><p><i>In older versions of Rust, dyn compatibility was called "object safety".</i></p></div><h2 id="implementors" class="section-header">Implementors<a href="#implementors" class="anchor">§</a></h2><div id="implementors-list"><div class="negative-marker"></div><section id="impl-EditableTextExt-for-O" class="impl"><a class="src rightside" href="../../src/atk/auto/editable_text.rs.html#114">Source</a><a href="#impl-EditableTextExt-for-O" class="anchor">§</a><h3 class="code-header">impl&lt;O: <a class="trait" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.EditableText.html" title="struct atk::EditableText">EditableText</a>&gt;&gt; <a class="trait" href="trait.EditableTextExt.html" title="trait atk::prelude::EditableTextExt">EditableTextExt</a> for O</h3></section></div><script src="../../trait.impl/atk/auto/editable_text/trait.EditableTextExt.js" async></script></section></div></main></body></html>

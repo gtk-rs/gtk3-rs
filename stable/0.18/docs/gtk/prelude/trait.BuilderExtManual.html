@@ -1,0 +1,192 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="API documentation for the Rust `BuilderExtManual` trait in crate `gtk`."><title>BuilderExtManual in gtk::prelude - Rust</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2"href="../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../static.files/rustdoc-0c87338a.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.100.0-nightly (34baba539 2026-08-16)" data-channel="nightly" data-search-js="search-cf4fc35e.js" data-stringdex-js="stringdex-b5109af9.js" data-settings-js="settings-170eb4bf.js" ><script src="../../static.files/storage-41dd4d93.js"></script><script defer src="sidebar-items.js"></script><script defer src="../../static.files/main-417ebf0a.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-9f56287d.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-eab170b8.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-044be391.svg"></head><body class="rustdoc trait"><a class="skip-main-content" href="#main-content">Skip to main content</a><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
+
+    function checkDocsLatestStable() {
+        function popup(msg, url) { return `
+            <style scoped="scoped">
+                .popup {
+                    max-width: 16em;
+                    background-color: #fff;
+                    position: fixed;
+                    z-index: 1;
+                    margin-left: auto;
+                    bottom: 1em;
+                    right: 1em;
+                    border-radius: 5px;
+                    box-shadow: 1px 1px 4px #777;
+                }
+
+                .popup a.version {
+                    color: #e57300;
+                    padding: 0.6em 1em;
+                    display: block;
+                }
+                .popup a.version:hover {
+                    color: #b25900;
+                }
+
+                .popup a.close {
+                    color: white;
+                    background: grey;
+                    border-radius: 99px;
+                    display: inline-block;
+                    width: 19px;
+                    line-height: 19px;
+                    font-weight: bold;
+                    text-align: center;
+                    margin: 0.6em;
+                    float: right;
+                }
+                .popup a.close:hover {
+                    background: black;
+                }
+            </style>
+            <section class="popup" id="gir_docs_popup">
+                <a class="close" href="#" onclick="document.getElementById('gir_docs_popup').remove(); return false">×</a>
+                <a class="version" href="https://gtk-rs.org/gtk3-rs/stable/latest/docs">
+                    ⚠ ${msg}
+                </a>
+            </section>
+        ` };
+
+        if ("0.18" == "master") {
+            document.body.insertAdjacentHTML(
+                'beforeend',
+                popup("This is the development version. Go to latest stable version.", "stable/latest")
+            );
+        } else {
+            fetch('https://gtk-rs.org/gtk3-rs/LATEST_RELEASE_BRANCH')
+                .then(response => response.text())
+                .then(latest_branch => {
+                    if (latest_branch.trim() != "0.18") {
+                        document.body.insertAdjacentHTML(
+                            'beforeend',
+                            popup("This version is outdated. Go to latest version.", "stable/latest")
+                        );
+                    }
+                });
+        }
+    }
+</script>
+
+
+<rustdoc-topbar><h2><a href="#">BuilderExtManual</a></h2></rustdoc-topbar><nav class="sidebar"><div class="sidebar-crate"><h2><a href="../../gtk/index.html">gtk</a><span class="version">0.18.1</span></h2></div><div class="sidebar-elems"><section id="rustdoc-toc"><h2 class="location"><a href="#">Builder<wbr>ExtManual</a></h2><h3><a href="#provided-methods">Provided Methods</a></h3><ul class="block"><li><a href="#method.add_from_file" title="add_from_file">add_from_file</a></li><li><a href="#method.add_from_resource" title="add_from_resource">add_from_resource</a></li><li><a href="#method.add_from_string" title="add_from_string">add_from_string</a></li><li><a href="#method.add_objects_from_resource" title="add_objects_from_resource">add_objects_from_resource</a></li><li><a href="#method.add_objects_from_string" title="add_objects_from_string">add_objects_from_string</a></li><li><a href="#method.connect_signals" title="connect_signals">connect_signals</a></li><li><a href="#method.extend_with_template" title="extend_with_template">extend_with_template</a></li><li><a href="#method.object" title="object">object</a></li></ul><h3><a href="#dyn-compatibility">Dyn Compatibility</a></h3><h3><a href="#implementors">Implementors</a></h3></section><div id="rustdoc-modnav"><h2><a href="index.html">In gtk::<wbr>prelude</a></h2></div></div></nav><div class="sidebar-resizer" title="Drag to resize sidebar"></div><main><div class="width-limiter"><section id="main-content" class="content" tabindex="-1"><div class="main-heading"><div class="rustdoc-breadcrumbs"><a href="../index.html">gtk</a>::<wbr><a href="index.html">prelude</a></div><h1>Trait <span class="trait">Builder<wbr>ExtManual</span>&nbsp;<button id="copy-path" title="Copy item path to clipboard">Copy item path</button></h1><rustdoc-toolbar></rustdoc-toolbar><span class="sub-heading"><a class="src" href="../../src/gtk/builder.rs.html#28-310">Source</a> </span></div><pre class="rust item-decl"><code>pub trait BuilderExtManual:
+    <a class="trait" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.Builder.html" title="struct gtk::Builder">Builder</a>&gt;
+    + Sealed
+    + 'static {
+    // Provided methods
+    fn <a href="#method.object" class="fn">object</a>&lt;T: <a class="trait" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/object/struct.Object.html" title="struct glib::object::Object">Object</a>&gt;&gt;(&amp;self, name: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;T&gt; { ... }
+<span class="item-spacer"></span>    fn <a href="#method.add_from_file" class="fn">add_from_file</a>&lt;T: <a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html" title="trait core::convert::AsRef">AsRef</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/std/path/struct.Path.html" title="struct std::path::Path">Path</a>&gt;&gt;(&amp;self, file_path: T) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.unit.html">()</a>, <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/error/struct.Error.html" title="struct glib::error::Error">Error</a>&gt; { ... }
+<span class="item-spacer"></span>    fn <a href="#method.add_from_resource" class="fn">add_from_resource</a>(&amp;self, resource_path: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.unit.html">()</a>, <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/error/struct.Error.html" title="struct glib::error::Error">Error</a>&gt; { ... }
+<span class="item-spacer"></span>    fn <a href="#method.add_from_string" class="fn">add_from_string</a>(&amp;self, buffer: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.unit.html">()</a>, <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/error/struct.Error.html" title="struct glib::error::Error">Error</a>&gt; { ... }
+<span class="item-spacer"></span>    fn <a href="#method.add_objects_from_resource" class="fn">add_objects_from_resource</a>(
+        &amp;self,
+        resource_path: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>,
+        object_ids: &amp;[&amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>],
+    ) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.unit.html">()</a>, <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/error/struct.Error.html" title="struct glib::error::Error">Error</a>&gt; { ... }
+<span class="item-spacer"></span>    fn <a href="#method.add_objects_from_string" class="fn">add_objects_from_string</a>(
+        &amp;self,
+        buffer: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>,
+        object_ids: &amp;[&amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>],
+    ) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.unit.html">()</a>, <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/error/struct.Error.html" title="struct glib::error::Error">Error</a>&gt; { ... }
+<span class="item-spacer"></span>    fn <a href="#method.connect_signals" class="fn">connect_signals</a>&lt;P: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.FnMut.html" title="trait core::ops::function::FnMut">FnMut</a>(&amp;<a class="struct" href="../struct.Builder.html" title="struct gtk::Builder">Builder</a>, &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) -&gt; <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html" title="struct alloc::boxed::Box">Box</a>&lt;dyn <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;[<a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/value/struct.Value.html" title="struct glib::value::Value">Value</a>]) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/value/struct.Value.html" title="struct glib::value::Value">Value</a>&gt; + 'static&gt;&gt;(
+        &amp;self,
+        func: P,
+    ) { ... }
+<span class="item-spacer"></span>    fn <a href="#method.extend_with_template" class="fn">extend_with_template</a>(
+        &amp;self,
+        widget: &amp;impl <a class="trait" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.Widget.html" title="struct gtk::Widget">Widget</a>&gt;,
+        template_type: <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/types/struct.Type.html" title="struct glib::types::Type">Type</a>,
+        buffer: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>,
+    ) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.unit.html">()</a>, <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/error/struct.Error.html" title="struct glib::error::Error">Error</a>&gt; { ... }
+}</code></pre><h2 id="provided-methods" class="section-header">Provided Methods<a href="#provided-methods" class="anchor">§</a></h2><div class="methods"><section id="method.object" class="method"><a class="src rightside" href="../../src/gtk/builder.rs.html#31-39">Source</a><h4 class="code-header">fn <a href="#method.object" class="fn">object</a>&lt;T: <a class="trait" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/object/struct.Object.html" title="struct glib::object::Object">Object</a>&gt;&gt;(&amp;self, name: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;T&gt;</h4></section><section id="method.add_from_file" class="method"><a class="src rightside" href="../../src/gtk/builder.rs.html#42-57">Source</a><h4 class="code-header">fn <a href="#method.add_from_file" class="fn">add_from_file</a>&lt;T: <a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html" title="trait core::convert::AsRef">AsRef</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/std/path/struct.Path.html" title="struct std::path::Path">Path</a>&gt;&gt;(&amp;self, file_path: T) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.unit.html">()</a>, <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/error/struct.Error.html" title="struct glib::error::Error">Error</a>&gt;</h4></section><details class="toggle method-toggle" open><summary><section id="method.add_from_resource" class="method"><a class="src rightside" href="../../src/gtk/builder.rs.html#77-92">Source</a><h4 class="code-header">fn <a href="#method.add_from_resource" class="fn">add_from_resource</a>(&amp;self, resource_path: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.unit.html">()</a>, <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/error/struct.Error.html" title="struct glib::error::Error">Error</a>&gt;</h4></section></summary><div class="docblock"><p>Parses a resource file containing a [GtkBuilder UI definition][BUILDER-UI]
+and merges it with the current contents of <code>self</code>.</p>
+<p>Most users will probably want to use <a href="../struct.Builder.html#method.from_resource" title="associated function gtk::Builder::from_resource"><code>Builder::from_resource()</code></a>.</p>
+<p>If an error occurs, 0 will be returned and <code>error</code> will be assigned a
+<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/error/struct.Error.html" title="struct glib::error::Error"><code>glib::Error</code></a> from the <code>GTK_BUILDER_ERROR</code>, <code>G_MARKUP_ERROR</code> or <code>G_RESOURCE_ERROR</code>
+domain.</p>
+<p>It’s not really reasonable to attempt to handle failures of this
+call. The only reasonable thing to do when an error is detected is
+to call <code>g_error()</code>.</p>
+<h6 id="resource_path"><a class="doc-anchor" href="#resource_path">§</a><code>resource_path</code></h6>
+<p>the path of the resource file to parse</p>
+<h5 id="returns"><a class="doc-anchor" href="#returns">§</a>Returns</h5>
+<p>A positive value on success, 0 if an error occurred</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.add_from_string" class="method"><a class="src rightside" href="../../src/gtk/builder.rs.html#114-131">Source</a><h4 class="code-header">fn <a href="#method.add_from_string" class="fn">add_from_string</a>(&amp;self, buffer: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.unit.html">()</a>, <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/error/struct.Error.html" title="struct glib::error::Error">Error</a>&gt;</h4></section></summary><div class="docblock"><p>Parses a string containing a [GtkBuilder UI definition][BUILDER-UI]
+and merges it with the current contents of <code>self</code>.</p>
+<p>Most users will probably want to use <a href="../struct.Builder.html#method.from_string" title="associated function gtk::Builder::from_string"><code>Builder::from_string()</code></a>.</p>
+<p>Upon errors 0 will be returned and <code>error</code> will be assigned a
+<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/error/struct.Error.html" title="struct glib::error::Error"><code>glib::Error</code></a> from the <code>GTK_BUILDER_ERROR</code>, <code>G_MARKUP_ERROR</code> or
+<code>G_VARIANT_PARSE_ERROR</code> domain.</p>
+<p>It’s not really reasonable to attempt to handle failures of this
+call. The only reasonable thing to do when an error is detected is
+to call <code>g_error()</code>.</p>
+<h6 id="buffer"><a class="doc-anchor" href="#buffer">§</a><code>buffer</code></h6>
+<p>the string to parse</p>
+<h6 id="length"><a class="doc-anchor" href="#length">§</a><code>length</code></h6>
+<p>the length of <code>buffer</code> (may be -1 if <code>buffer</code> is nul-terminated)</p>
+<h5 id="returns-1"><a class="doc-anchor" href="#returns-1">§</a>Returns</h5>
+<p>A positive value on success, 0 if an error occurred</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.add_objects_from_resource" class="method"><a class="src rightside" href="../../src/gtk/builder.rs.html#153-173">Source</a><h4 class="code-header">fn <a href="#method.add_objects_from_resource" class="fn">add_objects_from_resource</a>(
+    &amp;self,
+    resource_path: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>,
+    object_ids: &amp;[&amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>],
+) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.unit.html">()</a>, <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/error/struct.Error.html" title="struct glib::error::Error">Error</a>&gt;</h4></section></summary><div class="docblock"><p>Parses a resource file containing a [GtkBuilder UI definition][BUILDER-UI]
+building only the requested objects and merges
+them with the current contents of <code>self</code>.</p>
+<p>Upon errors 0 will be returned and <code>error</code> will be assigned a
+<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/error/struct.Error.html" title="struct glib::error::Error"><code>glib::Error</code></a> from the <code>GTK_BUILDER_ERROR</code>, <code>G_MARKUP_ERROR</code> or <code>G_RESOURCE_ERROR</code>
+domain.</p>
+<p>If you are adding an object that depends on an object that is not
+its child (for instance a <a href="../struct.TreeView.html" title="struct gtk::TreeView"><code>TreeView</code></a> that depends on its
+<a href="../struct.TreeModel.html" title="struct gtk::TreeModel"><code>TreeModel</code></a>), you have to explicitly list all of them in <code>object_ids</code>.</p>
+<h6 id="resource_path-1"><a class="doc-anchor" href="#resource_path-1">§</a><code>resource_path</code></h6>
+<p>the path of the resource file to parse</p>
+<h6 id="object_ids"><a class="doc-anchor" href="#object_ids">§</a><code>object_ids</code></h6>
+<p>nul-terminated array of objects to build</p>
+<h5 id="returns-2"><a class="doc-anchor" href="#returns-2">§</a>Returns</h5>
+<p>A positive value on success, 0 if an error occurred</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.add_objects_from_string" class="method"><a class="src rightside" href="../../src/gtk/builder.rs.html#195-217">Source</a><h4 class="code-header">fn <a href="#method.add_objects_from_string" class="fn">add_objects_from_string</a>(
+    &amp;self,
+    buffer: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>,
+    object_ids: &amp;[&amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>],
+) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.unit.html">()</a>, <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/error/struct.Error.html" title="struct glib::error::Error">Error</a>&gt;</h4></section></summary><div class="docblock"><p>Parses a string containing a [GtkBuilder UI definition][BUILDER-UI]
+building only the requested objects and merges
+them with the current contents of <code>self</code>.</p>
+<p>Upon errors 0 will be returned and <code>error</code> will be assigned a
+<a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/error/struct.Error.html" title="struct glib::error::Error"><code>glib::Error</code></a> from the <code>GTK_BUILDER_ERROR</code> or <code>G_MARKUP_ERROR</code> domain.</p>
+<p>If you are adding an object that depends on an object that is not
+its child (for instance a <a href="../struct.TreeView.html" title="struct gtk::TreeView"><code>TreeView</code></a> that depends on its
+<a href="../struct.TreeModel.html" title="struct gtk::TreeModel"><code>TreeModel</code></a>), you have to explicitly list all of them in <code>object_ids</code>.</p>
+<h6 id="buffer-1"><a class="doc-anchor" href="#buffer-1">§</a><code>buffer</code></h6>
+<p>the string to parse</p>
+<h6 id="length-1"><a class="doc-anchor" href="#length-1">§</a><code>length</code></h6>
+<p>the length of <code>buffer</code> (may be -1 if <code>buffer</code> is nul-terminated)</p>
+<h6 id="object_ids-1"><a class="doc-anchor" href="#object_ids-1">§</a><code>object_ids</code></h6>
+<p>nul-terminated array of objects to build</p>
+<h5 id="returns-3"><a class="doc-anchor" href="#returns-3">§</a>Returns</h5>
+<p>A positive value on success, 0 if an error occurred</p>
+</div></details><section id="method.connect_signals" class="method"><a class="src rightside" href="../../src/gtk/builder.rs.html#220-265">Source</a><h4 class="code-header">fn <a href="#method.connect_signals" class="fn">connect_signals</a>&lt;P: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.FnMut.html" title="trait core::ops::function::FnMut">FnMut</a>(&amp;<a class="struct" href="../struct.Builder.html" title="struct gtk::Builder">Builder</a>, &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) -&gt; <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html" title="struct alloc::boxed::Box">Box</a>&lt;dyn <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;[<a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/value/struct.Value.html" title="struct glib::value::Value">Value</a>]) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/value/struct.Value.html" title="struct glib::value::Value">Value</a>&gt; + 'static&gt;&gt;(
+    &amp;self,
+    func: P,
+)</h4></section><details class="toggle method-toggle" open><summary><section id="method.extend_with_template" class="method"><a class="src rightside" href="../../src/gtk/builder.rs.html#285-309">Source</a><h4 class="code-header">fn <a href="#method.extend_with_template" class="fn">extend_with_template</a>(
+    &amp;self,
+    widget: &amp;impl <a class="trait" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.Widget.html" title="struct gtk::Widget">Widget</a>&gt;,
+    template_type: <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/types/struct.Type.html" title="struct glib::types::Type">Type</a>,
+    buffer: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>,
+) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.unit.html">()</a>, <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/error/struct.Error.html" title="struct glib::error::Error">Error</a>&gt;</h4></section></summary><div class="docblock"><p>Main private entry point for building composite container
+components from template XML.</p>
+<p>This is exported purely to let gtk-builder-tool validate
+templates, applications have no need to call this function.</p>
+<h6 id="widget"><a class="doc-anchor" href="#widget">§</a><code>widget</code></h6>
+<p>the widget that is being extended</p>
+<h6 id="template_type"><a class="doc-anchor" href="#template_type">§</a><code>template_type</code></h6>
+<p>the type that the template is for</p>
+<h6 id="buffer-2"><a class="doc-anchor" href="#buffer-2">§</a><code>buffer</code></h6>
+<p>the string to parse</p>
+<h6 id="length-2"><a class="doc-anchor" href="#length-2">§</a><code>length</code></h6>
+<p>the length of <code>buffer</code> (may be -1 if <code>buffer</code> is nul-terminated)</p>
+<h5 id="returns-4"><a class="doc-anchor" href="#returns-4">§</a>Returns</h5>
+<p>A positive value on success, 0 if an error occurred</p>
+</div></details></div><h2 id="dyn-compatibility" class="section-header">Dyn Compatibility<a href="#dyn-compatibility" class="anchor">§</a></h2><div class="dyn-compatibility-info"><p>This trait is <b>not</b> <a href="https://doc.rust-lang.org/nightly/reference/items/traits.html#dyn-compatibility">dyn compatible</a>.</p><p><i>In older versions of Rust, dyn compatibility was called "object safety".</i></p></div><h2 id="implementors" class="section-header">Implementors<a href="#implementors" class="anchor">§</a></h2><div id="implementors-list"><div class="negative-marker"></div><section id="impl-BuilderExtManual-for-O" class="impl"><a class="src rightside" href="../../src/gtk/builder.rs.html#312">Source</a><a href="#impl-BuilderExtManual-for-O" class="anchor">§</a><h3 class="code-header">impl&lt;O: <a class="trait" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.Builder.html" title="struct gtk::Builder">Builder</a>&gt;&gt; <a class="trait" href="trait.BuilderExtManual.html" title="trait gtk::prelude::BuilderExtManual">BuilderExtManual</a> for O</h3></section></div><script src="../../trait.impl/gtk/builder/trait.BuilderExtManual.js" async></script></section></div></main></body></html>

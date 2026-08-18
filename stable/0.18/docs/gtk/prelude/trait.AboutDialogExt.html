@@ -1,0 +1,376 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Trait containing all `struct@AboutDialog` methods."><title>AboutDialogExt in gtk::prelude - Rust</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2"href="../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../static.files/rustdoc-0c87338a.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.100.0-nightly (34baba539 2026-08-16)" data-channel="nightly" data-search-js="search-cf4fc35e.js" data-stringdex-js="stringdex-b5109af9.js" data-settings-js="settings-170eb4bf.js" ><script src="../../static.files/storage-41dd4d93.js"></script><script defer src="sidebar-items.js"></script><script defer src="../../static.files/main-417ebf0a.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-9f56287d.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-eab170b8.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-044be391.svg"></head><body class="rustdoc trait"><a class="skip-main-content" href="#main-content">Skip to main content</a><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
+
+    function checkDocsLatestStable() {
+        function popup(msg, url) { return `
+            <style scoped="scoped">
+                .popup {
+                    max-width: 16em;
+                    background-color: #fff;
+                    position: fixed;
+                    z-index: 1;
+                    margin-left: auto;
+                    bottom: 1em;
+                    right: 1em;
+                    border-radius: 5px;
+                    box-shadow: 1px 1px 4px #777;
+                }
+
+                .popup a.version {
+                    color: #e57300;
+                    padding: 0.6em 1em;
+                    display: block;
+                }
+                .popup a.version:hover {
+                    color: #b25900;
+                }
+
+                .popup a.close {
+                    color: white;
+                    background: grey;
+                    border-radius: 99px;
+                    display: inline-block;
+                    width: 19px;
+                    line-height: 19px;
+                    font-weight: bold;
+                    text-align: center;
+                    margin: 0.6em;
+                    float: right;
+                }
+                .popup a.close:hover {
+                    background: black;
+                }
+            </style>
+            <section class="popup" id="gir_docs_popup">
+                <a class="close" href="#" onclick="document.getElementById('gir_docs_popup').remove(); return false">×</a>
+                <a class="version" href="https://gtk-rs.org/gtk3-rs/stable/latest/docs">
+                    ⚠ ${msg}
+                </a>
+            </section>
+        ` };
+
+        if ("0.18" == "master") {
+            document.body.insertAdjacentHTML(
+                'beforeend',
+                popup("This is the development version. Go to latest stable version.", "stable/latest")
+            );
+        } else {
+            fetch('https://gtk-rs.org/gtk3-rs/LATEST_RELEASE_BRANCH')
+                .then(response => response.text())
+                .then(latest_branch => {
+                    if (latest_branch.trim() != "0.18") {
+                        document.body.insertAdjacentHTML(
+                            'beforeend',
+                            popup("This version is outdated. Go to latest version.", "stable/latest")
+                        );
+                    }
+                });
+        }
+    }
+</script>
+
+
+<rustdoc-topbar><h2><a href="#">AboutDialogExt</a></h2></rustdoc-topbar><nav class="sidebar"><div class="sidebar-crate"><h2><a href="../../gtk/index.html">gtk</a><span class="version">0.18.1</span></h2></div><div class="sidebar-elems"><section id="rustdoc-toc"><h2 class="location"><a href="#">About<wbr>Dialog<wbr>Ext</a></h2><h3><a href="#">Sections</a></h3><ul class="block top-toc"><li><a href="#implementors-1" title="Implementors">Implementors</a></li></ul><h3><a href="#provided-methods">Provided Methods</a></h3><ul class="block"><li><a href="#method.add_credit_section" title="add_credit_section">add_credit_section</a></li><li><a href="#method.artists" title="artists">artists</a></li><li><a href="#method.authors" title="authors">authors</a></li><li><a href="#method.comments" title="comments">comments</a></li><li><a href="#method.connect_activate_link" title="connect_activate_link">connect_activate_link</a></li><li><a href="#method.connect_artists_notify" title="connect_artists_notify">connect_artists_notify</a></li><li><a href="#method.connect_authors_notify" title="connect_authors_notify">connect_authors_notify</a></li><li><a href="#method.connect_comments_notify" title="connect_comments_notify">connect_comments_notify</a></li><li><a href="#method.connect_copyright_notify" title="connect_copyright_notify">connect_copyright_notify</a></li><li><a href="#method.connect_documenters_notify" title="connect_documenters_notify">connect_documenters_notify</a></li><li><a href="#method.connect_license_notify" title="connect_license_notify">connect_license_notify</a></li><li><a href="#method.connect_license_type_notify" title="connect_license_type_notify">connect_license_type_notify</a></li><li><a href="#method.connect_logo_icon_name_notify" title="connect_logo_icon_name_notify">connect_logo_icon_name_notify</a></li><li><a href="#method.connect_logo_notify" title="connect_logo_notify">connect_logo_notify</a></li><li><a href="#method.connect_program_name_notify" title="connect_program_name_notify">connect_program_name_notify</a></li><li><a href="#method.connect_translator_credits_notify" title="connect_translator_credits_notify">connect_translator_credits_notify</a></li><li><a href="#method.connect_version_notify" title="connect_version_notify">connect_version_notify</a></li><li><a href="#method.connect_website_label_notify" title="connect_website_label_notify">connect_website_label_notify</a></li><li><a href="#method.connect_website_notify" title="connect_website_notify">connect_website_notify</a></li><li><a href="#method.connect_wrap_license_notify" title="connect_wrap_license_notify">connect_wrap_license_notify</a></li><li><a href="#method.copyright" title="copyright">copyright</a></li><li><a href="#method.documenters" title="documenters">documenters</a></li><li><a href="#method.license" title="license">license</a></li><li><a href="#method.license_type" title="license_type">license_type</a></li><li><a href="#method.logo" title="logo">logo</a></li><li><a href="#method.logo_icon_name" title="logo_icon_name">logo_icon_name</a></li><li><a href="#method.program_name" title="program_name">program_name</a></li><li><a href="#method.set_artists" title="set_artists">set_artists</a></li><li><a href="#method.set_authors" title="set_authors">set_authors</a></li><li><a href="#method.set_comments" title="set_comments">set_comments</a></li><li><a href="#method.set_copyright" title="set_copyright">set_copyright</a></li><li><a href="#method.set_documenters" title="set_documenters">set_documenters</a></li><li><a href="#method.set_license" title="set_license">set_license</a></li><li><a href="#method.set_license_type" title="set_license_type">set_license_type</a></li><li><a href="#method.set_logo" title="set_logo">set_logo</a></li><li><a href="#method.set_logo_icon_name" title="set_logo_icon_name">set_logo_icon_name</a></li><li><a href="#method.set_program_name" title="set_program_name">set_program_name</a></li><li><a href="#method.set_translator_credits" title="set_translator_credits">set_translator_credits</a></li><li><a href="#method.set_version" title="set_version">set_version</a></li><li><a href="#method.set_website" title="set_website">set_website</a></li><li><a href="#method.set_website_label" title="set_website_label">set_website_label</a></li><li><a href="#method.set_wrap_license" title="set_wrap_license">set_wrap_license</a></li><li><a href="#method.translator_credits" title="translator_credits">translator_credits</a></li><li><a href="#method.version" title="version">version</a></li><li><a href="#method.website" title="website">website</a></li><li><a href="#method.website_label" title="website_label">website_label</a></li><li><a href="#method.wraps_license" title="wraps_license">wraps_license</a></li></ul><h3><a href="#dyn-compatibility">Dyn Compatibility</a></h3><h3><a href="#implementors">Implementors</a></h3></section><div id="rustdoc-modnav"><h2><a href="index.html">In gtk::<wbr>prelude</a></h2></div></div></nav><div class="sidebar-resizer" title="Drag to resize sidebar"></div><main><div class="width-limiter"><section id="main-content" class="content" tabindex="-1"><div class="main-heading"><div class="rustdoc-breadcrumbs"><a href="../index.html">gtk</a>::<wbr><a href="index.html">prelude</a></div><h1>Trait <span class="trait">About<wbr>Dialog<wbr>Ext</span>&nbsp;<button id="copy-path" title="Copy item path to clipboard">Copy item path</button></h1><rustdoc-toolbar></rustdoc-toolbar><span class="sub-heading"><a class="src" href="../../src/gtk/auto/about_dialog.rs.html#2299-3205">Source</a> </span></div><pre class="rust item-decl"><code>pub trait AboutDialogExt:
+    <a class="trait" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.AboutDialog.html" title="struct gtk::AboutDialog">AboutDialog</a>&gt;
+    + Sealed
+    + 'static {
+<details class="toggle type-contents-toggle"><summary class="hideme"><span>Show 47 methods</span></summary>    // Provided methods
+    fn <a href="#method.add_credit_section" class="fn">add_credit_section</a>(&amp;self, section_name: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>, people: &amp;[&amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>]) { ... }
+<span class="item-spacer"></span>    fn <a href="#method.artists" class="fn">artists</a>(&amp;self) -&gt; <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html" title="struct alloc::vec::Vec">Vec</a>&lt;<a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/gstring/struct.GString.html" title="struct glib::gstring::GString">GString</a>&gt; { ... }
+<span class="item-spacer"></span>    fn <a href="#method.authors" class="fn">authors</a>(&amp;self) -&gt; <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html" title="struct alloc::vec::Vec">Vec</a>&lt;<a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/gstring/struct.GString.html" title="struct glib::gstring::GString">GString</a>&gt; { ... }
+<span class="item-spacer"></span>    fn <a href="#method.comments" class="fn">comments</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/gstring/struct.GString.html" title="struct glib::gstring::GString">GString</a>&gt; { ... }
+<span class="item-spacer"></span>    fn <a href="#method.copyright" class="fn">copyright</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/gstring/struct.GString.html" title="struct glib::gstring::GString">GString</a>&gt; { ... }
+<span class="item-spacer"></span>    fn <a href="#method.documenters" class="fn">documenters</a>(&amp;self) -&gt; <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html" title="struct alloc::vec::Vec">Vec</a>&lt;<a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/gstring/struct.GString.html" title="struct glib::gstring::GString">GString</a>&gt; { ... }
+<span class="item-spacer"></span>    fn <a href="#method.license" class="fn">license</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/gstring/struct.GString.html" title="struct glib::gstring::GString">GString</a>&gt; { ... }
+<span class="item-spacer"></span>    fn <a href="#method.license_type" class="fn">license_type</a>(&amp;self) -&gt; <a class="enum" href="../enum.License.html" title="enum gtk::License">License</a> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.logo" class="fn">logo</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/gdk_pixbuf/auto/pixbuf/struct.Pixbuf.html" title="struct gdk_pixbuf::auto::pixbuf::Pixbuf">Pixbuf</a>&gt; { ... }
+<span class="item-spacer"></span>    fn <a href="#method.logo_icon_name" class="fn">logo_icon_name</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/gstring/struct.GString.html" title="struct glib::gstring::GString">GString</a>&gt; { ... }
+<span class="item-spacer"></span>    fn <a href="#method.program_name" class="fn">program_name</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/gstring/struct.GString.html" title="struct glib::gstring::GString">GString</a>&gt; { ... }
+<span class="item-spacer"></span>    fn <a href="#method.translator_credits" class="fn">translator_credits</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/gstring/struct.GString.html" title="struct glib::gstring::GString">GString</a>&gt; { ... }
+<span class="item-spacer"></span>    fn <a href="#method.version" class="fn">version</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/gstring/struct.GString.html" title="struct glib::gstring::GString">GString</a>&gt; { ... }
+<span class="item-spacer"></span>    fn <a href="#method.website" class="fn">website</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/gstring/struct.GString.html" title="struct glib::gstring::GString">GString</a>&gt; { ... }
+<span class="item-spacer"></span>    fn <a href="#method.website_label" class="fn">website_label</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/gstring/struct.GString.html" title="struct glib::gstring::GString">GString</a>&gt; { ... }
+<span class="item-spacer"></span>    fn <a href="#method.wraps_license" class="fn">wraps_license</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.set_artists" class="fn">set_artists</a>(&amp;self, artists: &amp;[&amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>]) { ... }
+<span class="item-spacer"></span>    fn <a href="#method.set_authors" class="fn">set_authors</a>(&amp;self, authors: &amp;[&amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>]) { ... }
+<span class="item-spacer"></span>    fn <a href="#method.set_comments" class="fn">set_comments</a>(&amp;self, comments: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;&amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>&gt;) { ... }
+<span class="item-spacer"></span>    fn <a href="#method.set_copyright" class="fn">set_copyright</a>(&amp;self, copyright: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;&amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>&gt;) { ... }
+<span class="item-spacer"></span>    fn <a href="#method.set_documenters" class="fn">set_documenters</a>(&amp;self, documenters: &amp;[&amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>]) { ... }
+<span class="item-spacer"></span>    fn <a href="#method.set_license" class="fn">set_license</a>(&amp;self, license: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;&amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>&gt;) { ... }
+<span class="item-spacer"></span>    fn <a href="#method.set_license_type" class="fn">set_license_type</a>(&amp;self, license_type: <a class="enum" href="../enum.License.html" title="enum gtk::License">License</a>) { ... }
+<span class="item-spacer"></span>    fn <a href="#method.set_logo" class="fn">set_logo</a>(&amp;self, logo: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;&amp;<a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/gdk_pixbuf/auto/pixbuf/struct.Pixbuf.html" title="struct gdk_pixbuf::auto::pixbuf::Pixbuf">Pixbuf</a>&gt;) { ... }
+<span class="item-spacer"></span>    fn <a href="#method.set_logo_icon_name" class="fn">set_logo_icon_name</a>(&amp;self, icon_name: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;&amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>&gt;) { ... }
+<span class="item-spacer"></span>    fn <a href="#method.set_program_name" class="fn">set_program_name</a>(&amp;self, name: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) { ... }
+<span class="item-spacer"></span>    fn <a href="#method.set_translator_credits" class="fn">set_translator_credits</a>(&amp;self, translator_credits: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;&amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>&gt;) { ... }
+<span class="item-spacer"></span>    fn <a href="#method.set_version" class="fn">set_version</a>(&amp;self, version: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;&amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>&gt;) { ... }
+<span class="item-spacer"></span>    fn <a href="#method.set_website" class="fn">set_website</a>(&amp;self, website: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;&amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>&gt;) { ... }
+<span class="item-spacer"></span>    fn <a href="#method.set_website_label" class="fn">set_website_label</a>(&amp;self, website_label: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;&amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>&gt;) { ... }
+<span class="item-spacer"></span>    fn <a href="#method.set_wrap_license" class="fn">set_wrap_license</a>(&amp;self, wrap_license: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) { ... }
+<span class="item-spacer"></span>    fn <a href="#method.connect_activate_link" class="fn">connect_activate_link</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;Self, &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) -&gt; <a class="enum" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/enum.Propagation.html" title="enum glib::signal::Propagation">Propagation</a> + 'static&gt;(
+        &amp;self,
+        f: F,
+    ) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.connect_artists_notify" class="fn">connect_artists_notify</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;Self) + 'static&gt;(
+        &amp;self,
+        f: F,
+    ) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.connect_authors_notify" class="fn">connect_authors_notify</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;Self) + 'static&gt;(
+        &amp;self,
+        f: F,
+    ) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.connect_comments_notify" class="fn">connect_comments_notify</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;Self) + 'static&gt;(
+        &amp;self,
+        f: F,
+    ) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.connect_copyright_notify" class="fn">connect_copyright_notify</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;Self) + 'static&gt;(
+        &amp;self,
+        f: F,
+    ) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.connect_documenters_notify" class="fn">connect_documenters_notify</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;Self) + 'static&gt;(
+        &amp;self,
+        f: F,
+    ) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.connect_license_notify" class="fn">connect_license_notify</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;Self) + 'static&gt;(
+        &amp;self,
+        f: F,
+    ) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.connect_license_type_notify" class="fn">connect_license_type_notify</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;Self) + 'static&gt;(
+        &amp;self,
+        f: F,
+    ) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.connect_logo_notify" class="fn">connect_logo_notify</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;Self) + 'static&gt;(
+        &amp;self,
+        f: F,
+    ) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.connect_logo_icon_name_notify" class="fn">connect_logo_icon_name_notify</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;Self) + 'static&gt;(
+        &amp;self,
+        f: F,
+    ) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.connect_program_name_notify" class="fn">connect_program_name_notify</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;Self) + 'static&gt;(
+        &amp;self,
+        f: F,
+    ) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.connect_translator_credits_notify" class="fn">connect_translator_credits_notify</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;Self) + 'static&gt;(
+        &amp;self,
+        f: F,
+    ) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.connect_version_notify" class="fn">connect_version_notify</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;Self) + 'static&gt;(
+        &amp;self,
+        f: F,
+    ) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.connect_website_notify" class="fn">connect_website_notify</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;Self) + 'static&gt;(
+        &amp;self,
+        f: F,
+    ) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.connect_website_label_notify" class="fn">connect_website_label_notify</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;Self) + 'static&gt;(
+        &amp;self,
+        f: F,
+    ) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.connect_wrap_license_notify" class="fn">connect_wrap_license_notify</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;Self) + 'static&gt;(
+        &amp;self,
+        f: F,
+    ) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a> { ... }
+</details>}</code></pre><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>Trait containing all <a href="../struct.AboutDialog.html" title="struct gtk::AboutDialog"><code>AboutDialog</code></a> methods.</p>
+<h2 id="implementors-1"><a class="doc-anchor" href="#implementors-1">§</a>Implementors</h2>
+<p><a href="../struct.AboutDialog.html" title="struct gtk::AboutDialog"><code>AboutDialog</code></a></p>
+</div></details><h2 id="provided-methods" class="section-header">Provided Methods<a href="#provided-methods" class="anchor">§</a></h2><div class="methods"><details class="toggle method-toggle" open><summary><section id="method.add_credit_section" class="method"><a class="src rightside" href="../../src/gtk/auto/about_dialog.rs.html#2306-2314">Source</a><h4 class="code-header">fn <a href="#method.add_credit_section" class="fn">add_credit_section</a>(&amp;self, section_name: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>, people: &amp;[&amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>])</h4></section></summary><div class="docblock"><p>Creates a new section in the Credits page.</p>
+<h6 id="section_name"><a class="doc-anchor" href="#section_name">§</a><code>section_name</code></h6>
+<p>The name of the section</p>
+<h6 id="people"><a class="doc-anchor" href="#people">§</a><code>people</code></h6>
+<p>The people who belong to that section</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.artists" class="method"><a class="src rightside" href="../../src/gtk/auto/about_dialog.rs.html#2326-2332">Source</a><h4 class="code-header">fn <a href="#method.artists" class="fn">artists</a>(&amp;self) -&gt; <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html" title="struct alloc::vec::Vec">Vec</a>&lt;<a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/gstring/struct.GString.html" title="struct glib::gstring::GString">GString</a>&gt;</h4></section></summary><div class="docblock"><p>Returns the string which are displayed in the artists tab
+of the secondary credits dialog.</p>
+<h5 id="returns"><a class="doc-anchor" href="#returns">§</a>Returns</h5>
+<p>A
+<a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="variant core::option::Option::None"><code>None</code></a>-terminated string array containing the artists. The array is
+owned by the about dialog and must not be modified.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.authors" class="method"><a class="src rightside" href="../../src/gtk/auto/about_dialog.rs.html#2344-2350">Source</a><h4 class="code-header">fn <a href="#method.authors" class="fn">authors</a>(&amp;self) -&gt; <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html" title="struct alloc::vec::Vec">Vec</a>&lt;<a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/gstring/struct.GString.html" title="struct glib::gstring::GString">GString</a>&gt;</h4></section></summary><div class="docblock"><p>Returns the string which are displayed in the authors tab
+of the secondary credits dialog.</p>
+<h5 id="returns-1"><a class="doc-anchor" href="#returns-1">§</a>Returns</h5>
+<p>A
+<a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="variant core::option::Option::None"><code>None</code></a>-terminated string array containing the authors. The array is
+owned by the about dialog and must not be modified.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.comments" class="method"><a class="src rightside" href="../../src/gtk/auto/about_dialog.rs.html#2360-2366">Source</a><h4 class="code-header">fn <a href="#method.comments" class="fn">comments</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/gstring/struct.GString.html" title="struct glib::gstring::GString">GString</a>&gt;</h4></section></summary><div class="docblock"><p>Returns the comments string.</p>
+<h5 id="returns-2"><a class="doc-anchor" href="#returns-2">§</a>Returns</h5>
+<p>The comments. The string is owned by the about
+dialog and must not be modified.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.copyright" class="method"><a class="src rightside" href="../../src/gtk/auto/about_dialog.rs.html#2376-2382">Source</a><h4 class="code-header">fn <a href="#method.copyright" class="fn">copyright</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/gstring/struct.GString.html" title="struct glib::gstring::GString">GString</a>&gt;</h4></section></summary><div class="docblock"><p>Returns the copyright string.</p>
+<h5 id="returns-3"><a class="doc-anchor" href="#returns-3">§</a>Returns</h5>
+<p>The copyright string. The string is owned by the about
+dialog and must not be modified.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.documenters" class="method"><a class="src rightside" href="../../src/gtk/auto/about_dialog.rs.html#2394-2400">Source</a><h4 class="code-header">fn <a href="#method.documenters" class="fn">documenters</a>(&amp;self) -&gt; <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html" title="struct alloc::vec::Vec">Vec</a>&lt;<a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/gstring/struct.GString.html" title="struct glib::gstring::GString">GString</a>&gt;</h4></section></summary><div class="docblock"><p>Returns the string which are displayed in the documenters
+tab of the secondary credits dialog.</p>
+<h5 id="returns-4"><a class="doc-anchor" href="#returns-4">§</a>Returns</h5>
+<p>A
+<a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="variant core::option::Option::None"><code>None</code></a>-terminated string array containing the documenters. The
+array is owned by the about dialog and must not be modified.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.license" class="method"><a class="src rightside" href="../../src/gtk/auto/about_dialog.rs.html#2410-2416">Source</a><h4 class="code-header">fn <a href="#method.license" class="fn">license</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/gstring/struct.GString.html" title="struct glib::gstring::GString">GString</a>&gt;</h4></section></summary><div class="docblock"><p>Returns the license information.</p>
+<h5 id="returns-5"><a class="doc-anchor" href="#returns-5">§</a>Returns</h5>
+<p>The license information. The string is owned by the about
+dialog and must not be modified.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.license_type" class="method"><a class="src rightside" href="../../src/gtk/auto/about_dialog.rs.html#2425-2431">Source</a><h4 class="code-header">fn <a href="#method.license_type" class="fn">license_type</a>(&amp;self) -&gt; <a class="enum" href="../enum.License.html" title="enum gtk::License">License</a></h4></section></summary><div class="docblock"><p>Retrieves the license set using <a href="trait.AboutDialogExt.html#method.set_license_type" title="method gtk::prelude::AboutDialogExt::set_license_type"><code>set_license_type()</code></a></p>
+<h5 id="returns-6"><a class="doc-anchor" href="#returns-6">§</a>Returns</h5>
+<p>a <a href="../enum.License.html" title="enum gtk::License"><code>License</code></a> value</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.logo" class="method"><a class="src rightside" href="../../src/gtk/auto/about_dialog.rs.html#2442-2448">Source</a><h4 class="code-header">fn <a href="#method.logo" class="fn">logo</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/gdk_pixbuf/auto/pixbuf/struct.Pixbuf.html" title="struct gdk_pixbuf::auto::pixbuf::Pixbuf">Pixbuf</a>&gt;</h4></section></summary><div class="docblock"><p>Returns the pixbuf displayed as logo in the about dialog.</p>
+<h5 id="returns-7"><a class="doc-anchor" href="#returns-7">§</a>Returns</h5>
+<p>the pixbuf displayed as logo. The
+pixbuf is owned by the about dialog. If you want to keep a
+reference to it, you have to call <code>g_object_ref()</code> on it.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.logo_icon_name" class="method"><a class="src rightside" href="../../src/gtk/auto/about_dialog.rs.html#2459-2465">Source</a><h4 class="code-header">fn <a href="#method.logo_icon_name" class="fn">logo_icon_name</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/gstring/struct.GString.html" title="struct glib::gstring::GString">GString</a>&gt;</h4></section></summary><div class="docblock"><p>Returns the icon name displayed as logo in the about dialog.</p>
+<h5 id="returns-8"><a class="doc-anchor" href="#returns-8">§</a>Returns</h5>
+<p>the icon name displayed as logo. The string is
+owned by the dialog. If you want to keep a reference
+to it, you have to call <code>g_strdup()</code> on it.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.program_name" class="method"><a class="src rightside" href="../../src/gtk/auto/about_dialog.rs.html#2475-2481">Source</a><h4 class="code-header">fn <a href="#method.program_name" class="fn">program_name</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/gstring/struct.GString.html" title="struct glib::gstring::GString">GString</a>&gt;</h4></section></summary><div class="docblock"><p>Returns the program name displayed in the about dialog.</p>
+<h5 id="returns-9"><a class="doc-anchor" href="#returns-9">§</a>Returns</h5>
+<p>The program name. The string is owned by the about
+dialog and must not be modified.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.translator_credits" class="method"><a class="src rightside" href="../../src/gtk/auto/about_dialog.rs.html#2492-2498">Source</a><h4 class="code-header">fn <a href="#method.translator_credits" class="fn">translator_credits</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/gstring/struct.GString.html" title="struct glib::gstring::GString">GString</a>&gt;</h4></section></summary><div class="docblock"><p>Returns the translator credits string which is displayed
+in the translators tab of the secondary credits dialog.</p>
+<h5 id="returns-10"><a class="doc-anchor" href="#returns-10">§</a>Returns</h5>
+<p>The translator credits string. The string is
+owned by the about dialog and must not be modified.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.version" class="method"><a class="src rightside" href="../../src/gtk/auto/about_dialog.rs.html#2508-2514">Source</a><h4 class="code-header">fn <a href="#method.version" class="fn">version</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/gstring/struct.GString.html" title="struct glib::gstring::GString">GString</a>&gt;</h4></section></summary><div class="docblock"><p>Returns the version string.</p>
+<h5 id="returns-11"><a class="doc-anchor" href="#returns-11">§</a>Returns</h5>
+<p>The version string. The string is owned by the about
+dialog and must not be modified.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.website" class="method"><a class="src rightside" href="../../src/gtk/auto/about_dialog.rs.html#2524-2530">Source</a><h4 class="code-header">fn <a href="#method.website" class="fn">website</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/gstring/struct.GString.html" title="struct glib::gstring::GString">GString</a>&gt;</h4></section></summary><div class="docblock"><p>Returns the website URL.</p>
+<h5 id="returns-12"><a class="doc-anchor" href="#returns-12">§</a>Returns</h5>
+<p>The website URL. The string is owned by the about
+dialog and must not be modified.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.website_label" class="method"><a class="src rightside" href="../../src/gtk/auto/about_dialog.rs.html#2540-2546">Source</a><h4 class="code-header">fn <a href="#method.website_label" class="fn">website_label</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/gstring/struct.GString.html" title="struct glib::gstring::GString">GString</a>&gt;</h4></section></summary><div class="docblock"><p>Returns the label used for the website link.</p>
+<h5 id="returns-13"><a class="doc-anchor" href="#returns-13">§</a>Returns</h5>
+<p>The label used for the website link. The string is
+owned by the about dialog and must not be modified.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.wraps_license" class="method"><a class="src rightside" href="../../src/gtk/auto/about_dialog.rs.html#2556-2562">Source</a><h4 class="code-header">fn <a href="#method.wraps_license" class="fn">wraps_license</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></h4></section></summary><div class="docblock"><p>Returns whether the license text in <code>self</code> is
+automatically wrapped.</p>
+<h5 id="returns-14"><a class="doc-anchor" href="#returns-14">§</a>Returns</h5>
+<p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="primitive bool"><code>true</code></a> if the license text is wrapped</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.set_artists" class="method"><a class="src rightside" href="../../src/gtk/auto/about_dialog.rs.html#2569-2576">Source</a><h4 class="code-header">fn <a href="#method.set_artists" class="fn">set_artists</a>(&amp;self, artists: &amp;[&amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>])</h4></section></summary><div class="docblock"><p>Sets the strings which are displayed in the artists tab
+of the secondary credits dialog.</p>
+<h6 id="artists"><a class="doc-anchor" href="#artists">§</a><code>artists</code></h6>
+<p>a <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="variant core::option::Option::None"><code>None</code></a>-terminated array of strings</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.set_authors" class="method"><a class="src rightside" href="../../src/gtk/auto/about_dialog.rs.html#2583-2590">Source</a><h4 class="code-header">fn <a href="#method.set_authors" class="fn">set_authors</a>(&amp;self, authors: &amp;[&amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>])</h4></section></summary><div class="docblock"><p>Sets the strings which are displayed in the authors tab
+of the secondary credits dialog.</p>
+<h6 id="authors"><a class="doc-anchor" href="#authors">§</a><code>authors</code></h6>
+<p>a <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="variant core::option::Option::None"><code>None</code></a>-terminated array of strings</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.set_comments" class="method"><a class="src rightside" href="../../src/gtk/auto/about_dialog.rs.html#2597-2604">Source</a><h4 class="code-header">fn <a href="#method.set_comments" class="fn">set_comments</a>(&amp;self, comments: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;&amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>&gt;)</h4></section></summary><div class="docblock"><p>Sets the comments string to display in the about dialog.
+This should be a short string of one or two lines.</p>
+<h6 id="comments"><a class="doc-anchor" href="#comments">§</a><code>comments</code></h6>
+<p>a comments string</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.set_copyright" class="method"><a class="src rightside" href="../../src/gtk/auto/about_dialog.rs.html#2611-2618">Source</a><h4 class="code-header">fn <a href="#method.set_copyright" class="fn">set_copyright</a>(&amp;self, copyright: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;&amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>&gt;)</h4></section></summary><div class="docblock"><p>Sets the copyright string to display in the about dialog.
+This should be a short string of one or two lines.</p>
+<h6 id="copyright"><a class="doc-anchor" href="#copyright">§</a><code>copyright</code></h6>
+<p>the copyright string</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.set_documenters" class="method"><a class="src rightside" href="../../src/gtk/auto/about_dialog.rs.html#2625-2632">Source</a><h4 class="code-header">fn <a href="#method.set_documenters" class="fn">set_documenters</a>(&amp;self, documenters: &amp;[&amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>])</h4></section></summary><div class="docblock"><p>Sets the strings which are displayed in the documenters tab
+of the secondary credits dialog.</p>
+<h6 id="documenters"><a class="doc-anchor" href="#documenters">§</a><code>documenters</code></h6>
+<p>a <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="variant core::option::Option::None"><code>None</code></a>-terminated array of strings</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.set_license" class="method"><a class="src rightside" href="../../src/gtk/auto/about_dialog.rs.html#2640-2647">Source</a><h4 class="code-header">fn <a href="#method.set_license" class="fn">set_license</a>(&amp;self, license: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;&amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>&gt;)</h4></section></summary><div class="docblock"><p>Sets the license information to be displayed in the secondary
+license dialog. If <code>license</code> is <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="variant core::option::Option::None"><code>None</code></a>, the license button is
+hidden.</p>
+<h6 id="license"><a class="doc-anchor" href="#license">§</a><code>license</code></h6>
+<p>the license information or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="variant core::option::Option::None"><code>None</code></a></p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.set_license_type" class="method"><a class="src rightside" href="../../src/gtk/auto/about_dialog.rs.html#2657-2664">Source</a><h4 class="code-header">fn <a href="#method.set_license_type" class="fn">set_license_type</a>(&amp;self, license_type: <a class="enum" href="../enum.License.html" title="enum gtk::License">License</a>)</h4></section></summary><div class="docblock"><p>Sets the license of the application showing the <code>self</code> dialog from a
+list of known licenses.</p>
+<p>This function overrides the license set using
+<a href="trait.AboutDialogExt.html#method.set_license" title="method gtk::prelude::AboutDialogExt::set_license"><code>set_license()</code></a>.</p>
+<h6 id="license_type"><a class="doc-anchor" href="#license_type">§</a><code>license_type</code></h6>
+<p>the type of license</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.set_logo" class="method"><a class="src rightside" href="../../src/gtk/auto/about_dialog.rs.html#2672-2676">Source</a><h4 class="code-header">fn <a href="#method.set_logo" class="fn">set_logo</a>(&amp;self, logo: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;&amp;<a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/gdk_pixbuf/auto/pixbuf/struct.Pixbuf.html" title="struct gdk_pixbuf::auto::pixbuf::Pixbuf">Pixbuf</a>&gt;)</h4></section></summary><div class="docblock"><p>Sets the pixbuf to be displayed as logo in the about dialog.
+If it is <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="variant core::option::Option::None"><code>None</code></a>, the default window icon set with
+<a href="../struct.Window.html#method.set_default_icon" title="associated function gtk::Window::set_default_icon"><code>Window::set_default_icon()</code></a> will be used.</p>
+<h6 id="logo"><a class="doc-anchor" href="#logo">§</a><code>logo</code></h6>
+<p>a <a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/gdk_pixbuf/auto/pixbuf/struct.Pixbuf.html" title="struct gdk_pixbuf::auto::pixbuf::Pixbuf"><code>gdk_pixbuf::Pixbuf</code></a>, or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="variant core::option::Option::None"><code>None</code></a></p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.set_logo_icon_name" class="method"><a class="src rightside" href="../../src/gtk/auto/about_dialog.rs.html#2684-2691">Source</a><h4 class="code-header">fn <a href="#method.set_logo_icon_name" class="fn">set_logo_icon_name</a>(&amp;self, icon_name: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;&amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>&gt;)</h4></section></summary><div class="docblock"><p>Sets the pixbuf to be displayed as logo in the about dialog.
+If it is <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="variant core::option::Option::None"><code>None</code></a>, the default window icon set with
+<a href="../struct.Window.html#method.set_default_icon" title="associated function gtk::Window::set_default_icon"><code>Window::set_default_icon()</code></a> will be used.</p>
+<h6 id="icon_name"><a class="doc-anchor" href="#icon_name">§</a><code>icon_name</code></h6>
+<p>an icon name, or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="variant core::option::Option::None"><code>None</code></a></p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.set_program_name" class="method"><a class="src rightside" href="../../src/gtk/auto/about_dialog.rs.html#2698-2705">Source</a><h4 class="code-header">fn <a href="#method.set_program_name" class="fn">set_program_name</a>(&amp;self, name: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>)</h4></section></summary><div class="docblock"><p>Sets the name to display in the about dialog.
+If this is not set, it defaults to <code>g_get_application_name()</code>.</p>
+<h6 id="name"><a class="doc-anchor" href="#name">§</a><code>name</code></h6>
+<p>the program name</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.set_translator_credits" class="method"><a class="src rightside" href="../../src/gtk/auto/about_dialog.rs.html#2730-2737">Source</a><h4 class="code-header">fn <a href="#method.set_translator_credits" class="fn">set_translator_credits</a>(&amp;self, translator_credits: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;&amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>&gt;)</h4></section></summary><div class="docblock"><p>Sets the translator credits string which is displayed in
+the translators tab of the secondary credits dialog.</p>
+<p>The intended use for this string is to display the translator
+of the language which is currently used in the user interface.
+Using <code>gettext()</code>, a simple way to achieve that is to mark the
+string for translation:</p>
+<p><strong>⚠️ The following code is in C ⚠️</strong></p>
+<div class="example-wrap"><pre class="language-C"><code>GtkWidget *about = gtk_about_dialog_new ();
+gtk_about_dialog_set_translator_credits (GTK_ABOUT_DIALOG (about),
+                                         _(&quot;translator-credits&quot;));</code></pre></div>
+<p>It is a good idea to use the customary msgid “translator-credits” for this
+purpose, since translators will already know the purpose of that msgid, and
+since <a href="../struct.AboutDialog.html" title="struct gtk::AboutDialog"><code>AboutDialog</code></a> will detect if “translator-credits” is untranslated
+and hide the tab.</p>
+<h6 id="translator_credits"><a class="doc-anchor" href="#translator_credits">§</a><code>translator_credits</code></h6>
+<p>the translator credits</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.set_version" class="method"><a class="src rightside" href="../../src/gtk/auto/about_dialog.rs.html#2743-2750">Source</a><h4 class="code-header">fn <a href="#method.set_version" class="fn">set_version</a>(&amp;self, version: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;&amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>&gt;)</h4></section></summary><div class="docblock"><p>Sets the version string to display in the about dialog.</p>
+<h6 id="version"><a class="doc-anchor" href="#version">§</a><code>version</code></h6>
+<p>the version string</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.set_website" class="method"><a class="src rightside" href="../../src/gtk/auto/about_dialog.rs.html#2756-2763">Source</a><h4 class="code-header">fn <a href="#method.set_website" class="fn">set_website</a>(&amp;self, website: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;&amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>&gt;)</h4></section></summary><div class="docblock"><p>Sets the URL to use for the website link.</p>
+<h6 id="website"><a class="doc-anchor" href="#website">§</a><code>website</code></h6>
+<p>a URL string starting with “http://”</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.set_website_label" class="method"><a class="src rightside" href="../../src/gtk/auto/about_dialog.rs.html#2769-2776">Source</a><h4 class="code-header">fn <a href="#method.set_website_label" class="fn">set_website_label</a>(&amp;self, website_label: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;&amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>&gt;)</h4></section></summary><div class="docblock"><p>Sets the label to be used for the website link.</p>
+<h6 id="website_label"><a class="doc-anchor" href="#website_label">§</a><code>website_label</code></h6>
+<p>the label used for the website link</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.set_wrap_license" class="method"><a class="src rightside" href="../../src/gtk/auto/about_dialog.rs.html#2783-2790">Source</a><h4 class="code-header">fn <a href="#method.set_wrap_license" class="fn">set_wrap_license</a>(&amp;self, wrap_license: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>)</h4></section></summary><div class="docblock"><p>Sets whether the license text in <code>self</code> is
+automatically wrapped.</p>
+<h6 id="wrap_license"><a class="doc-anchor" href="#wrap_license">§</a><code>wrap_license</code></h6>
+<p>whether to wrap the license</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.connect_activate_link" class="method"><a class="src rightside" href="../../src/gtk/auto/about_dialog.rs.html#2802-2832">Source</a><h4 class="code-header">fn <a href="#method.connect_activate_link" class="fn">connect_activate_link</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;Self, &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) -&gt; <a class="enum" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/enum.Propagation.html" title="enum glib::signal::Propagation">Propagation</a> + 'static&gt;(
+    &amp;self,
+    f: F,
+) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></h4></section></summary><div class="docblock"><p>The signal which gets emitted to activate a URI.
+Applications may connect to it to override the default behaviour,
+which is to call <a href="../fn.show_uri_on_window.html" title="fn gtk::show_uri_on_window"><code>show_uri_on_window()</code></a>.</p>
+<h6 id="uri"><a class="doc-anchor" href="#uri">§</a><code>uri</code></h6>
+<p>the URI that is activated</p>
+<h5 id="returns-15"><a class="doc-anchor" href="#returns-15">§</a>Returns</h5>
+<p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="primitive bool"><code>true</code></a> if the link has been activated</p>
+</div></details><section id="method.connect_artists_notify" class="method"><a class="src rightside" href="../../src/gtk/auto/about_dialog.rs.html#2835-2855">Source</a><h4 class="code-header">fn <a href="#method.connect_artists_notify" class="fn">connect_artists_notify</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;Self) + 'static&gt;(
+    &amp;self,
+    f: F,
+) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></h4></section><section id="method.connect_authors_notify" class="method"><a class="src rightside" href="../../src/gtk/auto/about_dialog.rs.html#2858-2878">Source</a><h4 class="code-header">fn <a href="#method.connect_authors_notify" class="fn">connect_authors_notify</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;Self) + 'static&gt;(
+    &amp;self,
+    f: F,
+) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></h4></section><section id="method.connect_comments_notify" class="method"><a class="src rightside" href="../../src/gtk/auto/about_dialog.rs.html#2881-2904">Source</a><h4 class="code-header">fn <a href="#method.connect_comments_notify" class="fn">connect_comments_notify</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;Self) + 'static&gt;(
+    &amp;self,
+    f: F,
+) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></h4></section><section id="method.connect_copyright_notify" class="method"><a class="src rightside" href="../../src/gtk/auto/about_dialog.rs.html#2907-2930">Source</a><h4 class="code-header">fn <a href="#method.connect_copyright_notify" class="fn">connect_copyright_notify</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;Self) + 'static&gt;(
+    &amp;self,
+    f: F,
+) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></h4></section><section id="method.connect_documenters_notify" class="method"><a class="src rightside" href="../../src/gtk/auto/about_dialog.rs.html#2933-2956">Source</a><h4 class="code-header">fn <a href="#method.connect_documenters_notify" class="fn">connect_documenters_notify</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;Self) + 'static&gt;(
+    &amp;self,
+    f: F,
+) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></h4></section><section id="method.connect_license_notify" class="method"><a class="src rightside" href="../../src/gtk/auto/about_dialog.rs.html#2959-2979">Source</a><h4 class="code-header">fn <a href="#method.connect_license_notify" class="fn">connect_license_notify</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;Self) + 'static&gt;(
+    &amp;self,
+    f: F,
+) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></h4></section><section id="method.connect_license_type_notify" class="method"><a class="src rightside" href="../../src/gtk/auto/about_dialog.rs.html#2982-3005">Source</a><h4 class="code-header">fn <a href="#method.connect_license_type_notify" class="fn">connect_license_type_notify</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;Self) + 'static&gt;(
+    &amp;self,
+    f: F,
+) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></h4></section><section id="method.connect_logo_notify" class="method"><a class="src rightside" href="../../src/gtk/auto/about_dialog.rs.html#3008-3028">Source</a><h4 class="code-header">fn <a href="#method.connect_logo_notify" class="fn">connect_logo_notify</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;Self) + 'static&gt;(&amp;self, f: F) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></h4></section><section id="method.connect_logo_icon_name_notify" class="method"><a class="src rightside" href="../../src/gtk/auto/about_dialog.rs.html#3031-3054">Source</a><h4 class="code-header">fn <a href="#method.connect_logo_icon_name_notify" class="fn">connect_logo_icon_name_notify</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;Self) + 'static&gt;(
+    &amp;self,
+    f: F,
+) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></h4></section><section id="method.connect_program_name_notify" class="method"><a class="src rightside" href="../../src/gtk/auto/about_dialog.rs.html#3057-3080">Source</a><h4 class="code-header">fn <a href="#method.connect_program_name_notify" class="fn">connect_program_name_notify</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;Self) + 'static&gt;(
+    &amp;self,
+    f: F,
+) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></h4></section><section id="method.connect_translator_credits_notify" class="method"><a class="src rightside" href="../../src/gtk/auto/about_dialog.rs.html#3083-3106">Source</a><h4 class="code-header">fn <a href="#method.connect_translator_credits_notify" class="fn">connect_translator_credits_notify</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;Self) + 'static&gt;(
+    &amp;self,
+    f: F,
+) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></h4></section><section id="method.connect_version_notify" class="method"><a class="src rightside" href="../../src/gtk/auto/about_dialog.rs.html#3109-3129">Source</a><h4 class="code-header">fn <a href="#method.connect_version_notify" class="fn">connect_version_notify</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;Self) + 'static&gt;(
+    &amp;self,
+    f: F,
+) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></h4></section><section id="method.connect_website_notify" class="method"><a class="src rightside" href="../../src/gtk/auto/about_dialog.rs.html#3132-3152">Source</a><h4 class="code-header">fn <a href="#method.connect_website_notify" class="fn">connect_website_notify</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;Self) + 'static&gt;(
+    &amp;self,
+    f: F,
+) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></h4></section><section id="method.connect_website_label_notify" class="method"><a class="src rightside" href="../../src/gtk/auto/about_dialog.rs.html#3155-3178">Source</a><h4 class="code-header">fn <a href="#method.connect_website_label_notify" class="fn">connect_website_label_notify</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;Self) + 'static&gt;(
+    &amp;self,
+    f: F,
+) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></h4></section><section id="method.connect_wrap_license_notify" class="method"><a class="src rightside" href="../../src/gtk/auto/about_dialog.rs.html#3181-3204">Source</a><h4 class="code-header">fn <a href="#method.connect_wrap_license_notify" class="fn">connect_wrap_license_notify</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;Self) + 'static&gt;(
+    &amp;self,
+    f: F,
+) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></h4></section></div><h2 id="dyn-compatibility" class="section-header">Dyn Compatibility<a href="#dyn-compatibility" class="anchor">§</a></h2><div class="dyn-compatibility-info"><p>This trait is <b>not</b> <a href="https://doc.rust-lang.org/nightly/reference/items/traits.html#dyn-compatibility">dyn compatible</a>.</p><p><i>In older versions of Rust, dyn compatibility was called "object safety".</i></p></div><h2 id="implementors" class="section-header">Implementors<a href="#implementors" class="anchor">§</a></h2><div id="implementors-list"><div class="negative-marker"></div><section id="impl-AboutDialogExt-for-O" class="impl"><a class="src rightside" href="../../src/gtk/auto/about_dialog.rs.html#3207">Source</a><a href="#impl-AboutDialogExt-for-O" class="anchor">§</a><h3 class="code-header">impl&lt;O: <a class="trait" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.AboutDialog.html" title="struct gtk::AboutDialog">AboutDialog</a>&gt;&gt; <a class="trait" href="trait.AboutDialogExt.html" title="trait gtk::prelude::AboutDialogExt">AboutDialogExt</a> for O</h3></section></div><script src="../../trait.impl/gtk/auto/about_dialog/trait.AboutDialogExt.js" async></script></section></div></main></body></html>

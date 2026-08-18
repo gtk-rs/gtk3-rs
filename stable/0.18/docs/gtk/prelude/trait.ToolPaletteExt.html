@@ -1,0 +1,236 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Trait containing all `struct@ToolPalette` methods."><title>ToolPaletteExt in gtk::prelude - Rust</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2"href="../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../static.files/rustdoc-0c87338a.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.100.0-nightly (34baba539 2026-08-16)" data-channel="nightly" data-search-js="search-cf4fc35e.js" data-stringdex-js="stringdex-b5109af9.js" data-settings-js="settings-170eb4bf.js" ><script src="../../static.files/storage-41dd4d93.js"></script><script defer src="sidebar-items.js"></script><script defer src="../../static.files/main-417ebf0a.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-9f56287d.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-eab170b8.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-044be391.svg"></head><body class="rustdoc trait"><a class="skip-main-content" href="#main-content">Skip to main content</a><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
+
+    function checkDocsLatestStable() {
+        function popup(msg, url) { return `
+            <style scoped="scoped">
+                .popup {
+                    max-width: 16em;
+                    background-color: #fff;
+                    position: fixed;
+                    z-index: 1;
+                    margin-left: auto;
+                    bottom: 1em;
+                    right: 1em;
+                    border-radius: 5px;
+                    box-shadow: 1px 1px 4px #777;
+                }
+
+                .popup a.version {
+                    color: #e57300;
+                    padding: 0.6em 1em;
+                    display: block;
+                }
+                .popup a.version:hover {
+                    color: #b25900;
+                }
+
+                .popup a.close {
+                    color: white;
+                    background: grey;
+                    border-radius: 99px;
+                    display: inline-block;
+                    width: 19px;
+                    line-height: 19px;
+                    font-weight: bold;
+                    text-align: center;
+                    margin: 0.6em;
+                    float: right;
+                }
+                .popup a.close:hover {
+                    background: black;
+                }
+            </style>
+            <section class="popup" id="gir_docs_popup">
+                <a class="close" href="#" onclick="document.getElementById('gir_docs_popup').remove(); return false">×</a>
+                <a class="version" href="https://gtk-rs.org/gtk3-rs/stable/latest/docs">
+                    ⚠ ${msg}
+                </a>
+            </section>
+        ` };
+
+        if ("0.18" == "master") {
+            document.body.insertAdjacentHTML(
+                'beforeend',
+                popup("This is the development version. Go to latest stable version.", "stable/latest")
+            );
+        } else {
+            fetch('https://gtk-rs.org/gtk3-rs/LATEST_RELEASE_BRANCH')
+                .then(response => response.text())
+                .then(latest_branch => {
+                    if (latest_branch.trim() != "0.18") {
+                        document.body.insertAdjacentHTML(
+                            'beforeend',
+                            popup("This version is outdated. Go to latest version.", "stable/latest")
+                        );
+                    }
+                });
+        }
+    }
+</script>
+
+
+<rustdoc-topbar><h2><a href="#">ToolPaletteExt</a></h2></rustdoc-topbar><nav class="sidebar"><div class="sidebar-crate"><h2><a href="../../gtk/index.html">gtk</a><span class="version">0.18.1</span></h2></div><div class="sidebar-elems"><section id="rustdoc-toc"><h2 class="location"><a href="#">Tool<wbr>Palette<wbr>Ext</a></h2><h3><a href="#">Sections</a></h3><ul class="block top-toc"><li><a href="#implementors-1" title="Implementors">Implementors</a></li></ul><h3><a href="#provided-methods">Provided Methods</a></h3><ul class="block"><li><a href="#method.add_drag_dest" title="add_drag_dest">add_drag_dest</a></li><li><a href="#method.connect_icon_size_notify" title="connect_icon_size_notify">connect_icon_size_notify</a></li><li><a href="#method.connect_icon_size_set_notify" title="connect_icon_size_set_notify">connect_icon_size_set_notify</a></li><li><a href="#method.connect_toolbar_style_notify" title="connect_toolbar_style_notify">connect_toolbar_style_notify</a></li><li><a href="#method.drag_item" title="drag_item">drag_item</a></li><li><a href="#method.drop_group" title="drop_group">drop_group</a></li><li><a href="#method.drop_item" title="drop_item">drop_item</a></li><li><a href="#method.expands" title="expands">expands</a></li><li><a href="#method.group_position" title="group_position">group_position</a></li><li><a href="#method.icon_size" title="icon_size">icon_size</a></li><li><a href="#method.is_exclusive" title="is_exclusive">is_exclusive</a></li><li><a href="#method.is_icon_size_set" title="is_icon_size_set">is_icon_size_set</a></li><li><a href="#method.set_drag_source" title="set_drag_source">set_drag_source</a></li><li><a href="#method.set_exclusive" title="set_exclusive">set_exclusive</a></li><li><a href="#method.set_expand" title="set_expand">set_expand</a></li><li><a href="#method.set_group_position" title="set_group_position">set_group_position</a></li><li><a href="#method.set_icon_size" title="set_icon_size">set_icon_size</a></li><li><a href="#method.set_icon_size_set" title="set_icon_size_set">set_icon_size_set</a></li><li><a href="#method.set_style" title="set_style">set_style</a></li><li><a href="#method.set_toolbar_style" title="set_toolbar_style">set_toolbar_style</a></li><li><a href="#method.style" title="style">style</a></li><li><a href="#method.toolbar_style" title="toolbar_style">toolbar_style</a></li><li><a href="#method.unset_icon_size" title="unset_icon_size">unset_icon_size</a></li><li><a href="#method.unset_style" title="unset_style">unset_style</a></li></ul><h3><a href="#dyn-compatibility">Dyn Compatibility</a></h3><h3><a href="#implementors">Implementors</a></h3></section><div id="rustdoc-modnav"><h2><a href="index.html">In gtk::<wbr>prelude</a></h2></div></div></nav><div class="sidebar-resizer" title="Drag to resize sidebar"></div><main><div class="width-limiter"><section id="main-content" class="content" tabindex="-1"><div class="main-heading"><div class="rustdoc-breadcrumbs"><a href="../index.html">gtk</a>::<wbr><a href="index.html">prelude</a></div><h1>Trait <span class="trait">Tool<wbr>Palette<wbr>Ext</span>&nbsp;<button id="copy-path" title="Copy item path to clipboard">Copy item path</button></h1><rustdoc-toolbar></rustdoc-toolbar><span class="sub-heading"><a class="src" href="../../src/gtk/auto/tool_palette.rs.html#892-1287">Source</a> </span></div><pre class="rust item-decl"><code>pub trait ToolPaletteExt:
+    <a class="trait" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.ToolPalette.html" title="struct gtk::ToolPalette">ToolPalette</a>&gt;
+    + Sealed
+    + 'static {
+<details class="toggle type-contents-toggle"><summary class="hideme"><span>Show 24 methods</span></summary>    // Provided methods
+    fn <a href="#method.add_drag_dest" class="fn">add_drag_dest</a>(
+        &amp;self,
+        widget: &amp;impl <a class="trait" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.Widget.html" title="struct gtk::Widget">Widget</a>&gt;,
+        flags: <a class="struct" href="../struct.DestDefaults.html" title="struct gtk::DestDefaults">DestDefaults</a>,
+        targets: <a class="struct" href="../struct.ToolPaletteDragTargets.html" title="struct gtk::ToolPaletteDragTargets">ToolPaletteDragTargets</a>,
+        actions: <a class="struct" href="../../gdk/auto/flags/struct.DragAction.html" title="struct gdk::auto::flags::DragAction">DragAction</a>,
+    ) { ... }
+<span class="item-spacer"></span>    fn <a href="#method.drag_item" class="fn">drag_item</a>(&amp;self, selection: &amp;<a class="struct" href="../struct.SelectionData.html" title="struct gtk::SelectionData">SelectionData</a>) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../struct.Widget.html" title="struct gtk::Widget">Widget</a>&gt; { ... }
+<span class="item-spacer"></span>    fn <a href="#method.drop_group" class="fn">drop_group</a>(&amp;self, x: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, y: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../struct.ToolItemGroup.html" title="struct gtk::ToolItemGroup">ToolItemGroup</a>&gt; { ... }
+<span class="item-spacer"></span>    fn <a href="#method.drop_item" class="fn">drop_item</a>(&amp;self, x: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, y: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../struct.ToolItem.html" title="struct gtk::ToolItem">ToolItem</a>&gt; { ... }
+<span class="item-spacer"></span>    fn <a href="#method.is_exclusive" class="fn">is_exclusive</a>(&amp;self, group: &amp;impl <a class="trait" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.ToolItemGroup.html" title="struct gtk::ToolItemGroup">ToolItemGroup</a>&gt;) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.expands" class="fn">expands</a>(&amp;self, group: &amp;impl <a class="trait" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.ToolItemGroup.html" title="struct gtk::ToolItemGroup">ToolItemGroup</a>&gt;) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.group_position" class="fn">group_position</a>(&amp;self, group: &amp;impl <a class="trait" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.ToolItemGroup.html" title="struct gtk::ToolItemGroup">ToolItemGroup</a>&gt;) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.icon_size" class="fn">icon_size</a>(&amp;self) -&gt; <a class="enum" href="../enum.IconSize.html" title="enum gtk::IconSize">IconSize</a> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.style" class="fn">style</a>(&amp;self) -&gt; <a class="enum" href="../enum.ToolbarStyle.html" title="enum gtk::ToolbarStyle">ToolbarStyle</a> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.set_drag_source" class="fn">set_drag_source</a>(&amp;self, targets: <a class="struct" href="../struct.ToolPaletteDragTargets.html" title="struct gtk::ToolPaletteDragTargets">ToolPaletteDragTargets</a>) { ... }
+<span class="item-spacer"></span>    fn <a href="#method.set_exclusive" class="fn">set_exclusive</a>(&amp;self, group: &amp;impl <a class="trait" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.ToolItemGroup.html" title="struct gtk::ToolItemGroup">ToolItemGroup</a>&gt;, exclusive: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) { ... }
+<span class="item-spacer"></span>    fn <a href="#method.set_expand" class="fn">set_expand</a>(&amp;self, group: &amp;impl <a class="trait" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.ToolItemGroup.html" title="struct gtk::ToolItemGroup">ToolItemGroup</a>&gt;, expand: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) { ... }
+<span class="item-spacer"></span>    fn <a href="#method.set_group_position" class="fn">set_group_position</a>(&amp;self, group: &amp;impl <a class="trait" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.ToolItemGroup.html" title="struct gtk::ToolItemGroup">ToolItemGroup</a>&gt;, position: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) { ... }
+<span class="item-spacer"></span>    fn <a href="#method.set_icon_size" class="fn">set_icon_size</a>(&amp;self, icon_size: <a class="enum" href="../enum.IconSize.html" title="enum gtk::IconSize">IconSize</a>) { ... }
+<span class="item-spacer"></span>    fn <a href="#method.set_style" class="fn">set_style</a>(&amp;self, style: <a class="enum" href="../enum.ToolbarStyle.html" title="enum gtk::ToolbarStyle">ToolbarStyle</a>) { ... }
+<span class="item-spacer"></span>    fn <a href="#method.unset_icon_size" class="fn">unset_icon_size</a>(&amp;self) { ... }
+<span class="item-spacer"></span>    fn <a href="#method.unset_style" class="fn">unset_style</a>(&amp;self) { ... }
+<span class="item-spacer"></span>    fn <a href="#method.is_icon_size_set" class="fn">is_icon_size_set</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.set_icon_size_set" class="fn">set_icon_size_set</a>(&amp;self, icon_size_set: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) { ... }
+<span class="item-spacer"></span>    fn <a href="#method.toolbar_style" class="fn">toolbar_style</a>(&amp;self) -&gt; <a class="enum" href="../enum.ToolbarStyle.html" title="enum gtk::ToolbarStyle">ToolbarStyle</a> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.set_toolbar_style" class="fn">set_toolbar_style</a>(&amp;self, toolbar_style: <a class="enum" href="../enum.ToolbarStyle.html" title="enum gtk::ToolbarStyle">ToolbarStyle</a>) { ... }
+<span class="item-spacer"></span>    fn <a href="#method.connect_icon_size_notify" class="fn">connect_icon_size_notify</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;Self) + 'static&gt;(
+        &amp;self,
+        f: F,
+    ) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.connect_icon_size_set_notify" class="fn">connect_icon_size_set_notify</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;Self) + 'static&gt;(
+        &amp;self,
+        f: F,
+    ) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.connect_toolbar_style_notify" class="fn">connect_toolbar_style_notify</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;Self) + 'static&gt;(
+        &amp;self,
+        f: F,
+    ) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a> { ... }
+</details>}</code></pre><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>Trait containing all <a href="../struct.ToolPalette.html" title="struct gtk::ToolPalette"><code>ToolPalette</code></a> methods.</p>
+<h2 id="implementors-1"><a class="doc-anchor" href="#implementors-1">§</a>Implementors</h2>
+<p><a href="../struct.ToolPalette.html" title="struct gtk::ToolPalette"><code>ToolPalette</code></a></p>
+</div></details><h2 id="provided-methods" class="section-header">Provided Methods<a href="#provided-methods" class="anchor">§</a></h2><div class="methods"><details class="toggle method-toggle" open><summary><section id="method.add_drag_dest" class="method"><a class="src rightside" href="../../src/gtk/auto/tool_palette.rs.html#907-923">Source</a><h4 class="code-header">fn <a href="#method.add_drag_dest" class="fn">add_drag_dest</a>(
+    &amp;self,
+    widget: &amp;impl <a class="trait" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.Widget.html" title="struct gtk::Widget">Widget</a>&gt;,
+    flags: <a class="struct" href="../struct.DestDefaults.html" title="struct gtk::DestDefaults">DestDefaults</a>,
+    targets: <a class="struct" href="../struct.ToolPaletteDragTargets.html" title="struct gtk::ToolPaletteDragTargets">ToolPaletteDragTargets</a>,
+    actions: <a class="struct" href="../../gdk/auto/flags/struct.DragAction.html" title="struct gdk::auto::flags::DragAction">DragAction</a>,
+)</h4></section></summary><div class="docblock"><p>Sets <code>self</code> as drag source (see <a href="trait.ToolPaletteExt.html#method.set_drag_source" title="method gtk::prelude::ToolPaletteExt::set_drag_source"><code>set_drag_source()</code></a>)
+and sets <code>widget</code> as a drag destination for drags from <code>self</code>.
+See <a href="trait.WidgetExtManual.html#method.drag_dest_set" title="method gtk::prelude::WidgetExtManual::drag_dest_set"><code>WidgetExtManual::drag_dest_set()</code></a>.</p>
+<h6 id="widget"><a class="doc-anchor" href="#widget">§</a><code>widget</code></h6>
+<p>a <a href="../struct.Widget.html" title="struct gtk::Widget"><code>Widget</code></a> which should be a drag destination for <code>self</code></p>
+<h6 id="flags"><a class="doc-anchor" href="#flags">§</a><code>flags</code></h6>
+<p>the flags that specify what actions GTK+ should take for drops
+on that widget</p>
+<h6 id="targets"><a class="doc-anchor" href="#targets">§</a><code>targets</code></h6>
+<p>the <a href="../struct.ToolPaletteDragTargets.html" title="struct gtk::ToolPaletteDragTargets"><code>ToolPaletteDragTargets</code></a> which the widget
+should support</p>
+<h6 id="actions"><a class="doc-anchor" href="#actions">§</a><code>actions</code></h6>
+<p>the <code>GdkDragActions</code> which the widget should suppport</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.drag_item" class="method"><a class="src rightside" href="../../src/gtk/auto/tool_palette.rs.html#935-942">Source</a><h4 class="code-header">fn <a href="#method.drag_item" class="fn">drag_item</a>(&amp;self, selection: &amp;<a class="struct" href="../struct.SelectionData.html" title="struct gtk::SelectionData">SelectionData</a>) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../struct.Widget.html" title="struct gtk::Widget">Widget</a>&gt;</h4></section></summary><div class="docblock"><p>Get the dragged item from the selection.
+This could be a <a href="../struct.ToolItem.html" title="struct gtk::ToolItem"><code>ToolItem</code></a> or a <a href="../struct.ToolItemGroup.html" title="struct gtk::ToolItemGroup"><code>ToolItemGroup</code></a>.</p>
+<h6 id="selection"><a class="doc-anchor" href="#selection">§</a><code>selection</code></h6>
+<p>a <a href="../struct.SelectionData.html" title="struct gtk::SelectionData"><code>SelectionData</code></a></p>
+<h5 id="returns"><a class="doc-anchor" href="#returns">§</a>Returns</h5>
+<p>the dragged item in selection</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.drop_group" class="method"><a class="src rightside" href="../../src/gtk/auto/tool_palette.rs.html#956-964">Source</a><h4 class="code-header">fn <a href="#method.drop_group" class="fn">drop_group</a>(&amp;self, x: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, y: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../struct.ToolItemGroup.html" title="struct gtk::ToolItemGroup">ToolItemGroup</a>&gt;</h4></section></summary><div class="docblock"><p>Gets the group at position (x, y).</p>
+<h6 id="x"><a class="doc-anchor" href="#x">§</a><code>x</code></h6>
+<p>the x position</p>
+<h6 id="y"><a class="doc-anchor" href="#y">§</a><code>y</code></h6>
+<p>the y position</p>
+<h5 id="returns-1"><a class="doc-anchor" href="#returns-1">§</a>Returns</h5>
+<p>the <a href="../struct.ToolItemGroup.html" title="struct gtk::ToolItemGroup"><code>ToolItemGroup</code></a> at position
+or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="variant core::option::Option::None"><code>None</code></a> if there is no such group</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.drop_item" class="method"><a class="src rightside" href="../../src/gtk/auto/tool_palette.rs.html#978-986">Source</a><h4 class="code-header">fn <a href="#method.drop_item" class="fn">drop_item</a>(&amp;self, x: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>, y: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../struct.ToolItem.html" title="struct gtk::ToolItem">ToolItem</a>&gt;</h4></section></summary><div class="docblock"><p>Gets the item at position (x, y).
+See <a href="trait.ToolPaletteExt.html#method.drop_group" title="method gtk::prelude::ToolPaletteExt::drop_group"><code>drop_group()</code></a>.</p>
+<h6 id="x-1"><a class="doc-anchor" href="#x-1">§</a><code>x</code></h6>
+<p>the x position</p>
+<h6 id="y-1"><a class="doc-anchor" href="#y-1">§</a><code>y</code></h6>
+<p>the y position</p>
+<h5 id="returns-2"><a class="doc-anchor" href="#returns-2">§</a>Returns</h5>
+<p>the <a href="../struct.ToolItem.html" title="struct gtk::ToolItem"><code>ToolItem</code></a> at position or <a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None" title="variant core::option::Option::None"><code>None</code></a> if there is no such item</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.is_exclusive" class="method"><a class="src rightside" href="../../src/gtk/auto/tool_palette.rs.html#998-1005">Source</a><h4 class="code-header">fn <a href="#method.is_exclusive" class="fn">is_exclusive</a>(&amp;self, group: &amp;impl <a class="trait" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.ToolItemGroup.html" title="struct gtk::ToolItemGroup">ToolItemGroup</a>&gt;) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></h4></section></summary><div class="docblock"><p>Gets whether <code>group</code> is exclusive or not.
+See <a href="trait.ToolPaletteExt.html#method.set_exclusive" title="method gtk::prelude::ToolPaletteExt::set_exclusive"><code>set_exclusive()</code></a>.</p>
+<h6 id="group"><a class="doc-anchor" href="#group">§</a><code>group</code></h6>
+<p>a <a href="../struct.ToolItemGroup.html" title="struct gtk::ToolItemGroup"><code>ToolItemGroup</code></a> which is a child of palette</p>
+<h5 id="returns-3"><a class="doc-anchor" href="#returns-3">§</a>Returns</h5>
+<p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="primitive bool"><code>true</code></a> if <code>group</code> is exclusive</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.expands" class="method"><a class="src rightside" href="../../src/gtk/auto/tool_palette.rs.html#1017-1024">Source</a><h4 class="code-header">fn <a href="#method.expands" class="fn">expands</a>(&amp;self, group: &amp;impl <a class="trait" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.ToolItemGroup.html" title="struct gtk::ToolItemGroup">ToolItemGroup</a>&gt;) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></h4></section></summary><div class="docblock"><p>Gets whether group should be given extra space.
+See <a href="trait.ToolPaletteExt.html#method.set_expand" title="method gtk::prelude::ToolPaletteExt::set_expand"><code>set_expand()</code></a>.</p>
+<h6 id="group-1"><a class="doc-anchor" href="#group-1">§</a><code>group</code></h6>
+<p>a <a href="../struct.ToolItemGroup.html" title="struct gtk::ToolItemGroup"><code>ToolItemGroup</code></a> which is a child of palette</p>
+<h5 id="returns-4"><a class="doc-anchor" href="#returns-4">§</a>Returns</h5>
+<p><a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="primitive bool"><code>true</code></a> if group should be given extra space, <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="primitive bool"><code>false</code></a> otherwise</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.group_position" class="method"><a class="src rightside" href="../../src/gtk/auto/tool_palette.rs.html#1036-1043">Source</a><h4 class="code-header">fn <a href="#method.group_position" class="fn">group_position</a>(&amp;self, group: &amp;impl <a class="trait" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.ToolItemGroup.html" title="struct gtk::ToolItemGroup">ToolItemGroup</a>&gt;) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a></h4></section></summary><div class="docblock"><p>Gets the position of <code>group</code> in <code>self</code> as index.
+See <a href="trait.ToolPaletteExt.html#method.set_group_position" title="method gtk::prelude::ToolPaletteExt::set_group_position"><code>set_group_position()</code></a>.</p>
+<h6 id="group-2"><a class="doc-anchor" href="#group-2">§</a><code>group</code></h6>
+<p>a <a href="../struct.ToolItemGroup.html" title="struct gtk::ToolItemGroup"><code>ToolItemGroup</code></a></p>
+<h5 id="returns-5"><a class="doc-anchor" href="#returns-5">§</a>Returns</h5>
+<p>the index of group or -1 if <code>group</code> is not a child of <code>self</code></p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.icon_size" class="method"><a class="src rightside" href="../../src/gtk/auto/tool_palette.rs.html#1053-1059">Source</a><h4 class="code-header">fn <a href="#method.icon_size" class="fn">icon_size</a>(&amp;self) -&gt; <a class="enum" href="../enum.IconSize.html" title="enum gtk::IconSize">IconSize</a></h4></section></summary><div class="docblock"><p>Gets the size of icons in the tool palette.
+See <a href="trait.ToolPaletteExt.html#method.set_icon_size" title="method gtk::prelude::ToolPaletteExt::set_icon_size"><code>set_icon_size()</code></a>.</p>
+<h5 id="returns-6"><a class="doc-anchor" href="#returns-6">§</a>Returns</h5>
+<p>the <a href="../enum.IconSize.html" title="enum gtk::IconSize"><code>IconSize</code></a> of icons in the tool palette</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.style" class="method"><a class="src rightside" href="../../src/gtk/auto/tool_palette.rs.html#1068-1074">Source</a><h4 class="code-header">fn <a href="#method.style" class="fn">style</a>(&amp;self) -&gt; <a class="enum" href="../enum.ToolbarStyle.html" title="enum gtk::ToolbarStyle">ToolbarStyle</a></h4></section></summary><div class="docblock"><p>Gets the style (icons, text or both) of items in the tool palette.</p>
+<h5 id="returns-7"><a class="doc-anchor" href="#returns-7">§</a>Returns</h5>
+<p>the <a href="../enum.ToolbarStyle.html" title="enum gtk::ToolbarStyle"><code>ToolbarStyle</code></a> of items in the tool palette.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.set_drag_source" class="method"><a class="src rightside" href="../../src/gtk/auto/tool_palette.rs.html#1084-1091">Source</a><h4 class="code-header">fn <a href="#method.set_drag_source" class="fn">set_drag_source</a>(&amp;self, targets: <a class="struct" href="../struct.ToolPaletteDragTargets.html" title="struct gtk::ToolPaletteDragTargets">ToolPaletteDragTargets</a>)</h4></section></summary><div class="docblock"><p>Sets the tool palette as a drag source.
+Enables all groups and items in the tool palette as drag sources
+on button 1 and button 3 press with copy and move actions.
+See <a href="trait.WidgetExtManual.html#method.drag_source_set" title="method gtk::prelude::WidgetExtManual::drag_source_set"><code>WidgetExtManual::drag_source_set()</code></a>.</p>
+<h6 id="targets-1"><a class="doc-anchor" href="#targets-1">§</a><code>targets</code></h6>
+<p>the <a href="../struct.ToolPaletteDragTargets.html" title="struct gtk::ToolPaletteDragTargets"><code>ToolPaletteDragTargets</code></a>
+which the widget should support</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.set_exclusive" class="method"><a class="src rightside" href="../../src/gtk/auto/tool_palette.rs.html#1100-1108">Source</a><h4 class="code-header">fn <a href="#method.set_exclusive" class="fn">set_exclusive</a>(&amp;self, group: &amp;impl <a class="trait" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.ToolItemGroup.html" title="struct gtk::ToolItemGroup">ToolItemGroup</a>&gt;, exclusive: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>)</h4></section></summary><div class="docblock"><p>Sets whether the group should be exclusive or not.
+If an exclusive group is expanded all other groups are collapsed.</p>
+<h6 id="group-3"><a class="doc-anchor" href="#group-3">§</a><code>group</code></h6>
+<p>a <a href="../struct.ToolItemGroup.html" title="struct gtk::ToolItemGroup"><code>ToolItemGroup</code></a> which is a child of palette</p>
+<h6 id="exclusive"><a class="doc-anchor" href="#exclusive">§</a><code>exclusive</code></h6>
+<p>whether the group should be exclusive or not</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.set_expand" class="method"><a class="src rightside" href="../../src/gtk/auto/tool_palette.rs.html#1116-1124">Source</a><h4 class="code-header">fn <a href="#method.set_expand" class="fn">set_expand</a>(&amp;self, group: &amp;impl <a class="trait" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.ToolItemGroup.html" title="struct gtk::ToolItemGroup">ToolItemGroup</a>&gt;, expand: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>)</h4></section></summary><div class="docblock"><p>Sets whether the group should be given extra space.</p>
+<h6 id="group-4"><a class="doc-anchor" href="#group-4">§</a><code>group</code></h6>
+<p>a <a href="../struct.ToolItemGroup.html" title="struct gtk::ToolItemGroup"><code>ToolItemGroup</code></a> which is a child of palette</p>
+<h6 id="expand"><a class="doc-anchor" href="#expand">§</a><code>expand</code></h6>
+<p>whether the group should be given extra space</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.set_group_position" class="method"><a class="src rightside" href="../../src/gtk/auto/tool_palette.rs.html#1134-1142">Source</a><h4 class="code-header">fn <a href="#method.set_group_position" class="fn">set_group_position</a>(&amp;self, group: &amp;impl <a class="trait" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.ToolItemGroup.html" title="struct gtk::ToolItemGroup">ToolItemGroup</a>&gt;, position: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>)</h4></section></summary><div class="docblock"><p>Sets the position of the group as an index of the tool palette.
+If position is 0 the group will become the first child, if position is
+-1 it will become the last child.</p>
+<h6 id="group-5"><a class="doc-anchor" href="#group-5">§</a><code>group</code></h6>
+<p>a <a href="../struct.ToolItemGroup.html" title="struct gtk::ToolItemGroup"><code>ToolItemGroup</code></a> which is a child of palette</p>
+<h6 id="position"><a class="doc-anchor" href="#position">§</a><code>position</code></h6>
+<p>a new index for group</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.set_icon_size" class="method"><a class="src rightside" href="../../src/gtk/auto/tool_palette.rs.html#1149-1156">Source</a><h4 class="code-header">fn <a href="#method.set_icon_size" class="fn">set_icon_size</a>(&amp;self, icon_size: <a class="enum" href="../enum.IconSize.html" title="enum gtk::IconSize">IconSize</a>)</h4></section></summary><div class="docblock"><p>Sets the size of icons in the tool palette.</p>
+<h6 id="icon_size"><a class="doc-anchor" href="#icon_size">§</a><code>icon_size</code></h6>
+<p>the <a href="../enum.IconSize.html" title="enum gtk::IconSize"><code>IconSize</code></a> that icons in the tool
+palette shall have</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.set_style" class="method"><a class="src rightside" href="../../src/gtk/auto/tool_palette.rs.html#1162-1166">Source</a><h4 class="code-header">fn <a href="#method.set_style" class="fn">set_style</a>(&amp;self, style: <a class="enum" href="../enum.ToolbarStyle.html" title="enum gtk::ToolbarStyle">ToolbarStyle</a>)</h4></section></summary><div class="docblock"><p>Sets the style (text, icons or both) of items in the tool palette.</p>
+<h6 id="style"><a class="doc-anchor" href="#style">§</a><code>style</code></h6>
+<p>the <a href="../enum.ToolbarStyle.html" title="enum gtk::ToolbarStyle"><code>ToolbarStyle</code></a> that items in the tool palette shall have</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.unset_icon_size" class="method"><a class="src rightside" href="../../src/gtk/auto/tool_palette.rs.html#1171-1175">Source</a><h4 class="code-header">fn <a href="#method.unset_icon_size" class="fn">unset_icon_size</a>(&amp;self)</h4></section></summary><div class="docblock"><p>Unsets the tool palette icon size set with <a href="trait.ToolPaletteExt.html#method.set_icon_size" title="method gtk::prelude::ToolPaletteExt::set_icon_size"><code>set_icon_size()</code></a>,
+so that user preferences will be used to determine the icon size.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.unset_style" class="method"><a class="src rightside" href="../../src/gtk/auto/tool_palette.rs.html#1180-1184">Source</a><h4 class="code-header">fn <a href="#method.unset_style" class="fn">unset_style</a>(&amp;self)</h4></section></summary><div class="docblock"><p>Unsets a toolbar style set with <a href="trait.ToolPaletteExt.html#method.set_style" title="method gtk::prelude::ToolPaletteExt::set_style"><code>set_style()</code></a>,
+so that user preferences will be used to determine the toolbar style.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.is_icon_size_set" class="method"><a class="src rightside" href="../../src/gtk/auto/tool_palette.rs.html#1188-1190">Source</a><h4 class="code-header">fn <a href="#method.is_icon_size_set" class="fn">is_icon_size_set</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></h4></section></summary><div class="docblock"><p>Is <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="primitive bool"><code>true</code></a> if the <a href="../struct.ToolPalette.html#icon-size" title="struct gtk::ToolPalette"><code>icon-size</code></a> property has been set.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.set_icon_size_set" class="method"><a class="src rightside" href="../../src/gtk/auto/tool_palette.rs.html#1194-1196">Source</a><h4 class="code-header">fn <a href="#method.set_icon_size_set" class="fn">set_icon_size_set</a>(&amp;self, icon_size_set: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>)</h4></section></summary><div class="docblock"><p>Is <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html" title="primitive bool"><code>true</code></a> if the <a href="../struct.ToolPalette.html#icon-size" title="struct gtk::ToolPalette"><code>icon-size</code></a> property has been set.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.toolbar_style" class="method"><a class="src rightside" href="../../src/gtk/auto/tool_palette.rs.html#1200-1202">Source</a><h4 class="code-header">fn <a href="#method.toolbar_style" class="fn">toolbar_style</a>(&amp;self) -&gt; <a class="enum" href="../enum.ToolbarStyle.html" title="enum gtk::ToolbarStyle">ToolbarStyle</a></h4></section></summary><div class="docblock"><p>The style of items in the tool palette.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.set_toolbar_style" class="method"><a class="src rightside" href="../../src/gtk/auto/tool_palette.rs.html#1206-1208">Source</a><h4 class="code-header">fn <a href="#method.set_toolbar_style" class="fn">set_toolbar_style</a>(&amp;self, toolbar_style: <a class="enum" href="../enum.ToolbarStyle.html" title="enum gtk::ToolbarStyle">ToolbarStyle</a>)</h4></section></summary><div class="docblock"><p>The style of items in the tool palette.</p>
+</div></details><section id="method.connect_icon_size_notify" class="method"><a class="src rightside" href="../../src/gtk/auto/tool_palette.rs.html#1211-1234">Source</a><h4 class="code-header">fn <a href="#method.connect_icon_size_notify" class="fn">connect_icon_size_notify</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;Self) + 'static&gt;(
+    &amp;self,
+    f: F,
+) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></h4></section><section id="method.connect_icon_size_set_notify" class="method"><a class="src rightside" href="../../src/gtk/auto/tool_palette.rs.html#1237-1260">Source</a><h4 class="code-header">fn <a href="#method.connect_icon_size_set_notify" class="fn">connect_icon_size_set_notify</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;Self) + 'static&gt;(
+    &amp;self,
+    f: F,
+) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></h4></section><section id="method.connect_toolbar_style_notify" class="method"><a class="src rightside" href="../../src/gtk/auto/tool_palette.rs.html#1263-1286">Source</a><h4 class="code-header">fn <a href="#method.connect_toolbar_style_notify" class="fn">connect_toolbar_style_notify</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(&amp;Self) + 'static&gt;(
+    &amp;self,
+    f: F,
+) -&gt; <a class="struct" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/signal/struct.SignalHandlerId.html" title="struct glib::signal::SignalHandlerId">SignalHandlerId</a></h4></section></div><h2 id="dyn-compatibility" class="section-header">Dyn Compatibility<a href="#dyn-compatibility" class="anchor">§</a></h2><div class="dyn-compatibility-info"><p>This trait is <b>not</b> <a href="https://doc.rust-lang.org/nightly/reference/items/traits.html#dyn-compatibility">dyn compatible</a>.</p><p><i>In older versions of Rust, dyn compatibility was called "object safety".</i></p></div><h2 id="implementors" class="section-header">Implementors<a href="#implementors" class="anchor">§</a></h2><div id="implementors-list"><div class="negative-marker"></div><section id="impl-ToolPaletteExt-for-O" class="impl"><a class="src rightside" href="../../src/gtk/auto/tool_palette.rs.html#1289">Source</a><a href="#impl-ToolPaletteExt-for-O" class="anchor">§</a><h3 class="code-header">impl&lt;O: <a class="trait" href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/object/trait.IsA.html" title="trait glib::object::IsA">IsA</a>&lt;<a class="struct" href="../struct.ToolPalette.html" title="struct gtk::ToolPalette">ToolPalette</a>&gt;&gt; <a class="trait" href="trait.ToolPaletteExt.html" title="trait gtk::prelude::ToolPaletteExt">ToolPaletteExt</a> for O</h3></section></div><script src="../../trait.impl/gtk/auto/tool_palette/trait.ToolPaletteExt.js" async></script></section></div></main></body></html>

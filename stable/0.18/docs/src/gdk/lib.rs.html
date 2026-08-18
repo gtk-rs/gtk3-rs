@@ -1,0 +1,235 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gdk/src/lib.rs`."><title>lib.rs - source</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2"href="../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../static.files/rustdoc-0c87338a.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="gdk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.100.0-nightly (34baba539 2026-08-16)" data-channel="nightly" data-search-js="search-cf4fc35e.js" data-stringdex-js="stringdex-b5109af9.js" data-settings-js="settings-170eb4bf.js" ><script src="../../static.files/storage-41dd4d93.js"></script><script defer src="../../static.files/src-script-813739b1.js"></script><script defer src="../../src-files.js"></script><script defer src="../../static.files/main-417ebf0a.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-9f56287d.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-eab170b8.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-044be391.svg"></head><body class="rustdoc src"><a class="skip-main-content" href="#main-content">Skip to main content</a><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
+
+    function checkDocsLatestStable() {
+        function popup(msg, url) { return `
+            <style scoped="scoped">
+                .popup {
+                    max-width: 16em;
+                    background-color: #fff;
+                    position: fixed;
+                    z-index: 1;
+                    margin-left: auto;
+                    bottom: 1em;
+                    right: 1em;
+                    border-radius: 5px;
+                    box-shadow: 1px 1px 4px #777;
+                }
+
+                .popup a.version {
+                    color: #e57300;
+                    padding: 0.6em 1em;
+                    display: block;
+                }
+                .popup a.version:hover {
+                    color: #b25900;
+                }
+
+                .popup a.close {
+                    color: white;
+                    background: grey;
+                    border-radius: 99px;
+                    display: inline-block;
+                    width: 19px;
+                    line-height: 19px;
+                    font-weight: bold;
+                    text-align: center;
+                    margin: 0.6em;
+                    float: right;
+                }
+                .popup a.close:hover {
+                    background: black;
+                }
+            </style>
+            <section class="popup" id="gir_docs_popup">
+                <a class="close" href="#" onclick="document.getElementById('gir_docs_popup').remove(); return false">×</a>
+                <a class="version" href="https://gtk-rs.org/gtk3-rs/stable/latest/docs">
+                    ⚠ ${msg}
+                </a>
+            </section>
+        ` };
+
+        if ("0.18" == "master") {
+            document.body.insertAdjacentHTML(
+                'beforeend',
+                popup("This is the development version. Go to latest stable version.", "stable/latest")
+            );
+        } else {
+            fetch('https://gtk-rs.org/gtk3-rs/LATEST_RELEASE_BRANCH')
+                .then(response => response.text())
+                .then(latest_branch => {
+                    if (latest_branch.trim() != "0.18") {
+                        document.body.insertAdjacentHTML(
+                            'beforeend',
+                            popup("This version is outdated. Go to latest version.", "stable/latest")
+                        );
+                    }
+                });
+        }
+    }
+</script>
+
+
+<nav class="sidebar"><div class="src-sidebar-title"><h2>Files</h2></div></nav><div class="sidebar-resizer" title="Drag to resize sidebar"></div><main><section id="main-content" class="content" tabindex="-1"><div class="main-heading"><h1><div class="sub-heading">gdk/</div>lib.rs</h1><rustdoc-toolbar></rustdoc-toolbar></div><div class="example-wrap digits-3"><pre class="rust"><code><a href=#1 id=1 data-nosnippet>1</a><span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.
+<a href=#2 id=2 data-nosnippet>2</a>
+<a href=#3 id=3 data-nosnippet>3</a></span><span class="attr">#![cfg_attr(docsrs, feature(doc_cfg))]
+<a href=#4 id=4 data-nosnippet>4</a>#![allow(clippy::missing_safety_doc)]
+<a href=#5 id=5 data-nosnippet>5</a>#![allow(clippy::upper_case_acronyms)]
+<a href=#6 id=6 data-nosnippet>6</a>#![allow(clippy::wrong_self_convention)]
+<a href=#7 id=7 data-nosnippet>7</a>#![doc = <span class="macro">include_str!</span>(<span class="string">"../README.md"</span>)]
+<a href=#8 id=8 data-nosnippet>8</a>
+<a href=#9 id=9 data-nosnippet>9</a></span><span class="kw">pub use </span><a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/cairo/index.html">cairo</a>;
+<a href=#10 id=10 data-nosnippet>10</a><span class="kw">pub use </span><a href="../../gdk_sys/index.html">ffi</a>;
+<a href=#11 id=11 data-nosnippet>11</a><span class="kw">pub use </span><a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/gdk_pixbuf/index.html">gdk_pixbuf</a>;
+<a href=#12 id=12 data-nosnippet>12</a><span class="kw">pub use </span><a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/gio/index.html">gio</a>;
+<a href=#13 id=13 data-nosnippet>13</a><span class="kw">pub use </span><a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/glib/index.html">glib</a>;
+<a href=#14 id=14 data-nosnippet>14</a><span class="kw">pub use </span><a href="https://gtk-rs.org/gtk-rs-core/stable/0.23/docs/pango/index.html">pango</a>;
+<a href=#15 id=15 data-nosnippet>15</a>
+<a href=#16 id=16 data-nosnippet>16</a><span class="attr">#[macro_use]
+<a href=#17 id=17 data-nosnippet>17</a></span><span class="kw">mod </span><a href="rt.rs.html#3-83">rt</a>;
+<a href=#18 id=18 data-nosnippet>18</a><span class="attr">#[macro_use]
+<a href=#19 id=19 data-nosnippet>19</a></span><span class="kw">mod </span><a href="event.rs.html#3-550">event</a>;
+<a href=#20 id=20 data-nosnippet>20</a>
+<a href=#21 id=21 data-nosnippet>21</a><span class="attr">#[allow(clippy::type_complexity)]
+<a href=#22 id=22 data-nosnippet>22</a>#[allow(unused_imports)]
+<a href=#23 id=23 data-nosnippet>23</a></span><span class="kw">mod </span><a href="auto/mod.rs.html#5-125">auto</a>;
+<a href=#24 id=24 data-nosnippet>24</a>
+<a href=#25 id=25 data-nosnippet>25</a><span class="kw">pub mod </span><a href="prelude.rs.html#3-18">prelude</a>;
+<a href=#26 id=26 data-nosnippet>26</a>
+<a href=#27 id=27 data-nosnippet>27</a><span class="kw">pub use </span><a href="auto/mod.rs.html#117"><span class="self">self</span>::auto::functions</a>::<span class="kw-2">*</span>;
+<a href=#28 id=28 data-nosnippet>28</a><span class="kw">pub use </span><a href="#23"><span class="kw">crate</span>::auto</a>::<span class="kw-2">*</span>;
+<a href=#29 id=29 data-nosnippet>29</a>
+<a href=#30 id=30 data-nosnippet>30</a><span class="kw">mod </span><a href="atom.rs.html#3-262">atom</a>;
+<a href=#31 id=31 data-nosnippet>31</a><span class="kw">mod </span><a href="cairo_interaction.rs.html#3-161">cairo_interaction</a>;
+<a href=#32 id=32 data-nosnippet>32</a><span class="kw">mod </span><a href="change_data.rs.html#3-38">change_data</a>;
+<a href=#33 id=33 data-nosnippet>33</a><span class="kw">mod </span><a href="device.rs.html#3-81">device</a>;
+<a href=#34 id=34 data-nosnippet>34</a><span class="kw">mod </span><a href="device_manager.rs.html#3-11">device_manager</a>;
+<a href=#35 id=35 data-nosnippet>35</a><span class="kw">mod </span><a href="display.rs.html#3-73">display</a>;
+<a href=#36 id=36 data-nosnippet>36</a><span class="kw">mod </span><a href="drag_context.rs.html#3-154">drag_context</a>;
+<a href=#37 id=37 data-nosnippet>37</a><span class="kw">mod </span><a href="event_button.rs.html#3-95">event_button</a>;
+<a href=#38 id=38 data-nosnippet>38</a><span class="kw">mod </span><a href="event_configure.rs.html#3-25">event_configure</a>;
+<a href=#39 id=39 data-nosnippet>39</a><span class="kw">mod </span><a href="event_crossing.rs.html#3-56">event_crossing</a>;
+<a href=#40 id=40 data-nosnippet>40</a><span class="kw">mod </span><a href="event_dnd.rs.html#3-37">event_dnd</a>;
+<a href=#41 id=41 data-nosnippet>41</a><span class="kw">mod </span><a href="event_expose.rs.html#3-29">event_expose</a>;
+<a href=#42 id=42 data-nosnippet>42</a><span class="kw">mod </span><a href="event_focus.rs.html#3-17">event_focus</a>;
+<a href=#43 id=43 data-nosnippet>43</a><span class="kw">mod </span><a href="event_grab_broken.rs.html#3-29">event_grab_broken</a>;
+<a href=#44 id=44 data-nosnippet>44</a><span class="kw">mod </span><a href="event_key.rs.html#3-49">event_key</a>;
+<a href=#45 id=45 data-nosnippet>45</a><span class="kw">mod </span><a href="event_motion.rs.html#3-62">event_motion</a>;
+<a href=#46 id=46 data-nosnippet>46</a><span class="kw">mod </span><a href="event_owner_change.rs.html#3-39">event_owner_change</a>;
+<a href=#47 id=47 data-nosnippet>47</a><span class="kw">mod </span><a href="event_pad_axis.rs.html#3-37">event_pad_axis</a>;
+<a href=#48 id=48 data-nosnippet>48</a><span class="kw">mod </span><a href="event_pad_button.rs.html#3-35">event_pad_button</a>;
+<a href=#49 id=49 data-nosnippet>49</a><span class="kw">mod </span><a href="event_pad_group_mode.rs.html#3-27">event_pad_group_mode</a>;
+<a href=#50 id=50 data-nosnippet>50</a><span class="kw">mod </span><a href="event_property.rs.html#3-27">event_property</a>;
+<a href=#51 id=51 data-nosnippet>51</a><span class="kw">mod </span><a href="event_proximity.rs.html#3-33">event_proximity</a>;
+<a href=#52 id=52 data-nosnippet>52</a><span class="kw">mod </span><a href="event_scroll.rs.html#3-65">event_scroll</a>;
+<a href=#53 id=53 data-nosnippet>53</a><span class="kw">mod </span><a href="event_selection.rs.html#3-41">event_selection</a>;
+<a href=#54 id=54 data-nosnippet>54</a><span class="kw">mod </span><a href="event_setting.rs.html#3-23">event_setting</a>;
+<a href=#55 id=55 data-nosnippet>55</a><span class="kw">mod </span><a href="event_touch.rs.html#3-73">event_touch</a>;
+<a href=#56 id=56 data-nosnippet>56</a><span class="kw">mod </span><a href="event_touchpad_pinch.rs.html#3-62">event_touchpad_pinch</a>;
+<a href=#57 id=57 data-nosnippet>57</a><span class="kw">mod </span><a href="event_touchpad_swipe.rs.html#3-52">event_touchpad_swipe</a>;
+<a href=#58 id=58 data-nosnippet>58</a><span class="kw">mod </span><a href="event_visibility.rs.html#3-16">event_visibility</a>;
+<a href=#59 id=59 data-nosnippet>59</a><span class="kw">mod </span><a href="event_window_state.rs.html#3-22">event_window_state</a>;
+<a href=#60 id=60 data-nosnippet>60</a><span class="kw">mod </span><a href="frame_clock.rs.html#3-42">frame_clock</a>;
+<a href=#61 id=61 data-nosnippet>61</a><span class="kw">mod </span><a href="frame_timings.rs.html#3-73">frame_timings</a>;
+<a href=#62 id=62 data-nosnippet>62</a><span class="kw">mod </span><a href="functions.rs.html#3-119">functions</a>;
+<a href=#63 id=63 data-nosnippet>63</a><span class="kw">mod </span><a href="geometry.rs.html#3-155">geometry</a>;
+<a href=#64 id=64 data-nosnippet>64</a><span class="kw">mod </span><a href="keymap.rs.html#3-178">keymap</a>;
+<a href=#65 id=65 data-nosnippet>65</a><span class="kw">mod </span><a href="keymap_key.rs.html#3-31">keymap_key</a>;
+<a href=#66 id=66 data-nosnippet>66</a><span class="kw">pub mod </span><a href="keys.rs.html#3-4654">keys</a>;
+<a href=#67 id=67 data-nosnippet>67</a><span class="kw">mod </span><a href="rectangle.rs.html#3-61">rectangle</a>;
+<a href=#68 id=68 data-nosnippet>68</a><span class="kw">mod </span><a href="rgba.rs.html#3-152">rgba</a>;
+<a href=#69 id=69 data-nosnippet>69</a><span class="kw">mod </span><a href="screen.rs.html#3-41">screen</a>;
+<a href=#70 id=70 data-nosnippet>70</a><span class="kw">mod </span><a href="time_coord.rs.html#3-17">time_coord</a>;
+<a href=#71 id=71 data-nosnippet>71</a><span class="kw">mod </span><a href="visual.rs.html#3-23">visual</a>;
+<a href=#72 id=72 data-nosnippet>72</a><span class="kw">mod </span><a href="window.rs.html#3-361">window</a>;
+<a href=#73 id=73 data-nosnippet>73</a>
+<a href=#74 id=74 data-nosnippet>74</a><span class="kw">pub use </span><a href="../../gdk/struct.Color.html">ffi::GdkColor</a> <span class="kw">as </span>Color;
+<a href=#75 id=75 data-nosnippet>75</a>
+<a href=#76 id=76 data-nosnippet>76</a><span class="kw">pub use </span><span class="self">self</span>::rt::{<a href="rt.rs.html#77-83">init</a>, <a href="rt.rs.html#65-74">set_initialized</a>};
+<a href=#77 id=77 data-nosnippet>77</a>
+<a href=#78 id=78 data-nosnippet>78</a><span class="kw">pub use </span><a href="atom.rs.html#12"><span class="kw">crate</span>::atom::Atom</a>;
+<a href=#79 id=79 data-nosnippet>79</a><span class="kw">pub use </span><a href="atom.rs.html#14"><span class="kw">crate</span>::atom::NONE</a> <span class="kw">as </span>ATOM_NONE;
+<a href=#80 id=80 data-nosnippet>80</a><span class="kw">pub use </span><a href="atom.rs.html#17"><span class="kw">crate</span>::atom::SELECTION_CLIPBOARD</a>;
+<a href=#81 id=81 data-nosnippet>81</a><span class="kw">pub use </span><a href="atom.rs.html#15"><span class="kw">crate</span>::atom::SELECTION_PRIMARY</a>;
+<a href=#82 id=82 data-nosnippet>82</a><span class="kw">pub use </span><a href="atom.rs.html#16"><span class="kw">crate</span>::atom::SELECTION_SECONDARY</a>;
+<a href=#83 id=83 data-nosnippet>83</a><span class="kw">pub use </span><a href="atom.rs.html#23"><span class="kw">crate</span>::atom::SELECTION_TYPE_ATOM</a>;
+<a href=#84 id=84 data-nosnippet>84</a><span class="kw">pub use </span><a href="atom.rs.html#24"><span class="kw">crate</span>::atom::SELECTION_TYPE_BITMAP</a>;
+<a href=#85 id=85 data-nosnippet>85</a><span class="kw">pub use </span><a href="atom.rs.html#25"><span class="kw">crate</span>::atom::SELECTION_TYPE_COLORMAP</a>;
+<a href=#86 id=86 data-nosnippet>86</a><span class="kw">pub use </span><a href="atom.rs.html#26"><span class="kw">crate</span>::atom::SELECTION_TYPE_DRAWABLE</a>;
+<a href=#87 id=87 data-nosnippet>87</a><span class="kw">pub use </span><a href="atom.rs.html#27"><span class="kw">crate</span>::atom::SELECTION_TYPE_INTEGER</a>;
+<a href=#88 id=88 data-nosnippet>88</a><span class="kw">pub use </span><a href="atom.rs.html#28"><span class="kw">crate</span>::atom::SELECTION_TYPE_PIXMAP</a>;
+<a href=#89 id=89 data-nosnippet>89</a><span class="kw">pub use </span><a href="atom.rs.html#30"><span class="kw">crate</span>::atom::SELECTION_TYPE_STRING</a>;
+<a href=#90 id=90 data-nosnippet>90</a><span class="kw">pub use </span><a href="atom.rs.html#29"><span class="kw">crate</span>::atom::SELECTION_TYPE_WINDOW</a>;
+<a href=#91 id=91 data-nosnippet>91</a><span class="kw">pub use </span><a href="atom.rs.html#18"><span class="kw">crate</span>::atom::TARGET_BITMAP</a>;
+<a href=#92 id=92 data-nosnippet>92</a><span class="kw">pub use </span><a href="atom.rs.html#19"><span class="kw">crate</span>::atom::TARGET_COLORMAP</a>;
+<a href=#93 id=93 data-nosnippet>93</a><span class="kw">pub use </span><a href="atom.rs.html#20"><span class="kw">crate</span>::atom::TARGET_DRAWABLE</a>;
+<a href=#94 id=94 data-nosnippet>94</a><span class="kw">pub use </span><a href="atom.rs.html#21"><span class="kw">crate</span>::atom::TARGET_PIXMAP</a>;
+<a href=#95 id=95 data-nosnippet>95</a><span class="kw">pub use </span><a href="atom.rs.html#22"><span class="kw">crate</span>::atom::TARGET_STRING</a>;
+<a href=#96 id=96 data-nosnippet>96</a><span class="kw">pub use </span><a href="change_data.rs.html#4-11"><span class="kw">crate</span>::change_data::ChangeData</a>;
+<a href=#97 id=97 data-nosnippet>97</a><span class="kw">pub use </span><a href="display.rs.html#8-14"><span class="kw">crate</span>::display::Backend</a>;
+<a href=#98 id=98 data-nosnippet>98</a><span class="kw">pub use </span><span class="kw">crate</span>::event::{<a href="event.rs.html#20-31">Event</a>, <a href="event.rs.html#412-415">FromEvent</a>};
+<a href=#99 id=99 data-nosnippet>99</a><span class="kw">pub use </span><a href="event_button.rs.html#39"><span class="kw">crate</span>::event_button::EventButton</a>;
+<a href=#100 id=100 data-nosnippet>100</a><span class="kw">pub use </span><a href="event_configure.rs.html#7"><span class="kw">crate</span>::event_configure::EventConfigure</a>;
+<a href=#101 id=101 data-nosnippet>101</a><span class="kw">pub use </span><a href="event_crossing.rs.html#7"><span class="kw">crate</span>::event_crossing::EventCrossing</a>;
+<a href=#102 id=102 data-nosnippet>102</a><span class="kw">pub use </span><a href="event_dnd.rs.html#7"><span class="kw">crate</span>::event_dnd::EventDND</a>;
+<a href=#103 id=103 data-nosnippet>103</a><span class="kw">pub use </span><a href="event_expose.rs.html#9"><span class="kw">crate</span>::event_expose::EventExpose</a>;
+<a href=#104 id=104 data-nosnippet>104</a><span class="kw">pub use </span><a href="event_focus.rs.html#7"><span class="kw">crate</span>::event_focus::EventFocus</a>;
+<a href=#105 id=105 data-nosnippet>105</a><span class="kw">pub use </span><a href="event_grab_broken.rs.html#11"><span class="kw">crate</span>::event_grab_broken::EventGrabBroken</a>;
+<a href=#106 id=106 data-nosnippet>106</a><span class="kw">pub use </span><a href="event_key.rs.html#7"><span class="kw">crate</span>::event_key::EventKey</a>;
+<a href=#107 id=107 data-nosnippet>107</a><span class="kw">pub use </span><a href="event_motion.rs.html#7"><span class="kw">crate</span>::event_motion::EventMotion</a>;
+<a href=#108 id=108 data-nosnippet>108</a><span class="kw">pub use </span><a href="event_owner_change.rs.html#9"><span class="kw">crate</span>::event_owner_change::EventOwnerChange</a>;
+<a href=#109 id=109 data-nosnippet>109</a><span class="kw">pub use </span><a href="event_property.rs.html#7"><span class="kw">crate</span>::event_property::EventProperty</a>;
+<a href=#110 id=110 data-nosnippet>110</a><span class="kw">pub use </span><a href="event_proximity.rs.html#15"><span class="kw">crate</span>::event_proximity::EventProximity</a>;
+<a href=#111 id=111 data-nosnippet>111</a><span class="kw">pub use </span><a href="event_scroll.rs.html#14"><span class="kw">crate</span>::event_scroll::EventScroll</a>;
+<a href=#112 id=112 data-nosnippet>112</a><span class="kw">pub use </span><a href="event_selection.rs.html#8"><span class="kw">crate</span>::event_selection::EventSelection</a>;
+<a href=#113 id=113 data-nosnippet>113</a><span class="kw">pub use </span><a href="event_setting.rs.html#8"><span class="kw">crate</span>::event_setting::EventSetting</a>;
+<a href=#114 id=114 data-nosnippet>114</a><span class="kw">pub use </span><a href="event_touch.rs.html#16"><span class="kw">crate</span>::event_touch::EventTouch</a>;
+<a href=#115 id=115 data-nosnippet>115</a><span class="kw">pub use </span><a href="event_visibility.rs.html#6"><span class="kw">crate</span>::event_visibility::EventVisibility</a>;
+<a href=#116 id=116 data-nosnippet>116</a><span class="kw">pub use </span><a href="event_window_state.rs.html#7"><span class="kw">crate</span>::event_window_state::EventWindowState</a>;
+<a href=#117 id=117 data-nosnippet>117</a><span class="kw">pub use </span><a href="#62"><span class="kw">crate</span>::functions</a>::<span class="kw-2">*</span>;
+<a href=#118 id=118 data-nosnippet>118</a><span class="kw">pub use </span><a href="geometry.rs.html#7-69"><span class="kw">crate</span>::geometry::Geometry</a>;
+<a href=#119 id=119 data-nosnippet>119</a><span class="kw">pub use </span><a href="keymap_key.rs.html#5-9"><span class="kw">crate</span>::keymap_key::KeymapKey</a>;
+<a href=#120 id=120 data-nosnippet>120</a><span class="kw">pub use </span><a href="time_coord.rs.html#3-7"><span class="kw">crate</span>::time_coord::TimeCoord</a>;
+<a href=#121 id=121 data-nosnippet>121</a><span class="kw">pub use </span><a href="window.rs.html#15-28"><span class="kw">crate</span>::window::WindowAttr</a>;
+<a href=#122 id=122 data-nosnippet>122</a><span class="kw">pub use </span><a href="event_pad_axis.rs.html#7">event_pad_axis::EventPadAxis</a>;
+<a href=#123 id=123 data-nosnippet>123</a><span class="kw">pub use </span><a href="event_pad_button.rs.html#7">event_pad_button::EventPadButton</a>;
+<a href=#124 id=124 data-nosnippet>124</a><span class="kw">pub use </span><a href="event_pad_group_mode.rs.html#7">event_pad_group_mode::EventPadGroupMode</a>;
+<a href=#125 id=125 data-nosnippet>125</a><span class="kw">pub use </span><a href="event_touchpad_pinch.rs.html#7">event_touchpad_pinch::EventTouchpadPinch</a>;
+<a href=#126 id=126 data-nosnippet>126</a><span class="kw">pub use </span><a href="event_touchpad_swipe.rs.html#7">event_touchpad_swipe::EventTouchpadSwipe</a>;
+<a href=#127 id=127 data-nosnippet>127</a>
+<a href=#128 id=128 data-nosnippet>128</a><span class="attr">#[allow(non_camel_case_types)]
+<a href=#129 id=129 data-nosnippet>129</a></span><span class="kw">pub type </span><a href="../../gdk/type.key.html">key</a> = <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>;
+<a href=#130 id=130 data-nosnippet>130</a>
+<a href=#131 id=131 data-nosnippet>131</a><span class="doccomment">/// The primary button. This is typically the left mouse button, or the right button in a left-handed setup.
+<a href=#132 id=132 data-nosnippet>132</a></span><span class="comment">// rustdoc-stripper-ignore-next-stop
+<a href=#133 id=133 data-nosnippet>133</a></span><span class="doccomment">/// The primary button. This is typically the left mouse button, or the
+<a href=#134 id=134 data-nosnippet>134</a>/// right button in a left-handed setup.
+<a href=#135 id=135 data-nosnippet>135</a></span><span class="attr">#[doc(alias = <span class="string">"GDK_BUTTON_PRIMARY"</span>)]
+<a href=#136 id=136 data-nosnippet>136</a></span><span class="kw">pub const </span><a href="../../gdk/constant.BUTTON_PRIMARY.html">BUTTON_PRIMARY</a>: <a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a> = ffi::<a href="../../gdk_sys/constant.GDK_BUTTON_PRIMARY.html">GDK_BUTTON_PRIMARY</a> <span class="kw">as </span><a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>;
+<a href=#137 id=137 data-nosnippet>137</a>
+<a href=#138 id=138 data-nosnippet>138</a><span class="doccomment">/// The middle button.
+<a href=#139 id=139 data-nosnippet>139</a></span><span class="comment">// rustdoc-stripper-ignore-next-stop
+<a href=#140 id=140 data-nosnippet>140</a></span><span class="doccomment">/// The middle button.
+<a href=#141 id=141 data-nosnippet>141</a></span><span class="attr">#[doc(alias = <span class="string">"GDK_BUTTON_MIDDLE"</span>)]
+<a href=#142 id=142 data-nosnippet>142</a></span><span class="kw">pub const </span><a href="../../gdk/constant.BUTTON_MIDDLE.html">BUTTON_MIDDLE</a>: <a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a> = ffi::<a href="../../gdk_sys/constant.GDK_BUTTON_MIDDLE.html">GDK_BUTTON_MIDDLE</a> <span class="kw">as </span><a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>;
+<a href=#143 id=143 data-nosnippet>143</a>
+<a href=#144 id=144 data-nosnippet>144</a><span class="doccomment">/// The secondary button. This is typically the right mouse button, or the left button in a left-handed setup.
+<a href=#145 id=145 data-nosnippet>145</a></span><span class="comment">// rustdoc-stripper-ignore-next-stop
+<a href=#146 id=146 data-nosnippet>146</a></span><span class="doccomment">/// The secondary button. This is typically the right mouse button, or the
+<a href=#147 id=147 data-nosnippet>147</a>/// left button in a left-handed setup.
+<a href=#148 id=148 data-nosnippet>148</a></span><span class="attr">#[doc(alias = <span class="string">"GDK_BUTTON_SECONDARY"</span>)]
+<a href=#149 id=149 data-nosnippet>149</a></span><span class="kw">pub const </span><a href="../../gdk/constant.BUTTON_SECONDARY.html">BUTTON_SECONDARY</a>: <a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a> = ffi::<a href="../../gdk_sys/constant.GDK_BUTTON_SECONDARY.html">GDK_BUTTON_SECONDARY</a> <span class="kw">as </span><a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>;
+<a href=#150 id=150 data-nosnippet>150</a>
+<a href=#151 id=151 data-nosnippet>151</a><span class="comment">// Used as the return value for stopping the propagation of an event handler.
+<a href=#152 id=152 data-nosnippet>152</a></span><span class="doccomment">/// Use this macro as the return value for stopping the propagation of
+<a href=#153 id=153 data-nosnippet>153</a>/// an event handler.
+<a href=#154 id=154 data-nosnippet>154</a></span><span class="attr">#[doc(alias = <span class="string">"GDK_EVENT_STOP"</span>)]
+<a href=#155 id=155 data-nosnippet>155</a></span><span class="kw">pub const </span><a href="../../gdk/constant.EVENT_STOP.html">EVENT_STOP</a>: <a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a> = ffi::<a href="../../gdk_sys/constant.GDK_EVENT_STOP.html">GDK_EVENT_STOP</a> <span class="kw">as </span><a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>;
+<a href=#156 id=156 data-nosnippet>156</a>
+<a href=#157 id=157 data-nosnippet>157</a><span class="comment">// Used as the return value for continuing the propagation of an event handler.
+<a href=#158 id=158 data-nosnippet>158</a></span><span class="doccomment">/// Use this macro as the return value for continuing the propagation of
+<a href=#159 id=159 data-nosnippet>159</a>/// an event handler.
+<a href=#160 id=160 data-nosnippet>160</a></span><span class="attr">#[doc(alias = <span class="string">"GDK_EVENT_PROPAGATE"</span>)]
+<a href=#161 id=161 data-nosnippet>161</a></span><span class="kw">pub const </span><a href="../../gdk/constant.EVENT_PROPAGATE.html">EVENT_PROPAGATE</a>: <a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a> = ffi::<a href="../../gdk_sys/constant.GDK_EVENT_PROPAGATE.html">GDK_EVENT_PROPAGATE</a> <span class="kw">as </span><a href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>;
+</code></pre></div></section></main></body></html>
