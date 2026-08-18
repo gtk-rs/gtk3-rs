@@ -14,6 +14,9 @@ pub use x11;
 mod rt;
 #[allow(unused_imports)]
 mod auto;
+mod x11_display;
+mod x11_screen;
+mod x11_visual;
 
 pub mod builders;
 
