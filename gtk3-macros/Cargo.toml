@@ -2,7 +2,7 @@
 documentation = "https://gtk-rs.org/gtk3-rs/stable/latest/docs/gtk3_macros/"
 categories.workspace = true
 license.workspace = true
-description = "Rust bindings for the GTK 3 library"
+description = "proc-macro crate for the GTK 3 library Rust bindings"
 homepage.workspace = true
 name = "gtk3-macros"
 version.workspace = true
