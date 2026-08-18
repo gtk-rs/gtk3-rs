@@ -42,13 +42,14 @@ jobs:
           - nightly
           - "1.92"
         conf:
-          - { name: "atk", features: "v2_34", test_sys: false } # disable for now, until we get 2.38 on the docker image
+          - { name: "atk", features: "v2_52", test_sys: false }  # .gir file is missing `ATK_TEXT_ATTR_MARK`
           - { name: "gdk", features: "v3_24", test_sys: true }
           - { name: "gdkx11", features: "v3_24", test_sys: true }
           - { name: "gdkwayland", features: "v3_24", test_sys: false }
-          - { name: "gtk", features: "v3_24_9", test_sys: false }
+          - { name: "gtk", features: "v3_24_30", test_sys: false }  # a11y headers are missing some symbols
     steps:
       - uses: actions/checkout@v7
+      - run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
       - uses: dtolnay/rust-toolchain@v1
         with:
           toolchain: ${{ matrix.rust }}
