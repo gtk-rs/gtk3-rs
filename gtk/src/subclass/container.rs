@@ -1,6 +1,8 @@
 // Take a look at the license at the top of the repository in the LICENSE file.
 
-use glib::translate::*;
+use std::{mem, ptr};
+
+use glib::{ParamSpec, Value, gobject_ffi, translate::*};
 
 use glib::subclass::prelude::*;
 
@@ -12,6 +14,15 @@ use crate::WidgetPath;
 use crate::{Container, ffi};
 
 pub trait ContainerImpl: ContainerImplExt + WidgetImpl {
+    // rustdoc-stripper-ignore-next
+    /// Child properties installed for this type.
+    ///
+    /// Override and return an array of [`ParamSpec`] to register new child properties on your
+    /// subclass.
+    fn child_properties() -> &'static [ParamSpec] {
+        &[]
+    }
+
     fn add(&self, widget: &Widget) {
         self.parent_add(widget)
     }
@@ -39,6 +50,15 @@ pub trait ContainerImpl: ContainerImplExt + WidgetImpl {
 
     fn forall(&self, include_internals: bool, callback: &Callback) {
         self.parent_forall(include_internals, callback);
+    }
+
+    fn set_child_property(&self, _child: &Widget, _id: usize, _value: &Value, _pspec: &ParamSpec) {
+        unimplemented!()
+    }
+
+    #[doc(alias = "get_child_property")]
+    fn child_property(&self, _child: &Widget, _id: usize, _pspec: &ParamSpec) -> Value {
+        unimplemented!()
     }
 }
 
@@ -155,6 +175,22 @@ unsafe impl<T: ContainerImpl> IsSubclassable<T> for Container {
         klass.child_type = Some(container_child_type::<T>);
         klass.get_path_for_child = Some(container_get_path_for_child::<T>);
         klass.forall = Some(container_forall::<T>);
+        klass.set_child_property = Some(container_set_child_property::<T>);
+        klass.get_child_property = Some(container_get_child_property::<T>);
+
+        let pspecs = <T as ContainerImpl>::child_properties();
+        if !pspecs.is_empty() {
+            unsafe {
+                let mut pspecs_ptrs = std::iter::once(ptr::null_mut())
+                    .chain(pspecs.iter().map(|pspec| pspec.to_glib_none().0))
+                    .collect::<Vec<_>>();
+                ffi::gtk_container_class_install_child_properties(
+                    klass,
+                    pspecs_ptrs.len() as u32,
+                    pspecs_ptrs.as_mut_ptr(),
+                );
+            }
+        }
     }
 }
 
@@ -247,6 +283,48 @@ unsafe extern "C" fn container_forall<T>(
         };
 
         imp.forall(from_glib(include_internals), &callback)
+    }
+}
+
+unsafe extern "C" fn container_set_child_property<T: ContainerImpl>(
+    ptr: *mut ffi::GtkContainer,
+    childptr: *mut ffi::GtkWidget,
+    property_id: libc::c_uint,
+    valueptr: *mut gobject_ffi::GValue,
+    pspecptr: *mut gobject_ffi::GParamSpec,
+) {
+    unsafe {
+        let instance = &*(ptr as *mut T::Instance);
+        let imp = instance.imp();
+        let child: Borrowed<Widget> = from_glib_borrow(childptr);
+        let value: Borrowed<glib::Value> = from_glib_borrow(valueptr);
+        let pspec: Borrowed<ParamSpec> = from_glib_borrow(pspecptr);
+
+        imp.set_child_property(&child, property_id as usize, &value, &pspec);
+    }
+}
+
+unsafe extern "C" fn container_get_child_property<T: ContainerImpl>(
+    ptr: *mut ffi::GtkContainer,
+    childptr: *mut ffi::GtkWidget,
+    property_id: libc::c_uint,
+    valueptr: *mut gobject_ffi::GValue,
+    pspecptr: *mut gobject_ffi::GParamSpec,
+) {
+    unsafe {
+        let instance = &*(ptr as *mut T::Instance);
+        let imp = instance.imp();
+        let child: Borrowed<Widget> = from_glib_borrow(childptr);
+        let pspec: Borrowed<ParamSpec> = from_glib_borrow(pspecptr);
+
+        let v = imp.child_property(&child, property_id as usize, &pspec);
+
+        // Unset the passed value just in case it has any data in it.  Then copy the returned value
+        // `v`'s data, byte-for-byte, into `valueptr`.  Use `ManuallyDrop` in order to transfer
+        // ownership to `valueptr` without having to make a copy.
+        gobject_ffi::g_value_unset(valueptr);
+        let v = mem::ManuallyDrop::new(v);
+        ptr::write(valueptr, ptr::read(v.to_glib_none().0));
     }
 }
 
