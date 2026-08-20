@@ -1,7 +1,9 @@
 // Take a look at the license at the top of the repository in the LICENSE file.
 
+use glib::subclass::SignalId;
 use libc::c_int;
 use std::mem;
+use std::num::NonZeroU32;
 
 use glib::Propagation;
 use glib::prelude::*;
@@ -162,9 +164,9 @@ pub trait WidgetImpl: WidgetImplExt + ObjectImpl {
         self.parent_draw(cr)
     }
 
-    // fn can_activate_accel(&self, signal_id: u32) -> bool {
-    //     self.parent_can_activate_accel( signal_id)
-    // }
+    fn can_activate_accel(&self, signal_id: SignalId) -> bool {
+        self.parent_can_activate_accel(signal_id)
+    }
 
     fn request_mode(&self) -> SizeRequestMode {
         self.parent_request_mode()
@@ -338,7 +340,20 @@ pub trait WidgetImplExt: ObjectSubclass + sealed::Sealed {
             }
         }
     }
-    // fn parent_can_activate_accel(&self, signal_id: u32) -> bool;
+    fn parent_can_activate_accel(&self, signal_id: SignalId) -> bool {
+        unsafe {
+            let data = Self::type_data();
+            let parent_class = data.as_ref().parent_class() as *mut ffi::GtkWidgetClass;
+            if let Some(f) = (*parent_class).can_activate_accel {
+                from_glib(f(
+                    self.obj().unsafe_cast_ref::<Widget>().to_glib_none().0,
+                    signal_id.into_glib(),
+                ))
+            } else {
+                false
+            }
+        }
+    }
     fn parent_child_notify(&self, child_property: &glib::ParamSpec) {
         unsafe {
             let data = Self::type_data();
@@ -864,7 +879,7 @@ unsafe impl<T: WidgetImpl> IsSubclassable<T> for Widget {
         klass.adjust_size_request = Some(widget_adjust_size_request::<T>);
         klass.button_press_event = Some(widget_button_press_event::<T>);
         klass.button_release_event = Some(widget_button_release_event::<T>);
-        // klass.can_activate_accel = Some(widget_can_activate_accel::<T>);
+        klass.can_activate_accel = Some(widget_can_activate_accel::<T>);
         klass.child_notify = Some(widget_child_notify::<T>);
         klass.composited_changed = Some(widget_composited_changed::<T>);
         klass.compute_expand = Some(widget_compute_expand::<T>);
@@ -993,16 +1008,22 @@ unsafe extern "C" fn widget_button_release_event<T: WidgetImpl>(
     }
 }
 
-// unsafe extern "C" fn widget_can_activate_accel<T: WidgetImpl>(
-//     ptr: *mut ffi::GtkWidget,
-//     signal_id: u32,
-// ) -> glib::ffi::gboolean
-// {
-//     let instance = &*(ptr as *mut T::Instance);
-//     let imp = instance.get_impl();
+unsafe extern "C" fn widget_can_activate_accel<T: WidgetImpl>(
+    ptr: *mut ffi::GtkWidget,
+    signal_id: u32,
+) -> glib::ffi::gboolean {
+    unsafe {
+        let instance = &*(ptr as *mut T::Instance);
+        let imp = instance.imp();
 
-//     imp.can_activate_accel( signal_id) as glib::ffi::gboolean
-// }
+        if let Some(signal_id) = NonZeroU32::new(signal_id).map(|nz| SignalId::new(nz)) {
+            imp.can_activate_accel(signal_id)
+        } else {
+            false
+        }
+        .into_glib()
+    }
+}
 
 unsafe extern "C" fn widget_child_notify<T: WidgetImpl>(
     ptr: *mut ffi::GtkWidget,
