@@ -33,6 +33,7 @@ pub mod scrolled_window;
 pub mod socket;
 pub mod stack;
 pub mod toggle_button;
+pub mod tree_drag_source;
 pub mod tree_view;
 pub mod widget;
 pub mod window;
@@ -74,6 +75,7 @@ pub mod prelude {
     pub use super::socket::{SocketImpl, SocketImplExt};
     pub use super::stack::StackImpl;
     pub use super::toggle_button::ToggleButtonImpl;
+    pub use super::tree_drag_source::{TreeDragSourceImpl, TreeDragSourceImplExt};
     pub use super::tree_view::{TreeViewImpl, TreeViewImplExt};
     pub use super::widget::{
         CompositeTemplate, TemplateChild, WidgetClassSubclassExt, WidgetImpl, WidgetImplExt,
