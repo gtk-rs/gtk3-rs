@@ -25,6 +25,7 @@ pub mod header_bar;
 pub mod icon_view;
 pub mod list_box;
 pub mod list_box_row;
+pub mod list_store;
 pub mod menu_button;
 #[cfg(gdk_backend = "x11")]
 pub mod plug;
@@ -69,6 +70,7 @@ pub mod prelude {
     pub use super::icon_view::{IconViewImpl, IconViewImplExt};
     pub use super::list_box::{ListBoxImpl, ListBoxImplExt};
     pub use super::list_box_row::{ListBoxRowImpl, ListBoxRowImplExt};
+    pub use super::list_store::ListStoreImpl;
     pub use super::menu_button::MenuButtonImpl;
     #[cfg(gdk_backend = "x11")]
     pub use super::plug::{PlugImpl, PlugImplExt};
