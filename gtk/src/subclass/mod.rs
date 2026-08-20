@@ -20,6 +20,7 @@ pub mod drawing_area;
 pub mod entry;
 pub mod event_box;
 pub mod fixed;
+pub mod grid;
 pub mod header_bar;
 pub mod icon_view;
 pub mod list_box;
@@ -60,6 +61,7 @@ pub mod prelude {
     pub use super::entry::{EntryImpl, EntryImplExt};
     pub use super::event_box::EventBoxImpl;
     pub use super::fixed::FixedImpl;
+    pub use super::grid::GridImpl;
     pub use super::header_bar::HeaderBarImpl;
     pub use super::icon_view::{IconViewImpl, IconViewImplExt};
     pub use super::list_box::{ListBoxImpl, ListBoxImplExt};
