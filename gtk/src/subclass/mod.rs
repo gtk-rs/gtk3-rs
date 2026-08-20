@@ -74,7 +74,7 @@ pub mod prelude {
     pub use super::socket::{SocketImpl, SocketImplExt};
     pub use super::stack::StackImpl;
     pub use super::toggle_button::ToggleButtonImpl;
-    pub use super::tree_view::TreeViewImpl;
+    pub use super::tree_view::{TreeViewImpl, TreeViewImplExt};
     pub use super::widget::{
         CompositeTemplate, TemplateChild, WidgetClassSubclassExt, WidgetImpl, WidgetImplExt,
     };
