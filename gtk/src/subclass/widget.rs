@@ -10,21 +10,31 @@ use glib::prelude::*;
 use glib::subclass::prelude::*;
 use glib::translate::*;
 
+use crate::DirectionType;
 use crate::DragResult;
 use crate::Orientation;
 use crate::SelectionData;
 use crate::SizeRequestMode;
+use crate::StateFlags;
 use crate::TextDirection;
+use crate::Tooltip;
 use crate::Widget;
+use crate::WidgetHelpType;
 use crate::prelude::*;
 use crate::{Allocation, ffi};
 
-pub trait WidgetImpl: WidgetImplExt + ObjectImpl {
+pub trait WidgetImpl: ObjectImpl + ObjectSubclass<Type: IsA<Widget>> {
     // Do not provide an override for this, as widget implementors should just use
     // WidgetClassSubclassExt::set_accessible_type().  The base gtk_widget_real_get_accessible()
     // does caching (because this vfunc is transfer-none) and initialization, and it's probably
     // best that we don't encourage people to take on the burden of getting that right.
-    // fn get_accessible(&self) -> atk::Accessible;
+    //fn get_accessible(&self) -> atk::Accessible;
+
+    // Deprecated, use state_flags_changed instead.
+    //fn state_changed(&self, previous_state: StateType);
+
+    // Deprecated, use style_updated instead.
+    //fn style_set(&self, previous_style: Style);
 
     fn adjust_baseline_allocation(&self, baseline: &mut i32) {
         self.parent_adjust_baseline_allocation(baseline)
@@ -215,6 +225,22 @@ pub trait WidgetImpl: WidgetImplExt + ObjectImpl {
         self.parent_unmap();
     }
 
+    fn show(&self) {
+        self.parent_show();
+    }
+
+    fn hide(&self) {
+        self.parent_hide();
+    }
+
+    fn grab_focus(&self) {
+        self.parent_grab_focus();
+    }
+
+    fn focus(&self, direction: DirectionType) -> bool {
+        self.parent_focus(direction)
+    }
+
     fn motion_notify_event(&self, event: &gdk::EventMotion) -> Propagation {
         self.parent_motion_notify_event(event)
     }
@@ -230,14 +256,137 @@ pub trait WidgetImpl: WidgetImplExt + ObjectImpl {
     fn leave_notify_event(&self, event: &gdk::EventCrossing) -> Propagation {
         self.parent_leave_notify_event(event)
     }
+
+    fn focus_in_event(&self, event: &gdk::EventFocus) -> Propagation {
+        self.parent_focus_in_event(event)
+    }
+
+    fn focus_out_event(&self, event: &gdk::EventFocus) -> Propagation {
+        self.parent_focus_out_event(event)
+    }
+
+    fn key_press_event(&self, event: &gdk::EventKey) -> Propagation {
+        self.parent_key_press_event(event)
+    }
+
+    fn key_release_event(&self, event: &gdk::EventKey) -> Propagation {
+        self.parent_key_release_event(event)
+    }
+
+    fn map_event(&self, event: &gdk::Event) -> Propagation {
+        self.parent_map_event(event)
+    }
+
+    fn unmap_event(&self, event: &gdk::Event) -> Propagation {
+        self.parent_unmap_event(event)
+    }
+
+    fn show_all(&self) {
+        self.parent_show_all();
+    }
+
+    fn state_flags_changed(&self, previous_state_flags: StateFlags) {
+        self.parent_state_flags_changed(previous_state_flags);
+    }
+
+    fn parent_set(&self, previous_parent: Option<&Widget>) {
+        self.parent_parent_set(previous_parent);
+    }
+
+    fn hierarchy_changed(&self, previous_toplevel: Option<&Widget>) {
+        self.parent_hierarchy_changed(previous_toplevel);
+    }
+
+    fn grab_notify(&self, was_grabbed: bool) {
+        self.parent_grab_notify(was_grabbed);
+    }
+
+    fn mnemonic_activate(&self, group_cycling: bool) -> bool {
+        self.parent_mnemonic_activate(group_cycling)
+    }
+
+    fn move_focus(&self, direction: DirectionType) {
+        self.parent_move_focus(direction);
+    }
+
+    fn keynav_failed(&self, direction: DirectionType) -> bool {
+        self.parent_keynav_failed(direction)
+    }
+
+    fn event(&self, event: &gdk::Event) -> Propagation {
+        self.parent_event(event)
+    }
+
+    fn property_notify_event(&self, event: &gdk::EventProperty) -> Propagation {
+        self.parent_property_notify_event(event)
+    }
+
+    fn selection_clear_event(&self, event: &gdk::EventSelection) -> Propagation {
+        self.parent_selection_clear_event(event)
+    }
+
+    fn selection_request_event(&self, event: &gdk::EventSelection) -> Propagation {
+        self.parent_selection_request_event(event)
+    }
+
+    fn selection_notify_event(&self, event: &gdk::EventSelection) -> Propagation {
+        self.parent_selection_notify_event(event)
+    }
+
+    fn proximity_in_event(&self, event: &gdk::EventProximity) -> Propagation {
+        self.parent_proximity_in_event(event)
+    }
+
+    fn proximity_out_event(&self, event: &gdk::EventProximity) -> Propagation {
+        self.parent_proximity_out_event(event)
+    }
+
+    fn visibility_notify_event(&self, event: &gdk::EventVisibility) -> Propagation {
+        self.parent_visibility_notify_event(event)
+    }
+
+    fn grab_broken_event(&self, event: &gdk::EventGrabBroken) -> Propagation {
+        self.parent_grab_broken_event(event)
+    }
+
+    fn touch_event(&self, event: &gdk::EventTouch) -> Propagation {
+        self.parent_touch_event(event)
+    }
+
+    fn selection_get(&self, selection_data: &SelectionData, info: u32, time: u32) {
+        self.parent_selection_get(selection_data, info, time);
+    }
+
+    fn selection_received(&self, selection_data: &SelectionData, time: u32) {
+        self.parent_selection_received(selection_data, time);
+    }
+
+    fn popup_menu(&self) -> bool {
+        self.parent_popup_menu()
+    }
+
+    fn show_help(&self, help_type: WidgetHelpType) -> bool {
+        self.parent_show_help(help_type)
+    }
+
+    fn screen_changed(&self, previous_screen: Option<&gdk::Screen>) {
+        self.parent_screen_changed(previous_screen);
+    }
+
+    fn query_tooltip(&self, x: i32, y: i32, keyboard_tooltip: bool, tooltip: &Tooltip) -> bool {
+        self.parent_query_tooltip(x, y, keyboard_tooltip, tooltip)
+    }
+
+    fn style_updated(&self) {
+        self.parent_style_updated();
+    }
+
+    fn queue_draw_region(&self, region: &cairo::Region) {
+        self.parent_queue_draw_region(region);
+    }
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::WidgetImpl> Sealed for T {}
-}
-
-pub trait WidgetImplExt: ObjectSubclass + sealed::Sealed {
+pub trait WidgetImplExt: WidgetImpl {
     fn parent_adjust_baseline_allocation(&self, baseline: &mut i32) {
         unsafe {
             let data = Self::type_data();
@@ -270,6 +419,7 @@ pub trait WidgetImplExt: ObjectSubclass + sealed::Sealed {
             )
         }
     }
+
     fn parent_adjust_size_allocation(
         &self,
 
@@ -810,6 +960,52 @@ pub trait WidgetImplExt: ObjectSubclass + sealed::Sealed {
             }
         }
     }
+
+    fn parent_show(&self) {
+        unsafe {
+            let data = Self::type_data();
+            let parent_class = data.as_ref().parent_class() as *mut ffi::GtkWidgetClass;
+            if let Some(f) = (*parent_class).show {
+                f(self.obj().unsafe_cast_ref::<Widget>().to_glib_none().0);
+            }
+        }
+    }
+
+    fn parent_hide(&self) {
+        unsafe {
+            let data = Self::type_data();
+            let parent_class = data.as_ref().parent_class() as *mut ffi::GtkWidgetClass;
+            if let Some(f) = (*parent_class).hide {
+                f(self.obj().unsafe_cast_ref::<Widget>().to_glib_none().0);
+            }
+        }
+    }
+
+    fn parent_grab_focus(&self) {
+        unsafe {
+            let data = Self::type_data();
+            let parent_class = data.as_ref().parent_class() as *mut ffi::GtkWidgetClass;
+            if let Some(f) = (*parent_class).grab_focus {
+                f(self.obj().unsafe_cast_ref::<Widget>().to_glib_none().0);
+            }
+        }
+    }
+
+    fn parent_focus(&self, direction: DirectionType) -> bool {
+        unsafe {
+            let data = Self::type_data();
+            let parent_class = data.as_ref().parent_class() as *mut ffi::GtkWidgetClass;
+            if let Some(f) = (*parent_class).focus {
+                from_glib(f(
+                    self.obj().unsafe_cast_ref::<Widget>().to_glib_none().0,
+                    direction.into_glib(),
+                ))
+            } else {
+                false
+            }
+        }
+    }
+
     fn parent_motion_notify_event(&self, event: &gdk::EventMotion) -> Propagation {
         unsafe {
             let data = Self::type_data();
@@ -866,6 +1062,467 @@ pub trait WidgetImplExt: ObjectSubclass + sealed::Sealed {
             }
         }
     }
+
+    fn parent_focus_in_event(&self, event: &gdk::EventFocus) -> Propagation {
+        unsafe {
+            let data = Self::type_data();
+            let parent_class = data.as_ref().parent_class() as *mut ffi::GtkWidgetClass;
+            if let Some(f) = (*parent_class).focus_in_event {
+                Propagation::from_glib(f(
+                    self.obj().unsafe_cast_ref::<Widget>().to_glib_none().0,
+                    mut_override(event.to_glib_none().0),
+                ))
+            } else {
+                Propagation::Proceed
+            }
+        }
+    }
+
+    fn parent_focus_out_event(&self, event: &gdk::EventFocus) -> Propagation {
+        unsafe {
+            let data = Self::type_data();
+            let parent_class = data.as_ref().parent_class() as *mut ffi::GtkWidgetClass;
+            if let Some(f) = (*parent_class).focus_out_event {
+                Propagation::from_glib(f(
+                    self.obj().unsafe_cast_ref::<Widget>().to_glib_none().0,
+                    mut_override(event.to_glib_none().0),
+                ))
+            } else {
+                Propagation::Proceed
+            }
+        }
+    }
+
+    fn parent_key_press_event(&self, event: &gdk::EventKey) -> Propagation {
+        unsafe {
+            let data = Self::type_data();
+            let parent_class = data.as_ref().parent_class() as *mut ffi::GtkWidgetClass;
+            if let Some(f) = (*parent_class).key_press_event {
+                Propagation::from_glib(f(
+                    self.obj().unsafe_cast_ref::<Widget>().to_glib_none().0,
+                    mut_override(event.to_glib_none().0),
+                ))
+            } else {
+                Propagation::Proceed
+            }
+        }
+    }
+
+    fn parent_key_release_event(&self, event: &gdk::EventKey) -> Propagation {
+        unsafe {
+            let data = Self::type_data();
+            let parent_class = data.as_ref().parent_class() as *mut ffi::GtkWidgetClass;
+            if let Some(f) = (*parent_class).key_release_event {
+                Propagation::from_glib(f(
+                    self.obj().unsafe_cast_ref::<Widget>().to_glib_none().0,
+                    mut_override(event.to_glib_none().0),
+                ))
+            } else {
+                Propagation::Proceed
+            }
+        }
+    }
+
+    fn parent_map_event(&self, event: &gdk::Event) -> Propagation {
+        unsafe {
+            let data = Self::type_data();
+            let parent_class = data.as_ref().parent_class() as *mut ffi::GtkWidgetClass;
+            if let Some(f) = (*parent_class).map_event {
+                Propagation::from_glib(f(
+                    self.obj().unsafe_cast_ref::<Widget>().to_glib_none().0,
+                    mut_override(event.to_glib_none().0),
+                ))
+            } else {
+                Propagation::Proceed
+            }
+        }
+    }
+
+    fn parent_unmap_event(&self, event: &gdk::Event) -> Propagation {
+        unsafe {
+            let data = Self::type_data();
+            let parent_class = data.as_ref().parent_class() as *mut ffi::GtkWidgetClass;
+            if let Some(f) = (*parent_class).unmap_event {
+                Propagation::from_glib(f(
+                    self.obj().unsafe_cast_ref::<Widget>().to_glib_none().0,
+                    mut_override(event.to_glib_none().0),
+                ))
+            } else {
+                Propagation::Proceed
+            }
+        }
+    }
+
+    fn parent_show_all(&self) {
+        unsafe {
+            let data = Self::type_data();
+            let parent_class = data.as_ref().parent_class() as *mut ffi::GtkWidgetClass;
+            if let Some(f) = (*parent_class).show_all {
+                f(self.obj().unsafe_cast_ref::<Widget>().to_glib_none().0);
+            }
+        }
+    }
+
+    fn parent_state_flags_changed(&self, previous_state_flags: StateFlags) {
+        unsafe {
+            let data = Self::type_data();
+            let parent_class = data.as_ref().parent_class() as *mut ffi::GtkWidgetClass;
+            if let Some(f) = (*parent_class).state_flags_changed {
+                f(
+                    self.obj().unsafe_cast_ref::<Widget>().to_glib_none().0,
+                    previous_state_flags.into_glib(),
+                );
+            }
+        }
+    }
+
+    fn parent_parent_set(&self, previous_parent: Option<&Widget>) {
+        unsafe {
+            let data = Self::type_data();
+            let parent_class = data.as_ref().parent_class() as *mut ffi::GtkWidgetClass;
+            if let Some(f) = (*parent_class).parent_set {
+                f(
+                    self.obj().unsafe_cast_ref::<Widget>().to_glib_none().0,
+                    previous_parent.to_glib_none().0,
+                );
+            }
+        }
+    }
+
+    fn parent_hierarchy_changed(&self, previous_toplevel: Option<&Widget>) {
+        unsafe {
+            let data = Self::type_data();
+            let parent_class = data.as_ref().parent_class() as *mut ffi::GtkWidgetClass;
+            if let Some(f) = (*parent_class).hierarchy_changed {
+                f(
+                    self.obj().unsafe_cast_ref::<Widget>().to_glib_none().0,
+                    previous_toplevel.to_glib_none().0,
+                );
+            }
+        }
+    }
+
+    fn parent_grab_notify(&self, was_grabbed: bool) {
+        unsafe {
+            let data = Self::type_data();
+            let parent_class = data.as_ref().parent_class() as *mut ffi::GtkWidgetClass;
+            if let Some(f) = (*parent_class).grab_notify {
+                f(
+                    self.obj().unsafe_cast_ref::<Widget>().to_glib_none().0,
+                    was_grabbed.into_glib(),
+                );
+            }
+        }
+    }
+
+    fn parent_mnemonic_activate(&self, group_cycling: bool) -> bool {
+        unsafe {
+            let data = Self::type_data();
+            let parent_class = data.as_ref().parent_class() as *mut ffi::GtkWidgetClass;
+            if let Some(f) = (*parent_class).mnemonic_activate {
+                from_glib(f(
+                    self.obj().unsafe_cast_ref::<Widget>().to_glib_none().0,
+                    group_cycling.into_glib(),
+                ))
+            } else {
+                false
+            }
+        }
+    }
+
+    fn parent_move_focus(&self, direction: DirectionType) {
+        unsafe {
+            let data = Self::type_data();
+            let parent_class = data.as_ref().parent_class() as *mut ffi::GtkWidgetClass;
+            if let Some(f) = (*parent_class).move_focus {
+                f(
+                    self.obj().unsafe_cast_ref::<Widget>().to_glib_none().0,
+                    direction.into_glib(),
+                );
+            }
+        }
+    }
+
+    fn parent_keynav_failed(&self, direction: DirectionType) -> bool {
+        unsafe {
+            let data = Self::type_data();
+            let parent_class = data.as_ref().parent_class() as *mut ffi::GtkWidgetClass;
+            if let Some(f) = (*parent_class).keynav_failed {
+                from_glib(f(
+                    self.obj().unsafe_cast_ref::<Widget>().to_glib_none().0,
+                    direction.into_glib(),
+                ))
+            } else {
+                false
+            }
+        }
+    }
+
+    fn parent_event(&self, event: &gdk::Event) -> Propagation {
+        unsafe {
+            let data = Self::type_data();
+            let parent_class = data.as_ref().parent_class() as *mut ffi::GtkWidgetClass;
+            if let Some(f) = (*parent_class).event {
+                Propagation::from_glib(f(
+                    self.obj().unsafe_cast_ref::<Widget>().to_glib_none().0,
+                    mut_override(event.to_glib_none().0),
+                ))
+            } else {
+                Propagation::Proceed
+            }
+        }
+    }
+
+    fn parent_property_notify_event(&self, event: &gdk::EventProperty) -> Propagation {
+        unsafe {
+            let data = Self::type_data();
+            let parent_class = data.as_ref().parent_class() as *mut ffi::GtkWidgetClass;
+            if let Some(f) = (*parent_class).property_notify_event {
+                Propagation::from_glib(f(
+                    self.obj().unsafe_cast_ref::<Widget>().to_glib_none().0,
+                    mut_override(event.to_glib_none().0),
+                ))
+            } else {
+                Propagation::Proceed
+            }
+        }
+    }
+
+    fn parent_selection_clear_event(&self, event: &gdk::EventSelection) -> Propagation {
+        unsafe {
+            let data = Self::type_data();
+            let parent_class = data.as_ref().parent_class() as *mut ffi::GtkWidgetClass;
+            if let Some(f) = (*parent_class).selection_clear_event {
+                Propagation::from_glib(f(
+                    self.obj().unsafe_cast_ref::<Widget>().to_glib_none().0,
+                    mut_override(event.to_glib_none().0),
+                ))
+            } else {
+                Propagation::Proceed
+            }
+        }
+    }
+
+    fn parent_selection_request_event(&self, event: &gdk::EventSelection) -> Propagation {
+        unsafe {
+            let data = Self::type_data();
+            let parent_class = data.as_ref().parent_class() as *mut ffi::GtkWidgetClass;
+            if let Some(f) = (*parent_class).selection_request_event {
+                Propagation::from_glib(f(
+                    self.obj().unsafe_cast_ref::<Widget>().to_glib_none().0,
+                    mut_override(event.to_glib_none().0),
+                ))
+            } else {
+                Propagation::Proceed
+            }
+        }
+    }
+
+    fn parent_selection_notify_event(&self, event: &gdk::EventSelection) -> Propagation {
+        unsafe {
+            let data = Self::type_data();
+            let parent_class = data.as_ref().parent_class() as *mut ffi::GtkWidgetClass;
+            if let Some(f) = (*parent_class).selection_notify_event {
+                Propagation::from_glib(f(
+                    self.obj().unsafe_cast_ref::<Widget>().to_glib_none().0,
+                    mut_override(event.to_glib_none().0),
+                ))
+            } else {
+                Propagation::Proceed
+            }
+        }
+    }
+
+    fn parent_proximity_in_event(&self, event: &gdk::EventProximity) -> Propagation {
+        unsafe {
+            let data = Self::type_data();
+            let parent_class = data.as_ref().parent_class() as *mut ffi::GtkWidgetClass;
+            if let Some(f) = (*parent_class).proximity_in_event {
+                Propagation::from_glib(f(
+                    self.obj().unsafe_cast_ref::<Widget>().to_glib_none().0,
+                    mut_override(event.to_glib_none().0),
+                ))
+            } else {
+                Propagation::Proceed
+            }
+        }
+    }
+
+    fn parent_proximity_out_event(&self, event: &gdk::EventProximity) -> Propagation {
+        unsafe {
+            let data = Self::type_data();
+            let parent_class = data.as_ref().parent_class() as *mut ffi::GtkWidgetClass;
+            if let Some(f) = (*parent_class).proximity_out_event {
+                Propagation::from_glib(f(
+                    self.obj().unsafe_cast_ref::<Widget>().to_glib_none().0,
+                    mut_override(event.to_glib_none().0),
+                ))
+            } else {
+                Propagation::Proceed
+            }
+        }
+    }
+
+    fn parent_visibility_notify_event(&self, event: &gdk::EventVisibility) -> Propagation {
+        unsafe {
+            let data = Self::type_data();
+            let parent_class = data.as_ref().parent_class() as *mut ffi::GtkWidgetClass;
+            if let Some(f) = (*parent_class).visibility_notify_event {
+                Propagation::from_glib(f(
+                    self.obj().unsafe_cast_ref::<Widget>().to_glib_none().0,
+                    mut_override(event.to_glib_none().0),
+                ))
+            } else {
+                Propagation::Proceed
+            }
+        }
+    }
+
+    fn parent_grab_broken_event(&self, event: &gdk::EventGrabBroken) -> Propagation {
+        unsafe {
+            let data = Self::type_data();
+            let parent_class = data.as_ref().parent_class() as *mut ffi::GtkWidgetClass;
+            if let Some(f) = (*parent_class).grab_broken_event {
+                Propagation::from_glib(f(
+                    self.obj().unsafe_cast_ref::<Widget>().to_glib_none().0,
+                    mut_override(event.to_glib_none().0),
+                ))
+            } else {
+                Propagation::Proceed
+            }
+        }
+    }
+
+    fn parent_touch_event(&self, event: &gdk::EventTouch) -> Propagation {
+        unsafe {
+            let data = Self::type_data();
+            let parent_class = data.as_ref().parent_class() as *mut ffi::GtkWidgetClass;
+            if let Some(f) = (*parent_class).touch_event {
+                Propagation::from_glib(f(
+                    self.obj().unsafe_cast_ref::<Widget>().to_glib_none().0,
+                    mut_override(event.to_glib_none().0),
+                ))
+            } else {
+                Propagation::Proceed
+            }
+        }
+    }
+
+    fn parent_selection_get(&self, selection_data: &SelectionData, info: u32, time: u32) {
+        unsafe {
+            let data = Self::type_data();
+            let parent_class = data.as_ref().parent_class() as *mut ffi::GtkWidgetClass;
+            if let Some(f) = (*parent_class).selection_get {
+                f(
+                    self.obj().unsafe_cast_ref::<Widget>().to_glib_none().0,
+                    mut_override(selection_data.to_glib_none().0),
+                    info,
+                    time,
+                );
+            }
+        }
+    }
+
+    fn parent_selection_received(&self, selection_data: &SelectionData, time: u32) {
+        unsafe {
+            let data = Self::type_data();
+            let parent_class = data.as_ref().parent_class() as *mut ffi::GtkWidgetClass;
+            if let Some(f) = (*parent_class).selection_received {
+                f(
+                    self.obj().unsafe_cast_ref::<Widget>().to_glib_none().0,
+                    mut_override(selection_data.to_glib_none().0),
+                    time,
+                );
+            }
+        }
+    }
+
+    fn parent_popup_menu(&self) -> bool {
+        unsafe {
+            let data = Self::type_data();
+            let parent_class = data.as_ref().parent_class() as *mut ffi::GtkWidgetClass;
+            if let Some(f) = (*parent_class).popup_menu {
+                from_glib(f(self.obj().unsafe_cast_ref::<Widget>().to_glib_none().0))
+            } else {
+                false
+            }
+        }
+    }
+
+    fn parent_show_help(&self, help_type: WidgetHelpType) -> bool {
+        unsafe {
+            let data = Self::type_data();
+            let parent_class = data.as_ref().parent_class() as *mut ffi::GtkWidgetClass;
+            if let Some(f) = (*parent_class).show_help {
+                from_glib(f(
+                    self.obj().unsafe_cast_ref::<Widget>().to_glib_none().0,
+                    help_type.into_glib(),
+                ))
+            } else {
+                false
+            }
+        }
+    }
+
+    fn parent_screen_changed(&self, previous_screen: Option<&gdk::Screen>) {
+        unsafe {
+            let data = Self::type_data();
+            let parent_class = data.as_ref().parent_class() as *mut ffi::GtkWidgetClass;
+            if let Some(f) = (*parent_class).screen_changed {
+                f(
+                    self.obj().unsafe_cast_ref::<Widget>().to_glib_none().0,
+                    previous_screen.to_glib_none().0,
+                );
+            }
+        }
+    }
+
+    fn parent_query_tooltip(
+        &self,
+        x: i32,
+        y: i32,
+        keyboard_tooltip: bool,
+        tooltip: &Tooltip,
+    ) -> bool {
+        unsafe {
+            let data = Self::type_data();
+            let parent_class = data.as_ref().parent_class() as *mut ffi::GtkWidgetClass;
+            if let Some(f) = (*parent_class).query_tooltip {
+                from_glib(f(
+                    self.obj().unsafe_cast_ref::<Widget>().to_glib_none().0,
+                    x,
+                    y,
+                    keyboard_tooltip.into_glib(),
+                    tooltip.to_glib_none().0,
+                ))
+            } else {
+                false
+            }
+        }
+    }
+
+    fn parent_style_updated(&self) {
+        unsafe {
+            let data = Self::type_data();
+            let parent_class = data.as_ref().parent_class() as *mut ffi::GtkWidgetClass;
+            if let Some(f) = (*parent_class).style_updated {
+                f(self.obj().unsafe_cast_ref::<Widget>().to_glib_none().0);
+            }
+        }
+    }
+
+    fn parent_queue_draw_region(&self, region: &cairo::Region) {
+        unsafe {
+            let data = Self::type_data();
+            let parent_class = data.as_ref().parent_class() as *mut ffi::GtkWidgetClass;
+            if let Some(f) = (*parent_class).queue_draw_region {
+                f(
+                    self.obj().unsafe_cast_ref::<Widget>().to_glib_none().0,
+                    region.to_glib_none().0,
+                );
+            }
+        }
+    }
 }
 
 impl<T: WidgetImpl> WidgetImplExt for T {}
@@ -890,7 +1547,6 @@ unsafe impl<T: WidgetImpl> IsSubclassable<T> for Widget {
         klass.composited_changed = Some(widget_composited_changed::<T>);
         klass.compute_expand = Some(widget_compute_expand::<T>);
         klass.configure_event = Some(widget_configure_event::<T>);
-        klass.window_state_event = Some(widget_window_state_event::<T>);
         klass.damage_event = Some(widget_damage_event::<T>);
         klass.delete_event = Some(widget_delete_event::<T>);
         klass.destroy = Some(widget_destroy::<T>);
@@ -908,20 +1564,57 @@ unsafe impl<T: WidgetImpl> IsSubclassable<T> for Widget {
         klass.drag_leave = Some(widget_drag_leave::<T>);
         klass.drag_motion = Some(widget_drag_motion::<T>);
         klass.draw = Some(widget_draw::<T>);
-        klass.get_request_mode = Some(widget_get_request_mode::<T>);
-        klass.get_preferred_width = Some(widget_get_preferred_width::<T>);
-        klass.get_preferred_height_for_width = Some(widget_get_preferred_height_for_width::<T>);
-        klass.get_preferred_height = Some(widget_get_preferred_height::<T>);
-        klass.get_preferred_width_for_height = Some(widget_get_preferred_width_for_height::<T>);
-        klass.size_allocate = Some(widget_size_allocate::<T>);
-        klass.realize = Some(widget_realize::<T>);
-        klass.unrealize = Some(widget_unrealize::<T>);
-        klass.map = Some(widget_map::<T>);
-        klass.unmap = Some(widget_unmap::<T>);
-        klass.motion_notify_event = Some(widget_motion_notify_event::<T>);
-        klass.scroll_event = Some(widget_scroll_event::<T>);
         klass.enter_notify_event = Some(widget_enter_notify_event::<T>);
+        klass.event = Some(widget_event::<T>);
+        klass.focus = Some(widget_focus::<T>);
+        klass.focus_in_event = Some(widget_focus_in_event::<T>);
+        klass.focus_out_event = Some(widget_focus_out_event::<T>);
+        klass.get_preferred_height = Some(widget_get_preferred_height::<T>);
+        klass.get_preferred_height_for_width = Some(widget_get_preferred_height_for_width::<T>);
+        klass.get_preferred_width = Some(widget_get_preferred_width::<T>);
+        klass.get_preferred_width_for_height = Some(widget_get_preferred_width_for_height::<T>);
+        klass.get_request_mode = Some(widget_get_request_mode::<T>);
+        klass.grab_broken_event = Some(widget_grab_broken_event::<T>);
+        klass.grab_focus = Some(widget_grab_focus::<T>);
+        klass.grab_notify = Some(widget_grab_notify::<T>);
+        klass.hide = Some(widget_hide::<T>);
+        klass.hierarchy_changed = Some(widget_hierarchy_changed::<T>);
+        klass.key_press_event = Some(widget_key_press_event::<T>);
+        klass.key_release_event = Some(widget_key_release_event::<T>);
+        klass.keynav_failed = Some(widget_keynav_failed::<T>);
         klass.leave_notify_event = Some(widget_leave_notify_event::<T>);
+        klass.map = Some(widget_map::<T>);
+        klass.map_event = Some(widget_map_event::<T>);
+        klass.mnemonic_activate = Some(widget_mnemonic_activate::<T>);
+        klass.motion_notify_event = Some(widget_motion_notify_event::<T>);
+        klass.move_focus = Some(widget_move_focus::<T>);
+        klass.parent_set = Some(widget_parent_set::<T>);
+        klass.popup_menu = Some(widget_popup_menu::<T>);
+        klass.property_notify_event = Some(widget_property_notify_event::<T>);
+        klass.proximity_in_event = Some(widget_proximity_in_event::<T>);
+        klass.proximity_out_event = Some(widget_proximity_out_event::<T>);
+        klass.query_tooltip = Some(widget_query_tooltip::<T>);
+        klass.queue_draw_region = Some(widget_queue_draw_region::<T>);
+        klass.realize = Some(widget_realize::<T>);
+        klass.screen_changed = Some(widget_screen_changed::<T>);
+        klass.scroll_event = Some(widget_scroll_event::<T>);
+        klass.selection_clear_event = Some(widget_selection_clear_event::<T>);
+        klass.selection_get = Some(widget_selection_get::<T>);
+        klass.selection_notify_event = Some(widget_selection_notify_event::<T>);
+        klass.selection_received = Some(widget_selection_received::<T>);
+        klass.selection_request_event = Some(widget_selection_request_event::<T>);
+        klass.show = Some(widget_show::<T>);
+        klass.show_all = Some(widget_show_all::<T>);
+        klass.show_help = Some(widget_show_help::<T>);
+        klass.size_allocate = Some(widget_size_allocate::<T>);
+        klass.state_flags_changed = Some(widget_state_flags_changed::<T>);
+        klass.style_updated = Some(widget_style_updated::<T>);
+        klass.touch_event = Some(widget_touch_event::<T>);
+        klass.unmap = Some(widget_unmap::<T>);
+        klass.unmap_event = Some(widget_unmap_event::<T>);
+        klass.unrealize = Some(widget_unrealize::<T>);
+        klass.visibility_notify_event = Some(widget_visibility_notify_event::<T>);
+        klass.window_state_event = Some(widget_window_state_event::<T>);
     }
 }
 
@@ -1475,6 +2168,41 @@ unsafe extern "C" fn widget_unmap<T: WidgetImpl>(ptr: *mut ffi::GtkWidget) {
     }
 }
 
+unsafe extern "C" fn widget_show<T: WidgetImpl>(ptr: *mut ffi::GtkWidget) {
+    unsafe {
+        let instance = &*(ptr as *mut T::Instance);
+        let imp = instance.imp();
+        imp.show();
+    }
+}
+
+unsafe extern "C" fn widget_hide<T: WidgetImpl>(ptr: *mut ffi::GtkWidget) {
+    unsafe {
+        let instance = &*(ptr as *mut T::Instance);
+        let imp = instance.imp();
+        imp.hide();
+    }
+}
+
+unsafe extern "C" fn widget_grab_focus<T: WidgetImpl>(ptr: *mut ffi::GtkWidget) {
+    unsafe {
+        let instance = &*(ptr as *mut T::Instance);
+        let imp = instance.imp();
+        imp.grab_focus();
+    }
+}
+
+unsafe extern "C" fn widget_focus<T: WidgetImpl>(
+    ptr: *mut ffi::GtkWidget,
+    direction: ffi::GtkDirectionType,
+) -> glib::ffi::gboolean {
+    unsafe {
+        let instance = &*(ptr as *mut T::Instance);
+        let imp = instance.imp();
+        imp.focus(from_glib(direction)).into_glib()
+    }
+}
+
 unsafe extern "C" fn widget_motion_notify_event<T: WidgetImpl>(
     ptr: *mut ffi::GtkWidget,
     mptr: *mut gdk::ffi::GdkEventMotion,
@@ -1524,6 +2252,404 @@ unsafe extern "C" fn widget_leave_notify_event<T: WidgetImpl>(
         let event: Borrowed<gdk::EventCrossing> = from_glib_borrow(mptr);
 
         imp.leave_notify_event(&event).into_glib()
+    }
+}
+
+unsafe extern "C" fn widget_focus_in_event<T: WidgetImpl>(
+    ptr: *mut ffi::GtkWidget,
+    mptr: *mut gdk::ffi::GdkEventFocus,
+) -> glib::ffi::gboolean {
+    unsafe {
+        let instance = &*(ptr as *mut T::Instance);
+        let imp = instance.imp();
+        let event: Borrowed<gdk::EventFocus> = from_glib_borrow(mptr);
+
+        imp.focus_in_event(&event).into_glib()
+    }
+}
+
+unsafe extern "C" fn widget_focus_out_event<T: WidgetImpl>(
+    ptr: *mut ffi::GtkWidget,
+    mptr: *mut gdk::ffi::GdkEventFocus,
+) -> glib::ffi::gboolean {
+    unsafe {
+        let instance = &*(ptr as *mut T::Instance);
+        let imp = instance.imp();
+        let event: Borrowed<gdk::EventFocus> = from_glib_borrow(mptr);
+
+        imp.focus_out_event(&event).into_glib()
+    }
+}
+
+unsafe extern "C" fn widget_key_press_event<T: WidgetImpl>(
+    ptr: *mut ffi::GtkWidget,
+    mptr: *mut gdk::ffi::GdkEventKey,
+) -> glib::ffi::gboolean {
+    unsafe {
+        let instance = &*(ptr as *mut T::Instance);
+        let imp = instance.imp();
+        let event: Borrowed<gdk::EventKey> = from_glib_borrow(mptr);
+
+        imp.key_press_event(&event).into_glib()
+    }
+}
+
+unsafe extern "C" fn widget_key_release_event<T: WidgetImpl>(
+    ptr: *mut ffi::GtkWidget,
+    mptr: *mut gdk::ffi::GdkEventKey,
+) -> glib::ffi::gboolean {
+    unsafe {
+        let instance = &*(ptr as *mut T::Instance);
+        let imp = instance.imp();
+        let event: Borrowed<gdk::EventKey> = from_glib_borrow(mptr);
+
+        imp.key_release_event(&event).into_glib()
+    }
+}
+
+unsafe extern "C" fn widget_map_event<T: WidgetImpl>(
+    ptr: *mut ffi::GtkWidget,
+    anyptr: *mut gdk::ffi::GdkEventAny,
+) -> glib::ffi::gboolean {
+    unsafe {
+        let instance = &*(ptr as *mut T::Instance);
+        let imp = instance.imp();
+        let evwrap: Borrowed<gdk::Event> = from_glib_borrow(anyptr);
+
+        imp.map_event(&evwrap).into_glib()
+    }
+}
+
+unsafe extern "C" fn widget_unmap_event<T: WidgetImpl>(
+    ptr: *mut ffi::GtkWidget,
+    anyptr: *mut gdk::ffi::GdkEventAny,
+) -> glib::ffi::gboolean {
+    unsafe {
+        let instance = &*(ptr as *mut T::Instance);
+        let imp = instance.imp();
+        let evwrap: Borrowed<gdk::Event> = from_glib_borrow(anyptr);
+
+        imp.unmap_event(&evwrap).into_glib()
+    }
+}
+
+unsafe extern "C" fn widget_show_all<T: WidgetImpl>(ptr: *mut ffi::GtkWidget) {
+    unsafe {
+        let instance = &*(ptr as *mut T::Instance);
+        let imp = instance.imp();
+        imp.show_all();
+    }
+}
+
+unsafe extern "C" fn widget_style_updated<T: WidgetImpl>(ptr: *mut ffi::GtkWidget) {
+    unsafe {
+        let instance = &*(ptr as *mut T::Instance);
+        let imp = instance.imp();
+        imp.style_updated();
+    }
+}
+
+unsafe extern "C" fn widget_state_flags_changed<T: WidgetImpl>(
+    ptr: *mut ffi::GtkWidget,
+    flags: ffi::GtkStateFlags,
+) {
+    unsafe {
+        let instance = &*(ptr as *mut T::Instance);
+        let imp = instance.imp();
+        imp.state_flags_changed(from_glib(flags));
+    }
+}
+
+unsafe extern "C" fn widget_parent_set<T: WidgetImpl>(
+    ptr: *mut ffi::GtkWidget,
+    parentptr: *mut ffi::GtkWidget,
+) {
+    unsafe {
+        let instance = &*(ptr as *mut T::Instance);
+        let imp = instance.imp();
+        let previous_parent: Borrowed<Option<Widget>> = from_glib_borrow(parentptr);
+
+        imp.parent_set(previous_parent.as_ref().as_ref());
+    }
+}
+
+unsafe extern "C" fn widget_hierarchy_changed<T: WidgetImpl>(
+    ptr: *mut ffi::GtkWidget,
+    toplevelptr: *mut ffi::GtkWidget,
+) {
+    unsafe {
+        let instance = &*(ptr as *mut T::Instance);
+        let imp = instance.imp();
+        let previous_toplevel: Borrowed<Option<Widget>> = from_glib_borrow(toplevelptr);
+
+        imp.hierarchy_changed(previous_toplevel.as_ref().as_ref());
+    }
+}
+
+unsafe extern "C" fn widget_grab_notify<T: WidgetImpl>(
+    ptr: *mut ffi::GtkWidget,
+    was_grabbed: glib::ffi::gboolean,
+) {
+    unsafe {
+        let instance = &*(ptr as *mut T::Instance);
+        let imp = instance.imp();
+        imp.grab_notify(from_glib(was_grabbed));
+    }
+}
+
+unsafe extern "C" fn widget_mnemonic_activate<T: WidgetImpl>(
+    ptr: *mut ffi::GtkWidget,
+    group_cycling: glib::ffi::gboolean,
+) -> glib::ffi::gboolean {
+    unsafe {
+        let instance = &*(ptr as *mut T::Instance);
+        let imp = instance.imp();
+        imp.mnemonic_activate(from_glib(group_cycling)).into_glib()
+    }
+}
+
+unsafe extern "C" fn widget_move_focus<T: WidgetImpl>(
+    ptr: *mut ffi::GtkWidget,
+    direction: ffi::GtkDirectionType,
+) {
+    unsafe {
+        let instance = &*(ptr as *mut T::Instance);
+        let imp = instance.imp();
+        imp.move_focus(from_glib(direction));
+    }
+}
+
+unsafe extern "C" fn widget_keynav_failed<T: WidgetImpl>(
+    ptr: *mut ffi::GtkWidget,
+    direction: ffi::GtkDirectionType,
+) -> glib::ffi::gboolean {
+    unsafe {
+        let instance = &*(ptr as *mut T::Instance);
+        let imp = instance.imp();
+        imp.keynav_failed(from_glib(direction)).into_glib()
+    }
+}
+
+unsafe extern "C" fn widget_event<T: WidgetImpl>(
+    ptr: *mut ffi::GtkWidget,
+    evptr: *mut gdk::ffi::GdkEvent,
+) -> glib::ffi::gboolean {
+    unsafe {
+        let instance = &*(ptr as *mut T::Instance);
+        let imp = instance.imp();
+        let event: Borrowed<gdk::Event> = from_glib_borrow(evptr);
+
+        imp.event(&event).into_glib()
+    }
+}
+
+unsafe extern "C" fn widget_property_notify_event<T: WidgetImpl>(
+    ptr: *mut ffi::GtkWidget,
+    evptr: *mut gdk::ffi::GdkEventProperty,
+) -> glib::ffi::gboolean {
+    unsafe {
+        let instance = &*(ptr as *mut T::Instance);
+        let imp = instance.imp();
+        let event: Borrowed<gdk::EventProperty> = from_glib_borrow(evptr);
+
+        imp.property_notify_event(&event).into_glib()
+    }
+}
+
+unsafe extern "C" fn widget_selection_clear_event<T: WidgetImpl>(
+    ptr: *mut ffi::GtkWidget,
+    evptr: *mut gdk::ffi::GdkEventSelection,
+) -> glib::ffi::gboolean {
+    unsafe {
+        let instance = &*(ptr as *mut T::Instance);
+        let imp = instance.imp();
+        let event: Borrowed<gdk::EventSelection> = from_glib_borrow(evptr);
+
+        imp.selection_clear_event(&event).into_glib()
+    }
+}
+
+unsafe extern "C" fn widget_selection_request_event<T: WidgetImpl>(
+    ptr: *mut ffi::GtkWidget,
+    evptr: *mut gdk::ffi::GdkEventSelection,
+) -> glib::ffi::gboolean {
+    unsafe {
+        let instance = &*(ptr as *mut T::Instance);
+        let imp = instance.imp();
+        let event: Borrowed<gdk::EventSelection> = from_glib_borrow(evptr);
+
+        imp.selection_request_event(&event).into_glib()
+    }
+}
+
+unsafe extern "C" fn widget_selection_notify_event<T: WidgetImpl>(
+    ptr: *mut ffi::GtkWidget,
+    evptr: *mut gdk::ffi::GdkEventSelection,
+) -> glib::ffi::gboolean {
+    unsafe {
+        let instance = &*(ptr as *mut T::Instance);
+        let imp = instance.imp();
+        let event: Borrowed<gdk::EventSelection> = from_glib_borrow(evptr);
+
+        imp.selection_notify_event(&event).into_glib()
+    }
+}
+
+unsafe extern "C" fn widget_proximity_in_event<T: WidgetImpl>(
+    ptr: *mut ffi::GtkWidget,
+    evptr: *mut gdk::ffi::GdkEventProximity,
+) -> glib::ffi::gboolean {
+    unsafe {
+        let instance = &*(ptr as *mut T::Instance);
+        let imp = instance.imp();
+        let event: Borrowed<gdk::EventProximity> = from_glib_borrow(evptr);
+
+        imp.proximity_in_event(&event).into_glib()
+    }
+}
+
+unsafe extern "C" fn widget_proximity_out_event<T: WidgetImpl>(
+    ptr: *mut ffi::GtkWidget,
+    evptr: *mut gdk::ffi::GdkEventProximity,
+) -> glib::ffi::gboolean {
+    unsafe {
+        let instance = &*(ptr as *mut T::Instance);
+        let imp = instance.imp();
+        let event: Borrowed<gdk::EventProximity> = from_glib_borrow(evptr);
+
+        imp.proximity_out_event(&event).into_glib()
+    }
+}
+
+unsafe extern "C" fn widget_visibility_notify_event<T: WidgetImpl>(
+    ptr: *mut ffi::GtkWidget,
+    evptr: *mut gdk::ffi::GdkEventVisibility,
+) -> glib::ffi::gboolean {
+    unsafe {
+        let instance = &*(ptr as *mut T::Instance);
+        let imp = instance.imp();
+        let event: Borrowed<gdk::EventVisibility> = from_glib_borrow(evptr);
+
+        imp.visibility_notify_event(&event).into_glib()
+    }
+}
+
+unsafe extern "C" fn widget_grab_broken_event<T: WidgetImpl>(
+    ptr: *mut ffi::GtkWidget,
+    evptr: *mut gdk::ffi::GdkEventGrabBroken,
+) -> glib::ffi::gboolean {
+    unsafe {
+        let instance = &*(ptr as *mut T::Instance);
+        let imp = instance.imp();
+        let event: Borrowed<gdk::EventGrabBroken> = from_glib_borrow(evptr);
+
+        imp.grab_broken_event(&event).into_glib()
+    }
+}
+
+unsafe extern "C" fn widget_touch_event<T: WidgetImpl>(
+    ptr: *mut ffi::GtkWidget,
+    evptr: *mut gdk::ffi::GdkEventTouch,
+) -> glib::ffi::gboolean {
+    unsafe {
+        let instance = &*(ptr as *mut T::Instance);
+        let imp = instance.imp();
+        let event: Borrowed<gdk::EventTouch> = from_glib_borrow(evptr);
+
+        imp.touch_event(&event).into_glib()
+    }
+}
+
+unsafe extern "C" fn widget_selection_get<T: WidgetImpl>(
+    ptr: *mut ffi::GtkWidget,
+    selectptr: *mut ffi::GtkSelectionData,
+    info: u32,
+    time: u32,
+) {
+    unsafe {
+        let instance = &*(ptr as *mut T::Instance);
+        let imp = instance.imp();
+        let selection_data: Borrowed<SelectionData> = from_glib_borrow(selectptr);
+
+        imp.selection_get(&selection_data, info, time);
+    }
+}
+
+unsafe extern "C" fn widget_selection_received<T: WidgetImpl>(
+    ptr: *mut ffi::GtkWidget,
+    selectptr: *mut ffi::GtkSelectionData,
+    time: u32,
+) {
+    unsafe {
+        let instance = &*(ptr as *mut T::Instance);
+        let imp = instance.imp();
+        let selection_data: Borrowed<SelectionData> = from_glib_borrow(selectptr);
+
+        imp.selection_received(&selection_data, time);
+    }
+}
+
+unsafe extern "C" fn widget_popup_menu<T: WidgetImpl>(
+    ptr: *mut ffi::GtkWidget,
+) -> glib::ffi::gboolean {
+    unsafe {
+        let instance = &*(ptr as *mut T::Instance);
+        let imp = instance.imp();
+        imp.popup_menu().into_glib()
+    }
+}
+
+unsafe extern "C" fn widget_show_help<T: WidgetImpl>(
+    ptr: *mut ffi::GtkWidget,
+    help_type: ffi::GtkWidgetHelpType,
+) -> glib::ffi::gboolean {
+    unsafe {
+        let instance = &*(ptr as *mut T::Instance);
+        let imp = instance.imp();
+        imp.show_help(from_glib(help_type)).into_glib()
+    }
+}
+
+unsafe extern "C" fn widget_screen_changed<T: WidgetImpl>(
+    ptr: *mut ffi::GtkWidget,
+    screenptr: *mut gdk::ffi::GdkScreen,
+) {
+    unsafe {
+        let instance = &*(ptr as *mut T::Instance);
+        let imp = instance.imp();
+        let previous_screen: Borrowed<Option<gdk::Screen>> = from_glib_borrow(screenptr);
+
+        imp.screen_changed(previous_screen.as_ref().as_ref());
+    }
+}
+
+unsafe extern "C" fn widget_query_tooltip<T: WidgetImpl>(
+    ptr: *mut ffi::GtkWidget,
+    x: c_int,
+    y: c_int,
+    keyboard_tooltip: glib::ffi::gboolean,
+    tooltipptr: *mut ffi::GtkTooltip,
+) -> glib::ffi::gboolean {
+    unsafe {
+        let instance = &*(ptr as *mut T::Instance);
+        let imp = instance.imp();
+        let tooltip: Borrowed<Tooltip> = from_glib_borrow(tooltipptr);
+
+        imp.query_tooltip(x, y, from_glib(keyboard_tooltip), &tooltip)
+            .into_glib()
+    }
+}
+
+unsafe extern "C" fn widget_queue_draw_region<T: WidgetImpl>(
+    ptr: *mut ffi::GtkWidget,
+    regionptr: *const cairo::ffi::cairo_region_t,
+) {
+    unsafe {
+        let instance = &*(ptr as *mut T::Instance);
+        let imp = instance.imp();
+        let region: Borrowed<cairo::Region> = from_glib_borrow(mut_override(regionptr));
+
+        imp.queue_draw_region(&region);
     }
 }
 
