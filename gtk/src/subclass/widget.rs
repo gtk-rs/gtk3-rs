@@ -44,6 +44,11 @@ pub trait WidgetImpl: ObjectImpl + ObjectSubclass<Type: IsA<Widget>> {
         self.parent_adjust_baseline_request(minimum_baseline, natural_baseline)
     }
 
+    #[doc(alias = "get_preferred_height_and_baseline_for_width")]
+    fn preferred_height_and_baseline_for_width(&self, width: i32) -> (i32, i32, i32, i32) {
+        self.parent_preferred_height_and_baseline_for_width(width)
+    }
+
     fn adjust_size_allocation(
         &self,
 
@@ -417,6 +422,46 @@ pub trait WidgetImplExt: WidgetImpl {
                 minimum_baseline,
                 natural_baseline,
             )
+        }
+    }
+
+    fn parent_preferred_height_and_baseline_for_width(&self, width: i32) -> (i32, i32, i32, i32) {
+        unsafe {
+            let data = Self::type_data();
+            let parent_class = data.as_ref().parent_class() as *mut ffi::GtkWidgetClass;
+            if let Some(f) = (*parent_class).get_preferred_height_and_baseline_for_width {
+                let mut minimum_height = mem::MaybeUninit::uninit();
+                let mut natural_height = mem::MaybeUninit::uninit();
+                let mut minimum_baseline = -1;
+                let mut natural_baseline = -1;
+                f(
+                    self.obj().unsafe_cast_ref::<Widget>().to_glib_none().0,
+                    width,
+                    minimum_height.as_mut_ptr(),
+                    natural_height.as_mut_ptr(),
+                    &mut minimum_baseline,
+                    &mut natural_baseline,
+                );
+                (
+                    minimum_height.assume_init(),
+                    natural_height.assume_init(),
+                    minimum_baseline,
+                    natural_baseline,
+                )
+            } else {
+                // The parent hasn't wired up baseline support, so do the fallback calculation
+                // exactly how GTK does it when there's no baseline support. This has to go through
+                // `self` and not `parent_*`, because we installed the baseline vfunc, which makes
+                // GTK route *every* height query here instead of calling get_preferred_height or
+                // get_preferred_height_for_width on our impl, so this is the only way to get the
+                // correct result.
+                let (minimum, natural) = if width < 0 {
+                    self.preferred_height()
+                } else {
+                    self.preferred_height_for_width(width)
+                };
+                (minimum, natural, -1, -1)
+            }
         }
     }
 
@@ -2121,6 +2166,35 @@ unsafe extern "C" fn widget_get_preferred_height_for_width<T: WidgetImpl>(
     }
 }
 
+unsafe extern "C" fn widget_get_preferred_height_and_baseline_for_width<T: WidgetImpl>(
+    ptr: *mut ffi::GtkWidget,
+    width: c_int,
+    min_height_ptr: *mut c_int,
+    nat_height_ptr: *mut c_int,
+    min_baseline_ptr: *mut c_int,
+    nat_baseline_ptr: *mut c_int,
+) {
+    unsafe {
+        let instance = &*(ptr as *mut T::Instance);
+        let imp = instance.imp();
+
+        let (min_height, nat_height, min_baseline, nat_baseline) =
+            imp.preferred_height_and_baseline_for_width(width);
+        if !min_height_ptr.is_null() {
+            *min_height_ptr = min_height;
+        }
+        if !nat_height_ptr.is_null() {
+            *nat_height_ptr = nat_height;
+        }
+        if !min_baseline_ptr.is_null() {
+            *min_baseline_ptr = min_baseline;
+        }
+        if !nat_baseline_ptr.is_null() {
+            *nat_baseline_ptr = nat_baseline;
+        }
+    }
+}
+
 unsafe extern "C" fn widget_size_allocate<T: WidgetImpl>(
     ptr: *mut ffi::GtkWidget,
     allocation: *mut ffi::GtkAllocation,
@@ -2653,7 +2727,7 @@ unsafe extern "C" fn widget_queue_draw_region<T: WidgetImpl>(
     }
 }
 
-pub unsafe trait WidgetClassSubclassExt: ClassStruct {
+pub unsafe trait WidgetClassSubclassExt: ClassStruct<Type: WidgetImpl> {
     fn set_accessible_type(&mut self, type_: glib::Type) {
         unsafe {
             let widget_class = self as *mut _ as *mut ffi::GtkWidgetClass;
@@ -2672,6 +2746,31 @@ pub unsafe trait WidgetClassSubclassExt: ClassStruct {
         unsafe {
             let widget_class = self as *mut _ as *mut ffi::GtkWidgetClass;
             ffi::gtk_widget_class_set_template(widget_class, template.to_glib_none().0);
+        }
+    }
+
+    // rustdoc-stripper-ignore-next
+    /// Enables baseline support for this widget class.
+    ///
+    /// You call this for two reasons:
+    ///
+    /// 1. You want your widget subclass to implement baseline support, in which case you must
+    ///    implement [`WidgetImpl::preferred_height_and_baseline_for_width`].  You should *not*
+    ///    implement [`WidgetImpl::preferred_height`] or
+    ///    [`WidgetImpl::preferred_height_for_width`], as they will never be called.
+    /// 2. You are subclassing a widget that implements baselines, and you want the parent's
+    ///    baselines to continue working.  In that case you should call this function (as the
+    ///    baseline-enabled state is *not* inherited), but do not implement the
+    ///    height/height-for-width trait items yourself.
+    ///
+    /// If you want to control sizing yourself, without baseline support, do not call this, and
+    /// just implement [`WidgetImpl::preferred_height`] and
+    /// [`WidgetImpl::preferred_height_for_width`].
+    fn enable_baseline_support(&mut self) {
+        unsafe {
+            let widget_class = self as *mut _ as *mut ffi::GtkWidgetClass;
+            (*widget_class).get_preferred_height_and_baseline_for_width =
+                Some(widget_get_preferred_height_and_baseline_for_width::<Self::Type>);
         }
     }
 
