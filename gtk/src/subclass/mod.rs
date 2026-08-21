@@ -20,10 +20,12 @@ pub mod drawing_area;
 pub mod entry;
 pub mod event_box;
 pub mod fixed;
+pub mod grid;
 pub mod header_bar;
 pub mod icon_view;
 pub mod list_box;
 pub mod list_box_row;
+pub mod list_store;
 pub mod menu_button;
 #[cfg(gdk_backend = "x11")]
 pub mod plug;
@@ -32,6 +34,11 @@ pub mod scrolled_window;
 pub mod socket;
 pub mod stack;
 pub mod toggle_button;
+pub mod tree_drag_dest;
+pub mod tree_drag_source;
+pub mod tree_model_filter;
+pub mod tree_model_sort;
+pub mod tree_store;
 pub mod tree_view;
 pub mod widget;
 pub mod window;
@@ -60,10 +67,12 @@ pub mod prelude {
     pub use super::entry::{EntryImpl, EntryImplExt};
     pub use super::event_box::EventBoxImpl;
     pub use super::fixed::FixedImpl;
+    pub use super::grid::GridImpl;
     pub use super::header_bar::HeaderBarImpl;
     pub use super::icon_view::{IconViewImpl, IconViewImplExt};
     pub use super::list_box::{ListBoxImpl, ListBoxImplExt};
     pub use super::list_box_row::{ListBoxRowImpl, ListBoxRowImplExt};
+    pub use super::list_store::ListStoreImpl;
     pub use super::menu_button::MenuButtonImpl;
     #[cfg(gdk_backend = "x11")]
     pub use super::plug::{PlugImpl, PlugImplExt};
@@ -72,7 +81,12 @@ pub mod prelude {
     pub use super::socket::{SocketImpl, SocketImplExt};
     pub use super::stack::StackImpl;
     pub use super::toggle_button::ToggleButtonImpl;
-    pub use super::tree_view::TreeViewImpl;
+    pub use super::tree_drag_dest::{TreeDragDestImpl, TreeDragDestImplExt};
+    pub use super::tree_drag_source::{TreeDragSourceImpl, TreeDragSourceImplExt};
+    pub use super::tree_model_filter::{TreeModelFilterImpl, TreeModelFilterImplExt};
+    pub use super::tree_model_sort::TreeModelSortImpl;
+    pub use super::tree_store::TreeStoreImpl;
+    pub use super::tree_view::{TreeViewImpl, TreeViewImplExt};
     pub use super::widget::{
         CompositeTemplate, TemplateChild, WidgetClassSubclassExt, WidgetImpl, WidgetImplExt,
     };
