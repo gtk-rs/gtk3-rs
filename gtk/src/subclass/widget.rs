@@ -20,6 +20,12 @@ use crate::prelude::*;
 use crate::{Allocation, ffi};
 
 pub trait WidgetImpl: WidgetImplExt + ObjectImpl {
+    // Do not provide an override for this, as widget implementors should just use
+    // WidgetClassSubclassExt::set_accessible_type().  The base gtk_widget_real_get_accessible()
+    // does caching (because this vfunc is transfer-none) and initialization, and it's probably
+    // best that we don't encourage people to take on the burden of getting that right.
+    // fn get_accessible(&self) -> atk::Accessible;
+
     fn adjust_baseline_allocation(&self, baseline: &mut i32) {
         self.parent_adjust_baseline_allocation(baseline)
     }
@@ -1522,6 +1528,20 @@ unsafe extern "C" fn widget_leave_notify_event<T: WidgetImpl>(
 }
 
 pub unsafe trait WidgetClassSubclassExt: ClassStruct {
+    fn set_accessible_type(&mut self, type_: glib::Type) {
+        unsafe {
+            let widget_class = self as *mut _ as *mut ffi::GtkWidgetClass;
+            ffi::gtk_widget_class_set_accessible_type(widget_class, type_.into_glib());
+        }
+    }
+
+    fn set_accessible_role(&mut self, role: atk::Role) {
+        unsafe {
+            let widget_class = self as *mut _ as *mut ffi::GtkWidgetClass;
+            ffi::gtk_widget_class_set_accessible_role(widget_class, role.into_glib());
+        }
+    }
+
     fn set_template_bytes(&mut self, template: &glib::Bytes) {
         unsafe {
             let widget_class = self as *mut _ as *mut ffi::GtkWidgetClass;
