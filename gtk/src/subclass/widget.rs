@@ -1017,11 +1017,19 @@ unsafe extern "C" fn widget_can_activate_accel<T: WidgetImpl>(
         let imp = instance.imp();
 
         if let Some(signal_id) = NonZeroU32::new(signal_id).map(|nz| SignalId::new(nz)) {
-            imp.can_activate_accel(signal_id)
+            imp.can_activate_accel(signal_id).into_glib()
         } else {
-            false
+            // 0 is invalid, so there is nothing to hand the impl; defer to GTK, where at the
+            // bottom of the chain `gtk_widget_real_can_activate_accel()` doesn't even look at
+            // the signal ID at all, and instead returns something based on the widget's state.
+            let data = T::type_data();
+            let parent_class = data.as_ref().parent_class() as *mut ffi::GtkWidgetClass;
+            if let Some(f) = (*parent_class).can_activate_accel {
+                f(ptr, signal_id)
+            } else {
+                false.into_glib()
+            }
         }
-        .into_glib()
     }
 }
 
