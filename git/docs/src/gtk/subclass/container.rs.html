@@ -73,7 +73,7 @@
 
 <nav class="sidebar"><div class="src-sidebar-title"><h2>Files</h2></div></nav><div class="sidebar-resizer" title="Drag to resize sidebar"></div><main><section id="main-content" class="content" tabindex="-1"><div class="main-heading"><h1><div class="sub-heading">gtk/subclass/</div>container.rs</h1><rustdoc-toolbar></rustdoc-toolbar></div><div class="example-wrap digits-3"><pre class="rust"><code><a href=#1 id=1 data-nosnippet>1</a><span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.
 <a href=#2 id=2 data-nosnippet>2</a>
-<a href=#3 id=3 data-nosnippet>3</a></span><span class="kw">use </span>std::{<a href="https://doc.rust-lang.org/nightly/core/mem/index.html">mem</a>, <a href="https://doc.rust-lang.org/nightly/core/ptr/index.html">ptr</a>};
+<a href=#3 id=3 data-nosnippet>3</a></span><span class="kw">use </span><a href="https://doc.rust-lang.org/nightly/core/ptr/index.html">std::ptr</a>;
 <a href=#4 id=4 data-nosnippet>4</a>
 <a href=#5 id=5 data-nosnippet>5</a><span class="kw">use </span>glib::{<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/param_spec/struct.ParamSpec.html">ParamSpec</a>, <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/value/struct.Value.html">Value</a>, gobject_ffi, <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/index.html">translate</a>::<span class="kw-2">*</span>};
 <a href=#6 id=6 data-nosnippet>6</a>
@@ -186,7 +186,7 @@
 <a href=#113 id=113 data-nosnippet>113</a>    /// a callback
 <a href=#114 id=114 data-nosnippet>114</a>    /// ## `callback_data`
 <a href=#115 id=115 data-nosnippet>115</a>    /// callback user data
-<a href=#116 id=116 data-nosnippet>116</a>    </span><span class="kw">fn </span>forall(<span class="kw-2">&amp;</span><span class="self">self</span>, include_internals: <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>, callback: <span class="kw-2">&amp;</span><a href="#399-402">Callback</a>) {
+<a href=#116 id=116 data-nosnippet>116</a>    </span><span class="kw">fn </span>forall(<span class="kw-2">&amp;</span><span class="self">self</span>, include_internals: <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>, callback: <span class="kw-2">&amp;</span><a href="#397-400">Callback</a>) {
 <a href=#117 id=117 data-nosnippet>117</a>        <a class="self" href="#116">self</a>.<a href="#211-224">parent_forall</a>(<a href="#116">include_internals</a>, <a href="#116">callback</a>);
 <a href=#118 id=118 data-nosnippet>118</a>    }
 <a href=#119 id=119 data-nosnippet>119</a>
@@ -281,7 +281,7 @@
 <a href=#208 id=208 data-nosnippet>208</a>            ))
 <a href=#209 id=209 data-nosnippet>209</a>        }
 <a href=#210 id=210 data-nosnippet>210</a>    }
-<a href=#211 id=211 data-nosnippet>211</a>    <span class="kw">fn </span>parent_forall(<span class="kw-2">&amp;</span><span class="self">self</span>, include_internals: <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>, callback: <span class="kw-2">&amp;</span><a href="#399-402">Callback</a>) {
+<a href=#211 id=211 data-nosnippet>211</a>    <span class="kw">fn </span>parent_forall(<span class="kw-2">&amp;</span><span class="self">self</span>, include_internals: <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>, callback: <span class="kw-2">&amp;</span><a href="#397-400">Callback</a>) {
 <a href=#212 id=212 data-nosnippet>212</a>        <span class="kw">unsafe </span>{
 <a href=#213 id=213 data-nosnippet>213</a>            <span class="kw">let </span>data = <span class="self">Self</span>::<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/subclass/types/trait.ObjectSubclassType.html#tymethod.type_data">type_data</a>();
 <a href=#214 id=214 data-nosnippet>214</a>            <span class="kw">let </span>parent_class = <a href="#213">data</a>.<a href="https://doc.rust-lang.org/nightly/core/ptr/non_null/struct.NonNull.html#method.as_ref">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/subclass/types/struct.TypeData.html#method.parent_class">parent_class</a>() <span class="kw">as </span><span class="kw-2">*mut </span>ffi::<a href="../../../gtk_sys/struct.GtkContainerClass.html">GtkContainerClass</a>;
@@ -316,7 +316,7 @@
 <a href=#243 id=243 data-nosnippet>243</a>        <a href="#237">klass</a>.get_path_for_child = <a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.Some">Some</a>(<a href="#323-334">container_get_path_for_child</a>::&lt;T&gt;);
 <a href=#244 id=244 data-nosnippet>244</a>        <a href="#237">klass</a>.forall = <a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.Some">Some</a>(<a href="#336-354">container_forall</a>::&lt;T&gt;);
 <a href=#245 id=245 data-nosnippet>245</a>        <a href="#237">klass</a>.set_child_property = <a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.Some">Some</a>(<a href="#356-372">container_set_child_property</a>::&lt;T&gt;);
-<a href=#246 id=246 data-nosnippet>246</a>        <a href="#237">klass</a>.get_child_property = <a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.Some">Some</a>(<a href="#374-396">container_get_child_property</a>::&lt;T&gt;);
+<a href=#246 id=246 data-nosnippet>246</a>        <a href="#237">klass</a>.get_child_property = <a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.Some">Some</a>(<a href="#374-394">container_get_child_property</a>::&lt;T&gt;);
 <a href=#247 id=247 data-nosnippet>247</a>
 <a href=#248 id=248 data-nosnippet>248</a>        <span class="kw">let </span>pspecs = &lt;T <span class="kw">as </span>ContainerImpl&gt;::<a href="#22-24">child_properties</a>();
 <a href=#249 id=249 data-nosnippet>249</a>        <span class="kw">if </span>!<a href="#248">pspecs</a>.<a href="https://doc.rust-lang.org/nightly/core/primitive.slice.html#method.is_empty">is_empty</a>() {
@@ -417,7 +417,7 @@
 <a href=#344 id=344 data-nosnippet>344</a>    <span class="kw">unsafe </span>{
 <a href=#345 id=345 data-nosnippet>345</a>        <span class="kw">let </span>instance = <span class="kw-2">&amp;*</span>(<a href="#337">ptr</a> <span class="kw">as </span><span class="kw-2">*mut </span>T::Instance);
 <a href=#346 id=346 data-nosnippet>346</a>        <span class="kw">let </span>imp = <a href="#345">instance</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/subclass/types/trait.InstanceStructExt.html#tymethod.imp">imp</a>();
-<a href=#347 id=347 data-nosnippet>347</a>        <span class="kw">let </span>callback = <a href="#399-402">Callback</a> {
+<a href=#347 id=347 data-nosnippet>347</a>        <span class="kw">let </span>callback = <a href="#397-400">Callback</a> {
 <a href=#348 id=348 data-nosnippet>348</a>            <a href="#339">callback</a>,
 <a href=#349 id=349 data-nosnippet>349</a>            <a href="#340">user_data</a>,
 <a href=#350 id=350 data-nosnippet>350</a>        };
@@ -459,40 +459,38 @@
 <a href=#386 id=386 data-nosnippet>386</a>
 <a href=#387 id=387 data-nosnippet>387</a>        <span class="kw">let </span>v = <a href="#383">imp</a>.<a href="#127-129">child_property</a>(<span class="kw-2">&amp;</span><a href="#384">child</a>, <a href="#377">property_id</a> <span class="kw">as </span><a href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a>, <span class="kw-2">&amp;</span><a href="#385">pspec</a>);
 <a href=#388 id=388 data-nosnippet>388</a>
-<a href=#389 id=389 data-nosnippet>389</a>        <span class="comment">// Unset the passed value just in case it has any data in it.  Then copy the returned value
-<a href=#390 id=390 data-nosnippet>390</a>        // `v`'s data, byte-for-byte, into `valueptr`.  Use `ManuallyDrop` in order to transfer
-<a href=#391 id=391 data-nosnippet>391</a>        // ownership to `valueptr` without having to make a copy.
-<a href=#392 id=392 data-nosnippet>392</a>        </span>gobject_ffi::g_value_unset(<a href="#378">valueptr</a>);
-<a href=#393 id=393 data-nosnippet>393</a>        <span class="kw">let </span>v = mem::<a href="https://doc.rust-lang.org/nightly/core/mem/manually_drop/struct.ManuallyDrop.html">ManuallyDrop</a>::<a href="https://doc.rust-lang.org/nightly/core/mem/manually_drop/struct.ManuallyDrop.html#method.new">new</a>(<a href="#387">v</a>);
-<a href=#394 id=394 data-nosnippet>394</a>        ptr::<a href="https://doc.rust-lang.org/nightly/core/ptr/fn.write.html">write</a>(<a href="#378">valueptr</a>, ptr::<a href="https://doc.rust-lang.org/nightly/core/ptr/fn.read.html">read</a>(<a href="#393">v</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>));
-<a href=#395 id=395 data-nosnippet>395</a>    }
-<a href=#396 id=396 data-nosnippet>396</a>}
-<a href=#397 id=397 data-nosnippet>397</a>
-<a href=#398 id=398 data-nosnippet>398</a><span class="attr">#[derive(<a href="https://doc.rust-lang.org/nightly/core/fmt/macros/derive.Debug.html">Debug</a>)]
-<a href=#399 id=399 data-nosnippet>399</a></span><span class="kw">pub struct </span><a href="../../../gtk/subclass/container/struct.Callback.html">Callback</a> {
-<a href=#400 id=400 data-nosnippet>400</a>    callback: ffi::<a href="../../../gtk_sys/type.GtkCallback.html">GtkCallback</a>,
-<a href=#401 id=401 data-nosnippet>401</a>    user_data: glib::ffi::gpointer,
-<a href=#402 id=402 data-nosnippet>402</a>}
-<a href=#403 id=403 data-nosnippet>403</a>
-<a href=#404 id=404 data-nosnippet>404</a><span class="kw">impl </span><a href="#399-402">Callback</a> {
-<a href=#405 id=405 data-nosnippet>405</a>    <span class="kw">pub fn </span>call(<span class="kw-2">&amp;</span><span class="self">self</span>, widget: <span class="kw-2">&amp;</span><a href="../auto/widget.rs.html#18-1001">Widget</a>) {
-<a href=#406 id=406 data-nosnippet>406</a>        <span class="kw">unsafe </span>{
-<a href=#407 id=407 data-nosnippet>407</a>            <span class="kw">if let </span><a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.Some">Some</a>(callback) = <a class="self" href="#405">self</a>.callback {
-<a href=#408 id=408 data-nosnippet>408</a>                <a href="#407">callback</a>(<a href="#405">widget</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>, <a class="self" href="#405">self</a>.user_data);
-<a href=#409 id=409 data-nosnippet>409</a>            }
-<a href=#410 id=410 data-nosnippet>410</a>        }
-<a href=#411 id=411 data-nosnippet>411</a>    }
-<a href=#412 id=412 data-nosnippet>412</a>}
-<a href=#413 id=413 data-nosnippet>413</a>
-<a href=#414 id=414 data-nosnippet>414</a><span class="kw">pub unsafe trait </span><a href="../../../gtk/subclass/container/trait.ContainerClassSubclassExt.html">ContainerClassSubclassExt</a>: <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/subclass/types/trait.ClassStruct.html">ClassStruct</a> {
-<a href=#415 id=415 data-nosnippet>415</a>    <span class="attr">#[doc(alias = <span class="string">"gtk_container_class_handle_border_width"</span>)]
-<a href=#416 id=416 data-nosnippet>416</a>    </span><span class="kw">fn </span>handle_border_width(<span class="kw-2">&amp;mut </span><span class="self">self</span>) {
-<a href=#417 id=417 data-nosnippet>417</a>        <span class="kw">unsafe </span>{
-<a href=#418 id=418 data-nosnippet>418</a>            <span class="kw">let </span>widget_class = <a class="self" href="#416">self</a> <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_ as </span><span class="kw-2">*mut </span>ffi::<a href="../../../gtk_sys/struct.GtkContainerClass.html">GtkContainerClass</a>;
-<a href=#419 id=419 data-nosnippet>419</a>            ffi::<a href="../../../gtk_sys/fn.gtk_container_class_handle_border_width.html">gtk_container_class_handle_border_width</a>(<a href="#418">widget_class</a>);
-<a href=#420 id=420 data-nosnippet>420</a>        }
-<a href=#421 id=421 data-nosnippet>421</a>    }
-<a href=#422 id=422 data-nosnippet>422</a>}
-<a href=#423 id=423 data-nosnippet>423</a>
-<a href=#424 id=424 data-nosnippet>424</a><span class="kw">unsafe impl</span>&lt;T: <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/subclass/types/trait.ClassStruct.html">ClassStruct</a>&gt; <a href="#414-422">ContainerClassSubclassExt</a> <span class="kw">for </span>T <span class="kw">where </span>T::Type: <a href="#16-130">ContainerImpl</a> {}
+<a href=#389 id=389 data-nosnippet>389</a>        <span class="comment">// Unset first just in case there's anything in there already.
+<a href=#390 id=390 data-nosnippet>390</a>        </span>gobject_ffi::g_value_unset(<a href="#378">valueptr</a>);
+<a href=#391 id=391 data-nosnippet>391</a>        <span class="comment">// Then consume `v` and transfer ownership of its bits to `valueptr`.
+<a href=#392 id=392 data-nosnippet>392</a>        </span>std::ptr::<a href="https://doc.rust-lang.org/nightly/core/ptr/fn.write.html">write</a>(<a href="#378">valueptr</a>, <a href="#387">v</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/value/struct.Value.html#method.into_raw">into_raw</a>());
+<a href=#393 id=393 data-nosnippet>393</a>    }
+<a href=#394 id=394 data-nosnippet>394</a>}
+<a href=#395 id=395 data-nosnippet>395</a>
+<a href=#396 id=396 data-nosnippet>396</a><span class="attr">#[derive(<a href="https://doc.rust-lang.org/nightly/core/fmt/macros/derive.Debug.html">Debug</a>)]
+<a href=#397 id=397 data-nosnippet>397</a></span><span class="kw">pub struct </span><a href="../../../gtk/subclass/container/struct.Callback.html">Callback</a> {
+<a href=#398 id=398 data-nosnippet>398</a>    callback: ffi::<a href="../../../gtk_sys/type.GtkCallback.html">GtkCallback</a>,
+<a href=#399 id=399 data-nosnippet>399</a>    user_data: glib::ffi::gpointer,
+<a href=#400 id=400 data-nosnippet>400</a>}
+<a href=#401 id=401 data-nosnippet>401</a>
+<a href=#402 id=402 data-nosnippet>402</a><span class="kw">impl </span><a href="#397-400">Callback</a> {
+<a href=#403 id=403 data-nosnippet>403</a>    <span class="kw">pub fn </span>call(<span class="kw-2">&amp;</span><span class="self">self</span>, widget: <span class="kw-2">&amp;</span><a href="../auto/widget.rs.html#18-1001">Widget</a>) {
+<a href=#404 id=404 data-nosnippet>404</a>        <span class="kw">unsafe </span>{
+<a href=#405 id=405 data-nosnippet>405</a>            <span class="kw">if let </span><a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.Some">Some</a>(callback) = <a class="self" href="#403">self</a>.callback {
+<a href=#406 id=406 data-nosnippet>406</a>                <a href="#405">callback</a>(<a href="#403">widget</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>, <a class="self" href="#403">self</a>.user_data);
+<a href=#407 id=407 data-nosnippet>407</a>            }
+<a href=#408 id=408 data-nosnippet>408</a>        }
+<a href=#409 id=409 data-nosnippet>409</a>    }
+<a href=#410 id=410 data-nosnippet>410</a>}
+<a href=#411 id=411 data-nosnippet>411</a>
+<a href=#412 id=412 data-nosnippet>412</a><span class="kw">pub unsafe trait </span><a href="../../../gtk/subclass/container/trait.ContainerClassSubclassExt.html">ContainerClassSubclassExt</a>: <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/subclass/types/trait.ClassStruct.html">ClassStruct</a> {
+<a href=#413 id=413 data-nosnippet>413</a>    <span class="attr">#[doc(alias = <span class="string">"gtk_container_class_handle_border_width"</span>)]
+<a href=#414 id=414 data-nosnippet>414</a>    </span><span class="kw">fn </span>handle_border_width(<span class="kw-2">&amp;mut </span><span class="self">self</span>) {
+<a href=#415 id=415 data-nosnippet>415</a>        <span class="kw">unsafe </span>{
+<a href=#416 id=416 data-nosnippet>416</a>            <span class="kw">let </span>widget_class = <a class="self" href="#414">self</a> <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_ as </span><span class="kw-2">*mut </span>ffi::<a href="../../../gtk_sys/struct.GtkContainerClass.html">GtkContainerClass</a>;
+<a href=#417 id=417 data-nosnippet>417</a>            ffi::<a href="../../../gtk_sys/fn.gtk_container_class_handle_border_width.html">gtk_container_class_handle_border_width</a>(<a href="#416">widget_class</a>);
+<a href=#418 id=418 data-nosnippet>418</a>        }
+<a href=#419 id=419 data-nosnippet>419</a>    }
+<a href=#420 id=420 data-nosnippet>420</a>}
+<a href=#421 id=421 data-nosnippet>421</a>
+<a href=#422 id=422 data-nosnippet>422</a><span class="kw">unsafe impl</span>&lt;T: <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/subclass/types/trait.ClassStruct.html">ClassStruct</a>&gt; <a href="#412-420">ContainerClassSubclassExt</a> <span class="kw">for </span>T <span class="kw">where </span>T::Type: <a href="#16-130">ContainerImpl</a> {}
 </code></pre></div></section></main></body></html>
