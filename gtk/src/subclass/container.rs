@@ -1,6 +1,6 @@
 // Take a look at the license at the top of the repository in the LICENSE file.
 
-use std::{mem, ptr};
+use std::ptr;
 
 use glib::{ParamSpec, Value, gobject_ffi, translate::*};
 
@@ -319,12 +319,10 @@ unsafe extern "C" fn container_get_child_property<T: ContainerImpl>(
 
         let v = imp.child_property(&child, property_id as usize, &pspec);
 
-        // Unset the passed value just in case it has any data in it.  Then copy the returned value
-        // `v`'s data, byte-for-byte, into `valueptr`.  Use `ManuallyDrop` in order to transfer
-        // ownership to `valueptr` without having to make a copy.
+        // Unset first just in case there's anything in there already.
         gobject_ffi::g_value_unset(valueptr);
-        let v = mem::ManuallyDrop::new(v);
-        ptr::write(valueptr, ptr::read(v.to_glib_none().0));
+        // Then consume `v` and transfer ownership of its bits to `valueptr`.
+        std::ptr::write(valueptr, v.into_raw());
     }
 }
 
