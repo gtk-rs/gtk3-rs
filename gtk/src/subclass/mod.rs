@@ -29,6 +29,7 @@ pub mod list_box;
 pub mod list_box_row;
 pub mod list_store;
 pub mod menu_button;
+pub mod orientable;
 #[cfg(gdk_backend = "x11")]
 pub mod plug;
 pub mod scrollable;
@@ -79,6 +80,7 @@ pub mod prelude {
     pub use super::list_box_row::{ListBoxRowImpl, ListBoxRowImplExt};
     pub use super::list_store::ListStoreImpl;
     pub use super::menu_button::MenuButtonImpl;
+    pub use super::orientable::OrientableImpl;
     #[cfg(gdk_backend = "x11")]
     pub use super::plug::{PlugImpl, PlugImplExt};
     pub use super::scrollable::{ScrollableImpl, ScrollableImplExt};
