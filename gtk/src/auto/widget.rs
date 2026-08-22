@@ -103,16 +103,6 @@ pub trait WidgetExt: IsA<Widget> + 'static {
         }
     }
 
-    #[doc(alias = "gtk_widget_can_activate_accel")]
-    fn can_activate_accel(&self, signal_id: u32) -> bool {
-        unsafe {
-            from_glib(ffi::gtk_widget_can_activate_accel(
-                self.as_ref().to_glib_none().0,
-                signal_id,
-            ))
-        }
-    }
-
     #[doc(alias = "gtk_widget_child_focus")]
     fn child_focus(&self, direction: DirectionType) -> bool {
         unsafe {
@@ -2123,37 +2113,6 @@ pub trait WidgetExt: IsA<Widget> + 'static {
                 c"button-release-event".as_ptr(),
                 Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
                     button_release_event_trampoline::<Self, F> as *const (),
-                )),
-                Box_::into_raw(f),
-            )
-        }
-    }
-
-    #[doc(alias = "can-activate-accel")]
-    fn connect_can_activate_accel<F: Fn(&Self, u32) -> bool + 'static>(
-        &self,
-        f: F,
-    ) -> SignalHandlerId {
-        unsafe extern "C" fn can_activate_accel_trampoline<
-            P: IsA<Widget>,
-            F: Fn(&P, u32) -> bool + 'static,
-        >(
-            this: *mut ffi::GtkWidget,
-            signal_id: std::ffi::c_uint,
-            f: glib::ffi::gpointer,
-        ) -> glib::ffi::gboolean {
-            unsafe {
-                let f: &F = &*(f as *const F);
-                f(Widget::from_glib_borrow(this).unsafe_cast_ref(), signal_id).into_glib()
-            }
-        }
-        unsafe {
-            let f: Box_<F> = Box_::new(f);
-            connect_raw(
-                self.as_ptr() as *mut _,
-                c"can-activate-accel".as_ptr(),
-                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
-                    can_activate_accel_trampoline::<Self, F> as *const (),
                 )),
                 Box_::into_raw(f),
             )

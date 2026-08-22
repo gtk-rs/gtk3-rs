@@ -2701,6 +2701,11 @@ name = "Gtk.Widget"
 status = "generate"
 manual_traits = ["WidgetExtManual"]
     [[object.function]]
+    name = "can_activate_accel"
+    # take SignalId instead of u32
+    manual = true
+    doc_trait_name = "WidgetExtManual"
+    [[object.function]]
     name = "drag_dest_set"
     #array with size
     manual = true
@@ -2804,6 +2809,11 @@ manual_traits = ["WidgetExtManual"]
     [[object.signal]]
     name = "button-release-event"
     inhibit = true
+    [[object.signal]]
+    name = "can-activate-accel"
+    # pass SignalId instead of u32
+    ignore = true
+    doc_trait_name = "WidgetExtManual"
     [[object.signal]]
     name = "delete-event"
     inhibit = true

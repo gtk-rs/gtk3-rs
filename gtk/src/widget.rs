@@ -3,8 +3,10 @@
 use gdk::{DragAction, Event, ModifierType};
 use glib::ffi::gboolean;
 use glib::signal::{SignalHandlerId, connect_raw};
+use glib::subclass::SignalId;
 use glib::translate::*;
 use std::mem::transmute;
+use std::num::NonZeroU32;
 use std::ptr;
 
 use crate::prelude::*;
@@ -32,6 +34,16 @@ mod sealed {
 }
 
 pub trait WidgetExtManual: IsA<Widget> + sealed::Sealed + 'static {
+    #[doc(alias = "gtk_widget_can_activate_accel")]
+    fn can_activate_accel(&self, signal_id: SignalId) -> bool {
+        unsafe {
+            from_glib(ffi::gtk_widget_can_activate_accel(
+                self.as_ref().to_glib_none().0,
+                signal_id.into_glib(),
+            ))
+        }
+    }
+
     #[doc(alias = "gtk_drag_dest_set")]
     fn drag_dest_set(&self, flags: DestDefaults, targets: &[TargetEntry], actions: DragAction) {
         let stashes: Vec<_> = targets.iter().map(|e| e.to_glib_none()).collect();
@@ -85,6 +97,41 @@ pub trait WidgetExtManual: IsA<Widget> + sealed::Sealed + 'static {
                 area.to_glib_none().0,
                 intersection.to_glib_none_mut().0,
             ))
+        }
+    }
+
+    #[doc(alias = "can-activate-accel")]
+    fn connect_can_activate_accel<F: Fn(&Self, SignalId) -> bool + 'static>(
+        &self,
+        f: F,
+    ) -> SignalHandlerId {
+        unsafe extern "C" fn can_activate_accel_trampoline<
+            P: IsA<Widget>,
+            F: Fn(&P, SignalId) -> bool + 'static,
+        >(
+            this: *mut ffi::GtkWidget,
+            signal_id: std::ffi::c_uint,
+            f: glib::ffi::gpointer,
+        ) -> glib::ffi::gboolean {
+            unsafe {
+                if let Some(signal_id) = NonZeroU32::new(signal_id).map(|nz| SignalId::new(nz)) {
+                    let f: &F = &*(f as *const F);
+                    f(Widget::from_glib_borrow(this).unsafe_cast_ref(), signal_id).into_glib()
+                } else {
+                    false.into_glib()
+                }
+            }
+        }
+        unsafe {
+            let f: Box<F> = Box::new(f);
+            connect_raw(
+                self.as_ptr() as *mut _,
+                c"can-activate-accel".as_ptr(),
+                Some(std::mem::transmute::<*const (), unsafe extern "C" fn()>(
+                    can_activate_accel_trampoline::<Self, F> as *const (),
+                )),
+                Box::into_raw(f),
+            )
         }
     }
 
