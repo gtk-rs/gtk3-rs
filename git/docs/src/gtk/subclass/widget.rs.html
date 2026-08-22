@@ -2263,13 +2263,13 @@
 <a href=#2190 id=2190 data-nosnippet>2190</a>
 <a href=#2191 id=2191 data-nosnippet>2191</a>        <span class="kw">let </span>widget = <a href="#2189">imp</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/subclass/types/trait.ObjectSubclassExt.html#tymethod.obj">obj</a>();
 <a href=#2192 id=2192 data-nosnippet>2192</a>        <span class="kw">let </span>widget = <a href="#2191">widget</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.Cast.html#method.unsafe_cast_ref">unsafe_cast_ref</a>::&lt;<a href="../auto/widget.rs.html#18-1001">Widget</a>&gt;();
-<a href=#2193 id=2193 data-nosnippet>2193</a>        <span class="kw">let </span><span class="kw-2">mut </span>hexpand: <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> = <span class="kw">if </span><a href="#2192">widget</a>.<a href="../auto/widget.rs.html#2368-2374">is_hexpand_set</a>() {
-<a href=#2194 id=2194 data-nosnippet>2194</a>            <a href="#2192">widget</a>.<a href="../auto/widget.rs.html#2347-2349">hexpands</a>()
+<a href=#2193 id=2193 data-nosnippet>2193</a>        <span class="kw">let </span><span class="kw-2">mut </span>hexpand: <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> = <span class="kw">if </span><a href="#2192">widget</a>.<a href="../auto/widget.rs.html#2345-2351">is_hexpand_set</a>() {
+<a href=#2194 id=2194 data-nosnippet>2194</a>            <a href="#2192">widget</a>.<a href="../auto/widget.rs.html#2324-2326">hexpands</a>()
 <a href=#2195 id=2195 data-nosnippet>2195</a>        } <span class="kw">else </span>{
 <a href=#2196 id=2196 data-nosnippet>2196</a>            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib.html">from_glib</a>(<span class="kw-2">*</span><a href="#2184">hexpand_ptr</a>)
 <a href=#2197 id=2197 data-nosnippet>2197</a>        };
-<a href=#2198 id=2198 data-nosnippet>2198</a>        <span class="kw">let </span><span class="kw-2">mut </span>vexpand: <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> = <span class="kw">if </span><a href="#2192">widget</a>.<a href="../auto/widget.rs.html#3154-3160">is_vexpand_set</a>() {
-<a href=#2199 id=2199 data-nosnippet>2199</a>            <a href="#2192">widget</a>.<a href="../auto/widget.rs.html#3139-3141">vexpands</a>()
+<a href=#2198 id=2198 data-nosnippet>2198</a>        <span class="kw">let </span><span class="kw-2">mut </span>vexpand: <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> = <span class="kw">if </span><a href="#2192">widget</a>.<a href="../auto/widget.rs.html#3131-3137">is_vexpand_set</a>() {
+<a href=#2199 id=2199 data-nosnippet>2199</a>            <a href="#2192">widget</a>.<a href="../auto/widget.rs.html#3116-3118">vexpands</a>()
 <a href=#2200 id=2200 data-nosnippet>2200</a>        } <span class="kw">else </span>{
 <a href=#2201 id=2201 data-nosnippet>2201</a>            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib.html">from_glib</a>(<span class="kw-2">*</span><a href="#2185">vexpand_ptr</a>)
 <a href=#2202 id=2202 data-nosnippet>2202</a>        };
