@@ -29,6 +29,7 @@ pub mod list_store;
 pub mod menu_button;
 #[cfg(gdk_backend = "x11")]
 pub mod plug;
+pub mod scrollable;
 pub mod scrolled_window;
 #[cfg(gdk_backend = "x11")]
 pub mod socket;
@@ -76,6 +77,7 @@ pub mod prelude {
     pub use super::menu_button::MenuButtonImpl;
     #[cfg(gdk_backend = "x11")]
     pub use super::plug::{PlugImpl, PlugImplExt};
+    pub use super::scrollable::{ScrollableImpl, ScrollableImplExt};
     pub use super::scrolled_window::{ScrolledWindowImpl, ScrolledWindowImplExt};
     #[cfg(gdk_backend = "x11")]
     pub use super::socket::{SocketImpl, SocketImplExt};
