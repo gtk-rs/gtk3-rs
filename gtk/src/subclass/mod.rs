@@ -5,6 +5,7 @@ pub mod application_window;
 pub mod bin;
 pub mod box_;
 pub mod button;
+pub mod cell_editable;
 pub mod cell_renderer;
 pub mod cell_renderer_accel;
 pub mod cell_renderer_combo;
@@ -54,6 +55,7 @@ pub mod prelude {
     pub use super::bin::BinImpl;
     pub use super::box_::BoxImpl;
     pub use super::button::ButtonImpl;
+    pub use super::cell_editable::{CellEditableImpl, CellEditableImplExt};
     pub use super::cell_renderer::{CellRendererImpl, CellRendererImplExt};
     pub use super::cell_renderer_accel::{CellRendererAccelImpl, CellRendererAccelImplExt};
     pub use super::cell_renderer_combo::CellRendererComboImpl;
