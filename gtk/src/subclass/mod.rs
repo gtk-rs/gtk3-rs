@@ -5,6 +5,8 @@ pub mod application_window;
 pub mod bin;
 pub mod box_;
 pub mod button;
+pub mod cell_editable;
+pub mod cell_layout;
 pub mod cell_renderer;
 pub mod cell_renderer_accel;
 pub mod cell_renderer_combo;
@@ -17,6 +19,7 @@ pub mod cell_renderer_toggle;
 pub mod container;
 pub mod dialog;
 pub mod drawing_area;
+pub mod editable;
 pub mod entry;
 pub mod event_box;
 pub mod fixed;
@@ -27,8 +30,10 @@ pub mod list_box;
 pub mod list_box_row;
 pub mod list_store;
 pub mod menu_button;
+pub mod orientable;
 #[cfg(gdk_backend = "x11")]
 pub mod plug;
+pub mod scrollable;
 pub mod scrolled_window;
 #[cfg(gdk_backend = "x11")]
 pub mod socket;
@@ -52,6 +57,8 @@ pub mod prelude {
     pub use super::bin::BinImpl;
     pub use super::box_::BoxImpl;
     pub use super::button::ButtonImpl;
+    pub use super::cell_editable::{CellEditableImpl, CellEditableImplExt};
+    pub use super::cell_layout::{CellDataFunc, CellLayoutImpl, CellLayoutImplExt};
     pub use super::cell_renderer::{CellRendererImpl, CellRendererImplExt};
     pub use super::cell_renderer_accel::{CellRendererAccelImpl, CellRendererAccelImplExt};
     pub use super::cell_renderer_combo::CellRendererComboImpl;
@@ -64,6 +71,7 @@ pub mod prelude {
     pub use super::container::{ContainerClassSubclassExt, ContainerImpl, ContainerImplExt};
     pub use super::dialog::{DialogImpl, DialogImplExt};
     pub use super::drawing_area::DrawingAreaImpl;
+    pub use super::editable::{EditableImpl, EditableImplExt};
     pub use super::entry::{EntryImpl, EntryImplExt};
     pub use super::event_box::EventBoxImpl;
     pub use super::fixed::FixedImpl;
@@ -74,8 +82,10 @@ pub mod prelude {
     pub use super::list_box_row::{ListBoxRowImpl, ListBoxRowImplExt};
     pub use super::list_store::ListStoreImpl;
     pub use super::menu_button::MenuButtonImpl;
+    pub use super::orientable::OrientableImpl;
     #[cfg(gdk_backend = "x11")]
     pub use super::plug::{PlugImpl, PlugImplExt};
+    pub use super::scrollable::{ScrollableImpl, ScrollableImplExt};
     pub use super::scrolled_window::{ScrolledWindowImpl, ScrolledWindowImplExt};
     #[cfg(gdk_backend = "x11")]
     pub use super::socket::{SocketImpl, SocketImplExt};
