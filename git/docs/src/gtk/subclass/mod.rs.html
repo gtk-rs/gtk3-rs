@@ -71,98 +71,108 @@
 </script>
 
 
-<nav class="sidebar"><div class="src-sidebar-title"><h2>Files</h2></div></nav><div class="sidebar-resizer" title="Drag to resize sidebar"></div><main><section id="main-content" class="content" tabindex="-1"><div class="main-heading"><h1><div class="sub-heading">gtk/subclass/</div>mod.rs</h1><rustdoc-toolbar></rustdoc-toolbar></div><div class="example-wrap digits-2"><pre class="rust"><code><a href=#1 id=1 data-nosnippet>1</a><span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.
+<nav class="sidebar"><div class="src-sidebar-title"><h2>Files</h2></div></nav><div class="sidebar-resizer" title="Drag to resize sidebar"></div><main><section id="main-content" class="content" tabindex="-1"><div class="main-heading"><h1><div class="sub-heading">gtk/subclass/</div>mod.rs</h1><rustdoc-toolbar></rustdoc-toolbar></div><div class="example-wrap digits-3"><pre class="rust"><code><a href=#1 id=1 data-nosnippet>1</a><span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.
 <a href=#2 id=2 data-nosnippet>2</a>
 <a href=#3 id=3 data-nosnippet>3</a></span><span class="kw">pub mod </span><a href="application.rs.html#3-128">application</a>;
 <a href=#4 id=4 data-nosnippet>4</a><span class="kw">pub mod </span><a href="application_window.rs.html#3-18">application_window</a>;
 <a href=#5 id=5 data-nosnippet>5</a><span class="kw">pub mod </span><a href="bin.rs.html#3-18">bin</a>;
 <a href=#6 id=6 data-nosnippet>6</a><span class="kw">pub mod </span><a href="box_.rs.html#3-18">box_</a>;
 <a href=#7 id=7 data-nosnippet>7</a><span class="kw">pub mod </span><a href="button.rs.html#3-82">button</a>;
-<a href=#8 id=8 data-nosnippet>8</a><span class="kw">pub mod </span><a href="cell_renderer.rs.html#3-721">cell_renderer</a>;
-<a href=#9 id=9 data-nosnippet>9</a><span class="kw">pub mod </span><a href="cell_renderer_accel.rs.html#3-121">cell_renderer_accel</a>;
-<a href=#10 id=10 data-nosnippet>10</a><span class="kw">pub mod </span><a href="cell_renderer_combo.rs.html#3-18">cell_renderer_combo</a>;
-<a href=#11 id=11 data-nosnippet>11</a><span class="kw">pub mod </span><a href="cell_renderer_pixbuf.rs.html#3-19">cell_renderer_pixbuf</a>;
-<a href=#12 id=12 data-nosnippet>12</a><span class="kw">pub mod </span><a href="cell_renderer_progress.rs.html#3-19">cell_renderer_progress</a>;
-<a href=#13 id=13 data-nosnippet>13</a><span class="kw">pub mod </span><a href="cell_renderer_spin.rs.html#3-18">cell_renderer_spin</a>;
-<a href=#14 id=14 data-nosnippet>14</a><span class="kw">pub mod </span><a href="cell_renderer_spinner.rs.html#3-19">cell_renderer_spinner</a>;
-<a href=#15 id=15 data-nosnippet>15</a><span class="kw">pub mod </span><a href="cell_renderer_text.rs.html#3-72">cell_renderer_text</a>;
-<a href=#16 id=16 data-nosnippet>16</a><span class="kw">pub mod </span><a href="cell_renderer_toggle.rs.html#3-67">cell_renderer_toggle</a>;
-<a href=#17 id=17 data-nosnippet>17</a><span class="kw">pub mod </span><a href="container.rs.html#3-422">container</a>;
-<a href=#18 id=18 data-nosnippet>18</a><span class="kw">pub mod </span><a href="dialog.rs.html#3-92">dialog</a>;
-<a href=#19 id=19 data-nosnippet>19</a><span class="kw">pub mod </span><a href="drawing_area.rs.html#3-18">drawing_area</a>;
-<a href=#20 id=20 data-nosnippet>20</a><span class="kw">pub mod </span><a href="entry.rs.html#3-92">entry</a>;
-<a href=#21 id=21 data-nosnippet>21</a><span class="kw">pub mod </span><a href="event_box.rs.html#3-19">event_box</a>;
-<a href=#22 id=22 data-nosnippet>22</a><span class="kw">pub mod </span><a href="fixed.rs.html#3-19">fixed</a>;
-<a href=#23 id=23 data-nosnippet>23</a><span class="kw">pub mod </span><a href="grid.rs.html#3-17">grid</a>;
-<a href=#24 id=24 data-nosnippet>24</a><span class="kw">pub mod </span><a href="header_bar.rs.html#3-19">header_bar</a>;
-<a href=#25 id=25 data-nosnippet>25</a><span class="kw">pub mod </span><a href="icon_view.rs.html#3-241">icon_view</a>;
-<a href=#26 id=26 data-nosnippet>26</a><span class="kw">pub mod </span><a href="list_box.rs.html#3-251">list_box</a>;
-<a href=#27 id=27 data-nosnippet>27</a><span class="kw">pub mod </span><a href="list_box_row.rs.html#3-56">list_box_row</a>;
-<a href=#28 id=28 data-nosnippet>28</a><span class="kw">pub mod </span><a href="list_store.rs.html#3-17">list_store</a>;
-<a href=#29 id=29 data-nosnippet>29</a><span class="kw">pub mod </span><a href="menu_button.rs.html#3-23">menu_button</a>;
-<a href=#30 id=30 data-nosnippet>30</a><span class="attr">#[cfg(gdk_backend = <span class="string">"x11"</span>)]
-<a href=#31 id=31 data-nosnippet>31</a></span><span class="kw">pub mod </span><a href="plug.rs.html#3-56">plug</a>;
-<a href=#32 id=32 data-nosnippet>32</a><span class="kw">pub mod </span><a href="scrolled_window.rs.html#3-107">scrolled_window</a>;
-<a href=#33 id=33 data-nosnippet>33</a><span class="attr">#[cfg(gdk_backend = <span class="string">"x11"</span>)]
-<a href=#34 id=34 data-nosnippet>34</a></span><span class="kw">pub mod </span><a href="socket.rs.html#3-88">socket</a>;
-<a href=#35 id=35 data-nosnippet>35</a><span class="kw">pub mod </span><a href="stack.rs.html#3-19">stack</a>;
-<a href=#36 id=36 data-nosnippet>36</a><span class="kw">pub mod </span><a href="toggle_button.rs.html#3-58">toggle_button</a>;
-<a href=#37 id=37 data-nosnippet>37</a><span class="kw">pub mod </span><a href="tree_drag_dest.rs.html#3-104">tree_drag_dest</a>;
-<a href=#38 id=38 data-nosnippet>38</a><span class="kw">pub mod </span><a href="tree_drag_source.rs.html#3-138">tree_drag_source</a>;
-<a href=#39 id=39 data-nosnippet>39</a><span class="kw">pub mod </span><a href="tree_model_filter.rs.html#3-111">tree_model_filter</a>;
-<a href=#40 id=40 data-nosnippet>40</a><span class="kw">pub mod </span><a href="tree_model_sort.rs.html#3-17">tree_model_sort</a>;
-<a href=#41 id=41 data-nosnippet>41</a><span class="kw">pub mod </span><a href="tree_store.rs.html#3-17">tree_store</a>;
-<a href=#42 id=42 data-nosnippet>42</a><span class="kw">pub mod </span><a href="tree_view.rs.html#3-486">tree_view</a>;
-<a href=#43 id=43 data-nosnippet>43</a><span class="kw">pub mod </span><a href="widget.rs.html#3-3287">widget</a>;
-<a href=#44 id=44 data-nosnippet>44</a><span class="kw">pub mod </span><a href="window.rs.html#3-181">window</a>;
-<a href=#45 id=45 data-nosnippet>45</a>
-<a href=#46 id=46 data-nosnippet>46</a><span class="kw">pub mod </span><a href="../../../gtk/subclass/prelude/index.html">prelude</a> {
-<a href=#47 id=47 data-nosnippet>47</a>    <span class="attr">#[doc(hidden)]
-<a href=#48 id=48 data-nosnippet>48</a>    </span><span class="kw">pub use </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/gio/subclass/prelude/index.html">gio::subclass::prelude</a>::<span class="kw-2">*</span>;
-<a href=#49 id=49 data-nosnippet>49</a>
-<a href=#50 id=50 data-nosnippet>50</a>    <span class="kw">pub use </span><span class="kw">super</span>::application::{<a href="application.rs.html#12-22">GtkApplicationImpl</a>, <a href="application.rs.html#29-54">GtkApplicationImplExt</a>};
-<a href=#51 id=51 data-nosnippet>51</a>    <span class="kw">pub use </span><a href="application_window.rs.html#8"><span class="kw">super</span>::application_window::ApplicationWindowImpl</a>;
-<a href=#52 id=52 data-nosnippet>52</a>    <span class="kw">pub use </span><a href="bin.rs.html#8"><span class="kw">super</span>::bin::BinImpl</a>;
-<a href=#53 id=53 data-nosnippet>53</a>    <span class="kw">pub use </span><a href="box_.rs.html#8"><span class="kw">super</span>::box_::BoxImpl</a>;
-<a href=#54 id=54 data-nosnippet>54</a>    <span class="kw">pub use </span><a href="button.rs.html#10-22"><span class="kw">super</span>::button::ButtonImpl</a>;
-<a href=#55 id=55 data-nosnippet>55</a>    <span class="kw">pub use </span><span class="kw">super</span>::cell_renderer::{<a href="cell_renderer.rs.html#18-229">CellRendererImpl</a>, <a href="cell_renderer.rs.html#236-476">CellRendererImplExt</a>};
-<a href=#56 id=56 data-nosnippet>56</a>    <span class="kw">pub use </span><span class="kw">super</span>::cell_renderer_accel::{<a href="cell_renderer_accel.rs.html#12-26">CellRendererAccelImpl</a>, <a href="cell_renderer_accel.rs.html#33-73">CellRendererAccelImplExt</a>};
-<a href=#57 id=57 data-nosnippet>57</a>    <span class="kw">pub use </span><a href="cell_renderer_combo.rs.html#8"><span class="kw">super</span>::cell_renderer_combo::CellRendererComboImpl</a>;
-<a href=#58 id=58 data-nosnippet>58</a>    <span class="kw">pub use </span><a href="cell_renderer_pixbuf.rs.html#9"><span class="kw">super</span>::cell_renderer_pixbuf::CellRendererPixbufImpl</a>;
-<a href=#59 id=59 data-nosnippet>59</a>    <span class="kw">pub use </span><a href="cell_renderer_progress.rs.html#9"><span class="kw">super</span>::cell_renderer_progress::CellRendererProgressImpl</a>;
-<a href=#60 id=60 data-nosnippet>60</a>    <span class="kw">pub use </span><a href="cell_renderer_spin.rs.html#8"><span class="kw">super</span>::cell_renderer_spin::CellRendererSpinImpl</a>;
-<a href=#61 id=61 data-nosnippet>61</a>    <span class="kw">pub use </span><a href="cell_renderer_spinner.rs.html#9"><span class="kw">super</span>::cell_renderer_spinner::CellRendererSpinnerImpl</a>;
-<a href=#62 id=62 data-nosnippet>62</a>    <span class="kw">pub use </span><span class="kw">super</span>::cell_renderer_text::{<a href="cell_renderer_text.rs.html#13-17">CellRendererTextImpl</a>, <a href="cell_renderer_text.rs.html#24-41">CellRendererTextImplExt</a>};
-<a href=#63 id=63 data-nosnippet>63</a>    <span class="kw">pub use </span><span class="kw">super</span>::cell_renderer_toggle::{<a href="cell_renderer_toggle.rs.html#13-17">CellRendererToggleImpl</a>, <a href="cell_renderer_toggle.rs.html#24-40">CellRendererToggleImplExt</a>};
-<a href=#64 id=64 data-nosnippet>64</a>    <span class="kw">pub use </span><span class="kw">super</span>::container::{<a href="container.rs.html#412-420">ContainerClassSubclassExt</a>, <a href="container.rs.html#16-130">ContainerImpl</a>, <a href="container.rs.html#137-225">ContainerImplExt</a>};
-<a href=#65 id=65 data-nosnippet>65</a>    <span class="kw">pub use </span><span class="kw">super</span>::dialog::{<a href="dialog.rs.html#13-28">DialogImpl</a>, <a href="dialog.rs.html#35-57">DialogImplExt</a>};
-<a href=#66 id=66 data-nosnippet>66</a>    <span class="kw">pub use </span><a href="drawing_area.rs.html#8"><span class="kw">super</span>::drawing_area::DrawingAreaImpl</a>;
-<a href=#67 id=67 data-nosnippet>67</a>    <span class="kw">pub use </span><span class="kw">super</span>::entry::{<a href="entry.rs.html#11-25">EntryImpl</a>, <a href="entry.rs.html#32-54">EntryImplExt</a>};
-<a href=#68 id=68 data-nosnippet>68</a>    <span class="kw">pub use </span><a href="event_box.rs.html#9"><span class="kw">super</span>::event_box::EventBoxImpl</a>;
-<a href=#69 id=69 data-nosnippet>69</a>    <span class="kw">pub use </span><a href="fixed.rs.html#9"><span class="kw">super</span>::fixed::FixedImpl</a>;
-<a href=#70 id=70 data-nosnippet>70</a>    <span class="kw">pub use </span><a href="grid.rs.html#7"><span class="kw">super</span>::grid::GridImpl</a>;
-<a href=#71 id=71 data-nosnippet>71</a>    <span class="kw">pub use </span><a href="header_bar.rs.html#9"><span class="kw">super</span>::header_bar::HeaderBarImpl</a>;
-<a href=#72 id=72 data-nosnippet>72</a>    <span class="kw">pub use </span><span class="kw">super</span>::icon_view::{<a href="icon_view.rs.html#15-46">IconViewImpl</a>, <a href="icon_view.rs.html#53-137">IconViewImplExt</a>};
-<a href=#73 id=73 data-nosnippet>73</a>    <span class="kw">pub use </span><span class="kw">super</span>::list_box::{<a href="list_box.rs.html#15-55">ListBoxImpl</a>, <a href="list_box.rs.html#62-145">ListBoxImplExt</a>};
-<a href=#74 id=74 data-nosnippet>74</a>    <span class="kw">pub use </span><span class="kw">super</span>::list_box_row::{<a href="list_box_row.rs.html#11-15">ListBoxRowImpl</a>, <a href="list_box_row.rs.html#22-32">ListBoxRowImplExt</a>};
-<a href=#75 id=75 data-nosnippet>75</a>    <span class="kw">pub use </span><a href="list_store.rs.html#7"><span class="kw">super</span>::list_store::ListStoreImpl</a>;
-<a href=#76 id=76 data-nosnippet>76</a>    <span class="kw">pub use </span><a href="menu_button.rs.html#8"><span class="kw">super</span>::menu_button::MenuButtonImpl</a>;
-<a href=#77 id=77 data-nosnippet>77</a>    <span class="attr">#[cfg(gdk_backend = <span class="string">"x11"</span>)]
-<a href=#78 id=78 data-nosnippet>78</a>    </span><span class="kw">pub use </span><span class="kw">super</span>::plug::{<a href="plug.rs.html#11-15">PlugImpl</a>, <a href="plug.rs.html#22-32">PlugImplExt</a>};
-<a href=#79 id=79 data-nosnippet>79</a>    <span class="kw">pub use </span><span class="kw">super</span>::scrolled_window::{<a href="scrolled_window.rs.html#14-26">ScrolledWindowImpl</a>, <a href="scrolled_window.rs.html#33-67">ScrolledWindowImplExt</a>};
-<a href=#80 id=80 data-nosnippet>80</a>    <span class="attr">#[cfg(gdk_backend = <span class="string">"x11"</span>)]
-<a href=#81 id=81 data-nosnippet>81</a>    </span><span class="kw">pub use </span><span class="kw">super</span>::socket::{<a href="socket.rs.html#12-20">SocketImpl</a>, <a href="socket.rs.html#27-52">SocketImplExt</a>};
-<a href=#82 id=82 data-nosnippet>82</a>    <span class="kw">pub use </span><a href="stack.rs.html#9"><span class="kw">super</span>::stack::StackImpl</a>;
-<a href=#83 id=83 data-nosnippet>83</a>    <span class="kw">pub use </span><a href="toggle_button.rs.html#10-17"><span class="kw">super</span>::toggle_button::ToggleButtonImpl</a>;
-<a href=#84 id=84 data-nosnippet>84</a>    <span class="kw">pub use </span><span class="kw">super</span>::tree_drag_dest::{<a href="tree_drag_dest.rs.html#7-13">TreeDragDestImpl</a>, <a href="tree_drag_dest.rs.html#15-58">TreeDragDestImplExt</a>};
-<a href=#85 id=85 data-nosnippet>85</a>    <span class="kw">pub use </span><span class="kw">super</span>::tree_drag_source::{<a href="tree_drag_source.rs.html#7-15">TreeDragSourceImpl</a>, <a href="tree_drag_source.rs.html#17-81">TreeDragSourceImplExt</a>};
-<a href=#86 id=86 data-nosnippet>86</a>    <span class="kw">pub use </span><span class="kw">super</span>::tree_model_filter::{<a href="tree_model_filter.rs.html#7-15">TreeModelFilterImpl</a>, <a href="tree_model_filter.rs.html#17-59">TreeModelFilterImplExt</a>};
-<a href=#87 id=87 data-nosnippet>87</a>    <span class="kw">pub use </span><a href="tree_model_sort.rs.html#7"><span class="kw">super</span>::tree_model_sort::TreeModelSortImpl</a>;
-<a href=#88 id=88 data-nosnippet>88</a>    <span class="kw">pub use </span><a href="tree_store.rs.html#7"><span class="kw">super</span>::tree_store::TreeStoreImpl</a>;
-<a href=#89 id=89 data-nosnippet>89</a>    <span class="kw">pub use </span><span class="kw">super</span>::tree_view::{<a href="tree_view.rs.html#13-78">TreeViewImpl</a>, <a href="tree_view.rs.html#80-287">TreeViewImplExt</a>};
-<a href=#90 id=90 data-nosnippet>90</a>    <span class="kw">pub use </span><span class="kw">super</span>::widget::{
-<a href=#91 id=91 data-nosnippet>91</a>        <a href="widget.rs.html#3285-3287">CompositeTemplate</a>, <a href="widget.rs.html#3232-3237">TemplateChild</a>, <a href="widget.rs.html#3110-3226">WidgetClassSubclassExt</a>, <a href="widget.rs.html#26-772">WidgetImpl</a>, <a href="widget.rs.html#774-1951">WidgetImplExt</a>,
-<a href=#92 id=92 data-nosnippet>92</a>    };
-<a href=#93 id=93 data-nosnippet>93</a>    <span class="kw">pub use </span><span class="kw">super</span>::window::{<a href="window.rs.html#14-48">WindowImpl</a>, <a href="window.rs.html#55-109">WindowImplExt</a>};
-<a href=#94 id=94 data-nosnippet>94</a>}
+<a href=#8 id=8 data-nosnippet>8</a><span class="kw">pub mod </span><a href="cell_editable.rs.html#4-126">cell_editable</a>;
+<a href=#9 id=9 data-nosnippet>9</a><span class="kw">pub mod </span><a href="cell_layout.rs.html#4-460">cell_layout</a>;
+<a href=#10 id=10 data-nosnippet>10</a><span class="kw">pub mod </span><a href="cell_renderer.rs.html#3-721">cell_renderer</a>;
+<a href=#11 id=11 data-nosnippet>11</a><span class="kw">pub mod </span><a href="cell_renderer_accel.rs.html#3-121">cell_renderer_accel</a>;
+<a href=#12 id=12 data-nosnippet>12</a><span class="kw">pub mod </span><a href="cell_renderer_combo.rs.html#3-18">cell_renderer_combo</a>;
+<a href=#13 id=13 data-nosnippet>13</a><span class="kw">pub mod </span><a href="cell_renderer_pixbuf.rs.html#3-19">cell_renderer_pixbuf</a>;
+<a href=#14 id=14 data-nosnippet>14</a><span class="kw">pub mod </span><a href="cell_renderer_progress.rs.html#3-19">cell_renderer_progress</a>;
+<a href=#15 id=15 data-nosnippet>15</a><span class="kw">pub mod </span><a href="cell_renderer_spin.rs.html#3-18">cell_renderer_spin</a>;
+<a href=#16 id=16 data-nosnippet>16</a><span class="kw">pub mod </span><a href="cell_renderer_spinner.rs.html#3-19">cell_renderer_spinner</a>;
+<a href=#17 id=17 data-nosnippet>17</a><span class="kw">pub mod </span><a href="cell_renderer_text.rs.html#3-72">cell_renderer_text</a>;
+<a href=#18 id=18 data-nosnippet>18</a><span class="kw">pub mod </span><a href="cell_renderer_toggle.rs.html#3-67">cell_renderer_toggle</a>;
+<a href=#19 id=19 data-nosnippet>19</a><span class="kw">pub mod </span><a href="container.rs.html#3-422">container</a>;
+<a href=#20 id=20 data-nosnippet>20</a><span class="kw">pub mod </span><a href="dialog.rs.html#3-92">dialog</a>;
+<a href=#21 id=21 data-nosnippet>21</a><span class="kw">pub mod </span><a href="drawing_area.rs.html#3-18">drawing_area</a>;
+<a href=#22 id=22 data-nosnippet>22</a><span class="kw">pub mod </span><a href="editable.rs.html#4-401">editable</a>;
+<a href=#23 id=23 data-nosnippet>23</a><span class="kw">pub mod </span><a href="entry.rs.html#3-92">entry</a>;
+<a href=#24 id=24 data-nosnippet>24</a><span class="kw">pub mod </span><a href="event_box.rs.html#3-19">event_box</a>;
+<a href=#25 id=25 data-nosnippet>25</a><span class="kw">pub mod </span><a href="fixed.rs.html#3-19">fixed</a>;
+<a href=#26 id=26 data-nosnippet>26</a><span class="kw">pub mod </span><a href="grid.rs.html#3-17">grid</a>;
+<a href=#27 id=27 data-nosnippet>27</a><span class="kw">pub mod </span><a href="header_bar.rs.html#3-19">header_bar</a>;
+<a href=#28 id=28 data-nosnippet>28</a><span class="kw">pub mod </span><a href="icon_view.rs.html#3-241">icon_view</a>;
+<a href=#29 id=29 data-nosnippet>29</a><span class="kw">pub mod </span><a href="list_box.rs.html#3-251">list_box</a>;
+<a href=#30 id=30 data-nosnippet>30</a><span class="kw">pub mod </span><a href="list_box_row.rs.html#3-56">list_box_row</a>;
+<a href=#31 id=31 data-nosnippet>31</a><span class="kw">pub mod </span><a href="list_store.rs.html#3-17">list_store</a>;
+<a href=#32 id=32 data-nosnippet>32</a><span class="kw">pub mod </span><a href="menu_button.rs.html#3-23">menu_button</a>;
+<a href=#33 id=33 data-nosnippet>33</a><span class="kw">pub mod </span><a href="orientable.rs.html#4-10">orientable</a>;
+<a href=#34 id=34 data-nosnippet>34</a><span class="attr">#[cfg(gdk_backend = <span class="string">"x11"</span>)]
+<a href=#35 id=35 data-nosnippet>35</a></span><span class="kw">pub mod </span><a href="plug.rs.html#3-56">plug</a>;
+<a href=#36 id=36 data-nosnippet>36</a><span class="kw">pub mod </span><a href="scrollable.rs.html#4-67">scrollable</a>;
+<a href=#37 id=37 data-nosnippet>37</a><span class="kw">pub mod </span><a href="scrolled_window.rs.html#3-107">scrolled_window</a>;
+<a href=#38 id=38 data-nosnippet>38</a><span class="attr">#[cfg(gdk_backend = <span class="string">"x11"</span>)]
+<a href=#39 id=39 data-nosnippet>39</a></span><span class="kw">pub mod </span><a href="socket.rs.html#3-88">socket</a>;
+<a href=#40 id=40 data-nosnippet>40</a><span class="kw">pub mod </span><a href="stack.rs.html#3-19">stack</a>;
+<a href=#41 id=41 data-nosnippet>41</a><span class="kw">pub mod </span><a href="toggle_button.rs.html#3-58">toggle_button</a>;
+<a href=#42 id=42 data-nosnippet>42</a><span class="kw">pub mod </span><a href="tree_drag_dest.rs.html#3-104">tree_drag_dest</a>;
+<a href=#43 id=43 data-nosnippet>43</a><span class="kw">pub mod </span><a href="tree_drag_source.rs.html#3-138">tree_drag_source</a>;
+<a href=#44 id=44 data-nosnippet>44</a><span class="kw">pub mod </span><a href="tree_model_filter.rs.html#3-111">tree_model_filter</a>;
+<a href=#45 id=45 data-nosnippet>45</a><span class="kw">pub mod </span><a href="tree_model_sort.rs.html#3-17">tree_model_sort</a>;
+<a href=#46 id=46 data-nosnippet>46</a><span class="kw">pub mod </span><a href="tree_store.rs.html#3-17">tree_store</a>;
+<a href=#47 id=47 data-nosnippet>47</a><span class="kw">pub mod </span><a href="tree_view.rs.html#3-486">tree_view</a>;
+<a href=#48 id=48 data-nosnippet>48</a><span class="kw">pub mod </span><a href="widget.rs.html#3-3287">widget</a>;
+<a href=#49 id=49 data-nosnippet>49</a><span class="kw">pub mod </span><a href="window.rs.html#3-181">window</a>;
+<a href=#50 id=50 data-nosnippet>50</a>
+<a href=#51 id=51 data-nosnippet>51</a><span class="kw">pub mod </span><a href="../../../gtk/subclass/prelude/index.html">prelude</a> {
+<a href=#52 id=52 data-nosnippet>52</a>    <span class="attr">#[doc(hidden)]
+<a href=#53 id=53 data-nosnippet>53</a>    </span><span class="kw">pub use </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/gio/subclass/prelude/index.html">gio::subclass::prelude</a>::<span class="kw-2">*</span>;
+<a href=#54 id=54 data-nosnippet>54</a>
+<a href=#55 id=55 data-nosnippet>55</a>    <span class="kw">pub use </span><span class="kw">super</span>::application::{<a href="application.rs.html#12-22">GtkApplicationImpl</a>, <a href="application.rs.html#29-54">GtkApplicationImplExt</a>};
+<a href=#56 id=56 data-nosnippet>56</a>    <span class="kw">pub use </span><a href="application_window.rs.html#8"><span class="kw">super</span>::application_window::ApplicationWindowImpl</a>;
+<a href=#57 id=57 data-nosnippet>57</a>    <span class="kw">pub use </span><a href="bin.rs.html#8"><span class="kw">super</span>::bin::BinImpl</a>;
+<a href=#58 id=58 data-nosnippet>58</a>    <span class="kw">pub use </span><a href="box_.rs.html#8"><span class="kw">super</span>::box_::BoxImpl</a>;
+<a href=#59 id=59 data-nosnippet>59</a>    <span class="kw">pub use </span><a href="button.rs.html#10-22"><span class="kw">super</span>::button::ButtonImpl</a>;
+<a href=#60 id=60 data-nosnippet>60</a>    <span class="kw">pub use </span><span class="kw">super</span>::cell_editable::{<a href="cell_editable.rs.html#10-22">CellEditableImpl</a>, <a href="cell_editable.rs.html#24-77">CellEditableImplExt</a>};
+<a href=#61 id=61 data-nosnippet>61</a>    <span class="kw">pub use </span><span class="kw">super</span>::cell_layout::{<a href="cell_layout.rs.html#66-70">CellDataFunc</a>, <a href="cell_layout.rs.html#108-146">CellLayoutImpl</a>, <a href="cell_layout.rs.html#148-308">CellLayoutImplExt</a>};
+<a href=#62 id=62 data-nosnippet>62</a>    <span class="kw">pub use </span><span class="kw">super</span>::cell_renderer::{<a href="cell_renderer.rs.html#18-229">CellRendererImpl</a>, <a href="cell_renderer.rs.html#236-476">CellRendererImplExt</a>};
+<a href=#63 id=63 data-nosnippet>63</a>    <span class="kw">pub use </span><span class="kw">super</span>::cell_renderer_accel::{<a href="cell_renderer_accel.rs.html#12-26">CellRendererAccelImpl</a>, <a href="cell_renderer_accel.rs.html#33-73">CellRendererAccelImplExt</a>};
+<a href=#64 id=64 data-nosnippet>64</a>    <span class="kw">pub use </span><a href="cell_renderer_combo.rs.html#8"><span class="kw">super</span>::cell_renderer_combo::CellRendererComboImpl</a>;
+<a href=#65 id=65 data-nosnippet>65</a>    <span class="kw">pub use </span><a href="cell_renderer_pixbuf.rs.html#9"><span class="kw">super</span>::cell_renderer_pixbuf::CellRendererPixbufImpl</a>;
+<a href=#66 id=66 data-nosnippet>66</a>    <span class="kw">pub use </span><a href="cell_renderer_progress.rs.html#9"><span class="kw">super</span>::cell_renderer_progress::CellRendererProgressImpl</a>;
+<a href=#67 id=67 data-nosnippet>67</a>    <span class="kw">pub use </span><a href="cell_renderer_spin.rs.html#8"><span class="kw">super</span>::cell_renderer_spin::CellRendererSpinImpl</a>;
+<a href=#68 id=68 data-nosnippet>68</a>    <span class="kw">pub use </span><a href="cell_renderer_spinner.rs.html#9"><span class="kw">super</span>::cell_renderer_spinner::CellRendererSpinnerImpl</a>;
+<a href=#69 id=69 data-nosnippet>69</a>    <span class="kw">pub use </span><span class="kw">super</span>::cell_renderer_text::{<a href="cell_renderer_text.rs.html#13-17">CellRendererTextImpl</a>, <a href="cell_renderer_text.rs.html#24-41">CellRendererTextImplExt</a>};
+<a href=#70 id=70 data-nosnippet>70</a>    <span class="kw">pub use </span><span class="kw">super</span>::cell_renderer_toggle::{<a href="cell_renderer_toggle.rs.html#13-17">CellRendererToggleImpl</a>, <a href="cell_renderer_toggle.rs.html#24-40">CellRendererToggleImplExt</a>};
+<a href=#71 id=71 data-nosnippet>71</a>    <span class="kw">pub use </span><span class="kw">super</span>::container::{<a href="container.rs.html#412-420">ContainerClassSubclassExt</a>, <a href="container.rs.html#16-130">ContainerImpl</a>, <a href="container.rs.html#137-225">ContainerImplExt</a>};
+<a href=#72 id=72 data-nosnippet>72</a>    <span class="kw">pub use </span><span class="kw">super</span>::dialog::{<a href="dialog.rs.html#13-28">DialogImpl</a>, <a href="dialog.rs.html#35-57">DialogImplExt</a>};
+<a href=#73 id=73 data-nosnippet>73</a>    <span class="kw">pub use </span><a href="drawing_area.rs.html#8"><span class="kw">super</span>::drawing_area::DrawingAreaImpl</a>;
+<a href=#74 id=74 data-nosnippet>74</a>    <span class="kw">pub use </span><span class="kw">super</span>::editable::{<a href="editable.rs.html#12-55">EditableImpl</a>, <a href="editable.rs.html#57-220">EditableImplExt</a>};
+<a href=#75 id=75 data-nosnippet>75</a>    <span class="kw">pub use </span><span class="kw">super</span>::entry::{<a href="entry.rs.html#11-25">EntryImpl</a>, <a href="entry.rs.html#32-54">EntryImplExt</a>};
+<a href=#76 id=76 data-nosnippet>76</a>    <span class="kw">pub use </span><a href="event_box.rs.html#9"><span class="kw">super</span>::event_box::EventBoxImpl</a>;
+<a href=#77 id=77 data-nosnippet>77</a>    <span class="kw">pub use </span><a href="fixed.rs.html#9"><span class="kw">super</span>::fixed::FixedImpl</a>;
+<a href=#78 id=78 data-nosnippet>78</a>    <span class="kw">pub use </span><a href="grid.rs.html#7"><span class="kw">super</span>::grid::GridImpl</a>;
+<a href=#79 id=79 data-nosnippet>79</a>    <span class="kw">pub use </span><a href="header_bar.rs.html#9"><span class="kw">super</span>::header_bar::HeaderBarImpl</a>;
+<a href=#80 id=80 data-nosnippet>80</a>    <span class="kw">pub use </span><span class="kw">super</span>::icon_view::{<a href="icon_view.rs.html#15-46">IconViewImpl</a>, <a href="icon_view.rs.html#53-137">IconViewImplExt</a>};
+<a href=#81 id=81 data-nosnippet>81</a>    <span class="kw">pub use </span><span class="kw">super</span>::list_box::{<a href="list_box.rs.html#15-55">ListBoxImpl</a>, <a href="list_box.rs.html#62-145">ListBoxImplExt</a>};
+<a href=#82 id=82 data-nosnippet>82</a>    <span class="kw">pub use </span><span class="kw">super</span>::list_box_row::{<a href="list_box_row.rs.html#11-15">ListBoxRowImpl</a>, <a href="list_box_row.rs.html#22-32">ListBoxRowImplExt</a>};
+<a href=#83 id=83 data-nosnippet>83</a>    <span class="kw">pub use </span><a href="list_store.rs.html#7"><span class="kw">super</span>::list_store::ListStoreImpl</a>;
+<a href=#84 id=84 data-nosnippet>84</a>    <span class="kw">pub use </span><a href="menu_button.rs.html#8"><span class="kw">super</span>::menu_button::MenuButtonImpl</a>;
+<a href=#85 id=85 data-nosnippet>85</a>    <span class="kw">pub use </span><a href="orientable.rs.html#8"><span class="kw">super</span>::orientable::OrientableImpl</a>;
+<a href=#86 id=86 data-nosnippet>86</a>    <span class="attr">#[cfg(gdk_backend = <span class="string">"x11"</span>)]
+<a href=#87 id=87 data-nosnippet>87</a>    </span><span class="kw">pub use </span><span class="kw">super</span>::plug::{<a href="plug.rs.html#11-15">PlugImpl</a>, <a href="plug.rs.html#22-32">PlugImplExt</a>};
+<a href=#88 id=88 data-nosnippet>88</a>    <span class="kw">pub use </span><span class="kw">super</span>::scrollable::{<a href="scrollable.rs.html#10-15">ScrollableImpl</a>, <a href="scrollable.rs.html#17-34">ScrollableImplExt</a>};
+<a href=#89 id=89 data-nosnippet>89</a>    <span class="kw">pub use </span><span class="kw">super</span>::scrolled_window::{<a href="scrolled_window.rs.html#14-26">ScrolledWindowImpl</a>, <a href="scrolled_window.rs.html#33-67">ScrolledWindowImplExt</a>};
+<a href=#90 id=90 data-nosnippet>90</a>    <span class="attr">#[cfg(gdk_backend = <span class="string">"x11"</span>)]
+<a href=#91 id=91 data-nosnippet>91</a>    </span><span class="kw">pub use </span><span class="kw">super</span>::socket::{<a href="socket.rs.html#12-20">SocketImpl</a>, <a href="socket.rs.html#27-52">SocketImplExt</a>};
+<a href=#92 id=92 data-nosnippet>92</a>    <span class="kw">pub use </span><a href="stack.rs.html#9"><span class="kw">super</span>::stack::StackImpl</a>;
+<a href=#93 id=93 data-nosnippet>93</a>    <span class="kw">pub use </span><a href="toggle_button.rs.html#10-17"><span class="kw">super</span>::toggle_button::ToggleButtonImpl</a>;
+<a href=#94 id=94 data-nosnippet>94</a>    <span class="kw">pub use </span><span class="kw">super</span>::tree_drag_dest::{<a href="tree_drag_dest.rs.html#7-13">TreeDragDestImpl</a>, <a href="tree_drag_dest.rs.html#15-58">TreeDragDestImplExt</a>};
+<a href=#95 id=95 data-nosnippet>95</a>    <span class="kw">pub use </span><span class="kw">super</span>::tree_drag_source::{<a href="tree_drag_source.rs.html#7-15">TreeDragSourceImpl</a>, <a href="tree_drag_source.rs.html#17-81">TreeDragSourceImplExt</a>};
+<a href=#96 id=96 data-nosnippet>96</a>    <span class="kw">pub use </span><span class="kw">super</span>::tree_model_filter::{<a href="tree_model_filter.rs.html#7-15">TreeModelFilterImpl</a>, <a href="tree_model_filter.rs.html#17-59">TreeModelFilterImplExt</a>};
+<a href=#97 id=97 data-nosnippet>97</a>    <span class="kw">pub use </span><a href="tree_model_sort.rs.html#7"><span class="kw">super</span>::tree_model_sort::TreeModelSortImpl</a>;
+<a href=#98 id=98 data-nosnippet>98</a>    <span class="kw">pub use </span><a href="tree_store.rs.html#7"><span class="kw">super</span>::tree_store::TreeStoreImpl</a>;
+<a href=#99 id=99 data-nosnippet>99</a>    <span class="kw">pub use </span><span class="kw">super</span>::tree_view::{<a href="tree_view.rs.html#13-78">TreeViewImpl</a>, <a href="tree_view.rs.html#80-287">TreeViewImplExt</a>};
+<a href=#100 id=100 data-nosnippet>100</a>    <span class="kw">pub use </span><span class="kw">super</span>::widget::{
+<a href=#101 id=101 data-nosnippet>101</a>        <a href="widget.rs.html#3285-3287">CompositeTemplate</a>, <a href="widget.rs.html#3232-3237">TemplateChild</a>, <a href="widget.rs.html#3110-3226">WidgetClassSubclassExt</a>, <a href="widget.rs.html#26-772">WidgetImpl</a>, <a href="widget.rs.html#774-1951">WidgetImplExt</a>,
+<a href=#102 id=102 data-nosnippet>102</a>    };
+<a href=#103 id=103 data-nosnippet>103</a>    <span class="kw">pub use </span><span class="kw">super</span>::window::{<a href="window.rs.html#14-48">WindowImpl</a>, <a href="window.rs.html#55-109">WindowImplExt</a>};
+<a href=#104 id=104 data-nosnippet>104</a>}
 </code></pre></div></section></main></body></html>
