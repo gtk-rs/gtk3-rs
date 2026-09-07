@@ -18,6 +18,8 @@
   - `gtk::TreeModelSort`
   - `gtk::TreeStore`
 - New methods and signals:
+  - `gtk::MessageDialog::with_markup()`, a constructor whose message is
+    interpreted as Pango markup
   - `gtk::Clipboard::connect_owner_change()`
   - `gtk::EntryExt::connect_toggle_direction()` and
     `gtk::EntryExt::emit_toggle_direction()`
@@ -146,6 +148,17 @@
   Code using `gtk::prelude::*` is unaffected, but code that imports
   `WidgetExt` by name, or that calls either method through it, must be
   updated.
+- The hand-written `MessageDialogExt` has been renamed to
+  `MessageDialogExtManual`, and its methods now match the C functions
+  they call: `set_secondary_markup()` is now
+  `format_secondary_markup()`, and `set_secondary_text()` is now
+  `format_secondary_text()`.  It previously shared its name with the
+  generated `MessageDialogExt` while being re-exported as
+  `gtk::MessageDialogExt` instead of through the prelude, so importing
+  it silently replaced the generated trait.  Both are now in the
+  prelude.  Note that `format_secondary_text()` also clears
+  `secondary-use-markup`, which the generated `set_secondary_text()`
+  property setter does not.
 - The opaque class and interface type aliases in `atk-sys`, `gdk-sys`,
   and `gdkx11-sys` are no longer pointers.  For example,
   `GdkFrameClockClass` is now `_GdkFrameClockClass` rather than `*mut

@@ -1534,6 +1534,13 @@ generate_builder = true
 name = "Gtk.MessageDialog"
 status = "generate"
 generate_builder = true
+manual_traits = ["MessageDialogExtManual"]
+    [[object.function]]
+    pattern = "new|new_with_markup"
+    manual = true
+    [[object.function]]
+    pattern = "format_secondary_(markup|text)"
+    manual = true
     [[object.function]]
     name = "get_message_area"
         [object.function.return]

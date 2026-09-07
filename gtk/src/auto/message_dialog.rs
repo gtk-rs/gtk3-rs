@@ -25,29 +25,12 @@ glib::wrapper! {
 impl MessageDialog {
     pub const NONE: Option<&'static MessageDialog> = None;
 
-    //#[doc(alias = "gtk_message_dialog_new")]
-    //pub fn new(parent: Option<&impl IsA<Window>>, flags: DialogFlags, type_: MessageType, buttons: ButtonsType, message_format: Option<&str>, : /*Unknown conversion*//*Unimplemented*/Basic: VarArgs) -> MessageDialog {
-    //    unsafe { TODO: call ffi:gtk_message_dialog_new() }
-    //}
-
-    //#[doc(alias = "gtk_message_dialog_new_with_markup")]
-    //#[doc(alias = "new_with_markup")]
-    //pub fn with_markup(parent: Option<&impl IsA<Window>>, flags: DialogFlags, type_: MessageType, buttons: ButtonsType, message_format: Option<&str>, : /*Unknown conversion*//*Unimplemented*/Basic: VarArgs) -> MessageDialog {
-    //    unsafe { TODO: call ffi:gtk_message_dialog_new_with_markup() }
-    //}
-
     // rustdoc-stripper-ignore-next
     /// Creates a new builder-pattern struct instance to construct [`MessageDialog`] objects.
     ///
     /// This method returns an instance of [`MessageDialogBuilder`](crate::builders::MessageDialogBuilder) which can be used to create [`MessageDialog`] objects.
     pub fn builder() -> MessageDialogBuilder {
         MessageDialogBuilder::new()
-    }
-}
-
-impl Default for MessageDialog {
-    fn default() -> Self {
-        glib::object::Object::new::<Self>()
     }
 }
 
@@ -517,16 +500,6 @@ impl MessageDialogBuilder {
 }
 
 pub trait MessageDialogExt: IsA<MessageDialog> + 'static {
-    //#[doc(alias = "gtk_message_dialog_format_secondary_markup")]
-    //fn format_secondary_markup(&self, message_format: &str, : /*Unknown conversion*//*Unimplemented*/Basic: VarArgs) {
-    //    unsafe { TODO: call ffi:gtk_message_dialog_format_secondary_markup() }
-    //}
-
-    //#[doc(alias = "gtk_message_dialog_format_secondary_text")]
-    //fn format_secondary_text(&self, message_format: Option<&str>, : /*Unknown conversion*//*Unimplemented*/Basic: VarArgs) {
-    //    unsafe { TODO: call ffi:gtk_message_dialog_format_secondary_text() }
-    //}
-
     #[doc(alias = "gtk_message_dialog_get_message_area")]
     #[doc(alias = "get_message_area")]
     #[doc(alias = "message-area")]
