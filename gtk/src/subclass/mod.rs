@@ -56,7 +56,7 @@ pub mod prelude {
     pub use super::application_window::ApplicationWindowImpl;
     pub use super::bin::BinImpl;
     pub use super::box_::BoxImpl;
-    pub use super::button::ButtonImpl;
+    pub use super::button::{ButtonImpl, ButtonImplExt};
     pub use super::cell_editable::{CellEditableImpl, CellEditableImplExt};
     pub use super::cell_layout::{CellDataFunc, CellLayoutImpl, CellLayoutImplExt};
     pub use super::cell_renderer::{CellRendererImpl, CellRendererImplExt};
@@ -81,7 +81,7 @@ pub mod prelude {
     pub use super::list_box::{ListBoxImpl, ListBoxImplExt};
     pub use super::list_box_row::{ListBoxRowImpl, ListBoxRowImplExt};
     pub use super::list_store::ListStoreImpl;
-    pub use super::menu_button::MenuButtonImpl;
+    pub use super::menu_button::{MenuButtonImpl, MenuButtonImplExt};
     pub use super::orientable::OrientableImpl;
     #[cfg(gdk_backend = "x11")]
     pub use super::plug::{PlugImpl, PlugImplExt};
@@ -90,7 +90,7 @@ pub mod prelude {
     #[cfg(gdk_backend = "x11")]
     pub use super::socket::{SocketImpl, SocketImplExt};
     pub use super::stack::StackImpl;
-    pub use super::toggle_button::ToggleButtonImpl;
+    pub use super::toggle_button::{ToggleButtonImpl, ToggleButtonImplExt};
     pub use super::tree_drag_dest::{TreeDragDestImpl, TreeDragDestImplExt};
     pub use super::tree_drag_source::{TreeDragSourceImpl, TreeDragSourceImplExt};
     pub use super::tree_model_filter::{TreeModelFilterImpl, TreeModelFilterImplExt};
