@@ -2838,6 +2838,10 @@ name = "Gtk.Window"
 status = "generate"
 trait_name = "GtkWindowExt"
 manual_traits = ["GtkWindowExtManual"]
+    [[object.property]]
+    name = "type"
+    # the getter collides with glib::ObjectExt::type_(); use window_type()
+    generate = []
     [[object.function]]
     name = "activate_key"
         [[object.function.parameter]]

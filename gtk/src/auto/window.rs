@@ -1490,11 +1490,6 @@ pub trait GtkWindowExt: IsA<Window> + 'static {
         ObjectExt::set_property(self.as_ref(), "default-width", default_width)
     }
 
-    #[doc(alias = "type")]
-    fn type_(&self) -> WindowType {
-        ObjectExt::property(self.as_ref(), "type")
-    }
-
     #[doc(alias = "window-position")]
     fn window_position(&self) -> WindowPosition {
         ObjectExt::property(self.as_ref(), "window-position")

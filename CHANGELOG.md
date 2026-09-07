@@ -152,6 +152,9 @@
   Code using `gtk::prelude::*` is unaffected, but code that imports
   `WidgetExt` by name, or that calls either method through it, must be
   updated.
+- `gtk::WindowExt::type_()` has been removed, because it awkwardly
+  conflicts with `glib::ObjectExt::type_()`.  Use
+  `gtk::WindowExt::window_type()` instead.
 - The hand-written `MessageDialogExt` has been renamed to
   `MessageDialogExtManual`, and its methods now match the C functions
   they call: `set_secondary_markup()` is now
