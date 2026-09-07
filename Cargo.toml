@@ -76,7 +76,7 @@ proc-macro-crate = "3.5"
 proc-macro2 = "1.0"
 quote = "1.0"
 syn = { version = "3.0", features = ["full"] }
-system-deps = "8"
+system-deps = "9"
 wayland-backend = { version = "0.3.0", features = ["client_system"] }
 wayland-client = "0.31"
 x11 = "2.18"
