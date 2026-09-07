@@ -46,7 +46,7 @@ jobs:
           - { name: "gdk", features: "v3_24", test_sys: true }
           - { name: "gdkx11", features: "v3_24", test_sys: true }
           - { name: "gdkwayland", features: "v3_24", test_sys: false }
-          - { name: "gtk", features: "v3_24_30", test_sys: false }  # a11y headers are missing some symbols
+          - { name: "gtk", features: "v3_24_30", test_sys: true }
     steps:
       - uses: actions/checkout@v7
       - uses: dtolnay/rust-toolchain@v1
