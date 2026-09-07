@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/selection_data.rs`."><title>selection_data.rs - source</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2"href="../../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../../static.files/rustdoc-203241e4.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.100.0-nightly (c656540d6 2026-08-21)" data-channel="nightly" data-search-js="search-b167f383.js" data-stringdex-js="stringdex-b5109af9.js" data-settings-js="settings-170eb4bf.js" ><script src="../../../static.files/storage-41dd4d93.js"></script><script defer src="../../../static.files/src-script-813739b1.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-1814ead3.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-9f56287d.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-eab170b8.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-044be391.svg"></head><body class="rustdoc src"><a class="skip-main-content" href="#main-content">Skip to main content</a><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/selection_data.rs`."><title>selection_data.rs - source</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2"href="../../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../../static.files/rustdoc-203241e4.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.100.0-nightly (5a2be9f5f 2026-09-06)" data-channel="nightly" data-search-js="search-b167f383.js" data-stringdex-js="stringdex-b5109af9.js" data-settings-js="settings-170eb4bf.js" ><script src="../../../static.files/storage-41dd4d93.js"></script><script defer src="../../../static.files/src-script-813739b1.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-1814ead3.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-9f56287d.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-eab170b8.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-044be391.svg"></head><body class="rustdoc src"><a class="skip-main-content" href="#main-content">Skip to main content</a><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
 
@@ -266,142 +266,148 @@
 <a href=#193 id=193 data-nosnippet>193</a>        }
 <a href=#194 id=194 data-nosnippet>194</a>    }
 <a href=#195 id=195 data-nosnippet>195</a>
-<a href=#196 id=196 data-nosnippet>196</a>    <span class="doccomment">/// target.
-<a href=#197 id=197 data-nosnippet>197</a>    /// ## `pixbuf`
-<a href=#198 id=198 data-nosnippet>198</a>    /// a [`gdk_pixbuf::Pixbuf`][crate::gdk_pixbuf::Pixbuf]
-<a href=#199 id=199 data-nosnippet>199</a>    ///
-<a href=#200 id=200 data-nosnippet>200</a>    /// # Returns
+<a href=#196 id=196 data-nosnippet>196</a>    <span class="doccomment">/// Sets the contents of the selection from a [`gdk_pixbuf::Pixbuf`][crate::gdk_pixbuf::Pixbuf]
+<a href=#197 id=197 data-nosnippet>197</a>    /// The pixbuf is converted to the form determined by
+<a href=#198 id=198 data-nosnippet>198</a>    /// `self`-&gt;target.
+<a href=#199 id=199 data-nosnippet>199</a>    /// ## `pixbuf`
+<a href=#200 id=200 data-nosnippet>200</a>    /// a [`gdk_pixbuf::Pixbuf`][crate::gdk_pixbuf::Pixbuf]
 <a href=#201 id=201 data-nosnippet>201</a>    ///
-<a href=#202 id=202 data-nosnippet>202</a>    /// [`true`] if the selection was successfully set,
-<a href=#203 id=203 data-nosnippet>203</a>    ///  otherwise [`false`].
-<a href=#204 id=204 data-nosnippet>204</a>    </span><span class="attr">#[doc(alias = <span class="string">"gtk_selection_data_set_pixbuf"</span>)]
-<a href=#205 id=205 data-nosnippet>205</a>    </span><span class="kw">pub fn </span>set_pixbuf(<span class="kw-2">&amp;</span><span class="self">self</span>, pixbuf: <span class="kw-2">&amp;</span>gdk_pixbuf::<a href="https://gtk-rs.org/gtk-rs-core/git/docs/gdk_pixbuf/auto/pixbuf/struct.Pixbuf.html">Pixbuf</a>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> {
-<a href=#206 id=206 data-nosnippet>206</a>        <span class="kw">unsafe </span>{
-<a href=#207 id=207 data-nosnippet>207</a>            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib.html">from_glib</a>(ffi::<a href="../../../gtk_sys/fn.gtk_selection_data_set_pixbuf.html">gtk_selection_data_set_pixbuf</a>(
-<a href=#208 id=208 data-nosnippet>208</a>                <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.mut_override.html">mut_override</a>(<a class="self" href="#205">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>),
-<a href=#209 id=209 data-nosnippet>209</a>                <a href="#205">pixbuf</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
-<a href=#210 id=210 data-nosnippet>210</a>            ))
-<a href=#211 id=211 data-nosnippet>211</a>        }
-<a href=#212 id=212 data-nosnippet>212</a>    }
-<a href=#213 id=213 data-nosnippet>213</a>
-<a href=#214 id=214 data-nosnippet>214</a>    <span class="doccomment">/// target.
-<a href=#215 id=215 data-nosnippet>215</a>    /// ## `str`
-<a href=#216 id=216 data-nosnippet>216</a>    /// a UTF-8 string
-<a href=#217 id=217 data-nosnippet>217</a>    /// ## `len`
-<a href=#218 id=218 data-nosnippet>218</a>    /// the length of `str`, or -1 if `str` is nul-terminated.
-<a href=#219 id=219 data-nosnippet>219</a>    ///
-<a href=#220 id=220 data-nosnippet>220</a>    /// # Returns
-<a href=#221 id=221 data-nosnippet>221</a>    ///
-<a href=#222 id=222 data-nosnippet>222</a>    /// [`true`] if the selection was successfully set,
-<a href=#223 id=223 data-nosnippet>223</a>    ///  otherwise [`false`].
-<a href=#224 id=224 data-nosnippet>224</a>    </span><span class="attr">#[doc(alias = <span class="string">"gtk_selection_data_set_text"</span>)]
-<a href=#225 id=225 data-nosnippet>225</a>    </span><span class="kw">pub fn </span>set_text(<span class="kw-2">&amp;</span><span class="self">self</span>, str: <span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> {
-<a href=#226 id=226 data-nosnippet>226</a>        <span class="kw">let </span>len = <a href="#225">str</a>.<a href="https://doc.rust-lang.org/nightly/core/primitive.str.html#method.len">len</a>() <span class="kw">as _</span>;
-<a href=#227 id=227 data-nosnippet>227</a>        <span class="kw">unsafe </span>{
-<a href=#228 id=228 data-nosnippet>228</a>            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib.html">from_glib</a>(ffi::<a href="../../../gtk_sys/fn.gtk_selection_data_set_text.html">gtk_selection_data_set_text</a>(
-<a href=#229 id=229 data-nosnippet>229</a>                <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.mut_override.html">mut_override</a>(<a class="self" href="#225">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>),
-<a href=#230 id=230 data-nosnippet>230</a>                <a href="#225">str</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
-<a href=#231 id=231 data-nosnippet>231</a>                <a href="#226">len</a>,
-<a href=#232 id=232 data-nosnippet>232</a>            ))
-<a href=#233 id=233 data-nosnippet>233</a>        }
-<a href=#234 id=234 data-nosnippet>234</a>    }
-<a href=#235 id=235 data-nosnippet>235</a>
-<a href=#236 id=236 data-nosnippet>236</a>    <span class="doccomment">/// target.
-<a href=#237 id=237 data-nosnippet>237</a>    ///
-<a href=#238 id=238 data-nosnippet>238</a>    /// Since 3.24.37, this may involve using the FileTransfer
-<a href=#239 id=239 data-nosnippet>239</a>    /// portal to send files between sandboxed apps.
-<a href=#240 id=240 data-nosnippet>240</a>    /// ## `uris`
-<a href=#241 id=241 data-nosnippet>241</a>    /// a [`None`]-terminated array of
-<a href=#242 id=242 data-nosnippet>242</a>    ///  strings holding URIs
+<a href=#202 id=202 data-nosnippet>202</a>    /// # Returns
+<a href=#203 id=203 data-nosnippet>203</a>    ///
+<a href=#204 id=204 data-nosnippet>204</a>    /// [`true`] if the selection was successfully set,
+<a href=#205 id=205 data-nosnippet>205</a>    ///  otherwise [`false`].
+<a href=#206 id=206 data-nosnippet>206</a>    </span><span class="attr">#[doc(alias = <span class="string">"gtk_selection_data_set_pixbuf"</span>)]
+<a href=#207 id=207 data-nosnippet>207</a>    </span><span class="kw">pub fn </span>set_pixbuf(<span class="kw-2">&amp;</span><span class="self">self</span>, pixbuf: <span class="kw-2">&amp;</span>gdk_pixbuf::<a href="https://gtk-rs.org/gtk-rs-core/git/docs/gdk_pixbuf/auto/pixbuf/struct.Pixbuf.html">Pixbuf</a>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> {
+<a href=#208 id=208 data-nosnippet>208</a>        <span class="kw">unsafe </span>{
+<a href=#209 id=209 data-nosnippet>209</a>            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib.html">from_glib</a>(ffi::<a href="../../../gtk_sys/fn.gtk_selection_data_set_pixbuf.html">gtk_selection_data_set_pixbuf</a>(
+<a href=#210 id=210 data-nosnippet>210</a>                <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.mut_override.html">mut_override</a>(<a class="self" href="#207">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>),
+<a href=#211 id=211 data-nosnippet>211</a>                <a href="#207">pixbuf</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
+<a href=#212 id=212 data-nosnippet>212</a>            ))
+<a href=#213 id=213 data-nosnippet>213</a>        }
+<a href=#214 id=214 data-nosnippet>214</a>    }
+<a href=#215 id=215 data-nosnippet>215</a>
+<a href=#216 id=216 data-nosnippet>216</a>    <span class="doccomment">/// Sets the contents of the selection from a UTF-8 encoded string.
+<a href=#217 id=217 data-nosnippet>217</a>    /// The string is converted to the form determined by
+<a href=#218 id=218 data-nosnippet>218</a>    /// `self`-&gt;target.
+<a href=#219 id=219 data-nosnippet>219</a>    /// ## `str`
+<a href=#220 id=220 data-nosnippet>220</a>    /// a UTF-8 string
+<a href=#221 id=221 data-nosnippet>221</a>    /// ## `len`
+<a href=#222 id=222 data-nosnippet>222</a>    /// the length of `str`, or -1 if `str` is nul-terminated.
+<a href=#223 id=223 data-nosnippet>223</a>    ///
+<a href=#224 id=224 data-nosnippet>224</a>    /// # Returns
+<a href=#225 id=225 data-nosnippet>225</a>    ///
+<a href=#226 id=226 data-nosnippet>226</a>    /// [`true`] if the selection was successfully set,
+<a href=#227 id=227 data-nosnippet>227</a>    ///  otherwise [`false`].
+<a href=#228 id=228 data-nosnippet>228</a>    </span><span class="attr">#[doc(alias = <span class="string">"gtk_selection_data_set_text"</span>)]
+<a href=#229 id=229 data-nosnippet>229</a>    </span><span class="kw">pub fn </span>set_text(<span class="kw-2">&amp;</span><span class="self">self</span>, str: <span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> {
+<a href=#230 id=230 data-nosnippet>230</a>        <span class="kw">let </span>len = <a href="#229">str</a>.<a href="https://doc.rust-lang.org/nightly/core/primitive.str.html#method.len">len</a>() <span class="kw">as _</span>;
+<a href=#231 id=231 data-nosnippet>231</a>        <span class="kw">unsafe </span>{
+<a href=#232 id=232 data-nosnippet>232</a>            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib.html">from_glib</a>(ffi::<a href="../../../gtk_sys/fn.gtk_selection_data_set_text.html">gtk_selection_data_set_text</a>(
+<a href=#233 id=233 data-nosnippet>233</a>                <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.mut_override.html">mut_override</a>(<a class="self" href="#229">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>),
+<a href=#234 id=234 data-nosnippet>234</a>                <a href="#229">str</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
+<a href=#235 id=235 data-nosnippet>235</a>                <a href="#230">len</a>,
+<a href=#236 id=236 data-nosnippet>236</a>            ))
+<a href=#237 id=237 data-nosnippet>237</a>        }
+<a href=#238 id=238 data-nosnippet>238</a>    }
+<a href=#239 id=239 data-nosnippet>239</a>
+<a href=#240 id=240 data-nosnippet>240</a>    <span class="doccomment">/// Sets the contents of the selection from a list of URIs.
+<a href=#241 id=241 data-nosnippet>241</a>    /// The string is converted to the form determined by
+<a href=#242 id=242 data-nosnippet>242</a>    /// `self`-&gt;target.
 <a href=#243 id=243 data-nosnippet>243</a>    ///
-<a href=#244 id=244 data-nosnippet>244</a>    /// # Returns
-<a href=#245 id=245 data-nosnippet>245</a>    ///
-<a href=#246 id=246 data-nosnippet>246</a>    /// [`true`] if the selection was successfully set,
-<a href=#247 id=247 data-nosnippet>247</a>    ///  otherwise [`false`].
-<a href=#248 id=248 data-nosnippet>248</a>    </span><span class="attr">#[doc(alias = <span class="string">"gtk_selection_data_set_uris"</span>)]
-<a href=#249 id=249 data-nosnippet>249</a>    </span><span class="kw">pub fn </span>set_uris(<span class="kw-2">&amp;</span><span class="self">self</span>, uris: <span class="kw-2">&amp;</span>[<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>]) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> {
-<a href=#250 id=250 data-nosnippet>250</a>        <span class="kw">unsafe </span>{
-<a href=#251 id=251 data-nosnippet>251</a>            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib.html">from_glib</a>(ffi::<a href="../../../gtk_sys/fn.gtk_selection_data_set_uris.html">gtk_selection_data_set_uris</a>(
-<a href=#252 id=252 data-nosnippet>252</a>                <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.mut_override.html">mut_override</a>(<a class="self" href="#249">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>),
-<a href=#253 id=253 data-nosnippet>253</a>                <a href="#249">uris</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
-<a href=#254 id=254 data-nosnippet>254</a>            ))
-<a href=#255 id=255 data-nosnippet>255</a>        }
-<a href=#256 id=256 data-nosnippet>256</a>    }
-<a href=#257 id=257 data-nosnippet>257</a>
-<a href=#258 id=258 data-nosnippet>258</a>    <span class="doccomment">/// Given a [`SelectionData`][crate::SelectionData] object holding a list of targets,
-<a href=#259 id=259 data-nosnippet>259</a>    /// determines if any of the targets in `targets` can be used to
-<a href=#260 id=260 data-nosnippet>260</a>    /// provide a [`gdk_pixbuf::Pixbuf`][crate::gdk_pixbuf::Pixbuf].
-<a href=#261 id=261 data-nosnippet>261</a>    /// ## `writable`
-<a href=#262 id=262 data-nosnippet>262</a>    /// whether to accept only targets for which GTK+ knows
-<a href=#263 id=263 data-nosnippet>263</a>    ///  how to convert a pixbuf into the format
-<a href=#264 id=264 data-nosnippet>264</a>    ///
-<a href=#265 id=265 data-nosnippet>265</a>    /// # Returns
-<a href=#266 id=266 data-nosnippet>266</a>    ///
-<a href=#267 id=267 data-nosnippet>267</a>    /// [`true`] if `self` holds a list of targets,
-<a href=#268 id=268 data-nosnippet>268</a>    ///  and a suitable target for images is included, otherwise [`false`].
-<a href=#269 id=269 data-nosnippet>269</a>    </span><span class="attr">#[doc(alias = <span class="string">"gtk_selection_data_targets_include_image"</span>)]
-<a href=#270 id=270 data-nosnippet>270</a>    </span><span class="kw">pub fn </span>targets_include_image(<span class="kw-2">&amp;</span><span class="self">self</span>, writable: <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> {
-<a href=#271 id=271 data-nosnippet>271</a>        <span class="kw">unsafe </span>{
-<a href=#272 id=272 data-nosnippet>272</a>            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib.html">from_glib</a>(ffi::<a href="../../../gtk_sys/fn.gtk_selection_data_targets_include_image.html">gtk_selection_data_targets_include_image</a>(
-<a href=#273 id=273 data-nosnippet>273</a>                <a class="self" href="#270">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
-<a href=#274 id=274 data-nosnippet>274</a>                <a href="#270">writable</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.IntoGlib.html#tymethod.into_glib">into_glib</a>(),
-<a href=#275 id=275 data-nosnippet>275</a>            ))
-<a href=#276 id=276 data-nosnippet>276</a>        }
-<a href=#277 id=277 data-nosnippet>277</a>    }
-<a href=#278 id=278 data-nosnippet>278</a>
-<a href=#279 id=279 data-nosnippet>279</a>    <span class="doccomment">/// Given a [`SelectionData`][crate::SelectionData] object holding a list of targets,
-<a href=#280 id=280 data-nosnippet>280</a>    /// determines if any of the targets in `targets` can be used to
-<a href=#281 id=281 data-nosnippet>281</a>    /// provide rich text.
-<a href=#282 id=282 data-nosnippet>282</a>    /// ## `buffer`
-<a href=#283 id=283 data-nosnippet>283</a>    /// a [`TextBuffer`][crate::TextBuffer]
-<a href=#284 id=284 data-nosnippet>284</a>    ///
-<a href=#285 id=285 data-nosnippet>285</a>    /// # Returns
-<a href=#286 id=286 data-nosnippet>286</a>    ///
-<a href=#287 id=287 data-nosnippet>287</a>    /// [`true`] if `self` holds a list of targets,
-<a href=#288 id=288 data-nosnippet>288</a>    ///  and a suitable target for rich text is included,
-<a href=#289 id=289 data-nosnippet>289</a>    ///  otherwise [`false`].
-<a href=#290 id=290 data-nosnippet>290</a>    </span><span class="attr">#[doc(alias = <span class="string">"gtk_selection_data_targets_include_rich_text"</span>)]
-<a href=#291 id=291 data-nosnippet>291</a>    </span><span class="kw">pub fn </span>targets_include_rich_text(<span class="kw-2">&amp;</span><span class="self">self</span>, buffer: <span class="kw-2">&amp;</span><span class="kw">impl </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.IsA.html">IsA</a>&lt;<a href="text_buffer.rs.html#16-242">TextBuffer</a>&gt;) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> {
-<a href=#292 id=292 data-nosnippet>292</a>        <span class="kw">unsafe </span>{
-<a href=#293 id=293 data-nosnippet>293</a>            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib.html">from_glib</a>(ffi::<a href="../../../gtk_sys/fn.gtk_selection_data_targets_include_rich_text.html">gtk_selection_data_targets_include_rich_text</a>(
-<a href=#294 id=294 data-nosnippet>294</a>                <a class="self" href="#291">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
-<a href=#295 id=295 data-nosnippet>295</a>                <a href="#291">buffer</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
-<a href=#296 id=296 data-nosnippet>296</a>            ))
-<a href=#297 id=297 data-nosnippet>297</a>        }
-<a href=#298 id=298 data-nosnippet>298</a>    }
-<a href=#299 id=299 data-nosnippet>299</a>
-<a href=#300 id=300 data-nosnippet>300</a>    <span class="doccomment">/// Given a [`SelectionData`][crate::SelectionData] object holding a list of targets,
-<a href=#301 id=301 data-nosnippet>301</a>    /// determines if any of the targets in `targets` can be used to
-<a href=#302 id=302 data-nosnippet>302</a>    /// provide text.
-<a href=#303 id=303 data-nosnippet>303</a>    ///
-<a href=#304 id=304 data-nosnippet>304</a>    /// # Returns
-<a href=#305 id=305 data-nosnippet>305</a>    ///
-<a href=#306 id=306 data-nosnippet>306</a>    /// [`true`] if `self` holds a list of targets,
-<a href=#307 id=307 data-nosnippet>307</a>    ///  and a suitable target for text is included, otherwise [`false`].
-<a href=#308 id=308 data-nosnippet>308</a>    </span><span class="attr">#[doc(alias = <span class="string">"gtk_selection_data_targets_include_text"</span>)]
-<a href=#309 id=309 data-nosnippet>309</a>    </span><span class="kw">pub fn </span>targets_include_text(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> {
-<a href=#310 id=310 data-nosnippet>310</a>        <span class="kw">unsafe </span>{
-<a href=#311 id=311 data-nosnippet>311</a>            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib.html">from_glib</a>(ffi::<a href="../../../gtk_sys/fn.gtk_selection_data_targets_include_text.html">gtk_selection_data_targets_include_text</a>(
-<a href=#312 id=312 data-nosnippet>312</a>                <a class="self" href="#309">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
-<a href=#313 id=313 data-nosnippet>313</a>            ))
-<a href=#314 id=314 data-nosnippet>314</a>        }
-<a href=#315 id=315 data-nosnippet>315</a>    }
-<a href=#316 id=316 data-nosnippet>316</a>
-<a href=#317 id=317 data-nosnippet>317</a>    <span class="doccomment">/// Given a [`SelectionData`][crate::SelectionData] object holding a list of targets,
-<a href=#318 id=318 data-nosnippet>318</a>    /// determines if any of the targets in `targets` can be used to
-<a href=#319 id=319 data-nosnippet>319</a>    /// provide a list or URIs.
-<a href=#320 id=320 data-nosnippet>320</a>    ///
-<a href=#321 id=321 data-nosnippet>321</a>    /// # Returns
-<a href=#322 id=322 data-nosnippet>322</a>    ///
-<a href=#323 id=323 data-nosnippet>323</a>    /// [`true`] if `self` holds a list of targets,
-<a href=#324 id=324 data-nosnippet>324</a>    ///  and a suitable target for URI lists is included, otherwise [`false`].
-<a href=#325 id=325 data-nosnippet>325</a>    </span><span class="attr">#[doc(alias = <span class="string">"gtk_selection_data_targets_include_uri"</span>)]
-<a href=#326 id=326 data-nosnippet>326</a>    </span><span class="kw">pub fn </span>targets_include_uri(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> {
-<a href=#327 id=327 data-nosnippet>327</a>        <span class="kw">unsafe </span>{
-<a href=#328 id=328 data-nosnippet>328</a>            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib.html">from_glib</a>(ffi::<a href="../../../gtk_sys/fn.gtk_selection_data_targets_include_uri.html">gtk_selection_data_targets_include_uri</a>(
-<a href=#329 id=329 data-nosnippet>329</a>                <a class="self" href="#326">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
-<a href=#330 id=330 data-nosnippet>330</a>            ))
-<a href=#331 id=331 data-nosnippet>331</a>        }
-<a href=#332 id=332 data-nosnippet>332</a>    }
-<a href=#333 id=333 data-nosnippet>333</a>}
+<a href=#244 id=244 data-nosnippet>244</a>    /// Since 3.24.37, this may involve using the FileTransfer
+<a href=#245 id=245 data-nosnippet>245</a>    /// portal to send files between sandboxed apps.
+<a href=#246 id=246 data-nosnippet>246</a>    /// ## `uris`
+<a href=#247 id=247 data-nosnippet>247</a>    /// a [`None`]-terminated array of
+<a href=#248 id=248 data-nosnippet>248</a>    ///  strings holding URIs
+<a href=#249 id=249 data-nosnippet>249</a>    ///
+<a href=#250 id=250 data-nosnippet>250</a>    /// # Returns
+<a href=#251 id=251 data-nosnippet>251</a>    ///
+<a href=#252 id=252 data-nosnippet>252</a>    /// [`true`] if the selection was successfully set,
+<a href=#253 id=253 data-nosnippet>253</a>    ///  otherwise [`false`].
+<a href=#254 id=254 data-nosnippet>254</a>    </span><span class="attr">#[doc(alias = <span class="string">"gtk_selection_data_set_uris"</span>)]
+<a href=#255 id=255 data-nosnippet>255</a>    </span><span class="kw">pub fn </span>set_uris(<span class="kw-2">&amp;</span><span class="self">self</span>, uris: <span class="kw-2">&amp;</span>[<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>]) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> {
+<a href=#256 id=256 data-nosnippet>256</a>        <span class="kw">unsafe </span>{
+<a href=#257 id=257 data-nosnippet>257</a>            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib.html">from_glib</a>(ffi::<a href="../../../gtk_sys/fn.gtk_selection_data_set_uris.html">gtk_selection_data_set_uris</a>(
+<a href=#258 id=258 data-nosnippet>258</a>                <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.mut_override.html">mut_override</a>(<a class="self" href="#255">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>),
+<a href=#259 id=259 data-nosnippet>259</a>                <a href="#255">uris</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
+<a href=#260 id=260 data-nosnippet>260</a>            ))
+<a href=#261 id=261 data-nosnippet>261</a>        }
+<a href=#262 id=262 data-nosnippet>262</a>    }
+<a href=#263 id=263 data-nosnippet>263</a>
+<a href=#264 id=264 data-nosnippet>264</a>    <span class="doccomment">/// Given a [`SelectionData`][crate::SelectionData] object holding a list of targets,
+<a href=#265 id=265 data-nosnippet>265</a>    /// determines if any of the targets in `targets` can be used to
+<a href=#266 id=266 data-nosnippet>266</a>    /// provide a [`gdk_pixbuf::Pixbuf`][crate::gdk_pixbuf::Pixbuf].
+<a href=#267 id=267 data-nosnippet>267</a>    /// ## `writable`
+<a href=#268 id=268 data-nosnippet>268</a>    /// whether to accept only targets for which GTK+ knows
+<a href=#269 id=269 data-nosnippet>269</a>    ///  how to convert a pixbuf into the format
+<a href=#270 id=270 data-nosnippet>270</a>    ///
+<a href=#271 id=271 data-nosnippet>271</a>    /// # Returns
+<a href=#272 id=272 data-nosnippet>272</a>    ///
+<a href=#273 id=273 data-nosnippet>273</a>    /// [`true`] if `self` holds a list of targets,
+<a href=#274 id=274 data-nosnippet>274</a>    ///  and a suitable target for images is included, otherwise [`false`].
+<a href=#275 id=275 data-nosnippet>275</a>    </span><span class="attr">#[doc(alias = <span class="string">"gtk_selection_data_targets_include_image"</span>)]
+<a href=#276 id=276 data-nosnippet>276</a>    </span><span class="kw">pub fn </span>targets_include_image(<span class="kw-2">&amp;</span><span class="self">self</span>, writable: <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> {
+<a href=#277 id=277 data-nosnippet>277</a>        <span class="kw">unsafe </span>{
+<a href=#278 id=278 data-nosnippet>278</a>            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib.html">from_glib</a>(ffi::<a href="../../../gtk_sys/fn.gtk_selection_data_targets_include_image.html">gtk_selection_data_targets_include_image</a>(
+<a href=#279 id=279 data-nosnippet>279</a>                <a class="self" href="#276">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
+<a href=#280 id=280 data-nosnippet>280</a>                <a href="#276">writable</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.IntoGlib.html#tymethod.into_glib">into_glib</a>(),
+<a href=#281 id=281 data-nosnippet>281</a>            ))
+<a href=#282 id=282 data-nosnippet>282</a>        }
+<a href=#283 id=283 data-nosnippet>283</a>    }
+<a href=#284 id=284 data-nosnippet>284</a>
+<a href=#285 id=285 data-nosnippet>285</a>    <span class="doccomment">/// Given a [`SelectionData`][crate::SelectionData] object holding a list of targets,
+<a href=#286 id=286 data-nosnippet>286</a>    /// determines if any of the targets in `targets` can be used to
+<a href=#287 id=287 data-nosnippet>287</a>    /// provide rich text.
+<a href=#288 id=288 data-nosnippet>288</a>    /// ## `buffer`
+<a href=#289 id=289 data-nosnippet>289</a>    /// a [`TextBuffer`][crate::TextBuffer]
+<a href=#290 id=290 data-nosnippet>290</a>    ///
+<a href=#291 id=291 data-nosnippet>291</a>    /// # Returns
+<a href=#292 id=292 data-nosnippet>292</a>    ///
+<a href=#293 id=293 data-nosnippet>293</a>    /// [`true`] if `self` holds a list of targets,
+<a href=#294 id=294 data-nosnippet>294</a>    ///  and a suitable target for rich text is included,
+<a href=#295 id=295 data-nosnippet>295</a>    ///  otherwise [`false`].
+<a href=#296 id=296 data-nosnippet>296</a>    </span><span class="attr">#[doc(alias = <span class="string">"gtk_selection_data_targets_include_rich_text"</span>)]
+<a href=#297 id=297 data-nosnippet>297</a>    </span><span class="kw">pub fn </span>targets_include_rich_text(<span class="kw-2">&amp;</span><span class="self">self</span>, buffer: <span class="kw-2">&amp;</span><span class="kw">impl </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.IsA.html">IsA</a>&lt;<a href="text_buffer.rs.html#16-242">TextBuffer</a>&gt;) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> {
+<a href=#298 id=298 data-nosnippet>298</a>        <span class="kw">unsafe </span>{
+<a href=#299 id=299 data-nosnippet>299</a>            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib.html">from_glib</a>(ffi::<a href="../../../gtk_sys/fn.gtk_selection_data_targets_include_rich_text.html">gtk_selection_data_targets_include_rich_text</a>(
+<a href=#300 id=300 data-nosnippet>300</a>                <a class="self" href="#297">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
+<a href=#301 id=301 data-nosnippet>301</a>                <a href="#297">buffer</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
+<a href=#302 id=302 data-nosnippet>302</a>            ))
+<a href=#303 id=303 data-nosnippet>303</a>        }
+<a href=#304 id=304 data-nosnippet>304</a>    }
+<a href=#305 id=305 data-nosnippet>305</a>
+<a href=#306 id=306 data-nosnippet>306</a>    <span class="doccomment">/// Given a [`SelectionData`][crate::SelectionData] object holding a list of targets,
+<a href=#307 id=307 data-nosnippet>307</a>    /// determines if any of the targets in `targets` can be used to
+<a href=#308 id=308 data-nosnippet>308</a>    /// provide text.
+<a href=#309 id=309 data-nosnippet>309</a>    ///
+<a href=#310 id=310 data-nosnippet>310</a>    /// # Returns
+<a href=#311 id=311 data-nosnippet>311</a>    ///
+<a href=#312 id=312 data-nosnippet>312</a>    /// [`true`] if `self` holds a list of targets,
+<a href=#313 id=313 data-nosnippet>313</a>    ///  and a suitable target for text is included, otherwise [`false`].
+<a href=#314 id=314 data-nosnippet>314</a>    </span><span class="attr">#[doc(alias = <span class="string">"gtk_selection_data_targets_include_text"</span>)]
+<a href=#315 id=315 data-nosnippet>315</a>    </span><span class="kw">pub fn </span>targets_include_text(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> {
+<a href=#316 id=316 data-nosnippet>316</a>        <span class="kw">unsafe </span>{
+<a href=#317 id=317 data-nosnippet>317</a>            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib.html">from_glib</a>(ffi::<a href="../../../gtk_sys/fn.gtk_selection_data_targets_include_text.html">gtk_selection_data_targets_include_text</a>(
+<a href=#318 id=318 data-nosnippet>318</a>                <a class="self" href="#315">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
+<a href=#319 id=319 data-nosnippet>319</a>            ))
+<a href=#320 id=320 data-nosnippet>320</a>        }
+<a href=#321 id=321 data-nosnippet>321</a>    }
+<a href=#322 id=322 data-nosnippet>322</a>
+<a href=#323 id=323 data-nosnippet>323</a>    <span class="doccomment">/// Given a [`SelectionData`][crate::SelectionData] object holding a list of targets,
+<a href=#324 id=324 data-nosnippet>324</a>    /// determines if any of the targets in `targets` can be used to
+<a href=#325 id=325 data-nosnippet>325</a>    /// provide a list or URIs.
+<a href=#326 id=326 data-nosnippet>326</a>    ///
+<a href=#327 id=327 data-nosnippet>327</a>    /// # Returns
+<a href=#328 id=328 data-nosnippet>328</a>    ///
+<a href=#329 id=329 data-nosnippet>329</a>    /// [`true`] if `self` holds a list of targets,
+<a href=#330 id=330 data-nosnippet>330</a>    ///  and a suitable target for URI lists is included, otherwise [`false`].
+<a href=#331 id=331 data-nosnippet>331</a>    </span><span class="attr">#[doc(alias = <span class="string">"gtk_selection_data_targets_include_uri"</span>)]
+<a href=#332 id=332 data-nosnippet>332</a>    </span><span class="kw">pub fn </span>targets_include_uri(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> {
+<a href=#333 id=333 data-nosnippet>333</a>        <span class="kw">unsafe </span>{
+<a href=#334 id=334 data-nosnippet>334</a>            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib.html">from_glib</a>(ffi::<a href="../../../gtk_sys/fn.gtk_selection_data_targets_include_uri.html">gtk_selection_data_targets_include_uri</a>(
+<a href=#335 id=335 data-nosnippet>335</a>                <a class="self" href="#332">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
+<a href=#336 id=336 data-nosnippet>336</a>            ))
+<a href=#337 id=337 data-nosnippet>337</a>        }
+<a href=#338 id=338 data-nosnippet>338</a>    }
+<a href=#339 id=339 data-nosnippet>339</a>}
 </code></pre></div></section></main></body></html>

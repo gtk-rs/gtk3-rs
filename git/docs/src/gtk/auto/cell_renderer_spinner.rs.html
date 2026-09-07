@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/cell_renderer_spinner.rs`."><title>cell_renderer_spinner.rs - source</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2"href="../../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../../static.files/rustdoc-203241e4.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.100.0-nightly (c656540d6 2026-08-21)" data-channel="nightly" data-search-js="search-b167f383.js" data-stringdex-js="stringdex-b5109af9.js" data-settings-js="settings-170eb4bf.js" ><script src="../../../static.files/storage-41dd4d93.js"></script><script defer src="../../../static.files/src-script-813739b1.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-1814ead3.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-9f56287d.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-eab170b8.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-044be391.svg"></head><body class="rustdoc src"><a class="skip-main-content" href="#main-content">Skip to main content</a><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `gtk/src/auto/cell_renderer_spinner.rs`."><title>cell_renderer_spinner.rs - source</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2"href="../../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../../static.files/rustdoc-203241e4.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="gtk" data-themes="" data-resource-suffix="" data-rustdoc-version="1.100.0-nightly (5a2be9f5f 2026-09-06)" data-channel="nightly" data-search-js="search-b167f383.js" data-stringdex-js="stringdex-b5109af9.js" data-settings-js="settings-170eb4bf.js" ><script src="../../../static.files/storage-41dd4d93.js"></script><script defer src="../../../static.files/src-script-813739b1.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-1814ead3.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-9f56287d.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-eab170b8.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-044be391.svg"></head><body class="rustdoc src"><a class="skip-main-content" href="#main-content">Skip to main content</a><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]-->
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", checkDocsLatestStable);
 
@@ -75,7 +75,7 @@
 <a href=#2 id=2 data-nosnippet>2</a>// from gir-files (https://github.com/gtk-rs/gir-files)
 <a href=#3 id=3 data-nosnippet>3</a>// DO NOT EDIT
 <a href=#4 id=4 data-nosnippet>4</a>
-<a href=#5 id=5 data-nosnippet>5</a></span><span class="kw">use crate</span>::{<a href="cell_renderer.rs.html#17-169">CellRenderer</a>, <a href="enums.rs.html#1283-1298">CellRendererMode</a>, <a href="enums.rs.html#2736-2760">IconSize</a>, <a href="../../../gtk_sys/index.html">ffi</a>};
+<a href=#5 id=5 data-nosnippet>5</a></span><span class="kw">use crate</span>::{<a href="cell_renderer.rs.html#17-185">CellRenderer</a>, <a href="enums.rs.html#1289-1304">CellRendererMode</a>, <a href="enums.rs.html#2742-2766">IconSize</a>, <a href="../../../gtk_sys/index.html">ffi</a>};
 <a href=#6 id=6 data-nosnippet>6</a><span class="kw">use </span>glib::{
 <a href=#7 id=7 data-nosnippet>7</a>    <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/prelude/index.html">prelude</a>::<span class="kw-2">*</span>,
 <a href=#8 id=8 data-nosnippet>8</a>    signal::{<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/struct.SignalHandlerId.html">SignalHandlerId</a>, <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/fn.connect_raw.html">connect_raw</a>},
@@ -191,7 +191,7 @@
 <a href=#118 id=118 data-nosnippet>118</a>    ///
 <a href=#119 id=119 data-nosnippet>119</a>    /// [`CellRendererSpinnerExt`][trait@crate::prelude::CellRendererSpinnerExt], [`CellRendererExt`][trait@crate::prelude::CellRendererExt], [`trait@glib::ObjectExt`]
 <a href=#120 id=120 data-nosnippet>120</a>    </span><span class="attr">#[doc(alias = <span class="string">"GtkCellRendererSpinner"</span>)]
-<a href=#121 id=121 data-nosnippet>121</a>    </span><span class="kw">pub struct </span><a href="../../../gtk/struct.CellRendererSpinner.html">CellRendererSpinner</a>(Object&lt;ffi::<a href="../../../gtk_sys/struct.GtkCellRendererSpinner.html">GtkCellRendererSpinner</a>, ffi::<a href="../../../gtk_sys/struct.GtkCellRendererSpinnerClass.html">GtkCellRendererSpinnerClass</a>&gt;) @extends <a href="cell_renderer.rs.html#17-169">CellRenderer</a>;
+<a href=#121 id=121 data-nosnippet>121</a>    </span><span class="kw">pub struct </span><a href="../../../gtk/struct.CellRendererSpinner.html">CellRendererSpinner</a>(Object&lt;ffi::<a href="../../../gtk_sys/struct.GtkCellRendererSpinner.html">GtkCellRendererSpinner</a>, ffi::<a href="../../../gtk_sys/struct.GtkCellRendererSpinnerClass.html">GtkCellRendererSpinnerClass</a>&gt;) @extends <a href="cell_renderer.rs.html#17-185">CellRenderer</a>;
 <a href=#122 id=122 data-nosnippet>122</a>
 <a href=#123 id=123 data-nosnippet>123</a>    <span class="kw">match fn </span>{
 <a href=#124 id=124 data-nosnippet>124</a>        type_ =&gt; || ffi::gtk_cell_renderer_spinner_get_type(),
@@ -210,7 +210,7 @@
 <a href=#137 id=137 data-nosnippet>137</a>    </span><span class="attr">#[doc(alias = <span class="string">"gtk_cell_renderer_spinner_new"</span>)]
 <a href=#138 id=138 data-nosnippet>138</a>    </span><span class="kw">pub fn </span>new() -&gt; <a href="#13-126">CellRendererSpinner</a> {
 <a href=#139 id=139 data-nosnippet>139</a>        <a href="../rt.rs.html#20-30">assert_initialized_main_thread!</a>();
-<a href=#140 id=140 data-nosnippet>140</a>        <span class="kw">unsafe </span>{ <a href="cell_renderer.rs.html#17-169">CellRenderer</a>::<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.FromGlibPtrNone.html#tymethod.from_glib_none">from_glib_none</a>(ffi::<a href="../../../gtk_sys/fn.gtk_cell_renderer_spinner_new.html">gtk_cell_renderer_spinner_new</a>()).<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.Cast.html#method.unsafe_cast">unsafe_cast</a>() }
+<a href=#140 id=140 data-nosnippet>140</a>        <span class="kw">unsafe </span>{ <a href="cell_renderer.rs.html#17-185">CellRenderer</a>::<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.FromGlibPtrNone.html#tymethod.from_glib_none">from_glib_none</a>(ffi::<a href="../../../gtk_sys/fn.gtk_cell_renderer_spinner_new.html">gtk_cell_renderer_spinner_new</a>()).<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.Cast.html#method.unsafe_cast">unsafe_cast</a>() }
 <a href=#141 id=141 data-nosnippet>141</a>    }
 <a href=#142 id=142 data-nosnippet>142</a>
 <a href=#143 id=143 data-nosnippet>143</a>    <span class="comment">// rustdoc-stripper-ignore-next
@@ -262,7 +262,7 @@
 <a href=#189 id=189 data-nosnippet>189</a>    }
 <a href=#190 id=190 data-nosnippet>190</a>
 <a href=#191 id=191 data-nosnippet>191</a>    <span class="doccomment">/// The [`IconSize`][crate::IconSize] value that specifies the size of the rendered spinner.
-<a href=#192 id=192 data-nosnippet>192</a>    </span><span class="kw">pub fn </span>size(<span class="self">self</span>, size: <a href="enums.rs.html#2736-2760">IconSize</a>) -&gt; <span class="self">Self </span>{
+<a href=#192 id=192 data-nosnippet>192</a>    </span><span class="kw">pub fn </span>size(<span class="self">self</span>, size: <a href="enums.rs.html#2742-2766">IconSize</a>) -&gt; <span class="self">Self </span>{
 <a href=#193 id=193 data-nosnippet>193</a>        <span class="self">Self </span>{
 <a href=#194 id=194 data-nosnippet>194</a>            builder: <a class="self" href="#192">self</a>.builder.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/struct.ObjectBuilder.html#method.property">property</a>(<span class="string">"size"</span>, <a href="#192">size</a>),
 <a href=#195 id=195 data-nosnippet>195</a>        }
@@ -311,7 +311,7 @@
 <a href=#238 id=238 data-nosnippet>238</a>        }
 <a href=#239 id=239 data-nosnippet>239</a>    }
 <a href=#240 id=240 data-nosnippet>240</a>
-<a href=#241 id=241 data-nosnippet>241</a>    <span class="kw">pub fn </span>mode(<span class="self">self</span>, mode: <a href="enums.rs.html#1283-1298">CellRendererMode</a>) -&gt; <span class="self">Self </span>{
+<a href=#241 id=241 data-nosnippet>241</a>    <span class="kw">pub fn </span>mode(<span class="self">self</span>, mode: <a href="enums.rs.html#1289-1304">CellRendererMode</a>) -&gt; <span class="self">Self </span>{
 <a href=#242 id=242 data-nosnippet>242</a>        <span class="self">Self </span>{
 <a href=#243 id=243 data-nosnippet>243</a>            builder: <a class="self" href="#241">self</a>.builder.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/struct.ObjectBuilder.html#method.property">property</a>(<span class="string">"mode"</span>, <a href="#241">mode</a>),
 <a href=#244 id=244 data-nosnippet>244</a>        }
@@ -401,12 +401,12 @@
 <a href=#328 id=328 data-nosnippet>328</a>    }
 <a href=#329 id=329 data-nosnippet>329</a>
 <a href=#330 id=330 data-nosnippet>330</a>    <span class="doccomment">/// The [`IconSize`][crate::IconSize] value that specifies the size of the rendered spinner.
-<a href=#331 id=331 data-nosnippet>331</a>    </span><span class="kw">fn </span>size(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="enums.rs.html#2736-2760">IconSize</a> {
+<a href=#331 id=331 data-nosnippet>331</a>    </span><span class="kw">fn </span>size(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="enums.rs.html#2742-2766">IconSize</a> {
 <a href=#332 id=332 data-nosnippet>332</a>        ObjectExt::<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectExt.html#tymethod.property">property</a>(<a class="self" href="#331">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>(), <span class="string">"size"</span>)
 <a href=#333 id=333 data-nosnippet>333</a>    }
 <a href=#334 id=334 data-nosnippet>334</a>
 <a href=#335 id=335 data-nosnippet>335</a>    <span class="doccomment">/// The [`IconSize`][crate::IconSize] value that specifies the size of the rendered spinner.
-<a href=#336 id=336 data-nosnippet>336</a>    </span><span class="kw">fn </span>set_size(<span class="kw-2">&amp;</span><span class="self">self</span>, size: <a href="enums.rs.html#2736-2760">IconSize</a>) {
+<a href=#336 id=336 data-nosnippet>336</a>    </span><span class="kw">fn </span>set_size(<span class="kw-2">&amp;</span><span class="self">self</span>, size: <a href="enums.rs.html#2742-2766">IconSize</a>) {
 <a href=#337 id=337 data-nosnippet>337</a>        ObjectExt::<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectExt.html#tymethod.set_property">set_property</a>(<a class="self" href="#336">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>(), <span class="string">"size"</span>, <a href="#336">size</a>)
 <a href=#338 id=338 data-nosnippet>338</a>    }
 <a href=#339 id=339 data-nosnippet>339</a>
