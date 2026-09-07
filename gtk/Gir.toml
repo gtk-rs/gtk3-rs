@@ -1536,6 +1536,9 @@ status = "generate"
 generate_builder = true
 manual_traits = ["MessageDialogExtManual"]
     [[object.function]]
+    pattern = "new|new_with_markup"
+    manual = true
+    [[object.function]]
     pattern = "format_secondary_(markup|text)"
     manual = true
     [[object.function]]

@@ -25,29 +25,12 @@ glib::wrapper! {
 impl MessageDialog {
     pub const NONE: Option<&'static MessageDialog> = None;
 
-    //#[doc(alias = "gtk_message_dialog_new")]
-    //pub fn new(parent: Option<&impl IsA<Window>>, flags: DialogFlags, type_: MessageType, buttons: ButtonsType, message_format: Option<&str>, : /*Unknown conversion*//*Unimplemented*/Basic: VarArgs) -> MessageDialog {
-    //    unsafe { TODO: call ffi:gtk_message_dialog_new() }
-    //}
-
-    //#[doc(alias = "gtk_message_dialog_new_with_markup")]
-    //#[doc(alias = "new_with_markup")]
-    //pub fn with_markup(parent: Option<&impl IsA<Window>>, flags: DialogFlags, type_: MessageType, buttons: ButtonsType, message_format: Option<&str>, : /*Unknown conversion*//*Unimplemented*/Basic: VarArgs) -> MessageDialog {
-    //    unsafe { TODO: call ffi:gtk_message_dialog_new_with_markup() }
-    //}
-
     // rustdoc-stripper-ignore-next
     /// Creates a new builder-pattern struct instance to construct [`MessageDialog`] objects.
     ///
     /// This method returns an instance of [`MessageDialogBuilder`](crate::builders::MessageDialogBuilder) which can be used to create [`MessageDialog`] objects.
     pub fn builder() -> MessageDialogBuilder {
         MessageDialogBuilder::new()
-    }
-}
-
-impl Default for MessageDialog {
-    fn default() -> Self {
-        glib::object::Object::new::<Self>()
     }
 }
 

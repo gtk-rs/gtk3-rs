@@ -35,6 +35,35 @@ impl MessageDialog {
             .unsafe_cast()
         }
     }
+
+    #[doc(alias = "gtk_message_dialog_new_with_markup")]
+    #[doc(alias = "new_with_markup")]
+    pub fn with_markup<T: IsA<Window>>(
+        parent: Option<&T>,
+        flags: DialogFlags,
+        type_: MessageType,
+        buttons: ButtonsType,
+        message: Option<&str>,
+    ) -> MessageDialog {
+        assert_initialized_main_thread!();
+        unsafe {
+            Widget::from_glib_none(ffi::gtk_message_dialog_new_with_markup(
+                parent.map(|p| p.as_ref()).to_glib_none().0,
+                flags.into_glib(),
+                type_.into_glib(),
+                buttons.into_glib(),
+                message.to_glib_none().0,
+            ))
+            .unsafe_cast()
+        }
+    }
+}
+
+impl Default for MessageDialog {
+    fn default() -> Self {
+        assert_initialized_main_thread!();
+        glib::Object::new()
+    }
 }
 
 pub trait MessageDialogExtManual: IsA<MessageDialog> + 'static {

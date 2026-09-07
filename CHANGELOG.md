@@ -18,6 +18,8 @@
   - `gtk::TreeModelSort`
   - `gtk::TreeStore`
 - New methods and signals:
+  - `gtk::MessageDialog::with_markup()`, a constructor whose message is
+    interpreted as Pango markup
   - `gtk::Clipboard::connect_owner_change()`
   - `gtk::EntryExt::connect_toggle_direction()` and
     `gtk::EntryExt::emit_toggle_direction()`
