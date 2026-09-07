@@ -33,6 +33,7 @@ pub use crate::invisible::InvisibleExtManual;
 pub use crate::list_box::ListBoxExtManual;
 pub use crate::list_store::GtkListStoreExtManual;
 pub use crate::menu::GtkMenuExtManual;
+pub use crate::message_dialog::MessageDialogExtManual;
 pub use crate::native_dialog::NativeDialogExtManual;
 pub use crate::notebook::NotebookExtManual;
 pub use crate::stack_switcher::StackSwitcherExtManual;

@@ -517,16 +517,6 @@ impl MessageDialogBuilder {
 }
 
 pub trait MessageDialogExt: IsA<MessageDialog> + 'static {
-    //#[doc(alias = "gtk_message_dialog_format_secondary_markup")]
-    //fn format_secondary_markup(&self, message_format: &str, : /*Unknown conversion*//*Unimplemented*/Basic: VarArgs) {
-    //    unsafe { TODO: call ffi:gtk_message_dialog_format_secondary_markup() }
-    //}
-
-    //#[doc(alias = "gtk_message_dialog_format_secondary_text")]
-    //fn format_secondary_text(&self, message_format: Option<&str>, : /*Unknown conversion*//*Unimplemented*/Basic: VarArgs) {
-    //    unsafe { TODO: call ffi:gtk_message_dialog_format_secondary_text() }
-    //}
-
     #[doc(alias = "gtk_message_dialog_get_message_area")]
     #[doc(alias = "get_message_area")]
     #[doc(alias = "message-area")]
