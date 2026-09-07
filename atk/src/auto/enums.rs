@@ -1388,8 +1388,6 @@ pub enum StateType {
     #[cfg_attr(docsrs, doc(cfg(feature = "v2_38")))]
     #[doc(alias = "ATK_STATE_COLLAPSED")]
     Collapsed,
-    #[doc(alias = "ATK_STATE_LAST_DEFINED")]
-    LastDefined,
     #[doc(hidden)]
     __Unknown(i32),
 }
@@ -1460,7 +1458,6 @@ impl IntoGlib for StateType {
             Self::ReadOnly => ffi::ATK_STATE_READ_ONLY,
             #[cfg(feature = "v2_38")]
             Self::Collapsed => ffi::ATK_STATE_COLLAPSED,
-            Self::LastDefined => ffi::ATK_STATE_LAST_DEFINED,
             Self::__Unknown(value) => value,
         }
     }
@@ -1517,7 +1514,6 @@ impl FromGlib<ffi::AtkStateType> for StateType {
             ffi::ATK_STATE_READ_ONLY => Self::ReadOnly,
             #[cfg(feature = "v2_38")]
             ffi::ATK_STATE_COLLAPSED => Self::Collapsed,
-            ffi::ATK_STATE_LAST_DEFINED => Self::LastDefined,
             value => Self::__Unknown(value),
         }
     }

@@ -170,7 +170,7 @@ status = "generate"
     version = "2.38"
     [[object.member]]
     name = "last_defined"
-    alias = true # not useful
+    ignore = true # not useful
     [[object.function]]
     name = "register"
     # Problematic function needs manual implementation

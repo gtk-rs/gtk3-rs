@@ -856,7 +856,6 @@ const RUST_CONSTANTS: &[(&str, &str)] = &[
     ("(gint) ATK_STATE_INDETERMINATE", "30"),
     ("(gint) ATK_STATE_INVALID", "0"),
     ("(gint) ATK_STATE_INVALID_ENTRY", "33"),
-    ("(gint) ATK_STATE_LAST_DEFINED", "44"),
     ("(gint) ATK_STATE_MANAGES_DESCENDANTS", "29"),
     ("(gint) ATK_STATE_MODAL", "14"),
     ("(gint) ATK_STATE_MULTISELECTABLE", "16"),

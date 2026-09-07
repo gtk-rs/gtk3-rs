@@ -37,4 +37,4 @@ status = "generate"
     version = "2.38"
     [[object.member]]
     name = "last_defined"
-    alias = true # not useful and should fix -sys tests
+    ignore = true # not useful and should fix -sys tests

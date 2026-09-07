@@ -771,8 +771,6 @@ const RUST_LAYOUTS: &[(&str, Layout)] = &[
 ];
 
 const RUST_CONSTANTS: &[(&str, &str)] = &[
-    ("(gint) GDK_2BUTTON_PRESS", "5"),
-    ("(gint) GDK_3BUTTON_PRESS", "6"),
     ("(guint) GDK_ACTION_ASK", "32"),
     ("(guint) GDK_ACTION_COPY", "2"),
     ("(guint) GDK_ACTION_DEFAULT", "1"),
@@ -912,7 +910,6 @@ const RUST_CONSTANTS: &[(&str, &str)] = &[
     ("(gint) GDK_ERROR_FILE", "-3"),
     ("(gint) GDK_ERROR_MEM", "-4"),
     ("(gint) GDK_ERROR_PARAM", "-2"),
-    ("(gint) GDK_EVENT_LAST", "48"),
     ("GDK_EVENT_PROPAGATE", "0"),
     ("GDK_EVENT_STOP", "1"),
     ("(gint) GDK_EXCHANGE", "50"),

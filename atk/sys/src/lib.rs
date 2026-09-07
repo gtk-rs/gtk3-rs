@@ -270,7 +270,6 @@ pub const ATK_STATE_READ_ONLY: AtkStateType = 42;
 #[cfg(feature = "v2_38")]
 #[cfg_attr(docsrs, doc(cfg(feature = "v2_38")))]
 pub const ATK_STATE_COLLAPSED: AtkStateType = 43;
-pub const ATK_STATE_LAST_DEFINED: AtkStateType = 44;
 
 pub type AtkTextAttribute = c_int;
 pub const ATK_TEXT_ATTR_INVALID: AtkTextAttribute = 0;
