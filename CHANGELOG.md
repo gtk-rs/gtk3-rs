@@ -30,6 +30,10 @@
   - `accessible_id()` and `accessible_help_text()` on the builders for
     `gtk::HeaderBarAccessible`, `gtk::PlugAccessible`, and
     `gtk::SocketAccessible`
+- Builders are now generated for `gtk::EventControllerKey`,
+  `gtk::EventControllerMotion`, `gtk::EventControllerScroll`,
+  `gtk::FileChooserWidgetAccessible`, `gtk::GestureStylus`,
+  `gtk::Settings`, and `gtk::ShortcutLabel`.
 - New feature flags:
   - `atk`'s `v2_52` adds `atk::AtkObjectExt::help_text()`,
     `set_help_text()`, `connect_attribute_changed()`, and

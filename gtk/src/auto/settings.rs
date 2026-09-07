@@ -22,6 +22,14 @@ glib::wrapper! {
 impl Settings {
     pub const NONE: Option<&'static Settings> = None;
 
+    // rustdoc-stripper-ignore-next
+    /// Creates a new builder-pattern struct instance to construct [`Settings`] objects.
+    ///
+    /// This method returns an instance of [`SettingsBuilder`](crate::builders::SettingsBuilder) which can be used to create [`Settings`] objects.
+    pub fn builder() -> SettingsBuilder {
+        SettingsBuilder::new()
+    }
+
     #[doc(alias = "gtk_settings_get_default")]
     #[doc(alias = "get_default")]
     #[allow(clippy::should_implement_trait)]
@@ -35,6 +43,447 @@ impl Settings {
     pub fn for_screen(screen: &gdk::Screen) -> Option<Settings> {
         assert_initialized_main_thread!();
         unsafe { from_glib_none(ffi::gtk_settings_get_for_screen(screen.to_glib_none().0)) }
+    }
+}
+
+// rustdoc-stripper-ignore-next
+/// A [builder-pattern] type to construct [`Settings`] objects.
+///
+/// [builder-pattern]: https://doc.rust-lang.org/1.0.0/style/ownership/builders.html
+#[must_use = "The builder must be built to be used"]
+pub struct SettingsBuilder {
+    builder: glib::object::ObjectBuilder<'static, Settings>,
+}
+
+impl SettingsBuilder {
+    fn new() -> Self {
+        Self {
+            builder: glib::object::Object::builder(),
+        }
+    }
+
+    pub fn gtk_alternative_button_order(self, gtk_alternative_button_order: bool) -> Self {
+        Self {
+            builder: self
+                .builder
+                .property("gtk-alternative-button-order", gtk_alternative_button_order),
+        }
+    }
+
+    pub fn gtk_alternative_sort_arrows(self, gtk_alternative_sort_arrows: bool) -> Self {
+        Self {
+            builder: self
+                .builder
+                .property("gtk-alternative-sort-arrows", gtk_alternative_sort_arrows),
+        }
+    }
+
+    pub fn gtk_application_prefer_dark_theme(
+        self,
+        gtk_application_prefer_dark_theme: bool,
+    ) -> Self {
+        Self {
+            builder: self.builder.property(
+                "gtk-application-prefer-dark-theme",
+                gtk_application_prefer_dark_theme,
+            ),
+        }
+    }
+
+    #[cfg(feature = "v3_24")]
+    #[cfg_attr(docsrs, doc(cfg(feature = "v3_24")))]
+    pub fn gtk_cursor_aspect_ratio(self, gtk_cursor_aspect_ratio: f32) -> Self {
+        Self {
+            builder: self
+                .builder
+                .property("gtk-cursor-aspect-ratio", gtk_cursor_aspect_ratio),
+        }
+    }
+
+    pub fn gtk_cursor_blink(self, gtk_cursor_blink: bool) -> Self {
+        Self {
+            builder: self.builder.property("gtk-cursor-blink", gtk_cursor_blink),
+        }
+    }
+
+    pub fn gtk_cursor_blink_time(self, gtk_cursor_blink_time: i32) -> Self {
+        Self {
+            builder: self
+                .builder
+                .property("gtk-cursor-blink-time", gtk_cursor_blink_time),
+        }
+    }
+
+    pub fn gtk_cursor_blink_timeout(self, gtk_cursor_blink_timeout: i32) -> Self {
+        Self {
+            builder: self
+                .builder
+                .property("gtk-cursor-blink-timeout", gtk_cursor_blink_timeout),
+        }
+    }
+
+    pub fn gtk_cursor_theme_name(self, gtk_cursor_theme_name: impl Into<glib::GString>) -> Self {
+        Self {
+            builder: self
+                .builder
+                .property("gtk-cursor-theme-name", gtk_cursor_theme_name.into()),
+        }
+    }
+
+    pub fn gtk_cursor_theme_size(self, gtk_cursor_theme_size: i32) -> Self {
+        Self {
+            builder: self
+                .builder
+                .property("gtk-cursor-theme-size", gtk_cursor_theme_size),
+        }
+    }
+
+    pub fn gtk_decoration_layout(self, gtk_decoration_layout: impl Into<glib::GString>) -> Self {
+        Self {
+            builder: self
+                .builder
+                .property("gtk-decoration-layout", gtk_decoration_layout.into()),
+        }
+    }
+
+    pub fn gtk_dialogs_use_header(self, gtk_dialogs_use_header: bool) -> Self {
+        Self {
+            builder: self
+                .builder
+                .property("gtk-dialogs-use-header", gtk_dialogs_use_header),
+        }
+    }
+
+    pub fn gtk_dnd_drag_threshold(self, gtk_dnd_drag_threshold: i32) -> Self {
+        Self {
+            builder: self
+                .builder
+                .property("gtk-dnd-drag-threshold", gtk_dnd_drag_threshold),
+        }
+    }
+
+    pub fn gtk_double_click_distance(self, gtk_double_click_distance: i32) -> Self {
+        Self {
+            builder: self
+                .builder
+                .property("gtk-double-click-distance", gtk_double_click_distance),
+        }
+    }
+
+    pub fn gtk_double_click_time(self, gtk_double_click_time: i32) -> Self {
+        Self {
+            builder: self
+                .builder
+                .property("gtk-double-click-time", gtk_double_click_time),
+        }
+    }
+
+    pub fn gtk_enable_accels(self, gtk_enable_accels: bool) -> Self {
+        Self {
+            builder: self
+                .builder
+                .property("gtk-enable-accels", gtk_enable_accels),
+        }
+    }
+
+    pub fn gtk_enable_animations(self, gtk_enable_animations: bool) -> Self {
+        Self {
+            builder: self
+                .builder
+                .property("gtk-enable-animations", gtk_enable_animations),
+        }
+    }
+
+    pub fn gtk_enable_event_sounds(self, gtk_enable_event_sounds: bool) -> Self {
+        Self {
+            builder: self
+                .builder
+                .property("gtk-enable-event-sounds", gtk_enable_event_sounds),
+        }
+    }
+
+    pub fn gtk_enable_input_feedback_sounds(self, gtk_enable_input_feedback_sounds: bool) -> Self {
+        Self {
+            builder: self.builder.property(
+                "gtk-enable-input-feedback-sounds",
+                gtk_enable_input_feedback_sounds,
+            ),
+        }
+    }
+
+    pub fn gtk_enable_primary_paste(self, gtk_enable_primary_paste: bool) -> Self {
+        Self {
+            builder: self
+                .builder
+                .property("gtk-enable-primary-paste", gtk_enable_primary_paste),
+        }
+    }
+
+    pub fn gtk_entry_password_hint_timeout(self, gtk_entry_password_hint_timeout: u32) -> Self {
+        Self {
+            builder: self.builder.property(
+                "gtk-entry-password-hint-timeout",
+                gtk_entry_password_hint_timeout,
+            ),
+        }
+    }
+
+    pub fn gtk_entry_select_on_focus(self, gtk_entry_select_on_focus: bool) -> Self {
+        Self {
+            builder: self
+                .builder
+                .property("gtk-entry-select-on-focus", gtk_entry_select_on_focus),
+        }
+    }
+
+    pub fn gtk_error_bell(self, gtk_error_bell: bool) -> Self {
+        Self {
+            builder: self.builder.property("gtk-error-bell", gtk_error_bell),
+        }
+    }
+
+    pub fn gtk_font_name(self, gtk_font_name: impl Into<glib::GString>) -> Self {
+        Self {
+            builder: self.builder.property("gtk-font-name", gtk_font_name.into()),
+        }
+    }
+
+    pub fn gtk_fontconfig_timestamp(self, gtk_fontconfig_timestamp: u32) -> Self {
+        Self {
+            builder: self
+                .builder
+                .property("gtk-fontconfig-timestamp", gtk_fontconfig_timestamp),
+        }
+    }
+
+    pub fn gtk_icon_theme_name(self, gtk_icon_theme_name: impl Into<glib::GString>) -> Self {
+        Self {
+            builder: self
+                .builder
+                .property("gtk-icon-theme-name", gtk_icon_theme_name.into()),
+        }
+    }
+
+    pub fn gtk_im_module(self, gtk_im_module: impl Into<glib::GString>) -> Self {
+        Self {
+            builder: self.builder.property("gtk-im-module", gtk_im_module.into()),
+        }
+    }
+
+    pub fn gtk_key_theme_name(self, gtk_key_theme_name: impl Into<glib::GString>) -> Self {
+        Self {
+            builder: self
+                .builder
+                .property("gtk-key-theme-name", gtk_key_theme_name.into()),
+        }
+    }
+
+    pub fn gtk_keynav_use_caret(self, gtk_keynav_use_caret: bool) -> Self {
+        Self {
+            builder: self
+                .builder
+                .property("gtk-keynav-use-caret", gtk_keynav_use_caret),
+        }
+    }
+
+    pub fn gtk_label_select_on_focus(self, gtk_label_select_on_focus: bool) -> Self {
+        Self {
+            builder: self
+                .builder
+                .property("gtk-label-select-on-focus", gtk_label_select_on_focus),
+        }
+    }
+
+    pub fn gtk_long_press_time(self, gtk_long_press_time: u32) -> Self {
+        Self {
+            builder: self
+                .builder
+                .property("gtk-long-press-time", gtk_long_press_time),
+        }
+    }
+
+    pub fn gtk_modules(self, gtk_modules: impl Into<glib::GString>) -> Self {
+        Self {
+            builder: self.builder.property("gtk-modules", gtk_modules.into()),
+        }
+    }
+
+    #[cfg(feature = "v3_24_9")]
+    #[cfg_attr(docsrs, doc(cfg(feature = "v3_24_9")))]
+    pub fn gtk_overlay_scrolling(self, gtk_overlay_scrolling: bool) -> Self {
+        Self {
+            builder: self
+                .builder
+                .property("gtk-overlay-scrolling", gtk_overlay_scrolling),
+        }
+    }
+
+    pub fn gtk_primary_button_warps_slider(self, gtk_primary_button_warps_slider: bool) -> Self {
+        Self {
+            builder: self.builder.property(
+                "gtk-primary-button-warps-slider",
+                gtk_primary_button_warps_slider,
+            ),
+        }
+    }
+
+    pub fn gtk_print_backends(self, gtk_print_backends: impl Into<glib::GString>) -> Self {
+        Self {
+            builder: self
+                .builder
+                .property("gtk-print-backends", gtk_print_backends.into()),
+        }
+    }
+
+    pub fn gtk_print_preview_command(
+        self,
+        gtk_print_preview_command: impl Into<glib::GString>,
+    ) -> Self {
+        Self {
+            builder: self.builder.property(
+                "gtk-print-preview-command",
+                gtk_print_preview_command.into(),
+            ),
+        }
+    }
+
+    pub fn gtk_recent_files_enabled(self, gtk_recent_files_enabled: bool) -> Self {
+        Self {
+            builder: self
+                .builder
+                .property("gtk-recent-files-enabled", gtk_recent_files_enabled),
+        }
+    }
+
+    pub fn gtk_recent_files_max_age(self, gtk_recent_files_max_age: i32) -> Self {
+        Self {
+            builder: self
+                .builder
+                .property("gtk-recent-files-max-age", gtk_recent_files_max_age),
+        }
+    }
+
+    pub fn gtk_shell_shows_app_menu(self, gtk_shell_shows_app_menu: bool) -> Self {
+        Self {
+            builder: self
+                .builder
+                .property("gtk-shell-shows-app-menu", gtk_shell_shows_app_menu),
+        }
+    }
+
+    pub fn gtk_shell_shows_desktop(self, gtk_shell_shows_desktop: bool) -> Self {
+        Self {
+            builder: self
+                .builder
+                .property("gtk-shell-shows-desktop", gtk_shell_shows_desktop),
+        }
+    }
+
+    pub fn gtk_shell_shows_menubar(self, gtk_shell_shows_menubar: bool) -> Self {
+        Self {
+            builder: self
+                .builder
+                .property("gtk-shell-shows-menubar", gtk_shell_shows_menubar),
+        }
+    }
+
+    pub fn gtk_sound_theme_name(self, gtk_sound_theme_name: impl Into<glib::GString>) -> Self {
+        Self {
+            builder: self
+                .builder
+                .property("gtk-sound-theme-name", gtk_sound_theme_name.into()),
+        }
+    }
+
+    pub fn gtk_split_cursor(self, gtk_split_cursor: bool) -> Self {
+        Self {
+            builder: self.builder.property("gtk-split-cursor", gtk_split_cursor),
+        }
+    }
+
+    pub fn gtk_theme_name(self, gtk_theme_name: impl Into<glib::GString>) -> Self {
+        Self {
+            builder: self
+                .builder
+                .property("gtk-theme-name", gtk_theme_name.into()),
+        }
+    }
+
+    pub fn gtk_titlebar_double_click(
+        self,
+        gtk_titlebar_double_click: impl Into<glib::GString>,
+    ) -> Self {
+        Self {
+            builder: self.builder.property(
+                "gtk-titlebar-double-click",
+                gtk_titlebar_double_click.into(),
+            ),
+        }
+    }
+
+    pub fn gtk_titlebar_middle_click(
+        self,
+        gtk_titlebar_middle_click: impl Into<glib::GString>,
+    ) -> Self {
+        Self {
+            builder: self.builder.property(
+                "gtk-titlebar-middle-click",
+                gtk_titlebar_middle_click.into(),
+            ),
+        }
+    }
+
+    pub fn gtk_titlebar_right_click(
+        self,
+        gtk_titlebar_right_click: impl Into<glib::GString>,
+    ) -> Self {
+        Self {
+            builder: self
+                .builder
+                .property("gtk-titlebar-right-click", gtk_titlebar_right_click.into()),
+        }
+    }
+
+    pub fn gtk_xft_antialias(self, gtk_xft_antialias: i32) -> Self {
+        Self {
+            builder: self
+                .builder
+                .property("gtk-xft-antialias", gtk_xft_antialias),
+        }
+    }
+
+    pub fn gtk_xft_dpi(self, gtk_xft_dpi: i32) -> Self {
+        Self {
+            builder: self.builder.property("gtk-xft-dpi", gtk_xft_dpi),
+        }
+    }
+
+    pub fn gtk_xft_hinting(self, gtk_xft_hinting: i32) -> Self {
+        Self {
+            builder: self.builder.property("gtk-xft-hinting", gtk_xft_hinting),
+        }
+    }
+
+    pub fn gtk_xft_hintstyle(self, gtk_xft_hintstyle: impl Into<glib::GString>) -> Self {
+        Self {
+            builder: self
+                .builder
+                .property("gtk-xft-hintstyle", gtk_xft_hintstyle.into()),
+        }
+    }
+
+    pub fn gtk_xft_rgba(self, gtk_xft_rgba: impl Into<glib::GString>) -> Self {
+        Self {
+            builder: self.builder.property("gtk-xft-rgba", gtk_xft_rgba.into()),
+        }
+    }
+
+    // rustdoc-stripper-ignore-next
+    /// Build the [`Settings`].
+    #[must_use = "Building the object from the builder is usually expensive and is not expected to have side effects"]
+    pub fn build(self) -> Settings {
+        assert_initialized_main_thread!();
+        self.builder.build()
     }
 }
 

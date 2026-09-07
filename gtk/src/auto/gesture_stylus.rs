@@ -2,7 +2,7 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use crate::{EventController, Gesture, GestureSingle, Widget, ffi};
+use crate::{EventController, Gesture, GestureSingle, PropagationPhase, Widget, ffi};
 use glib::{
     object::ObjectType as _,
     prelude::*,
@@ -30,6 +30,14 @@ impl GestureStylus {
             ))
             .unsafe_cast()
         }
+    }
+
+    // rustdoc-stripper-ignore-next
+    /// Creates a new builder-pattern struct instance to construct [`GestureStylus`] objects.
+    ///
+    /// This method returns an instance of [`GestureStylusBuilder`](crate::builders::GestureStylusBuilder) which can be used to create [`GestureStylus`] objects.
+    pub fn builder() -> GestureStylusBuilder {
+        GestureStylusBuilder::new()
     }
 
     #[doc(alias = "gtk_gesture_stylus_get_axis")]
@@ -158,5 +166,82 @@ impl GestureStylus {
                 Box_::into_raw(f),
             )
         }
+    }
+}
+
+#[cfg(feature = "v3_24")]
+#[cfg_attr(docsrs, doc(cfg(feature = "v3_24")))]
+impl Default for GestureStylus {
+    fn default() -> Self {
+        glib::object::Object::new::<Self>()
+    }
+}
+
+// rustdoc-stripper-ignore-next
+/// A [builder-pattern] type to construct [`GestureStylus`] objects.
+///
+/// [builder-pattern]: https://doc.rust-lang.org/1.0.0/style/ownership/builders.html
+#[must_use = "The builder must be built to be used"]
+pub struct GestureStylusBuilder {
+    builder: glib::object::ObjectBuilder<'static, GestureStylus>,
+}
+
+impl GestureStylusBuilder {
+    fn new() -> Self {
+        Self {
+            builder: glib::object::Object::builder(),
+        }
+    }
+
+    pub fn button(self, button: u32) -> Self {
+        Self {
+            builder: self.builder.property("button", button),
+        }
+    }
+
+    pub fn exclusive(self, exclusive: bool) -> Self {
+        Self {
+            builder: self.builder.property("exclusive", exclusive),
+        }
+    }
+
+    pub fn touch_only(self, touch_only: bool) -> Self {
+        Self {
+            builder: self.builder.property("touch-only", touch_only),
+        }
+    }
+
+    pub fn n_points(self, n_points: u32) -> Self {
+        Self {
+            builder: self.builder.property("n-points", n_points),
+        }
+    }
+
+    pub fn window(self, window: &gdk::Window) -> Self {
+        Self {
+            builder: self.builder.property("window", window.clone()),
+        }
+    }
+
+    pub fn propagation_phase(self, propagation_phase: PropagationPhase) -> Self {
+        Self {
+            builder: self
+                .builder
+                .property("propagation-phase", propagation_phase),
+        }
+    }
+
+    pub fn widget(self, widget: &impl IsA<Widget>) -> Self {
+        Self {
+            builder: self.builder.property("widget", widget.clone().upcast()),
+        }
+    }
+
+    // rustdoc-stripper-ignore-next
+    /// Build the [`GestureStylus`].
+    #[must_use = "Building the object from the builder is usually expensive and is not expected to have side effects"]
+    pub fn build(self) -> GestureStylus {
+        assert_initialized_main_thread!();
+        self.builder.build()
     }
 }

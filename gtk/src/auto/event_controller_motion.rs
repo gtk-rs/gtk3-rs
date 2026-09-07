@@ -2,7 +2,7 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use crate::{EventController, Widget, ffi};
+use crate::{EventController, PropagationPhase, Widget, ffi};
 use glib::{
     object::ObjectType as _,
     prelude::*,
@@ -30,6 +30,14 @@ impl EventControllerMotion {
             ))
             .unsafe_cast()
         }
+    }
+
+    // rustdoc-stripper-ignore-next
+    /// Creates a new builder-pattern struct instance to construct [`EventControllerMotion`] objects.
+    ///
+    /// This method returns an instance of [`EventControllerMotionBuilder`](crate::builders::EventControllerMotionBuilder) which can be used to create [`EventControllerMotion`] objects.
+    pub fn builder() -> EventControllerMotionBuilder {
+        EventControllerMotionBuilder::new()
     }
 
     #[doc(alias = "enter")]
@@ -108,5 +116,52 @@ impl EventControllerMotion {
                 Box_::into_raw(f),
             )
         }
+    }
+}
+
+#[cfg(feature = "v3_24")]
+#[cfg_attr(docsrs, doc(cfg(feature = "v3_24")))]
+impl Default for EventControllerMotion {
+    fn default() -> Self {
+        glib::object::Object::new::<Self>()
+    }
+}
+
+// rustdoc-stripper-ignore-next
+/// A [builder-pattern] type to construct [`EventControllerMotion`] objects.
+///
+/// [builder-pattern]: https://doc.rust-lang.org/1.0.0/style/ownership/builders.html
+#[must_use = "The builder must be built to be used"]
+pub struct EventControllerMotionBuilder {
+    builder: glib::object::ObjectBuilder<'static, EventControllerMotion>,
+}
+
+impl EventControllerMotionBuilder {
+    fn new() -> Self {
+        Self {
+            builder: glib::object::Object::builder(),
+        }
+    }
+
+    pub fn propagation_phase(self, propagation_phase: PropagationPhase) -> Self {
+        Self {
+            builder: self
+                .builder
+                .property("propagation-phase", propagation_phase),
+        }
+    }
+
+    pub fn widget(self, widget: &impl IsA<Widget>) -> Self {
+        Self {
+            builder: self.builder.property("widget", widget.clone().upcast()),
+        }
+    }
+
+    // rustdoc-stripper-ignore-next
+    /// Build the [`EventControllerMotion`].
+    #[must_use = "Building the object from the builder is usually expensive and is not expected to have side effects"]
+    pub fn build(self) -> EventControllerMotion {
+        assert_initialized_main_thread!();
+        self.builder.build()
     }
 }
