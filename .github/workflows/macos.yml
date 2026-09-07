@@ -1,0 +1,45 @@
+name: macOS
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "Cargo.lock"
+      - "Cargo.toml"
+      - ".github/workflows/macos.yml"
+      - "atk/**"
+      - "gdk/**"
+      - "gtk/**"
+      - "gtk3-macros/**"
+  pull_request:
+    paths:
+      - "Cargo.lock"
+      - "Cargo.toml"
+      - ".github/workflows/macos.yml"
+      - "atk/**"
+      - "gdk/**"
+      - "gtk/**"
+      - "gtk3-macros/**"
+  workflow_dispatch:
+
+jobs:
+  ci-macos:
+    name: macOS
+    runs-on: macos-14
+    steps:
+      - uses: actions/checkout@v7
+      - name: Install GTK
+        run: |
+          brew install gtk+3
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@v1
+        with:
+          toolchain: stable
+          components: clippy
+      - name: Build
+        run: cargo build --features v3_24_30 -p gtk
+      - name: Clippy
+        run: cargo clippy --features v3_24_30 -p gtk
+      # FIXME: renable once https://github.com/gtk-rs/gtk4-rs/issues/1235 is fixed
+      #- name: Tests
+      #  run: cargo test --features v3_24_30 -p gtk

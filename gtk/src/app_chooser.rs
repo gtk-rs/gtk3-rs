@@ -13,12 +13,7 @@ glib::wrapper! {
     }
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: glib::object::IsA<crate::AppChooser>> Sealed for T {}
-}
-
-pub trait AppChooserExt: IsA<AppChooser> + sealed::Sealed + 'static {
+pub trait AppChooserExt: IsA<AppChooser> + 'static {
     #[doc(alias = "gtk_app_chooser_get_app_info")]
     #[doc(alias = "get_app_info")]
     fn app_info(&self) -> Option<AppInfo> {

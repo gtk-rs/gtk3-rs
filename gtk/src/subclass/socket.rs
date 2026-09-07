@@ -1,5 +1,6 @@
 // Take a look at the license at the top of the repository in the LICENSE file.
 
+use glib::object::IsA;
 use glib::subclass::prelude::*;
 
 use glib::object::Cast;
@@ -9,7 +10,7 @@ use super::container::ContainerImpl;
 
 use crate::{Socket, ffi};
 
-pub trait SocketImpl: SocketImplExt + ContainerImpl {
+pub trait SocketImpl: ContainerImpl + ObjectSubclass<Type: IsA<Socket>> {
     fn plug_added(&self) {
         self.parent_plug_added()
     }
@@ -19,12 +20,7 @@ pub trait SocketImpl: SocketImplExt + ContainerImpl {
     }
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::SocketImpl> Sealed for T {}
-}
-
-pub trait SocketImplExt: ObjectSubclass + sealed::Sealed {
+pub trait SocketImplExt: SocketImpl {
     fn parent_plug_added(&self) {
         unsafe {
             let data = Self::type_data();

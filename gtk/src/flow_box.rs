@@ -5,12 +5,7 @@ use glib::object::IsA;
 use glib::translate::*;
 use std::ptr;
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: glib::object::IsA<crate::FlowBox>> Sealed for T {}
-}
-
-pub trait FlowBoxExtManual: IsA<FlowBox> + sealed::Sealed + 'static {
+pub trait FlowBoxExtManual: IsA<FlowBox> + 'static {
     fn unbind_model(&self) {
         unsafe {
             ffi::gtk_flow_box_bind_model(

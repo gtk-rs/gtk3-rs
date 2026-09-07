@@ -389,8 +389,6 @@ pub enum RelationType {
     ErrorMessage,
     #[doc(alias = "ATK_RELATION_ERROR_FOR")]
     ErrorFor,
-    #[doc(alias = "ATK_RELATION_LAST_DEFINED")]
-    LastDefined,
     #[doc(hidden)]
     __Unknown(i32),
 }
@@ -437,7 +435,6 @@ impl IntoGlib for RelationType {
             Self::DetailsFor => ffi::ATK_RELATION_DETAILS_FOR,
             Self::ErrorMessage => ffi::ATK_RELATION_ERROR_MESSAGE,
             Self::ErrorFor => ffi::ATK_RELATION_ERROR_FOR,
-            Self::LastDefined => ffi::ATK_RELATION_LAST_DEFINED,
             Self::__Unknown(value) => value,
         }
     }
@@ -470,7 +467,6 @@ impl FromGlib<ffi::AtkRelationType> for RelationType {
             ffi::ATK_RELATION_DETAILS_FOR => Self::DetailsFor,
             ffi::ATK_RELATION_ERROR_MESSAGE => Self::ErrorMessage,
             ffi::ATK_RELATION_ERROR_FOR => Self::ErrorFor,
-            ffi::ATK_RELATION_LAST_DEFINED => Self::LastDefined,
             value => Self::__Unknown(value),
         }
     }
@@ -794,8 +790,6 @@ pub enum Role {
     PushButtonMenu,
     #[doc(alias = "ATK_ROLE_SWITCH")]
     Switch,
-    #[doc(alias = "ATK_ROLE_LAST_DEFINED")]
-    LastDefined,
     #[doc(hidden)]
     __Unknown(i32),
 }
@@ -957,7 +951,6 @@ impl IntoGlib for Role {
             Self::Suggestion => ffi::ATK_ROLE_SUGGESTION,
             Self::PushButtonMenu => ffi::ATK_ROLE_PUSH_BUTTON_MENU,
             Self::Switch => ffi::ATK_ROLE_SWITCH,
-            Self::LastDefined => ffi::ATK_ROLE_LAST_DEFINED,
             Self::__Unknown(value) => value,
         }
     }
@@ -1098,7 +1091,6 @@ impl FromGlib<ffi::AtkRole> for Role {
             ffi::ATK_ROLE_SUGGESTION => Self::Suggestion,
             ffi::ATK_ROLE_PUSH_BUTTON_MENU => Self::PushButtonMenu,
             ffi::ATK_ROLE_SWITCH => Self::Switch,
-            ffi::ATK_ROLE_LAST_DEFINED => Self::LastDefined,
             value => Self::__Unknown(value),
         }
     }
@@ -1388,8 +1380,6 @@ pub enum StateType {
     #[cfg_attr(docsrs, doc(cfg(feature = "v2_38")))]
     #[doc(alias = "ATK_STATE_COLLAPSED")]
     Collapsed,
-    #[doc(alias = "ATK_STATE_LAST_DEFINED")]
-    LastDefined,
     #[doc(hidden)]
     __Unknown(i32),
 }
@@ -1460,7 +1450,6 @@ impl IntoGlib for StateType {
             Self::ReadOnly => ffi::ATK_STATE_READ_ONLY,
             #[cfg(feature = "v2_38")]
             Self::Collapsed => ffi::ATK_STATE_COLLAPSED,
-            Self::LastDefined => ffi::ATK_STATE_LAST_DEFINED,
             Self::__Unknown(value) => value,
         }
     }
@@ -1517,7 +1506,6 @@ impl FromGlib<ffi::AtkStateType> for StateType {
             ffi::ATK_STATE_READ_ONLY => Self::ReadOnly,
             #[cfg(feature = "v2_38")]
             ffi::ATK_STATE_COLLAPSED => Self::Collapsed,
-            ffi::ATK_STATE_LAST_DEFINED => Self::LastDefined,
             value => Self::__Unknown(value),
         }
     }
@@ -1641,8 +1629,6 @@ pub enum TextAttribute {
     Style,
     #[doc(alias = "ATK_TEXT_ATTR_TEXT_POSITION")]
     TextPosition,
-    #[doc(alias = "ATK_TEXT_ATTR_LAST_DEFINED")]
-    LastDefined,
     #[doc(hidden)]
     __Unknown(i32),
 }
@@ -1704,7 +1690,6 @@ impl IntoGlib for TextAttribute {
             Self::Variant => ffi::ATK_TEXT_ATTR_VARIANT,
             Self::Style => ffi::ATK_TEXT_ATTR_STYLE,
             Self::TextPosition => ffi::ATK_TEXT_ATTR_TEXT_POSITION,
-            Self::LastDefined => ffi::ATK_TEXT_ATTR_LAST_DEFINED,
             Self::__Unknown(value) => value,
         }
     }
@@ -1745,7 +1730,6 @@ impl FromGlib<ffi::AtkTextAttribute> for TextAttribute {
             ffi::ATK_TEXT_ATTR_VARIANT => Self::Variant,
             ffi::ATK_TEXT_ATTR_STYLE => Self::Style,
             ffi::ATK_TEXT_ATTR_TEXT_POSITION => Self::TextPosition,
-            ffi::ATK_TEXT_ATTR_LAST_DEFINED => Self::LastDefined,
             value => Self::__Unknown(value),
         }
     }
@@ -2169,8 +2153,6 @@ pub enum ValueType {
     VeryGood,
     #[doc(alias = "ATK_VALUE_BEST")]
     Best,
-    #[doc(alias = "ATK_VALUE_LAST_DEFINED")]
-    LastDefined,
     #[doc(hidden)]
     __Unknown(i32),
 }
@@ -2212,7 +2194,6 @@ impl IntoGlib for ValueType {
             Self::Good => ffi::ATK_VALUE_GOOD,
             Self::VeryGood => ffi::ATK_VALUE_VERY_GOOD,
             Self::Best => ffi::ATK_VALUE_BEST,
-            Self::LastDefined => ffi::ATK_VALUE_LAST_DEFINED,
             Self::__Unknown(value) => value,
         }
     }
@@ -2239,7 +2220,6 @@ impl FromGlib<ffi::AtkValueType> for ValueType {
             ffi::ATK_VALUE_GOOD => Self::Good,
             ffi::ATK_VALUE_VERY_GOOD => Self::VeryGood,
             ffi::ATK_VALUE_BEST => Self::Best,
-            ffi::ATK_VALUE_LAST_DEFINED => Self::LastDefined,
             value => Self::__Unknown(value),
         }
     }

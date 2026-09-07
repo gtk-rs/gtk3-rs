@@ -1319,10 +1319,10 @@ pub enum EventType {
     MotionNotify,
     #[doc(alias = "GDK_BUTTON_PRESS")]
     ButtonPress,
-    #[doc(alias = "GDK_2BUTTON_PRESS")]
-    _2buttonPress,
-    #[doc(alias = "GDK_3BUTTON_PRESS")]
-    _3buttonPress,
+    #[doc(alias = "GDK_DOUBLE_BUTTON_PRESS")]
+    DoubleButtonPress,
+    #[doc(alias = "GDK_TRIPLE_BUTTON_PRESS")]
+    TripleButtonPress,
     #[doc(alias = "GDK_BUTTON_RELEASE")]
     ButtonRelease,
     #[doc(alias = "GDK_KEY_PRESS")]
@@ -1403,8 +1403,6 @@ pub enum EventType {
     PadStrip,
     #[doc(alias = "GDK_PAD_GROUP_MODE")]
     PadGroupMode,
-    #[doc(alias = "GDK_EVENT_LAST")]
-    EventLast,
     #[doc(hidden)]
     __Unknown(i32),
 }
@@ -1421,8 +1419,8 @@ impl IntoGlib for EventType {
             Self::Expose => ffi::GDK_EXPOSE,
             Self::MotionNotify => ffi::GDK_MOTION_NOTIFY,
             Self::ButtonPress => ffi::GDK_BUTTON_PRESS,
-            Self::_2buttonPress => ffi::GDK_2BUTTON_PRESS,
-            Self::_3buttonPress => ffi::GDK_3BUTTON_PRESS,
+            Self::DoubleButtonPress => ffi::GDK_DOUBLE_BUTTON_PRESS,
+            Self::TripleButtonPress => ffi::GDK_TRIPLE_BUTTON_PRESS,
             Self::ButtonRelease => ffi::GDK_BUTTON_RELEASE,
             Self::KeyPress => ffi::GDK_KEY_PRESS,
             Self::KeyRelease => ffi::GDK_KEY_RELEASE,
@@ -1463,7 +1461,6 @@ impl IntoGlib for EventType {
             Self::PadRing => ffi::GDK_PAD_RING,
             Self::PadStrip => ffi::GDK_PAD_STRIP,
             Self::PadGroupMode => ffi::GDK_PAD_GROUP_MODE,
-            Self::EventLast => ffi::GDK_EVENT_LAST,
             Self::__Unknown(value) => value,
         }
     }
@@ -1481,8 +1478,8 @@ impl FromGlib<ffi::GdkEventType> for EventType {
             ffi::GDK_EXPOSE => Self::Expose,
             ffi::GDK_MOTION_NOTIFY => Self::MotionNotify,
             ffi::GDK_BUTTON_PRESS => Self::ButtonPress,
-            ffi::GDK_2BUTTON_PRESS => Self::_2buttonPress,
-            ffi::GDK_3BUTTON_PRESS => Self::_3buttonPress,
+            ffi::GDK_DOUBLE_BUTTON_PRESS => Self::DoubleButtonPress,
+            ffi::GDK_TRIPLE_BUTTON_PRESS => Self::TripleButtonPress,
             ffi::GDK_BUTTON_RELEASE => Self::ButtonRelease,
             ffi::GDK_KEY_PRESS => Self::KeyPress,
             ffi::GDK_KEY_RELEASE => Self::KeyRelease,
@@ -1523,7 +1520,6 @@ impl FromGlib<ffi::GdkEventType> for EventType {
             ffi::GDK_PAD_RING => Self::PadRing,
             ffi::GDK_PAD_STRIP => Self::PadStrip,
             ffi::GDK_PAD_GROUP_MODE => Self::PadGroupMode,
-            ffi::GDK_EVENT_LAST => Self::EventLast,
             value => Self::__Unknown(value),
         }
     }

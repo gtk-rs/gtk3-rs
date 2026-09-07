@@ -6,12 +6,7 @@ use glib::object::IsA;
 use glib::translate::*;
 use libc::c_int;
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: glib::object::IsA<crate::Notebook>> Sealed for T {}
-}
-
-pub trait NotebookExtManual: IsA<Notebook> + sealed::Sealed + 'static {
+pub trait NotebookExtManual: IsA<Notebook> + 'static {
     #[doc(alias = "gtk_notebook_append_page")]
     fn append_page<T: IsA<Widget>, U: IsA<Widget>>(&self, child: &T, tab_label: Option<&U>) -> u32 {
         unsafe {

@@ -1,13 +1,14 @@
 // Take a look at the license at the top of the repository in the LICENSE file.
 
 use glib::object::Cast;
+use glib::object::IsA;
 use glib::subclass::prelude::*;
 use glib::translate::*;
 
 use super::bin::BinImpl;
 use crate::{Button, ffi};
 
-pub trait ButtonImpl: ButtonImplExt + BinImpl {
+pub trait ButtonImpl: BinImpl + ObjectSubclass<Type: IsA<Button>> {
     fn activate(&self) {
         self.parent_activate()
     }
@@ -17,12 +18,7 @@ pub trait ButtonImpl: ButtonImplExt + BinImpl {
     }
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::ButtonImpl> Sealed for T {}
-}
-
-pub trait ButtonImplExt: ObjectSubclass + sealed::Sealed {
+pub trait ButtonImplExt: ButtonImpl {
     fn parent_activate(&self) {
         unsafe {
             let data = Self::type_data();

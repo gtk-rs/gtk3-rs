@@ -2,6 +2,7 @@
 
 use libc::c_char;
 
+use glib::object::IsA;
 use glib::subclass::prelude::*;
 use glib::translate::*;
 use glib::{GString, object::Cast};
@@ -10,18 +11,15 @@ use super::cell_renderer::CellRendererImpl;
 
 use crate::{CellRendererText, ffi};
 
-pub trait CellRendererTextImpl: CellRendererTextImplExt + CellRendererImpl {
+pub trait CellRendererTextImpl:
+    CellRendererImpl + ObjectSubclass<Type: IsA<CellRendererText>>
+{
     fn edited(&self, path: &str, new_text: &str) {
         self.parent_edited(path, new_text);
     }
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::CellRendererTextImpl> Sealed for T {}
-}
-
-pub trait CellRendererTextImplExt: ObjectSubclass + sealed::Sealed {
+pub trait CellRendererTextImplExt: CellRendererTextImpl {
     fn parent_edited(&self, path: &str, new_text: &str) {
         unsafe {
             let data = Self::type_data();

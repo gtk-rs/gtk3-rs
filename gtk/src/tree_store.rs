@@ -25,12 +25,7 @@ impl TreeStore {
     }
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: glib::object::IsA<crate::TreeStore>> Sealed for T {}
-}
-
-pub trait TreeStoreExtManual: IsA<TreeStore> + sealed::Sealed + 'static {
+pub trait TreeStoreExtManual: IsA<TreeStore> + 'static {
     #[doc(alias = "gtk_tree_store_insert_with_valuesv")]
     fn insert_with_values(
         &self,

@@ -4,12 +4,7 @@ use crate::{Table, ffi};
 use glib::object::IsA;
 use glib::translate::*;
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: glib::object::IsA<crate::Table>> Sealed for T {}
-}
-
-pub trait TableExtManual: IsA<Table> + sealed::Sealed + 'static {
+pub trait TableExtManual: IsA<Table> + 'static {
     #[doc(alias = "atk_table_get_selected_columns")]
     #[doc(alias = "get_selected_columns")]
     fn selected_columns(&self) -> Vec<i32> {

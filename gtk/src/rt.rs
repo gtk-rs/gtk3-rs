@@ -6,7 +6,7 @@ use std::cell::Cell;
 use std::sync::atomic::{AtomicBool, Ordering};
 
 #[cfg(target_os = "macos")]
-extern "C" {
+unsafe extern "C" {
     fn pthread_main_np() -> i32;
 }
 

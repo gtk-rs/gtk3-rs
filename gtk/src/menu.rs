@@ -9,12 +9,7 @@ use libc::c_int;
 use std::boxed::Box as Box_;
 use std::ptr;
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: glib::object::IsA<crate::Menu>> Sealed for T {}
-}
-
-pub trait GtkMenuExtManual: IsA<Menu> + sealed::Sealed + 'static {
+pub trait GtkMenuExtManual: IsA<Menu> + 'static {
     #[doc(alias = "gtk_menu_popup")]
     fn popup<
         T: IsA<Widget>,

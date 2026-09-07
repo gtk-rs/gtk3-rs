@@ -28,12 +28,7 @@ impl TickCallbackId {
     }
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: glib::object::IsA<crate::Widget>> Sealed for T {}
-}
-
-pub trait WidgetExtManual: IsA<Widget> + sealed::Sealed + 'static {
+pub trait WidgetExtManual: IsA<Widget> + 'static {
     #[doc(alias = "gtk_widget_can_activate_accel")]
     fn can_activate_accel(&self, signal_id: SignalId) -> bool {
         unsafe {

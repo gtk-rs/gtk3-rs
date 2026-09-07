@@ -187,9 +187,7 @@ pub const GDK_DESTROY: GdkEventType = 1;
 pub const GDK_EXPOSE: GdkEventType = 2;
 pub const GDK_MOTION_NOTIFY: GdkEventType = 3;
 pub const GDK_BUTTON_PRESS: GdkEventType = 4;
-pub const GDK_2BUTTON_PRESS: GdkEventType = 5;
 pub const GDK_DOUBLE_BUTTON_PRESS: GdkEventType = 5;
-pub const GDK_3BUTTON_PRESS: GdkEventType = 6;
 pub const GDK_TRIPLE_BUTTON_PRESS: GdkEventType = 6;
 pub const GDK_BUTTON_RELEASE: GdkEventType = 7;
 pub const GDK_KEY_PRESS: GdkEventType = 8;
@@ -231,7 +229,6 @@ pub const GDK_PAD_BUTTON_RELEASE: GdkEventType = 44;
 pub const GDK_PAD_RING: GdkEventType = 45;
 pub const GDK_PAD_STRIP: GdkEventType = 46;
 pub const GDK_PAD_GROUP_MODE: GdkEventType = 47;
-pub const GDK_EVENT_LAST: GdkEventType = 48;
 
 pub type GdkFilterReturn = c_int;
 pub const GDK_FILTER_CONTINUE: GdkFilterReturn = 0;

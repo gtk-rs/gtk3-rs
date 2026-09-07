@@ -37,12 +37,7 @@ impl MessageDialog {
     }
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: glib::object::IsA<crate::MessageDialog>> Sealed for T {}
-}
-
-pub trait MessageDialogExt: IsA<MessageDialog> + sealed::Sealed + 'static {
+pub trait MessageDialogExt: IsA<MessageDialog> + 'static {
     #[doc(alias = "gtk_message_dialog_format_secondary_markup")]
     fn set_secondary_markup(&self, message: Option<&str>) {
         match message {

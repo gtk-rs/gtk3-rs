@@ -3,6 +3,7 @@
 use libc::c_int;
 
 use glib::object::Cast;
+use glib::object::IsA;
 use glib::subclass::prelude::*;
 use glib::translate::*;
 
@@ -12,7 +13,7 @@ use crate::MovementStep;
 use crate::TreePath;
 use crate::{IconView, ffi};
 
-pub trait IconViewImpl: IconViewImplExt + ContainerImpl {
+pub trait IconViewImpl: ContainerImpl + ObjectSubclass<Type: IsA<IconView>> {
     fn item_activated(&self, path: &TreePath) {
         self.parent_item_activated(path)
     }
@@ -39,12 +40,7 @@ pub trait IconViewImpl: IconViewImplExt + ContainerImpl {
     }
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::IconViewImpl> Sealed for T {}
-}
-
-pub trait IconViewImplExt: ObjectSubclass + sealed::Sealed {
+pub trait IconViewImplExt: IconViewImpl {
     fn parent_item_activated(&self, path: &TreePath) {
         unsafe {
             let data = Self::type_data();

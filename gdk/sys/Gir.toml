@@ -27,10 +27,10 @@ name = "Gdk.EventType"
 status = "generate"
     [[object.member]]
     name = "2button_press"
-    alias = true
+    ignore = true
     [[object.member]]
     name = "3button_press"
-    alias = true
+    ignore = true
     [[object.member]]
     name = "event_last"
-    alias = true
+    ignore = true

@@ -5,12 +5,7 @@ use glib::object::IsA;
 use glib::translate::*;
 use std::path::Path;
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: glib::object::IsA<crate::IMContextSimple>> Sealed for T {}
-}
-
-pub trait IMContextSimpleExtManual: IsA<IMContextSimple> + sealed::Sealed + 'static {
+pub trait IMContextSimpleExtManual: IsA<IMContextSimple> + 'static {
     #[doc(alias = "gtk_im_context_simple_add_compose_file")]
     fn add_compose_file<P: AsRef<Path>>(&self, compose_file: P) {
         unsafe {

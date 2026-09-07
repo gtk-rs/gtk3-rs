@@ -1,18 +1,14 @@
 // Take a look at the license at the top of the repository in the LICENSE file.
 
+use glib::object::IsA;
 use glib::subclass::prelude::*;
 
 use super::toggle_button::ToggleButtonImpl;
 use crate::MenuButton;
 
-pub trait MenuButtonImpl: MenuButtonImplExt + ToggleButtonImpl {}
+pub trait MenuButtonImpl: ToggleButtonImpl + ObjectSubclass<Type: IsA<MenuButton>> {}
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::MenuButtonImpl> Sealed for T {}
-}
-
-pub trait MenuButtonImplExt: ObjectSubclass + sealed::Sealed {}
+pub trait MenuButtonImplExt: MenuButtonImpl {}
 
 impl<T: MenuButtonImpl> MenuButtonImplExt for T {}
 

@@ -1,12 +1,16 @@
 // Take a look at the license at the top of the repository in the LICENSE file.
 
+use glib::object::IsA;
 use glib::subclass::prelude::*;
 
 use super::cell_renderer::CellRendererImpl;
 
 use crate::CellRendererSpinner;
 
-pub trait CellRendererSpinnerImpl: CellRendererImpl {}
+pub trait CellRendererSpinnerImpl:
+    CellRendererImpl + ObjectSubclass<Type: IsA<CellRendererSpinner>>
+{
+}
 
 unsafe impl<T: CellRendererSpinnerImpl> IsSubclassable<T> for CellRendererSpinner {
     fn class_init(class: &mut ::glib::Class<Self>) {

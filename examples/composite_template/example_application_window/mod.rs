@@ -6,7 +6,7 @@ use gtk::{gio, glib};
 
 glib::wrapper! {
     pub struct ExampleApplicationWindow(ObjectSubclass<imp::ExampleApplicationWindow>)
-        @extends gtk::Widget, gtk::Window, gtk::ApplicationWindow, @implements gio::ActionMap, gio::ActionGroup;
+        @extends gtk::Widget, gtk::Container, gtk::Bin, gtk::Window, gtk::ApplicationWindow, @implements gio::ActionMap, gio::ActionGroup;
 }
 
 impl ExampleApplicationWindow {

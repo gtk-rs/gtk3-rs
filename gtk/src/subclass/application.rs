@@ -4,13 +4,14 @@ use glib::object::Cast;
 
 use glib::translate::*;
 
+use glib::object::IsA;
 use glib::subclass::prelude::*;
 
 use crate::Window;
 use crate::{Application, ffi};
 
 pub trait GtkApplicationImpl:
-    GtkApplicationImplExt + gio::subclass::prelude::ApplicationImpl
+    gio::subclass::prelude::ApplicationImpl + ObjectSubclass<Type: IsA<Application>>
 {
     fn window_added(&self, window: &Window) {
         self.parent_window_added(window)
@@ -21,12 +22,7 @@ pub trait GtkApplicationImpl:
     }
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::GtkApplicationImpl> Sealed for T {}
-}
-
-pub trait GtkApplicationImplExt: ObjectSubclass + sealed::Sealed {
+pub trait GtkApplicationImplExt: GtkApplicationImpl {
     fn parent_window_added(&self, window: &Window) {
         unsafe {
             let data = Self::type_data();
