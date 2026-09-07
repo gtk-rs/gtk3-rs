@@ -42,7 +42,7 @@ jobs:
           - nightly
           - "1.92"
         conf:
-          - { name: "atk", features: "v2_52", test_sys: false }  # .gir file is missing `ATK_TEXT_ATTR_MARK`
+          - { name: "atk", features: "v2_52", test_sys: true }
           - { name: "gdk", features: "v3_24", test_sys: true }
           - { name: "gdkx11", features: "v3_24", test_sys: true }
           - { name: "gdkwayland", features: "v3_24", test_sys: false }

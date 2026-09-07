@@ -44,7 +44,6 @@ generate = [
     "Atk.TextRange",
     "Atk.Util",
     "Atk.Value",
-    "Atk.ValueType",
 ]
 
 ignore = [
@@ -149,6 +148,9 @@ trait_name = "AtkSocketExt"
 [[object]]
 name = "Atk.RelationType"
 status = "generate"
+    [[object.member]]
+    name = "last_defined"
+    ignore = true # not useful
     [[object.function]]
     name = "register"
     # Problematic function needs manual implementation
@@ -157,6 +159,9 @@ status = "generate"
 [[object]]
 name = "Atk.Role"
 status = "generate"
+    [[object.member]]
+    name = "last_defined"
+    ignore = true # not useful
     [[object.function]]
     name = "register"
     # Problematic function needs manual implementation
@@ -179,7 +184,17 @@ status = "generate"
 [[object]]
 name = "Atk.TextAttribute"
 status = "generate"
+    [[object.member]]
+    name = "last_defined"
+    ignore = true # not useful
     [[object.function]]
     name = "register"
     # Problematic function needs manual implementation
     ignore = true
+
+[[object]]
+name = "Atk.ValueType"
+status = "generate"
+    [[object.member]]
+    name = "last_defined"
+    ignore = true # not useful

@@ -40,7 +40,6 @@ pub const ATK_XY_PARENT: AtkCoordType = 2;
 pub type AtkKeyEventType = c_int;
 pub const ATK_KEY_EVENT_PRESS: AtkKeyEventType = 0;
 pub const ATK_KEY_EVENT_RELEASE: AtkKeyEventType = 1;
-pub const ATK_KEY_EVENT_LAST_DEFINED: AtkKeyEventType = 2;
 
 pub type AtkLayer = c_int;
 pub const ATK_LAYER_INVALID: AtkLayer = 0;
@@ -79,7 +78,6 @@ pub const ATK_RELATION_DETAILS: AtkRelationType = 17;
 pub const ATK_RELATION_DETAILS_FOR: AtkRelationType = 18;
 pub const ATK_RELATION_ERROR_MESSAGE: AtkRelationType = 19;
 pub const ATK_RELATION_ERROR_FOR: AtkRelationType = 20;
-pub const ATK_RELATION_LAST_DEFINED: AtkRelationType = 21;
 
 pub type AtkRole = c_int;
 pub const ATK_ROLE_INVALID: AtkRole = 0;
@@ -211,7 +209,6 @@ pub const ATK_ROLE_MARK: AtkRole = 125;
 pub const ATK_ROLE_SUGGESTION: AtkRole = 126;
 pub const ATK_ROLE_PUSH_BUTTON_MENU: AtkRole = 127;
 pub const ATK_ROLE_SWITCH: AtkRole = 128;
-pub const ATK_ROLE_LAST_DEFINED: AtkRole = 129;
 pub const ATK_ROLE_PUSH_BUTTON: AtkRole = 42;
 
 pub type AtkScrollType = c_int;
@@ -301,7 +298,6 @@ pub const ATK_TEXT_ATTR_STRETCH: AtkTextAttribute = 25;
 pub const ATK_TEXT_ATTR_VARIANT: AtkTextAttribute = 26;
 pub const ATK_TEXT_ATTR_STYLE: AtkTextAttribute = 27;
 pub const ATK_TEXT_ATTR_TEXT_POSITION: AtkTextAttribute = 28;
-pub const ATK_TEXT_ATTR_LAST_DEFINED: AtkTextAttribute = 29;
 
 pub type AtkTextBoundary = c_int;
 pub const ATK_TEXT_BOUNDARY_CHAR: AtkTextBoundary = 0;
@@ -341,7 +337,6 @@ pub const ATK_VALUE_BAD: AtkValueType = 11;
 pub const ATK_VALUE_GOOD: AtkValueType = 12;
 pub const ATK_VALUE_VERY_GOOD: AtkValueType = 13;
 pub const ATK_VALUE_BEST: AtkValueType = 14;
-pub const ATK_VALUE_LAST_DEFINED: AtkValueType = 15;
 
 // Constants
 

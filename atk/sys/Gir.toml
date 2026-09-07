@@ -38,3 +38,38 @@ status = "generate"
     [[object.member]]
     name = "last_defined"
     ignore = true # not useful and should fix -sys tests
+
+[[object]]
+name = "Atk.KeyEventType"
+status = "generate"
+    [[object.member]]
+    name = "last_defined"
+    ignore = true # not useful and should fix -sys tests
+
+[[object]]
+name = "Atk.RelationType"
+status = "generate"
+    [[object.member]]
+    name = "last_defined"
+    ignore = true # not useful and should fix -sys tests
+
+[[object]]
+name = "Atk.Role"
+status = "generate"
+    [[object.member]]
+    name = "last_defined"
+    ignore = true # not useful and should fix -sys tests
+
+[[object]]
+name = "Atk.TextAttribute"
+status = "generate"
+    [[object.member]]
+    name = "last_defined"
+    ignore = true # not useful and should fix -sys tests
+
+[[object]]
+name = "Atk.ValueType"
+status = "generate"
+    [[object.member]]
+    name = "last_defined"
+    ignore = true # not useful and should fix -sys tests
