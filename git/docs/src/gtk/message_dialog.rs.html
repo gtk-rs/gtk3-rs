@@ -126,51 +126,151 @@
 <a href=#53 id=53 data-nosnippet>53</a>            .<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.Cast.html#method.unsafe_cast">unsafe_cast</a>()
 <a href=#54 id=54 data-nosnippet>54</a>        }
 <a href=#55 id=55 data-nosnippet>55</a>    }
-<a href=#56 id=56 data-nosnippet>56</a>}
-<a href=#57 id=57 data-nosnippet>57</a>
-<a href=#58 id=58 data-nosnippet>58</a><span class="kw">pub trait </span><a href="../../gtk/trait.MessageDialogExt.html">MessageDialogExt</a>: <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.IsA.html">IsA</a>&lt;<a href="auto/message_dialog.rs.html#16-628">MessageDialog</a>&gt; + <span class="lifetime">'static </span>{
-<a href=#59 id=59 data-nosnippet>59</a>    <span class="attr">#[doc(alias = <span class="string">"gtk_message_dialog_format_secondary_markup"</span>)]
-<a href=#60 id=60 data-nosnippet>60</a>    </span><span class="kw">fn </span>set_secondary_markup(<span class="kw-2">&amp;</span><span class="self">self</span>, message: <a class="prelude-ty" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html">Option</a>&lt;<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>&gt;) {
-<a href=#61 id=61 data-nosnippet>61</a>        <span class="kw">match </span><a href="#60">message</a> {
-<a href=#62 id=62 data-nosnippet>62</a>            <a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.Some">Some</a>(m) =&gt; <span class="kw">unsafe </span>{
-<a href=#63 id=63 data-nosnippet>63</a>                <span class="kw">let </span>message: <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/struct.Stash.html">Stash</a>&lt;<span class="kw-2">*const </span><a href="https://doc.rust-lang.org/nightly/core/ffi/primitives/type.c_char.html">c_char</a>, <span class="kw">_</span>&gt; = <a href="#62">m</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>();
-<a href=#64 id=64 data-nosnippet>64</a>                ffi::<a href="../../gtk_sys/fn.gtk_message_dialog_format_secondary_markup.html">gtk_message_dialog_format_secondary_markup</a>(
-<a href=#65 id=65 data-nosnippet>65</a>                    <a class="self" href="#60">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
-<a href=#66 id=66 data-nosnippet>66</a>                    <span class="string">c"%s"</span>.<a href="https://doc.rust-lang.org/nightly/core/ffi/c_str/struct.CStr.html#method.as_ptr">as_ptr</a>() <span class="kw">as </span><span class="kw-2">*const </span><a href="https://doc.rust-lang.org/nightly/core/ffi/primitives/type.c_char.html">c_char</a>,
-<a href=#67 id=67 data-nosnippet>67</a>                    <a href="#63">message</a>.<span class="number">0</span>,
-<a href=#68 id=68 data-nosnippet>68</a>                    ptr::<a href="https://doc.rust-lang.org/nightly/core/ptr/fn.null.html">null</a>::&lt;<a href="https://doc.rust-lang.org/nightly/core/ffi/primitives/type.c_char.html">c_char</a>&gt;(),
-<a href=#69 id=69 data-nosnippet>69</a>                )
-<a href=#70 id=70 data-nosnippet>70</a>            },
-<a href=#71 id=71 data-nosnippet>71</a>            <a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None">None</a> =&gt; <span class="kw">unsafe </span>{
-<a href=#72 id=72 data-nosnippet>72</a>                ffi::<a href="../../gtk_sys/fn.gtk_message_dialog_format_secondary_markup.html">gtk_message_dialog_format_secondary_markup</a>(
-<a href=#73 id=73 data-nosnippet>73</a>                    <a class="self" href="#60">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
-<a href=#74 id=74 data-nosnippet>74</a>                    ptr::<a href="https://doc.rust-lang.org/nightly/core/ptr/fn.null.html">null</a>::&lt;<a href="https://doc.rust-lang.org/nightly/core/ffi/primitives/type.c_char.html">c_char</a>&gt;(),
-<a href=#75 id=75 data-nosnippet>75</a>                )
-<a href=#76 id=76 data-nosnippet>76</a>            },
-<a href=#77 id=77 data-nosnippet>77</a>        }
-<a href=#78 id=78 data-nosnippet>78</a>    }
-<a href=#79 id=79 data-nosnippet>79</a>
-<a href=#80 id=80 data-nosnippet>80</a>    <span class="attr">#[doc(alias = <span class="string">"gtk_message_dialog_format_secondary_text"</span>)]
-<a href=#81 id=81 data-nosnippet>81</a>    </span><span class="kw">fn </span>set_secondary_text(<span class="kw-2">&amp;</span><span class="self">self</span>, message: <a class="prelude-ty" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html">Option</a>&lt;<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>&gt;) {
-<a href=#82 id=82 data-nosnippet>82</a>        <span class="kw">match </span><a href="#81">message</a> {
-<a href=#83 id=83 data-nosnippet>83</a>            <a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.Some">Some</a>(m) =&gt; <span class="kw">unsafe </span>{
-<a href=#84 id=84 data-nosnippet>84</a>                <span class="kw">let </span>message: <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/struct.Stash.html">Stash</a>&lt;<span class="kw-2">*const </span><a href="https://doc.rust-lang.org/nightly/core/ffi/primitives/type.c_char.html">c_char</a>, <span class="kw">_</span>&gt; = <a href="#83">m</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>();
-<a href=#85 id=85 data-nosnippet>85</a>                ffi::<a href="../../gtk_sys/fn.gtk_message_dialog_format_secondary_text.html">gtk_message_dialog_format_secondary_text</a>(
-<a href=#86 id=86 data-nosnippet>86</a>                    <a class="self" href="#81">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
-<a href=#87 id=87 data-nosnippet>87</a>                    <span class="string">c"%s"</span>.<a href="https://doc.rust-lang.org/nightly/core/ffi/c_str/struct.CStr.html#method.as_ptr">as_ptr</a>() <span class="kw">as </span><span class="kw-2">*const </span><a href="https://doc.rust-lang.org/nightly/core/ffi/primitives/type.c_char.html">c_char</a>,
-<a href=#88 id=88 data-nosnippet>88</a>                    <a href="#84">message</a>.<span class="number">0</span>,
-<a href=#89 id=89 data-nosnippet>89</a>                    ptr::<a href="https://doc.rust-lang.org/nightly/core/ptr/fn.null.html">null</a>::&lt;<a href="https://doc.rust-lang.org/nightly/core/ffi/primitives/type.c_char.html">c_char</a>&gt;(),
-<a href=#90 id=90 data-nosnippet>90</a>                )
-<a href=#91 id=91 data-nosnippet>91</a>            },
-<a href=#92 id=92 data-nosnippet>92</a>            <a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None">None</a> =&gt; <span class="kw">unsafe </span>{
-<a href=#93 id=93 data-nosnippet>93</a>                ffi::<a href="../../gtk_sys/fn.gtk_message_dialog_format_secondary_text.html">gtk_message_dialog_format_secondary_text</a>(
-<a href=#94 id=94 data-nosnippet>94</a>                    <a class="self" href="#81">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
-<a href=#95 id=95 data-nosnippet>95</a>                    ptr::<a href="https://doc.rust-lang.org/nightly/core/ptr/fn.null.html">null</a>::&lt;<a href="https://doc.rust-lang.org/nightly/core/ffi/primitives/type.c_char.html">c_char</a>&gt;(),
-<a href=#96 id=96 data-nosnippet>96</a>                )
-<a href=#97 id=97 data-nosnippet>97</a>            },
-<a href=#98 id=98 data-nosnippet>98</a>        }
-<a href=#99 id=99 data-nosnippet>99</a>    }
-<a href=#100 id=100 data-nosnippet>100</a>}
-<a href=#101 id=101 data-nosnippet>101</a>
-<a href=#102 id=102 data-nosnippet>102</a><span class="kw">impl</span>&lt;O: <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.IsA.html">IsA</a>&lt;<a href="auto/message_dialog.rs.html#16-628">MessageDialog</a>&gt;&gt; <a href="#58-100">MessageDialogExt</a> <span class="kw">for </span>O {}
+<a href=#56 id=56 data-nosnippet>56</a>
+<a href=#57 id=57 data-nosnippet>57</a>    <span class="doccomment">/// Creates a new message dialog, which is a simple dialog with some text that
+<a href=#58 id=58 data-nosnippet>58</a>    /// is marked up with the [Pango text markup language][PangoMarkupFormat].
+<a href=#59 id=59 data-nosnippet>59</a>    /// When the user clicks a button a “response” signal is emitted with
+<a href=#60 id=60 data-nosnippet>60</a>    /// response IDs from [`ResponseType`][crate::ResponseType]. See [`Dialog`][crate::Dialog] for more details.
+<a href=#61 id=61 data-nosnippet>61</a>    ///
+<a href=#62 id=62 data-nosnippet>62</a>    /// Special XML characters in the `printf()` arguments passed to this
+<a href=#63 id=63 data-nosnippet>63</a>    /// function will automatically be escaped as necessary.
+<a href=#64 id=64 data-nosnippet>64</a>    /// (See `g_markup_printf_escaped()` for how this is implemented.)
+<a href=#65 id=65 data-nosnippet>65</a>    /// Usually this is what you want, but if you have an existing
+<a href=#66 id=66 data-nosnippet>66</a>    /// Pango markup string that you want to use literally as the
+<a href=#67 id=67 data-nosnippet>67</a>    /// label, then you need to use [`MessageDialogExt::set_markup()`][crate::prelude::MessageDialogExt::set_markup()]
+<a href=#68 id=68 data-nosnippet>68</a>    /// instead, since you can’t pass the markup string either
+<a href=#69 id=69 data-nosnippet>69</a>    /// as the format (it might contain “%” characters) or as a string
+<a href=#70 id=70 data-nosnippet>70</a>    /// argument.
+<a href=#71 id=71 data-nosnippet>71</a>    ///
+<a href=#72 id=72 data-nosnippet>72</a>    ///
+<a href=#73 id=73 data-nosnippet>73</a>    /// **⚠️ The following code is in C ⚠️**
+<a href=#74 id=74 data-nosnippet>74</a>    ///
+<a href=#75 id=75 data-nosnippet>75</a>    /// ```C
+<a href=#76 id=76 data-nosnippet>76</a>    ///  GtkWidget *dialog;
+<a href=#77 id=77 data-nosnippet>77</a>    ///  GtkDialogFlags flags = GTK_DIALOG_DESTROY_WITH_PARENT;
+<a href=#78 id=78 data-nosnippet>78</a>    ///  dialog = gtk_message_dialog_new (parent_window,
+<a href=#79 id=79 data-nosnippet>79</a>    ///                                   flags,
+<a href=#80 id=80 data-nosnippet>80</a>    ///                                   GTK_MESSAGE_ERROR,
+<a href=#81 id=81 data-nosnippet>81</a>    ///                                   GTK_BUTTONS_CLOSE,
+<a href=#82 id=82 data-nosnippet>82</a>    ///                                   NULL);
+<a href=#83 id=83 data-nosnippet>83</a>    ///  gtk_message_dialog_set_markup (GTK_MESSAGE_DIALOG (dialog),
+<a href=#84 id=84 data-nosnippet>84</a>    ///                                 markup);
+<a href=#85 id=85 data-nosnippet>85</a>    /// ```
+<a href=#86 id=86 data-nosnippet>86</a>    /// ## `parent`
+<a href=#87 id=87 data-nosnippet>87</a>    /// transient parent, or [`None`] for none
+<a href=#88 id=88 data-nosnippet>88</a>    /// ## `flags`
+<a href=#89 id=89 data-nosnippet>89</a>    /// flags
+<a href=#90 id=90 data-nosnippet>90</a>    /// ## `type_`
+<a href=#91 id=91 data-nosnippet>91</a>    /// type of message
+<a href=#92 id=92 data-nosnippet>92</a>    /// ## `buttons`
+<a href=#93 id=93 data-nosnippet>93</a>    /// set of buttons to use
+<a href=#94 id=94 data-nosnippet>94</a>    /// ## `message_format`
+<a href=#95 id=95 data-nosnippet>95</a>    /// `printf()`-style format string, or [`None`]
+<a href=#96 id=96 data-nosnippet>96</a>    ///
+<a href=#97 id=97 data-nosnippet>97</a>    /// # Returns
+<a href=#98 id=98 data-nosnippet>98</a>    ///
+<a href=#99 id=99 data-nosnippet>99</a>    /// a new [`MessageDialog`][crate::MessageDialog]
+<a href=#100 id=100 data-nosnippet>100</a>    </span><span class="attr">#[doc(alias = <span class="string">"gtk_message_dialog_new_with_markup"</span>)]
+<a href=#101 id=101 data-nosnippet>101</a>    #[doc(alias = <span class="string">"new_with_markup"</span>)]
+<a href=#102 id=102 data-nosnippet>102</a>    </span><span class="kw">pub fn </span>with_markup&lt;T: <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.IsA.html">IsA</a>&lt;<a href="auto/window.rs.html#17-1428">Window</a>&gt;&gt;(
+<a href=#103 id=103 data-nosnippet>103</a>        parent: <a class="prelude-ty" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html">Option</a>&lt;<span class="kw-2">&amp;</span>T&gt;,
+<a href=#104 id=104 data-nosnippet>104</a>        flags: <a href="auto/flags.rs.html#511-529">DialogFlags</a>,
+<a href=#105 id=105 data-nosnippet>105</a>        type_: <a href="auto/enums.rs.html#3928-3946">MessageType</a>,
+<a href=#106 id=106 data-nosnippet>106</a>        buttons: <a href="auto/enums.rs.html#1068-1089">ButtonsType</a>,
+<a href=#107 id=107 data-nosnippet>107</a>        message: <a class="prelude-ty" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html">Option</a>&lt;<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>&gt;,
+<a href=#108 id=108 data-nosnippet>108</a>    ) -&gt; <a href="auto/message_dialog.rs.html#16-628">MessageDialog</a> {
+<a href=#109 id=109 data-nosnippet>109</a>        <a href="rt.rs.html#20-30">assert_initialized_main_thread!</a>();
+<a href=#110 id=110 data-nosnippet>110</a>        <span class="kw">unsafe </span>{
+<a href=#111 id=111 data-nosnippet>111</a>            <a href="auto/widget.rs.html#18-1521">Widget</a>::<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.FromGlibPtrNone.html#tymethod.from_glib_none">from_glib_none</a>(ffi::<a href="../../gtk_sys/fn.gtk_message_dialog_new_with_markup.html">gtk_message_dialog_new_with_markup</a>(
+<a href=#112 id=112 data-nosnippet>112</a>                <a href="#103">parent</a>.<a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#method.map">map</a>(|p| <a href="#112">p</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>()).<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
+<a href=#113 id=113 data-nosnippet>113</a>                <a href="#104">flags</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.IntoGlib.html#tymethod.into_glib">into_glib</a>(),
+<a href=#114 id=114 data-nosnippet>114</a>                <a href="#105">type_</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.IntoGlib.html#tymethod.into_glib">into_glib</a>(),
+<a href=#115 id=115 data-nosnippet>115</a>                <a href="#106">buttons</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.IntoGlib.html#tymethod.into_glib">into_glib</a>(),
+<a href=#116 id=116 data-nosnippet>116</a>                <a href="#107">message</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
+<a href=#117 id=117 data-nosnippet>117</a>            ))
+<a href=#118 id=118 data-nosnippet>118</a>            .<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.Cast.html#method.unsafe_cast">unsafe_cast</a>()
+<a href=#119 id=119 data-nosnippet>119</a>        }
+<a href=#120 id=120 data-nosnippet>120</a>    }
+<a href=#121 id=121 data-nosnippet>121</a>}
+<a href=#122 id=122 data-nosnippet>122</a>
+<a href=#123 id=123 data-nosnippet>123</a><span class="kw">impl </span><a href="https://doc.rust-lang.org/nightly/core/default/trait.Default.html">Default</a> <span class="kw">for </span><a href="auto/message_dialog.rs.html#16-628">MessageDialog</a> {
+<a href=#124 id=124 data-nosnippet>124</a>    <span class="kw">fn </span>default() -&gt; <span class="self">Self </span>{
+<a href=#125 id=125 data-nosnippet>125</a>        <a href="rt.rs.html#20-30">assert_initialized_main_thread!</a>();
+<a href=#126 id=126 data-nosnippet>126</a>        glib::<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/struct.Object.html">Object</a>::<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/struct.Object.html#method.new">new</a>()
+<a href=#127 id=127 data-nosnippet>127</a>    }
+<a href=#128 id=128 data-nosnippet>128</a>}
+<a href=#129 id=129 data-nosnippet>129</a>
+<a href=#130 id=130 data-nosnippet>130</a><span class="kw">pub trait </span><a href="../../gtk/prelude/trait.MessageDialogExtManual.html">MessageDialogExtManual</a>: <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.IsA.html">IsA</a>&lt;<a href="auto/message_dialog.rs.html#16-628">MessageDialog</a>&gt; + <span class="lifetime">'static </span>{
+<a href=#131 id=131 data-nosnippet>131</a>    <span class="doccomment">/// Sets the secondary text of the message dialog to be `message_format` (with
+<a href=#132 id=132 data-nosnippet>132</a>    /// `printf()`-style), which is marked up with the
+<a href=#133 id=133 data-nosnippet>133</a>    /// [Pango text markup language][PangoMarkupFormat].
+<a href=#134 id=134 data-nosnippet>134</a>    ///
+<a href=#135 id=135 data-nosnippet>135</a>    /// Due to an oversight, this function does not escape special XML characters
+<a href=#136 id=136 data-nosnippet>136</a>    /// like [`MessageDialog::with_markup()`][crate::MessageDialog::with_markup()] does. Thus, if the arguments
+<a href=#137 id=137 data-nosnippet>137</a>    /// may contain special XML characters, you should use `g_markup_printf_escaped()`
+<a href=#138 id=138 data-nosnippet>138</a>    /// to escape it.
+<a href=#139 id=139 data-nosnippet>139</a>    ///
+<a href=#140 id=140 data-nosnippet>140</a>    ///
+<a href=#141 id=141 data-nosnippet>141</a>    ///
+<a href=#142 id=142 data-nosnippet>142</a>    /// **⚠️ The following code is in C ⚠️**
+<a href=#143 id=143 data-nosnippet>143</a>    ///
+<a href=#144 id=144 data-nosnippet>144</a>    /// ```C
+<a href=#145 id=145 data-nosnippet>145</a>    /// gchar *msg;
+<a href=#146 id=146 data-nosnippet>146</a>    ///
+<a href=#147 id=147 data-nosnippet>147</a>    /// msg = g_markup_printf_escaped (message_format, ...);
+<a href=#148 id=148 data-nosnippet>148</a>    /// gtk_message_dialog_format_secondary_markup (message_dialog,
+<a href=#149 id=149 data-nosnippet>149</a>    ///                                             "%s", msg);
+<a href=#150 id=150 data-nosnippet>150</a>    /// g_free (msg);
+<a href=#151 id=151 data-nosnippet>151</a>    /// ```
+<a href=#152 id=152 data-nosnippet>152</a>    /// ## `message_format`
+<a href=#153 id=153 data-nosnippet>153</a>    /// `printf()`-style markup string (see
+<a href=#154 id=154 data-nosnippet>154</a>    ///  [Pango markup format][PangoMarkupFormat]), or [`None`]
+<a href=#155 id=155 data-nosnippet>155</a>    </span><span class="attr">#[doc(alias = <span class="string">"gtk_message_dialog_format_secondary_markup"</span>)]
+<a href=#156 id=156 data-nosnippet>156</a>    </span><span class="kw">fn </span>format_secondary_markup(<span class="kw-2">&amp;</span><span class="self">self</span>, message: <a class="prelude-ty" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html">Option</a>&lt;<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>&gt;) {
+<a href=#157 id=157 data-nosnippet>157</a>        <span class="kw">match </span><a href="#156">message</a> {
+<a href=#158 id=158 data-nosnippet>158</a>            <a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.Some">Some</a>(m) =&gt; <span class="kw">unsafe </span>{
+<a href=#159 id=159 data-nosnippet>159</a>                <span class="kw">let </span>message: <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/struct.Stash.html">Stash</a>&lt;<span class="kw-2">*const </span><a href="https://doc.rust-lang.org/nightly/core/ffi/primitives/type.c_char.html">c_char</a>, <span class="kw">_</span>&gt; = <a href="#158">m</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>();
+<a href=#160 id=160 data-nosnippet>160</a>                ffi::<a href="../../gtk_sys/fn.gtk_message_dialog_format_secondary_markup.html">gtk_message_dialog_format_secondary_markup</a>(
+<a href=#161 id=161 data-nosnippet>161</a>                    <a class="self" href="#156">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
+<a href=#162 id=162 data-nosnippet>162</a>                    <span class="string">c"%s"</span>.<a href="https://doc.rust-lang.org/nightly/core/ffi/c_str/struct.CStr.html#method.as_ptr">as_ptr</a>() <span class="kw">as </span><span class="kw-2">*const </span><a href="https://doc.rust-lang.org/nightly/core/ffi/primitives/type.c_char.html">c_char</a>,
+<a href=#163 id=163 data-nosnippet>163</a>                    <a href="#159">message</a>.<span class="number">0</span>,
+<a href=#164 id=164 data-nosnippet>164</a>                    ptr::<a href="https://doc.rust-lang.org/nightly/core/ptr/fn.null.html">null</a>::&lt;<a href="https://doc.rust-lang.org/nightly/core/ffi/primitives/type.c_char.html">c_char</a>&gt;(),
+<a href=#165 id=165 data-nosnippet>165</a>                )
+<a href=#166 id=166 data-nosnippet>166</a>            },
+<a href=#167 id=167 data-nosnippet>167</a>            <a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None">None</a> =&gt; <span class="kw">unsafe </span>{
+<a href=#168 id=168 data-nosnippet>168</a>                ffi::<a href="../../gtk_sys/fn.gtk_message_dialog_format_secondary_markup.html">gtk_message_dialog_format_secondary_markup</a>(
+<a href=#169 id=169 data-nosnippet>169</a>                    <a class="self" href="#156">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
+<a href=#170 id=170 data-nosnippet>170</a>                    ptr::<a href="https://doc.rust-lang.org/nightly/core/ptr/fn.null.html">null</a>::&lt;<a href="https://doc.rust-lang.org/nightly/core/ffi/primitives/type.c_char.html">c_char</a>&gt;(),
+<a href=#171 id=171 data-nosnippet>171</a>                )
+<a href=#172 id=172 data-nosnippet>172</a>            },
+<a href=#173 id=173 data-nosnippet>173</a>        }
+<a href=#174 id=174 data-nosnippet>174</a>    }
+<a href=#175 id=175 data-nosnippet>175</a>
+<a href=#176 id=176 data-nosnippet>176</a>    <span class="doccomment">/// Sets the secondary text of the message dialog to be `message_format`
+<a href=#177 id=177 data-nosnippet>177</a>    /// (with `printf()`-style).
+<a href=#178 id=178 data-nosnippet>178</a>    /// ## `message_format`
+<a href=#179 id=179 data-nosnippet>179</a>    /// `printf()`-style format string, or [`None`]
+<a href=#180 id=180 data-nosnippet>180</a>    </span><span class="attr">#[doc(alias = <span class="string">"gtk_message_dialog_format_secondary_text"</span>)]
+<a href=#181 id=181 data-nosnippet>181</a>    </span><span class="kw">fn </span>format_secondary_text(<span class="kw-2">&amp;</span><span class="self">self</span>, message: <a class="prelude-ty" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html">Option</a>&lt;<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>&gt;) {
+<a href=#182 id=182 data-nosnippet>182</a>        <span class="kw">match </span><a href="#181">message</a> {
+<a href=#183 id=183 data-nosnippet>183</a>            <a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.Some">Some</a>(m) =&gt; <span class="kw">unsafe </span>{
+<a href=#184 id=184 data-nosnippet>184</a>                <span class="kw">let </span>message: <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/struct.Stash.html">Stash</a>&lt;<span class="kw-2">*const </span><a href="https://doc.rust-lang.org/nightly/core/ffi/primitives/type.c_char.html">c_char</a>, <span class="kw">_</span>&gt; = <a href="#183">m</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>();
+<a href=#185 id=185 data-nosnippet>185</a>                ffi::<a href="../../gtk_sys/fn.gtk_message_dialog_format_secondary_text.html">gtk_message_dialog_format_secondary_text</a>(
+<a href=#186 id=186 data-nosnippet>186</a>                    <a class="self" href="#181">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
+<a href=#187 id=187 data-nosnippet>187</a>                    <span class="string">c"%s"</span>.<a href="https://doc.rust-lang.org/nightly/core/ffi/c_str/struct.CStr.html#method.as_ptr">as_ptr</a>() <span class="kw">as </span><span class="kw-2">*const </span><a href="https://doc.rust-lang.org/nightly/core/ffi/primitives/type.c_char.html">c_char</a>,
+<a href=#188 id=188 data-nosnippet>188</a>                    <a href="#184">message</a>.<span class="number">0</span>,
+<a href=#189 id=189 data-nosnippet>189</a>                    ptr::<a href="https://doc.rust-lang.org/nightly/core/ptr/fn.null.html">null</a>::&lt;<a href="https://doc.rust-lang.org/nightly/core/ffi/primitives/type.c_char.html">c_char</a>&gt;(),
+<a href=#190 id=190 data-nosnippet>190</a>                )
+<a href=#191 id=191 data-nosnippet>191</a>            },
+<a href=#192 id=192 data-nosnippet>192</a>            <a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None">None</a> =&gt; <span class="kw">unsafe </span>{
+<a href=#193 id=193 data-nosnippet>193</a>                ffi::<a href="../../gtk_sys/fn.gtk_message_dialog_format_secondary_text.html">gtk_message_dialog_format_secondary_text</a>(
+<a href=#194 id=194 data-nosnippet>194</a>                    <a class="self" href="#181">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
+<a href=#195 id=195 data-nosnippet>195</a>                    ptr::<a href="https://doc.rust-lang.org/nightly/core/ptr/fn.null.html">null</a>::&lt;<a href="https://doc.rust-lang.org/nightly/core/ffi/primitives/type.c_char.html">c_char</a>&gt;(),
+<a href=#196 id=196 data-nosnippet>196</a>                )
+<a href=#197 id=197 data-nosnippet>197</a>            },
+<a href=#198 id=198 data-nosnippet>198</a>        }
+<a href=#199 id=199 data-nosnippet>199</a>    }
+<a href=#200 id=200 data-nosnippet>200</a>}
+<a href=#201 id=201 data-nosnippet>201</a>
+<a href=#202 id=202 data-nosnippet>202</a><span class="kw">impl</span>&lt;O: <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.IsA.html">IsA</a>&lt;<a href="auto/message_dialog.rs.html#16-628">MessageDialog</a>&gt;&gt; <a href="#130-200">MessageDialogExtManual</a> <span class="kw">for </span>O {}
 </code></pre></div></section></main></body></html>
