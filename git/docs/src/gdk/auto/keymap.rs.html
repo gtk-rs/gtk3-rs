@@ -75,7 +75,7 @@
 <a href=#2 id=2 data-nosnippet>2</a>// from gir-files (https://github.com/gtk-rs/gir-files)
 <a href=#3 id=3 data-nosnippet>3</a>// DO NOT EDIT
 <a href=#4 id=4 data-nosnippet>4</a>
-<a href=#5 id=5 data-nosnippet>5</a></span><span class="kw">use crate</span>::{<a href="display.rs.html#14-87">Display</a>, <a href="enums.rs.html#2695-2731">ModifierIntent</a>, <a href="flags.rs.html#643-770">ModifierType</a>, <a href="../../../gdk_sys/index.html">ffi</a>};
+<a href=#5 id=5 data-nosnippet>5</a></span><span class="kw">use crate</span>::{<a href="display.rs.html#14-87">Display</a>, <a href="enums.rs.html#2687-2723">ModifierIntent</a>, <a href="flags.rs.html#643-770">ModifierType</a>, <a href="../../../gdk_sys/index.html">ffi</a>};
 <a href=#6 id=6 data-nosnippet>6</a><span class="kw">use </span>glib::{
 <a href=#7 id=7 data-nosnippet>7</a>    <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectType.html">object::ObjectType</a> <span class="kw">as _</span>,
 <a href=#8 id=8 data-nosnippet>8</a>    <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/prelude/index.html">prelude</a>::<span class="kw-2">*</span>,
@@ -165,7 +165,7 @@
 <a href=#92 id=92 data-nosnippet>92</a>    /// the modifier mask used for `intent`.
 <a href=#93 id=93 data-nosnippet>93</a>    </span><span class="attr">#[doc(alias = <span class="string">"gdk_keymap_get_modifier_mask"</span>)]
 <a href=#94 id=94 data-nosnippet>94</a>    #[doc(alias = <span class="string">"get_modifier_mask"</span>)]
-<a href=#95 id=95 data-nosnippet>95</a>    </span><span class="kw">pub fn </span>modifier_mask(<span class="kw-2">&amp;</span><span class="self">self</span>, intent: <a href="enums.rs.html#2695-2731">ModifierIntent</a>) -&gt; <a href="flags.rs.html#643-770">ModifierType</a> {
+<a href=#95 id=95 data-nosnippet>95</a>    </span><span class="kw">pub fn </span>modifier_mask(<span class="kw-2">&amp;</span><span class="self">self</span>, intent: <a href="enums.rs.html#2687-2723">ModifierIntent</a>) -&gt; <a href="flags.rs.html#643-770">ModifierType</a> {
 <a href=#96 id=96 data-nosnippet>96</a>        <span class="kw">unsafe </span>{
 <a href=#97 id=97 data-nosnippet>97</a>            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib.html">from_glib</a>(ffi::<a href="../../../gdk_sys/fn.gdk_keymap_get_modifier_mask.html">gdk_keymap_get_modifier_mask</a>(
 <a href=#98 id=98 data-nosnippet>98</a>                <a class="self" href="#95">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,

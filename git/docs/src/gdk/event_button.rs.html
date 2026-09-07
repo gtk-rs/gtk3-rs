@@ -78,7 +78,7 @@
 <a href=#5 id=5 data-nosnippet>5</a>
 <a href=#6 id=6 data-nosnippet>6</a><span class="doccomment">/// Used for button press and button release events. The
 <a href=#7 id=7 data-nosnippet>7</a>/// `type` field will be one of [`EventType::ButtonPress`][crate::EventType::ButtonPress],
-<a href=#8 id=8 data-nosnippet>8</a>/// [`EventType::_2buttonPress`][crate::EventType::_2buttonPress], [`EventType::_3buttonPress`][crate::EventType::_3buttonPress] or [`EventType::ButtonRelease`][crate::EventType::ButtonRelease],
+<a href=#8 id=8 data-nosnippet>8</a>/// `GDK_2BUTTON_PRESS`, `GDK_3BUTTON_PRESS` or [`EventType::ButtonRelease`][crate::EventType::ButtonRelease],
 <a href=#9 id=9 data-nosnippet>9</a>///
 <a href=#10 id=10 data-nosnippet>10</a>/// Double and triple-clicks result in a sequence of events being received.
 <a href=#11 id=11 data-nosnippet>11</a>/// For double-clicks the order of events will be:
@@ -86,24 +86,24 @@
 <a href=#13 id=13 data-nosnippet>13</a>/// - [`EventType::ButtonPress`][crate::EventType::ButtonPress]
 <a href=#14 id=14 data-nosnippet>14</a>/// - [`EventType::ButtonRelease`][crate::EventType::ButtonRelease]
 <a href=#15 id=15 data-nosnippet>15</a>/// - [`EventType::ButtonPress`][crate::EventType::ButtonPress]
-<a href=#16 id=16 data-nosnippet>16</a>/// - [`EventType::_2buttonPress`][crate::EventType::_2buttonPress]
+<a href=#16 id=16 data-nosnippet>16</a>/// - `GDK_2BUTTON_PRESS`
 <a href=#17 id=17 data-nosnippet>17</a>/// - [`EventType::ButtonRelease`][crate::EventType::ButtonRelease]
 <a href=#18 id=18 data-nosnippet>18</a>///
 <a href=#19 id=19 data-nosnippet>19</a>/// Note that the first click is received just like a normal
-<a href=#20 id=20 data-nosnippet>20</a>/// button press, while the second click results in a [`EventType::_2buttonPress`][crate::EventType::_2buttonPress]
+<a href=#20 id=20 data-nosnippet>20</a>/// button press, while the second click results in a `GDK_2BUTTON_PRESS`
 <a href=#21 id=21 data-nosnippet>21</a>/// being received just after the [`EventType::ButtonPress`][crate::EventType::ButtonPress].
 <a href=#22 id=22 data-nosnippet>22</a>///
 <a href=#23 id=23 data-nosnippet>23</a>/// Triple-clicks are very similar to double-clicks, except that
-<a href=#24 id=24 data-nosnippet>24</a>/// [`EventType::_3buttonPress`][crate::EventType::_3buttonPress] is inserted after the third click. The order of the
+<a href=#24 id=24 data-nosnippet>24</a>/// `GDK_3BUTTON_PRESS` is inserted after the third click. The order of the
 <a href=#25 id=25 data-nosnippet>25</a>/// events is:
 <a href=#26 id=26 data-nosnippet>26</a>///
 <a href=#27 id=27 data-nosnippet>27</a>/// - [`EventType::ButtonPress`][crate::EventType::ButtonPress]
 <a href=#28 id=28 data-nosnippet>28</a>/// - [`EventType::ButtonRelease`][crate::EventType::ButtonRelease]
 <a href=#29 id=29 data-nosnippet>29</a>/// - [`EventType::ButtonPress`][crate::EventType::ButtonPress]
-<a href=#30 id=30 data-nosnippet>30</a>/// - [`EventType::_2buttonPress`][crate::EventType::_2buttonPress]
+<a href=#30 id=30 data-nosnippet>30</a>/// - `GDK_2BUTTON_PRESS`
 <a href=#31 id=31 data-nosnippet>31</a>/// - [`EventType::ButtonRelease`][crate::EventType::ButtonRelease]
 <a href=#32 id=32 data-nosnippet>32</a>/// - [`EventType::ButtonPress`][crate::EventType::ButtonPress]
-<a href=#33 id=33 data-nosnippet>33</a>/// - [`EventType::_3buttonPress`][crate::EventType::_3buttonPress]
+<a href=#33 id=33 data-nosnippet>33</a>/// - `GDK_3BUTTON_PRESS`
 <a href=#34 id=34 data-nosnippet>34</a>/// - [`EventType::ButtonRelease`][crate::EventType::ButtonRelease]
 <a href=#35 id=35 data-nosnippet>35</a>///
 <a href=#36 id=36 data-nosnippet>36</a>/// For a double click to occur, the second button press must occur within

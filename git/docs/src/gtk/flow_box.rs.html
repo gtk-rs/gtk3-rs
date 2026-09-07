@@ -78,24 +78,19 @@
 <a href=#5 id=5 data-nosnippet>5</a><span class="kw">use </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/index.html">glib::translate</a>::<span class="kw-2">*</span>;
 <a href=#6 id=6 data-nosnippet>6</a><span class="kw">use </span><a href="https://doc.rust-lang.org/nightly/core/ptr/index.html">std::ptr</a>;
 <a href=#7 id=7 data-nosnippet>7</a>
-<a href=#8 id=8 data-nosnippet>8</a><span class="kw">mod </span>sealed {
-<a href=#9 id=9 data-nosnippet>9</a>    <span class="kw">pub trait </span>Sealed {}
-<a href=#10 id=10 data-nosnippet>10</a>    <span class="kw">impl</span>&lt;T: <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.IsA.html">glib::object::IsA</a>&lt;<span class="kw">crate</span>::<a href="auto/flow_box.rs.html#17-1310">FlowBox</a>&gt;&gt; <a href="#9">Sealed</a> <span class="kw">for </span>T {}
-<a href=#11 id=11 data-nosnippet>11</a>}
-<a href=#12 id=12 data-nosnippet>12</a>
-<a href=#13 id=13 data-nosnippet>13</a><span class="kw">pub trait </span><a href="../../gtk/prelude/trait.FlowBoxExtManual.html">FlowBoxExtManual</a>: <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.IsA.html">IsA</a>&lt;<a href="auto/flow_box.rs.html#17-1310">FlowBox</a>&gt; + <a href="#9">sealed::Sealed</a> + <span class="lifetime">'static </span>{
-<a href=#14 id=14 data-nosnippet>14</a>    <span class="kw">fn </span>unbind_model(<span class="kw-2">&amp;</span><span class="self">self</span>) {
-<a href=#15 id=15 data-nosnippet>15</a>        <span class="kw">unsafe </span>{
-<a href=#16 id=16 data-nosnippet>16</a>            ffi::<a href="../../gtk_sys/fn.gtk_flow_box_bind_model.html">gtk_flow_box_bind_model</a>(
-<a href=#17 id=17 data-nosnippet>17</a>                <a class="self" href="#14">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
-<a href=#18 id=18 data-nosnippet>18</a>                ptr::<a href="https://doc.rust-lang.org/nightly/core/ptr/fn.null_mut.html">null_mut</a>(),
-<a href=#19 id=19 data-nosnippet>19</a>                <a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None">None</a>,
-<a href=#20 id=20 data-nosnippet>20</a>                ptr::<a href="https://doc.rust-lang.org/nightly/core/ptr/fn.null_mut.html">null_mut</a>(),
-<a href=#21 id=21 data-nosnippet>21</a>                <a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None">None</a>,
-<a href=#22 id=22 data-nosnippet>22</a>            )
-<a href=#23 id=23 data-nosnippet>23</a>        }
-<a href=#24 id=24 data-nosnippet>24</a>    }
-<a href=#25 id=25 data-nosnippet>25</a>}
-<a href=#26 id=26 data-nosnippet>26</a>
-<a href=#27 id=27 data-nosnippet>27</a><span class="kw">impl</span>&lt;O: <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.IsA.html">IsA</a>&lt;<a href="auto/flow_box.rs.html#17-1310">FlowBox</a>&gt;&gt; <a href="#13-25">FlowBoxExtManual</a> <span class="kw">for </span>O {}
+<a href=#8 id=8 data-nosnippet>8</a><span class="kw">pub trait </span><a href="../../gtk/prelude/trait.FlowBoxExtManual.html">FlowBoxExtManual</a>: <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.IsA.html">IsA</a>&lt;<a href="auto/flow_box.rs.html#17-1310">FlowBox</a>&gt; + <span class="lifetime">'static </span>{
+<a href=#9 id=9 data-nosnippet>9</a>    <span class="kw">fn </span>unbind_model(<span class="kw-2">&amp;</span><span class="self">self</span>) {
+<a href=#10 id=10 data-nosnippet>10</a>        <span class="kw">unsafe </span>{
+<a href=#11 id=11 data-nosnippet>11</a>            ffi::<a href="../../gtk_sys/fn.gtk_flow_box_bind_model.html">gtk_flow_box_bind_model</a>(
+<a href=#12 id=12 data-nosnippet>12</a>                <a class="self" href="#9">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
+<a href=#13 id=13 data-nosnippet>13</a>                ptr::<a href="https://doc.rust-lang.org/nightly/core/ptr/fn.null_mut.html">null_mut</a>(),
+<a href=#14 id=14 data-nosnippet>14</a>                <a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None">None</a>,
+<a href=#15 id=15 data-nosnippet>15</a>                ptr::<a href="https://doc.rust-lang.org/nightly/core/ptr/fn.null_mut.html">null_mut</a>(),
+<a href=#16 id=16 data-nosnippet>16</a>                <a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None">None</a>,
+<a href=#17 id=17 data-nosnippet>17</a>            )
+<a href=#18 id=18 data-nosnippet>18</a>        }
+<a href=#19 id=19 data-nosnippet>19</a>    }
+<a href=#20 id=20 data-nosnippet>20</a>}
+<a href=#21 id=21 data-nosnippet>21</a>
+<a href=#22 id=22 data-nosnippet>22</a><span class="kw">impl</span>&lt;O: <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.IsA.html">IsA</a>&lt;<a href="auto/flow_box.rs.html#17-1310">FlowBox</a>&gt;&gt; <a href="#8-20">FlowBoxExtManual</a> <span class="kw">for </span>O {}
 </code></pre></div></section></main></body></html>

@@ -77,11 +77,11 @@
 <a href=#4 id=4 data-nosnippet>4</a>
 <a href=#5 id=5 data-nosnippet>5</a></span><span class="attr">#[cfg(feature = <span class="string">"v3_24"</span>)]
 <a href=#6 id=6 data-nosnippet>6</a>#[cfg_attr(docsrs, doc(cfg(feature = <span class="string">"v3_24"</span>)))]
-<a href=#7 id=7 data-nosnippet>7</a></span><span class="kw">use crate</span>::{<a href="flags.rs.html#8-55">AnchorHints</a>, <a href="enums.rs.html#2300-2334">Gravity</a>};
+<a href=#7 id=7 data-nosnippet>7</a></span><span class="kw">use crate</span>::{<a href="flags.rs.html#8-55">AnchorHints</a>, <a href="enums.rs.html#2292-2326">Gravity</a>};
 <a href=#8 id=8 data-nosnippet>8</a><span class="kw">use crate</span>::{
 <a href=#9 id=9 data-nosnippet>9</a>    <a href="cursor.rs.html#8-28">Cursor</a>, <a href="device.rs.html#17-149">Device</a>, <a href="display.rs.html#14-87">Display</a>, <a href="enums.rs.html#1344-1372">DragProtocol</a>, <a href="drawing_context.rs.html#8-39">DrawingContext</a>, <a href="../event.rs.html#20-31">Event</a>, <a href="flags.rs.html#347-457">EventMask</a>, <a href="frame_clock.rs.html#14-118">FrameClock</a>,
-<a href=#10 id=10 data-nosnippet>10</a>    <a href="enums.rs.html#1844-1853">FullscreenMode</a>, <a href="gl_context.rs.html#8-92">GLContext</a>, <a href="../geometry.rs.html#7-69">Geometry</a>, <a href="enums.rs.html#2548-2585">InputSource</a>, <a href="flags.rs.html#643-770">ModifierType</a>, <a href="rectangle.rs.html#8-18">Rectangle</a>, <a href="screen.rs.html#14-68">Screen</a>, <a href="visual.rs.html#8-17">Visual</a>,
-<a href=#11 id=11 data-nosnippet>11</a>    <a href="flags.rs.html#951-980">WMDecoration</a>, <a href="flags.rs.html#1057-1083">WMFunction</a>, <a href="enums.rs.html#3844-3871">WindowEdge</a>, <a href="flags.rs.html#1160-1202">WindowHints</a>, <a href="flags.rs.html#1279-1338">WindowState</a>, <a href="enums.rs.html#3973-4002">WindowType</a>, <a href="enums.rs.html#4107-4158">WindowTypeHint</a>,
+<a href=#10 id=10 data-nosnippet>10</a>    <a href="enums.rs.html#1836-1845">FullscreenMode</a>, <a href="gl_context.rs.html#8-92">GLContext</a>, <a href="../geometry.rs.html#7-69">Geometry</a>, <a href="enums.rs.html#2540-2577">InputSource</a>, <a href="flags.rs.html#643-770">ModifierType</a>, <a href="rectangle.rs.html#8-18">Rectangle</a>, <a href="screen.rs.html#14-68">Screen</a>, <a href="visual.rs.html#8-17">Visual</a>,
+<a href=#11 id=11 data-nosnippet>11</a>    <a href="flags.rs.html#951-980">WMDecoration</a>, <a href="flags.rs.html#1057-1083">WMFunction</a>, <a href="enums.rs.html#3836-3863">WindowEdge</a>, <a href="flags.rs.html#1160-1202">WindowHints</a>, <a href="flags.rs.html#1279-1338">WindowState</a>, <a href="enums.rs.html#3965-3994">WindowType</a>, <a href="enums.rs.html#4099-4150">WindowTypeHint</a>,
 <a href=#12 id=12 data-nosnippet>12</a>    <a href="../../../gdk_sys/index.html">ffi</a>,
 <a href=#13 id=13 data-nosnippet>13</a>};
 <a href=#14 id=14 data-nosnippet>14</a><span class="kw">use </span>glib::{
@@ -316,7 +316,7 @@
 <a href=#243 id=243 data-nosnippet>243</a>    </span><span class="attr">#[doc(alias = <span class="string">"gdk_window_begin_resize_drag"</span>)]
 <a href=#244 id=244 data-nosnippet>244</a>    </span><span class="kw">pub fn </span>begin_resize_drag(
 <a href=#245 id=245 data-nosnippet>245</a>        <span class="kw-2">&amp;</span><span class="self">self</span>,
-<a href=#246 id=246 data-nosnippet>246</a>        edge: <a href="enums.rs.html#3844-3871">WindowEdge</a>,
+<a href=#246 id=246 data-nosnippet>246</a>        edge: <a href="enums.rs.html#3836-3863">WindowEdge</a>,
 <a href=#247 id=247 data-nosnippet>247</a>        button: <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>,
 <a href=#248 id=248 data-nosnippet>248</a>        root_x: <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>,
 <a href=#249 id=249 data-nosnippet>249</a>        root_y: <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>,
@@ -355,7 +355,7 @@
 <a href=#282 id=282 data-nosnippet>282</a>    </span><span class="attr">#[doc(alias = <span class="string">"gdk_window_begin_resize_drag_for_device"</span>)]
 <a href=#283 id=283 data-nosnippet>283</a>    </span><span class="kw">pub fn </span>begin_resize_drag_for_device(
 <a href=#284 id=284 data-nosnippet>284</a>        <span class="kw-2">&amp;</span><span class="self">self</span>,
-<a href=#285 id=285 data-nosnippet>285</a>        edge: <a href="enums.rs.html#3844-3871">WindowEdge</a>,
+<a href=#285 id=285 data-nosnippet>285</a>        edge: <a href="enums.rs.html#3836-3863">WindowEdge</a>,
 <a href=#286 id=286 data-nosnippet>286</a>        device: <span class="kw-2">&amp;</span><span class="kw">impl </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.IsA.html">IsA</a>&lt;<a href="device.rs.html#17-149">Device</a>&gt;,
 <a href=#287 id=287 data-nosnippet>287</a>        button: <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>,
 <a href=#288 id=288 data-nosnippet>288</a>        root_x: <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>,
@@ -1013,7 +1013,7 @@
 <a href=#940 id=940 data-nosnippet>940</a>    /// The [`FullscreenMode`][crate::FullscreenMode] applied to the window when fullscreen.
 <a href=#941 id=941 data-nosnippet>941</a>    </span><span class="attr">#[doc(alias = <span class="string">"gdk_window_get_fullscreen_mode"</span>)]
 <a href=#942 id=942 data-nosnippet>942</a>    #[doc(alias = <span class="string">"get_fullscreen_mode"</span>)]
-<a href=#943 id=943 data-nosnippet>943</a>    </span><span class="kw">pub fn </span>fullscreen_mode(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="enums.rs.html#1844-1853">FullscreenMode</a> {
+<a href=#943 id=943 data-nosnippet>943</a>    </span><span class="kw">pub fn </span>fullscreen_mode(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="enums.rs.html#1836-1845">FullscreenMode</a> {
 <a href=#944 id=944 data-nosnippet>944</a>        <span class="kw">unsafe </span>{ <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib.html">from_glib</a>(ffi::<a href="../../../gdk_sys/fn.gdk_window_get_fullscreen_mode.html">gdk_window_get_fullscreen_mode</a>(<a class="self" href="#943">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>)) }
 <a href=#945 id=945 data-nosnippet>945</a>    }
 <a href=#946 id=946 data-nosnippet>946</a>
@@ -1299,7 +1299,7 @@
 <a href=#1226 id=1226 data-nosnippet>1226</a>    /// source event mask for `self`
 <a href=#1227 id=1227 data-nosnippet>1227</a>    </span><span class="attr">#[doc(alias = <span class="string">"gdk_window_get_source_events"</span>)]
 <a href=#1228 id=1228 data-nosnippet>1228</a>    #[doc(alias = <span class="string">"get_source_events"</span>)]
-<a href=#1229 id=1229 data-nosnippet>1229</a>    </span><span class="kw">pub fn </span>source_events(<span class="kw-2">&amp;</span><span class="self">self</span>, source: <a href="enums.rs.html#2548-2585">InputSource</a>) -&gt; <a href="flags.rs.html#347-457">EventMask</a> {
+<a href=#1229 id=1229 data-nosnippet>1229</a>    </span><span class="kw">pub fn </span>source_events(<span class="kw-2">&amp;</span><span class="self">self</span>, source: <a href="enums.rs.html#2540-2577">InputSource</a>) -&gt; <a href="flags.rs.html#347-457">EventMask</a> {
 <a href=#1230 id=1230 data-nosnippet>1230</a>        <span class="kw">unsafe </span>{
 <a href=#1231 id=1231 data-nosnippet>1231</a>            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib.html">from_glib</a>(ffi::<a href="../../../gdk_sys/fn.gdk_window_get_source_events.html">gdk_window_get_source_events</a>(
 <a href=#1232 id=1232 data-nosnippet>1232</a>                <a class="self" href="#1229">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
@@ -1364,7 +1364,7 @@
 <a href=#1291 id=1291 data-nosnippet>1291</a>    /// The type hint set for `self`
 <a href=#1292 id=1292 data-nosnippet>1292</a>    </span><span class="attr">#[doc(alias = <span class="string">"gdk_window_get_type_hint"</span>)]
 <a href=#1293 id=1293 data-nosnippet>1293</a>    #[doc(alias = <span class="string">"get_type_hint"</span>)]
-<a href=#1294 id=1294 data-nosnippet>1294</a>    </span><span class="kw">pub fn </span>type_hint(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="enums.rs.html#4107-4158">WindowTypeHint</a> {
+<a href=#1294 id=1294 data-nosnippet>1294</a>    </span><span class="kw">pub fn </span>type_hint(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="enums.rs.html#4099-4150">WindowTypeHint</a> {
 <a href=#1295 id=1295 data-nosnippet>1295</a>        <span class="kw">unsafe </span>{ <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib.html">from_glib</a>(ffi::<a href="../../../gdk_sys/fn.gdk_window_get_type_hint.html">gdk_window_get_type_hint</a>(<a class="self" href="#1294">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>)) }
 <a href=#1296 id=1296 data-nosnippet>1296</a>    }
 <a href=#1297 id=1297 data-nosnippet>1297</a>
@@ -1432,7 +1432,7 @@
 <a href=#1359 id=1359 data-nosnippet>1359</a>    /// type of window
 <a href=#1360 id=1360 data-nosnippet>1360</a>    </span><span class="attr">#[doc(alias = <span class="string">"gdk_window_get_window_type"</span>)]
 <a href=#1361 id=1361 data-nosnippet>1361</a>    #[doc(alias = <span class="string">"get_window_type"</span>)]
-<a href=#1362 id=1362 data-nosnippet>1362</a>    </span><span class="kw">pub fn </span>window_type(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="enums.rs.html#3973-4002">WindowType</a> {
+<a href=#1362 id=1362 data-nosnippet>1362</a>    </span><span class="kw">pub fn </span>window_type(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="enums.rs.html#3965-3994">WindowType</a> {
 <a href=#1363 id=1363 data-nosnippet>1363</a>        <span class="kw">unsafe </span>{ <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib.html">from_glib</a>(ffi::<a href="../../../gdk_sys/fn.gdk_window_get_window_type.html">gdk_window_get_window_type</a>(<a class="self" href="#1362">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>)) }
 <a href=#1364 id=1364 data-nosnippet>1364</a>    }
 <a href=#1365 id=1365 data-nosnippet>1365</a>
@@ -1849,8 +1849,8 @@
 <a href=#1776 id=1776 data-nosnippet>1776</a>    </span><span class="kw">pub fn </span>move_to_rect(
 <a href=#1777 id=1777 data-nosnippet>1777</a>        <span class="kw-2">&amp;</span><span class="self">self</span>,
 <a href=#1778 id=1778 data-nosnippet>1778</a>        rect: <span class="kw-2">&amp;</span><a href="rectangle.rs.html#8-18">Rectangle</a>,
-<a href=#1779 id=1779 data-nosnippet>1779</a>        rect_anchor: <a href="enums.rs.html#2300-2334">Gravity</a>,
-<a href=#1780 id=1780 data-nosnippet>1780</a>        window_anchor: <a href="enums.rs.html#2300-2334">Gravity</a>,
+<a href=#1779 id=1779 data-nosnippet>1779</a>        rect_anchor: <a href="enums.rs.html#2292-2326">Gravity</a>,
+<a href=#1780 id=1780 data-nosnippet>1780</a>        window_anchor: <a href="enums.rs.html#2292-2326">Gravity</a>,
 <a href=#1781 id=1781 data-nosnippet>1781</a>        anchor_hints: <a href="flags.rs.html#8-55">AnchorHints</a>,
 <a href=#1782 id=1782 data-nosnippet>1782</a>        rect_anchor_dx: <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>,
 <a href=#1783 id=1783 data-nosnippet>1783</a>        rect_anchor_dy: <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>,
@@ -2186,7 +2186,7 @@
 <a href=#2113 id=2113 data-nosnippet>2113</a>    /// ## `mode`
 <a href=#2114 id=2114 data-nosnippet>2114</a>    /// fullscreen mode
 <a href=#2115 id=2115 data-nosnippet>2115</a>    </span><span class="attr">#[doc(alias = <span class="string">"gdk_window_set_fullscreen_mode"</span>)]
-<a href=#2116 id=2116 data-nosnippet>2116</a>    </span><span class="kw">pub fn </span>set_fullscreen_mode(<span class="kw-2">&amp;</span><span class="self">self</span>, mode: <a href="enums.rs.html#1844-1853">FullscreenMode</a>) {
+<a href=#2116 id=2116 data-nosnippet>2116</a>    </span><span class="kw">pub fn </span>set_fullscreen_mode(<span class="kw-2">&amp;</span><span class="self">self</span>, mode: <a href="enums.rs.html#1836-1845">FullscreenMode</a>) {
 <a href=#2117 id=2117 data-nosnippet>2117</a>        <span class="kw">unsafe </span>{
 <a href=#2118 id=2118 data-nosnippet>2118</a>            ffi::<a href="../../../gdk_sys/fn.gdk_window_set_fullscreen_mode.html">gdk_window_set_fullscreen_mode</a>(<a class="self" href="#2116">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>, <a href="#2116">mode</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.IntoGlib.html#tymethod.into_glib">into_glib</a>());
 <a href=#2119 id=2119 data-nosnippet>2119</a>        }
@@ -2552,7 +2552,7 @@
 <a href=#2479 id=2479 data-nosnippet>2479</a>    /// ## `event_mask`
 <a href=#2480 id=2480 data-nosnippet>2480</a>    /// event mask for `self`
 <a href=#2481 id=2481 data-nosnippet>2481</a>    </span><span class="attr">#[doc(alias = <span class="string">"gdk_window_set_source_events"</span>)]
-<a href=#2482 id=2482 data-nosnippet>2482</a>    </span><span class="kw">pub fn </span>set_source_events(<span class="kw-2">&amp;</span><span class="self">self</span>, source: <a href="enums.rs.html#2548-2585">InputSource</a>, event_mask: <a href="flags.rs.html#347-457">EventMask</a>) {
+<a href=#2482 id=2482 data-nosnippet>2482</a>    </span><span class="kw">pub fn </span>set_source_events(<span class="kw-2">&amp;</span><span class="self">self</span>, source: <a href="enums.rs.html#2540-2577">InputSource</a>, event_mask: <a href="flags.rs.html#347-457">EventMask</a>) {
 <a href=#2483 id=2483 data-nosnippet>2483</a>        <span class="kw">unsafe </span>{
 <a href=#2484 id=2484 data-nosnippet>2484</a>            ffi::<a href="../../../gdk_sys/fn.gdk_window_set_source_events.html">gdk_window_set_source_events</a>(
 <a href=#2485 id=2485 data-nosnippet>2485</a>                <a class="self" href="#2482">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
@@ -2628,7 +2628,7 @@
 <a href=#2555 id=2555 data-nosnippet>2555</a>    /// ## `hint`
 <a href=#2556 id=2556 data-nosnippet>2556</a>    /// A hint of the function this window will have
 <a href=#2557 id=2557 data-nosnippet>2557</a>    </span><span class="attr">#[doc(alias = <span class="string">"gdk_window_set_type_hint"</span>)]
-<a href=#2558 id=2558 data-nosnippet>2558</a>    </span><span class="kw">pub fn </span>set_type_hint(<span class="kw-2">&amp;</span><span class="self">self</span>, hint: <a href="enums.rs.html#4107-4158">WindowTypeHint</a>) {
+<a href=#2558 id=2558 data-nosnippet>2558</a>    </span><span class="kw">pub fn </span>set_type_hint(<span class="kw-2">&amp;</span><span class="self">self</span>, hint: <a href="enums.rs.html#4099-4150">WindowTypeHint</a>) {
 <a href=#2559 id=2559 data-nosnippet>2559</a>        <span class="kw">unsafe </span>{
 <a href=#2560 id=2560 data-nosnippet>2560</a>            ffi::<a href="../../../gdk_sys/fn.gdk_window_set_type_hint.html">gdk_window_set_type_hint</a>(<a class="self" href="#2558">self</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>, <a href="#2558">hint</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.IntoGlib.html#tymethod.into_glib">into_glib</a>());
 <a href=#2561 id=2561 data-nosnippet>2561</a>        }

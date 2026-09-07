@@ -78,29 +78,24 @@
 <a href=#5 id=5 data-nosnippet>5</a><span class="kw">use </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/index.html">glib::translate</a>::<span class="kw-2">*</span>;
 <a href=#6 id=6 data-nosnippet>6</a><span class="kw">use </span><a href="https://doc.rust-lang.org/nightly/std/path/struct.Path.html">std::path::Path</a>;
 <a href=#7 id=7 data-nosnippet>7</a>
-<a href=#8 id=8 data-nosnippet>8</a><span class="kw">mod </span>sealed {
-<a href=#9 id=9 data-nosnippet>9</a>    <span class="kw">pub trait </span>Sealed {}
-<a href=#10 id=10 data-nosnippet>10</a>    <span class="kw">impl</span>&lt;T: <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.IsA.html">glib::object::IsA</a>&lt;<span class="kw">crate</span>::<a href="auto/im_context_simple.rs.html#8-35">IMContextSimple</a>&gt;&gt; <a href="#9">Sealed</a> <span class="kw">for </span>T {}
-<a href=#11 id=11 data-nosnippet>11</a>}
-<a href=#12 id=12 data-nosnippet>12</a>
-<a href=#13 id=13 data-nosnippet>13</a><span class="kw">pub trait </span><a href="../../gtk/prelude/trait.IMContextSimpleExtManual.html">IMContextSimpleExtManual</a>: <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.IsA.html">IsA</a>&lt;<a href="auto/im_context_simple.rs.html#8-35">IMContextSimple</a>&gt; + <a href="#9">sealed::Sealed</a> + <span class="lifetime">'static </span>{
-<a href=#14 id=14 data-nosnippet>14</a>    <span class="doccomment">/// Adds an additional table from the X11 compose file.
-<a href=#15 id=15 data-nosnippet>15</a>    /// ## `compose_file`
-<a href=#16 id=16 data-nosnippet>16</a>    /// The path of compose file
-<a href=#17 id=17 data-nosnippet>17</a>    </span><span class="attr">#[doc(alias = <span class="string">"gtk_im_context_simple_add_compose_file"</span>)]
-<a href=#18 id=18 data-nosnippet>18</a>    </span><span class="kw">fn </span>add_compose_file&lt;P: <a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">AsRef</a>&lt;<a href="https://doc.rust-lang.org/nightly/std/path/struct.Path.html">Path</a>&gt;&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, compose_file: P) {
-<a href=#19 id=19 data-nosnippet>19</a>        <span class="kw">unsafe </span>{
-<a href=#20 id=20 data-nosnippet>20</a>            <span class="kw">let </span>compose_file = <a href="#18">compose_file</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>();
-<a href=#21 id=21 data-nosnippet>21</a>            ffi::<a href="../../gtk_sys/fn.gtk_im_context_simple_add_compose_file.html">gtk_im_context_simple_add_compose_file</a>(
-<a href=#22 id=22 data-nosnippet>22</a>                <a class="self" href="#18">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
-<a href=#23 id=23 data-nosnippet>23</a>                <a href="#20">compose_file</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
-<a href=#24 id=24 data-nosnippet>24</a>            );
-<a href=#25 id=25 data-nosnippet>25</a>        }
-<a href=#26 id=26 data-nosnippet>26</a>    }
-<a href=#27 id=27 data-nosnippet>27</a>
-<a href=#28 id=28 data-nosnippet>28</a>    <span class="comment">//#[doc(alias="gtk_im_context_simple_add_table")]
-<a href=#29 id=29 data-nosnippet>29</a>    //fn add_table(&amp;self, data: &amp;[u16], max_seq_len: u32, n_seqs: u32);
-<a href=#30 id=30 data-nosnippet>30</a></span>}
-<a href=#31 id=31 data-nosnippet>31</a>
-<a href=#32 id=32 data-nosnippet>32</a><span class="kw">impl</span>&lt;O: <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.IsA.html">IsA</a>&lt;<a href="auto/im_context_simple.rs.html#8-35">IMContextSimple</a>&gt;&gt; <a href="#13-30">IMContextSimpleExtManual</a> <span class="kw">for </span>O {}
+<a href=#8 id=8 data-nosnippet>8</a><span class="kw">pub trait </span><a href="../../gtk/prelude/trait.IMContextSimpleExtManual.html">IMContextSimpleExtManual</a>: <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.IsA.html">IsA</a>&lt;<a href="auto/im_context_simple.rs.html#8-35">IMContextSimple</a>&gt; + <span class="lifetime">'static </span>{
+<a href=#9 id=9 data-nosnippet>9</a>    <span class="doccomment">/// Adds an additional table from the X11 compose file.
+<a href=#10 id=10 data-nosnippet>10</a>    /// ## `compose_file`
+<a href=#11 id=11 data-nosnippet>11</a>    /// The path of compose file
+<a href=#12 id=12 data-nosnippet>12</a>    </span><span class="attr">#[doc(alias = <span class="string">"gtk_im_context_simple_add_compose_file"</span>)]
+<a href=#13 id=13 data-nosnippet>13</a>    </span><span class="kw">fn </span>add_compose_file&lt;P: <a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html">AsRef</a>&lt;<a href="https://doc.rust-lang.org/nightly/std/path/struct.Path.html">Path</a>&gt;&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, compose_file: P) {
+<a href=#14 id=14 data-nosnippet>14</a>        <span class="kw">unsafe </span>{
+<a href=#15 id=15 data-nosnippet>15</a>            <span class="kw">let </span>compose_file = <a href="#13">compose_file</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>();
+<a href=#16 id=16 data-nosnippet>16</a>            ffi::<a href="../../gtk_sys/fn.gtk_im_context_simple_add_compose_file.html">gtk_im_context_simple_add_compose_file</a>(
+<a href=#17 id=17 data-nosnippet>17</a>                <a class="self" href="#13">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
+<a href=#18 id=18 data-nosnippet>18</a>                <a href="#15">compose_file</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
+<a href=#19 id=19 data-nosnippet>19</a>            );
+<a href=#20 id=20 data-nosnippet>20</a>        }
+<a href=#21 id=21 data-nosnippet>21</a>    }
+<a href=#22 id=22 data-nosnippet>22</a>
+<a href=#23 id=23 data-nosnippet>23</a>    <span class="comment">//#[doc(alias="gtk_im_context_simple_add_table")]
+<a href=#24 id=24 data-nosnippet>24</a>    //fn add_table(&amp;self, data: &amp;[u16], max_seq_len: u32, n_seqs: u32);
+<a href=#25 id=25 data-nosnippet>25</a></span>}
+<a href=#26 id=26 data-nosnippet>26</a>
+<a href=#27 id=27 data-nosnippet>27</a><span class="kw">impl</span>&lt;O: <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.IsA.html">IsA</a>&lt;<a href="auto/im_context_simple.rs.html#8-35">IMContextSimple</a>&gt;&gt; <a href="#8-25">IMContextSimpleExtManual</a> <span class="kw">for </span>O {}
 </code></pre></div></section></main></body></html>

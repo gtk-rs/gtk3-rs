@@ -83,7 +83,7 @@
 <a href=#10 id=10 data-nosnippet>10</a><span class="kw">use </span>libc::{<a href="https://doc.rust-lang.org/nightly/core/ffi/primitives/type.c_char.html">c_char</a>, <a href="https://doc.rust-lang.org/nightly/core/ffi/primitives/type.c_int.html">c_int</a>};
 <a href=#11 id=11 data-nosnippet>11</a><span class="kw">use </span><a href="https://doc.rust-lang.org/nightly/core/ptr/index.html">std::ptr</a>;
 <a href=#12 id=12 data-nosnippet>12</a>
-<a href=#13 id=13 data-nosnippet>13</a><span class="kw">use crate</span>::{<a href="auto/enums.rs.html#3973-4002">WindowType</a>, <a href="auto/enums.rs.html#4107-4158">WindowTypeHint</a>, <a href="auto/enums.rs.html#4274-4283">WindowWindowClass</a>};
+<a href=#13 id=13 data-nosnippet>13</a><span class="kw">use crate</span>::{<a href="auto/enums.rs.html#3965-3994">WindowType</a>, <a href="auto/enums.rs.html#4099-4150">WindowTypeHint</a>, <a href="auto/enums.rs.html#4266-4275">WindowWindowClass</a>};
 <a href=#14 id=14 data-nosnippet>14</a>
 <a href=#15 id=15 data-nosnippet>15</a><span class="kw">pub struct </span><a href="../../gdk/struct.WindowAttr.html">WindowAttr</a> {
 <a href=#16 id=16 data-nosnippet>16</a>    <span class="kw">pub </span>title: <a class="prelude-ty" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html">Option</a>&lt;<a href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html">String</a>&gt;,
@@ -92,12 +92,12 @@
 <a href=#19 id=19 data-nosnippet>19</a>    <span class="kw">pub </span>y: <a class="prelude-ty" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html">Option</a>&lt;<a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>&gt;,
 <a href=#20 id=20 data-nosnippet>20</a>    <span class="kw">pub </span>width: <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>,
 <a href=#21 id=21 data-nosnippet>21</a>    <span class="kw">pub </span>height: <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>,
-<a href=#22 id=22 data-nosnippet>22</a>    <span class="kw">pub </span>wclass: <a href="auto/enums.rs.html#4274-4283">WindowWindowClass</a>,
+<a href=#22 id=22 data-nosnippet>22</a>    <span class="kw">pub </span>wclass: <a href="auto/enums.rs.html#4266-4275">WindowWindowClass</a>,
 <a href=#23 id=23 data-nosnippet>23</a>    <span class="kw">pub </span>visual: <a class="prelude-ty" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html">Option</a>&lt;<a href="auto/visual.rs.html#8-17">Visual</a>&gt;,
-<a href=#24 id=24 data-nosnippet>24</a>    <span class="kw">pub </span>window_type: <a href="auto/enums.rs.html#3973-4002">WindowType</a>,
+<a href=#24 id=24 data-nosnippet>24</a>    <span class="kw">pub </span>window_type: <a href="auto/enums.rs.html#3965-3994">WindowType</a>,
 <a href=#25 id=25 data-nosnippet>25</a>    <span class="kw">pub </span>cursor: <a class="prelude-ty" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html">Option</a>&lt;<a href="auto/cursor.rs.html#8-28">Cursor</a>&gt;,
 <a href=#26 id=26 data-nosnippet>26</a>    <span class="kw">pub </span>override_redirect: <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>,
-<a href=#27 id=27 data-nosnippet>27</a>    <span class="kw">pub </span>type_hint: <a class="prelude-ty" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html">Option</a>&lt;<a href="auto/enums.rs.html#4107-4158">WindowTypeHint</a>&gt;,
+<a href=#27 id=27 data-nosnippet>27</a>    <span class="kw">pub </span>type_hint: <a class="prelude-ty" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html">Option</a>&lt;<a href="auto/enums.rs.html#4099-4150">WindowTypeHint</a>&gt;,
 <a href=#28 id=28 data-nosnippet>28</a>}
 <a href=#29 id=29 data-nosnippet>29</a>
 <a href=#30 id=30 data-nosnippet>30</a><span class="kw">impl </span><a href="https://doc.rust-lang.org/nightly/core/default/trait.Default.html">Default</a> <span class="kw">for </span><a href="#15-28">WindowAttr</a> {
@@ -110,9 +110,9 @@
 <a href=#37 id=37 data-nosnippet>37</a>            y: <a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None">None</a>,
 <a href=#38 id=38 data-nosnippet>38</a>            width: <span class="number">400</span>,
 <a href=#39 id=39 data-nosnippet>39</a>            height: <span class="number">300</span>,
-<a href=#40 id=40 data-nosnippet>40</a>            wclass: WindowWindowClass::<a href="auto/enums.rs.html#4277">InputOutput</a>,
+<a href=#40 id=40 data-nosnippet>40</a>            wclass: WindowWindowClass::<a href="auto/enums.rs.html#4269">InputOutput</a>,
 <a href=#41 id=41 data-nosnippet>41</a>            visual: <a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None">None</a>,
-<a href=#42 id=42 data-nosnippet>42</a>            window_type: WindowType::<a href="auto/enums.rs.html#3980">Toplevel</a>,
+<a href=#42 id=42 data-nosnippet>42</a>            window_type: WindowType::<a href="auto/enums.rs.html#3972">Toplevel</a>,
 <a href=#43 id=43 data-nosnippet>43</a>            cursor: <a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None">None</a>,
 <a href=#44 id=44 data-nosnippet>44</a>            override_redirect: <span class="bool-val">false</span>,
 <a href=#45 id=45 data-nosnippet>45</a>            type_hint: <a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None">None</a>,
@@ -177,7 +177,7 @@
 <a href=#104 id=104 data-nosnippet>104</a>            wmclass_name: ptr::<a href="https://doc.rust-lang.org/nightly/core/ptr/fn.null_mut.html">null_mut</a>(),
 <a href=#105 id=105 data-nosnippet>105</a>            wmclass_class: ptr::<a href="https://doc.rust-lang.org/nightly/core/ptr/fn.null_mut.html">null_mut</a>(),
 <a href=#106 id=106 data-nosnippet>106</a>            override_redirect: <a class="self" href="#88">self</a>.override_redirect.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.IntoGlib.html#tymethod.into_glib">into_glib</a>(),
-<a href=#107 id=107 data-nosnippet>107</a>            type_hint: <a class="self" href="#88">self</a>.type_hint.<a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#method.unwrap_or">unwrap_or</a>(WindowTypeHint::<a href="auto/enums.rs.html#4110">Normal</a>).<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.IntoGlib.html#tymethod.into_glib">into_glib</a>(),
+<a href=#107 id=107 data-nosnippet>107</a>            type_hint: <a class="self" href="#88">self</a>.type_hint.<a href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#method.unwrap_or">unwrap_or</a>(WindowTypeHint::<a href="auto/enums.rs.html#4102">Normal</a>).<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.IntoGlib.html#tymethod.into_glib">into_glib</a>(),
 <a href=#108 id=108 data-nosnippet>108</a>        });
 <a href=#109 id=109 data-nosnippet>109</a>
 <a href=#110 id=110 data-nosnippet>110</a>        <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/struct.Stash.html">Stash</a>(<span class="kw-2">&amp;mut *</span><a href="#93">attrs</a>, (<a href="#93">attrs</a>, <a href="#90">visual</a>, <a href="#91">cursor</a>, <a href="#89">title</a>))
@@ -325,115 +325,110 @@
 <a href=#252 id=252 data-nosnippet>252</a>    }
 <a href=#253 id=253 data-nosnippet>253</a>}
 <a href=#254 id=254 data-nosnippet>254</a>
-<a href=#255 id=255 data-nosnippet>255</a><span class="kw">mod </span>sealed {
-<a href=#256 id=256 data-nosnippet>256</a>    <span class="kw">pub trait </span>Sealed {}
-<a href=#257 id=257 data-nosnippet>257</a>    <span class="kw">impl</span>&lt;T: <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.IsA.html">glib::object::IsA</a>&lt;<span class="kw">crate</span>::<a href="auto/window.rs.html#22-103">Window</a>&gt;&gt; <a href="#256">Sealed</a> <span class="kw">for </span>T {}
-<a href=#258 id=258 data-nosnippet>258</a>}
-<a href=#259 id=259 data-nosnippet>259</a>
-<a href=#260 id=260 data-nosnippet>260</a><span class="kw">pub trait </span><a href="../../gdk/prelude/trait.WindowExtManual.html">WindowExtManual</a>: <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.IsA.html">IsA</a>&lt;<a href="auto/window.rs.html#22-103">Window</a>&gt; + <a href="#256">sealed::Sealed</a> + <span class="lifetime">'static </span>{
-<a href=#261 id=261 data-nosnippet>261</a>    <span class="attr">#[doc(alias = <span class="string">"gdk_window_set_user_data"</span>)]
-<a href=#262 id=262 data-nosnippet>262</a>    </span><span class="kw">unsafe fn </span>set_user_data&lt;T&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, user_data: <span class="kw-2">&amp;mut </span>T) {
-<a href=#263 id=263 data-nosnippet>263</a>        <span class="kw">unsafe </span>{
-<a href=#264 id=264 data-nosnippet>264</a>            ffi::<a href="../../gdk_sys/fn.gdk_window_set_user_data.html">gdk_window_set_user_data</a>(
-<a href=#265 id=265 data-nosnippet>265</a>                <a class="self" href="#262">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
-<a href=#266 id=266 data-nosnippet>266</a>                <a href="#262">user_data</a> <span class="kw">as </span><span class="kw-2">*mut </span>T <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
-<a href=#267 id=267 data-nosnippet>267</a>            )
-<a href=#268 id=268 data-nosnippet>268</a>        }
-<a href=#269 id=269 data-nosnippet>269</a>    }
-<a href=#270 id=270 data-nosnippet>270</a>
-<a href=#271 id=271 data-nosnippet>271</a>    <span class="attr">#[allow(clippy::mut_from_ref)]
-<a href=#272 id=272 data-nosnippet>272</a>    #[doc(alias = <span class="string">"gdk_window_get_user_data"</span>)]
-<a href=#273 id=273 data-nosnippet>273</a>    #[doc(alias = <span class="string">"get_user_data"</span>)]
-<a href=#274 id=274 data-nosnippet>274</a>    </span><span class="kw">unsafe fn </span>user_data&lt;T&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;mut </span>T {
-<a href=#275 id=275 data-nosnippet>275</a>        <span class="kw">unsafe </span>{
-<a href=#276 id=276 data-nosnippet>276</a>            <span class="kw">let </span><span class="kw-2">mut </span>pointer = ::std::ptr::<a href="https://doc.rust-lang.org/nightly/core/ptr/fn.null_mut.html">null_mut</a>();
-<a href=#277 id=277 data-nosnippet>277</a>            ffi::<a href="../../gdk_sys/fn.gdk_window_get_user_data.html">gdk_window_get_user_data</a>(<a class="self" href="#274">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>, <span class="kw-2">&amp;mut </span><a href="#276">pointer</a>);
-<a href=#278 id=278 data-nosnippet>278</a>            <span class="kw-2">&amp;mut *</span>(<a href="#276">pointer</a> <span class="kw">as </span><span class="kw-2">*mut </span>T)
-<a href=#279 id=279 data-nosnippet>279</a>        }
-<a href=#280 id=280 data-nosnippet>280</a>    }
-<a href=#281 id=281 data-nosnippet>281</a>
-<a href=#282 id=282 data-nosnippet>282</a>    <span class="attr">#[doc(alias = <span class="string">"gdk_get_default_root_window"</span>)]
-<a href=#283 id=283 data-nosnippet>283</a>    #[doc(alias = <span class="string">"get_default_root_window"</span>)]
-<a href=#284 id=284 data-nosnippet>284</a>    </span><span class="kw">fn </span>default_root_window() -&gt; <a href="auto/window.rs.html#22-103">Window</a> {
-<a href=#285 id=285 data-nosnippet>285</a>        <a href="rt.rs.html#17-27">assert_initialized_main_thread!</a>();
-<a href=#286 id=286 data-nosnippet>286</a>        <span class="kw">unsafe </span>{ <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib_none.html">from_glib_none</a>(ffi::<a href="../../gdk_sys/fn.gdk_get_default_root_window.html">gdk_get_default_root_window</a>()) }
-<a href=#287 id=287 data-nosnippet>287</a>    }
-<a href=#288 id=288 data-nosnippet>288</a>
-<a href=#289 id=289 data-nosnippet>289</a>    <span class="attr">#[doc(alias = <span class="string">"gdk_offscreen_window_set_embedder"</span>)]
-<a href=#290 id=290 data-nosnippet>290</a>    </span><span class="kw">fn </span>offscreen_window_set_embedder(<span class="kw-2">&amp;</span><span class="self">self</span>, embedder: <span class="kw-2">&amp;</span><a href="auto/window.rs.html#22-103">Window</a>) {
-<a href=#291 id=291 data-nosnippet>291</a>        <span class="kw">unsafe </span>{
-<a href=#292 id=292 data-nosnippet>292</a>            ffi::<a href="../../gdk_sys/fn.gdk_offscreen_window_set_embedder.html">gdk_offscreen_window_set_embedder</a>(
-<a href=#293 id=293 data-nosnippet>293</a>                <a class="self" href="#290">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
-<a href=#294 id=294 data-nosnippet>294</a>                <a href="#290">embedder</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
-<a href=#295 id=295 data-nosnippet>295</a>            )
-<a href=#296 id=296 data-nosnippet>296</a>        }
-<a href=#297 id=297 data-nosnippet>297</a>    }
-<a href=#298 id=298 data-nosnippet>298</a>
-<a href=#299 id=299 data-nosnippet>299</a>    <span class="attr">#[doc(alias = <span class="string">"gdk_offscreen_window_get_embedder"</span>)]
-<a href=#300 id=300 data-nosnippet>300</a>    </span><span class="kw">fn </span>offscreen_window_get_embedder(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a class="prelude-ty" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html">Option</a>&lt;<a href="auto/window.rs.html#22-103">Window</a>&gt; {
-<a href=#301 id=301 data-nosnippet>301</a>        <span class="kw">unsafe </span>{
-<a href=#302 id=302 data-nosnippet>302</a>            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib_none.html">from_glib_none</a>(ffi::<a href="../../gdk_sys/fn.gdk_offscreen_window_get_embedder.html">gdk_offscreen_window_get_embedder</a>(
-<a href=#303 id=303 data-nosnippet>303</a>                <a class="self" href="#300">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
-<a href=#304 id=304 data-nosnippet>304</a>            ))
-<a href=#305 id=305 data-nosnippet>305</a>        }
-<a href=#306 id=306 data-nosnippet>306</a>    }
-<a href=#307 id=307 data-nosnippet>307</a>
-<a href=#308 id=308 data-nosnippet>308</a>    <span class="attr">#[doc(alias = <span class="string">"gdk_offscreen_window_get_surface"</span>)]
-<a href=#309 id=309 data-nosnippet>309</a>    </span><span class="kw">fn </span>offscreen_window_get_surface(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a class="prelude-ty" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html">Option</a>&lt;<a href="https://gtk-rs.org/gtk-rs-core/git/docs/cairo/surface/struct.Surface.html">Surface</a>&gt; {
-<a href=#310 id=310 data-nosnippet>310</a>        <span class="macro">skip_assert_initialized!</span>();
-<a href=#311 id=311 data-nosnippet>311</a>        <span class="kw">unsafe </span>{
-<a href=#312 id=312 data-nosnippet>312</a>            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib_none.html">from_glib_none</a>(ffi::<a href="../../gdk_sys/fn.gdk_offscreen_window_get_surface.html">gdk_offscreen_window_get_surface</a>(
-<a href=#313 id=313 data-nosnippet>313</a>                <a class="self" href="#309">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
-<a href=#314 id=314 data-nosnippet>314</a>            ))
-<a href=#315 id=315 data-nosnippet>315</a>        }
-<a href=#316 id=316 data-nosnippet>316</a>    }
-<a href=#317 id=317 data-nosnippet>317</a>
-<a href=#318 id=318 data-nosnippet>318</a>    <span class="attr">#[doc(alias = <span class="string">"gdk_pixbuf_get_from_window"</span>)]
-<a href=#319 id=319 data-nosnippet>319</a>    #[doc(alias = <span class="string">"get_pixbuf"</span>)]
-<a href=#320 id=320 data-nosnippet>320</a>    </span><span class="kw">fn </span>pixbuf(
-<a href=#321 id=321 data-nosnippet>321</a>        <span class="kw-2">&amp;</span><span class="self">self</span>,
-<a href=#322 id=322 data-nosnippet>322</a>        src_x: <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>,
-<a href=#323 id=323 data-nosnippet>323</a>        src_y: <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>,
-<a href=#324 id=324 data-nosnippet>324</a>        width: <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>,
-<a href=#325 id=325 data-nosnippet>325</a>        height: <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>,
-<a href=#326 id=326 data-nosnippet>326</a>    ) -&gt; <a class="prelude-ty" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html">Option</a>&lt;gdk_pixbuf::<a href="https://gtk-rs.org/gtk-rs-core/git/docs/gdk_pixbuf/auto/pixbuf/struct.Pixbuf.html">Pixbuf</a>&gt; {
-<a href=#327 id=327 data-nosnippet>327</a>        <span class="macro">skip_assert_initialized!</span>();
-<a href=#328 id=328 data-nosnippet>328</a>        <span class="kw">unsafe </span>{
-<a href=#329 id=329 data-nosnippet>329</a>            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib_full.html">from_glib_full</a>(ffi::<a href="../../gdk_sys/fn.gdk_pixbuf_get_from_window.html">gdk_pixbuf_get_from_window</a>(
-<a href=#330 id=330 data-nosnippet>330</a>                <a class="self" href="#321">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
-<a href=#331 id=331 data-nosnippet>331</a>                <a href="#322">src_x</a>,
-<a href=#332 id=332 data-nosnippet>332</a>                <a href="#323">src_y</a>,
-<a href=#333 id=333 data-nosnippet>333</a>                <a href="#324">width</a>,
-<a href=#334 id=334 data-nosnippet>334</a>                <a href="#325">height</a>,
-<a href=#335 id=335 data-nosnippet>335</a>            ))
-<a href=#336 id=336 data-nosnippet>336</a>        }
-<a href=#337 id=337 data-nosnippet>337</a>    }
-<a href=#338 id=338 data-nosnippet>338</a>
-<a href=#339 id=339 data-nosnippet>339</a>    <span class="attr">#[doc(alias = <span class="string">"gdk_window_get_background_pattern"</span>)]
-<a href=#340 id=340 data-nosnippet>340</a>    #[doc(alias = <span class="string">"get_background_pattern"</span>)]
-<a href=#341 id=341 data-nosnippet>341</a>    </span><span class="kw">fn </span>background_pattern(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a class="prelude-ty" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html">Option</a>&lt;cairo::<a href="https://gtk-rs.org/gtk-rs-core/git/docs/cairo/patterns/struct.Pattern.html">Pattern</a>&gt; {
-<a href=#342 id=342 data-nosnippet>342</a>        <span class="kw">unsafe </span>{
-<a href=#343 id=343 data-nosnippet>343</a>            <span class="kw">let </span>ret = ffi::<a href="../../gdk_sys/fn.gdk_window_get_background_pattern.html">gdk_window_get_background_pattern</a>(<a class="self" href="#341">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>);
-<a href=#344 id=344 data-nosnippet>344</a>            <span class="kw">if </span><a href="#343">ret</a>.<a href="https://doc.rust-lang.org/nightly/core/primitive.pointer.html#method.is_null">is_null</a>() {
-<a href=#345 id=345 data-nosnippet>345</a>                <a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None">None</a>
-<a href=#346 id=346 data-nosnippet>346</a>            } <span class="kw">else </span>{
-<a href=#347 id=347 data-nosnippet>347</a>                <a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.Some">Some</a>(cairo::<a href="https://gtk-rs.org/gtk-rs-core/git/docs/cairo/patterns/struct.Pattern.html">Pattern</a>::<a href="https://gtk-rs.org/gtk-rs-core/git/docs/cairo/patterns/struct.Pattern.html#method.from_raw_none">from_raw_none</a>(<a href="#343">ret</a>))
-<a href=#348 id=348 data-nosnippet>348</a>            }
-<a href=#349 id=349 data-nosnippet>349</a>        }
-<a href=#350 id=350 data-nosnippet>350</a>    }
-<a href=#351 id=351 data-nosnippet>351</a>
-<a href=#352 id=352 data-nosnippet>352</a>    <span class="attr">#[doc(alias = <span class="string">"gdk_window_set_background_pattern"</span>)]
-<a href=#353 id=353 data-nosnippet>353</a>    </span><span class="kw">fn </span>set_background_pattern(<span class="kw-2">&amp;</span><span class="self">self</span>, pattern: <a class="prelude-ty" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html">Option</a>&lt;<span class="kw-2">&amp;</span>cairo::<a href="https://gtk-rs.org/gtk-rs-core/git/docs/cairo/patterns/struct.Pattern.html">Pattern</a>&gt;) {
-<a href=#354 id=354 data-nosnippet>354</a>        <span class="kw">unsafe </span>{
-<a href=#355 id=355 data-nosnippet>355</a>            <span class="kw">let </span>ptr = <span class="kw">if let </span><a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.Some">Some</a>(pattern) = <a href="#353">pattern</a> {
-<a href=#356 id=356 data-nosnippet>356</a>                <a href="#355">pattern</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/cairo/patterns/struct.Pattern.html#method.to_raw_none">to_raw_none</a>()
-<a href=#357 id=357 data-nosnippet>357</a>            } <span class="kw">else </span>{
-<a href=#358 id=358 data-nosnippet>358</a>                ::std::ptr::<a href="https://doc.rust-lang.org/nightly/core/ptr/fn.null_mut.html">null_mut</a>()
-<a href=#359 id=359 data-nosnippet>359</a>            };
-<a href=#360 id=360 data-nosnippet>360</a>            ffi::<a href="../../gdk_sys/fn.gdk_window_set_background_pattern.html">gdk_window_set_background_pattern</a>(<a class="self" href="#353">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>, <a href="#355">ptr</a>);
-<a href=#361 id=361 data-nosnippet>361</a>        }
-<a href=#362 id=362 data-nosnippet>362</a>    }
-<a href=#363 id=363 data-nosnippet>363</a>}
-<a href=#364 id=364 data-nosnippet>364</a>
-<a href=#365 id=365 data-nosnippet>365</a><span class="kw">impl</span>&lt;O: <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.IsA.html">IsA</a>&lt;<a href="auto/window.rs.html#22-103">Window</a>&gt;&gt; <a href="#260-363">WindowExtManual</a> <span class="kw">for </span>O {}
+<a href=#255 id=255 data-nosnippet>255</a><span class="kw">pub trait </span><a href="../../gdk/prelude/trait.WindowExtManual.html">WindowExtManual</a>: <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.IsA.html">IsA</a>&lt;<a href="auto/window.rs.html#22-103">Window</a>&gt; + <span class="lifetime">'static </span>{
+<a href=#256 id=256 data-nosnippet>256</a>    <span class="attr">#[doc(alias = <span class="string">"gdk_window_set_user_data"</span>)]
+<a href=#257 id=257 data-nosnippet>257</a>    </span><span class="kw">unsafe fn </span>set_user_data&lt;T&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, user_data: <span class="kw-2">&amp;mut </span>T) {
+<a href=#258 id=258 data-nosnippet>258</a>        <span class="kw">unsafe </span>{
+<a href=#259 id=259 data-nosnippet>259</a>            ffi::<a href="../../gdk_sys/fn.gdk_window_set_user_data.html">gdk_window_set_user_data</a>(
+<a href=#260 id=260 data-nosnippet>260</a>                <a class="self" href="#257">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
+<a href=#261 id=261 data-nosnippet>261</a>                <a href="#257">user_data</a> <span class="kw">as </span><span class="kw-2">*mut </span>T <span class="kw">as </span><span class="kw-2">*mut </span><span class="kw">_</span>,
+<a href=#262 id=262 data-nosnippet>262</a>            )
+<a href=#263 id=263 data-nosnippet>263</a>        }
+<a href=#264 id=264 data-nosnippet>264</a>    }
+<a href=#265 id=265 data-nosnippet>265</a>
+<a href=#266 id=266 data-nosnippet>266</a>    <span class="attr">#[allow(clippy::mut_from_ref)]
+<a href=#267 id=267 data-nosnippet>267</a>    #[doc(alias = <span class="string">"gdk_window_get_user_data"</span>)]
+<a href=#268 id=268 data-nosnippet>268</a>    #[doc(alias = <span class="string">"get_user_data"</span>)]
+<a href=#269 id=269 data-nosnippet>269</a>    </span><span class="kw">unsafe fn </span>user_data&lt;T&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;mut </span>T {
+<a href=#270 id=270 data-nosnippet>270</a>        <span class="kw">unsafe </span>{
+<a href=#271 id=271 data-nosnippet>271</a>            <span class="kw">let </span><span class="kw-2">mut </span>pointer = ::std::ptr::<a href="https://doc.rust-lang.org/nightly/core/ptr/fn.null_mut.html">null_mut</a>();
+<a href=#272 id=272 data-nosnippet>272</a>            ffi::<a href="../../gdk_sys/fn.gdk_window_get_user_data.html">gdk_window_get_user_data</a>(<a class="self" href="#269">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>, <span class="kw-2">&amp;mut </span><a href="#271">pointer</a>);
+<a href=#273 id=273 data-nosnippet>273</a>            <span class="kw-2">&amp;mut *</span>(<a href="#271">pointer</a> <span class="kw">as </span><span class="kw-2">*mut </span>T)
+<a href=#274 id=274 data-nosnippet>274</a>        }
+<a href=#275 id=275 data-nosnippet>275</a>    }
+<a href=#276 id=276 data-nosnippet>276</a>
+<a href=#277 id=277 data-nosnippet>277</a>    <span class="attr">#[doc(alias = <span class="string">"gdk_get_default_root_window"</span>)]
+<a href=#278 id=278 data-nosnippet>278</a>    #[doc(alias = <span class="string">"get_default_root_window"</span>)]
+<a href=#279 id=279 data-nosnippet>279</a>    </span><span class="kw">fn </span>default_root_window() -&gt; <a href="auto/window.rs.html#22-103">Window</a> {
+<a href=#280 id=280 data-nosnippet>280</a>        <a href="rt.rs.html#17-27">assert_initialized_main_thread!</a>();
+<a href=#281 id=281 data-nosnippet>281</a>        <span class="kw">unsafe </span>{ <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib_none.html">from_glib_none</a>(ffi::<a href="../../gdk_sys/fn.gdk_get_default_root_window.html">gdk_get_default_root_window</a>()) }
+<a href=#282 id=282 data-nosnippet>282</a>    }
+<a href=#283 id=283 data-nosnippet>283</a>
+<a href=#284 id=284 data-nosnippet>284</a>    <span class="attr">#[doc(alias = <span class="string">"gdk_offscreen_window_set_embedder"</span>)]
+<a href=#285 id=285 data-nosnippet>285</a>    </span><span class="kw">fn </span>offscreen_window_set_embedder(<span class="kw-2">&amp;</span><span class="self">self</span>, embedder: <span class="kw-2">&amp;</span><a href="auto/window.rs.html#22-103">Window</a>) {
+<a href=#286 id=286 data-nosnippet>286</a>        <span class="kw">unsafe </span>{
+<a href=#287 id=287 data-nosnippet>287</a>            ffi::<a href="../../gdk_sys/fn.gdk_offscreen_window_set_embedder.html">gdk_offscreen_window_set_embedder</a>(
+<a href=#288 id=288 data-nosnippet>288</a>                <a class="self" href="#285">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
+<a href=#289 id=289 data-nosnippet>289</a>                <a href="#285">embedder</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
+<a href=#290 id=290 data-nosnippet>290</a>            )
+<a href=#291 id=291 data-nosnippet>291</a>        }
+<a href=#292 id=292 data-nosnippet>292</a>    }
+<a href=#293 id=293 data-nosnippet>293</a>
+<a href=#294 id=294 data-nosnippet>294</a>    <span class="attr">#[doc(alias = <span class="string">"gdk_offscreen_window_get_embedder"</span>)]
+<a href=#295 id=295 data-nosnippet>295</a>    </span><span class="kw">fn </span>offscreen_window_get_embedder(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a class="prelude-ty" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html">Option</a>&lt;<a href="auto/window.rs.html#22-103">Window</a>&gt; {
+<a href=#296 id=296 data-nosnippet>296</a>        <span class="kw">unsafe </span>{
+<a href=#297 id=297 data-nosnippet>297</a>            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib_none.html">from_glib_none</a>(ffi::<a href="../../gdk_sys/fn.gdk_offscreen_window_get_embedder.html">gdk_offscreen_window_get_embedder</a>(
+<a href=#298 id=298 data-nosnippet>298</a>                <a class="self" href="#295">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
+<a href=#299 id=299 data-nosnippet>299</a>            ))
+<a href=#300 id=300 data-nosnippet>300</a>        }
+<a href=#301 id=301 data-nosnippet>301</a>    }
+<a href=#302 id=302 data-nosnippet>302</a>
+<a href=#303 id=303 data-nosnippet>303</a>    <span class="attr">#[doc(alias = <span class="string">"gdk_offscreen_window_get_surface"</span>)]
+<a href=#304 id=304 data-nosnippet>304</a>    </span><span class="kw">fn </span>offscreen_window_get_surface(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a class="prelude-ty" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html">Option</a>&lt;<a href="https://gtk-rs.org/gtk-rs-core/git/docs/cairo/surface/struct.Surface.html">Surface</a>&gt; {
+<a href=#305 id=305 data-nosnippet>305</a>        <span class="macro">skip_assert_initialized!</span>();
+<a href=#306 id=306 data-nosnippet>306</a>        <span class="kw">unsafe </span>{
+<a href=#307 id=307 data-nosnippet>307</a>            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib_none.html">from_glib_none</a>(ffi::<a href="../../gdk_sys/fn.gdk_offscreen_window_get_surface.html">gdk_offscreen_window_get_surface</a>(
+<a href=#308 id=308 data-nosnippet>308</a>                <a class="self" href="#304">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
+<a href=#309 id=309 data-nosnippet>309</a>            ))
+<a href=#310 id=310 data-nosnippet>310</a>        }
+<a href=#311 id=311 data-nosnippet>311</a>    }
+<a href=#312 id=312 data-nosnippet>312</a>
+<a href=#313 id=313 data-nosnippet>313</a>    <span class="attr">#[doc(alias = <span class="string">"gdk_pixbuf_get_from_window"</span>)]
+<a href=#314 id=314 data-nosnippet>314</a>    #[doc(alias = <span class="string">"get_pixbuf"</span>)]
+<a href=#315 id=315 data-nosnippet>315</a>    </span><span class="kw">fn </span>pixbuf(
+<a href=#316 id=316 data-nosnippet>316</a>        <span class="kw-2">&amp;</span><span class="self">self</span>,
+<a href=#317 id=317 data-nosnippet>317</a>        src_x: <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>,
+<a href=#318 id=318 data-nosnippet>318</a>        src_y: <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>,
+<a href=#319 id=319 data-nosnippet>319</a>        width: <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>,
+<a href=#320 id=320 data-nosnippet>320</a>        height: <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>,
+<a href=#321 id=321 data-nosnippet>321</a>    ) -&gt; <a class="prelude-ty" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html">Option</a>&lt;gdk_pixbuf::<a href="https://gtk-rs.org/gtk-rs-core/git/docs/gdk_pixbuf/auto/pixbuf/struct.Pixbuf.html">Pixbuf</a>&gt; {
+<a href=#322 id=322 data-nosnippet>322</a>        <span class="macro">skip_assert_initialized!</span>();
+<a href=#323 id=323 data-nosnippet>323</a>        <span class="kw">unsafe </span>{
+<a href=#324 id=324 data-nosnippet>324</a>            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib_full.html">from_glib_full</a>(ffi::<a href="../../gdk_sys/fn.gdk_pixbuf_get_from_window.html">gdk_pixbuf_get_from_window</a>(
+<a href=#325 id=325 data-nosnippet>325</a>                <a class="self" href="#316">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
+<a href=#326 id=326 data-nosnippet>326</a>                <a href="#317">src_x</a>,
+<a href=#327 id=327 data-nosnippet>327</a>                <a href="#318">src_y</a>,
+<a href=#328 id=328 data-nosnippet>328</a>                <a href="#319">width</a>,
+<a href=#329 id=329 data-nosnippet>329</a>                <a href="#320">height</a>,
+<a href=#330 id=330 data-nosnippet>330</a>            ))
+<a href=#331 id=331 data-nosnippet>331</a>        }
+<a href=#332 id=332 data-nosnippet>332</a>    }
+<a href=#333 id=333 data-nosnippet>333</a>
+<a href=#334 id=334 data-nosnippet>334</a>    <span class="attr">#[doc(alias = <span class="string">"gdk_window_get_background_pattern"</span>)]
+<a href=#335 id=335 data-nosnippet>335</a>    #[doc(alias = <span class="string">"get_background_pattern"</span>)]
+<a href=#336 id=336 data-nosnippet>336</a>    </span><span class="kw">fn </span>background_pattern(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a class="prelude-ty" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html">Option</a>&lt;cairo::<a href="https://gtk-rs.org/gtk-rs-core/git/docs/cairo/patterns/struct.Pattern.html">Pattern</a>&gt; {
+<a href=#337 id=337 data-nosnippet>337</a>        <span class="kw">unsafe </span>{
+<a href=#338 id=338 data-nosnippet>338</a>            <span class="kw">let </span>ret = ffi::<a href="../../gdk_sys/fn.gdk_window_get_background_pattern.html">gdk_window_get_background_pattern</a>(<a class="self" href="#336">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>);
+<a href=#339 id=339 data-nosnippet>339</a>            <span class="kw">if </span><a href="#338">ret</a>.<a href="https://doc.rust-lang.org/nightly/core/primitive.pointer.html#method.is_null">is_null</a>() {
+<a href=#340 id=340 data-nosnippet>340</a>                <a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None">None</a>
+<a href=#341 id=341 data-nosnippet>341</a>            } <span class="kw">else </span>{
+<a href=#342 id=342 data-nosnippet>342</a>                <a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.Some">Some</a>(cairo::<a href="https://gtk-rs.org/gtk-rs-core/git/docs/cairo/patterns/struct.Pattern.html">Pattern</a>::<a href="https://gtk-rs.org/gtk-rs-core/git/docs/cairo/patterns/struct.Pattern.html#method.from_raw_none">from_raw_none</a>(<a href="#338">ret</a>))
+<a href=#343 id=343 data-nosnippet>343</a>            }
+<a href=#344 id=344 data-nosnippet>344</a>        }
+<a href=#345 id=345 data-nosnippet>345</a>    }
+<a href=#346 id=346 data-nosnippet>346</a>
+<a href=#347 id=347 data-nosnippet>347</a>    <span class="attr">#[doc(alias = <span class="string">"gdk_window_set_background_pattern"</span>)]
+<a href=#348 id=348 data-nosnippet>348</a>    </span><span class="kw">fn </span>set_background_pattern(<span class="kw-2">&amp;</span><span class="self">self</span>, pattern: <a class="prelude-ty" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html">Option</a>&lt;<span class="kw-2">&amp;</span>cairo::<a href="https://gtk-rs.org/gtk-rs-core/git/docs/cairo/patterns/struct.Pattern.html">Pattern</a>&gt;) {
+<a href=#349 id=349 data-nosnippet>349</a>        <span class="kw">unsafe </span>{
+<a href=#350 id=350 data-nosnippet>350</a>            <span class="kw">let </span>ptr = <span class="kw">if let </span><a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.Some">Some</a>(pattern) = <a href="#348">pattern</a> {
+<a href=#351 id=351 data-nosnippet>351</a>                <a href="#350">pattern</a>.<a href="https://gtk-rs.org/gtk-rs-core/git/docs/cairo/patterns/struct.Pattern.html#method.to_raw_none">to_raw_none</a>()
+<a href=#352 id=352 data-nosnippet>352</a>            } <span class="kw">else </span>{
+<a href=#353 id=353 data-nosnippet>353</a>                ::std::ptr::<a href="https://doc.rust-lang.org/nightly/core/ptr/fn.null_mut.html">null_mut</a>()
+<a href=#354 id=354 data-nosnippet>354</a>            };
+<a href=#355 id=355 data-nosnippet>355</a>            ffi::<a href="../../gdk_sys/fn.gdk_window_set_background_pattern.html">gdk_window_set_background_pattern</a>(<a class="self" href="#348">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>, <a href="#350">ptr</a>);
+<a href=#356 id=356 data-nosnippet>356</a>        }
+<a href=#357 id=357 data-nosnippet>357</a>    }
+<a href=#358 id=358 data-nosnippet>358</a>}
+<a href=#359 id=359 data-nosnippet>359</a>
+<a href=#360 id=360 data-nosnippet>360</a><span class="kw">impl</span>&lt;O: <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.IsA.html">IsA</a>&lt;<a href="auto/window.rs.html#22-103">Window</a>&gt;&gt; <a href="#255-358">WindowExtManual</a> <span class="kw">for </span>O {}
 </code></pre></div></section></main></body></html>

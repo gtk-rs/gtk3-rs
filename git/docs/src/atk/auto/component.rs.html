@@ -77,7 +77,7 @@
 <a href=#4 id=4 data-nosnippet>4</a>
 <a href=#5 id=5 data-nosnippet>5</a></span><span class="attr">#[cfg(feature = <span class="string">"v2_30"</span>)]
 <a href=#6 id=6 data-nosnippet>6</a>#[cfg_attr(docsrs, doc(cfg(feature = <span class="string">"v2_30"</span>)))]
-<a href=#7 id=7 data-nosnippet>7</a></span><span class="kw">use </span><a href="enums.rs.html#1459-1491"><span class="kw">crate</span>::ScrollType</a>;
+<a href=#7 id=7 data-nosnippet>7</a></span><span class="kw">use </span><a href="enums.rs.html#1449-1481"><span class="kw">crate</span>::ScrollType</a>;
 <a href=#8 id=8 data-nosnippet>8</a><span class="kw">use crate</span>::{<a href="enums.rs.html#13-27">CoordType</a>, <a href="enums.rs.html#123-150">Layer</a>, <a href="object.rs.html#14-211">Object</a>, <a href="rectangle.rs.html#7-18">Rectangle</a>, <a href="../../../atk_sys/index.html">ffi</a>};
 <a href=#9 id=9 data-nosnippet>9</a><span class="kw">use </span>glib::{
 <a href=#10 id=10 data-nosnippet>10</a>    <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectType.html">object::ObjectType</a> <span class="kw">as _</span>,
@@ -370,7 +370,7 @@
 <a href=#297 id=297 data-nosnippet>297</a>    </span><span class="attr">#[cfg(feature = <span class="string">"v2_30"</span>)]
 <a href=#298 id=298 data-nosnippet>298</a>    #[cfg_attr(docsrs, doc(cfg(feature = <span class="string">"v2_30"</span>)))]
 <a href=#299 id=299 data-nosnippet>299</a>    #[doc(alias = <span class="string">"atk_component_scroll_to"</span>)]
-<a href=#300 id=300 data-nosnippet>300</a>    </span><span class="kw">fn </span>scroll_to(<span class="kw-2">&amp;</span><span class="self">self</span>, type_: <a href="enums.rs.html#1459-1491">ScrollType</a>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> {
+<a href=#300 id=300 data-nosnippet>300</a>    </span><span class="kw">fn </span>scroll_to(<span class="kw-2">&amp;</span><span class="self">self</span>, type_: <a href="enums.rs.html#1449-1481">ScrollType</a>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> {
 <a href=#301 id=301 data-nosnippet>301</a>        <span class="kw">unsafe </span>{
 <a href=#302 id=302 data-nosnippet>302</a>            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib.html">from_glib</a>(ffi::<a href="../../../atk_sys/fn.atk_component_scroll_to.html">atk_component_scroll_to</a>(
 <a href=#303 id=303 data-nosnippet>303</a>                <a class="self" href="#300">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,

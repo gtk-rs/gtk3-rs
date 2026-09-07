@@ -79,31 +79,26 @@
 <a href=#6 id=6 data-nosnippet>6</a>
 <a href=#7 id=7 data-nosnippet>7</a><span class="kw">use crate</span>::{<a href="auto/entry.rs.html#18-1777">Entry</a>, <a href="../../gtk_sys/index.html">ffi</a>};
 <a href=#8 id=8 data-nosnippet>8</a>
-<a href=#9 id=9 data-nosnippet>9</a><span class="kw">mod </span>sealed {
-<a href=#10 id=10 data-nosnippet>10</a>    <span class="kw">pub trait </span>Sealed {}
-<a href=#11 id=11 data-nosnippet>11</a>    <span class="kw">impl</span>&lt;T: <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.IsA.html">glib::object::IsA</a>&lt;<span class="kw">crate</span>::<a href="auto/entry.rs.html#18-1777">Entry</a>&gt;&gt; <a href="#10">Sealed</a> <span class="kw">for </span>T {}
-<a href=#12 id=12 data-nosnippet>12</a>}
-<a href=#13 id=13 data-nosnippet>13</a>
-<a href=#14 id=14 data-nosnippet>14</a><span class="kw">pub trait </span><a href="../../gtk/prelude/trait.EntryExtManual.html">EntryExtManual</a>: <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.IsA.html">IsA</a>&lt;<a href="auto/entry.rs.html#18-1777">Entry</a>&gt; + <a href="#10">sealed::Sealed</a> + <span class="lifetime">'static </span>{
-<a href=#15 id=15 data-nosnippet>15</a>    <span class="doccomment">/// Retrieves the character displayed in place of the real characters
-<a href=#16 id=16 data-nosnippet>16</a>    /// for entries with visibility set to false. See [`EntryExt::set_invisible_char()`][crate::prelude::EntryExt::set_invisible_char()].
-<a href=#17 id=17 data-nosnippet>17</a>    ///
-<a href=#18 id=18 data-nosnippet>18</a>    /// # Returns
-<a href=#19 id=19 data-nosnippet>19</a>    ///
-<a href=#20 id=20 data-nosnippet>20</a>    /// the current invisible char, or 0, if the entry does not
-<a href=#21 id=21 data-nosnippet>21</a>    ///  show invisible text at all.
-<a href=#22 id=22 data-nosnippet>22</a>    </span><span class="attr">#[doc(alias = <span class="string">"gtk_entry_get_invisible_char"</span>)]
-<a href=#23 id=23 data-nosnippet>23</a>    #[doc(alias = <span class="string">"get_invisible_char"</span>)]
-<a href=#24 id=24 data-nosnippet>24</a>    </span><span class="kw">fn </span>invisible_char(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a class="prelude-ty" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html">Option</a>&lt;<a href="https://doc.rust-lang.org/nightly/std/primitive.char.html">char</a>&gt; {
-<a href=#25 id=25 data-nosnippet>25</a>        <span class="kw">let </span>ret = <span class="kw">unsafe </span>{ ffi::<a href="../../gtk_sys/fn.gtk_entry_get_invisible_char.html">gtk_entry_get_invisible_char</a>(<a class="self" href="#24">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>) };
-<a href=#26 id=26 data-nosnippet>26</a>
-<a href=#27 id=27 data-nosnippet>27</a>        <span class="kw">if </span><a href="#25">ret</a> == <span class="number">0 </span>{
-<a href=#28 id=28 data-nosnippet>28</a>            <span class="kw">return </span><a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None">None</a>;
-<a href=#29 id=29 data-nosnippet>29</a>        }
-<a href=#30 id=30 data-nosnippet>30</a>
-<a href=#31 id=31 data-nosnippet>31</a>        <a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.Some">Some</a>(TryFrom::<a href="https://doc.rust-lang.org/nightly/core/convert/trait.TryFrom.html#tymethod.try_from">try_from</a>(<a href="#25">ret</a>).<a href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#method.expect">expect</a>(<span class="string">"conversion from an invalid Unicode value attempted"</span>))
-<a href=#32 id=32 data-nosnippet>32</a>    }
-<a href=#33 id=33 data-nosnippet>33</a>}
-<a href=#34 id=34 data-nosnippet>34</a>
-<a href=#35 id=35 data-nosnippet>35</a><span class="kw">impl</span>&lt;O: <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.IsA.html">IsA</a>&lt;<a href="auto/entry.rs.html#18-1777">Entry</a>&gt;&gt; <a href="#14-33">EntryExtManual</a> <span class="kw">for </span>O {}
+<a href=#9 id=9 data-nosnippet>9</a><span class="kw">pub trait </span><a href="../../gtk/prelude/trait.EntryExtManual.html">EntryExtManual</a>: <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.IsA.html">IsA</a>&lt;<a href="auto/entry.rs.html#18-1777">Entry</a>&gt; + <span class="lifetime">'static </span>{
+<a href=#10 id=10 data-nosnippet>10</a>    <span class="doccomment">/// Retrieves the character displayed in place of the real characters
+<a href=#11 id=11 data-nosnippet>11</a>    /// for entries with visibility set to false. See [`EntryExt::set_invisible_char()`][crate::prelude::EntryExt::set_invisible_char()].
+<a href=#12 id=12 data-nosnippet>12</a>    ///
+<a href=#13 id=13 data-nosnippet>13</a>    /// # Returns
+<a href=#14 id=14 data-nosnippet>14</a>    ///
+<a href=#15 id=15 data-nosnippet>15</a>    /// the current invisible char, or 0, if the entry does not
+<a href=#16 id=16 data-nosnippet>16</a>    ///  show invisible text at all.
+<a href=#17 id=17 data-nosnippet>17</a>    </span><span class="attr">#[doc(alias = <span class="string">"gtk_entry_get_invisible_char"</span>)]
+<a href=#18 id=18 data-nosnippet>18</a>    #[doc(alias = <span class="string">"get_invisible_char"</span>)]
+<a href=#19 id=19 data-nosnippet>19</a>    </span><span class="kw">fn </span>invisible_char(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a class="prelude-ty" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html">Option</a>&lt;<a href="https://doc.rust-lang.org/nightly/std/primitive.char.html">char</a>&gt; {
+<a href=#20 id=20 data-nosnippet>20</a>        <span class="kw">let </span>ret = <span class="kw">unsafe </span>{ ffi::<a href="../../gtk_sys/fn.gtk_entry_get_invisible_char.html">gtk_entry_get_invisible_char</a>(<a class="self" href="#19">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>) };
+<a href=#21 id=21 data-nosnippet>21</a>
+<a href=#22 id=22 data-nosnippet>22</a>        <span class="kw">if </span><a href="#20">ret</a> == <span class="number">0 </span>{
+<a href=#23 id=23 data-nosnippet>23</a>            <span class="kw">return </span><a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.None">None</a>;
+<a href=#24 id=24 data-nosnippet>24</a>        }
+<a href=#25 id=25 data-nosnippet>25</a>
+<a href=#26 id=26 data-nosnippet>26</a>        <a class="prelude-val" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html#variant.Some">Some</a>(TryFrom::<a href="https://doc.rust-lang.org/nightly/core/convert/trait.TryFrom.html#tymethod.try_from">try_from</a>(<a href="#20">ret</a>).<a href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#method.expect">expect</a>(<span class="string">"conversion from an invalid Unicode value attempted"</span>))
+<a href=#27 id=27 data-nosnippet>27</a>    }
+<a href=#28 id=28 data-nosnippet>28</a>}
+<a href=#29 id=29 data-nosnippet>29</a>
+<a href=#30 id=30 data-nosnippet>30</a><span class="kw">impl</span>&lt;O: <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.IsA.html">IsA</a>&lt;<a href="auto/entry.rs.html#18-1777">Entry</a>&gt;&gt; <a href="#9-28">EntryExtManual</a> <span class="kw">for </span>O {}
 </code></pre></div></section></main></body></html>

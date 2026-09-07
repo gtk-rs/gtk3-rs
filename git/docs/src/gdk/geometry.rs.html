@@ -73,7 +73,7 @@
 
 <nav class="sidebar"><div class="src-sidebar-title"><h2>Files</h2></div></nav><div class="sidebar-resizer" title="Drag to resize sidebar"></div><main><section id="main-content" class="content" tabindex="-1"><div class="main-heading"><h1><div class="sub-heading">gdk/</div>geometry.rs</h1><rustdoc-toolbar></rustdoc-toolbar></div><div class="example-wrap digits-3"><pre class="rust"><code><a href=#1 id=1 data-nosnippet>1</a><span class="comment">// Take a look at the license at the top of the repository in the LICENSE file.
 <a href=#2 id=2 data-nosnippet>2</a>
-<a href=#3 id=3 data-nosnippet>3</a></span><span class="kw">use crate</span>::{<a href="auto/enums.rs.html#2300-2334">Gravity</a>, <a href="../../gdk_sys/index.html">ffi</a>};
+<a href=#3 id=3 data-nosnippet>3</a></span><span class="kw">use crate</span>::{<a href="auto/enums.rs.html#2292-2326">Gravity</a>, <a href="../../gdk_sys/index.html">ffi</a>};
 <a href=#4 id=4 data-nosnippet>4</a><span class="kw">use </span><a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/index.html">glib::translate</a>::<span class="kw-2">*</span>;
 <a href=#5 id=5 data-nosnippet>5</a><span class="kw">use </span><a href="https://doc.rust-lang.org/nightly/alloc/fmt/index.html">std::fmt</a>;
 <a href=#6 id=6 data-nosnippet>6</a>
@@ -154,7 +154,7 @@
 <a href=#81 id=81 data-nosnippet>81</a>        height_inc: <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>,
 <a href=#82 id=82 data-nosnippet>82</a>        min_aspect: <a href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>,
 <a href=#83 id=83 data-nosnippet>83</a>        max_aspect: <a href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>,
-<a href=#84 id=84 data-nosnippet>84</a>        win_gravity: <a href="auto/enums.rs.html#2300-2334">Gravity</a>,
+<a href=#84 id=84 data-nosnippet>84</a>        win_gravity: <a href="auto/enums.rs.html#2292-2326">Gravity</a>,
 <a href=#85 id=85 data-nosnippet>85</a>    ) -&gt; <span class="self">Self </span>{
 <a href=#86 id=86 data-nosnippet>86</a>        <a href="rt.rs.html#17-27">assert_initialized_main_thread!</a>();
 <a href=#87 id=87 data-nosnippet>87</a>        <span class="kw">unsafe </span>{
@@ -204,7 +204,7 @@
 <a href=#131 id=131 data-nosnippet>131</a>    <span class="kw">pub fn </span>max_aspect(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a> {
 <a href=#132 id=132 data-nosnippet>132</a>        <a class="self" href="#131">self</a>.inner.max_aspect
 <a href=#133 id=133 data-nosnippet>133</a>    }
-<a href=#134 id=134 data-nosnippet>134</a>    <span class="kw">pub fn </span>win_gravity(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="auto/enums.rs.html#2300-2334">Gravity</a> {
+<a href=#134 id=134 data-nosnippet>134</a>    <span class="kw">pub fn </span>win_gravity(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="auto/enums.rs.html#2292-2326">Gravity</a> {
 <a href=#135 id=135 data-nosnippet>135</a>        <span class="kw">unsafe </span>{ <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib.html">from_glib</a>(<a class="self" href="#134">self</a>.inner.win_gravity) }
 <a href=#136 id=136 data-nosnippet>136</a>    }
 <a href=#137 id=137 data-nosnippet>137</a>}

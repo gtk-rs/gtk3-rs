@@ -123,25 +123,20 @@
 <a href=#50 id=50 data-nosnippet>50</a>    }
 <a href=#51 id=51 data-nosnippet>51</a>}
 <a href=#52 id=52 data-nosnippet>52</a>
-<a href=#53 id=53 data-nosnippet>53</a><span class="kw">mod </span>sealed {
-<a href=#54 id=54 data-nosnippet>54</a>    <span class="kw">pub trait </span>Sealed {}
-<a href=#55 id=55 data-nosnippet>55</a>    <span class="kw">impl</span>&lt;T: <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.IsA.html">glib::object::IsA</a>&lt;<span class="kw">crate</span>::<a href="auto/display.rs.html#14-87">Display</a>&gt;&gt; <a href="#54">Sealed</a> <span class="kw">for </span>T {}
-<a href=#56 id=56 data-nosnippet>56</a>}
-<a href=#57 id=57 data-nosnippet>57</a>
-<a href=#58 id=58 data-nosnippet>58</a><span class="kw">pub trait </span><a href="../../gdk/prelude/trait.DisplayExtManual.html">DisplayExtManual</a>: <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.IsA.html">IsA</a>&lt;<a href="auto/display.rs.html#14-87">Display</a>&gt; + <a href="#54">sealed::Sealed</a> + <span class="lifetime">'static </span>{
-<a href=#59 id=59 data-nosnippet>59</a>    <span class="comment">// rustdoc-stripper-ignore-next
-<a href=#60 id=60 data-nosnippet>60</a>    </span><span class="doccomment">/// Get the currently used display backend
-<a href=#61 id=61 data-nosnippet>61</a>    </span><span class="kw">fn </span>backend(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="#8-14">Backend</a> {
-<a href=#62 id=62 data-nosnippet>62</a>        <span class="kw">match </span><a class="self" href="#61">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectExt.html#tymethod.type_">type_</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/types/struct.Type.html#method.name">name</a>() {
-<a href=#63 id=63 data-nosnippet>63</a>            <span class="string">"GdkWaylandDisplay" </span>=&gt; Backend::<a href="#9">Wayland</a>,
-<a href=#64 id=64 data-nosnippet>64</a>            <span class="string">"GdkX11Display" </span>=&gt; Backend::<a href="#10">X11</a>,
-<a href=#65 id=65 data-nosnippet>65</a>            <span class="string">"GdkQuartzDisplay" </span>=&gt; Backend::<a href="#12">MacOS</a>,
-<a href=#66 id=66 data-nosnippet>66</a>            <span class="string">"GdkWin32Display" </span>=&gt; Backend::<a href="#11">Win32</a>,
-<a href=#67 id=67 data-nosnippet>67</a>            <span class="string">"GdkBroadwayDisplay" </span>=&gt; Backend::<a href="#13">Broadway</a>,
-<a href=#68 id=68 data-nosnippet>68</a>            e =&gt; <a href="https://doc.rust-lang.org/nightly/std/macro.panic.html">panic!</a>(<span class="string">"Unsupported display backend {e}"</span>),
-<a href=#69 id=69 data-nosnippet>69</a>        }
-<a href=#70 id=70 data-nosnippet>70</a>    }
-<a href=#71 id=71 data-nosnippet>71</a>}
-<a href=#72 id=72 data-nosnippet>72</a>
-<a href=#73 id=73 data-nosnippet>73</a><span class="kw">impl</span>&lt;O: <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.IsA.html">IsA</a>&lt;<a href="auto/display.rs.html#14-87">Display</a>&gt;&gt; <a href="#58-71">DisplayExtManual</a> <span class="kw">for </span>O {}
+<a href=#53 id=53 data-nosnippet>53</a><span class="kw">pub trait </span><a href="../../gdk/prelude/trait.DisplayExtManual.html">DisplayExtManual</a>: <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.IsA.html">IsA</a>&lt;<a href="auto/display.rs.html#14-87">Display</a>&gt; + <span class="lifetime">'static </span>{
+<a href=#54 id=54 data-nosnippet>54</a>    <span class="comment">// rustdoc-stripper-ignore-next
+<a href=#55 id=55 data-nosnippet>55</a>    </span><span class="doccomment">/// Get the currently used display backend
+<a href=#56 id=56 data-nosnippet>56</a>    </span><span class="kw">fn </span>backend(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="#8-14">Backend</a> {
+<a href=#57 id=57 data-nosnippet>57</a>        <span class="kw">match </span><a class="self" href="#56">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectExt.html#tymethod.type_">type_</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/types/struct.Type.html#method.name">name</a>() {
+<a href=#58 id=58 data-nosnippet>58</a>            <span class="string">"GdkWaylandDisplay" </span>=&gt; Backend::<a href="#9">Wayland</a>,
+<a href=#59 id=59 data-nosnippet>59</a>            <span class="string">"GdkX11Display" </span>=&gt; Backend::<a href="#10">X11</a>,
+<a href=#60 id=60 data-nosnippet>60</a>            <span class="string">"GdkQuartzDisplay" </span>=&gt; Backend::<a href="#12">MacOS</a>,
+<a href=#61 id=61 data-nosnippet>61</a>            <span class="string">"GdkWin32Display" </span>=&gt; Backend::<a href="#11">Win32</a>,
+<a href=#62 id=62 data-nosnippet>62</a>            <span class="string">"GdkBroadwayDisplay" </span>=&gt; Backend::<a href="#13">Broadway</a>,
+<a href=#63 id=63 data-nosnippet>63</a>            e =&gt; <a href="https://doc.rust-lang.org/nightly/std/macro.panic.html">panic!</a>(<span class="string">"Unsupported display backend {e}"</span>),
+<a href=#64 id=64 data-nosnippet>64</a>        }
+<a href=#65 id=65 data-nosnippet>65</a>    }
+<a href=#66 id=66 data-nosnippet>66</a>}
+<a href=#67 id=67 data-nosnippet>67</a>
+<a href=#68 id=68 data-nosnippet>68</a><span class="kw">impl</span>&lt;O: <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.IsA.html">IsA</a>&lt;<a href="auto/display.rs.html#14-87">Display</a>&gt;&gt; <a href="#53-66">DisplayExtManual</a> <span class="kw">for </span>O {}
 </code></pre></div></section></main></body></html>

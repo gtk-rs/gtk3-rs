@@ -75,7 +75,7 @@
 <a href=#2 id=2 data-nosnippet>2</a>// from gir-files (https://github.com/gtk-rs/gir-files)
 <a href=#3 id=3 data-nosnippet>3</a>// DO NOT EDIT
 <a href=#4 id=4 data-nosnippet>4</a>
-<a href=#5 id=5 data-nosnippet>5</a></span><span class="kw">use crate</span>::{<a href="object.rs.html#14-211">Object</a>, <a href="enums.rs.html#377-475">RelationType</a>, <a href="../../../atk_sys/index.html">ffi</a>};
+<a href=#5 id=5 data-nosnippet>5</a></span><span class="kw">use crate</span>::{<a href="object.rs.html#14-211">Object</a>, <a href="enums.rs.html#377-472">RelationType</a>, <a href="../../../atk_sys/index.html">ffi</a>};
 <a href=#6 id=6 data-nosnippet>6</a><span class="kw">use </span>glib::{
 <a href=#7 id=7 data-nosnippet>7</a>    <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/prelude/index.html">prelude</a>::<span class="kw-2">*</span>,
 <a href=#8 id=8 data-nosnippet>8</a>    signal::{<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/struct.SignalHandlerId.html">SignalHandlerId</a>, <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/signal/fn.connect_raw.html">connect_raw</a>},
@@ -129,7 +129,7 @@
 <a href=#56 id=56 data-nosnippet>56</a>    ///
 <a href=#57 id=57 data-nosnippet>57</a>    /// a pointer to a new [`Relation`][crate::Relation]
 <a href=#58 id=58 data-nosnippet>58</a>    </span><span class="attr">#[doc(alias = <span class="string">"atk_relation_new"</span>)]
-<a href=#59 id=59 data-nosnippet>59</a>    </span><span class="kw">pub fn </span>new(targets: <span class="kw-2">&amp;</span>[<a href="object.rs.html#14-211">Object</a>], relationship: <a href="enums.rs.html#377-475">RelationType</a>) -&gt; <a href="#13-41">Relation</a> {
+<a href=#59 id=59 data-nosnippet>59</a>    </span><span class="kw">pub fn </span>new(targets: <span class="kw-2">&amp;</span>[<a href="object.rs.html#14-211">Object</a>], relationship: <a href="enums.rs.html#377-472">RelationType</a>) -&gt; <a href="#13-41">Relation</a> {
 <a href=#60 id=60 data-nosnippet>60</a>        <span class="macro">assert_initialized_main_thread!</span>();
 <a href=#61 id=61 data-nosnippet>61</a>        <span class="kw">let </span>n_targets = <a href="#59">targets</a>.<a href="https://doc.rust-lang.org/nightly/core/primitive.slice.html#method.len">len</a>() <span class="kw">as _</span>;
 <a href=#62 id=62 data-nosnippet>62</a>        <span class="kw">unsafe </span>{
@@ -170,7 +170,7 @@
 <a href=#97 id=97 data-nosnippet>97</a>    </span><span class="attr">#[doc(alias = <span class="string">"atk_relation_get_relation_type"</span>)]
 <a href=#98 id=98 data-nosnippet>98</a>    #[doc(alias = <span class="string">"get_relation_type"</span>)]
 <a href=#99 id=99 data-nosnippet>99</a>    #[doc(alias = <span class="string">"relation-type"</span>)]
-<a href=#100 id=100 data-nosnippet>100</a>    </span><span class="kw">fn </span>relation_type(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="enums.rs.html#377-475">RelationType</a> {
+<a href=#100 id=100 data-nosnippet>100</a>    </span><span class="kw">fn </span>relation_type(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="enums.rs.html#377-472">RelationType</a> {
 <a href=#101 id=101 data-nosnippet>101</a>        <span class="kw">unsafe </span>{
 <a href=#102 id=102 data-nosnippet>102</a>            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib.html">from_glib</a>(ffi::<a href="../../../atk_sys/fn.atk_relation_get_relation_type.html">atk_relation_get_relation_type</a>(
 <a href=#103 id=103 data-nosnippet>103</a>                <a class="self" href="#100">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
@@ -211,7 +211,7 @@
 <a href=#138 id=138 data-nosnippet>138</a>    }
 <a href=#139 id=139 data-nosnippet>139</a>
 <a href=#140 id=140 data-nosnippet>140</a>    <span class="attr">#[doc(alias = <span class="string">"relation-type"</span>)]
-<a href=#141 id=141 data-nosnippet>141</a>    </span><span class="kw">fn </span>set_relation_type(<span class="kw-2">&amp;</span><span class="self">self</span>, relation_type: <a href="enums.rs.html#377-475">RelationType</a>) {
+<a href=#141 id=141 data-nosnippet>141</a>    </span><span class="kw">fn </span>set_relation_type(<span class="kw-2">&amp;</span><span class="self">self</span>, relation_type: <a href="enums.rs.html#377-472">RelationType</a>) {
 <a href=#142 id=142 data-nosnippet>142</a>        ObjectExt::<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectExt.html#tymethod.set_property">set_property</a>(<a class="self" href="#141">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>(), <span class="string">"relation-type"</span>, <a href="#141">relation_type</a>)
 <a href=#143 id=143 data-nosnippet>143</a>    }
 <a href=#144 id=144 data-nosnippet>144</a>

@@ -2303,7 +2303,7 @@
 <a href=#2230 id=2230 data-nosnippet>2230</a>    }
 <a href=#2231 id=2231 data-nosnippet>2231</a>
 <a href=#2232 id=2232 data-nosnippet>2232</a>    <span class="kw">fn </span>child_is_detachable&lt;T: <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.IsA.html">IsA</a>&lt;<span class="kw">crate</span>::<a href="widget.rs.html#18-1521">Widget</a>&gt;&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, item: <span class="kw-2">&amp;</span>T) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> {
-<a href=#2233 id=2233 data-nosnippet>2233</a>        <span class="kw">crate</span>::prelude::ContainerExtManual::<a href="../container.rs.html#44-53">child_property</a>(
+<a href=#2233 id=2233 data-nosnippet>2233</a>        <span class="kw">crate</span>::prelude::ContainerExtManual::<a href="../container.rs.html#39-48">child_property</a>(
 <a href=#2234 id=2234 data-nosnippet>2234</a>            <a class="self" href="#2232">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>(),
 <a href=#2235 id=2235 data-nosnippet>2235</a>            <span class="kw-2">&amp;</span><a href="#2232">item</a>.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone">clone</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.Cast.html#method.upcast">upcast</a>(),
 <a href=#2236 id=2236 data-nosnippet>2236</a>            <span class="string">"detachable"</span>,
@@ -2311,7 +2311,7 @@
 <a href=#2238 id=2238 data-nosnippet>2238</a>    }
 <a href=#2239 id=2239 data-nosnippet>2239</a>
 <a href=#2240 id=2240 data-nosnippet>2240</a>    <span class="kw">fn </span>set_child_detachable&lt;T: <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.IsA.html">IsA</a>&lt;<span class="kw">crate</span>::<a href="widget.rs.html#18-1521">Widget</a>&gt;&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, item: <span class="kw-2">&amp;</span>T, detachable: <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) {
-<a href=#2241 id=2241 data-nosnippet>2241</a>        <span class="kw">crate</span>::prelude::ContainerExtManual::<a href="../container.rs.html#63-101">child_set_property</a>(
+<a href=#2241 id=2241 data-nosnippet>2241</a>        <span class="kw">crate</span>::prelude::ContainerExtManual::<a href="../container.rs.html#58-96">child_set_property</a>(
 <a href=#2242 id=2242 data-nosnippet>2242</a>            <a class="self" href="#2240">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>(),
 <a href=#2243 id=2243 data-nosnippet>2243</a>            <span class="kw-2">&amp;</span><a href="#2240">item</a>.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone">clone</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.Cast.html#method.upcast">upcast</a>(),
 <a href=#2244 id=2244 data-nosnippet>2244</a>            <span class="string">"detachable"</span>,
@@ -2321,7 +2321,7 @@
 <a href=#2248 id=2248 data-nosnippet>2248</a>
 <a href=#2249 id=2249 data-nosnippet>2249</a>    <span class="attr">#[doc(alias = <span class="string">"child.menu-label"</span>)]
 <a href=#2250 id=2250 data-nosnippet>2250</a>    </span><span class="kw">fn </span>child_menu_label&lt;T: <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.IsA.html">IsA</a>&lt;<span class="kw">crate</span>::<a href="widget.rs.html#18-1521">Widget</a>&gt;&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, item: <span class="kw-2">&amp;</span>T) -&gt; <a class="prelude-ty" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html">Option</a>&lt;glib::<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/gstring/struct.GString.html">GString</a>&gt; {
-<a href=#2251 id=2251 data-nosnippet>2251</a>        <span class="kw">crate</span>::prelude::ContainerExtManual::<a href="../container.rs.html#44-53">child_property</a>(
+<a href=#2251 id=2251 data-nosnippet>2251</a>        <span class="kw">crate</span>::prelude::ContainerExtManual::<a href="../container.rs.html#39-48">child_property</a>(
 <a href=#2252 id=2252 data-nosnippet>2252</a>            <a class="self" href="#2250">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>(),
 <a href=#2253 id=2253 data-nosnippet>2253</a>            <span class="kw-2">&amp;</span><a href="#2250">item</a>.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone">clone</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.Cast.html#method.upcast">upcast</a>(),
 <a href=#2254 id=2254 data-nosnippet>2254</a>            <span class="string">"menu-label"</span>,
@@ -2330,7 +2330,7 @@
 <a href=#2257 id=2257 data-nosnippet>2257</a>
 <a href=#2258 id=2258 data-nosnippet>2258</a>    <span class="attr">#[doc(alias = <span class="string">"child.menu-label"</span>)]
 <a href=#2259 id=2259 data-nosnippet>2259</a>    </span><span class="kw">fn </span>set_child_menu_label&lt;T: <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.IsA.html">IsA</a>&lt;<span class="kw">crate</span>::<a href="widget.rs.html#18-1521">Widget</a>&gt;&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, item: <span class="kw-2">&amp;</span>T, menu_label: <a class="prelude-ty" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html">Option</a>&lt;<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>&gt;) {
-<a href=#2260 id=2260 data-nosnippet>2260</a>        <span class="kw">crate</span>::prelude::ContainerExtManual::<a href="../container.rs.html#63-101">child_set_property</a>(
+<a href=#2260 id=2260 data-nosnippet>2260</a>        <span class="kw">crate</span>::prelude::ContainerExtManual::<a href="../container.rs.html#58-96">child_set_property</a>(
 <a href=#2261 id=2261 data-nosnippet>2261</a>            <a class="self" href="#2259">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>(),
 <a href=#2262 id=2262 data-nosnippet>2262</a>            <span class="kw-2">&amp;</span><a href="#2259">item</a>.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone">clone</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.Cast.html#method.upcast">upcast</a>(),
 <a href=#2263 id=2263 data-nosnippet>2263</a>            <span class="string">"menu-label"</span>,
@@ -2339,7 +2339,7 @@
 <a href=#2266 id=2266 data-nosnippet>2266</a>    }
 <a href=#2267 id=2267 data-nosnippet>2267</a>
 <a href=#2268 id=2268 data-nosnippet>2268</a>    <span class="kw">fn </span>child_position&lt;T: <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.IsA.html">IsA</a>&lt;<span class="kw">crate</span>::<a href="widget.rs.html#18-1521">Widget</a>&gt;&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, item: <span class="kw-2">&amp;</span>T) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a> {
-<a href=#2269 id=2269 data-nosnippet>2269</a>        <span class="kw">crate</span>::prelude::ContainerExtManual::<a href="../container.rs.html#44-53">child_property</a>(
+<a href=#2269 id=2269 data-nosnippet>2269</a>        <span class="kw">crate</span>::prelude::ContainerExtManual::<a href="../container.rs.html#39-48">child_property</a>(
 <a href=#2270 id=2270 data-nosnippet>2270</a>            <a class="self" href="#2268">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>(),
 <a href=#2271 id=2271 data-nosnippet>2271</a>            <span class="kw-2">&amp;</span><a href="#2268">item</a>.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone">clone</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.Cast.html#method.upcast">upcast</a>(),
 <a href=#2272 id=2272 data-nosnippet>2272</a>            <span class="string">"position"</span>,
@@ -2347,7 +2347,7 @@
 <a href=#2274 id=2274 data-nosnippet>2274</a>    }
 <a href=#2275 id=2275 data-nosnippet>2275</a>
 <a href=#2276 id=2276 data-nosnippet>2276</a>    <span class="kw">fn </span>set_child_position&lt;T: <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.IsA.html">IsA</a>&lt;<span class="kw">crate</span>::<a href="widget.rs.html#18-1521">Widget</a>&gt;&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, item: <span class="kw-2">&amp;</span>T, position: <a href="https://doc.rust-lang.org/nightly/std/primitive.i32.html">i32</a>) {
-<a href=#2277 id=2277 data-nosnippet>2277</a>        <span class="kw">crate</span>::prelude::ContainerExtManual::<a href="../container.rs.html#63-101">child_set_property</a>(
+<a href=#2277 id=2277 data-nosnippet>2277</a>        <span class="kw">crate</span>::prelude::ContainerExtManual::<a href="../container.rs.html#58-96">child_set_property</a>(
 <a href=#2278 id=2278 data-nosnippet>2278</a>            <a class="self" href="#2276">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>(),
 <a href=#2279 id=2279 data-nosnippet>2279</a>            <span class="kw-2">&amp;</span><a href="#2276">item</a>.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone">clone</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.Cast.html#method.upcast">upcast</a>(),
 <a href=#2280 id=2280 data-nosnippet>2280</a>            <span class="string">"position"</span>,
@@ -2356,7 +2356,7 @@
 <a href=#2283 id=2283 data-nosnippet>2283</a>    }
 <a href=#2284 id=2284 data-nosnippet>2284</a>
 <a href=#2285 id=2285 data-nosnippet>2285</a>    <span class="kw">fn </span>child_is_reorderable&lt;T: <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.IsA.html">IsA</a>&lt;<span class="kw">crate</span>::<a href="widget.rs.html#18-1521">Widget</a>&gt;&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, item: <span class="kw-2">&amp;</span>T) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> {
-<a href=#2286 id=2286 data-nosnippet>2286</a>        <span class="kw">crate</span>::prelude::ContainerExtManual::<a href="../container.rs.html#44-53">child_property</a>(
+<a href=#2286 id=2286 data-nosnippet>2286</a>        <span class="kw">crate</span>::prelude::ContainerExtManual::<a href="../container.rs.html#39-48">child_property</a>(
 <a href=#2287 id=2287 data-nosnippet>2287</a>            <a class="self" href="#2285">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>(),
 <a href=#2288 id=2288 data-nosnippet>2288</a>            <span class="kw-2">&amp;</span><a href="#2285">item</a>.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone">clone</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.Cast.html#method.upcast">upcast</a>(),
 <a href=#2289 id=2289 data-nosnippet>2289</a>            <span class="string">"reorderable"</span>,
@@ -2364,7 +2364,7 @@
 <a href=#2291 id=2291 data-nosnippet>2291</a>    }
 <a href=#2292 id=2292 data-nosnippet>2292</a>
 <a href=#2293 id=2293 data-nosnippet>2293</a>    <span class="kw">fn </span>set_child_reorderable&lt;T: <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.IsA.html">IsA</a>&lt;<span class="kw">crate</span>::<a href="widget.rs.html#18-1521">Widget</a>&gt;&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, item: <span class="kw-2">&amp;</span>T, reorderable: <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) {
-<a href=#2294 id=2294 data-nosnippet>2294</a>        <span class="kw">crate</span>::prelude::ContainerExtManual::<a href="../container.rs.html#63-101">child_set_property</a>(
+<a href=#2294 id=2294 data-nosnippet>2294</a>        <span class="kw">crate</span>::prelude::ContainerExtManual::<a href="../container.rs.html#58-96">child_set_property</a>(
 <a href=#2295 id=2295 data-nosnippet>2295</a>            <a class="self" href="#2293">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>(),
 <a href=#2296 id=2296 data-nosnippet>2296</a>            <span class="kw-2">&amp;</span><a href="#2293">item</a>.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone">clone</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.Cast.html#method.upcast">upcast</a>(),
 <a href=#2297 id=2297 data-nosnippet>2297</a>            <span class="string">"reorderable"</span>,
@@ -2374,7 +2374,7 @@
 <a href=#2301 id=2301 data-nosnippet>2301</a>
 <a href=#2302 id=2302 data-nosnippet>2302</a>    <span class="attr">#[doc(alias = <span class="string">"child.tab-expand"</span>)]
 <a href=#2303 id=2303 data-nosnippet>2303</a>    </span><span class="kw">fn </span>child_tab_expands&lt;T: <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.IsA.html">IsA</a>&lt;<span class="kw">crate</span>::<a href="widget.rs.html#18-1521">Widget</a>&gt;&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, item: <span class="kw-2">&amp;</span>T) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> {
-<a href=#2304 id=2304 data-nosnippet>2304</a>        <span class="kw">crate</span>::prelude::ContainerExtManual::<a href="../container.rs.html#44-53">child_property</a>(
+<a href=#2304 id=2304 data-nosnippet>2304</a>        <span class="kw">crate</span>::prelude::ContainerExtManual::<a href="../container.rs.html#39-48">child_property</a>(
 <a href=#2305 id=2305 data-nosnippet>2305</a>            <a class="self" href="#2303">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>(),
 <a href=#2306 id=2306 data-nosnippet>2306</a>            <span class="kw-2">&amp;</span><a href="#2303">item</a>.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone">clone</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.Cast.html#method.upcast">upcast</a>(),
 <a href=#2307 id=2307 data-nosnippet>2307</a>            <span class="string">"tab-expand"</span>,
@@ -2383,7 +2383,7 @@
 <a href=#2310 id=2310 data-nosnippet>2310</a>
 <a href=#2311 id=2311 data-nosnippet>2311</a>    <span class="attr">#[doc(alias = <span class="string">"child.tab-expand"</span>)]
 <a href=#2312 id=2312 data-nosnippet>2312</a>    </span><span class="kw">fn </span>set_child_tab_expand&lt;T: <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.IsA.html">IsA</a>&lt;<span class="kw">crate</span>::<a href="widget.rs.html#18-1521">Widget</a>&gt;&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, item: <span class="kw-2">&amp;</span>T, tab_expand: <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) {
-<a href=#2313 id=2313 data-nosnippet>2313</a>        <span class="kw">crate</span>::prelude::ContainerExtManual::<a href="../container.rs.html#63-101">child_set_property</a>(
+<a href=#2313 id=2313 data-nosnippet>2313</a>        <span class="kw">crate</span>::prelude::ContainerExtManual::<a href="../container.rs.html#58-96">child_set_property</a>(
 <a href=#2314 id=2314 data-nosnippet>2314</a>            <a class="self" href="#2312">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>(),
 <a href=#2315 id=2315 data-nosnippet>2315</a>            <span class="kw-2">&amp;</span><a href="#2312">item</a>.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone">clone</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.Cast.html#method.upcast">upcast</a>(),
 <a href=#2316 id=2316 data-nosnippet>2316</a>            <span class="string">"tab-expand"</span>,
@@ -2393,7 +2393,7 @@
 <a href=#2320 id=2320 data-nosnippet>2320</a>
 <a href=#2321 id=2321 data-nosnippet>2321</a>    <span class="attr">#[doc(alias = <span class="string">"child.tab-fill"</span>)]
 <a href=#2322 id=2322 data-nosnippet>2322</a>    </span><span class="kw">fn </span>child_tab_fills&lt;T: <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.IsA.html">IsA</a>&lt;<span class="kw">crate</span>::<a href="widget.rs.html#18-1521">Widget</a>&gt;&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, item: <span class="kw-2">&amp;</span>T) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> {
-<a href=#2323 id=2323 data-nosnippet>2323</a>        <span class="kw">crate</span>::prelude::ContainerExtManual::<a href="../container.rs.html#44-53">child_property</a>(
+<a href=#2323 id=2323 data-nosnippet>2323</a>        <span class="kw">crate</span>::prelude::ContainerExtManual::<a href="../container.rs.html#39-48">child_property</a>(
 <a href=#2324 id=2324 data-nosnippet>2324</a>            <a class="self" href="#2322">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>(),
 <a href=#2325 id=2325 data-nosnippet>2325</a>            <span class="kw-2">&amp;</span><a href="#2322">item</a>.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone">clone</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.Cast.html#method.upcast">upcast</a>(),
 <a href=#2326 id=2326 data-nosnippet>2326</a>            <span class="string">"tab-fill"</span>,
@@ -2402,7 +2402,7 @@
 <a href=#2329 id=2329 data-nosnippet>2329</a>
 <a href=#2330 id=2330 data-nosnippet>2330</a>    <span class="attr">#[doc(alias = <span class="string">"child.tab-fill"</span>)]
 <a href=#2331 id=2331 data-nosnippet>2331</a>    </span><span class="kw">fn </span>set_child_tab_fill&lt;T: <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.IsA.html">IsA</a>&lt;<span class="kw">crate</span>::<a href="widget.rs.html#18-1521">Widget</a>&gt;&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, item: <span class="kw-2">&amp;</span>T, tab_fill: <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>) {
-<a href=#2332 id=2332 data-nosnippet>2332</a>        <span class="kw">crate</span>::prelude::ContainerExtManual::<a href="../container.rs.html#63-101">child_set_property</a>(
+<a href=#2332 id=2332 data-nosnippet>2332</a>        <span class="kw">crate</span>::prelude::ContainerExtManual::<a href="../container.rs.html#58-96">child_set_property</a>(
 <a href=#2333 id=2333 data-nosnippet>2333</a>            <a class="self" href="#2331">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>(),
 <a href=#2334 id=2334 data-nosnippet>2334</a>            <span class="kw-2">&amp;</span><a href="#2331">item</a>.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone">clone</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.Cast.html#method.upcast">upcast</a>(),
 <a href=#2335 id=2335 data-nosnippet>2335</a>            <span class="string">"tab-fill"</span>,
@@ -2412,7 +2412,7 @@
 <a href=#2339 id=2339 data-nosnippet>2339</a>
 <a href=#2340 id=2340 data-nosnippet>2340</a>    <span class="attr">#[doc(alias = <span class="string">"child.tab-label"</span>)]
 <a href=#2341 id=2341 data-nosnippet>2341</a>    </span><span class="kw">fn </span>child_tab_label&lt;T: <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.IsA.html">IsA</a>&lt;<span class="kw">crate</span>::<a href="widget.rs.html#18-1521">Widget</a>&gt;&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, item: <span class="kw-2">&amp;</span>T) -&gt; <a class="prelude-ty" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html">Option</a>&lt;glib::<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/gstring/struct.GString.html">GString</a>&gt; {
-<a href=#2342 id=2342 data-nosnippet>2342</a>        <span class="kw">crate</span>::prelude::ContainerExtManual::<a href="../container.rs.html#44-53">child_property</a>(
+<a href=#2342 id=2342 data-nosnippet>2342</a>        <span class="kw">crate</span>::prelude::ContainerExtManual::<a href="../container.rs.html#39-48">child_property</a>(
 <a href=#2343 id=2343 data-nosnippet>2343</a>            <a class="self" href="#2341">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>(),
 <a href=#2344 id=2344 data-nosnippet>2344</a>            <span class="kw-2">&amp;</span><a href="#2341">item</a>.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone">clone</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.Cast.html#method.upcast">upcast</a>(),
 <a href=#2345 id=2345 data-nosnippet>2345</a>            <span class="string">"tab-label"</span>,
@@ -2421,7 +2421,7 @@
 <a href=#2348 id=2348 data-nosnippet>2348</a>
 <a href=#2349 id=2349 data-nosnippet>2349</a>    <span class="attr">#[doc(alias = <span class="string">"child.tab-label"</span>)]
 <a href=#2350 id=2350 data-nosnippet>2350</a>    </span><span class="kw">fn </span>set_child_tab_label&lt;T: <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.IsA.html">IsA</a>&lt;<span class="kw">crate</span>::<a href="widget.rs.html#18-1521">Widget</a>&gt;&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, item: <span class="kw-2">&amp;</span>T, tab_label: <a class="prelude-ty" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html">Option</a>&lt;<span class="kw-2">&amp;</span><a href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>&gt;) {
-<a href=#2351 id=2351 data-nosnippet>2351</a>        <span class="kw">crate</span>::prelude::ContainerExtManual::<a href="../container.rs.html#63-101">child_set_property</a>(
+<a href=#2351 id=2351 data-nosnippet>2351</a>        <span class="kw">crate</span>::prelude::ContainerExtManual::<a href="../container.rs.html#58-96">child_set_property</a>(
 <a href=#2352 id=2352 data-nosnippet>2352</a>            <a class="self" href="#2350">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>(),
 <a href=#2353 id=2353 data-nosnippet>2353</a>            <span class="kw-2">&amp;</span><a href="#2350">item</a>.<a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone">clone</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.Cast.html#method.upcast">upcast</a>(),
 <a href=#2354 id=2354 data-nosnippet>2354</a>            <span class="string">"tab-label"</span>,

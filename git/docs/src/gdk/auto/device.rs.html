@@ -76,8 +76,8 @@
 <a href=#3 id=3 data-nosnippet>3</a>// DO NOT EDIT
 <a href=#4 id=4 data-nosnippet>4</a>
 <a href=#5 id=5 data-nosnippet>5</a></span><span class="kw">use crate</span>::{
-<a href=#6 id=6 data-nosnippet>6</a>    <a href="../atom.rs.html#13">Atom</a>, <a href="flags.rs.html#132-165">AxisFlags</a>, <a href="enums.rs.html#18-54">AxisUse</a>, <a href="device_manager.rs.html#14-177">DeviceManager</a>, <a href="device_tool.rs.html#8-34">DeviceTool</a>, <a href="enums.rs.html#1133-1147">DeviceType</a>, <a href="display.rs.html#14-87">Display</a>, <a href="enums.rs.html#2440-2456">InputMode</a>,
-<a href=#7 id=7 data-nosnippet>7</a>    <a href="enums.rs.html#2548-2585">InputSource</a>, <a href="flags.rs.html#643-770">ModifierType</a>, <a href="screen.rs.html#14-68">Screen</a>, <a href="seat.rs.html#16-73">Seat</a>, <a href="window.rs.html#22-103">Window</a>, <a href="../../../gdk_sys/index.html">ffi</a>,
+<a href=#6 id=6 data-nosnippet>6</a>    <a href="../atom.rs.html#13">Atom</a>, <a href="flags.rs.html#132-165">AxisFlags</a>, <a href="enums.rs.html#18-54">AxisUse</a>, <a href="device_manager.rs.html#14-177">DeviceManager</a>, <a href="device_tool.rs.html#8-34">DeviceTool</a>, <a href="enums.rs.html#1133-1147">DeviceType</a>, <a href="display.rs.html#14-87">Display</a>, <a href="enums.rs.html#2432-2448">InputMode</a>,
+<a href=#7 id=7 data-nosnippet>7</a>    <a href="enums.rs.html#2540-2577">InputSource</a>, <a href="flags.rs.html#643-770">ModifierType</a>, <a href="screen.rs.html#14-68">Screen</a>, <a href="seat.rs.html#16-73">Seat</a>, <a href="window.rs.html#22-103">Window</a>, <a href="../../../gdk_sys/index.html">ffi</a>,
 <a href=#8 id=8 data-nosnippet>8</a>};
 <a href=#9 id=9 data-nosnippet>9</a><span class="kw">use </span>glib::{
 <a href=#10 id=10 data-nosnippet>10</a>    <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectType.html">object::ObjectType</a> <span class="kw">as _</span>,
@@ -398,7 +398,7 @@
 <a href=#325 id=325 data-nosnippet>325</a>    /// a [`InputSource`][crate::InputSource]
 <a href=#326 id=326 data-nosnippet>326</a>    </span><span class="attr">#[doc(alias = <span class="string">"gdk_device_get_mode"</span>)]
 <a href=#327 id=327 data-nosnippet>327</a>    #[doc(alias = <span class="string">"get_mode"</span>)]
-<a href=#328 id=328 data-nosnippet>328</a>    </span><span class="kw">fn </span>mode(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="enums.rs.html#2440-2456">InputMode</a> {
+<a href=#328 id=328 data-nosnippet>328</a>    </span><span class="kw">fn </span>mode(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="enums.rs.html#2432-2448">InputMode</a> {
 <a href=#329 id=329 data-nosnippet>329</a>        <span class="kw">unsafe </span>{ <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib.html">from_glib</a>(ffi::<a href="../../../gdk_sys/fn.gdk_device_get_mode.html">gdk_device_get_mode</a>(<a class="self" href="#328">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>)) }
 <a href=#330 id=330 data-nosnippet>330</a>    }
 <a href=#331 id=331 data-nosnippet>331</a>
@@ -541,7 +541,7 @@
 <a href=#468 id=468 data-nosnippet>468</a>    /// a [`InputSource`][crate::InputSource]
 <a href=#469 id=469 data-nosnippet>469</a>    </span><span class="attr">#[doc(alias = <span class="string">"gdk_device_get_source"</span>)]
 <a href=#470 id=470 data-nosnippet>470</a>    #[doc(alias = <span class="string">"get_source"</span>)]
-<a href=#471 id=471 data-nosnippet>471</a>    </span><span class="kw">fn </span>source(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="enums.rs.html#2548-2585">InputSource</a> {
+<a href=#471 id=471 data-nosnippet>471</a>    </span><span class="kw">fn </span>source(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="enums.rs.html#2540-2577">InputSource</a> {
 <a href=#472 id=472 data-nosnippet>472</a>        <span class="kw">unsafe </span>{ <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib.html">from_glib</a>(ffi::<a href="../../../gdk_sys/fn.gdk_device_get_source.html">gdk_device_get_source</a>(<a class="self" href="#471">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>)) }
 <a href=#473 id=473 data-nosnippet>473</a>    }
 <a href=#474 id=474 data-nosnippet>474</a>
@@ -746,7 +746,7 @@
 <a href=#673 id=673 data-nosnippet>673</a>    ///
 <a href=#674 id=674 data-nosnippet>674</a>    /// [`true`] if the mode was successfully changed.
 <a href=#675 id=675 data-nosnippet>675</a>    </span><span class="attr">#[doc(alias = <span class="string">"gdk_device_set_mode"</span>)]
-<a href=#676 id=676 data-nosnippet>676</a>    </span><span class="kw">fn </span>set_mode(<span class="kw-2">&amp;</span><span class="self">self</span>, mode: <a href="enums.rs.html#2440-2456">InputMode</a>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> {
+<a href=#676 id=676 data-nosnippet>676</a>    </span><span class="kw">fn </span>set_mode(<span class="kw-2">&amp;</span><span class="self">self</span>, mode: <a href="enums.rs.html#2432-2448">InputMode</a>) -&gt; <a href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a> {
 <a href=#677 id=677 data-nosnippet>677</a>        <span class="kw">unsafe </span>{
 <a href=#678 id=678 data-nosnippet>678</a>            <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/fn.from_glib.html">from_glib</a>(ffi::<a href="../../../gdk_sys/fn.gdk_device_set_mode.html">gdk_device_set_mode</a>(
 <a href=#679 id=679 data-nosnippet>679</a>                <a class="self" href="#676">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>().<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/translate/trait.ToGlibPtr.html#tymethod.to_glib_none">to_glib_none</a>().<span class="number">0</span>,
@@ -791,18 +791,18 @@
 <a href=#718 id=718 data-nosnippet>718</a>    }
 <a href=#719 id=719 data-nosnippet>719</a>
 <a href=#720 id=720 data-nosnippet>720</a>    <span class="attr">#[doc(alias = <span class="string">"input-mode"</span>)]
-<a href=#721 id=721 data-nosnippet>721</a>    </span><span class="kw">fn </span>input_mode(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="enums.rs.html#2440-2456">InputMode</a> {
+<a href=#721 id=721 data-nosnippet>721</a>    </span><span class="kw">fn </span>input_mode(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="enums.rs.html#2432-2448">InputMode</a> {
 <a href=#722 id=722 data-nosnippet>722</a>        ObjectExt::<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectExt.html#tymethod.property">property</a>(<a class="self" href="#721">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>(), <span class="string">"input-mode"</span>)
 <a href=#723 id=723 data-nosnippet>723</a>    }
 <a href=#724 id=724 data-nosnippet>724</a>
 <a href=#725 id=725 data-nosnippet>725</a>    <span class="attr">#[doc(alias = <span class="string">"input-mode"</span>)]
-<a href=#726 id=726 data-nosnippet>726</a>    </span><span class="kw">fn </span>set_input_mode(<span class="kw-2">&amp;</span><span class="self">self</span>, input_mode: <a href="enums.rs.html#2440-2456">InputMode</a>) {
+<a href=#726 id=726 data-nosnippet>726</a>    </span><span class="kw">fn </span>set_input_mode(<span class="kw-2">&amp;</span><span class="self">self</span>, input_mode: <a href="enums.rs.html#2432-2448">InputMode</a>) {
 <a href=#727 id=727 data-nosnippet>727</a>        ObjectExt::<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectExt.html#tymethod.set_property">set_property</a>(<a class="self" href="#726">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>(), <span class="string">"input-mode"</span>, <a href="#726">input_mode</a>)
 <a href=#728 id=728 data-nosnippet>728</a>    }
 <a href=#729 id=729 data-nosnippet>729</a>
 <a href=#730 id=730 data-nosnippet>730</a>    <span class="doccomment">/// Source type for the device.
 <a href=#731 id=731 data-nosnippet>731</a>    </span><span class="attr">#[doc(alias = <span class="string">"input-source"</span>)]
-<a href=#732 id=732 data-nosnippet>732</a>    </span><span class="kw">fn </span>input_source(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="enums.rs.html#2548-2585">InputSource</a> {
+<a href=#732 id=732 data-nosnippet>732</a>    </span><span class="kw">fn </span>input_source(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <a href="enums.rs.html#2540-2577">InputSource</a> {
 <a href=#733 id=733 data-nosnippet>733</a>        ObjectExt::<a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectExt.html#tymethod.property">property</a>(<a class="self" href="#732">self</a>.<a href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html#tymethod.as_ref">as_ref</a>(), <span class="string">"input-source"</span>)
 <a href=#734 id=734 data-nosnippet>734</a>    }
 <a href=#735 id=735 data-nosnippet>735</a>

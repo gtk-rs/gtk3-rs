@@ -76,7 +76,7 @@
 <a href=#3 id=3 data-nosnippet>3</a>// DO NOT EDIT
 <a href=#4 id=4 data-nosnippet>4</a>
 <a href=#5 id=5 data-nosnippet>5</a></span><span class="kw">use crate</span>::{
-<a href=#6 id=6 data-nosnippet>6</a>    <a href="cursor.rs.html#8-28">Cursor</a>, <a href="device.rs.html#17-149">Device</a>, <a href="device_tool.rs.html#8-34">DeviceTool</a>, <a href="display.rs.html#14-87">Display</a>, <a href="../event.rs.html#20-31">Event</a>, <a href="enums.rs.html#2175-2198">GrabStatus</a>, <a href="flags.rs.html#847-874">SeatCapabilities</a>, <a href="window.rs.html#22-103">Window</a>, <a href="../../../gdk_sys/index.html">ffi</a>,
+<a href=#6 id=6 data-nosnippet>6</a>    <a href="cursor.rs.html#8-28">Cursor</a>, <a href="device.rs.html#17-149">Device</a>, <a href="device_tool.rs.html#8-34">DeviceTool</a>, <a href="display.rs.html#14-87">Display</a>, <a href="../event.rs.html#20-31">Event</a>, <a href="enums.rs.html#2167-2190">GrabStatus</a>, <a href="flags.rs.html#847-874">SeatCapabilities</a>, <a href="window.rs.html#22-103">Window</a>, <a href="../../../gdk_sys/index.html">ffi</a>,
 <a href=#7 id=7 data-nosnippet>7</a>};
 <a href=#8 id=8 data-nosnippet>8</a><span class="kw">use </span>glib::{
 <a href=#9 id=9 data-nosnippet>9</a>    <a href="https://gtk-rs.org/gtk-rs-core/git/docs/glib/object/trait.ObjectType.html">object::ObjectType</a> <span class="kw">as _</span>,
@@ -288,7 +288,7 @@
 <a href=#215 id=215 data-nosnippet>215</a>        cursor: <a class="prelude-ty" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html">Option</a>&lt;<span class="kw-2">&amp;</span><a href="cursor.rs.html#8-28">Cursor</a>&gt;,
 <a href=#216 id=216 data-nosnippet>216</a>        event: <a class="prelude-ty" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html">Option</a>&lt;<span class="kw-2">&amp;</span><a href="../event.rs.html#20-31">Event</a>&gt;,
 <a href=#217 id=217 data-nosnippet>217</a>        prepare_func: <a class="prelude-ty" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html">Option</a>&lt;<span class="kw-2">&amp;mut </span><span class="kw">dyn </span><a href="https://doc.rust-lang.org/nightly/core/ops/function/trait.FnMut.html">FnMut</a>(<span class="kw-2">&amp;</span><a href="#16-73">Seat</a>, <span class="kw-2">&amp;</span><a href="window.rs.html#22-103">Window</a>)&gt;,
-<a href=#218 id=218 data-nosnippet>218</a>    ) -&gt; <a href="enums.rs.html#2175-2198">GrabStatus</a> {
+<a href=#218 id=218 data-nosnippet>218</a>    ) -&gt; <a href="enums.rs.html#2167-2190">GrabStatus</a> {
 <a href=#219 id=219 data-nosnippet>219</a>        <span class="kw">let </span><span class="kw-2">mut </span>prepare_func_data: <a class="prelude-ty" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html">Option</a>&lt;<span class="kw-2">&amp;mut </span><span class="kw">dyn </span><a href="https://doc.rust-lang.org/nightly/core/ops/function/trait.FnMut.html">FnMut</a>(<span class="kw-2">&amp;</span><a href="#16-73">Seat</a>, <span class="kw-2">&amp;</span><a href="window.rs.html#22-103">Window</a>)&gt; = <a href="#217">prepare_func</a>;
 <a href=#220 id=220 data-nosnippet>220</a>        <span class="kw">unsafe extern </span><span class="string">"C" </span><span class="kw">fn </span>prepare_func_func(
 <a href=#221 id=221 data-nosnippet>221</a>            seat: <span class="kw-2">*mut </span>ffi::<a href="../../../gdk_sys/struct.GdkSeat.html">GdkSeat</a>,
