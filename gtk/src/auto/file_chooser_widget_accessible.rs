@@ -3,6 +3,7 @@
 // DO NOT EDIT
 
 use crate::ffi;
+use glib::prelude::*;
 
 glib::wrapper! {
     #[doc(alias = "GtkFileChooserWidgetAccessible")]
@@ -15,4 +16,170 @@ glib::wrapper! {
 
 impl FileChooserWidgetAccessible {
     pub const NONE: Option<&'static FileChooserWidgetAccessible> = None;
+
+    // rustdoc-stripper-ignore-next
+    /// Creates a new builder-pattern struct instance to construct [`FileChooserWidgetAccessible`] objects.
+    ///
+    /// This method returns an instance of [`FileChooserWidgetAccessibleBuilder`](crate::builders::FileChooserWidgetAccessibleBuilder) which can be used to create [`FileChooserWidgetAccessible`] objects.
+    pub fn builder() -> FileChooserWidgetAccessibleBuilder {
+        FileChooserWidgetAccessibleBuilder::new()
+    }
+}
+
+// rustdoc-stripper-ignore-next
+/// A [builder-pattern] type to construct [`FileChooserWidgetAccessible`] objects.
+///
+/// [builder-pattern]: https://doc.rust-lang.org/1.0.0/style/ownership/builders.html
+#[must_use = "The builder must be built to be used"]
+pub struct FileChooserWidgetAccessibleBuilder {
+    builder: glib::object::ObjectBuilder<'static, FileChooserWidgetAccessible>,
+}
+
+impl FileChooserWidgetAccessibleBuilder {
+    fn new() -> Self {
+        Self {
+            builder: glib::object::Object::builder(),
+        }
+    }
+
+    pub fn accessible_description(self, accessible_description: impl Into<glib::GString>) -> Self {
+        Self {
+            builder: self
+                .builder
+                .property("accessible-description", accessible_description.into()),
+        }
+    }
+
+    pub fn accessible_help_text(self, accessible_help_text: impl Into<glib::GString>) -> Self {
+        Self {
+            builder: self
+                .builder
+                .property("accessible-help-text", accessible_help_text.into()),
+        }
+    }
+
+    pub fn accessible_id(self, accessible_id: impl Into<glib::GString>) -> Self {
+        Self {
+            builder: self.builder.property("accessible-id", accessible_id.into()),
+        }
+    }
+
+    pub fn accessible_name(self, accessible_name: impl Into<glib::GString>) -> Self {
+        Self {
+            builder: self
+                .builder
+                .property("accessible-name", accessible_name.into()),
+        }
+    }
+
+    pub fn accessible_parent(self, accessible_parent: &impl IsA<atk::Object>) -> Self {
+        Self {
+            builder: self
+                .builder
+                .property("accessible-parent", accessible_parent.clone().upcast()),
+        }
+    }
+
+    pub fn accessible_role(self, accessible_role: atk::Role) -> Self {
+        Self {
+            builder: self.builder.property("accessible-role", accessible_role),
+        }
+    }
+
+    pub fn accessible_table_caption(
+        self,
+        accessible_table_caption: impl Into<glib::GString>,
+    ) -> Self {
+        Self {
+            builder: self
+                .builder
+                .property("accessible-table-caption", accessible_table_caption.into()),
+        }
+    }
+
+    pub fn accessible_table_caption_object(
+        self,
+        accessible_table_caption_object: &impl IsA<atk::Object>,
+    ) -> Self {
+        Self {
+            builder: self.builder.property(
+                "accessible-table-caption-object",
+                accessible_table_caption_object.clone().upcast(),
+            ),
+        }
+    }
+
+    pub fn accessible_table_column_description(
+        self,
+        accessible_table_column_description: impl Into<glib::GString>,
+    ) -> Self {
+        Self {
+            builder: self.builder.property(
+                "accessible-table-column-description",
+                accessible_table_column_description.into(),
+            ),
+        }
+    }
+
+    pub fn accessible_table_column_header(
+        self,
+        accessible_table_column_header: &impl IsA<atk::Object>,
+    ) -> Self {
+        Self {
+            builder: self.builder.property(
+                "accessible-table-column-header",
+                accessible_table_column_header.clone().upcast(),
+            ),
+        }
+    }
+
+    pub fn accessible_table_row_description(
+        self,
+        accessible_table_row_description: impl Into<glib::GString>,
+    ) -> Self {
+        Self {
+            builder: self.builder.property(
+                "accessible-table-row-description",
+                accessible_table_row_description.into(),
+            ),
+        }
+    }
+
+    pub fn accessible_table_row_header(
+        self,
+        accessible_table_row_header: &impl IsA<atk::Object>,
+    ) -> Self {
+        Self {
+            builder: self.builder.property(
+                "accessible-table-row-header",
+                accessible_table_row_header.clone().upcast(),
+            ),
+        }
+    }
+
+    pub fn accessible_table_summary(
+        self,
+        accessible_table_summary: &impl IsA<atk::Object>,
+    ) -> Self {
+        Self {
+            builder: self.builder.property(
+                "accessible-table-summary",
+                accessible_table_summary.clone().upcast(),
+            ),
+        }
+    }
+
+    pub fn accessible_value(self, accessible_value: f64) -> Self {
+        Self {
+            builder: self.builder.property("accessible-value", accessible_value),
+        }
+    }
+
+    // rustdoc-stripper-ignore-next
+    /// Build the [`FileChooserWidgetAccessible`].
+    #[must_use = "Building the object from the builder is usually expensive and is not expected to have side effects"]
+    pub fn build(self) -> FileChooserWidgetAccessible {
+        assert_initialized_main_thread!();
+        self.builder.build()
+    }
 }

@@ -2,7 +2,7 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use crate::{EventController, EventControllerScrollFlags, Widget, ffi};
+use crate::{EventController, EventControllerScrollFlags, PropagationPhase, Widget, ffi};
 use glib::{
     object::ObjectType as _,
     prelude::*,
@@ -34,6 +34,14 @@ impl EventControllerScroll {
             ))
             .unsafe_cast()
         }
+    }
+
+    // rustdoc-stripper-ignore-next
+    /// Creates a new builder-pattern struct instance to construct [`EventControllerScroll`] objects.
+    ///
+    /// This method returns an instance of [`EventControllerScrollBuilder`](crate::builders::EventControllerScrollBuilder) which can be used to create [`EventControllerScroll`] objects.
+    pub fn builder() -> EventControllerScrollBuilder {
+        EventControllerScrollBuilder::new()
     }
 
     #[doc(alias = "gtk_event_controller_scroll_get_flags")]
@@ -183,5 +191,60 @@ impl EventControllerScroll {
                 Box_::into_raw(f),
             )
         }
+    }
+}
+
+#[cfg(feature = "v3_24")]
+#[cfg_attr(docsrs, doc(cfg(feature = "v3_24")))]
+impl Default for EventControllerScroll {
+    fn default() -> Self {
+        glib::object::Object::new::<Self>()
+    }
+}
+
+// rustdoc-stripper-ignore-next
+/// A [builder-pattern] type to construct [`EventControllerScroll`] objects.
+///
+/// [builder-pattern]: https://doc.rust-lang.org/1.0.0/style/ownership/builders.html
+#[must_use = "The builder must be built to be used"]
+pub struct EventControllerScrollBuilder {
+    builder: glib::object::ObjectBuilder<'static, EventControllerScroll>,
+}
+
+impl EventControllerScrollBuilder {
+    fn new() -> Self {
+        Self {
+            builder: glib::object::Object::builder(),
+        }
+    }
+
+    #[cfg(feature = "v3_24")]
+    #[cfg_attr(docsrs, doc(cfg(feature = "v3_24")))]
+    pub fn flags(self, flags: EventControllerScrollFlags) -> Self {
+        Self {
+            builder: self.builder.property("flags", flags),
+        }
+    }
+
+    pub fn propagation_phase(self, propagation_phase: PropagationPhase) -> Self {
+        Self {
+            builder: self
+                .builder
+                .property("propagation-phase", propagation_phase),
+        }
+    }
+
+    pub fn widget(self, widget: &impl IsA<Widget>) -> Self {
+        Self {
+            builder: self.builder.property("widget", widget.clone().upcast()),
+        }
+    }
+
+    // rustdoc-stripper-ignore-next
+    /// Build the [`EventControllerScroll`].
+    #[must_use = "Building the object from the builder is usually expensive and is not expected to have side effects"]
+    pub fn build(self) -> EventControllerScroll {
+        assert_initialized_main_thread!();
+        self.builder.build()
     }
 }

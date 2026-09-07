@@ -1152,11 +1152,23 @@ pub(crate) mod builders {
     pub use super::entry::EntryBuilder;
     pub use super::entry_completion::EntryCompletionBuilder;
     pub use super::event_box::EventBoxBuilder;
+    #[cfg(feature = "v3_24")]
+    #[cfg_attr(docsrs, doc(cfg(feature = "v3_24")))]
+    pub use super::event_controller_key::EventControllerKeyBuilder;
+    #[cfg(feature = "v3_24")]
+    #[cfg_attr(docsrs, doc(cfg(feature = "v3_24")))]
+    pub use super::event_controller_motion::EventControllerMotionBuilder;
+    #[cfg(feature = "v3_24")]
+    #[cfg_attr(docsrs, doc(cfg(feature = "v3_24")))]
+    pub use super::event_controller_scroll::EventControllerScrollBuilder;
     pub use super::expander::ExpanderBuilder;
     pub use super::file_chooser_button::FileChooserButtonBuilder;
     pub use super::file_chooser_dialog::FileChooserDialogBuilder;
     pub use super::file_chooser_native::FileChooserNativeBuilder;
     pub use super::file_chooser_widget::FileChooserWidgetBuilder;
+    #[cfg(feature = "v3_24_30")]
+    #[cfg_attr(docsrs, doc(cfg(feature = "v3_24_30")))]
+    pub use super::file_chooser_widget_accessible::FileChooserWidgetAccessibleBuilder;
     pub use super::fixed::FixedBuilder;
     pub use super::flow_box::FlowBoxBuilder;
     pub use super::flow_box_child::FlowBoxChildBuilder;
@@ -1169,6 +1181,9 @@ pub(crate) mod builders {
     pub use super::gesture_multi_press::GestureMultiPressBuilder;
     pub use super::gesture_pan::GesturePanBuilder;
     pub use super::gesture_rotate::GestureRotateBuilder;
+    #[cfg(feature = "v3_24")]
+    #[cfg_attr(docsrs, doc(cfg(feature = "v3_24")))]
+    pub use super::gesture_stylus::GestureStylusBuilder;
     pub use super::gesture_swipe::GestureSwipeBuilder;
     pub use super::gesture_zoom::GestureZoomBuilder;
     pub use super::gl_area::GLAreaBuilder;
@@ -1232,6 +1247,8 @@ pub(crate) mod builders {
     pub use super::separator::SeparatorBuilder;
     pub use super::separator_menu_item::SeparatorMenuItemBuilder;
     pub use super::separator_tool_item::SeparatorToolItemBuilder;
+    pub use super::settings::SettingsBuilder;
+    pub use super::shortcut_label::ShortcutLabelBuilder;
     pub use super::shortcuts_group::ShortcutsGroupBuilder;
     pub use super::shortcuts_section::ShortcutsSectionBuilder;
     pub use super::shortcuts_shortcut::ShortcutsShortcutBuilder;
