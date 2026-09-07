@@ -2,6 +2,7 @@
 
 use libc::{c_char, c_uint};
 
+use glib::object::IsA;
 use glib::subclass::prelude::*;
 use glib::translate::*;
 use glib::{GString, object::Cast};
@@ -9,7 +10,9 @@ use glib::{GString, object::Cast};
 use super::cell_renderer_text::CellRendererTextImpl;
 use crate::{CellRendererAccel, ffi};
 
-pub trait CellRendererAccelImpl: CellRendererAccelImplExt + CellRendererTextImpl {
+pub trait CellRendererAccelImpl:
+    CellRendererTextImpl + ObjectSubclass<Type: IsA<CellRendererAccel>>
+{
     fn accel_edited(
         &self,
         path: &str,
@@ -25,12 +28,7 @@ pub trait CellRendererAccelImpl: CellRendererAccelImplExt + CellRendererTextImpl
     }
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::CellRendererAccelImpl> Sealed for T {}
-}
-
-pub trait CellRendererAccelImplExt: ObjectSubclass + sealed::Sealed {
+pub trait CellRendererAccelImplExt: CellRendererAccelImpl {
     fn parent_accel_edited(
         &self,
         path: &str,

@@ -4,6 +4,7 @@ use std::ptr;
 
 use glib::{ParamSpec, Value, gobject_ffi, translate::*};
 
+use glib::object::IsA;
 use glib::subclass::prelude::*;
 
 use glib::object::Cast;
@@ -13,7 +14,7 @@ use crate::Widget;
 use crate::WidgetPath;
 use crate::{Container, ffi};
 
-pub trait ContainerImpl: ContainerImplExt + WidgetImpl {
+pub trait ContainerImpl: WidgetImpl + ObjectSubclass<Type: IsA<Container>> {
     // rustdoc-stripper-ignore-next
     /// Child properties installed for this type.
     ///
@@ -62,12 +63,7 @@ pub trait ContainerImpl: ContainerImplExt + WidgetImpl {
     }
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::ContainerImpl> Sealed for T {}
-}
-
-pub trait ContainerImplExt: ObjectSubclass + sealed::Sealed {
+pub trait ContainerImplExt: ContainerImpl {
     fn parent_add(&self, widget: &Widget) {
         unsafe {
             let data = Self::type_data();

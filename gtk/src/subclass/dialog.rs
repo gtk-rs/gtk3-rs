@@ -2,6 +2,7 @@
 
 use glib::translate::*;
 
+use glib::object::IsA;
 use glib::subclass::prelude::*;
 
 use glib::object::Cast;
@@ -10,7 +11,7 @@ use super::window::WindowImpl;
 use crate::ResponseType;
 use crate::{Dialog, ffi};
 
-pub trait DialogImpl: DialogImplExt + WindowImpl {
+pub trait DialogImpl: WindowImpl + ObjectSubclass<Type: IsA<Dialog>> {
     fn response(&self, response: ResponseType) {
         self.parent_response(response)
     }
@@ -20,12 +21,7 @@ pub trait DialogImpl: DialogImplExt + WindowImpl {
     }
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::DialogImpl> Sealed for T {}
-}
-
-pub trait DialogImplExt: ObjectSubclass + sealed::Sealed {
+pub trait DialogImplExt: DialogImpl {
     fn parent_response(&self, response: ResponseType) {
         unsafe {
             let data = Self::type_data();

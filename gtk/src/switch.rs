@@ -7,12 +7,7 @@ use glib::translate::*;
 use std::boxed::Box as Box_;
 use std::mem::transmute;
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: glib::object::IsA<crate::Switch>> Sealed for T {}
-}
-
-pub trait SwitchExtManual: IsA<Switch> + sealed::Sealed + 'static {
+pub trait SwitchExtManual: IsA<Switch> + 'static {
     fn connect_changed_active<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe extern "C" fn changed_active_trampoline<T, F: Fn(&T) + 'static>(
             this: *mut ffi::GtkSwitch,

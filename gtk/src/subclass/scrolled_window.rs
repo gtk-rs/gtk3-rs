@@ -2,6 +2,7 @@
 
 use glib::translate::*;
 
+use glib::object::IsA;
 use glib::subclass::prelude::*;
 
 use glib::object::Cast;
@@ -11,7 +12,7 @@ use crate::ScrollType;
 use crate::ScrolledWindow;
 use crate::{DirectionType, ffi};
 
-pub trait ScrolledWindowImpl: ScrolledWindowImplExt + BinImpl {
+pub trait ScrolledWindowImpl: BinImpl + ObjectSubclass<Type: IsA<ScrolledWindow>> {
     fn move_focus_out(&self, direction_type: DirectionType) {
         self.parent_move_focus_out(direction_type)
     }
@@ -21,12 +22,7 @@ pub trait ScrolledWindowImpl: ScrolledWindowImplExt + BinImpl {
     }
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::ScrolledWindowImpl> Sealed for T {}
-}
-
-pub trait ScrolledWindowImplExt: ObjectSubclass + sealed::Sealed {
+pub trait ScrolledWindowImplExt: ScrolledWindowImpl {
     fn parent_move_focus_out(&self, direction_type: DirectionType) {
         unsafe {
             let data = Self::type_data();

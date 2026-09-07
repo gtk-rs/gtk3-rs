@@ -2,6 +2,7 @@
 
 use glib::translate::*;
 
+use glib::object::IsA;
 use glib::subclass::prelude::*;
 
 use glib::object::Cast;
@@ -11,7 +12,7 @@ use super::bin::BinImpl;
 use crate::Window;
 use crate::{Widget, ffi};
 
-pub trait WindowImpl: WindowImplExt + BinImpl {
+pub trait WindowImpl: BinImpl + ObjectSubclass<Type: IsA<Window>> {
     fn set_focus(&self, focus: Option<&Widget>) {
         self.parent_set_focus(focus)
     }
@@ -33,12 +34,7 @@ pub trait WindowImpl: WindowImplExt + BinImpl {
     }
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::WindowImpl> Sealed for T {}
-}
-
-pub trait WindowImplExt: ObjectSubclass + sealed::Sealed {
+pub trait WindowImplExt: WindowImpl {
     fn parent_set_focus(&self, focus: Option<&Widget>) {
         unsafe {
             let data = Self::type_data();

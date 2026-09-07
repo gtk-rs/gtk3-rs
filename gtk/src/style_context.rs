@@ -5,12 +5,7 @@ use crate::StyleContext;
 use crate::prelude::*;
 use pango::FontDescription;
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: glib::object::IsA<crate::StyleContext>> Sealed for T {}
-}
-
-pub trait StyleContextExtManual: IsA<StyleContext> + sealed::Sealed + 'static {
+pub trait StyleContextExtManual: IsA<StyleContext> + 'static {
     #[doc(alias = "get_font")]
     fn font(&self, state: StateFlags) -> FontDescription {
         self.style_property_for_state("font", state)

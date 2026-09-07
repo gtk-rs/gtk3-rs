@@ -2,6 +2,7 @@
 
 use libc::c_char;
 
+use glib::object::IsA;
 use glib::subclass::prelude::*;
 use glib::translate::*;
 use glib::{GString, object::Cast};
@@ -10,18 +11,15 @@ use super::cell_renderer::CellRendererImpl;
 
 use crate::{CellRendererToggle, ffi};
 
-pub trait CellRendererToggleImpl: CellRendererToggleImplExt + CellRendererImpl {
+pub trait CellRendererToggleImpl:
+    CellRendererImpl + ObjectSubclass<Type: IsA<CellRendererToggle>>
+{
     fn toggled(&self, path: &str) {
         self.parent_toggled(path);
     }
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::CellRendererToggleImpl> Sealed for T {}
-}
-
-pub trait CellRendererToggleImplExt: ObjectSubclass + sealed::Sealed {
+pub trait CellRendererToggleImplExt: CellRendererToggleImpl {
     fn parent_toggled(&self, path: &str) {
         unsafe {
             let data = Self::type_data();

@@ -15,7 +15,7 @@ use crate::SizeRequestMode;
 use crate::Widget;
 use crate::{CellEditable, ffi};
 
-pub trait CellRendererImpl: CellRendererImplExt + ObjectImpl {
+pub trait CellRendererImpl: ObjectImpl + ObjectSubclass<Type: IsA<CellRenderer>> {
     fn request_mode(&self) -> SizeRequestMode {
         self.parent_request_mode()
     }
@@ -93,12 +93,7 @@ pub trait CellRendererImpl: CellRendererImplExt + ObjectImpl {
     }
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::CellRendererImpl> Sealed for T {}
-}
-
-pub trait CellRendererImplExt: ObjectSubclass + sealed::Sealed {
+pub trait CellRendererImplExt: CellRendererImpl {
     fn parent_request_mode(&self) -> SizeRequestMode {
         unsafe {
             let data = Self::type_data();

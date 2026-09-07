@@ -1,24 +1,20 @@
 // Take a look at the license at the top of the repository in the LICENSE file.
 
 use glib::object::Cast;
+use glib::object::IsA;
 use glib::subclass::prelude::*;
 use glib::translate::*;
 
 use super::button::ButtonImpl;
 use crate::{ToggleButton, ffi};
 
-pub trait ToggleButtonImpl: ToggleButtonImplExt + ButtonImpl {
+pub trait ToggleButtonImpl: ButtonImpl + ObjectSubclass<Type: IsA<ToggleButton>> {
     fn toggled(&self) {
         self.parent_toggled()
     }
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::ToggleButtonImpl> Sealed for T {}
-}
-
-pub trait ToggleButtonImplExt: ObjectSubclass + sealed::Sealed {
+pub trait ToggleButtonImplExt: ToggleButtonImpl {
     fn parent_toggled(&self) {
         unsafe {
             let data = Self::type_data();

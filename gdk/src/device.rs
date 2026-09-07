@@ -10,12 +10,7 @@ use glib::translate::*;
 use std::mem;
 use std::ptr;
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: glib::object::IsA<crate::Device>> Sealed for T {}
-}
-
-pub trait DeviceExtManual: IsA<Device> + sealed::Sealed + 'static {
+pub trait DeviceExtManual: IsA<Device> + 'static {
     #[doc(alias = "gdk_device_get_axis")]
     #[doc(alias = "get_axis")]
     fn is_axis(&self, axes: &mut [f64], use_: AxisUse, value: &mut f64) -> bool {

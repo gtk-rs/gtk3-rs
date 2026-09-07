@@ -1,6 +1,7 @@
 // Take a look at the license at the top of the repository in the LICENSE file.
 
 use glib::object::Cast;
+use glib::object::IsA;
 use glib::subclass::prelude::*;
 use glib::translate::*;
 
@@ -12,7 +13,7 @@ use crate::ListBoxRow;
 use crate::MovementStep;
 use crate::{ListBox, ffi};
 
-pub trait ListBoxImpl: ListBoxImplExt + ContainerImpl + WidgetImpl {
+pub trait ListBoxImpl: ContainerImpl + WidgetImpl + ObjectSubclass<Type: IsA<ListBox>> {
     fn activate_cursor_row(&self) {
         self.list_box_activate_cursor_row()
     }
@@ -46,12 +47,7 @@ pub trait ListBoxImpl: ListBoxImplExt + ContainerImpl + WidgetImpl {
     }
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::ListBoxImpl> Sealed for T {}
-}
-
-pub trait ListBoxImplExt: ObjectSubclass + sealed::Sealed {
+pub trait ListBoxImplExt: ListBoxImpl {
     fn list_box_activate_cursor_row(&self) {
         unsafe {
             let data = Self::type_data();

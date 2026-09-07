@@ -1,6 +1,7 @@
 // Take a look at the license at the top of the repository in the LICENSE file.
 
 use glib::object::Cast;
+use glib::object::IsA;
 use glib::subclass::prelude::*;
 use glib::translate::*;
 
@@ -8,7 +9,7 @@ use super::widget::WidgetImpl;
 use crate::Widget;
 use crate::{Entry, ffi};
 
-pub trait EntryImpl: EntryImplExt + WidgetImpl {
+pub trait EntryImpl: WidgetImpl + ObjectSubclass<Type: IsA<Entry>> {
     fn populate_popup(&self, popup: &Widget) {
         self.parent_populate_popup(popup)
     }
@@ -18,12 +19,7 @@ pub trait EntryImpl: EntryImplExt + WidgetImpl {
     }
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::EntryImpl> Sealed for T {}
-}
-
-pub trait EntryImplExt: ObjectSubclass + sealed::Sealed {
+pub trait EntryImplExt: EntryImpl {
     fn parent_populate_popup(&self, popup: &Widget) {
         unsafe {
             let data = Self::type_data();

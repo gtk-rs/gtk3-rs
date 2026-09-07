@@ -17,12 +17,7 @@ fn has_widget<O: IsA<Fixed>, T: IsA<Widget>>(c: &O, item: &T) -> bool {
     }
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: glib::object::IsA<crate::Fixed>> Sealed for T {}
-}
-
-pub trait FixedExtManual: IsA<Fixed> + sealed::Sealed + 'static {
+pub trait FixedExtManual: IsA<Fixed> + 'static {
     #[doc(alias = "get_child_x")]
     fn child_x<T: IsA<Widget>>(&self, item: &T) -> i32 {
         assert!(

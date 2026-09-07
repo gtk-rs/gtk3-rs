@@ -1,12 +1,13 @@
 // Take a look at the license at the top of the repository in the LICENSE file.
 
+use glib::object::IsA;
 use glib::subclass::prelude::*;
 
 use super::bin::BinImpl;
 
 use crate::EventBox;
 
-pub trait EventBoxImpl: BinImpl {}
+pub trait EventBoxImpl: BinImpl + ObjectSubclass<Type: IsA<EventBox>> {}
 
 unsafe impl<T: EventBoxImpl> IsSubclassable<T> for EventBox {
     fn class_init(class: &mut ::glib::Class<Self>) {

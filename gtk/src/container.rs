@@ -4,12 +4,7 @@ use crate::{Container, Widget, ffi};
 use glib::translate::*;
 use glib::{object::IsA, value::FromValue, value::ToValue};
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: glib::object::IsA<crate::Container>> Sealed for T {}
-}
-
-pub trait ContainerExtManual: IsA<Container> + sealed::Sealed + 'static {
+pub trait ContainerExtManual: IsA<Container> + 'static {
     #[doc(alias = "gtk_container_child_get_property")]
     fn child_property_value(&self, child: &impl IsA<Widget>, property_name: &str) -> glib::Value {
         unsafe {

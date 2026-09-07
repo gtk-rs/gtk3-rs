@@ -3,23 +3,19 @@
 use crate::{ListBoxRow, ffi};
 
 use glib::object::Cast;
+use glib::object::IsA;
 use glib::subclass::prelude::*;
 use glib::translate::*;
 
 use super::bin::BinImpl;
 
-pub trait ListBoxRowImpl: ListBoxRowImplExt + BinImpl {
+pub trait ListBoxRowImpl: BinImpl + ObjectSubclass<Type: IsA<ListBoxRow>> {
     fn activate(&self) {
         self.parent_activate()
     }
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::ListBoxRowImpl> Sealed for T {}
-}
-
-pub trait ListBoxRowImplExt: ObjectSubclass + sealed::Sealed {
+pub trait ListBoxRowImplExt: ListBoxRowImpl {
     fn parent_activate(&self) {
         unsafe {
             let data = Self::type_data();

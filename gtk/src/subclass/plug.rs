@@ -1,5 +1,6 @@
 // Take a look at the license at the top of the repository in the LICENSE file.
 
+use glib::object::IsA;
 use glib::subclass::prelude::*;
 
 use glib::object::Cast;
@@ -8,18 +9,13 @@ use glib::translate::*;
 use super::window::WindowImpl;
 use crate::{Plug, ffi};
 
-pub trait PlugImpl: PlugImplExt + WindowImpl {
+pub trait PlugImpl: WindowImpl + ObjectSubclass<Type: IsA<Plug>> {
     fn embedded(&self) {
         self.parent_embedded()
     }
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: super::PlugImpl> Sealed for T {}
-}
-
-pub trait PlugImplExt: ObjectSubclass + sealed::Sealed {
+pub trait PlugImplExt: PlugImpl {
     fn parent_embedded(&self) {
         unsafe {
             let data = Self::type_data();

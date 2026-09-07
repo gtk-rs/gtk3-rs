@@ -1,11 +1,15 @@
 // Take a look at the license at the top of the repository in the LICENSE file.
 
+use glib::object::IsA;
 use glib::subclass::prelude::*;
 
 use super::cell_renderer_text::CellRendererTextImpl;
 use crate::CellRendererCombo;
 
-pub trait CellRendererComboImpl: CellRendererTextImpl {}
+pub trait CellRendererComboImpl:
+    CellRendererTextImpl + ObjectSubclass<Type: IsA<CellRendererCombo>>
+{
+}
 
 unsafe impl<T: CellRendererComboImpl> IsSubclassable<T> for CellRendererCombo {
     fn class_init(class: &mut ::glib::Class<Self>) {

@@ -4,12 +4,7 @@ use crate::{Widget, ffi};
 use glib::object::IsA;
 use glib::translate::*;
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: glib::object::IsA<gdk::DragContext>> Sealed for T {}
-}
-
-pub trait DragContextExtManual: IsA<gdk::DragContext> + sealed::Sealed + 'static {
+pub trait DragContextExtManual: IsA<gdk::DragContext> + 'static {
     #[doc(alias = "gtk_drag_finish")]
     fn drag_finish(&self, success: bool, del: bool, time_: u32) {
         unsafe {

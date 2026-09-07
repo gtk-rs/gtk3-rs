@@ -20,12 +20,7 @@ impl Builder {
     }
 }
 
-mod sealed {
-    pub trait Sealed {}
-    impl<T: glib::object::IsA<crate::Builder>> Sealed for T {}
-}
-
-pub trait BuilderExtManual: IsA<Builder> + sealed::Sealed + 'static {
+pub trait BuilderExtManual: IsA<Builder> + 'static {
     #[doc(alias = "gtk_builder_get_object")]
     #[doc(alias = "get_object")]
     fn object<T: IsA<Object>>(&self, name: &str) -> Option<T> {

@@ -5,12 +5,7 @@ use glib::object::IsA;
 use glib::translate::{ToGlibPtr, from_glib_none};
 
 // For some reasons, it's not generated...
-mod sealed {
-    pub trait Sealed {}
-    impl<T: glib::object::IsA<crate::Invisible>> Sealed for T {}
-}
-
-pub trait InvisibleExtManual: IsA<Invisible> + sealed::Sealed + 'static {
+pub trait InvisibleExtManual: IsA<Invisible> + 'static {
     #[doc(alias = "gtk_invisible_get_screen")]
     #[doc(alias = "get_screen")]
     fn screen(&self) -> Option<gdk::Screen> {

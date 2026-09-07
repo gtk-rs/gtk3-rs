@@ -1,11 +1,12 @@
 // Take a look at the license at the top of the repository in the LICENSE file.
 
+use glib::object::IsA;
 use glib::subclass::prelude::*;
 
 use super::window::WindowImpl;
 use crate::ApplicationWindow;
 
-pub trait ApplicationWindowImpl: WindowImpl {}
+pub trait ApplicationWindowImpl: WindowImpl + ObjectSubclass<Type: IsA<ApplicationWindow>> {}
 
 unsafe impl<T: ApplicationWindowImpl> IsSubclassable<T> for ApplicationWindow {
     fn class_init(class: &mut ::glib::Class<Self>) {

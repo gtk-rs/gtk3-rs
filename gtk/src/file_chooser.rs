@@ -8,12 +8,7 @@ use glib::translate::*;
 
 // rustdoc-stripper-ignore-next
 /// Trait containing manually implemented methods of [`FileChooser`](crate::FileChooser).
-mod sealed {
-    pub trait Sealed {}
-    impl<T: glib::object::IsA<crate::FileChooser>> Sealed for T {}
-}
-
-pub trait FileChooserExtManual: IsA<FileChooser> + sealed::Sealed + 'static {
+pub trait FileChooserExtManual: IsA<FileChooser> + 'static {
     #[cfg(feature = "v3_22")]
     #[cfg_attr(docsrs, doc(cfg(feature = "v3_22")))]
     #[doc(alias = "gtk_file_chooser_add_choice")]

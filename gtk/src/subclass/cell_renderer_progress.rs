@@ -1,12 +1,16 @@
 // Take a look at the license at the top of the repository in the LICENSE file.
 
+use glib::object::IsA;
 use glib::subclass::prelude::*;
 
 use super::cell_renderer::CellRendererImpl;
 
 use crate::CellRendererProgress;
 
-pub trait CellRendererProgressImpl: CellRendererImpl {}
+pub trait CellRendererProgressImpl:
+    CellRendererImpl + ObjectSubclass<Type: IsA<CellRendererProgress>>
+{
+}
 
 unsafe impl<T: CellRendererProgressImpl> IsSubclassable<T> for CellRendererProgress {
     fn class_init(class: &mut ::glib::Class<Self>) {
