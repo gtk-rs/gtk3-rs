@@ -84,7 +84,7 @@
 <a href=#11 id=11 data-nosnippet>11</a>)]
 <a href=#12 id=12 data-nosnippet>12</a>#![cfg_attr(docsrs, feature(doc_cfg))]
 <a href=#13 id=13 data-nosnippet>13</a>
-<a href=#14 id=14 data-nosnippet>14</a></span><span class="kw">use </span>atk_sys <span class="kw">as </span>atk;
+<a href=#14 id=14 data-nosnippet>14</a></span><span class="kw">use </span><a href="../../atk_sys/index.html">atk_sys</a> <span class="kw">as </span>atk;
 <a href=#15 id=15 data-nosnippet>15</a><span class="kw">use </span>cairo_sys <span class="kw">as </span>cairo;
 <a href=#16 id=16 data-nosnippet>16</a><span class="kw">use </span>gdk_pixbuf_sys <span class="kw">as </span>gdk_pixbuf;
 <a href=#17 id=17 data-nosnippet>17</a><span class="kw">use </span>gdk_sys <span class="kw">as </span>gdk;
@@ -1722,7 +1722,7 @@
 <a href=#1649 id=1649 data-nosnippet>1649</a><span class="attr">#[derive(<a href="https://doc.rust-lang.org/nightly/core/marker/derive.Copy.html">Copy</a>, <a href="https://doc.rust-lang.org/nightly/core/clone/derive.Clone.html">Clone</a>)]
 <a href=#1650 id=1650 data-nosnippet>1650</a>#[repr(C)]
 <a href=#1651 id=1651 data-nosnippet>1651</a></span><span class="kw">pub struct </span><a href="../../gtk_sys/struct.GtkAccessibleClass.html">GtkAccessibleClass</a> {
-<a href=#1652 id=1652 data-nosnippet>1652</a>    <span class="kw">pub </span>parent_class: atk::AtkObjectClass,
+<a href=#1652 id=1652 data-nosnippet>1652</a>    <span class="kw">pub </span>parent_class: atk::<a href="../../atk_sys/struct.AtkObjectClass.html">AtkObjectClass</a>,
 <a href=#1653 id=1653 data-nosnippet>1653</a>    <span class="kw">pub </span>connect_widget_destroyed: <a class="prelude-ty" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html">Option</a>&lt;<span class="kw">unsafe extern </span><span class="string">"C" </span><span class="kw">fn</span>(<span class="kw-2">*mut </span><a href="#11778-11781">GtkAccessible</a>)&gt;,
 <a href=#1654 id=1654 data-nosnippet>1654</a>    <span class="kw">pub </span>widget_set: <a class="prelude-ty" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html">Option</a>&lt;<span class="kw">unsafe extern </span><span class="string">"C" </span><span class="kw">fn</span>(<span class="kw-2">*mut </span><a href="#11778-11781">GtkAccessible</a>)&gt;,
 <a href=#1655 id=1655 data-nosnippet>1655</a>    <span class="kw">pub </span>widget_unset: <a class="prelude-ty" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html">Option</a>&lt;<span class="kw">unsafe extern </span><span class="string">"C" </span><span class="kw">fn</span>(<span class="kw-2">*mut </span><a href="#11778-11781">GtkAccessible</a>)&gt;,
@@ -2740,7 +2740,7 @@
 <a href=#2667 id=2667 data-nosnippet>2667</a>            <span class="kw-2">*mut </span><a href="https://doc.rust-lang.org/nightly/core/ffi/primitives/type.c_int.html">c_int</a>,
 <a href=#2668 id=2668 data-nosnippet>2668</a>            <span class="kw-2">*mut </span><a href="https://doc.rust-lang.org/nightly/core/ffi/primitives/type.c_int.html">c_int</a>,
 <a href=#2669 id=2669 data-nosnippet>2669</a>            <span class="kw-2">*mut </span><a href="https://doc.rust-lang.org/nightly/core/ffi/primitives/type.c_int.html">c_int</a>,
-<a href=#2670 id=2670 data-nosnippet>2670</a>            atk::AtkCoordType,
+<a href=#2670 id=2670 data-nosnippet>2670</a>            atk::<a href="../../atk_sys/type.AtkCoordType.html">AtkCoordType</a>,
 <a href=#2671 id=2671 data-nosnippet>2671</a>        ),
 <a href=#2672 id=2672 data-nosnippet>2672</a>    &gt;,
 <a href=#2673 id=2673 data-nosnippet>2673</a>    <span class="kw">pub </span>get_cell_area: <a class="prelude-ty" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html">Option</a>&lt;
@@ -2770,7 +2770,7 @@
 <a href=#2697 id=2697 data-nosnippet>2697</a>        <span class="kw">unsafe extern </span><span class="string">"C" </span><span class="kw">fn</span>(
 <a href=#2698 id=2698 data-nosnippet>2698</a>            <span class="kw-2">*mut </span><a href="#15871-15874">GtkCellAccessibleParent</a>,
 <a href=#2699 id=2699 data-nosnippet>2699</a>            <span class="kw-2">*mut </span><a href="#12124-12127">GtkCellAccessible</a>,
-<a href=#2700 id=2700 data-nosnippet>2700</a>            <span class="kw-2">*mut </span>atk::AtkRelationSet,
+<a href=#2700 id=2700 data-nosnippet>2700</a>            <span class="kw-2">*mut </span>atk::<a href="../../atk_sys/struct.AtkRelationSet.html">AtkRelationSet</a>,
 <a href=#2701 id=2701 data-nosnippet>2701</a>        ),
 <a href=#2702 id=2702 data-nosnippet>2702</a>    &gt;,
 <a href=#2703 id=2703 data-nosnippet>2703</a>    <span class="kw">pub </span>get_cell_position: <a class="prelude-ty" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html">Option</a>&lt;
@@ -6860,7 +6860,7 @@
 <a href=#6787 id=6787 data-nosnippet>6787</a><span class="attr">#[derive(<a href="https://doc.rust-lang.org/nightly/core/marker/derive.Copy.html">Copy</a>, <a href="https://doc.rust-lang.org/nightly/core/clone/derive.Clone.html">Clone</a>)]
 <a href=#6788 id=6788 data-nosnippet>6788</a>#[repr(C)]
 <a href=#6789 id=6789 data-nosnippet>6789</a></span><span class="kw">pub struct </span><a href="../../gtk_sys/struct.GtkNotebookPageAccessibleClass.html">GtkNotebookPageAccessibleClass</a> {
-<a href=#6790 id=6790 data-nosnippet>6790</a>    <span class="kw">pub </span>parent_class: atk::AtkObjectClass,
+<a href=#6790 id=6790 data-nosnippet>6790</a>    <span class="kw">pub </span>parent_class: atk::<a href="../../atk_sys/struct.AtkObjectClass.html">AtkObjectClass</a>,
 <a href=#6791 id=6791 data-nosnippet>6791</a>}
 <a href=#6792 id=6792 data-nosnippet>6792</a>
 <a href=#6793 id=6793 data-nosnippet>6793</a><span class="kw">impl </span><a href="https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html">::std::fmt::Debug</a> <span class="kw">for </span><a href="#6789-6791">GtkNotebookPageAccessibleClass</a> {
@@ -10634,7 +10634,7 @@
 <a href=#10561 id=10561 data-nosnippet>10561</a><span class="attr">#[derive(<a href="https://doc.rust-lang.org/nightly/core/marker/derive.Copy.html">Copy</a>, <a href="https://doc.rust-lang.org/nightly/core/clone/derive.Clone.html">Clone</a>)]
 <a href=#10562 id=10562 data-nosnippet>10562</a>#[repr(C)]
 <a href=#10563 id=10563 data-nosnippet>10563</a></span><span class="kw">pub struct </span><a href="../../gtk_sys/struct.GtkToplevelAccessibleClass.html">GtkToplevelAccessibleClass</a> {
-<a href=#10564 id=10564 data-nosnippet>10564</a>    <span class="kw">pub </span>parent_class: atk::AtkObjectClass,
+<a href=#10564 id=10564 data-nosnippet>10564</a>    <span class="kw">pub </span>parent_class: atk::<a href="../../atk_sys/struct.AtkObjectClass.html">AtkObjectClass</a>,
 <a href=#10565 id=10565 data-nosnippet>10565</a>}
 <a href=#10566 id=10566 data-nosnippet>10566</a>
 <a href=#10567 id=10567 data-nosnippet>10567</a><span class="kw">impl </span><a href="https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html">::std::fmt::Debug</a> <span class="kw">for </span><a href="#10563-10565">GtkToplevelAccessibleClass</a> {
@@ -11507,7 +11507,7 @@
 <a href=#11434 id=11434 data-nosnippet>11434</a>    &gt;,
 <a href=#11435 id=11435 data-nosnippet>11435</a>    <span class="kw">pub </span>popup_menu: <a class="prelude-ty" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html">Option</a>&lt;<span class="kw">unsafe extern </span><span class="string">"C" </span><span class="kw">fn</span>(<span class="kw-2">*mut </span><a href="#15739-15742">GtkWidget</a>) -&gt; gboolean&gt;,
 <a href=#11436 id=11436 data-nosnippet>11436</a>    <span class="kw">pub </span>show_help: <a class="prelude-ty" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html">Option</a>&lt;<span class="kw">unsafe extern </span><span class="string">"C" </span><span class="kw">fn</span>(<span class="kw-2">*mut </span><a href="#15739-15742">GtkWidget</a>, <a href="#731">GtkWidgetHelpType</a>) -&gt; gboolean&gt;,
-<a href=#11437 id=11437 data-nosnippet>11437</a>    <span class="kw">pub </span>get_accessible: <a class="prelude-ty" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html">Option</a>&lt;<span class="kw">unsafe extern </span><span class="string">"C" </span><span class="kw">fn</span>(<span class="kw-2">*mut </span><a href="#15739-15742">GtkWidget</a>) -&gt; <span class="kw-2">*mut </span>atk::AtkObject&gt;,
+<a href=#11437 id=11437 data-nosnippet>11437</a>    <span class="kw">pub </span>get_accessible: <a class="prelude-ty" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html">Option</a>&lt;<span class="kw">unsafe extern </span><span class="string">"C" </span><span class="kw">fn</span>(<span class="kw-2">*mut </span><a href="#15739-15742">GtkWidget</a>) -&gt; <span class="kw-2">*mut </span>atk::<a href="../../atk_sys/struct.AtkObject.html">AtkObject</a>&gt;,
 <a href=#11438 id=11438 data-nosnippet>11438</a>    <span class="kw">pub </span>screen_changed: <a class="prelude-ty" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html">Option</a>&lt;<span class="kw">unsafe extern </span><span class="string">"C" </span><span class="kw">fn</span>(<span class="kw-2">*mut </span><a href="#15739-15742">GtkWidget</a>, <span class="kw-2">*mut </span>gdk::GdkScreen)&gt;,
 <a href=#11439 id=11439 data-nosnippet>11439</a>    <span class="kw">pub </span>can_activate_accel: <a class="prelude-ty" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html">Option</a>&lt;<span class="kw">unsafe extern </span><span class="string">"C" </span><span class="kw">fn</span>(<span class="kw-2">*mut </span><a href="#15739-15742">GtkWidget</a>, <a href="https://doc.rust-lang.org/nightly/core/ffi/primitives/type.c_uint.html">c_uint</a>) -&gt; gboolean&gt;,
 <a href=#11440 id=11440 data-nosnippet>11440</a>    <span class="kw">pub </span>composited_changed: <a class="prelude-ty" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html">Option</a>&lt;<span class="kw">unsafe extern </span><span class="string">"C" </span><span class="kw">fn</span>(<span class="kw-2">*mut </span><a href="#15739-15742">GtkWidget</a>)&gt;,
@@ -11849,7 +11849,7 @@
 <a href=#11776 id=11776 data-nosnippet>11776</a><span class="attr">#[derive(<a href="https://doc.rust-lang.org/nightly/core/marker/derive.Copy.html">Copy</a>, <a href="https://doc.rust-lang.org/nightly/core/clone/derive.Clone.html">Clone</a>)]
 <a href=#11777 id=11777 data-nosnippet>11777</a>#[repr(C)]
 <a href=#11778 id=11778 data-nosnippet>11778</a></span><span class="kw">pub struct </span><a href="../../gtk_sys/struct.GtkAccessible.html">GtkAccessible</a> {
-<a href=#11779 id=11779 data-nosnippet>11779</a>    <span class="kw">pub </span>parent: atk::AtkObject,
+<a href=#11779 id=11779 data-nosnippet>11779</a>    <span class="kw">pub </span>parent: atk::<a href="../../atk_sys/struct.AtkObject.html">AtkObject</a>,
 <a href=#11780 id=11780 data-nosnippet>11780</a>    <span class="kw">pub </span>priv_: <span class="kw-2">*mut </span><a href="#1680">GtkAccessiblePrivate</a>,
 <a href=#11781 id=11781 data-nosnippet>11781</a>}
 <a href=#11782 id=11782 data-nosnippet>11782</a>
@@ -14100,7 +14100,7 @@
 <a href=#14027 id=14027 data-nosnippet>14027</a><span class="attr">#[derive(<a href="https://doc.rust-lang.org/nightly/core/marker/derive.Copy.html">Copy</a>, <a href="https://doc.rust-lang.org/nightly/core/clone/derive.Clone.html">Clone</a>)]
 <a href=#14028 id=14028 data-nosnippet>14028</a>#[repr(C)]
 <a href=#14029 id=14029 data-nosnippet>14029</a></span><span class="kw">pub struct </span><a href="../../gtk_sys/struct.GtkNotebookPageAccessible.html">GtkNotebookPageAccessible</a> {
-<a href=#14030 id=14030 data-nosnippet>14030</a>    <span class="kw">pub </span>parent: atk::AtkObject,
+<a href=#14030 id=14030 data-nosnippet>14030</a>    <span class="kw">pub </span>parent: atk::<a href="../../atk_sys/struct.AtkObject.html">AtkObject</a>,
 <a href=#14031 id=14031 data-nosnippet>14031</a>    <span class="kw">pub </span>priv_: <span class="kw-2">*mut </span><a href="#6808">GtkNotebookPageAccessiblePrivate</a>,
 <a href=#14032 id=14032 data-nosnippet>14032</a>}
 <a href=#14033 id=14033 data-nosnippet>14033</a>
@@ -15559,7 +15559,7 @@
 <a href=#15486 id=15486 data-nosnippet>15486</a><span class="attr">#[derive(<a href="https://doc.rust-lang.org/nightly/core/marker/derive.Copy.html">Copy</a>, <a href="https://doc.rust-lang.org/nightly/core/clone/derive.Clone.html">Clone</a>)]
 <a href=#15487 id=15487 data-nosnippet>15487</a>#[repr(C)]
 <a href=#15488 id=15488 data-nosnippet>15488</a></span><span class="kw">pub struct </span><a href="../../gtk_sys/struct.GtkToplevelAccessible.html">GtkToplevelAccessible</a> {
-<a href=#15489 id=15489 data-nosnippet>15489</a>    <span class="kw">pub </span>parent: atk::AtkObject,
+<a href=#15489 id=15489 data-nosnippet>15489</a>    <span class="kw">pub </span>parent: atk::<a href="../../atk_sys/struct.AtkObject.html">AtkObject</a>,
 <a href=#15490 id=15490 data-nosnippet>15490</a>    <span class="kw">pub </span>priv_: <span class="kw-2">*mut </span><a href="#10582">GtkToplevelAccessiblePrivate</a>,
 <a href=#15491 id=15491 data-nosnippet>15491</a>}
 <a href=#15492 id=15492 data-nosnippet>15492</a>
@@ -17626,7 +17626,7 @@
 <a href=#17553 id=17553 data-nosnippet>17553</a>    ) -&gt; <span class="kw-2">*mut *mut </span>gobject::GParamSpec;
 <a href=#17554 id=17554 data-nosnippet>17554</a>    <span class="kw">pub fn </span>gtk_widget_class_set_accessible_role(
 <a href=#17555 id=17555 data-nosnippet>17555</a>        widget_class: <span class="kw-2">*mut </span><a href="#11301-11471">GtkWidgetClass</a>,
-<a href=#17556 id=17556 data-nosnippet>17556</a>        role: atk::AtkRole,
+<a href=#17556 id=17556 data-nosnippet>17556</a>        role: atk::<a href="../../atk_sys/type.AtkRole.html">AtkRole</a>,
 <a href=#17557 id=17557 data-nosnippet>17557</a>    );
 <a href=#17558 id=17558 data-nosnippet>17558</a>    <span class="kw">pub fn </span>gtk_widget_class_set_accessible_type(widget_class: <span class="kw-2">*mut </span><a href="#11301-11471">GtkWidgetClass</a>, type_: GType);
 <a href=#17559 id=17559 data-nosnippet>17559</a>    <span class="kw">pub fn </span>gtk_widget_class_set_connect_func(
@@ -19519,7 +19519,7 @@
 <a href=#19446 id=19446 data-nosnippet>19446</a>    <span class="kw">pub fn </span>gtk_combo_box_get_has_entry(combo_box: <span class="kw-2">*mut </span><a href="#12464-12467">GtkComboBox</a>) -&gt; gboolean;
 <a href=#19447 id=19447 data-nosnippet>19447</a>    <span class="kw">pub fn </span>gtk_combo_box_get_id_column(combo_box: <span class="kw-2">*mut </span><a href="#12464-12467">GtkComboBox</a>) -&gt; <a href="https://doc.rust-lang.org/nightly/core/ffi/primitives/type.c_int.html">c_int</a>;
 <a href=#19448 id=19448 data-nosnippet>19448</a>    <span class="kw">pub fn </span>gtk_combo_box_get_model(combo_box: <span class="kw-2">*mut </span><a href="#12464-12467">GtkComboBox</a>) -&gt; <span class="kw-2">*mut </span><a href="#16066-16069">GtkTreeModel</a>;
-<a href=#19449 id=19449 data-nosnippet>19449</a>    <span class="kw">pub fn </span>gtk_combo_box_get_popup_accessible(combo_box: <span class="kw-2">*mut </span><a href="#12464-12467">GtkComboBox</a>) -&gt; <span class="kw-2">*mut </span>atk::AtkObject;
+<a href=#19449 id=19449 data-nosnippet>19449</a>    <span class="kw">pub fn </span>gtk_combo_box_get_popup_accessible(combo_box: <span class="kw-2">*mut </span><a href="#12464-12467">GtkComboBox</a>) -&gt; <span class="kw-2">*mut </span>atk::<a href="../../atk_sys/struct.AtkObject.html">AtkObject</a>;
 <a href=#19450 id=19450 data-nosnippet>19450</a>    <span class="kw">pub fn </span>gtk_combo_box_get_popup_fixed_width(combo_box: <span class="kw-2">*mut </span><a href="#12464-12467">GtkComboBox</a>) -&gt; gboolean;
 <a href=#19451 id=19451 data-nosnippet>19451</a>    <span class="kw">pub fn </span>gtk_combo_box_get_row_separator_func(
 <a href=#19452 id=19452 data-nosnippet>19452</a>        combo_box: <span class="kw-2">*mut </span><a href="#12464-12467">GtkComboBox</a>,
@@ -22289,7 +22289,7 @@
 <a href=#22216 id=22216 data-nosnippet>22216</a>    <span class="kw">pub fn </span>gtk_notebook_page_accessible_new(
 <a href=#22217 id=22217 data-nosnippet>22217</a>        notebook: <span class="kw-2">*mut </span><a href="#14013-14016">GtkNotebookAccessible</a>,
 <a href=#22218 id=22218 data-nosnippet>22218</a>        child: <span class="kw-2">*mut </span><a href="#15739-15742">GtkWidget</a>,
-<a href=#22219 id=22219 data-nosnippet>22219</a>    ) -&gt; <span class="kw-2">*mut </span>atk::AtkObject;
+<a href=#22219 id=22219 data-nosnippet>22219</a>    ) -&gt; <span class="kw-2">*mut </span>atk::<a href="../../atk_sys/struct.AtkObject.html">AtkObject</a>;
 <a href=#22220 id=22220 data-nosnippet>22220</a>    <span class="kw">pub fn </span>gtk_notebook_page_accessible_invalidate(page: <span class="kw-2">*mut </span><a href="#14029-14032">GtkNotebookPageAccessible</a>);
 <a href=#22221 id=22221 data-nosnippet>22221</a>
 <a href=#22222 id=22222 data-nosnippet>22222</a>    <span class="comment">//=========================================================================
@@ -23290,7 +23290,7 @@
 <a href=#23217 id=23217 data-nosnippet>23217</a>    // GtkRendererCellAccessible
 <a href=#23218 id=23218 data-nosnippet>23218</a>    //=========================================================================
 <a href=#23219 id=23219 data-nosnippet>23219</a>    </span><span class="kw">pub fn </span>gtk_renderer_cell_accessible_get_type() -&gt; GType;
-<a href=#23220 id=23220 data-nosnippet>23220</a>    <span class="kw">pub fn </span>gtk_renderer_cell_accessible_new(renderer: <span class="kw-2">*mut </span><a href="#12181-12184">GtkCellRenderer</a>) -&gt; <span class="kw-2">*mut </span>atk::AtkObject;
+<a href=#23220 id=23220 data-nosnippet>23220</a>    <span class="kw">pub fn </span>gtk_renderer_cell_accessible_new(renderer: <span class="kw-2">*mut </span><a href="#12181-12184">GtkCellRenderer</a>) -&gt; <span class="kw-2">*mut </span>atk::<a href="../../atk_sys/struct.AtkObject.html">AtkObject</a>;
 <a href=#23221 id=23221 data-nosnippet>23221</a>
 <a href=#23222 id=23222 data-nosnippet>23222</a>    <span class="comment">//=========================================================================
 <a href=#23223 id=23223 data-nosnippet>23223</a>    // GtkRevealer
@@ -26222,7 +26222,7 @@
 <a href=#26149 id=26149 data-nosnippet>26149</a>    <span class="kw">pub fn </span>gtk_widget_error_bell(widget: <span class="kw-2">*mut </span><a href="#15739-15742">GtkWidget</a>);
 <a href=#26150 id=26150 data-nosnippet>26150</a>    <span class="kw">pub fn </span>gtk_widget_event(widget: <span class="kw-2">*mut </span><a href="#15739-15742">GtkWidget</a>, event: <span class="kw-2">*mut </span>gdk::GdkEvent) -&gt; gboolean;
 <a href=#26151 id=26151 data-nosnippet>26151</a>    <span class="kw">pub fn </span>gtk_widget_freeze_child_notify(widget: <span class="kw-2">*mut </span><a href="#15739-15742">GtkWidget</a>);
-<a href=#26152 id=26152 data-nosnippet>26152</a>    <span class="kw">pub fn </span>gtk_widget_get_accessible(widget: <span class="kw-2">*mut </span><a href="#15739-15742">GtkWidget</a>) -&gt; <span class="kw-2">*mut </span>atk::AtkObject;
+<a href=#26152 id=26152 data-nosnippet>26152</a>    <span class="kw">pub fn </span>gtk_widget_get_accessible(widget: <span class="kw-2">*mut </span><a href="#15739-15742">GtkWidget</a>) -&gt; <span class="kw-2">*mut </span>atk::<a href="../../atk_sys/struct.AtkObject.html">AtkObject</a>;
 <a href=#26153 id=26153 data-nosnippet>26153</a>    <span class="kw">pub fn </span>gtk_widget_get_action_group(
 <a href=#26154 id=26154 data-nosnippet>26154</a>        widget: <span class="kw-2">*mut </span><a href="#15739-15742">GtkWidget</a>,
 <a href=#26155 id=26155 data-nosnippet>26155</a>        prefix: <span class="kw-2">*const </span><a href="https://doc.rust-lang.org/nightly/core/ffi/primitives/type.c_char.html">c_char</a>,
@@ -26973,7 +26973,7 @@
 <a href=#26900 id=26900 data-nosnippet>26900</a>        y: <span class="kw-2">*mut </span><a href="https://doc.rust-lang.org/nightly/core/ffi/primitives/type.c_int.html">c_int</a>,
 <a href=#26901 id=26901 data-nosnippet>26901</a>        width: <span class="kw-2">*mut </span><a href="https://doc.rust-lang.org/nightly/core/ffi/primitives/type.c_int.html">c_int</a>,
 <a href=#26902 id=26902 data-nosnippet>26902</a>        height: <span class="kw-2">*mut </span><a href="https://doc.rust-lang.org/nightly/core/ffi/primitives/type.c_int.html">c_int</a>,
-<a href=#26903 id=26903 data-nosnippet>26903</a>        coord_type: atk::AtkCoordType,
+<a href=#26903 id=26903 data-nosnippet>26903</a>        coord_type: atk::<a href="../../atk_sys/type.AtkCoordType.html">AtkCoordType</a>,
 <a href=#26904 id=26904 data-nosnippet>26904</a>    );
 <a href=#26905 id=26905 data-nosnippet>26905</a>    <span class="kw">pub fn </span>gtk_cell_accessible_parent_get_cell_position(
 <a href=#26906 id=26906 data-nosnippet>26906</a>        parent: <span class="kw-2">*mut </span><a href="#15871-15874">GtkCellAccessibleParent</a>,
@@ -27004,7 +27004,7 @@
 <a href=#26931 id=26931 data-nosnippet>26931</a>    <span class="kw">pub fn </span>gtk_cell_accessible_parent_update_relationset(
 <a href=#26932 id=26932 data-nosnippet>26932</a>        parent: <span class="kw-2">*mut </span><a href="#15871-15874">GtkCellAccessibleParent</a>,
 <a href=#26933 id=26933 data-nosnippet>26933</a>        cell: <span class="kw-2">*mut </span><a href="#12124-12127">GtkCellAccessible</a>,
-<a href=#26934 id=26934 data-nosnippet>26934</a>        relationset: <span class="kw-2">*mut </span>atk::AtkRelationSet,
+<a href=#26934 id=26934 data-nosnippet>26934</a>        relationset: <span class="kw-2">*mut </span>atk::<a href="../../atk_sys/struct.AtkRelationSet.html">AtkRelationSet</a>,
 <a href=#26935 id=26935 data-nosnippet>26935</a>    );
 <a href=#26936 id=26936 data-nosnippet>26936</a>
 <a href=#26937 id=26937 data-nosnippet>26937</a>    <span class="comment">//=========================================================================
