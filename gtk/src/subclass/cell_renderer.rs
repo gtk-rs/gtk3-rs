@@ -550,8 +550,8 @@ unsafe extern "C" fn cell_renderer_start_editing<T: CellRendererImpl>(
             &from_glib_borrow(cellptr),
             from_glib(flags),
         )
-        .to_glib_none()
-        .0
+        .map(|editable| editable.into_glib_ptr())
+        .unwrap_or(std::ptr::null_mut())
     }
 }
 
