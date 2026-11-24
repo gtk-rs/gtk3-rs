@@ -1,6 +1,7 @@
 // Take a look at the license at the top of the repository in the LICENSE file.
 
 use crate::Widget;
+use crate::auto::traits::WidgetExt;
 use crate::{Menu, ffi};
 use glib::object::Cast;
 use glib::object::IsA;
@@ -11,11 +12,7 @@ use std::ptr;
 
 pub trait GtkMenuExtManual: IsA<Menu> + 'static {
     #[doc(alias = "gtk_menu_popup")]
-    fn popup<
-        T: IsA<Widget>,
-        U: IsA<Widget>,
-        F: FnOnce(&Self, &mut i32, &mut i32) -> bool + 'static,
-    >(
+    fn popup<T: IsA<Widget>, U: IsA<Widget>, F: Fn(&Self, &mut i32, &mut i32) -> bool + 'static>(
         &self,
         parent_menu_shell: Option<&T>,
         parent_menu_item: Option<&U>,
@@ -23,10 +20,7 @@ pub trait GtkMenuExtManual: IsA<Menu> + 'static {
         button: u32,
         activate_time: u32,
     ) {
-        unsafe extern "C" fn position_callback<
-            T,
-            F: FnOnce(&T, &mut i32, &mut i32) -> bool + 'static,
-        >(
+        unsafe extern "C" fn position_callback<T, F: Fn(&T, &mut i32, &mut i32) -> bool + 'static>(
             this: *mut ffi::GtkMenu,
             x: *mut c_int,
             y: *mut c_int,
@@ -36,8 +30,7 @@ pub trait GtkMenuExtManual: IsA<Menu> + 'static {
             T: IsA<Menu>,
         {
             unsafe {
-                let mut f: Box<Option<F>> = Box::from_raw(f as *mut _);
-                let f = f.take().expect("No callback");
+                let f = &*(f as *const F);
                 *push_in = f(
                     &Menu::from_glib_none(this).unsafe_cast(),
                     x.as_mut().unwrap(),
@@ -47,13 +40,20 @@ pub trait GtkMenuExtManual: IsA<Menu> + 'static {
             }
         }
         unsafe {
-            let f: Box_<Option<F>> = Box_::new(Some(f));
+            let f: Box_<F> = Box_::new(f);
+            let f_ptr = Box_::into_raw(f);
+            // GTK may call the position function every time the menu is
+            // repositioned, so keep the closure alive until the menu is
+            // destroyed.
+            self.as_ref().connect_destroy(move |_| {
+                drop(Box_::from_raw(f_ptr));
+            });
             ffi::gtk_menu_popup(
                 self.as_ref().to_glib_none().0,
                 parent_menu_shell.map(|p| p.as_ref()).to_glib_none().0,
                 parent_menu_item.map(|p| p.as_ref()).to_glib_none().0,
                 Some(position_callback::<Self, F>),
-                Box_::into_raw(f) as *mut _,
+                f_ptr as *mut _,
                 button,
                 activate_time,
             )
