@@ -8,7 +8,9 @@ use glib::object::IsA;
 use glib::translate::*;
 use libc::c_int;
 use std::boxed::Box as Box_;
+use std::cell::RefCell;
 use std::ptr;
+use std::rc::Rc;
 
 pub trait GtkMenuExtManual: IsA<Menu> + 'static {
     #[doc(alias = "gtk_menu_popup")]
@@ -41,12 +43,10 @@ pub trait GtkMenuExtManual: IsA<Menu> + 'static {
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
-            let f_ptr = Box_::into_raw(f);
-            // GTK may call the position function every time the menu is
-            // repositioned, so keep the closure alive until the menu is
-            // destroyed.
+            let f_ptr = &*f as *const F as *mut F;
+            let holder = Rc::new(RefCell::new(Some(f)));
             self.as_ref().connect_destroy(move |_| {
-                drop(Box_::from_raw(f_ptr));
+                drop(holder.take());
             });
             ffi::gtk_menu_popup(
                 self.as_ref().to_glib_none().0,
