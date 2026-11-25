@@ -1,13 +1,16 @@
 // Take a look at the license at the top of the repository in the LICENSE file.
 
 use crate::Widget;
+use crate::auto::traits::WidgetExt;
 use crate::{Menu, ffi};
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::translate::*;
 use libc::c_int;
 use std::boxed::Box as Box_;
+use std::cell::{Cell, RefCell};
 use std::ptr;
+use std::rc::Rc;
 
 pub trait GtkMenuExtManual: IsA<Menu> + 'static {
     #[doc(alias = "gtk_menu_popup")]
@@ -36,24 +39,36 @@ pub trait GtkMenuExtManual: IsA<Menu> + 'static {
             T: IsA<Menu>,
         {
             unsafe {
-                let mut f: Box<Option<F>> = Box::from_raw(f as *mut _);
-                let f = f.take().expect("No callback");
-                *push_in = f(
-                    &Menu::from_glib_none(this).unsafe_cast(),
-                    x.as_mut().unwrap(),
-                    y.as_mut().unwrap(),
-                )
-                .into_glib();
+                // GTK may call the position function more than once (for
+                // example on gtk_menu_reposition). The callback is FnOnce, so
+                // take it on the first call and fail safely on later calls
+                // instead of reconstructing and dropping the Box each time.
+                let f = &*(f as *const Cell<Option<F>>);
+                if let Some(f) = f.take() {
+                    *push_in = f(
+                        &Menu::from_glib_none(this).unsafe_cast(),
+                        x.as_mut().unwrap(),
+                        y.as_mut().unwrap(),
+                    )
+                    .into_glib();
+                } else {
+                    *push_in = false.into_glib();
+                }
             }
         }
         unsafe {
-            let f: Box_<Option<F>> = Box_::new(Some(f));
+            let f: Box_<Cell<Option<F>>> = Box_::new(Cell::new(Some(f)));
+            let f_ptr = &*f as *const Cell<Option<F>> as *mut Cell<Option<F>>;
+            let holder = Rc::new(RefCell::new(Some(f)));
+            self.as_ref().connect_destroy(move |_| {
+                drop(holder.take());
+            });
             ffi::gtk_menu_popup(
                 self.as_ref().to_glib_none().0,
                 parent_menu_shell.map(|p| p.as_ref()).to_glib_none().0,
                 parent_menu_item.map(|p| p.as_ref()).to_glib_none().0,
                 Some(position_callback::<Self, F>),
-                Box_::into_raw(f) as *mut _,
+                f_ptr as *mut _,
                 button,
                 activate_time,
             )
