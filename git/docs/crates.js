@@ -1,2 +1,2 @@
-window.ALL_CRATES = ["atk","atk_sys","gdk","gdk_sys","gdk_wayland_sys","gdk_x11_sys","gdkwayland","gdkx11","gtk","gtk3_macros","gtk_sys"];
-//{"start":21,"fragment_lengths":[5,10,6,10,18,14,13,9,6,14,10]}
+window.ALL_CRATES = [{"c":"atk"},{"c":"atk_sys"},{"c":"gdk"},{"c":"gdk_sys"},{"c":"gdk_wayland_sys"},{"c":"gdk_x11_sys"},{"c":"gdkwayland"},{"c":"gdkx11"},{"c":"gtk"},{"c":"gtk3_macros"},{"c":"gtk_sys"}];
+//{"start":21,"fragment_lengths":[11,16,12,16,24,20,19,15,12,20,16]}
